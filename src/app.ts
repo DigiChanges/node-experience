@@ -6,11 +6,11 @@ import Container from "./inversify.config";
 import './Api/Handlers/ItemHandler';
 
 class App {
-    public port?: string;
+    public port?: number;
     private server: InversifyExpressServer;
 
     constructor() {
-        this.port = process.env.SERVER_PORT; // default port to listen;
+        this.port = Number(process.env.SERVER_PORT); // default port to listen;
         this.server = new InversifyExpressServer(Container);
     }
 
