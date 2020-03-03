@@ -1,5 +1,6 @@
 import { ConnectionOptions } from 'typeorm';
 import dotenv from "dotenv";
+import {Item} from "./src/Entities/Item";
 
 dotenv.config();
 
@@ -11,7 +12,7 @@ const config: ConnectionOptions = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     entities: [
-        __dirname + '/../**/*.entity{.ts,.js}',
+        __dirname + '/src/Entities/*{.ts,.js}'
     ],
     synchronize: true,
     migrations: [

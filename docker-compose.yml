@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  app:
+    container_name: experience_node_1
+    build: docker/node
+    working_dir: /usr/src/app
+    volumes:
+     - .:/usr/src/app:cached
+     - node_modules:/usr/src/app/node_modules:delegated
+    ports:
+      - "8089:8089"
+    networks:
+     - experiencenet
+
+  db:
+    container_name: experience_db_1
+    image: postgres:latest
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_PASSWORD: experience
+      POSTGRES_DB: experience
+      POSTGRES_USER: experience
+    volumes:
+      - data:/var/lib/postgresql/data
+    networks:
+      - experiencenet
+
+  mail:
+    container_name: experience_mail_1
+    image: mailhog/mailhog:latest
+    ports:
+      - "8027:8025"
+    networks:
+      - experiencenet
+
+  s3:
+    container_name: experience_s3_1
+    image: minio/minio
+    ports:
+      - "9002:9000"
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: 12345678
+    volumes:
+      - s3:/data
+    networks:
+      - experiencenet
+    command: server /data
+
+networks:
+  experiencenet:
+    driver: "bridge"
+
+volumes:
+  node_modules:
+    driver: "local"
+  data:
+    driver: "local"
+  s3:
+    driver: "local"
+             
