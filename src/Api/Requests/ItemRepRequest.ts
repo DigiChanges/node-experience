@@ -1,7 +1,7 @@
-import ItemPayload from "../../Payloads/ItemPayload";
 import * as express from "express";
+import ItemRepPayload from "../../Payloads/ItemRepPayload";
 
-class ItemRequest implements ItemPayload {
+class ItemRepRequest implements ItemRepPayload {
 
     private request: express.Request;
 
@@ -16,7 +16,6 @@ class ItemRequest implements ItemPayload {
     type(): number {
         return this.request.body.type;
     }
-
 }
 
-export default ItemRequest
+export default ItemRepRequest

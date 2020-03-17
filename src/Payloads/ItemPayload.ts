@@ -1,7 +1,7 @@
+import { Item } from "../Entities/Item";
 
 interface ItemPayload {
-    name(): string;
-    type(): number;
+    item(): Item;
 }
 
 export default ItemPayload

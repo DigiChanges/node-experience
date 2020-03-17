@@ -2,11 +2,13 @@ import { Request, Response } from 'express';
 import { inject } from 'inversify'
 import { controller, httpGet, httpPost, request, response } from 'inversify-express-utils';
 import ItemService from '../../Services/ItemService';
-import ItemRequest from '../Requests/ItemRequest';
 import Responder from "../../Lib/Responder";
 import ItemTransformer from "../Transformers/Items/ItemTransformer";
 import StatusCode from "../../Lib/StatusCode";
 import { TYPES } from "../../types";
+import ItemRepRequest from "../Requests/ItemRepRequest";
+import ItemRequestShow from "../Requests/ItemRequestShow";
+import ItemRequestCriteria from "../Requests/ItemRequestCriteria";
 
 @controller('/items')
 class ItemHandler
@@ -23,8 +25,8 @@ class ItemHandler
     @httpPost('/')
     public async save (@request() request: Request, @response() response: Response)
     {
-        const itemRequest = new ItemRequest(request);
-        const item = await this.service.save(itemRequest);
+        const itemRepRequest = new ItemRepRequest(request);
+        const item = await this.service.save(itemRepRequest);
 
         this.responder.send(item, response, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
@@ -32,23 +34,29 @@ class ItemHandler
     @httpGet('/')
     public async list (@request() request: Request, @response() response: Response)
     {
-        const itemRequest = new ItemRequest(request);
+        const itemRequest = new ItemRequestCriteria(request);
         const items = await this.service.list(itemRequest);
 
         this.responder.send(items, response, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    // @httpGet('/:id')
-    // public async getOne  (@request() request: Request, @response() res: Response)
-    // {
-    //     const id = request.params.id;
-    //     const item = await this.repository.findOne(id);
-    //     if (item) {
-    //         response.send(item);
-    //     } else {
-    //         // next(new ItemNotFoundException(id));
-    //     }
-    // }
+    @httpGet('/:id')
+    public async getOne  (@request() request: Request, @response() response: Response/*, next: express.NextFunction*/)
+    {
+        const itemRequestShow = new ItemRequestShow(request);
+        const item = await this.service.getOne(itemRequestShow);
+        // const id = request.params.id;
+        // const items = await this.service.list(itemRequestShow);
+        // const item = await this.repository.findOne(id);
+
+        // if (item) {
+            // response.send(item);
+        // } else {
+            // next(new ItemNotFoundException(id));
+        // }
+
+        this.responder.send(item, response, StatusCode.HTTP_OK, new ItemTransformer());
+    }
 }
 
 export default ItemHandler;
