@@ -17,8 +17,6 @@ class ItemService {
         item.name = payload.name();
         item.type = payload.type();
 
-        console.log(payload);
-
         await this.repository.save(item);
 
         return item;
