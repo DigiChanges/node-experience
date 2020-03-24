@@ -15,3 +15,7 @@ Hi! Node experience it's a set of tools together for a simple projects with an a
 
 - yarn
 - yarn run dev
+
+OR 
+
+- docker-compose exec app yarn dev

@@ -1,16 +1,18 @@
 import { Request, Response } from 'express';
 import { inject } from 'inversify'
-import { controller, httpGet, httpPost, request, response } from 'inversify-express-utils';
+import {controller, httpDelete, httpGet, httpPost, httpPut, request, response} from 'inversify-express-utils';
 import ItemService from '../../Services/ItemService';
 import Responder from "../../Lib/Responder";
 import ItemTransformer from "../Transformers/Items/ItemTransformer";
 import StatusCode from "../../Lib/StatusCode";
 import { TYPES } from "../../types";
-import ItemRepRequest from "../Requests/ItemRepRequest";
-import ItemRequestShow from "../Requests/ItemRequestShow";
-import ItemRequestCriteria from "../Requests/ItemRequestCriteria";
+import ItemRepRequest from "../Requests/Items/ItemRepRequest";
+import IdRequest from "../Requests/Defaults/IdRequest";
+import ItemRequestCriteria from "../Requests/Items/ItemRequestCriteria";
+import ItemUpdateRequest from "../Requests/Items/ItemUpdateRequest";
+import ItemRemoveRequest from "../Requests/Items/ItemRemoveRequest";
 
-@controller('/items')
+@controller('/api/items')
 class ItemHandler
 {
     private service: ItemService;
@@ -23,31 +25,28 @@ class ItemHandler
     }
 
     @httpPost('/')
-    public async save (@request() request: Request, @response() response: Response)
+    public async save (@request() req: Request, @response() res: Response)
     {
-        const itemRepRequest = new ItemRepRequest(request);
+        const itemRepRequest = new ItemRepRequest(req);
         const item = await this.service.save(itemRepRequest);
 
-        this.responder.send(item, response, StatusCode.HTTP_CREATED, new ItemTransformer());
+        this.responder.send(item, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
 
     @httpGet('/')
-    public async list (@request() request: Request, @response() response: Response)
+    public async list (@request() req: Request, @response() res: Response)
     {
-        const itemRequest = new ItemRequestCriteria(request);
+        const itemRequest = new ItemRequestCriteria(req);
         const items = await this.service.list(itemRequest);
 
-        this.responder.send(items, response, StatusCode.HTTP_OK, new ItemTransformer());
+        this.responder.send(items, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
     @httpGet('/:id')
-    public async getOne  (@request() request: Request, @response() response: Response/*, next: express.NextFunction*/)
+    public async getOne  (@request() req: Request, @response() res: Response/*, next: express.NextFunction*/)
     {
-        const itemRequestShow = new ItemRequestShow(request);
+        const itemRequestShow = new IdRequest(req);
         const item = await this.service.getOne(itemRequestShow);
-        // const id = request.params.id;
-        // const items = await this.service.list(itemRequestShow);
-        // const item = await this.repository.findOne(id);
 
         // if (item) {
             // response.send(item);
@@ -55,31 +54,37 @@ class ItemHandler
             // next(new ItemNotFoundException(id));
         // }
 
-        this.responder.send(item, response, StatusCode.HTTP_OK, new ItemTransformer());
+        this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
+    }
+
+    @httpPut('/:id')
+    public async update (@request() req: Request, @response() res: Response/*, next: express.NextFunction*/)
+    {
+        const itemRequest = new ItemUpdateRequest(req);
+        const item = await this.service.update(itemRequest);
+
+        // if (updatedPost) {
+        //     response.send(updatedPost);
+        // } else {
+        //     next(new PostNotFoundException(id));
+        // }
+
+        this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
+    }
+
+    @httpDelete('/:id')
+    public async remove (@request() req: Request, @response() res: Response/*, next: express.NextFunction*/)
+    {
+        const itemRequest = new ItemRemoveRequest(req);
+        const item = await this.service.remove(itemRequest);
+
+        // if (deleteResponse.raw[1]) {
+        //     response.sendStatus(200);
+        // } else {
+        //     next(new PostNotFoundException(id));
+        // }
+        this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 }
 
 export default ItemHandler;
-
-//
-// private modifyPost = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
-//     const id = request.params.id;
-//     const postData: Post = request.body;
-//     await this.postRepository.update(id, postData);
-//     const updatedPost = await this.postRepository.findOne(id);
-//     if (updatedPost) {
-//         response.send(updatedPost);
-//     } else {
-//         next(new PostNotFoundException(id));
-//     }
-// }
-//
-// private deletePost = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
-//     const id = request.params.id;
-//     const deleteResponse = await this.postRepository.delete(id);
-//     if (deleteResponse.raw[1]) {
-//         response.sendStatus(200);
-//     } else {
-//         next(new PostNotFoundException(id));
-//     }
-// }

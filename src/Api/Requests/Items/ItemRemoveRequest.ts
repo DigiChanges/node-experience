@@ -1,7 +1,7 @@
 import * as express from "express";
-import ItemShowPayload from "../../Payloads/ItemShowPayload";
+import IdPayload from "../../../Payloads/Defaults/IdPayload";
 
-class ItemRequestShow implements ItemShowPayload {
+class ItemRemoveRequest implements IdPayload {
 
     private request: express.Request;
 
@@ -14,4 +14,4 @@ class ItemRequestShow implements ItemShowPayload {
     }
 }
 
-export default ItemRequestShow
+export default ItemRemoveRequest

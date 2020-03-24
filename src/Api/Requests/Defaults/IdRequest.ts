@@ -1,7 +1,7 @@
 import * as express from "express";
-import Criteria from "../../Payloads/Criteria";
+import IdPayload from "../../../Payloads/Defaults/IdPayload";
 
-class ItemRequestCriteria implements Criteria {
+class IdRequest implements IdPayload {
 
     private request: express.Request;
 
@@ -14,4 +14,4 @@ class ItemRequestCriteria implements Criteria {
     }
 }
 
-export default ItemRequestCriteria
+export default IdRequest
