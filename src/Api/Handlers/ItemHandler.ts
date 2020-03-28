@@ -8,7 +8,6 @@ import ItemRepRequest from "../Requests/Items/ItemRepRequest";
 import IdRequest from "../Requests/Defaults/IdRequest";
 import ItemRequestCriteria from "../Requests/Items/ItemRequestCriteria";
 import ItemUpdateRequest from "../Requests/Items/ItemUpdateRequest";
-import ItemRemoveRequest from "../Requests/Items/ItemRemoveRequest";
 import ItemService from '../../Services/ItemService';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
 import ValidatorRules from "../../Middlewares/ValidatorRules";
