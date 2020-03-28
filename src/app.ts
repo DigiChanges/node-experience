@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import * as bodyParser from 'body-parser';
-import { LoggerRoutes } from './Middlewares/LoggerRoutes';
+import {LoggerRoutes} from './Middlewares/LoggerRoutes';
 import { InversifyExpressServer } from "inversify-express-utils";
 import Container from "./inversify.config";
 import './Api/Handlers/ItemHandler';
@@ -14,7 +14,7 @@ class App {
         this.server = new InversifyExpressServer(Container);
     }
 
-    public listen() {
+    public async listen() {
         this.server.setConfig((app) => {
             app.use(bodyParser.urlencoded({
                 extended: true
@@ -23,7 +23,7 @@ class App {
             app.use(LoggerRoutes.log);
         });
 
-        const serverInstance = this.server.build();
+        const serverInstance = await this.server.build();
         serverInstance.listen(this.port, () => {
                 console.log(`App listening on the port ${this.port}`);
         });

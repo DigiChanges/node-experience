@@ -1,5 +1,6 @@
 import * as express from "express";
 import IdPayload from "../../../Payloads/Defaults/IdPayload";
+import {param} from "express-validator";
 
 class IdRequest implements IdPayload {
 
@@ -11,6 +12,12 @@ class IdRequest implements IdPayload {
 
     id(): string {
         return this.request.params.id;
+    }
+
+    static validate() {
+        return [
+            param('id', "Invalid UUID").exists().isUUID()
+        ];
     }
 }
 

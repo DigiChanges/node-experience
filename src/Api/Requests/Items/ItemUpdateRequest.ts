@@ -1,5 +1,6 @@
 import * as express from "express";
 import ItemUpdatePayload from "../../../Payloads/Items/ItemUpdatePayload";
+import {body, param} from "express-validator";
 
 class ItemUpdateRequest implements ItemUpdatePayload {
 
@@ -19,6 +20,14 @@ class ItemUpdateRequest implements ItemUpdatePayload {
 
     id(): string {
         return this.request.params.id;
+    }
+
+    static validate() {
+        return [
+            param('id', "Invalid UUID").exists().isUUID(),
+            body('name', "Name must exist").exists().isString(),
+            body('type').exists().isInt()
+        ];
     }
 }
 

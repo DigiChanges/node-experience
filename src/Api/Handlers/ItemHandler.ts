@@ -1,16 +1,17 @@
-import { Request, Response } from 'express';
+import {NextFunction, Request, Response} from 'express';
 import { inject } from 'inversify'
-import {controller, httpDelete, httpGet, httpPost, httpPut, request, response} from 'inversify-express-utils';
-import ItemService from '../../Services/ItemService';
-import Responder from "../../Lib/Responder";
-import ItemTransformer from "../Transformers/Items/ItemTransformer";
 import StatusCode from "../../Lib/StatusCode";
 import { TYPES } from "../../types";
+import Responder from "../../Lib/Responder";
+import ItemTransformer from "../Transformers/Items/ItemTransformer";
 import ItemRepRequest from "../Requests/Items/ItemRepRequest";
 import IdRequest from "../Requests/Defaults/IdRequest";
 import ItemRequestCriteria from "../Requests/Items/ItemRequestCriteria";
 import ItemUpdateRequest from "../Requests/Items/ItemUpdateRequest";
 import ItemRemoveRequest from "../Requests/Items/ItemRemoveRequest";
+import ItemService from '../../Services/ItemService';
+import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
+import ValidatorRules from "../../Middlewares/ValidatorRules";
 
 @controller('/api/items')
 class ItemHandler
@@ -24,8 +25,8 @@ class ItemHandler
         this.responder = responder;
     }
 
-    @httpPost('/')
-    public async save (@request() req: Request, @response() res: Response)
+    @httpPost('/', ...ItemRepRequest.validate(), ValidatorRules)
+    public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const itemRepRequest = new ItemRepRequest(req);
         const item = await this.service.save(itemRepRequest);
@@ -33,7 +34,7 @@ class ItemHandler
         this.responder.send(item, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
 
-    @httpGet('/')
+    @httpGet('/', ...ItemRequestCriteria.validate(), ValidatorRules)
     public async list (@request() req: Request, @response() res: Response)
     {
         const itemRequest = new ItemRequestCriteria(req);
@@ -42,7 +43,7 @@ class ItemHandler
         this.responder.send(items, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpGet('/:id')
+    @httpGet('/:id', ...IdRequest.validate(), ValidatorRules)
     public async getOne  (@request() req: Request, @response() res: Response/*, next: express.NextFunction*/)
     {
         const itemRequestShow = new IdRequest(req);
@@ -57,7 +58,7 @@ class ItemHandler
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpPut('/:id')
+    @httpPut('/:id', ...ItemUpdateRequest.validate(), ValidatorRules)
     public async update (@request() req: Request, @response() res: Response/*, next: express.NextFunction*/)
     {
         const itemRequest = new ItemUpdateRequest(req);
@@ -72,10 +73,10 @@ class ItemHandler
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpDelete('/:id')
+    @httpDelete('/:id', ...IdRequest.validate(), ValidatorRules)
     public async remove (@request() req: Request, @response() res: Response/*, next: express.NextFunction*/)
     {
-        const itemRequest = new ItemRemoveRequest(req);
+        const itemRequest = new IdRequest(req);
         const item = await this.service.remove(itemRequest);
 
         // if (deleteResponse.raw[1]) {
@@ -83,6 +84,7 @@ class ItemHandler
         // } else {
         //     next(new PostNotFoundException(id));
         // }
+
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 }

@@ -1,5 +1,6 @@
 import * as express from "express";
 import ItemRepPayload from "../../../Payloads/Items/ItemRepPayload";
+import {body} from "express-validator";
 
 class ItemRepRequest implements ItemRepPayload {
 
@@ -15,6 +16,13 @@ class ItemRepRequest implements ItemRepPayload {
 
     type(): number {
         return this.request.body.type;
+    }
+
+    static validate() {
+        return [
+            body('name', "Name must exist").exists().isString(),
+            body('type').exists().isInt()
+        ];
     }
 }
 
