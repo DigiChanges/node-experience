@@ -1,6 +1,6 @@
 import { ConnectionOptions } from 'typeorm';
 import dotenv from "dotenv";
-import {Item} from "./src/Entities/Item";
+import Item from "./src/Entities/Item";
 
 dotenv.config();
 

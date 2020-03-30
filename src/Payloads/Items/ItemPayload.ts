@@ -1,4 +1,4 @@
-import { Item } from "../../Entities/Item";
+import Item from "../../Entities/Item";
 
 interface ItemPayload {
     item(): Item;

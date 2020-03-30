@@ -5,6 +5,8 @@ Hi! Node experience it's a set of tools together for a simple projects with an a
 **Technologies:**
 * NodeJS 10v
 * Express
+* Express Validator
+* Dotenv
 * TypeORM
 * InversifyJS
 * Typescript

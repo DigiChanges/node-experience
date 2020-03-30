@@ -1,4 +1,4 @@
-import { Item } from '../Entities/Item';
+import Item from '../Entities/Item';
 import { getRepository, Repository } from 'typeorm';
 import {injectable} from 'inversify';
 import ItemRepPayload from "../Payloads/Items/ItemRepPayload";

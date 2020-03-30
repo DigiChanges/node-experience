@@ -1,9 +1,11 @@
 version: '3'
 
 services:
-  app:
+  node:
     container_name: experience_node_1
-    build: docker/node
+    build:
+      context: docker/node/
+      dockerfile: Dockerfile
     working_dir: /usr/src/app
     volumes:
      - .:/usr/src/app:cached
@@ -15,7 +17,9 @@ services:
 
   db:
     container_name: experience_db_1
-    image: postgres:latest
+    build:
+      context: docker/postgres/
+      dockerfile: Dockerfile
     ports:
       - "5434:5432"
     environment:
