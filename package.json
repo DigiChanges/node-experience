@@ -6,13 +6,13 @@
   "scripts": {
     "clean": "rimraf dist/*",
     "copy-assets": "ts-node tools/copyAssets",
-    "lint": "tslint -c tslint.json -p tsconfig.json --fix",
+    "lint-fix": "tslint -c tslint.json -p tsconfig.json --fix",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
     "tsc": "tsc",
     "build": "npm-run-all clean lint tsc copy-assets",
     "dev:start": "npm-run-all build start",
     "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
     "start": "ts-node src/index.ts",
-    "initdb": "ts-node tools/initdb",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -20,10 +20,12 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "catch-decorator": "^2.0.0",
     "dotenv": "^8.2.0",
     "envalid": "^6.0.1",
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
+    "husky": "^4.2.3",
     "inversify": "^5.0.1",
     "inversify-express-utils": "^6.3.2",
     "pg": "^7.18.2",
@@ -46,5 +48,10 @@
     "ts-node": "^8.6.2",
     "tslint": "^6.0.0",
     "typescript": "^3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "docker-compose exec node yarn lint"
+    }
   }
 }

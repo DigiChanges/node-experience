@@ -1,4 +1,5 @@
 export const TYPES = {
     IFormatResponder: 'IFormatResponder',
-    Responder: 'Responder'
+    Responder: 'Responder',
+    IErrorHandler: 'IErrorHandler'
 };

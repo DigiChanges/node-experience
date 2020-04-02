@@ -1,17 +1,19 @@
 import Item from '../Entities/Item';
 import { getRepository, Repository } from 'typeorm';
-import {injectable} from 'inversify';
+import {inject, injectable} from 'inversify';
 import ItemRepPayload from "../Payloads/Items/ItemRepPayload";
 import IdPayload from "../Payloads/Defaults/IdPayload";
 import CriteriaPayload from "../Payloads/CriteriaPayload";
 import ItemUpdatePayload from "../Payloads/Items/ItemUpdatePayload";
+import {REPOSITORIES} from "../repositories";
+import IItemRepository from "../Repositories/Contracts/IItemRepository";
 
 @injectable()
 class ItemService {
-    private repository: Repository<Item>;
+    private repository: IItemRepository;
 
-    constructor() {
-        this.repository = getRepository(Item);
+    constructor(@inject(REPOSITORIES.IItemRepository) repository: IItemRepository) {
+        this.repository = repository;
     }
 
     public async save (payload: ItemRepPayload): Promise<Item> {
@@ -40,7 +42,7 @@ class ItemService {
 
     public async list (criteria: CriteriaPayload)
     {
-        return await this.repository.find();
+        return await this.repository.list();
     }
 
     public async getOne (payload: IdPayload): Promise<Item>
@@ -48,20 +50,15 @@ class ItemService {
         const id = payload.id();
         const item = await this.repository.findOne(id);
 
-        if (!item) {
-            // throw Exception;
-        }
-
         return item;
     }
 
-    public async remove (payload: IdPayload): Promise<Item>
+    public async remove (payload: IdPayload): Promise<any>
     {
         const id = payload.id();
-        const item = await this.repository.findOne(id);
-        await this.repository.delete(item);
+        const result = await this.repository.delete(id);
 
-        return item;
+        return result;
     }
 }
 

@@ -43,48 +43,30 @@ class ItemHandler
     }
 
     @httpGet('/:id', ...IdRequest.validate(), ValidatorRules)
-    public async getOne  (@request() req: Request, @response() res: Response/*, next: express.NextFunction*/)
+    public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const itemRequestShow = new IdRequest(req);
         const item = await this.service.getOne(itemRequestShow);
-
-        // if (item) {
-            // response.send(item);
-        // } else {
-            // next(new ItemNotFoundException(id));
-        // }
 
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
     @httpPut('/:id', ...ItemUpdateRequest.validate(), ValidatorRules)
-    public async update (@request() req: Request, @response() res: Response/*, next: express.NextFunction*/)
+    public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const itemRequest = new ItemUpdateRequest(req);
         const item = await this.service.update(itemRequest);
-
-        // if (updatedPost) {
-        //     response.send(updatedPost);
-        // } else {
-        //     next(new PostNotFoundException(id));
-        // }
 
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
     @httpDelete('/:id', ...IdRequest.validate(), ValidatorRules)
-    public async remove (@request() req: Request, @response() res: Response/*, next: express.NextFunction*/)
+    public async remove (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const itemRequest = new IdRequest(req);
         const item = await this.service.remove(itemRequest);
 
-        // if (deleteResponse.raw[1]) {
-        //     response.sendStatus(200);
-        // } else {
-        //     next(new PostNotFoundException(id));
-        // }
-
-        this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
+        this.responder.send(item, res, StatusCode.HTTP_OK);
     }
 }
 

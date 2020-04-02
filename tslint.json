@@ -5,8 +5,10 @@
     ],
     "jsRules": {},
     "rules": {
+        "no-trailing-whitespace": false,
         "trailing-comma": [ false ],
-        "no-console": false
+        "no-console": false,
+        "prefer-const": false
     },
     "rulesDirectory": []
 }

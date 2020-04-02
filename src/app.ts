@@ -1,16 +1,20 @@
 import "reflect-metadata";
 import * as bodyParser from 'body-parser';
 import {LoggerRoutes} from './Middlewares/LoggerRoutes';
-import { InversifyExpressServer } from "inversify-express-utils";
+import {InversifyExpressServer, TYPE} from "inversify-express-utils";
 import Container from "./inversify.config";
 import './Api/Handlers/ItemHandler';
+import {ErrorHandler} from './Lib/ErrorHandler';
+import Responder from "./Lib/Responder";
+import {inject} from "inversify";
+import {TYPES} from "./types";
 
 class App {
     public port?: number;
     private server: InversifyExpressServer;
 
     constructor() {
-        this.port = Number(process.env.SERVER_PORT); // default port to listen;
+        this.port = Number(process.env.SERVER_PORT || 8090); // default port to listen;
         this.server = new InversifyExpressServer(Container);
     }
 
@@ -21,6 +25,10 @@ class App {
             }));
             app.use(bodyParser.json());
             app.use(LoggerRoutes.log);
+
+        });
+        this.server.setErrorConfig((app) => {
+            app.use(ErrorHandler.handle);
         });
 
         const serverInstance = await this.server.build();

@@ -1,7 +1,7 @@
 import Transformer from "../../../Lib/Transformer";
 import Item from "../../../Entities/Item";
 
-class ItemTransformer implements Transformer
+class ItemTransformer extends Transformer
 {
     public transform(item: Item)
     {
