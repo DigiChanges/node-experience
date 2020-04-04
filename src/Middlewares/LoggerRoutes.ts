@@ -1,8 +1,9 @@
 import express from 'express';
+import logger from '../Lib/Logger';
 
 export class LoggerRoutes {
     static log(request: express.Request, response: express.Response, next: any) {
-        console.log(`${request.method} ${request.path}`);
+        logger.info(`${request.method} ${request.path}`);
         next();
     }
 }

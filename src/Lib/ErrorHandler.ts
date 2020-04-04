@@ -1,6 +1,7 @@
 import Responder from "./Responder";
 import StatusCode from "./StatusCode";
 import FormatError from "./FormatError";
+import logger from '../Lib/Logger';
 
 export class ErrorHandler
 {
@@ -14,6 +15,8 @@ export class ErrorHandler
         if (!statusCode) {
             statusCode = StatusCode.HTTP_INTERNAL_SERVER_ERROR;
         }
+
+        logger.error(err.stack);
 
         responder.error(formatError.getFormat(message, statusCode), res, statusCode);
     }

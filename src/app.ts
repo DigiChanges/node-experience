@@ -1,13 +1,10 @@
 import "reflect-metadata";
 import * as bodyParser from 'body-parser';
 import {LoggerRoutes} from './Middlewares/LoggerRoutes';
-import {InversifyExpressServer, TYPE} from "inversify-express-utils";
+import {InversifyExpressServer} from "inversify-express-utils";
 import Container from "./inversify.config";
 import './Api/Handlers/ItemHandler';
 import {ErrorHandler} from './Lib/ErrorHandler';
-import Responder from "./Lib/Responder";
-import {inject} from "inversify";
-import {TYPES} from "./types";
 
 class App {
     public port?: number;

@@ -4,6 +4,9 @@ import Item from "../../Entities/Item";
 import {injectable} from "inversify";
 import ErrorException from "../../Lib/ErrorException";
 import StatusCode from "../../Lib/StatusCode";
+import Paginator from "../../Lib/Paginator";
+import IPaginator from "../../Lib/Contracts/IPaginator";
+import ICriteria from "../../Lib/Contracts/ICriteria";
 
 @injectable()
 class ItemRepository implements IItemRepository {
@@ -27,8 +30,14 @@ class ItemRepository implements IItemRepository {
         return item;
     }
 
-    async list(): Promise<Item[]> {
-        return await this.repository.find();
+    async list(criteria: ICriteria): Promise<IPaginator> {
+
+        let queryBuilder = await this.repository
+                                        .createQueryBuilder("user");
+
+        const paginator = new Paginator(queryBuilder, criteria);
+
+        return await paginator;
     }
 
     async update(item: Item): Promise<any> {

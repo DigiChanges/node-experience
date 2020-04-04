@@ -20,8 +20,12 @@ class ItemRepRequest implements ItemRepPayload {
 
     static validate() {
         return [
-            body('name', "Name must exist").exists().isString(),
-            body('type').exists().isInt()
+            body('name')
+                .exists().withMessage('Name must exist')
+                .isString().withMessage('Name must be of type string'),
+            body('type')
+                .exists().withMessage('Type must exist')
+                .isInt().withMessage('Type must be of type integer')
         ];
     }
 }

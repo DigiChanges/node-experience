@@ -1,23 +1,38 @@
 import * as express from "express";
-import CriteriaPayload from "../../../Payloads/CriteriaPayload";
-import {param} from "express-validator";
+import ICriteria from "../../../Lib/Contracts/ICriteria";
+import IPagination from "../../../Lib/Contracts/IPagination";
+import IFilter from "../../../Lib/Contracts/IFilter";
+import ISort from "../../../Lib/Contracts/ISort";
+import ItemFilter from "../../Libs/Criterias/Item/ItemFilter";
+import ItemSort from "../../Libs/Criterias/Item/ItemSort";
+import Pagination from "../../../Lib/Concrets/Pagination";
 
-class ItemRequestCriteria implements CriteriaPayload {
+class ItemRequestCriteria implements ICriteria
+{
+    private sort: ISort;
+    private filter: IFilter;
+    private pagination: IPagination;
 
-    private request: express.Request;
-
-    constructor(request: express.Request) {
-        this.request = request;
+    constructor(request: express.Request)
+    {
+        this.pagination = new Pagination(request);
+        this.sort = new ItemSort(request);
+        this.filter = new ItemFilter(request);
     }
 
-    id(): string {
-        return this.request.params.id;
+    getPagination(): IPagination
+    {
+        return this.pagination;
     }
 
-    static validate() {
-        return [
-            param('id', "Invalid UUID").exists().isUUID()
-        ];
+    getFilter(): IFilter
+    {
+        return this.filter;
+    }
+
+    getSort(): ISort
+    {
+        return this.sort;
     }
 }
 

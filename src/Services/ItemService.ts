@@ -3,10 +3,10 @@ import { getRepository, Repository } from 'typeorm';
 import {inject, injectable} from 'inversify';
 import ItemRepPayload from "../Payloads/Items/ItemRepPayload";
 import IdPayload from "../Payloads/Defaults/IdPayload";
-import CriteriaPayload from "../Payloads/CriteriaPayload";
 import ItemUpdatePayload from "../Payloads/Items/ItemUpdatePayload";
 import {REPOSITORIES} from "../repositories";
 import IItemRepository from "../Repositories/Contracts/IItemRepository";
+import ICriteria from "../Lib/Contracts/ICriteria";
 
 @injectable()
 class ItemService {
@@ -40,9 +40,9 @@ class ItemService {
         return item;
     }
 
-    public async list (criteria: CriteriaPayload)
+    public async list (criteria: ICriteria)
     {
-        return await this.repository.list();
+        return await this.repository.list(criteria);
     }
 
     public async getOne (payload: IdPayload): Promise<Item>

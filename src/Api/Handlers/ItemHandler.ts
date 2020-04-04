@@ -33,13 +33,13 @@ class ItemHandler
         this.responder.send(item, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
 
-    @httpGet('/', ...ItemRequestCriteria.validate(), ValidatorRules)
+    @httpGet('/')
     public async list (@request() req: Request, @response() res: Response)
     {
         const itemRequest = new ItemRequestCriteria(req);
-        const items = await this.service.list(itemRequest);
+        const paginator = await this.service.list(itemRequest);
 
-        this.responder.send(items, res, StatusCode.HTTP_OK, new ItemTransformer());
+        await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
     @httpGet('/:id', ...IdRequest.validate(), ValidatorRules)
