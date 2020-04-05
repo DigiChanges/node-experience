@@ -5,6 +5,7 @@ interface IPaginator {
     getCount(): number;
     getCurrentUrl(): string;
     getNextUrl(): string;
+    getExist(): boolean;
 }
 
 export default IPaginator;

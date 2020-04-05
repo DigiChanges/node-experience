@@ -8,12 +8,14 @@ class Pagination implements IPagination
     private offset: number;
     private _url: string;
     private request: express.Request;
+    private exist: boolean = false;
 
     constructor(request: express.Request)
     {
         this.request = request;
-        this.limit = request.query.pagination.limit;
-        this.offset = request.query.pagination.offset;
+        this.limit = request.query.hasOwnProperty('pagination') ? Number(request.query.pagination.limit) : 10;
+        this.offset = request.query.hasOwnProperty('pagination') ? Number(request.query.pagination.offset) : 0;
+        this.exist = request.query.hasOwnProperty('pagination');
     }
 
     getLimit(): number
@@ -28,21 +30,31 @@ class Pagination implements IPagination
 
     getCurrentUrl(): string
     {
-        let url = this.request.get('host') + this.request.url;
-        return url
+        return this.exist ? this.request.get('host') + this.request.url : '';
     }
 
+    // TODO: Refactoring with querystrings to reform query without harcoding URI
     getNextUrl(): string
     {
-        let offset = Number(this.request.query.pagination.offset) + Number(this.request.query.pagination.limit);
+        let url = "";
 
-        let url = this.request.get('host') + this.request.url;
-        const searchValue = 'pagination[offset]=' + this.request.query.pagination.offset;
-        const newValue = 'pagination[offset]=' + offset;
+        if (this.exist)
+        {
+            let offset = this.offset + this.limit;
 
-        url = url.replace(searchValue, newValue);
+            url = this.request.get('host') + this.request.url;
+            const searchValue = 'pagination[offset]=' + this.request.query.pagination.offset;
+            const newValue = 'pagination[offset]=' + offset;
+
+            url = url.replace(searchValue, newValue);
+        }
 
         return url;
+    }
+
+    getExist(): boolean
+    {
+        return this.exist;
     }
 }
 

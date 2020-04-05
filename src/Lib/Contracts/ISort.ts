@@ -1,8 +1,6 @@
 
 interface ISort {
-    get(sortFields: any[]): any[];
-    set(sortFields: any[]): void;
-    getRaw(): any[];
+    get(): Map<string, string>;
 }
 
 export default ISort
