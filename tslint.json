@@ -8,7 +8,8 @@
         "no-trailing-whitespace": false,
         "trailing-comma": [ false ],
         "no-console": false,
-        "prefer-const": false
+        "prefer-const": false,
+        "no-empty-interface": false
     },
     "rulesDirectory": []
 }

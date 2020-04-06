@@ -1,8 +1,8 @@
 import * as express from "express";
-import ItemUpdatePayload from "../../../Payloads/Items/ItemUpdatePayload";
+import UserUpdatePayload from "../../../Payloads/Users/UserUpdatePayload";
 import {body, param} from "express-validator";
 
-class ItemUpdateRequest implements ItemUpdatePayload {
+class UserUpdateRequest implements UserUpdatePayload {
 
     private request: express.Request;
 
@@ -10,12 +10,12 @@ class ItemUpdateRequest implements ItemUpdatePayload {
         this.request = request;
     }
 
-    name(): string {
-        return this.request.body.name;
+    email(): string {
+        return this.request.body.email;
     }
 
-    type(): number {
-        return this.request.body.type;
+    password(): string {
+        return this.request.body.password;
     }
 
     enable(): boolean {
@@ -28,12 +28,12 @@ class ItemUpdateRequest implements ItemUpdatePayload {
 
     static validate() {
         return [
-            body('name')
-                .exists().withMessage('Name must exist')
+            body('email')
+                .exists().withMessage('Email must exist')
                 .isString().withMessage('Name must be of type string'),
-            body('type')
+            body('password')
                 .exists().withMessage('Type must exist')
-                .isInt().withMessage('Type must be of type integer'),
+                .isString().withMessage('Type must be of type integer'),
             body('enable')
                 .optional()
                 .isBoolean().withMessage('Enable must be of type boolean'),
@@ -44,4 +44,4 @@ class ItemUpdateRequest implements ItemUpdatePayload {
     }
 }
 
-export default ItemUpdateRequest
+export default UserUpdateRequest

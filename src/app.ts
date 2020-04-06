@@ -5,6 +5,7 @@ import {InversifyExpressServer} from "inversify-express-utils";
 import Container from "./inversify.config";
 import './Api/Handlers/ItemHandler';
 import {ErrorHandler} from './Lib/ErrorHandler';
+import passport from '../config/passport';
 
 class App {
     public port?: number;

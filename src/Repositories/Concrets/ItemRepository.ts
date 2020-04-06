@@ -55,8 +55,6 @@ class ItemRepository implements IItemRepository {
             queryBuilder.setParameter(ItemFilter.NAME, '%' + filter.get(ItemFilter.NAME) + '%');
         }
 
-        console.log(queryBuilder.getSql());
-
         const paginator = new Paginator(queryBuilder, criteria);
 
         return await paginator;

@@ -1,6 +1,5 @@
 import Filter from "../../../../Lib/Concrets/Filter";
 
-
 class ItemFilter extends Filter
 {
     static readonly NAME: string = 'name';

@@ -1,3 +1,4 @@
 export const REPOSITORIES = {
-    IItemRepository: 'IItemRepository'
+    IItemRepository: 'IItemRepository',
+    IUserRepository: 'IUserRepository'
 };

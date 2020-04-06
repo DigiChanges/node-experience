@@ -1,5 +1,4 @@
 import Item from '../Entities/Item';
-import { getRepository, Repository } from 'typeorm';
 import {inject, injectable} from 'inversify';
 import ItemRepPayload from "../Payloads/Items/ItemRepPayload";
 import IdPayload from "../Payloads/Defaults/IdPayload";
@@ -50,17 +49,13 @@ class ItemService {
     public async getOne (payload: IdPayload): Promise<Item>
     {
         const id = payload.id();
-        const item = await this.repository.findOne(id);
-
-        return item;
+        return await this.repository.findOne(id);
     }
 
     public async remove (payload: IdPayload): Promise<any>
     {
         const id = payload.id();
-        const result = await this.repository.delete(id);
-
-        return result;
+        return await this.repository.delete(id);
     }
 }
 
