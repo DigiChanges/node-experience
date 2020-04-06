@@ -1,11 +1,10 @@
 
 interface IFilter {
-    values(): any[];
-    get(key: string, _default: string): any[];
-    getRaw(key: string, _default: string): any[];
+    values(): Map<string, string>;
+    get(key: string): string | boolean;
     getArray(key: string): any[];
     has(key: string): boolean;
-    isNotEmpty(key:string): boolean;
+    isEmpty(): boolean;
     getFields(): any[];
 }
 

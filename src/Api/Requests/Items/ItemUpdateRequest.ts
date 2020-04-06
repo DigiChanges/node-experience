@@ -18,6 +18,10 @@ class ItemUpdateRequest implements ItemUpdatePayload {
         return this.request.body.type;
     }
 
+    enable(): boolean {
+        return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
+    }
+
     id(): string {
         return this.request.params.id;
     }

@@ -9,6 +9,7 @@ class ItemTransformer extends Transformer
           'id': item.getId(),
           'name': item.getName(),
           'type': item.getType(),
+          'enable': item.isEnable(),
           'createdAt': item.getCreatedAt(),
           'updatedAt': item.getUpdatedAt(),
         };

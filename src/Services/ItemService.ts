@@ -21,6 +21,7 @@ class ItemService {
         const item = new Item();
         item.name = payload.name();
         item.type = payload.type();
+        item.enable = payload.enable();
 
         await this.repository.save(item);
 
@@ -34,6 +35,7 @@ class ItemService {
 
         item.name = payload.name();
         item.type = payload.type();
+        item.enable = payload.enable();
 
         await this.repository.save(item);
 

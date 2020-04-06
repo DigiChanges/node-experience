@@ -3,17 +3,23 @@ import Filter from "../../../../Lib/Concrets/Filter";
 
 class ItemFilter extends Filter
 {
-    public static get SEARCH(): string { return 'search'};
+    static readonly NAME: string = 'name';
+    static readonly TYPE: string = 'type';
+    static readonly ENABLE: string = 'enable';
 
-    public static get filters(): any[] { return [
-        this.SEARCH,
+    getFields(): any
+    {
+        return [
+            ItemFilter.NAME,
+            ItemFilter.TYPE,
+            ItemFilter.ENABLE,
         ];
     }
 
-    getFields(): any[]
+    getDefaultFilters(): any
     {
         return [
-            'title',
+            {[ItemFilter.ENABLE]: true}
         ];
     }
 }

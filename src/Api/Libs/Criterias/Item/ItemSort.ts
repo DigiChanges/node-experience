@@ -2,18 +2,21 @@ import Sort from "../../../../Lib/Concrets/Sort";
 
 class ItemSort extends Sort
 {
-    getSorts(): any
+    static readonly NAME: string = 'name';
+    static readonly TYPE: string = 'type';
+
+    getFields(): any
     {
         return [
-            'name',
-            'type'
+            ItemSort.NAME,
+            ItemSort.TYPE
         ];
     }
 
     getDefaultSorts(): any
     {
         return [
-            {'name': 'asc'}
+            {[ItemSort.NAME]: 'asc'}
         ];
     }
 }

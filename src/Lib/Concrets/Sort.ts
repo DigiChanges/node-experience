@@ -9,7 +9,7 @@ abstract class Sort implements ISort
         // TODO: Remove logic from constructor
         this.sorts = new Map<string, string>();
         let sorts = request.query.hasOwnProperty('sort') ? request.query.sort : [];
-        let keys = this.getSorts();
+        let keys = this.getFields();
 
         let defaultSorts = this.getDefaultSorts();
 
@@ -43,7 +43,7 @@ abstract class Sort implements ISort
         return this.sorts;
     }
 
-    abstract getSorts(): any;
+    abstract getFields(): any;
     abstract getDefaultSorts(): any;
 
 }

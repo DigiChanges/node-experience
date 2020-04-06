@@ -7,6 +7,7 @@ import StatusCode from "../../Lib/StatusCode";
 import Paginator from "../../Lib/Paginator";
 import IPaginator from "../../Lib/Contracts/IPaginator";
 import ICriteria from "../../Lib/Contracts/ICriteria";
+import ItemFilter from "../../Api/Libs/Criterias/Item/ItemFilter";
 
 @injectable()
 class ItemRepository implements IItemRepository {
@@ -32,8 +33,29 @@ class ItemRepository implements IItemRepository {
 
     async list(criteria: ICriteria): Promise<IPaginator> {
 
-        let queryBuilder = await this.repository
-                                        .createQueryBuilder("user");
+        let queryBuilder = await this.repository.createQueryBuilder("i");
+
+        const filter = criteria.getFilter();
+
+        queryBuilder.where("1 = 1");
+
+        if (filter.has(ItemFilter.ENABLE))
+        {
+            queryBuilder.andWhere("i." + ItemFilter.ENABLE + " = :" + ItemFilter.ENABLE);
+            queryBuilder.setParameter(ItemFilter.ENABLE, filter.get(ItemFilter.ENABLE));
+        }
+        if (filter.has(ItemFilter.TYPE))
+        {
+            queryBuilder.andWhere("i." + ItemFilter.TYPE + " = :" + ItemFilter.TYPE);
+            queryBuilder.setParameter(ItemFilter.TYPE, filter.get(ItemFilter.TYPE));
+        }
+        if (filter.has(ItemFilter.NAME))
+        {
+            queryBuilder.andWhere("i." + ItemFilter.NAME + " like :" + ItemFilter.NAME);
+            queryBuilder.setParameter(ItemFilter.NAME, '%' + filter.get(ItemFilter.NAME) + '%');
+        }
+
+        console.log(queryBuilder.getSql());
 
         const paginator = new Paginator(queryBuilder, criteria);
 

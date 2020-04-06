@@ -18,6 +18,10 @@ class ItemRepRequest implements ItemRepPayload {
         return this.request.body.type;
     }
 
+    enable(): boolean {
+        return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
+    }
+
     static validate() {
         return [
             body('name')
@@ -25,7 +29,10 @@ class ItemRepRequest implements ItemRepPayload {
                 .isString().withMessage('Name must be of type string'),
             body('type')
                 .exists().withMessage('Type must exist')
-                .isInt().withMessage('Type must be of type integer')
+                .isInt().withMessage('Type must be of type integer'),
+            body('enable')
+                .optional()
+                .isBoolean().withMessage('Enable must be of type boolean')
         ];
     }
 }

@@ -12,6 +12,9 @@ class Item {
     @Column()
     type: number | undefined;
 
+    @Column({ default: "true" })
+    enable: boolean | undefined;
+
     @CreateDateColumn()
     createdAt: Date | undefined;
 
@@ -28,6 +31,10 @@ class Item {
 
     getType(): number {
         return this.type;
+    }
+
+    isEnable(): boolean {
+        return this.enable;
     }
 
     getCreatedAt(): Date {

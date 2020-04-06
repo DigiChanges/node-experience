@@ -3,62 +3,67 @@ import * as express from "express";
 
 abstract class Filter implements IFilter
 {
-    private _values: any[];
+    private filters: Map<string, string>;
 
     constructor(request: express.Request)
     {
-        // $keys = collect($this->filters)->values()->all();
-        // $this->values = Arr::only($data, $keys);
+        this.filters = new Map<string, string>();
+        let queryFilters = request.query.hasOwnProperty('filter') ? request.query.filter : [];
+        let defaultFilters = this.getDefaultFilters();
+        let keys = this.getFields();
+
+        defaultFilters.forEach((defaultFilter: any) => {
+            const defaultKey: string = Object.keys(defaultFilter)[0];
+            const defaultValue: string = defaultFilter[defaultKey];
+
+            this.filters.set(defaultKey, defaultValue);
+        });
+
+        let newFilters = Object.keys(queryFilters).map((key: string) =>
+        {
+            return {
+                [key]: request.query.filter[key]
+            };
+        }).filter((value => {
+            const key = Object.keys(value)[0];
+            return keys.includes(key) ? value : false;
+        }));
+
+        newFilters.forEach((newFilter: any) => {
+            const defaultKey: string = Object.keys(newFilter)[0];
+            const defaultValue: string = newFilter[defaultKey];
+
+            this.filters.set(defaultKey, defaultValue);
+        });
     }
 
-    get(key: string, _default: string = null): any[]
+    get(key: string): string | boolean
     {
-        // $value = Arr::get($this->values, key, _default);
-        //
-        // return $this->isEmpty($value) ? null : $value;
-        return [];
+        return this.filters.has(key) ? this.filters.get(key) : false;
     }
 
-    getRaw(key: string, _default: string = null): any[]
+    getArray(): any
     {
-        // return Arr::get($this->values, $key, $default);
-        return [];
-    }
-
-    /**
-     * Returns an empty array as default.
-     */
-    getArray(key: string): any[]
-    {
-        // $value = $this->getRaw($key);
-        //
-        // return $this->isEmpty($value) ? [] : $value;
-        return [];
+        return this.filters.entries();
     }
 
     has(key: string): boolean
     {
-        // return Arr::has($this->values, $key);
-        return true;
+        return this.filters.has(key);
     }
 
-     isNotEmpty(key: string): boolean
+     isEmpty(): boolean
     {
-        // return ! $this->isEmpty($this->getRaw($key));
-        return true;
+        return this.filters.size === 0;
     }
 
-    values(): any
+    values(): Map<string, string>
     {
-        // return $this->values;
-    }
-
-    isEmpty(value: any): boolean {
-        // return $value === null || $value === false || $value === '' || $value === [];
-        return true;
+        return this.filters;
     }
 
     abstract getFields(): any[];
+    abstract getDefaultFilters(): any;
 }
 
 export default Filter;
