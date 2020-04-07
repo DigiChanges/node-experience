@@ -1,5 +1,8 @@
+
 export const TYPES = {
     IFormatResponder: 'IFormatResponder',
     Responder: 'Responder',
-    IErrorHandler: 'IErrorHandler'
+    IErrorHandler: 'IErrorHandler',
+    IEncriptionStrategy: 'IEncriptionStrategy',
+    IEncription: 'IEncription'
 };

@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import {Container, decorate, injectable} from "inversify";
+import {Container} from "inversify";
 import ItemService from "./Services/ItemService";
 import FormatResponder from "./Lib/FormatResponder";
 import IFormatResponder from "./Lib/IFormatResponder";
@@ -11,6 +11,10 @@ import ItemRepository from "./Repositories/Concrets/ItemRepository";
 import IUserRepository from "./Repositories/Contracts/IUserRepository";
 import UserRepository from "./Repositories/Concrets/UserRepository";
 import UserService from "./Services/UserService";
+import IEncription from "./Lib/Encription/IEncription";
+import Encription from "./Lib/Encription/Encription";
+import IEncriptionStrategy from "./Lib/Encription/IEncriptionStrategy";
+import BcryptEncriptionStrategy from "./Lib/Encription/BcryptEncriptionStrategy";
 
 const container = new Container();
 
@@ -21,6 +25,8 @@ container.bind<UserService>(UserService).toSelf();
 /* Libs */
 container.bind<Responder>(TYPES.Responder).to(Responder);
 container.bind<IFormatResponder>(TYPES.IFormatResponder).to(FormatResponder);
+container.bind<IEncription>(TYPES.IEncription).to(Encription);
+container.bind<IEncriptionStrategy>(TYPES.IEncriptionStrategy).to(BcryptEncriptionStrategy);
 
 /* Repositories */
 container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemRepository);

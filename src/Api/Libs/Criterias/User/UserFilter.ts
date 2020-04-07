@@ -15,9 +15,7 @@ class UserFilter extends Filter
 
     getDefaultFilters(): any
     {
-        return [
-            {[UserFilter.EMAIL]: true}
-        ];
+        return [];
     }
 }
 

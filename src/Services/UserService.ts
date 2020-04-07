@@ -6,23 +6,30 @@ import UserUpdatePayload from "../Payloads/Users/UserUpdatePayload";
 import {REPOSITORIES} from "../repositories";
 import IUserRepository from "../Repositories/Contracts/IUserRepository";
 import ICriteria from "../Lib/Contracts/ICriteria";
+import IEncription from "../Lib/Encription/IEncription";
+import {TYPES} from "../types";
 
 @injectable()
-class UserService {
+class UserService
+{
     private repository: IUserRepository;
+    private encryptionHandler: IEncription;
 
-    constructor(@inject(REPOSITORIES.IUserRepository) repository: IUserRepository) {
+    constructor(@inject(REPOSITORIES.IUserRepository) repository: IUserRepository,
+                @inject(TYPES.IEncription) encryptionHandler: IEncription)
+    {
         this.repository = repository;
+        this.encryptionHandler = encryptionHandler;
     }
 
-    public async save (payload: UserRepPayload): Promise<User> {
-
+    public async save (payload: UserRepPayload): Promise<User>
+    {
         const user = new User();
         user.email = payload.email();
-        user.password = payload.password();
+        user.password = await this.encryptionHandler.encrypt(payload.password());
         user.enable = payload.enable();
 
-        await this.repository.save(User);
+        await this.repository.save(user);
 
         return user;
     }
@@ -33,7 +40,6 @@ class UserService {
         const user = await this.repository.findOne(id);
 
         user.email = payload.email();
-        user.password = payload.password();
         user.enable = payload.enable();
 
         await this.repository.save(user);

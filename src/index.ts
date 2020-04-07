@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import App from './app';
 import { validateEnv } from '../config/validateEnv';
-import config from '../ormconfig';
+import config from '../config/ormconfig';
 import { createConnection } from "typeorm";
 
 (async () => {

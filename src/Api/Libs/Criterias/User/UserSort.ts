@@ -2,7 +2,7 @@ import Sort from "../../../../Lib/Concrets/Sort";
 
 class UserSort extends Sort
 {
-    static readonly EMAIL: string = 'name';
+    static readonly EMAIL: string = 'email';
 
     getFields(): any
     {

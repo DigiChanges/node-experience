@@ -31,8 +31,18 @@ class UserRepository implements IUserRepository {
         return user;
     }
 
-    async list(criteria: ICriteria): Promise<IPaginator> {
+    async getOneByEmail(email: string): Promise<User> {
+        const user = await this.repository.findOne({"email": email});
 
+        if (!user) {
+            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found')
+        }
+
+        return user;
+    }
+
+    async list(criteria: ICriteria): Promise<IPaginator>
+    {
         let queryBuilder = await this.repository.createQueryBuilder("i");
 
         const filter = criteria.getFilter();

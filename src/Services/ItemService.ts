@@ -8,14 +8,17 @@ import IItemRepository from "../Repositories/Contracts/IItemRepository";
 import ICriteria from "../Lib/Contracts/ICriteria";
 
 @injectable()
-class ItemService {
+class ItemService
+{
     private repository: IItemRepository;
 
-    constructor(@inject(REPOSITORIES.IItemRepository) repository: IItemRepository) {
+    constructor(@inject(REPOSITORIES.IItemRepository) repository: IItemRepository)
+    {
         this.repository = repository;
     }
 
-    public async save (payload: ItemRepPayload): Promise<Item> {
+    public async save (payload: ItemRepPayload): Promise<Item>
+    {
 
         const item = new Item();
         item.name = payload.name();

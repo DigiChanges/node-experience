@@ -6,7 +6,7 @@ class User {
     @PrimaryGeneratedColumn('uuid')
     id: string | undefined;
 
-    @Column()
+    @Column({unique: true})
     email: string | undefined;
 
     @Column()

@@ -2,34 +2,48 @@ import * as express from "express";
 import UserRepPayload from "../../../Payloads/Users/UserRepPayload";
 import {body} from "express-validator";
 
-class UserRepRequest implements UserRepPayload {
-
+class UserRepRequest implements UserRepPayload
+{
     private request: express.Request;
 
-    constructor(request: express.Request) {
+    constructor(request: express.Request)
+    {
         this.request = request;
     }
 
-    email(): string {
+    email(): string
+    {
         return this.request.body.email;
     }
 
-    password(): string {
+    password(): string
+    {
         return this.request.body.password;
     }
 
-    enable(): boolean {
+    passwordConfirmation(): string
+    {
+        return this.request.body.passwordConfirmation;
+    }
+
+    enable(): boolean
+    {
         return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
     }
 
-    static validate() {
+    static validate()
+    {
         return [
             body('email')
                 .exists().withMessage('Email must exist')
-                .isString().withMessage('Name must be of type string'),
+                .isString().withMessage('Email must be of type string'),
             body('password')
-                .exists().withMessage('Type must exist')
-                .isString().withMessage('Type must be of type integer'),
+                .exists().withMessage('Password must exist')
+                .isString().withMessage('Password must be of type string')
+                .custom((value, { req }) => value === req.body.passwordConfirmation).withMessage("Password don't match"),
+            body('passwordConfirmation')
+                .exists().withMessage('Password must exist')
+                .isString().withMessage('Password must be of type string'),
             body('enable')
                 .optional()
                 .isBoolean().withMessage('Enable must be of type boolean')

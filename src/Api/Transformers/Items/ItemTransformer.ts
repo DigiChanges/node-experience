@@ -1,5 +1,6 @@
 import Transformer from "../../../Lib/Transformer";
 import Item from "../../../Entities/Item";
+import moment from "moment";
 
 class ItemTransformer extends Transformer
 {
@@ -10,8 +11,8 @@ class ItemTransformer extends Transformer
           'name': item.getName(),
           'type': item.getType(),
           'enable': item.isEnable(),
-          'createdAt': item.getCreatedAt(),
-          'updatedAt': item.getUpdatedAt(),
+          'createdAt': moment(item.getCreatedAt()).format('DD-MM-YYYY HH:SS'),
+          'updatedAt': moment(item.getUpdatedAt()).format('DD-MM-YYYY HH:SS'),
         };
     }
 }

@@ -1,31 +1,44 @@
 import "reflect-metadata";
-import * as bodyParser from 'body-parser';
-import {LoggerRoutes} from './Middlewares/LoggerRoutes';
+import * as bodyParser from "body-parser";
+import {LoggerRoutes} from "./Middlewares/LoggerRoutes";
 import {InversifyExpressServer} from "inversify-express-utils";
 import Container from "./inversify.config";
-import './Api/Handlers/ItemHandler';
-import {ErrorHandler} from './Lib/ErrorHandler';
-import passport from '../config/passport';
+import "./Api/Handlers/ItemHandler";
+import "./Api/Handlers/UserHandler";
+import "./Api/Handlers/AuthHandler";
+import {ErrorHandler} from "./Lib/ErrorHandler";
+import compression from "compression";
+import cors from "cors";
+import helmet from "helmet";
+import config from "../config/config";
 
-class App {
+class App
+{
     public port?: number;
     private server: InversifyExpressServer;
 
-    constructor() {
-        this.port = Number(process.env.SERVER_PORT || 8090); // default port to listen;
+    constructor()
+    {
+        this.port = Number(config.serverPort || 8090); // default port to listen;
         this.server = new InversifyExpressServer(Container);
     }
 
-    public async listen() {
-        this.server.setConfig((app) => {
+    public async listen()
+    {
+        this.server.setConfig((app) =>
+        {
             app.use(bodyParser.urlencoded({
                 extended: true
             }));
             app.use(bodyParser.json());
             app.use(LoggerRoutes.log);
+            app.use(compression());
+            app.use(cors());
+            app.use(helmet());
 
         });
-        this.server.setErrorConfig((app) => {
+        this.server.setErrorConfig((app) =>
+        {
             app.use(ErrorHandler.handle);
         });
 
