@@ -15,6 +15,10 @@ const config = {
     'encryption': {
         'type': 'bcrypt',
         'saltRounds': 10
+    },
+    'jwt': {
+        'secret': process.env.JWT_SECRET ? process.env.JWT_SECRET : Config.get('jwt.secret'),
+        'expires': process.env.JWT_EXPIRES ? process.env.JWT_EXPIRES : Config.get('jwt.expires'),
     }
 };
 

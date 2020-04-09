@@ -15,12 +15,14 @@ import IEncription from "./Lib/Encription/IEncription";
 import Encription from "./Lib/Encription/Encription";
 import IEncriptionStrategy from "./Lib/Encription/IEncriptionStrategy";
 import BcryptEncriptionStrategy from "./Lib/Encription/BcryptEncriptionStrategy";
+import AuthService from "./Services/AuthService";
 
 const container = new Container();
 
 /* Services */
 container.bind<ItemService>(ItemService).toSelf();
 container.bind<UserService>(UserService).toSelf();
+container.bind<AuthService>(AuthService).toSelf();
 
 /* Libs */
 container.bind<Responder>(TYPES.Responder).to(Responder);
