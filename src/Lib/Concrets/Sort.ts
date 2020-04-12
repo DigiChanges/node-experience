@@ -22,8 +22,10 @@ abstract class Sort implements ISort
 
         let newSorts = Object.keys(sorts).map((key: string) =>
         {
+            const sort: any = request.query.sort;
+
             return {
-                [key]: request.query.sort[key]
+                [key]: sort[key]
             };
         }).filter((value => {
             const key = Object.keys(value)[0];

@@ -21,8 +21,10 @@ abstract class Filter implements IFilter
 
         let newFilters = Object.keys(queryFilters).map((key: string) =>
         {
+            const filter: any = request.query.filter;
+
             return {
-                [key]: request.query.filter[key]
+                [key]: filter[key]
             };
         }).filter((value => {
             const key = Object.keys(value)[0];

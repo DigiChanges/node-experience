@@ -9,12 +9,14 @@ class Pagination implements IPagination
     private _url: string;
     private request: express.Request;
     private exist: boolean = false;
+    private pagination: any;
 
     constructor(request: express.Request)
     {
         this.request = request;
-        this.limit = request.query.hasOwnProperty('pagination') ? Number(request.query.pagination.limit) : 10;
-        this.offset = request.query.hasOwnProperty('pagination') ? Number(request.query.pagination.offset) : 0;
+        this.pagination = request.query.pagination;
+        this.limit = request.query.hasOwnProperty('pagination') ? Number(this.pagination.limit) : 10;
+        this.offset = request.query.hasOwnProperty('pagination') ? Number(this.pagination.offset) : 0;
         this.exist = request.query.hasOwnProperty('pagination');
     }
 
@@ -43,7 +45,7 @@ class Pagination implements IPagination
             let offset = this.offset + this.limit;
 
             url = this.request.get('host') + this.request.url;
-            const searchValue = 'pagination[offset]=' + this.request.query.pagination.offset;
+            const searchValue = 'pagination[offset]=' + this.pagination.offset;
             const newValue = 'pagination[offset]=' + offset;
 
             url = url.replace(searchValue, newValue);
