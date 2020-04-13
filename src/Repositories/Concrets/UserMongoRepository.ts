@@ -44,24 +44,30 @@ class UserMongoRepository implements IUserRepository {
     async list(criteria: ICriteria): Promise<IPaginator>
     {
         const count = await this.repository.count();
-        const cursor = await this.repository.createCursor();
+        let cursor = await this.repository.createCursor();
         const filter = criteria.getFilter();
-        console.log("cantidad total de doc ", count);
-        // queryBuilder.where("1 = 1");
+        let filters = {};
 
-        // if (filter.has(UserFilter.ENABLE))
-        // {
-        //     const enable = filter.get(UserFilter.ENABLE);
-        //     cursor.filter({[UserFilter.ENABLE]: [enable]});
-        // }
-        // if (filter.has(UserFilter.EMAIL))
-        // {
-        //     queryBuilder.andWhere("i." + UserFilter.EMAIL + " like :" + UserFilter.EMAIL);
-        //     queryBuilder.setParameter(UserFilter.EMAIL, '%' + filter.get(UserFilter.EMAIL) + '%');
-        // }
-        //
+        if (filter.has(UserFilter.ENABLE))
+        {
+            let _enable = filter.get(UserFilter.ENABLE);
+            const enable: boolean = _enable !== 'false';
+
+            Object.assign(filters, {enable: { $eq : enable }});
+        }
+        if (filter.has(UserFilter.EMAIL)) {
+            let email = filter.get(UserFilter.EMAIL);
+
+            Object.assign(filters, {email: { $regex: email }});
+        }
+
+        if (Object.entries(filters))
+        {
+            cursor.filter(filters);
+        }
+
         const paginator = new MongoPaginator(cursor, criteria, count);
-        //
+
         return await paginator;
     }
 

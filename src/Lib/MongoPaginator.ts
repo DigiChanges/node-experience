@@ -46,7 +46,7 @@ class MongoPaginator implements IPaginator
     {
         // TODO: Add filter logic
 
-        // this.addOrderBy();
+        this.addOrderBy();
         this.addPagination();
 
         const data = await this.cursor.toArray();
@@ -59,17 +59,18 @@ class MongoPaginator implements IPaginator
     {
         return this.pagination.getExist();
     }
-
+    // TODO: See when multiple sorts
     private addOrderBy()
     {
         let sorts = this.sort.get();
 
         sorts.forEach((value: string, key: string ) => {
-            let order: string = value.toUpperCase();
-            order = (order === 'DESC') ? "DESC" : "ASC";
+            let order: any = value.toUpperCase();
+            order = (order === 'DESC') ? -1 : 1;
 
-            // @ts-ignore
-            this.cursor.sort({key, order});
+            const obj = {[key]: order};
+
+            this.cursor.sort(obj);
         });
     }
 

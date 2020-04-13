@@ -7,12 +7,12 @@ class ItemTransformer extends Transformer
     public transform(item: Item)
     {
         return {
-          'id': item.getId(),
-          'name': item.getName(),
-          'type': item.getType(),
-          'enable': item.isEnable(),
-          'createdAt': moment(item.getCreatedAt()).format('DD-MM-YYYY HH:SS'),
-          'updatedAt': moment(item.getUpdatedAt()).format('DD-MM-YYYY HH:SS'),
+          'id': item._id,
+          'name': item.name,
+          'type': item.type,
+          'enable': item.enable,
+          'createdAt': moment(item.createdAt).format('DD-MM-YYYY HH:SS'),
+          'updatedAt': moment(item.updatedAt).format('DD-MM-YYYY HH:SS'),
         };
     }
 }

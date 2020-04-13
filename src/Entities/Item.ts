@@ -11,7 +11,7 @@ import {
 class Item {
 
     @ObjectIdColumn()
-    id: ObjectID;
+    _id: ObjectID;
 
     @Column()
     name: string | undefined;
@@ -27,30 +27,6 @@ class Item {
 
     @UpdateDateColumn()
     updatedAt: Date | undefined;
-
-    getId(): string {
-        return this.id.toString();
-    }
-
-    getName(): string {
-        return this.name;
-    }
-
-    getType(): number {
-        return this.type;
-    }
-
-    isEnable(): boolean {
-        return this.enable;
-    }
-
-    getCreatedAt(): Date {
-        return this.createdAt;
-    }
-
-    getUpdatedAt(): Date {
-        return this.updatedAt;
-    }
 }
 
 export default Item;
