@@ -5,11 +5,10 @@
   "main": "src/index.ts",
   "scripts": {
     "clean": "rimraf dist/*",
-    "copy-assets": "ts-node tools/copyAssets",
     "lint-fix": "tslint -c tslint.json -p tsconfig.json --fix",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "tsc": "tsc",
-    "build": "npm-run-all clean lint tsc copy-assets",
+    "build": "npm-run-all clean lint tsc",
     "dev:start": "npm-run-all build start",
     "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
     "start": "ts-node src/index.ts",
@@ -54,6 +53,7 @@
     "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.6",
     "moment": "^2.24.0",
+    "mongodb": "^3.5.5",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
@@ -79,6 +79,6 @@
     }
   },
   "engines": {
-    "node": "12.16.1"
+    "node": "12.16"
   }
 }
