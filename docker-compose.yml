@@ -18,18 +18,33 @@ services:
   db:
     container_name: experience_db_1
     build:
-      context: docker/postgres/
+      context: docker/mongo/
       dockerfile: Dockerfile
     ports:
-      - "5434:5432"
+      - "27017:27017"
     environment:
-      POSTGRES_PASSWORD: experience
-      POSTGRES_DB: experience
-      POSTGRES_USER: experience
-    volumes:
-      - data:/var/lib/postgresql/data
+      MONGODB_ROOT_PASSWORD: 123456
+      MONGODB_USERNAME: experience
+      MONGODB_PASSWORD: experience
+      MONGODB_DATABASE: experience
     networks:
       - experiencenet
+
+# db:
+#    container_name: experience_db_1
+#    build:
+#      context: docker/postgres/
+#      dockerfile: Dockerfile
+#    ports:
+#      - "5434:5432"
+#    environment:
+#      POSTGRES_PASSWORD: experience
+#      POSTGRES_DB: experience
+#      POSTGRES_USER: experience
+#    volumes:
+#      - data:/var/lib/postgresql/data
+#    networks:
+#      - experiencenet
 
   mail:
     container_name: experience_mail_1

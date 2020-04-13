@@ -16,7 +16,7 @@ class JWTToken implements IToken
         this.expires = moment().utc().add({ minutes: expires }).unix();
         this.hash = jwt.encode({
             exp: this.expires,
-            email: user.getEmail()
+            email: user.email
         }, secret);
     }
 

@@ -1,20 +1,20 @@
 import IUserRepository from "../Contracts/IUserRepository";
-import {DeleteResult, getRepository, Repository} from "typeorm";
+import {DeleteResult, getMongoRepository, MongoRepository} from "typeorm";
 import User from "../../Entities/User";
 import {injectable} from "inversify";
 import ErrorException from "../../Lib/ErrorException";
 import StatusCode from "../../Lib/StatusCode";
-import Paginator from "../../Lib/Paginator";
+import MongoPaginator from "../../Lib/MongoPaginator";
 import IPaginator from "../../Lib/Contracts/IPaginator";
 import ICriteria from "../../Lib/Contracts/ICriteria";
 import UserFilter from "../../Api/Libs/Criterias/User/UserFilter";
 
 @injectable()
-class UserSqlRepository implements IUserRepository {
-    private repository: Repository<User>;
+class UserMongoRepository implements IUserRepository {
+    private repository: MongoRepository<User>;
 
     constructor() {
-        this.repository = getRepository(User);
+        this.repository = getMongoRepository(User);
     }
 
     async save (user: User): Promise<User> {
@@ -43,25 +43,25 @@ class UserSqlRepository implements IUserRepository {
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        let queryBuilder = await this.repository.createQueryBuilder("i");
-
+        const count = await this.repository.count();
+        const cursor = await this.repository.createCursor();
         const filter = criteria.getFilter();
+        console.log("cantidad total de doc ", count);
+        // queryBuilder.where("1 = 1");
 
-        queryBuilder.where("1 = 1");
-
-        if (filter.has(UserFilter.ENABLE))
-        {
-            queryBuilder.andWhere("i." + UserFilter.ENABLE + " = :" + UserFilter.ENABLE);
-            queryBuilder.setParameter(UserFilter.ENABLE, filter.get(UserFilter.ENABLE));
-        }
-        if (filter.has(UserFilter.EMAIL))
-        {
-            queryBuilder.andWhere("i." + UserFilter.EMAIL + " like :" + UserFilter.EMAIL);
-            queryBuilder.setParameter(UserFilter.EMAIL, '%' + filter.get(UserFilter.EMAIL) + '%');
-        }
-
-        const paginator = new Paginator(queryBuilder, criteria);
-
+        // if (filter.has(UserFilter.ENABLE))
+        // {
+        //     const enable = filter.get(UserFilter.ENABLE);
+        //     cursor.filter({[UserFilter.ENABLE]: [enable]});
+        // }
+        // if (filter.has(UserFilter.EMAIL))
+        // {
+        //     queryBuilder.andWhere("i." + UserFilter.EMAIL + " like :" + UserFilter.EMAIL);
+        //     queryBuilder.setParameter(UserFilter.EMAIL, '%' + filter.get(UserFilter.EMAIL) + '%');
+        // }
+        //
+        const paginator = new MongoPaginator(cursor, criteria, count);
+        //
         return await paginator;
     }
 
@@ -75,4 +75,4 @@ class UserSqlRepository implements IUserRepository {
 
 }
 
-export default UserSqlRepository;
+export default UserMongoRepository;

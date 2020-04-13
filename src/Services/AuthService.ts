@@ -29,7 +29,7 @@ class AuthService
         const password = payload.password();
         const user =  await this.repository.getOneByEmail(email);
 
-        if (!this.encryptionHandler.compare(password, user.getPassword())  )
+        if (!this.encryptionHandler.compare(password, user.password))
         {
             throw new ErrorException(StatusCode.HTTP_FORBIDDEN, 'Error credentials');
         }

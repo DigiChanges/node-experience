@@ -2,7 +2,7 @@ import IPagination from "../Contracts/IPagination";
 import * as express from "express";
 // import querystring from "querystring"; // TODO: Encapsulate and separet on an lib to create new functionality
 
-class Pagination implements IPagination
+class MongoPagination implements IPagination
 {
     private limit: number;
     private offset: number;
@@ -59,4 +59,4 @@ class Pagination implements IPagination
     }
 }
 
-export default Pagination;
+export default MongoPagination;

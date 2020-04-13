@@ -1,10 +1,17 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn} from "typeorm";
+import {
+    Entity,
+    Column,
+    CreateDateColumn,
+    UpdateDateColumn,
+    ObjectIdColumn,
+    ObjectID
+} from "typeorm";
 
 @Entity()
 class User {
 
-    @PrimaryGeneratedColumn('uuid')
-    id: string | undefined;
+    @ObjectIdColumn()
+    _id: ObjectID;
 
     @Column({unique: true})
     email: string | undefined;
@@ -20,30 +27,6 @@ class User {
 
     @UpdateDateColumn()
     updatedAt: Date | undefined;
-
-    getId(): string {
-        return this.id;
-    }
-
-    getEmail(): string {
-        return this.email;
-    }
-
-    getPassword(): string {
-        return this.password;
-    }
-
-    isEnable(): boolean {
-        return this.enable;
-    }
-
-    getCreatedAt(): Date {
-        return this.createdAt;
-    }
-
-    getUpdatedAt(): Date {
-        return this.updatedAt;
-    }
 }
 
 export default User;

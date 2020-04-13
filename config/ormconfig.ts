@@ -2,7 +2,7 @@ import { ConnectionOptions } from "typeorm";
 import globalConfig from "./config";
 
 const config: ConnectionOptions = {
-    type: 'postgres',
+    type: 'mongodb',
     host: String(globalConfig.dbConfig.host),
     port: Number(globalConfig.dbConfig.port),
     username: String(globalConfig.dbConfig.user),

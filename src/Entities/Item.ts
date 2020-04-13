@@ -1,10 +1,17 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn} from "typeorm";
+import {
+    Entity,
+    Column,
+    CreateDateColumn,
+    UpdateDateColumn,
+    ObjectIdColumn,
+    ObjectID
+} from "typeorm";
 
 @Entity()
 class Item {
 
-    @PrimaryGeneratedColumn('uuid')
-    id: string | undefined;
+    @ObjectIdColumn()
+    id: ObjectID;
 
     @Column()
     name: string | undefined;
@@ -22,7 +29,7 @@ class Item {
     updatedAt: Date | undefined;
 
     getId(): string {
-        return this.id;
+        return this.id.toString();
     }
 
     getName(): string {

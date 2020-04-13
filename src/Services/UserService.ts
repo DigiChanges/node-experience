@@ -13,20 +13,20 @@ import {TYPES} from "../types";
 class UserService
 {
     private repository: IUserRepository;
-    private encryptionHandler: IEncription;
+    private encryption: IEncription;
 
     constructor(@inject(REPOSITORIES.IUserRepository) repository: IUserRepository,
-                @inject(TYPES.IEncription) encryptionHandler: IEncription)
+                @inject(TYPES.IEncription) encryption: IEncription)
     {
         this.repository = repository;
-        this.encryptionHandler = encryptionHandler;
+        this.encryption = encryption;
     }
 
     public async save (payload: UserRepPayload): Promise<User>
     {
         const user = new User();
         user.email = payload.email();
-        user.password = await this.encryptionHandler.encrypt(payload.password());
+        user.password = await this.encryption.encrypt(payload.password());
         user.enable = payload.enable();
 
         await this.repository.save(user);
@@ -61,9 +61,7 @@ class UserService
     public async remove (payload: IdPayload): Promise<any>
     {
         const id = payload.id();
-        const result = await this.repository.delete(id);
-
-        return result;
+        return await this.repository.delete(id);
     }
 }
 

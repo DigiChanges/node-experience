@@ -18,7 +18,7 @@ class IdRequest implements IdPayload {
         return [
             param('id')
                 .exists().withMessage("ID must exist")
-                .isUUID().withMessage("Invalid UUID")
+                .isString().withMessage("Invalid ID")
         ];
     }
 }

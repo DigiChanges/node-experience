@@ -28,9 +28,12 @@ class Responder
     {
         let data = await paginator.paginate();
 
-        if (!transformer) {
+        if (!transformer)
+        {
             return response.status(status).send(data);
         }
+
+        data = transformer.handle(data);
 
         let result = {
             'data': data

@@ -1,5 +1,5 @@
 import IItemRepository from "../Contracts/IItemRepository";
-import {DeleteResult, getRepository, Repository} from "typeorm";
+import {DeleteResult, getMongoRepository, MongoRepository} from "typeorm";
 import Item from "../../Entities/Item";
 import {injectable} from "inversify";
 import ErrorException from "../../Lib/ErrorException";
@@ -10,11 +10,11 @@ import ICriteria from "../../Lib/Contracts/ICriteria";
 import ItemFilter from "../../Api/Libs/Criterias/Item/ItemFilter";
 
 @injectable()
-class ItemSqlRepository implements IItemRepository {
-    private repository: Repository<Item>;
+class ItemMongoRepository implements IItemRepository {
+    private repository: MongoRepository<Item>;
 
     constructor() {
-        this.repository = getRepository(Item);
+        this.repository = getMongoRepository(Item);
     }
 
     async save (item: Item): Promise<Item> {
@@ -70,4 +70,4 @@ class ItemSqlRepository implements IItemRepository {
 
 }
 
-export default ItemSqlRepository;
+export default ItemMongoRepository;

@@ -7,9 +7,9 @@ import {TYPES} from "./types";
 import {REPOSITORIES} from "./repositories";
 import IItemRepository from "./Repositories/Contracts/IItemRepository";
 import Responder from "./Lib/Responder";
-import ItemRepository from "./Repositories/Concrets/ItemRepository";
+import ItemMongoRepository from "./Repositories/Concrets/ItemMongoRepository";
 import IUserRepository from "./Repositories/Contracts/IUserRepository";
-import UserRepository from "./Repositories/Concrets/UserRepository";
+import UserMongoRepository from "./Repositories/Concrets/UserMongoRepository";
 import UserService from "./Services/UserService";
 import IEncription from "./Lib/Encription/IEncription";
 import Encription from "./Lib/Encription/Encription";
@@ -31,7 +31,7 @@ container.bind<IEncription>(TYPES.IEncription).to(Encription);
 container.bind<IEncriptionStrategy>(TYPES.IEncriptionStrategy).to(BcryptEncriptionStrategy);
 
 /* Repositories */
-container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemRepository);
-container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserRepository);
+container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMongoRepository);
+container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository);
 
 export default container;
