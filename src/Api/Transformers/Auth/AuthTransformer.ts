@@ -8,11 +8,11 @@ class AuthTransformer extends Transformer
     {
         return {
             'user': {
-                'id': token.getUser().getId(),
-                'email': token.getUser().getEmail(),
-                'enable': token.getUser().isEnable(),
-                'createdAt': moment(token.getUser().getCreatedAt()).format('DD-MM-YYYY HH:SS'),
-                'updatedAt': moment(token.getUser().getUpdatedAt()).format('DD-MM-YYYY HH:SS'),
+                'id': token.getUser()._id,
+                'email': token.getUser().email,
+                'enable': token.getUser().enable,
+                'createdAt': moment(token.getUser().createdAt).format('DD-MM-YYYY HH:SS'),
+                'updatedAt': moment(token.getUser().updatedAt).format('DD-MM-YYYY HH:SS'),
             },
             'expires': token.getExpires(),
             'token': token.getHash()
