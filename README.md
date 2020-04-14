@@ -11,6 +11,8 @@ Hi! Node experience it's a set of tools together for a simple projects with an a
 * InversifyJS
 * Typescript
 * Postgres
+* MongoDB
+* SocketIO
 
 - docker-compose up
 - docker exec -it experience_node_1 bash
