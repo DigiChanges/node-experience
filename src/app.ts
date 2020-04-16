@@ -11,6 +11,7 @@ import compression from "compression";
 import cors from "cors";
 import helmet from "helmet";
 import config from "../config/config";
+import AuthMiddleware from "./Middlewares/AuthMiddleware";
 
 class App
 {
@@ -35,6 +36,7 @@ class App
             app.use(compression());
             app.use(cors());
             app.use(helmet());
+            app.use(AuthMiddleware);
 
         });
         this.server.setErrorConfig((app) =>
