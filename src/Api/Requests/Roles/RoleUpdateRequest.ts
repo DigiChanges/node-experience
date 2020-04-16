@@ -1,47 +1,53 @@
 import * as express from "express";
-import ItemUpdatePayload from "../../../Payloads/Items/ItemUpdatePayload";
+import RoleUpdatePayload from "../../../Payloads/Roles/RoleUpdatePayload";
 import {body, param} from "express-validator";
 
-class ItemUpdateRequest implements ItemUpdatePayload {
-
+class RoleUpdateRequest implements RoleUpdatePayload
+{
     private request: express.Request;
 
-    constructor(request: express.Request) {
+    constructor(request: express.Request)
+    {
         this.request = request;
     }
 
-    name(): string {
-        return this.request.body.name;
+    name(): string
+    {
+        return this.request.body.email;
     }
 
-    type(): number {
-        return this.request.body.type;
+    slug(): string
+    {
+        return this.request.body.slug;
     }
 
-    enable(): boolean {
+    enable(): boolean
+    {
         return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
     }
 
-    id(): string {
+    id(): string
+    {
         return this.request.params.id;
     }
 
-    static validate() {
+    static validate()
+    {
         return [
             body('name')
                 .exists().withMessage('name must exist')
                 .isString().withMessage('name must be of type string'),
-            body('type')
-                .exists().withMessage('type must exist')
-                .isInt().withMessage('type must be of type integer'),
+            body('slug')
+                .exists().withMessage('slug must exist')
+                .isString().withMessage('slug must be of type string'),
             body('enable')
                 .optional()
                 .isBoolean().withMessage('enable must be of type boolean'),
             param('id')
-                .exists().withMessage('id must exist')
+                .exists().withMessage('id mus exist')
                 .isString().withMessage('id must string type')
         ];
     }
 }
 
-export default ItemUpdateRequest
+export default RoleUpdateRequest

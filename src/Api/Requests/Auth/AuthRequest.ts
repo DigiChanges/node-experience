@@ -25,11 +25,11 @@ class AuthRequest implements AuthPayload
     {
         return [
             body('email')
-                .exists().withMessage('Email must exist')
-                .isString().withMessage('Email must be of type string'),
+                .exists().withMessage('email must exist')
+                .isString().withMessage('email must be of type string'),
             body('password')
-                .exists().withMessage('Password must exist')
-                .isString().withMessage('Password must be of type string')
+                .exists().withMessage('password must exist')
+                .isString().withMessage('password must be of type string')
         ];
     }
 }

@@ -1,35 +1,40 @@
 import * as express from "express";
-import ItemRepPayload from "../../../Payloads/Items/ItemRepPayload";
+import RoleRepPayload from "../../../Payloads/Roles/RoleRepPayload";
 import {body} from "express-validator";
 
-class ItemRepRequest implements ItemRepPayload {
-
+class RoleRepRequest implements RoleRepPayload
+{
     private request: express.Request;
 
-    constructor(request: express.Request) {
+    constructor(request: express.Request)
+    {
         this.request = request;
     }
 
-    name(): string {
+    name(): string
+    {
         return this.request.body.name;
     }
 
-    type(): number {
-        return this.request.body.type;
+    slug(): string
+    {
+        return this.request.body.slug;
     }
 
-    enable(): boolean {
+    enable(): boolean
+    {
         return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
     }
 
-    static validate() {
+    static validate()
+    {
         return [
             body('name')
                 .exists().withMessage('name must exist')
                 .isString().withMessage('name must be of type string'),
-            body('type')
-                .exists().withMessage('type must exist')
-                .isInt().withMessage('type must be of type integer'),
+            body('slug')
+                .exists().withMessage('slug must exist')
+                .isString().withMessage('slug must be of type string'),
             body('enable')
                 .optional()
                 .isBoolean().withMessage('enable must be of type boolean')
@@ -37,4 +42,4 @@ class ItemRepRequest implements ItemRepPayload {
     }
 }
 
-export default ItemRepRequest
+export default RoleRepRequest

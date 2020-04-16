@@ -28,9 +28,9 @@ class UserHandler
     public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const userRepRequest = new UserRepRequest(req);
-        const User = await this.service.save(userRepRequest);
+        const user = await this.service.save(userRepRequest);
 
-        this.responder.send(User, res, StatusCode.HTTP_CREATED, new UserTransformer());
+        this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
     @httpGet('/')
@@ -46,27 +46,27 @@ class UserHandler
     public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const UserRequestShow = new IdRequest(req);
-        const User = await this.service.getOne(UserRequestShow);
+        const user = await this.service.getOne(UserRequestShow);
 
-        this.responder.send(User, res, StatusCode.HTTP_OK, new UserTransformer());
+        this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
     @httpPut('/:id', ...UserUpdateRequest.validate(), ValidatorRules)
     public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const userRequest = new UserUpdateRequest(req);
-        const User = await this.service.update(userRequest);
+        const user = await this.service.update(userRequest);
 
-        this.responder.send(User, res, StatusCode.HTTP_OK, new UserTransformer());
+        this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
     @httpDelete('/:id', ...IdRequest.validate(), ValidatorRules)
     public async remove (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const userRequest = new IdRequest(req);
-        const User = await this.service.remove(userRequest);
+        const user = await this.service.remove(userRequest);
 
-        this.responder.send(User, res, StatusCode.HTTP_OK);
+        this.responder.send(user, res, StatusCode.HTTP_OK);
     }
 }
 

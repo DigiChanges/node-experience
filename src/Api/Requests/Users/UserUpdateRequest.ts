@@ -30,14 +30,14 @@ class UserUpdateRequest implements UserUpdatePayload
     {
         return [
             body('email')
-                .exists().withMessage('Email must exist')
-                .isString().withMessage('Name must be of type string'),
+                .exists().withMessage('email must exist')
+                .isString().withMessage('email must be of type string'),
             body('enable')
                 .optional()
-                .isBoolean().withMessage('Enable must be of type boolean'),
+                .isBoolean().withMessage('enable must be of type boolean'),
             param('id')
-                .exists().withMessage('ID mus exist')
-                .isString().withMessage('Id must UUID type')
+                .exists().withMessage('id mus exist')
+                .isString().withMessage('id must string type')
         ];
     }
 }

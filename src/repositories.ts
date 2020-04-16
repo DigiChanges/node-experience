@@ -1,4 +1,5 @@
 export const REPOSITORIES = {
     IItemRepository: 'IItemRepository',
-    IUserRepository: 'IUserRepository'
+    IUserRepository: 'IUserRepository',
+    IRoleRepository: 'IRoleRepository'
 };

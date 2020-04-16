@@ -35,18 +35,18 @@ class UserRepRequest implements UserRepPayload
     {
         return [
             body('email')
-                .exists().withMessage('Email must exist')
-                .isString().withMessage('Email must be of type string'),
+                .exists().withMessage('email must exist')
+                .isString().withMessage('email must be of type string'),
             body('password')
-                .exists().withMessage('Password must exist')
-                .isString().withMessage('Password must be of type string')
-                .custom((value, { req }) => value === req.body.passwordConfirmation).withMessage("Password don't match"),
+                .exists().withMessage('password must exist')
+                .isString().withMessage('password must be of type string')
+                .custom((value, { req }) => value === req.body.passwordConfirmation).withMessage("password don't match"),
             body('passwordConfirmation')
-                .exists().withMessage('Password must exist')
-                .isString().withMessage('Password must be of type string'),
+                .exists().withMessage('passwordConfirmation must exist')
+                .isString().withMessage('passwordConfirmation must be of type string'),
             body('enable')
                 .optional()
-                .isBoolean().withMessage('Enable must be of type boolean')
+                .isBoolean().withMessage('enable must be of type boolean')
         ];
     }
 }

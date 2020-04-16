@@ -6,6 +6,7 @@ import Container from "./inversify.config";
 import "./Api/Handlers/ItemHandler";
 import "./Api/Handlers/UserHandler";
 import "./Api/Handlers/AuthHandler";
+import "./Api/Handlers/RoleHandler";
 import {ErrorHandler} from "./Lib/ErrorHandler";
 import compression from "compression";
 import cors from "cors";
