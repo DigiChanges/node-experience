@@ -19,7 +19,15 @@ const config = {
     'jwt': {
         'secret': process.env.JWT_SECRET ? process.env.JWT_SECRET : Config.get('jwt.secret'),
         'expires': process.env.JWT_EXPIRES ? process.env.JWT_EXPIRES : Config.get('jwt.expires'),
-    }
+    },
+    'apiWhitelist': 
+        [
+            {
+                method: ['POST'],
+                url: '/api/auth/login'
+            }            
+        ]
+    
 };
 
 export default config;
