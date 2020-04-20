@@ -22,6 +22,12 @@ class User {
     @Column({ default: "true" })
     enable: boolean | undefined;
 
+    @Column()
+    confirmationToken: string | undefined;
+
+    @Column()
+    passwordRequestedAt: Date | undefined;
+
     @CreateDateColumn()
     createdAt: Date | undefined;
 

@@ -9,7 +9,9 @@ import ErrorException from "../Lib/ErrorException";
 import StatusCode from "../Lib/StatusCode";
 import IToken from "../Lib/Auth/IToken";
 import jwt from "jwt-simple";
-import config from "../../config/config";
+import Config from "../../config/config";
+import ForgotPasswordPayload from "../Payloads/Auth/ForgotPasswordPayload";
+import Mail from "../Lib/Mail/Mail";
 
 @injectable()
 class AuthService
@@ -43,7 +45,7 @@ class AuthService
     {
         let TokenArray = token.split(" ");
 
-        let secret = String(config.jwt.secret);
+        let secret = String(Config.jwt.secret);
         
         return jwt.decode(TokenArray[1], secret);
     }
@@ -54,6 +56,42 @@ class AuthService
 
         return await this.tokenFactory.token(user);
     }
+
+    public async forgotPassword (payload: ForgotPasswordPayload): Promise<any>
+    {
+        const user =  await this.repository.getOneByEmail(payload.email());
+
+        user.confirmationToken = String(await payload.confirmationToken());
+        user.passwordRequestedAt = payload.passwordRequestedAT();
+
+        let updateUser = await this.repository.update(user);
+
+        let senderName = String(Config.mail.senderName);
+        let from = String(Config.mail.senderEmailDefault);
+        let to = payload.email();
+        let cc = "";
+        let subject = "Password Recovery";
+        let html = `<!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title></title>
+                        </head>
+                        <body>
+                            <p>Hello</p>
+                            <p>You can change your pass from this <a href="" target="_blank">link</a></p>
+                            <br>
+                            <br>
+                            <p>Cheers,</p>
+                            <p>The team</p>
+                        </body>
+                        </html>`;
+        let mail = new Mail(senderName, from, to, cc, subject, html);
+        let sendMailer = await mail.sendMail();       
+        
+        return {message: "We've sent you an email"};
+           
+    }
+
 }
 
 export default AuthService;
