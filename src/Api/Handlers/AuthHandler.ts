@@ -9,6 +9,9 @@ import KeepAliveRequest from "../Requests/Auth/KeepAliveRequest";
 import AuthService from "../../Services/AuthService";
 import StatusCode from "../../Lib/StatusCode";
 import AuthTransformer from "../Transformers/Auth/AuthTransformer";
+import ForgotPasswordRequest from "../Requests/Auth/ForgotPasswordRequest";
+import ValidatorRules from '../../Middlewares/ValidatorRules';
+
 
 @controller('/api/auth')
 class AuthHandler
@@ -22,7 +25,7 @@ class AuthHandler
         this.responder = responder;
     }
 
-    @httpPost('/login')
+    @httpPost('/login', ...AuthRequest.validate(), ValidatorRules)
     public async login (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const authRequest = new AuthRequest(req);
@@ -43,7 +46,16 @@ class AuthHandler
 
         this.responder.send(payload, res, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
+    
+    @httpPost('/forgotPassword', ...ForgotPasswordRequest.validate(), ValidatorRules)
+    public async forgotPassword (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const forgotRequest = new ForgotPasswordRequest(req);
 
+        const payload = await this.service.forgotPassword(forgotRequest);
+
+        this.responder.send(payload, res, StatusCode.HTTP_CREATED, null);
+    }
 }
 
 export default AuthHandler;

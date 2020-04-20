@@ -14,5 +14,18 @@
   "jwt": {
     "secret": "mySecretJWT",
     "expires": 3600
+  },
+  "mail": {
+    "host": "mail",
+    "port": "1025",
+    "username": "",
+    "password": "",
+    "secureSsl":false,
+    "senderName": "Notifications",
+    "senderEmailDefault": "notification@localhost.com"
+  },
+  "url":{
+    "url_api": "http://localhost/api/",
+    "url_web": "http://localhost/"
   }
 }

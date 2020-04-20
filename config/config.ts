@@ -20,14 +20,33 @@ const config = {
         'secret': process.env.JWT_SECRET ? process.env.JWT_SECRET : Config.get('jwt.secret'),
         'expires': process.env.JWT_EXPIRES ? process.env.JWT_EXPIRES : Config.get('jwt.expires'),
     },
-    'apiWhitelist': 
-        [
-            {
-                method: ['POST'],
-                url: '/api/auth/login'
-            }            
-        ]
-    
+    'apiWhitelist': [
+        {
+            method: ['POST'],
+            url: '/api/auth/login'
+        },
+        {
+            method: ['POST'],
+            url: '/api/auth/forgotPassword'
+        },        
+        {
+            method: ['POST'],
+            url: '/api/users'
+        },        
+    ],
+    'mail': {
+        'host': process.env.SMTP_HOST ? process.env.SMTP_HOST : Config.get('mail.host'),
+        'port': process.env.SMTP_PORT ? process.env.SMTP_PORT : Config.get('mail.port'),       
+        'username': process.env.SMTP_USERNAME ? process.env.SMTP_USERNAME : Config.get('mail.username'),
+        'password': process.env.SMTP_PASSWORD ? process.env.SMTP_PASSWORD : Config.get('mail.password'),
+        "secure": process.env.SMTP_SECURE_SSL ? process.env.SMTP_SECURE_SSL : Config.get('mail.secureSsl'),
+        "senderName": process.env.SMTP_SENDERNAME ? process.env.SMTP_SENDERNAME : Config.get('mail.senderName'),
+        "senderEmailDefault": process.env.SMTP_SENDER_EMAIL_DEFAULT ? process.env.SMTP_SENDER_EMAIL_DEFAULT : Config.get('mail.senderEmailDefault')
+    },
+    'url':{
+        'url_api': process.env.URL_API ? process.env.URL_API : Config.get('url.url_api'),
+        'url_web': process.env.URL_WEB ? process.env.URL_WEB : Config.get('url.url_web'),
+    }
 };
 
 export default config;
