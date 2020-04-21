@@ -11,6 +11,8 @@ import ItemUpdateRequest from "../Requests/Items/ItemUpdateRequest";
 import ItemService from '../../Services/ItemService';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
 import ValidatorRules from "../../Middlewares/ValidatorRules";
+import AuthorizeMiddleware from "../../Middlewares/AuthorizeMiddleware";
+import Permissions from "../Libs/Permissions";
 
 @controller('/api/items')
 class ItemHandler
@@ -24,7 +26,7 @@ class ItemHandler
         this.responder = responder;
     }
 
-    @httpPost('/', ...ItemRepRequest.validate(), ValidatorRules)
+    @httpPost('/', ...ItemRepRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ITEMS_SAVE))
     public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const itemRepRequest = new ItemRepRequest(req);
@@ -33,7 +35,7 @@ class ItemHandler
         this.responder.send(item, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
 
-    @httpGet('/')
+    @httpGet('/', AuthorizeMiddleware(Permissions.ITEMS_LIST))
     public async list (@request() req: Request, @response() res: Response)
     {
         const itemRequest = new ItemRequestCriteria(req);
@@ -42,7 +44,7 @@ class ItemHandler
         await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpGet('/:id', ...IdRequest.validate(), ValidatorRules)
+    @httpGet('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ITEMS_SHOW))
     public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const itemRequestShow = new IdRequest(req);
@@ -51,7 +53,7 @@ class ItemHandler
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpPut('/:id', ...ItemUpdateRequest.validate(), ValidatorRules)
+    @httpPut('/:id', ...ItemUpdateRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ITEMS_UPDATE))
     public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const itemRequest = new ItemUpdateRequest(req);
@@ -60,7 +62,7 @@ class ItemHandler
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpDelete('/:id', ...IdRequest.validate(), ValidatorRules)
+    @httpDelete('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ITEMS_DELETE))
     public async remove (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const itemRequest = new IdRequest(req);

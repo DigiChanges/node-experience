@@ -14,7 +14,8 @@ const config = {
     },
     'encryption': {
         'type': 'bcrypt',
-        'saltRounds': 10
+        'saltRounds': 10,
+        'algorithm': 'HS512' // TODO: CHANGE hardcording alg
     },
     'jwt': {
         'secret': process.env.JWT_SECRET ? process.env.JWT_SECRET : Config.get('jwt.secret'),

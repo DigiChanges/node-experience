@@ -10,6 +10,7 @@ class UserTransformer extends Transformer
             'id': user._id,
             'email': user.email,
             'enable': user.enable,
+            'roles': user.roles,
             'createdAt': moment(user.createdAt).format('DD-MM-YYYY HH:SS'),
             'updatedAt': moment(user.updatedAt).format('DD-MM-YYYY HH:SS'),
         };

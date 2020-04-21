@@ -1,17 +1,18 @@
 import "reflect-metadata";
 import * as bodyParser from "body-parser";
-import {LoggerRoutes} from "./Middlewares/LoggerRoutes";
+import LoggerRoutes from "./Middlewares/LoggerRoutes";
 import {InversifyExpressServer} from "inversify-express-utils";
 import Container from "./inversify.config";
 import "./Api/Handlers/ItemHandler";
 import "./Api/Handlers/UserHandler";
 import "./Api/Handlers/AuthHandler";
+import "./Api/Handlers/RoleHandler";
 import {ErrorHandler} from "./Lib/ErrorHandler";
 import compression from "compression";
 import cors from "cors";
 import helmet from "helmet";
 import config from "../config/config";
-import AuthMiddleware from "./Middlewares/AuthMiddleware";
+import AuthenticationMiddleware from "./Middlewares/AuthenticationMiddleware";
 
 class App
 {
@@ -32,12 +33,11 @@ class App
                 extended: true
             }));
             app.use(bodyParser.json());
-            app.use(LoggerRoutes.log);
+            app.use(LoggerRoutes);
             app.use(compression());
             app.use(cors());
             app.use(helmet());
-            app.use(AuthMiddleware);
-
+            app.use(AuthenticationMiddleware);
         });
         this.server.setErrorConfig((app) =>
         {

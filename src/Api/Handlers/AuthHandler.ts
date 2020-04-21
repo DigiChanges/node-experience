@@ -2,7 +2,7 @@ import {NextFunction, Request, Response} from 'express';
 import { inject } from 'inversify'
 import { TYPES } from "../../types";
 import Responder from "../../Lib/Responder";
-import {controller, httpPost, request, response, next} from 'inversify-express-utils';
+import { controller, httpPost, request, response, next } from 'inversify-express-utils';
 
 import AuthRequest from "../Requests/Auth/AuthRequest";
 import KeepAliveRequest from "../Requests/Auth/KeepAliveRequest";
@@ -12,6 +12,8 @@ import AuthTransformer from "../Transformers/Auth/AuthTransformer";
 import ForgotPasswordRequest from "../Requests/Auth/ForgotPasswordRequest";
 import ValidatorRules from '../../Middlewares/ValidatorRules';
 
+import AuthorizeMiddleware from "../../Middlewares/AuthorizeMiddleware";
+import Permissions from "../Libs/Permissions";
 
 @controller('/api/auth')
 class AuthHandler
@@ -35,18 +37,16 @@ class AuthHandler
         this.responder.send(payload, res, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
 
-    @httpPost('/keepAlive')
+    @httpPost('/keepAlive', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE))
     public async keepAlive (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const keepRequest = new KeepAliveRequest(req);
 
-        const email = keepRequest.email();
-
-        const payload = await this.service.regenerateToken(email);
+        const payload = await this.service.regenerateToken(keepRequest);
 
         this.responder.send(payload, res, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
-    
+
     @httpPost('/forgotPassword', ...ForgotPasswordRequest.validate(), ValidatorRules)
     public async forgotPassword (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {

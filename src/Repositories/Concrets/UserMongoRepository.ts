@@ -32,13 +32,19 @@ class UserMongoRepository implements IUserRepository {
     }
 
     async getOneByEmail(email: string): Promise<User> {
-        const user = await this.repository.findOne({"email": email});
+        try {
+            const user = await this.repository.findOne({"email": email});
 
-        if (!user) {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found')
+            if (!user) {
+                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
+            }
+
+            return user;
+        } catch(e)
+        {
+            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
         }
 
-        return user;
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>

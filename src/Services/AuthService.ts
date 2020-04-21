@@ -9,6 +9,8 @@ import ErrorException from "../Lib/ErrorException";
 import StatusCode from "../Lib/StatusCode";
 import IToken from "../Lib/Auth/IToken";
 import jwt from "jwt-simple";
+import config from "../../config/config";
+import KeepAlivePayload from "../Payloads/Auth/KeepAlivePayload";
 import Config from "../../config/config";
 import ForgotPasswordPayload from "../Payloads/Auth/ForgotPasswordPayload";
 import Mail from "../Lib/Mail/Mail";
@@ -41,17 +43,19 @@ class AuthService
         return await this.tokenFactory.token(user);
     }
 
-    static decodeToken (token: string): any
+    public static decodeToken (token: string): any
     {
         let TokenArray = token.split(" ");
 
         let secret = String(Config.jwt.secret);
         
-        return jwt.decode(TokenArray[1], secret);
+        return jwt.decode(TokenArray[1], secret, false, 'HS512');
     }
 
-    public async regenerateToken (email: string): Promise<IToken>
+    public async regenerateToken (request: KeepAlivePayload): Promise<IToken>
     {
+        const email = request.email();
+
         const user =  await this.repository.getOneByEmail(email);
 
         return await this.tokenFactory.token(user);
@@ -86,10 +90,10 @@ class AuthService
                         </body>
                         </html>`;
         let mail = new Mail(senderName, from, to, cc, subject, html);
-        let sendMailer = await mail.sendMail();       
-        
+        let sendMailer = await mail.sendMail();
+
         return {message: "We've sent you an email"};
-           
+
     }
 
 }

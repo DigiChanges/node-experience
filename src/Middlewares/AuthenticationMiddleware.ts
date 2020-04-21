@@ -3,17 +3,16 @@ import StatusCode from "../Lib/StatusCode";
 import AuthService from "../Services/AuthService";
 import ErrorException from '../Lib/ErrorException';
 
-const AuthMiddleware = (req, res, next) => {
+const AuthenticationMiddleware = (req: any, res: any, next: any) => {
 
     let existMethodAndUrl = false;
-    config.apiWhitelist.forEach(function(conf){
+    config.apiWhitelist.forEach((conf) => {
         if(conf.method.includes(req.method) && conf.url === req.path){
             existMethodAndUrl = true;
             return;
         }
     });
-    
-    if(existMethodAndUrl){
+    if(existMethodAndUrl) {
         next();
     } else {
 
@@ -41,4 +40,4 @@ const AuthMiddleware = (req, res, next) => {
     }
 };
 
-export default AuthMiddleware;
+export default AuthenticationMiddleware;

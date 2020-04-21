@@ -10,7 +10,7 @@ class TokenFactory
     {
         const expires = Number(config.jwt.expires);
         const secret = String(config.jwt.secret);
-        console.log(secret);
+
         return new JWTToken(expires, user, secret);
     };
 }

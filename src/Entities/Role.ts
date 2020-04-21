@@ -8,31 +8,22 @@ import {
 } from "typeorm";
 
 @Entity()
-class User {
+class Role {
 
     @ObjectIdColumn()
     _id: ObjectID;
 
+    @Column()
+    name: string | undefined;
+
     @Column({unique: true})
-    email: string | undefined;
-
-    @Column()
-    password: string | undefined;
-
-    @Column()
-    roles: string[];
-
-    @Column()
-    permissions: string[];
+    slug: string | undefined;
 
     @Column({ default: "true" })
     enable: boolean | undefined;
 
     @Column()
-    confirmationToken: string | undefined;
-
-    @Column()
-    passwordRequestedAt: Date | undefined;
+    permissions: string[];
 
     @CreateDateColumn()
     createdAt: Date | undefined;
@@ -41,4 +32,4 @@ class User {
     updatedAt: Date | undefined;
 }
 
-export default User;
+export default Role;
