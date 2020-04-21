@@ -2,7 +2,7 @@ import { matchedData, validationResult } from 'express-validator';
 
 const ValidatorRules = (req, res, next) => {
     const errors = validationResult(req);
-    // console.log("Dentro de val");
+
     if (errors.isEmpty()) {
         req.matchedData = matchedData(req);
         return next();

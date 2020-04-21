@@ -22,6 +22,9 @@ class Role {
     @Column({ default: "true" })
     enable: boolean | undefined;
 
+    @Column()
+    permissions: string[];
+
     @CreateDateColumn()
     createdAt: Date | undefined;
 

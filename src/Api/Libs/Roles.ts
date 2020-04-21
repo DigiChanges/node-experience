@@ -1,3 +1,4 @@
+import Permissions from "./Permissions";
 
 class Roles
 {
@@ -8,13 +9,13 @@ class Roles
     {
         return {
             [Roles.ADMIN]: [
-                'all'
+                Permissions.ALL
             ],
             [Roles.OPERATOR]: [
-                'items.create',
-                'items.update',
-                'items.show',
-                'items.list',
+                Permissions.ITEMS_SAVE,
+                Permissions.ITEMS_UPDATE,
+                Permissions.ITEMS_SHOW,
+                Permissions.ITEMS_LIST,
             ]
         };
     }

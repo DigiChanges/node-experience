@@ -16,7 +16,11 @@ export class ErrorHandler
             statusCode = StatusCode.HTTP_INTERNAL_SERVER_ERROR;
         }
 
-        logger.error(err.stack);
+        if (statusCode === StatusCode.HTTP_INTERNAL_SERVER_ERROR) {
+            logger.error(err.stack);
+        }
+
+        logger.info(err.stack);
 
         responder.error(formatError.getFormat(message, statusCode), res, statusCode);
     }

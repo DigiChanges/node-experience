@@ -18,6 +18,7 @@ class IdRequest implements IdPayload {
         return [
             param('id')
                 .exists().withMessage("id must exist")
+                .isLength({ min: 24, max:24 })
                 .isString().withMessage("Invalid ID")
         ];
     }

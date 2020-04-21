@@ -22,13 +22,18 @@ class ItemMongoRepository implements IItemRepository {
     }
 
     async findOne(id: string): Promise<Item> {
-        const item = await this.repository.findOne(id);
+        try {
+            const item = await this.repository.findOne(id);
 
-        if (!item) {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Item Not Found')
+            if (!item) {
+                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Item Not Found');
+            }
+
+            return item;
+        } catch(e)
+        {
+            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Item Not Found');
         }
-
-        return item;
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>

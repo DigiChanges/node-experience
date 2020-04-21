@@ -21,6 +21,11 @@ class RoleUpdateRequest implements RoleUpdatePayload
         return this.request.body.slug;
     }
 
+    permissions(): []
+    {
+        return this.request.body.permissions;
+    }
+
     enable(): boolean
     {
         return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
@@ -43,8 +48,12 @@ class RoleUpdateRequest implements RoleUpdatePayload
             body('enable')
                 .optional()
                 .isBoolean().withMessage('enable must be of type boolean'),
+            body('permissions')
+                .optional()
+                .isArray().withMessage('permissions must be of type array'),
             param('id')
                 .exists().withMessage('id mus exist')
+                .isLength({ min: 24, max:24 })
                 .isString().withMessage('id must string type')
         ];
     }

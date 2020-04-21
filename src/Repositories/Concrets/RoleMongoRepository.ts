@@ -21,11 +21,12 @@ class RoleMongoRepository implements IRoleRepository {
         return await this.repository.save(role);
     }
 
-    async findOne(id: string): Promise<Role> {
+    async findOne(id: string): Promise<Role>
+    {
         const role = await this.repository.findOne(id);
 
         if (!role) {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found')
+            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found');
         }
 
         return role;
@@ -55,7 +56,6 @@ class RoleMongoRepository implements IRoleRepository {
 
             Object.assign(filters, {slug: { $regex: slug }});
         }
-
         if (Object.entries(filters))
         {
             cursor.filter(filters);
@@ -74,6 +74,25 @@ class RoleMongoRepository implements IRoleRepository {
         return await this.repository.delete(id);
     }
 
+    async exists(ids: string[]): Promise<boolean>
+    {
+        let exist: boolean  = true;
+
+        const count = ids.length;
+
+        for (let i = 0; i < count; i++)
+        {
+            const role = await this.repository.findOne(ids[i]);
+
+            if (!role)
+            {
+                exist = false;
+                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found: ' + ids[i]);
+            }
+        }
+
+        return exist;
+    }
 }
 
 export default RoleMongoRepository;

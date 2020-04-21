@@ -27,6 +27,7 @@ class RoleService
         const role = new Role();
         role.name = payload.name();
         role.slug = payload.slug();
+        role.permissions = payload.permissions();
         role.enable = payload.enable();
 
         await this.repository.save(role);
@@ -41,6 +42,7 @@ class RoleService
 
         role.name = payload.name();
         role.slug = payload.slug();
+        role.permissions = payload.permissions();
         role.enable = payload.enable();
 
         await this.repository.save(role);

@@ -17,7 +17,7 @@ class JWTToken implements IToken
         this.hash = jwt.encode({
             exp: this.expires,
             email: user.email
-        }, secret);
+        }, secret, 'HS512');
     }
 
     getExpires(): number

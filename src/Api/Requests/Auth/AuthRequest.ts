@@ -26,7 +26,7 @@ class AuthRequest implements AuthPayload
         return [
             body('email')
                 .exists().withMessage('email must exist')
-                .isString().withMessage('email must be of type string'),
+                .isEmail().withMessage('email must be of type string'),
             body('password')
                 .exists().withMessage('password must exist')
                 .isString().withMessage('password must be of type string')

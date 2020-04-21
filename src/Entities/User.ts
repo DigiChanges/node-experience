@@ -19,6 +19,12 @@ class User {
     @Column()
     password: string | undefined;
 
+    @Column()
+    roles: string[];
+
+    @Column()
+    permissions: string[];
+
     @Column({ default: "true" })
     enable: boolean | undefined;
 

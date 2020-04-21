@@ -11,6 +11,8 @@ import RoleUpdateRequest from "../Requests/Roles/RoleUpdateRequest";
 import RoleService from '../../Services/RoleService';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
 import ValidatorRules from "../../Middlewares/ValidatorRules";
+import AuthorizeMiddleware from "../../Middlewares/AuthorizeMiddleware";
+import Permissions from "../Libs/Permissions";
 
 @controller('/api/roles')
 class RoleHandler
@@ -24,7 +26,7 @@ class RoleHandler
         this.responder = responder;
     }
 
-    @httpPost('/', ...RoleRepRequest.validate(), ValidatorRules)
+    @httpPost('/', ...RoleRepRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ROLES_SAVE))
     public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const roleRepRequest = new RoleRepRequest(req);
@@ -33,7 +35,7 @@ class RoleHandler
         this.responder.send(role, res, StatusCode.HTTP_CREATED, new RoleTransformer());
     }
 
-    @httpGet('/')
+    @httpGet('/', AuthorizeMiddleware(Permissions.ROLES_LIST))
     public async list (@request() req: Request, @response() res: Response)
     {
         const roleRequest = new RoleRequestCriteria(req);
@@ -42,7 +44,7 @@ class RoleHandler
         await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
 
-    @httpGet('/:id', ...IdRequest.validate(), ValidatorRules)
+    @httpGet('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ROLES_SHOW))
     public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const roleRequestShow = new IdRequest(req);
@@ -51,7 +53,7 @@ class RoleHandler
         this.responder.send(role, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
 
-    @httpPut('/:id', ...RoleUpdateRequest.validate(), ValidatorRules)
+    @httpPut('/:id', ...RoleUpdateRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ROLES_UPDATE))
     public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const roleRequest = new RoleUpdateRequest(req);
@@ -60,7 +62,7 @@ class RoleHandler
         this.responder.send(role, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
 
-    @httpDelete('/:id', ...IdRequest.validate(), ValidatorRules)
+    @httpDelete('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ROLES_DELETE))
     public async remove (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const roleRequest = new IdRequest(req);

@@ -39,6 +39,7 @@ class ItemUpdateRequest implements ItemUpdatePayload {
                 .isBoolean().withMessage('enable must be of type boolean'),
             param('id')
                 .exists().withMessage('id must exist')
+                .isLength({ min: 24, max:24 })
                 .isString().withMessage('id must string type')
         ];
     }

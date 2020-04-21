@@ -11,6 +11,9 @@ import UserUpdateRequest from "../Requests/Users/UserUpdateRequest";
 import UserService from '../../Services/UserService';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
 import ValidatorRules from "../../Middlewares/ValidatorRules";
+import UserAssignRoleRequest from "../Requests/Users/UserAssignRoleRequest";
+import AuthorizeMiddleware from "../../Middlewares/AuthorizeMiddleware";
+import Permissions from "../Libs/Permissions";
 
 @controller('/api/users')
 class UserHandler
@@ -24,7 +27,7 @@ class UserHandler
         this.responder = responder;
     }
 
-    @httpPost('/', ...UserRepRequest.validate(), ValidatorRules)
+    @httpPost('/', ...UserRepRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_SAVE))
     public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const userRepRequest = new UserRepRequest(req);
@@ -33,7 +36,7 @@ class UserHandler
         this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
-    @httpGet('/')
+    @httpGet('/', AuthorizeMiddleware(Permissions.USERS_LIST))
     public async list (@request() req: Request, @response() res: Response)
     {
         const userRequest = new UserRequestCriteria(req);
@@ -42,7 +45,7 @@ class UserHandler
         await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
-    @httpGet('/:id', ...IdRequest.validate(), ValidatorRules)
+    @httpGet('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_SHOW))
     public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const UserRequestShow = new IdRequest(req);
@@ -51,7 +54,7 @@ class UserHandler
         this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
-    @httpPut('/:id', ...UserUpdateRequest.validate(), ValidatorRules)
+    @httpPut('/:id', ...UserUpdateRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_UPDATE))
     public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const userRequest = new UserUpdateRequest(req);
@@ -60,7 +63,17 @@ class UserHandler
         this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
-    @httpDelete('/:id', ...IdRequest.validate(), ValidatorRules)
+    @httpPut('/assignRole/:id', ...UserAssignRoleRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_ASSIGN_ROLE))
+    public async assignRole (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const userRequest = new UserAssignRoleRequest(req);
+
+        const user = await this.service.assignRole(userRequest);
+
+        this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
+    }
+
+    @httpDelete('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_DELETE))
     public async remove (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const userRequest = new IdRequest(req);

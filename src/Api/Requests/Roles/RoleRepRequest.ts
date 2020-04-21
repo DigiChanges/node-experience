@@ -21,6 +21,11 @@ class RoleRepRequest implements RoleRepPayload
         return this.request.body.slug;
     }
 
+    permissions(): []
+    {
+        return this.request.body.permissions;
+    }
+
     enable(): boolean
     {
         return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
@@ -37,7 +42,10 @@ class RoleRepRequest implements RoleRepPayload
                 .isString().withMessage('slug must be of type string'),
             body('enable')
                 .optional()
-                .isBoolean().withMessage('enable must be of type boolean')
+                .isBoolean().withMessage('enable must be of type boolean'),
+            body('permissions')
+                .optional()
+                .isArray().withMessage('permissions must be of type array')
         ];
     }
 }

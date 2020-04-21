@@ -8,6 +8,10 @@ import IUserRepository from "../Repositories/Contracts/IUserRepository";
 import ICriteria from "../Lib/Contracts/ICriteria";
 import IEncription from "../Lib/Encription/IEncription";
 import {TYPES} from "../types";
+import UserAssignRolePayload from "../Payloads/Users/UserAssignRolePayload";
+import {cat} from "shelljs";
+import ErrorException from "../Lib/ErrorException";
+import StatusCode from "../Lib/StatusCode";
 
 @injectable()
 class UserService
@@ -41,6 +45,18 @@ class UserService
 
         user.email = payload.email();
         user.enable = payload.enable();
+
+        await this.repository.save(user);
+
+        return user;
+    }
+
+    public async assignRole (payload: UserAssignRolePayload): Promise<any>
+    {
+        const id = payload.id();
+        const user = await this.repository.findOne(id);
+
+        user.roles = await payload.rolesId();
 
         await this.repository.save(user);
 
