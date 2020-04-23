@@ -30,6 +30,7 @@
     "@types/jwt-simple": "^0.5.33",
     "@types/moment": "^2.13.0",
     "@types/node": "^13.9.5",
+    "@types/nodemailer": "^6.4.0",
     "@types/pg": "^7.14.1",
     "@types/shelljs": "^0.8.6",
     "@types/yargs": "^15.0.4",
