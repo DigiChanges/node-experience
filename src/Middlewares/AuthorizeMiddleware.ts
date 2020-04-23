@@ -26,7 +26,7 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
 
         let user: User = await userRepository.getOneByEmail(tokentDecode.email);
 
-        const count = user.roles.length;
+        const count = (typeof user.roles === 'undefined') ? 0 : user.roles.length;
 
         for (let i = 0; i < count; i++)
         {
