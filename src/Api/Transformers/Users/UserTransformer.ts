@@ -11,8 +11,11 @@ class UserTransformer extends Transformer
             'email': user.email,
             'enable': user.enable,
             'roles': user.roles,
+            'permissions': user.permissions,
+            'confirmationToken': user.confirmationToken,
+            'passwordRequestedAt': user.passwordRequestedAt,
             'createdAt': moment(user.createdAt).format('DD-MM-YYYY HH:SS'),
-            'updatedAt': moment(user.updatedAt).format('DD-MM-YYYY HH:SS'),
+            'updatedAt': moment(user.updatedAt).format('DD-MM-YYYY HH:SS')
         };
     }
 }

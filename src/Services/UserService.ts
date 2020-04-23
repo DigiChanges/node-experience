@@ -9,9 +9,6 @@ import ICriteria from "../Lib/Contracts/ICriteria";
 import IEncription from "../Lib/Encription/IEncription";
 import {TYPES} from "../types";
 import UserAssignRolePayload from "../Payloads/Users/UserAssignRolePayload";
-import {cat} from "shelljs";
-import ErrorException from "../Lib/ErrorException";
-import StatusCode from "../Lib/StatusCode";
 
 @injectable()
 class UserService
@@ -32,6 +29,10 @@ class UserService
         user.email = payload.email();
         user.password = await this.encryption.encrypt(payload.password());
         user.enable = payload.enable();
+        user.confirmationToken = payload.confirmationToken();
+        user.passwordRequestedAt = payload.passwordRequestedAt();
+        user.permissions = payload.permissions();
+        user.roles = payload.roles();
 
         await this.repository.save(user);
 

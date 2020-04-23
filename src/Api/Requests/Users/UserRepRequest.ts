@@ -31,6 +31,22 @@ class UserRepRequest implements UserRepPayload
         return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
     }
 
+    confirmationToken(): null {
+        return null;
+    }
+
+    passwordRequestedAt(): null {
+        return null;
+    }
+
+    roles(): null {
+        return null;
+    }
+
+    permissions(): null {
+        return null;
+    }
+
     static validate()
     {
         return [
