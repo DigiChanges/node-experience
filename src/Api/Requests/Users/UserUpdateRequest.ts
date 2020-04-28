@@ -11,6 +11,16 @@ class UserUpdateRequest implements UserUpdatePayload
         this.request = request;
     }
 
+    firstName(): string
+    {
+        return this.request.body.firstName;
+    }
+
+    lastName(): string
+    {
+        return this.request.body.lastName;
+    }
+
     email(): string
     {
         return this.request.body.email;
@@ -29,6 +39,12 @@ class UserUpdateRequest implements UserUpdatePayload
     static validate()
     {
         return [
+            body('firstName')
+                .optional()
+                .isString().withMessage('firstName must be of type string'),
+            body('lastName')
+                .optional()
+                .isString().withMessage('lastName must be of type string'),
             body('email')
                 .exists().withMessage('email must exist')
                 .isString().withMessage('email must be of type string'),

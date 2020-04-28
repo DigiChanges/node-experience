@@ -13,7 +13,9 @@
   },
   "jwt": {
     "secret": "mySecretJWT",
-    "expires": 3600
+    "expires": 3600,
+    "iss": "digichanges",
+    "aud": "digichanges.com"
   },
   "mail": {
     "host": "mail",

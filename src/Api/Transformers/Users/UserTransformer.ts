@@ -8,6 +8,8 @@ class UserTransformer extends Transformer
     {
         return {
             'id': user._id,
+            'firstName': user.firstName,
+            'lastName': user.lastName,
             'email': user.email,
             'enable': user.enable,
             'roles': user.roles,

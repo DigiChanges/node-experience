@@ -11,6 +11,14 @@ class UserRepRequest implements UserRepPayload
         this.request = request;
     }
 
+    firstName(): string {
+        return this.request.body.firstName;
+    }
+
+    lastName(): string {
+        return this.request.body.lastName;
+    }
+
     email(): string
     {
         return this.request.body.email;
@@ -50,6 +58,12 @@ class UserRepRequest implements UserRepPayload
     static validate()
     {
         return [
+            body('firstName')
+                .exists().withMessage('firstName must exist')
+                .isString().withMessage('firstName must be of type string'),
+            body('lastName')
+                .exists().withMessage('lastName must exist')
+                .isString().withMessage('lastName must be of type string'),
             body('email')
                 .exists().withMessage('email must exist')
                 .isString().withMessage('email must be of type string'),

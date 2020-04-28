@@ -2,6 +2,7 @@ import moment from "moment";
 import jwt from "jwt-simple";
 import User from "../../Entities/User";
 import IToken from "./IToken";
+import Config from "../../../config/config";
 
 // TODO: Refactoring to remove User entity
 class JWTToken implements IToken
@@ -15,7 +16,12 @@ class JWTToken implements IToken
         this.user = user;
         this.expires = moment().utc().add({ minutes: expires }).unix();
         this.hash = jwt.encode({
+            iss: Config.jwt.iss,
+            aud: Config.jwt.aud,
+            sub: user.email,
+            iat: this.expires,
             exp: this.expires,
+            userId: user._id,
             email: user.email
         }, secret, 'HS512');
     }

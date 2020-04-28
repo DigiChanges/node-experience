@@ -13,6 +13,12 @@ class User {
     @ObjectIdColumn()
     _id: ObjectID;
 
+    @Column()
+    firstName: string | undefined;
+
+    @Column()
+    lastName: string | undefined;
+
     @Column({unique: true})
     email: string | undefined;
 

@@ -9,6 +9,8 @@ class AuthTransformer extends Transformer
         return {
             'user': {
                 'id': token.getUser()._id,
+                'firstName': token.getUser().firstName,
+                'lastName': token.getUser().lastName,
                 'email': token.getUser().email,
                 'enable': token.getUser().enable,
                 'createdAt': moment(token.getUser().createdAt).format('DD-MM-YYYY HH:SS'),

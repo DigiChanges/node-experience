@@ -20,6 +20,8 @@ const config = {
     'jwt': {
         'secret': process.env.JWT_SECRET ? process.env.JWT_SECRET : Config.get('jwt.secret'),
         'expires': process.env.JWT_EXPIRES ? process.env.JWT_EXPIRES : Config.get('jwt.expires'),
+        'iss': process.env.JWT_ISS ? process.env.JWT_ISS : Config.get('jwt.iss'),
+        'aud': process.env.JWT_AUD ? process.env.JWT_AUD : Config.get('jwt.aud')
     },
     'apiWhitelist': [
         {

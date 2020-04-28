@@ -26,6 +26,8 @@ class UserService
     public async save (payload: UserRepPayload): Promise<User>
     {
         const user = new User();
+        user.firstName = payload.firstName();
+        user.lastName = payload.lastName();
         user.email = payload.email();
         user.password = await this.encryption.encrypt(payload.password());
         user.enable = payload.enable();
@@ -44,6 +46,8 @@ class UserService
         const id = payload.id();
         const user = await this.repository.findOne(id);
 
+        user.firstName = payload.firstName();
+        user.lasttName = payload.lastName();
         user.email = payload.email();
         user.enable = payload.enable();
 
