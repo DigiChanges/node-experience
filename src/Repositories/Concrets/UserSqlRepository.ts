@@ -41,6 +41,16 @@ class UserSqlRepository implements IUserRepository {
         return user;
     }
 
+    async getOneByConfirmationToken(confirmationToken: string): Promise<User> {
+        const user = await this.repository.findOne({"confirmationToken": confirmationToken});
+
+        if (!user) {
+            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found')
+        }
+
+        return user;
+    }
+
     async list(criteria: ICriteria): Promise<IPaginator>
     {
         let queryBuilder = await this.repository.createQueryBuilder("i");

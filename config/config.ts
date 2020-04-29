@@ -31,7 +31,11 @@ const config = {
         {
             method: ['POST'],
             url: '/api/auth/forgotPassword'
-        },        
+        },
+        {
+            method: ['POST'],
+            url: '/api/auth/changeForgotPassword'
+        },
         {
             method: ['POST'],
             url: '/api/users'

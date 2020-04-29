@@ -9,10 +9,10 @@ import ErrorException from "../Lib/ErrorException";
 import StatusCode from "../Lib/StatusCode";
 import IToken from "../Lib/Auth/IToken";
 import jwt from "jwt-simple";
-import config from "../../config/config";
 import KeepAlivePayload from "../Payloads/Auth/KeepAlivePayload";
 import Config from "../../config/config";
 import ForgotPasswordPayload from "../Payloads/Auth/ForgotPasswordPayload";
+import ChangeForgotPasswordPayload from "../Payloads/Auth/ChangeForgotPasswordPayload";
 import Mail from "../Lib/Mail/Mail";
 
 @injectable()
@@ -35,7 +35,7 @@ class AuthService
         const password = payload.password();
         const user =  await this.repository.getOneByEmail(email);
 
-        if (!this.encryptionHandler.compare(password, user.password))
+        if (! await this.encryptionHandler.compare(password, user.password))
         {
             throw new ErrorException(StatusCode.HTTP_FORBIDDEN, 'Error credentials');
         }
@@ -56,20 +56,21 @@ class AuthService
     {
         const email = request.email();
 
-        const user =  await this.repository.getOneByEmail(email);
+        const user = await this.repository.getOneByEmail(email);
 
         return await this.tokenFactory.token(user);
     }
 
     public async forgotPassword (payload: ForgotPasswordPayload): Promise<any>
     {
-        const user =  await this.repository.getOneByEmail(payload.email());
+        const user = await this.repository.getOneByEmail(payload.email());
 
         user.confirmationToken = String(await payload.confirmationToken());
         user.passwordRequestedAt = payload.passwordRequestedAT();
 
         let updateUser = await this.repository.update(user);
 
+        let urlConfirmationToken = Config.url.url_web + 'changeForgotPassword/' + user.confirmationToken;
         let senderName = String(Config.mail.senderName);
         let from = String(Config.mail.senderEmailDefault);
         let to = payload.email();
@@ -82,7 +83,7 @@ class AuthService
                         </head>
                         <body>
                             <p>Hello</p>
-                            <p>You can change your pass from this <a href="" target="_blank">link</a></p>
+                            <p>You can change your pass from this <a href="${urlConfirmationToken}" target="_blank">link</a></p>
                             <br>
                             <br>
                             <p>Cheers,</p>
@@ -93,7 +94,20 @@ class AuthService
         let sendMailer = await mail.sendMail();
 
         return {message: "We've sent you an email"};
+    }
 
+    public async changeForgotPassword (payload: ChangeForgotPasswordPayload): Promise<any>
+    {
+        const confirmationToken = payload.confirmationToken();
+
+        const user = await this.repository.getOneByConfirmationToken(confirmationToken);
+        user.confirmationToken = null;
+        user.passwordRequestedAt = null;
+        user.password = await payload.password();
+
+        const userUpdate = await this.repository.update(user);
+
+        return {message: "Your password has been changed"};
     }
 
 }

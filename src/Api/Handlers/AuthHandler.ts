@@ -3,15 +3,14 @@ import { inject } from 'inversify'
 import { TYPES } from "../../types";
 import Responder from "../../Lib/Responder";
 import { controller, httpPost, request, response, next } from 'inversify-express-utils';
-
 import AuthRequest from "../Requests/Auth/AuthRequest";
+import ForgotPasswordRequest from "../Requests/Auth/ForgotPasswordRequest";
+import ChangeForgotPasswordRequest from "../Requests/Auth/ChangeForgotPasswordRequest";
 import KeepAliveRequest from "../Requests/Auth/KeepAliveRequest";
 import AuthService from "../../Services/AuthService";
 import StatusCode from "../../Lib/StatusCode";
 import AuthTransformer from "../Transformers/Auth/AuthTransformer";
-import ForgotPasswordRequest from "../Requests/Auth/ForgotPasswordRequest";
 import ValidatorRules from '../../Middlewares/ValidatorRules';
-
 import AuthorizeMiddleware from "../../Middlewares/AuthorizeMiddleware";
 import Permissions from "../Libs/Permissions";
 
@@ -53,6 +52,16 @@ class AuthHandler
         const forgotRequest = new ForgotPasswordRequest(req);
 
         const payload = await this.service.forgotPassword(forgotRequest);
+
+        this.responder.send(payload, res, StatusCode.HTTP_CREATED, null);
+    }
+
+    @httpPost('/changeForgotPassword', ...ChangeForgotPasswordRequest.validate(), ValidatorRules)
+    public async changeForgotPassword (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const changeForgotPasswordRequest = new ChangeForgotPasswordRequest(req);
+
+        const payload = await this.service.changeForgotPassword(changeForgotPasswordRequest);
 
         this.responder.send(payload, res, StatusCode.HTTP_CREATED, null);
     }

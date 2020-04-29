@@ -47,6 +47,22 @@ class UserMongoRepository implements IUserRepository {
 
     }
 
+    async getOneByConfirmationToken(confirmationToken: string): Promise<User> {
+        try {
+            const user = await this.repository.findOne({"confirmationToken": confirmationToken});
+
+            if (!user) {
+                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
+            }
+
+            return user;
+        } catch(e)
+        {
+            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
+        }
+
+    }
+
     async list(criteria: ICriteria): Promise<IPaginator>
     {
         const count = await this.repository.count();
