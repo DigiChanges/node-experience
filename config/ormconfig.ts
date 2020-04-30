@@ -13,15 +13,15 @@ const config: ConnectionOptions = {
     ],
     synchronize: true,
     migrations: [
-        "../src/Migrations/**/*.ts"
+        process.cwd() + "/src/Migrations/**/*.ts"
     ],
     subscribers: [
-        "../src/Subscribers/**/*.ts"
+        process.cwd() + "/src/Subscribers/**/*.ts"
     ],
     cli: {
-        "entitiesDir": "../src/Entities",
-        "migrationsDir": "../src/Migrations",
-        "subscribersDir": "../src/Subscribers"
+        "entitiesDir": process.cwd() + "/src/Entities",
+        "migrationsDir": process.cwd() + "/src/Migrations",
+        "subscribersDir": process.cwd() + "/src/Subscribers"
     }
 };
 

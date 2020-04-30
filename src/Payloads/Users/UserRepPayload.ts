@@ -5,8 +5,8 @@ interface UserRepPayload {
     password(): string;
     passwordConfirmation(): string;
     enable(): boolean;
-    roles(): null;
-    permissions(): null;
+    roles(): any[];
+    permissions(): any[];
     confirmationToken(): null;
     passwordRequestedAt(): null;
 }

@@ -9,9 +9,10 @@ import ICriteria from "../Lib/Contracts/ICriteria";
 import IEncription from "../Lib/Encription/IEncription";
 import {TYPES} from "../types";
 import UserAssignRolePayload from "../Payloads/Users/UserAssignRolePayload";
+import IUserService from "./Contracts/IUserService";
 
 @injectable()
-class UserService
+class UserService implements IUserService
 {
     private repository: IUserRepository;
     private encryption: IEncription;

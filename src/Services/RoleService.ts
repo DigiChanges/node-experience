@@ -8,9 +8,10 @@ import IRoleRepository from "../Repositories/Contracts/IRoleRepository";
 import ICriteria from "../Lib/Contracts/ICriteria";
 import IEncription from "../Lib/Encription/IEncription";
 import {TYPES} from "../types";
+import IRoleService from "./Contracts/IRoleService";
 
 @injectable()
-class RoleService
+class RoleService implements IRoleService
 {
     private repository: IRoleRepository;
     private encryption: IEncription;

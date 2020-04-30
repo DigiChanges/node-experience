@@ -1,7 +1,7 @@
 interface RoleRepPayload {
     name(): string;
     slug(): string;
-    permissions(): [];
+    permissions(): any[];
     enable(): boolean;
 }
 

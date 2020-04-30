@@ -8,19 +8,20 @@ import ItemRepRequest from "../Requests/Items/ItemRepRequest";
 import IdRequest from "../Requests/Defaults/IdRequest";
 import ItemRequestCriteria from "../Requests/Items/ItemRequestCriteria";
 import ItemUpdateRequest from "../Requests/Items/ItemUpdateRequest";
-import ItemService from '../../Services/ItemService';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
 import ValidatorRules from "../../Middlewares/ValidatorRules";
 import AuthorizeMiddleware from "../../Middlewares/AuthorizeMiddleware";
 import Permissions from "../Libs/Permissions";
+import IItemService from "../../Services/Contracts/IItemService";
+import {SERVICES} from "../../services";
 
 @controller('/api/items')
 class ItemHandler
 {
-    private service: ItemService;
+    private service: IItemService;
     private responder: Responder;
 
-    constructor(@inject(ItemService) service: ItemService, @inject(TYPES.Responder) responder: Responder)
+    constructor(@inject(SERVICES.IItemService) service: IItemService, @inject(TYPES.Responder) responder: Responder)
     {
         this.service = service;
         this.responder = responder;

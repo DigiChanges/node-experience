@@ -22,15 +22,18 @@ import IEncription from "./Lib/Encription/IEncription";
 import Encription from "./Lib/Encription/Encription";
 import IEncriptionStrategy from "./Lib/Encription/IEncriptionStrategy";
 import BcryptEncriptionStrategy from "./Lib/Encription/BcryptEncriptionStrategy";
-
+import IUserService from "./Services/Contracts/IUserService";
+import IRoleService from "./Services/Contracts/IRoleService";
+import {SERVICES} from "./services";
+import IItemService from "./Services/Contracts/IItemService";
 
 const container = new Container();
 
 /* Services */
-container.bind<ItemService>(ItemService).toSelf();
-container.bind<UserService>(UserService).toSelf();
+container.bind<IUserService>(SERVICES.IUserService).to(UserService);
+container.bind<IRoleService>(SERVICES.IRoleService).to(RoleService);
+container.bind<IItemService>(SERVICES.IItemService).to(ItemService);
 container.bind<AuthService>(AuthService).toSelf();
-container.bind<RoleService>(RoleService).toSelf();
 
 /* Libs */
 container.bind<Responder>(TYPES.Responder).to(Responder);

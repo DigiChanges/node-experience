@@ -8,20 +8,21 @@ import UserRepRequest from "../Requests/Users/UserRepRequest";
 import IdRequest from "../Requests/Defaults/IdRequest";
 import UserRequestCriteria from "../Requests/Users/UserRequestCriteria";
 import UserUpdateRequest from "../Requests/Users/UserUpdateRequest";
-import UserService from '../../Services/UserService';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
 import ValidatorRules from "../../Middlewares/ValidatorRules";
 import UserAssignRoleRequest from "../Requests/Users/UserAssignRoleRequest";
 import AuthorizeMiddleware from "../../Middlewares/AuthorizeMiddleware";
 import Permissions from "../Libs/Permissions";
+import {SERVICES} from "../../services";
+import IUserService from "../../Services/Contracts/IUserService";
 
 @controller('/api/users')
 class UserHandler
 {
-    private service: UserService;
+    private service: IUserService;
     private responder: Responder;
 
-    constructor(@inject(UserService) service: UserService, @inject(TYPES.Responder) responder: Responder)
+    constructor(@inject(SERVICES.IUserService) service: IUserService, @inject(TYPES.Responder) responder: Responder)
     {
         this.service = service;
         this.responder = responder;

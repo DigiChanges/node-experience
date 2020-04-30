@@ -8,19 +8,20 @@ import RoleRepRequest from "../Requests/Roles/RoleRepRequest";
 import IdRequest from "../Requests/Defaults/IdRequest";
 import RoleRequestCriteria from "../Requests/Roles/RoleRequestCriteria";
 import RoleUpdateRequest from "../Requests/Roles/RoleUpdateRequest";
-import RoleService from '../../Services/RoleService';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
 import ValidatorRules from "../../Middlewares/ValidatorRules";
 import AuthorizeMiddleware from "../../Middlewares/AuthorizeMiddleware";
 import Permissions from "../Libs/Permissions";
+import {SERVICES} from "../../services";
+import IRoleService from "../../Services/Contracts/IRoleService";
 
 @controller('/api/roles')
 class RoleHandler
 {
-    private service: RoleService;
+    private service: IRoleService;
     private responder: Responder;
 
-    constructor(@inject(RoleService) service: RoleService, @inject(TYPES.Responder) responder: Responder)
+    constructor(@inject(SERVICES.IRoleService) service: IRoleService, @inject(TYPES.Responder) responder: Responder)
     {
         this.service = service;
         this.responder = responder;

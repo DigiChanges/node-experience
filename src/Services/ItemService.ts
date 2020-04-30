@@ -6,9 +6,10 @@ import ItemUpdatePayload from "../Payloads/Items/ItemUpdatePayload";
 import {REPOSITORIES} from "../repositories";
 import IItemRepository from "../Repositories/Contracts/IItemRepository";
 import ICriteria from "../Lib/Contracts/ICriteria";
+import IItemService from "./Contracts/IItemService";
 
 @injectable()
-class ItemService
+class ItemService implements IItemService
 {
     private repository: IItemRepository;
 
