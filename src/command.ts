@@ -8,7 +8,7 @@ import {createConnection} from "typeorm";
 import commander from 'commander';
 
 import config from '../config/ormconfig';
-import logger from "./Lib/Logger";
+import {loggerCli} from "./Lib/Logger";
 
 import AddUserRoleCommand from "./Commands/AddUserRoleCommand";
 import AddUserCommand from "./Commands/AddUserCommand";
@@ -28,7 +28,7 @@ createConnection(config)
 
     })
     .catch( (error) => {
-            logger.info('Error');
-            logger.info(error.message);
+            loggerCli.info('Error');
+            loggerCli.info(error.message);
             exit();
     });

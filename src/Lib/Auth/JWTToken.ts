@@ -1,3 +1,4 @@
+// @ts-ignore
 import moment from "moment";
 import jwt from "jwt-simple";
 import User from "../../Entities/User";

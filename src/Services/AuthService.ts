@@ -70,7 +70,7 @@ class AuthService
 
         let updateUser = await this.repository.update(user);
 
-        let urlConfirmationToken = Config.url.url_web + 'changeForgotPassword/' + user.confirmationToken;
+        let urlConfirmationToken = Config.url.urlWeb + 'changeForgotPassword/' + user.confirmationToken;
         let senderName = String(Config.mail.senderName);
         let from = String(Config.mail.senderEmailDefault);
         let to = payload.email();

@@ -1,7 +1,8 @@
+// @ts-ignore
+import moment from "moment";
 import * as express from "express";
 import ForgotPasswordPayload from "../../../Payloads/Auth/ForgotPasswordPayload";
 import IEncription from "../../../Lib/Encription/IEncription"
-import moment from "moment";
 import {body} from "express-validator";
 import container from "../../../inversify.config";
 

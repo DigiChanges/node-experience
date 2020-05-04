@@ -1,7 +1,6 @@
 import * as express from "express";
 import KeepAlivePayload from "../../../Payloads/Auth/KeepAlivePayload";
 import AuthService from "../../../Services/AuthService";
-import {body} from "express-validator";
 
 class KeepAliveRequest implements KeepAlivePayload
 {

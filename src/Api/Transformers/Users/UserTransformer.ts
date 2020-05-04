@@ -1,5 +1,6 @@
 import Transformer from "../../../Lib/Transformer";
 import User from "../../../Entities/User";
+// @ts-ignore
 import moment from "moment";
 
 class UserTransformer extends Transformer

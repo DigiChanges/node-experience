@@ -1,6 +1,6 @@
 import UserRepPayload from "../Payloads/Users/UserRepPayload";
 import UserCommandRepRequest from "./Requests/UserCommandRepRequest";
-import logger from "../Lib/Logger";
+import { loggerCli } from "../Lib/Logger";
 import commander from "commander";
 import UserServiceFactory from "../Services/Factories/UserServiceFactory";
 
@@ -21,7 +21,7 @@ AddUserCommand
 
             if (user)
             {
-                    logger.info('User created successfully.');
+                loggerCli.info('User created successfully.');
             }
     });
 

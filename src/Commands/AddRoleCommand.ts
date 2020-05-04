@@ -1,4 +1,4 @@
-import logger from "../Lib/Logger";
+import { loggerCli } from "../Lib/Logger";
 import commander from "commander";
 import RoleRepPayload from "../Payloads/Roles/RoleRepPayload";
 import RoleCommandRepRequest from "./Requests/RoleUserCommandRepRequest";
@@ -19,7 +19,7 @@ AddRoleCommand
 
         if (role)
         {
-            logger.info('Role created successfully.');
+            loggerCli.info('Role created successfully.');
         }
     });
 

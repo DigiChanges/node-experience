@@ -11,6 +11,7 @@ const config = {
         'database': process.env.DB_DATABASE ? process.env.DB_DATABASE : Config.get('dbConfig.database'),
         'user': process.env.DB_USER ? process.env.DB_USER : Config.get('dbConfig.user'),
         'password': process.env.DB_PASSWORD ? process.env.DB_PASSWORD : Config.get('dbConfig.password'),
+        'synchronize': process.env.DB_SINCRONIZE === 'true',
     },
     'encryption': {
         'type': 'bcrypt',
@@ -51,8 +52,8 @@ const config = {
         "senderEmailDefault": process.env.SMTP_SENDER_EMAIL_DEFAULT ? process.env.SMTP_SENDER_EMAIL_DEFAULT : Config.get('mail.senderEmailDefault')
     },
     'url':{
-        'url_api': process.env.URL_API ? process.env.URL_API : Config.get('url.url_api'),
-        'url_web': process.env.URL_WEB ? process.env.URL_WEB : Config.get('url.url_web'),
+        'urlApi': process.env.URL_API ? process.env.URL_API : Config.get('url.urlApi'),
+        'urlWeb': process.env.URL_WEB ? process.env.URL_WEB : Config.get('url.urlWeb'),
     }
 };
 

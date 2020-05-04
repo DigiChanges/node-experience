@@ -8,14 +8,14 @@ services:
       context: ./
       dockerfile: Dockerfile
     working_dir: /usr/app
-    entrypoint: bash dev.build.sh
+    entrypoint: bash prod.build.sh
     volumes:
-     - .:/usr/app:cached
-     - node_modules:/usr/app/node_modules:delegated
+      - .:/usr/app:cached
+      - node_modules:/usr/app/node_modules:delegated
     ports:
       - "8089:8089"
     networks:
-     - experiencenet
+      - experiencenet
 
   db:
     container_name: experience_db_1
@@ -35,7 +35,6 @@ services:
 
   mail:
     container_name: experience_mail_1
-    restart: always
     image: mailhog/mailhog:latest
     ports:
       - "8027:8025"
@@ -44,7 +43,6 @@ services:
 
   s3:
     container_name: experience_s3_1
-    restart: always
     image: minio/minio
     ports:
       - "9002:9000"
@@ -68,4 +66,3 @@ volumes:
     driver: "local"
   s3:
     driver: "local"
-             

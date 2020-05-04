@@ -21,7 +21,7 @@ class RoleHandler
     private service: IRoleService;
     private responder: Responder;
 
-    constructor(@inject(SERVICES.IRoleService) service: IRoleService, @inject(TYPES.Responder) responder: Responder)
+    constructor(@inject(SERVICES.IRoleService)service: IRoleService, @inject(TYPES.Responder) responder: Responder)
     {
         this.service = service;
         this.responder = responder;

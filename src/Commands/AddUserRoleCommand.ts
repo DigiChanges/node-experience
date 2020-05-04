@@ -2,7 +2,7 @@ import RoleRepPayload from "../Payloads/Roles/RoleRepPayload";
 import RoleCommandRepRequest from "./Requests/RoleUserCommandRepRequest";
 import UserRepPayload from "../Payloads/Users/UserRepPayload";
 import UserCommandRepRequest from "./Requests/UserCommandRepRequest";
-import logger from "../Lib/Logger";
+import { loggerCli } from "../Lib/Logger";
 import commander from "commander";
 import UserServiceFactory from "../Services/Factories/UserServiceFactory";
 import RoleServiceFactory from "../Services/Factories/RoleServiceFactory";
@@ -29,7 +29,7 @@ AddUserRoleCommand
 
         if (user && role)
         {
-            logger.info('User and Role created successfully.');
+                loggerCli.info('User and Role created successfully.');
         }
     });
 

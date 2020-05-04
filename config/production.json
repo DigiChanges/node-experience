@@ -1,5 +1,5 @@
 {
-  "serverPort": 8089,
+  "serverPort": 80,
   "dbConfig": {
     "host": "localhost",
     "port": 5432,

@@ -1,3 +1,4 @@
+import StatusCode from "./StatusCode";
 
 class FormatError
 {
@@ -6,7 +7,7 @@ class FormatError
         return {
             'status': 'error',
             'code': statusCode,
-            'message': message
+            'message': statusCode === StatusCode.HTTP_INTERNAL_SERVER_ERROR ? 'Internal Error Server' : message
         };
     };
 }

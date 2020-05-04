@@ -1,6 +1,7 @@
+// @ts-ignore
+import moment from "moment";
 import Transformer from "../../../Lib/Transformer";
 import Item from "../../../Entities/Item";
-import moment from "moment";
 
 class ItemTransformer extends Transformer
 {

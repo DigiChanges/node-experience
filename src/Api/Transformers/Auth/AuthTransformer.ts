@@ -1,5 +1,6 @@
-import Transformer from "../../../Lib/Transformer";
+// @ts-ignore
 import moment from "moment";
+import Transformer from "../../../Lib/Transformer";
 import IToken from "../../../Lib/Auth/IToken";
 
 class AuthTransformer extends Transformer

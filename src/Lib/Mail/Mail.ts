@@ -3,8 +3,6 @@ import IMail from "./IMail";
 import config from "../../../config/config";
 import ErrorException from "../ErrorException";
 import StatusCode from "../StatusCode";
-import logger from "../Logger";
-
 
 class Mail implements IMail{
     

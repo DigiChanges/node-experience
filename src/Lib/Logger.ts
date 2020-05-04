@@ -1,27 +1,31 @@
 import * as winston from "winston";
+import loggerOptions from "../../config/loggerOptions";
 
-const logger = winston.createLogger({
-    level: 'info',
-    format: winston.format.json(),
-    // defaultMeta: { service: 'user-service' },
-    transports: [
-        //
-        // - Write all logs with level `error` and below to `error.log`
-        // - Write all logs with level `info` and below to `combined.log`
-        //
-        new winston.transports.File({ filename: 'error.log', level: 'error' }),
-        new winston.transports.File({ filename: 'combined.log', level: 'debug' })
-    ]
+const transportsFile = [
+    new winston.transports.File(loggerOptions.file)
+];
+
+const transportsCli = [
+    new winston.transports.Console(loggerOptions.console)
+];
+
+const exceptionHandlers = [
+    new winston.transports.Console(loggerOptions.console),
+    new winston.transports.File(loggerOptions.file)
+];
+
+export const loggerCli = winston.createLogger({
+    levels: winston.config.syslog.levels,
+    format: winston.format.cli(),
+    exitOnError: false,
+    transports: transportsCli,
+    exceptionHandlers
 });
 
-//
-// If we're not in production then log to the `console` with the format:
-// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-//
-if (process.env.NODE_ENV !== 'production') {
-    logger.add(new winston.transports.Console({
-        format: winston.format.simple()
-    }));
-}
-
-export default logger;
+export const loggerFile = winston.createLogger({
+    levels: winston.config.syslog.levels,
+    format: winston.format.json(),
+    exitOnError: false,
+    transports: transportsFile,
+    exceptionHandlers
+});

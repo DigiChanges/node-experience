@@ -1,7 +1,9 @@
+// @ts-ignore
+import moment from "moment";
 import Responder from "./Responder";
 import StatusCode from "./StatusCode";
 import FormatError from "./FormatError";
-import logger from '../Lib/Logger';
+import {loggerCli, loggerFile} from './Logger';
 
 export class ErrorHandler
 {
@@ -17,10 +19,17 @@ export class ErrorHandler
         }
 
         if (statusCode === StatusCode.HTTP_INTERNAL_SERVER_ERROR) {
-            logger.error(err.stack);
+            const meta = {
+                code: StatusCode.HTTP_INTERNAL_SERVER_ERROR,
+                method: req.method,
+                path: req.path,
+                date: moment().toISOString()
+            };
+
+            loggerFile.error(err.stack, meta);
         }
 
-        logger.info(err.stack);
+        loggerCli.debug(err.stack);
 
         responder.error(formatError.getFormat(message, statusCode), res, statusCode);
     }
