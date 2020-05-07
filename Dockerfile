@@ -13,5 +13,3 @@ RUN chown -R node:node /usr/app
 ENV NPM_CONFIG_LOGLEVEL warn
 
 USER node
-
-RUN yarn

@@ -11,7 +11,6 @@ services:
     entrypoint: bash prod.build.sh
     volumes:
       - .:/usr/app:cached
-      - node_modules:/usr/app/node_modules:delegated
     ports:
       - "8089:8089"
     networks:
@@ -60,8 +59,6 @@ networks:
     driver: "bridge"
 
 volumes:
-  node_modules:
-    driver: "local"
   data:
     driver: "local"
   s3:
