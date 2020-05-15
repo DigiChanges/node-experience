@@ -1,10 +1,10 @@
+import * as express from "express";
 import {inject, injectable} from "inversify";
 import {REPOSITORIES} from "../repositories";
 import IUserRepository from "../Repositories/Contracts/IUserRepository";
 import AuthPayload from "../Payloads/Auth/AuthPayload";
 import TokenFactory from "../Lib/Factories/TokenFactory";
-import IEncription from "../Lib/Encription/IEncription";
-import {TYPES} from "../types";
+import IEncryptionStrategy from "../Lib/Encryption/IEncryptionStrategy";
 import ErrorException from "../Lib/ErrorException";
 import StatusCode from "../Lib/StatusCode";
 import IToken from "../Lib/Auth/IToken";
@@ -14,12 +14,12 @@ import Config from "../../config/config";
 import ForgotPasswordPayload from "../Payloads/Auth/ForgotPasswordPayload";
 import ChangeForgotPasswordPayload from "../Payloads/Auth/ChangeForgotPasswordPayload";
 import Mail from "../Lib/Mail/Mail";
+import EncryptionFactory from "../Lib/Factories/EncryptionFactory";
 
 @injectable()
 class AuthService
 {
-    @inject(TYPES.IEncription)
-    private encryptionHandler: IEncription;
+    private encryption: IEncryptionStrategy;
     private repository: IUserRepository;
     private tokenFactory: TokenFactory;
 
@@ -27,6 +27,7 @@ class AuthService
     {
         this.repository = repository;
         this.tokenFactory = new TokenFactory();
+        this.encryption = EncryptionFactory.create();
     }
 
     public async login (payload: AuthPayload): Promise<IToken>
@@ -35,7 +36,12 @@ class AuthService
         const password = payload.password();
         const user =  await this.repository.getOneByEmail(email);
 
-        if (! await this.encryptionHandler.compare(password, user.password))
+        if(user.enable === false)
+        {
+            throw new ErrorException(StatusCode.HTTP_FORBIDDEN, 'Your user is disable');
+        }
+
+        if (! await this.encryption.compare(password, user.password))
         {
             throw new ErrorException(StatusCode.HTTP_FORBIDDEN, 'Error credentials');
         }
@@ -50,6 +56,21 @@ class AuthService
         let secret = String(Config.jwt.secret);
         
         return jwt.decode(TokenArray[1], secret, false, 'HS512');
+    }
+
+    public static getLoggedId(request: express.Request): string
+    {
+        const tokenDecoded = AuthService.decodeToken(request.get('Authorization'));
+
+        return tokenDecoded.userId;
+    }
+
+
+    public static getLoggedEmail(request: express.Request): string
+    {
+        const tokenDecoded = AuthService.decodeToken(request.get('Authorization'));
+
+        return tokenDecoded.email;
     }
 
     public async regenerateToken (request: KeepAlivePayload): Promise<IToken>

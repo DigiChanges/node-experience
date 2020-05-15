@@ -3,18 +3,20 @@ import Sort from "../../../../Lib/Concrets/Sort";
 class UserSort extends Sort
 {
     static readonly EMAIL: string = 'email';
+    static readonly CREATED_AT: string = 'createdAt';
 
     getFields(): any
     {
         return [
-            UserSort.EMAIL
+            UserSort.EMAIL,
+            UserSort.CREATED_AT
         ];
     }
 
     getDefaultSorts(): any
     {
         return [
-            {[UserSort.EMAIL]: 'asc'}
+            {[UserSort.CREATED_AT]: 'desc'}
         ];
     }
 }

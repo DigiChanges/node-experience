@@ -6,21 +6,20 @@ import RoleUpdatePayload from "../Payloads/Roles/RoleUpdatePayload";
 import {REPOSITORIES} from "../repositories";
 import IRoleRepository from "../Repositories/Contracts/IRoleRepository";
 import ICriteria from "../Lib/Contracts/ICriteria";
-import IEncription from "../Lib/Encription/IEncription";
-import {TYPES} from "../types";
 import IRoleService from "./Contracts/IRoleService";
+import IEncryptionStrategy from "../Lib/Encryption/IEncryptionStrategy";
+import EncryptionFactory from "../Lib/Factories/EncryptionFactory";
 
 @injectable()
 class RoleService implements IRoleService
 {
     private repository: IRoleRepository;
-    private encryption: IEncription;
+    private encryption: IEncryptionStrategy;
 
-    constructor(@inject(REPOSITORIES.IRoleRepository) repository: IRoleRepository,
-                @inject(TYPES.IEncription) encryption: IEncription)
+    constructor(@inject(REPOSITORIES.IRoleRepository) repository: IRoleRepository)
     {
         this.repository = repository;
-        this.encryption = encryption;
+        this.encryption = EncryptionFactory.create();
     }
 
     public async save (payload: RoleRepPayload): Promise<Role>

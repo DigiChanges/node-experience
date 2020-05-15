@@ -32,6 +32,11 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
         {
             const role: Role = await roleRepository.findOne(user.roles[i]);
 
+            if (role.slug === 'admin' || role.slug === 'superadmin')
+            {
+                isAllowed = true; // Refactoring
+            }
+
             if (role.permissions) {
                 role.permissions.map( (rolePermission: string) => rolesPermissions.push(rolePermission));
             }

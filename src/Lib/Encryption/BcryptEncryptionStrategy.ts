@@ -1,13 +1,14 @@
-import IEncriptionStrategy from "./IEncriptionStrategy";
 import config from "../../../config/config";
 import bcrypt from "bcrypt";
-import {injectable} from "inversify";
 import ErrorException from "../ErrorException";
 import StatusCode from "../StatusCode";
+import IEncryptionStrategy from "./IEncryptionStrategy";
 
-@injectable()
-class BcryptEncriptionStrategy implements IEncriptionStrategy
+class BcryptEncryptionStrategy implements IEncryptionStrategy
 {
+
+    private encryptionConfig = config.encryption.bcrypt;
+
     async compare(chain: string, chainHashed: string): Promise<boolean>
     {
         return await bcrypt.compare(chain, chainHashed);
@@ -20,11 +21,11 @@ class BcryptEncriptionStrategy implements IEncriptionStrategy
 
     async encrypt(chain: string): Promise<string>
     {
-        const saltRounds = Number(config.encryption.saltRounds);
+        const saltRounds = Number(this.encryptionConfig.saltRounds);
 
         return await bcrypt.hash(chain, saltRounds);
     }
 
 }
 
-export default BcryptEncriptionStrategy;
+export default BcryptEncryptionStrategy;

@@ -34,6 +34,9 @@ class User {
     @Column({ default: "true" })
     enable: boolean | undefined;
 
+    @Column({ default: "false" })
+    isSuperAdmin: boolean;
+
     @Column()
     confirmationToken: string | undefined;
 

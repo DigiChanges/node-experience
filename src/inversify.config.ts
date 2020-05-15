@@ -18,10 +18,6 @@ import ItemService from "./Services/ItemService";
 import RoleService from "./Services/RoleService";
 import AuthService from "./Services/AuthService";
 
-import IEncription from "./Lib/Encription/IEncription";
-import Encription from "./Lib/Encription/Encription";
-import IEncriptionStrategy from "./Lib/Encription/IEncriptionStrategy";
-import BcryptEncriptionStrategy from "./Lib/Encription/BcryptEncriptionStrategy";
 import IUserService from "./Services/Contracts/IUserService";
 import IRoleService from "./Services/Contracts/IRoleService";
 import {SERVICES} from "./services";
@@ -38,8 +34,6 @@ container.bind<AuthService>(AuthService).toSelf();
 /* Libs */
 container.bind<Responder>(TYPES.Responder).to(Responder);
 container.bind<IFormatResponder>(TYPES.IFormatResponder).to(FormatResponder);
-container.bind<IEncription>(TYPES.IEncription).to(Encription);
-container.bind<IEncriptionStrategy>(TYPES.IEncriptionStrategy).to(BcryptEncriptionStrategy);
 
 /* Repositories */
 container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMongoRepository);

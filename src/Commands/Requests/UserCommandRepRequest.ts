@@ -68,6 +68,10 @@ class UserCommandRepRequest implements UserRepPayload
     {
         return [];
     }
+
+    isSuperAdmin(): boolean {
+        return this.env.isSuperAdmin;
+    }
 }
 
 export default UserCommandRepRequest;

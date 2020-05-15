@@ -1,8 +1,8 @@
 import * as express from "express";
 import ChangeForgotPasswordPayload from "../../../Payloads/Auth/ChangeForgotPasswordPayload";
 import {body} from "express-validator";
-import IEncription from "../../../Lib/Encription/IEncription";
-import container from "../../../inversify.config";
+import IEncryptionStrategy from "../../../Lib/Encryption/IEncryptionStrategy";
+import EncryptionFactory from "../../../Lib/Factories/EncryptionFactory";
 
 class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
 {
@@ -20,9 +20,9 @@ class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
 
     async password(): Promise<string>
     {
-        let encription: IEncription = container.get<IEncription>("IEncription");
+        let encryption: IEncryptionStrategy = EncryptionFactory.create();
 
-        return await encription.encrypt(this.request.body.password);
+        return await encryption.encrypt(this.request.body.password);
     }
 
     passwordConfirmation(): string {
