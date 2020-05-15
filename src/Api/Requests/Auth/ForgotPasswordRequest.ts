@@ -1,10 +1,10 @@
-// @ts-ignore
-import moment from "moment";
 import * as express from "express";
 import ForgotPasswordPayload from "../../../Payloads/Auth/ForgotPasswordPayload";
-import IEncription from "../../../Lib/Encription/IEncription"
+import moment from "moment";
 import {body} from "express-validator";
-import container from "../../../inversify.config";
+import IEncryptionStrategy from "../../../Lib/Encryption/IEncryptionStrategy";
+import EncryptionFactory from "../../../Lib/Factories/EncryptionFactory";
+import Config from "../../../../config/config";
 
 class ForgotPasswordRequest implements ForgotPasswordPayload
 {
@@ -21,11 +21,12 @@ class ForgotPasswordRequest implements ForgotPasswordPayload
     }
 
     async confirmationToken(): Promise<string>
-    { 
-        let encription: IEncription = container.get<IEncription>("IEncription");
+    {
+        let encryption: IEncryptionStrategy = EncryptionFactory.create(Config.encryption.md5.type);
+
         let stringToEncrypt = this.email() + moment().utc().unix();
-                
-        return await encription.encrypt(stringToEncrypt);
+
+        return await encryption.encrypt(stringToEncrypt);
     }
 
     passwordRequestedAT(): Date

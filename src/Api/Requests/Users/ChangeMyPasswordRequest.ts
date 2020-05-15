@@ -1,0 +1,55 @@
+import * as express from "express";
+import ChangeMyPasswordPayload from "../../../Payloads/Users/ChangeMyPasswordPayload";
+import {body, param} from "express-validator";
+import AuthService from "../../../Services/AuthService";
+
+class ChangeMyPasswordRequest implements ChangeMyPasswordPayload
+{
+    private request: express.Request;
+
+    constructor(request: express.Request)
+    {
+        this.request = request;
+    }
+
+    currentPassword(): string
+    {
+        return this.request.body.currentPassword;
+    }
+
+    newPassword(): string
+    {
+        return this.request.body.newPassword;
+    }
+
+    newPasswordConfirmation(): string
+    {
+        return this.request.body.newPasswordConfirmation;
+    }
+
+    id(): string
+    {
+        let tokenDecoded = AuthService.decodeToken(this.request.get('Authorization'));
+
+        return tokenDecoded.userId;
+    }
+
+    static validate()
+    {
+        return [
+            body('currentPassword')
+                .exists().withMessage('currentPassword must exist')
+                .isString().withMessage('currentPassword must be of type string')
+                .custom((value, { req }) => value !== req.body.newPassword).withMessage("CurrentPassword and NewPassword can't be the same"),
+            body('newPassword')
+                .exists().withMessage('newPassword must exist')
+                .isString().withMessage('newPassword must be of type string')
+                .custom((value, { req }) => value === req.body.newPasswordConfirmation).withMessage("newPassword don't match"),
+            body('newPasswordConfirmation')
+                .exists().withMessage('newPasswordConfirmation must exist')
+                .isString().withMessage('newPasswordConfirmation must be of type string')
+        ];
+    }
+}
+
+export default ChangeMyPasswordRequest

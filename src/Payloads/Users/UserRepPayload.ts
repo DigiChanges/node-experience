@@ -9,6 +9,7 @@ interface UserRepPayload {
     permissions(): any[];
     confirmationToken(): null;
     passwordRequestedAt(): null;
+    isSuperAdmin(): boolean;
 }
 
 export default UserRepPayload

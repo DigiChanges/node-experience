@@ -20,6 +20,8 @@ class Permissions
     static readonly USERS_LIST: string = 'usersList';
     static readonly USERS_DELETE: string = 'usersDelete';
     static readonly USERS_ASSIGN_ROLE: string = 'usersAssignRole';
+    static readonly USERS_CHANGE_MY_PASSWORD: string = 'usersChangeMyPassword';
+    static readonly USERS_CHANGE_USER_PASSWORD:string = 'usersChangeUserPassword';
 
     // ROLES
     static readonly ROLES_SAVE: string = 'rolesSave';
@@ -41,6 +43,8 @@ class Permissions
             [Permissions.USERS_SHOW],
             [Permissions.USERS_LIST],
             [Permissions.USERS_DELETE],
+            [Permissions.USERS_CHANGE_MY_PASSWORD],
+            [Permissions.USERS_CHANGE_USER_PASSWORD],
             [Permissions.ROLES_SAVE],
             [Permissions.ROLES_UPDATE],
             [Permissions.ROLES_SHOW],

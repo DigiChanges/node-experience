@@ -13,6 +13,7 @@ AddUserCommand
     .option('-fn, --firstName <firstName>','First Name of the user')
     .option('-ln, --lastName <lastName>','Last Name of the user')
     .option('-p, --password <password>','Password of the user')
+    .option('-isa, --isSuperAdmin <isSuperAdmin>','Set if User is Super Admin')
     .action(async (env) => {
             const userService = UserServiceFactory.create();
 

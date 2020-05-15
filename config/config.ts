@@ -14,10 +14,17 @@ const config = {
         'synchronize': process.env.DB_SINCRONIZE === 'true',
     },
     'encryption': {
-        'type': 'bcrypt',
-        'saltRounds': 10,
-        'algorithm': 'HS512' // TODO: CHANGE hardcording alg
+        "bcrypt":
+            {
+                'type': 'bcrypt',
+                'saltRounds': 10,
+                'algorithm': 'HS512' // TODO: CHANGE hardcording alg
+            },
+        "md5":{
+            'type': 'md5',
+        },
     },
+    'encryptionDefault': process.env.ENCRYPTION_DEFAULT ? process.env.ENCRYPTION_DEFAULT : Config.get('encryptionDefault'),
     'jwt': {
         'secret': process.env.JWT_SECRET ? process.env.JWT_SECRET : Config.get('jwt.secret'),
         'expires': process.env.JWT_EXPIRES ? process.env.JWT_EXPIRES : Config.get('jwt.expires'),
@@ -40,11 +47,11 @@ const config = {
         {
             method: ['POST'],
             url: '/api/users'
-        },        
+        },
     ],
     'mail': {
         'host': process.env.SMTP_HOST ? process.env.SMTP_HOST : Config.get('mail.host'),
-        'port': process.env.SMTP_PORT ? process.env.SMTP_PORT : Config.get('mail.port'),       
+        'port': process.env.SMTP_PORT ? process.env.SMTP_PORT : Config.get('mail.port'),
         'username': process.env.SMTP_USERNAME ? process.env.SMTP_USERNAME : Config.get('mail.username'),
         'password': process.env.SMTP_PASSWORD ? process.env.SMTP_PASSWORD : Config.get('mail.password'),
         "secure": process.env.SMTP_SECURE_SSL ? process.env.SMTP_SECURE_SSL : Config.get('mail.secureSsl'),
@@ -54,6 +61,9 @@ const config = {
     'url':{
         'urlApi': process.env.URL_API ? process.env.URL_API : Config.get('url.urlApi'),
         'urlWeb': process.env.URL_WEB ? process.env.URL_WEB : Config.get('url.urlWeb'),
+    },
+    'productInfo':{
+        'productName': process.env.PRODUCT_NAME ? process.env.PRODUCT_NAME : Config.get('productInfo.productName'),
     }
 };
 

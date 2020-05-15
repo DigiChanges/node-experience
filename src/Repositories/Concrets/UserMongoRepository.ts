@@ -82,6 +82,10 @@ class UserMongoRepository implements IUserRepository {
 
             Object.assign(filters, {email: { $regex: email }});
         }
+        if (filter.has(UserFilter.IS_SUPER_ADMIN)) {
+            let isSuperAdmin = filter.get(UserFilter.IS_SUPER_ADMIN);
+            Object.assign(filters, {isSuperAdmin: {$eq : isSuperAdmin}});
+        }
 
         if (Object.entries(filters))
         {

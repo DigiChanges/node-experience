@@ -55,6 +55,10 @@ class UserRepRequest implements UserRepPayload
         return null;
     }
 
+    isSuperAdmin(): boolean {
+        return false;
+    }
+
     static validate()
     {
         return [

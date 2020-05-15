@@ -15,6 +15,8 @@ import AuthorizeMiddleware from "../../Middlewares/AuthorizeMiddleware";
 import Permissions from "../Libs/Permissions";
 import {SERVICES} from "../../services";
 import IUserService from "../../Services/Contracts/IUserService";
+import ChangeUserPasswordRequest from "../Requests/Users/ChangeUserPasswordRequest";
+import ChangeMyPasswordRequest from "../Requests/Users/ChangeMyPasswordRequest";
 
 @controller('/api/users')
 class UserHandler
@@ -81,6 +83,26 @@ class UserHandler
         const user = await this.service.remove(userRequest);
 
         this.responder.send(user, res, StatusCode.HTTP_OK);
+    }
+
+    @httpPost('/changeMyPassword', ...ChangeMyPasswordRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD))
+    public async changeMyPassword (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const changeMyPasswordRequest = new ChangeMyPasswordRequest(req);
+
+        const payload = await this.service.changeMyPassword(changeMyPasswordRequest);
+
+        this.responder.send(payload, res, StatusCode.HTTP_CREATED, new UserTransformer());
+    }
+
+    @httpPut('/changeUserPassword/:id', ...ChangeUserPasswordRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD))
+    public async changeUserPassword (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const changeUserPasswordRequest = new ChangeUserPasswordRequest(req);
+
+        const payload = await this.service.changeUserPassword(changeUserPasswordRequest);
+
+        this.responder.send(payload, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 }
 

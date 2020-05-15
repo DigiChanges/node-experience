@@ -8,9 +8,16 @@
     "password": "experience"
   },
   "encryption": {
-    "type": "bcrypt",
-    "saltRounds": 10
+    "bcrypt": {
+      "type": "bcrypt",
+      "saltRounds": 10,
+      "algorithm": "HS512"
+    },
+    "md5": {
+      "type": "md5"
+    }
   },
+  "encryptionDefault": "bcrypt",
   "jwt": {
     "secret": "mySecretJWT",
     "expires": 3600,
@@ -29,5 +36,8 @@
   "url":{
     "urlApi": "http://localhost:8089/api/",
     "urlWeb": "http://localhost:3000/"
+  },
+  "productInfo": {
+    "productName": "experience"
   }
 }

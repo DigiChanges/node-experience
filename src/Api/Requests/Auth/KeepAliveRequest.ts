@@ -13,9 +13,7 @@ class KeepAliveRequest implements KeepAlivePayload
 
     email(): string
     {
-        let tokenDecoded = AuthService.decodeToken(this.request.get('Authorization'));
-
-        return tokenDecoded.email;
+        return AuthService.getLoggedEmail(this.request);
     }
 }
 
