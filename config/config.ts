@@ -64,6 +64,12 @@ const config = {
     },
     'productInfo':{
         'productName': process.env.PRODUCT_NAME ? process.env.PRODUCT_NAME : Config.get('productInfo.productName'),
+    },
+    'validationSettings': {
+        'password': {
+            min: 3,
+            max: 15
+        }
     }
 };
 

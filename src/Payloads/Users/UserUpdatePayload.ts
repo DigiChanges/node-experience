@@ -2,10 +2,10 @@ import IdPayload from "../Defaults/IdPayload";
 
 interface UserUpdatePayload extends IdPayload
 {
-    firstName(): string;
-    lastName(): string;
+    firstName(): string | null;
+    lastName(): string | null;
     email(): string;
-    enable(): boolean;
+    enable(): boolean | null;
 }
 
 export default UserUpdatePayload

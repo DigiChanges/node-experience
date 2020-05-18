@@ -27,15 +27,19 @@ class UserUpdateRequest implements UserUpdatePayload
         return this.request.body.email;
     }
 
-    enable(): boolean
+    enable(): boolean | null
     {
+        if(!this.request.body.hasOwnProperty('enable')){
+            return null;
+        }
+
         const userId = AuthService.getLoggedId(this.request);
 
         // The logged user cant disable to himself.
         if(userId === this.id()){
             return true;
         }
-        return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
+        return this.request.body.enable;
     }
 
     id(): string
@@ -47,14 +51,14 @@ class UserUpdateRequest implements UserUpdatePayload
     {
         return [
             body('firstName')
-                .optional()
+                .isLength({ min: 3, max: 50 }).withMessage("firstName can\'t be empty")
                 .isString().withMessage('firstName must be of type string'),
             body('lastName')
-                .optional()
+                .isLength({ min: 3, max: 50 }).withMessage("lastName can\'t be empty")
                 .isString().withMessage('lastName must be of type string'),
             body('email')
                 .exists().withMessage('email must exist')
-                .isString().withMessage('email must be of type string'),
+                .isEmail().withMessage('email must be a valid email'),
             body('enable')
                 .optional()
                 .isBoolean().withMessage('enable must be of type boolean'),
