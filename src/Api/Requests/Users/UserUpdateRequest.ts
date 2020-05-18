@@ -12,14 +12,14 @@ class UserUpdateRequest implements UserUpdatePayload
         this.request = request;
     }
 
-    firstName(): string | null
+    firstName(): string
     {
-        return this.request.body.hasOwnProperty('firstName') ? this.request.body.firstName : null;
+        return this.request.body.firstName;
     }
 
-    lastName(): string | null
+    lastName(): string
     {
-        return this.request.body.hasOwnProperty('lastName') ? this.request.body.lastName : null;
+        return this.request.body.lastName;
     }
 
     email(): string
@@ -51,11 +51,9 @@ class UserUpdateRequest implements UserUpdatePayload
     {
         return [
             body('firstName')
-                .optional()
                 .isLength({ min: 3, max: 50 }).withMessage("firstName can\'t be empty")
                 .isString().withMessage('firstName must be of type string'),
             body('lastName')
-                .optional()
                 .isLength({ min: 3, max: 50 }).withMessage("lastName can\'t be empty")
                 .isString().withMessage('lastName must be of type string'),
             body('email')

@@ -68,13 +68,8 @@ class UserService implements IUserService
             }
         }
 
-        if(payload.firstName() !== null){
-            user.firstName = payload.firstName();
-        }
-
-        if(payload.lastName() !== null){
-            user.lastName = payload.lastName();
-        }
+        user.firstName = payload.firstName();
+        user.lastName = payload.lastName();
 
         if(enable !== null){
             user.enable = enable;
