@@ -57,7 +57,7 @@ class UserService implements IUserService
         const user = await this.repository.findOne(id);
         const enable = payload.enable();
 
-        if(typeof user.roles !== 'undefined'){
+        if(typeof user.roles !== 'undefined' && enable !== null){
             let checkRole: CheckUserRolePayload = {
                 roleToCheck: Roles.SUPER_ADMIN.toLocaleLowerCase(),
                 user
@@ -68,10 +68,19 @@ class UserService implements IUserService
             }
         }
 
-        user.firstName = payload.firstName();
-        user.lasttName = payload.lastName();
+        if(payload.firstName() !== null){
+            user.firstName = payload.firstName();
+        }
+
+        if(payload.lastName() !== null){
+            user.lastName = payload.lastName();
+        }
+
+        if(enable !== null){
+            user.enable = enable;
+        }
+
         user.email = payload.email();
-        user.enable = enable;
 
         await this.repository.save(user);
 
