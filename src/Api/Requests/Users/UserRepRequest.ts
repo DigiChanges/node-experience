@@ -1,7 +1,7 @@
 import * as express from "express";
 import UserRepPayload from "../../../Payloads/Users/UserRepPayload";
 import {body} from "express-validator";
-import config from "../../../../config/config";
+import Config from "config";
 
 class UserRepRequest implements UserRepPayload
 {
@@ -76,12 +76,12 @@ class UserRepRequest implements UserRepPayload
                 .isEmail().withMessage('email must be a valid email'),
             body('password')
                 .exists().withMessage('password must exist')
-                .isLength({ min: config.validationSettings.password.min, max: config.validationSettings.password.max }).withMessage("password can\'t be empty")
+                .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("password can\'t be empty")
                 .isString().withMessage('password must be of type string')
                 .custom((value, { req }) => value === req.body.passwordConfirmation).withMessage("password don't match"),
             body('passwordConfirmation')
                 .exists().withMessage('passwordConfirmation must exist')
-                .isLength({ min: config.validationSettings.password.min, max: config.validationSettings.password.max }).withMessage("passwordConfirmation can\'t be empty")
+                .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("passwordConfirmation can\'t be empty")
                 .isString().withMessage('passwordConfirmation must be of type string'),
             body('enable')
                 .optional()

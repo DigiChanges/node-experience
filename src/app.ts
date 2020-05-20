@@ -10,10 +10,10 @@ import {ErrorHandler} from "./Lib/ErrorHandler";
 import compression from "compression";
 import cors from "cors";
 import helmet from "helmet";
-import config from "../config/config";
 import AuthenticationMiddleware from "./Middlewares/AuthenticationMiddleware";
 import LoggerWinston from "./Middlewares/LoggerWinston";
 import {loggerCli} from "./Lib/Logger";
+import Config from "config";
 
 class App
 {
@@ -22,7 +22,7 @@ class App
 
     constructor()
     {
-        this.port = Number(config.serverPort || 8090); // default port to listen;
+        this.port = (Config.get('serverPort') || 8090); // default port to listen;
         this.server = new InversifyExpressServer(Container);
     }
 

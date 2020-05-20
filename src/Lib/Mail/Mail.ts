@@ -1,17 +1,17 @@
 import nodemailer from "nodemailer";
 import IMail from "./IMail";
-import config from "../../../config/config";
+import Config from "config";
 import ErrorException from "../ErrorException";
 import StatusCode from "../StatusCode";
 
-class Mail implements IMail{
-    
-    private senderName: string;
-    private from: string;
-    private to: string;
-    private cc: string;
-    private subject: string;
-    private html: string;
+class Mail implements IMail
+{
+    private readonly senderName: string;
+    private readonly from: string;
+    private readonly to: string;
+    private readonly cc: string;
+    private readonly subject: string;
+    private readonly html: string;
 
     constructor(senderName: string, from: string, to: string, cc: string, subject: string, html: string)
     {
@@ -55,18 +55,20 @@ class Mail implements IMail{
 
     async sendMail(): Promise<any>
     {
+        const host: string = Config.get('mail.host');
+        const port: number = Config.get('mail.port');
+        const secure: boolean = Config.get('mail.secure');
 
-        let smtpConfig = {
-            host: String(config.mail.host),
-            port: Number(config.mail.port),
-            secure: config.mail.secure === 'false' ? false : true
-        };
+        console.log("MAIL");
+        console.log(secure);
+
+        let smtpConfig = {host, port, secure};
 
         if(smtpConfig.secure){
             const auth = {
                             auth: {
-                                    user: String(config.mail.username),
-                                    pass: String(config.mail.password)
+                                    user: String(Config.get('mail.username')),
+                                    pass: String(Config.get('mail.password'))
                                 }
                         };
             Object.assign(smtpConfig, auth);

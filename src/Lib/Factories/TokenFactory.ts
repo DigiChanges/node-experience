@@ -1,4 +1,4 @@
-import config from "../../../config/config";
+import Config from "config";
 import User from "../../Entities/User";
 import JWTToken from "../Auth/JWTToken";
 import IToken from "../Auth/IToken";
@@ -8,8 +8,8 @@ class TokenFactory
 {
     public token(user: User): IToken
     {
-        const expires = Number(config.jwt.expires);
-        const secret = String(config.jwt.secret);
+        const expires: number = Config.get('jwt.expires');
+        const secret: string = Config.get('jwt.secret');
 
         return new JWTToken(expires, user, secret);
     };

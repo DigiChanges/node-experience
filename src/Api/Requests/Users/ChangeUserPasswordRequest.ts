@@ -1,7 +1,7 @@
 import * as express from "express";
 import ChangeUserPasswordPayload from "../../../Payloads/Users/ChangeUserPasswordPayload";
 import {body, param} from "express-validator";
-import config from "../../../../config/config";
+import Config from "config";
 
 class ChangeUserPasswordRequest implements ChangeUserPasswordPayload
 {
@@ -32,12 +32,12 @@ class ChangeUserPasswordRequest implements ChangeUserPasswordPayload
         return [
             body('newPassword')
                 .exists().withMessage('newPassword must exist')
-                .isLength({ min: config.validationSettings.password.min, max: config.validationSettings.password.max }).withMessage("newPassword can\'t be empty")
+                .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("newPassword can\'t be empty")
                 .isString().withMessage('newPassword must be of type string')
                 .custom((value, { req }) => value === req.body.newPasswordConfirmation).withMessage("newPassword don't match"),
             body('newPasswordConfirmation')
                 .exists().withMessage('newPasswordConfirmation must exist')
-                .isLength({ min: config.validationSettings.password.min, max: config.validationSettings.password.max }).withMessage("newPasswordConfirmation can\'t be empty")
+                .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("newPasswordConfirmation can\'t be empty")
                 .isString().withMessage('newPasswordConfirmation must be of type string'),
             param('id')
                 .exists().withMessage('id must exist')

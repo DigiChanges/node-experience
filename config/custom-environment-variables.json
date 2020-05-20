@@ -1,0 +1,33 @@
+{
+  "env": "NODE_ENV",
+  "serverPort": "SERVER_PORT",
+  "dbConfig": {
+    "host": "DB_HOST",
+    "port": "DB_PORT",
+    "username": "DB_USER",
+    "password": "DB_PASSWORD",
+    "database": "DB_DATABASE"
+  },
+  "jwt": {
+    "secret": "JWT_SECRET",
+    "expires": "JWT_EXPIRES",
+    "iss": "JWT_ISS",
+    "aud": "JWT_AUD"
+  },
+  "mail": {
+    "host": "SMTP_HOST",
+    "port": "SMTP_PORT",
+    "username": "SMTP_USERNAME",
+    "password": "SMTP_PASSWORD",
+    "senderName": "SMTP_SENDERNAME",
+    "senderEmailDefault": "SMTP_SENDER_EMAIL_DEFAULT"
+  },
+  "productInfo":{
+    "productName": "PRODUCT_NAME"
+  },
+  "encryptionDefault": "ENCRYPTION_DEFAULT",
+  "url": {
+    "urlApi": "URL_API",
+    "urlWeb": "URL_WEB"
+  }
+}

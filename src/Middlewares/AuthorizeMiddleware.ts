@@ -9,6 +9,7 @@ import IRoleRepository from "../Repositories/Contracts/IRoleRepository";
 import IUserRepository from "../Repositories/Contracts/IUserRepository";
 import UserRepoFactory from "../Repositories/Factories/UserRepoFactory";
 import RoleRepoFactory from "../Repositories/Factories/RoleRepoFactory";
+import Roles from "../Api/Libs/Roles";
 
 // TODO: Refactor. 1. Remove hardcording of repositories and set logic with isAllowed to disable authorization
 const AuthorizeMiddleware = (...handlerPermissions: any) =>
@@ -32,7 +33,7 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
         {
             const role: Role = await roleRepository.findOne(user.roles[i]);
 
-            if (role.slug === 'admin' || role.slug === 'superadmin')
+            if (role.slug === Roles.ADMIN.toLocaleLowerCase() || role.slug === Roles.SUPER_ADMIN.toLocaleLowerCase())
             {
                 isAllowed = true; // Refactoring
             }

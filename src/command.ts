@@ -7,14 +7,16 @@ process.env.SUPPRESS_NO_CONFIG_WARNING = 'y'
 import {createConnection} from "typeorm";
 import commander from 'commander';
 
-import config from '../config/ormconfig';
+import Config from 'config';
 import {loggerCli} from "./Lib/Logger";
 
 import AddUserRoleCommand from "./Commands/AddUserRoleCommand";
 import AddUserCommand from "./Commands/AddUserCommand";
 import AddRoleCommand from "./Commands/AddRoleCommand";
 
-createConnection(config)
+const configDb: any = Config.get('dbConfig');
+
+createConnection({...configDb})
     .then(async ()=> {
 
         const program = commander.program;

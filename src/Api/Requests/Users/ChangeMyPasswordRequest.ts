@@ -1,8 +1,8 @@
 import * as express from "express";
 import ChangeMyPasswordPayload from "../../../Payloads/Users/ChangeMyPasswordPayload";
-import {body, param} from "express-validator";
+import {body} from "express-validator";
 import AuthService from "../../../Services/AuthService";
-import config from "../../../../config/config";
+import Config from "config";
 
 class ChangeMyPasswordRequest implements ChangeMyPasswordPayload
 {
@@ -40,17 +40,17 @@ class ChangeMyPasswordRequest implements ChangeMyPasswordPayload
         return [
             body('currentPassword')
                 .exists().withMessage('currentPassword must exist')
-                .isLength({ min: config.validationSettings.password.min, max: config.validationSettings.password.max }).withMessage("currentPassword can\'t be empty")
+                .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("currentPassword can\'t be empty")
                 .isString().withMessage('currentPassword must be of type string')
                 .custom((value, { req }) => value !== req.body.newPassword).withMessage("CurrentPassword and NewPassword can't be the same"),
             body('newPassword')
                 .exists().withMessage('newPassword must exist')
-                .isLength({ min: config.validationSettings.password.min, max: config.validationSettings.password.max }).withMessage("newPassword can\'t be empty")
+                .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("newPassword can\'t be empty")
                 .isString().withMessage('newPassword must be of type string')
                 .custom((value, { req }) => value === req.body.newPasswordConfirmation).withMessage("newPassword don't match"),
             body('newPasswordConfirmation')
                 .exists().withMessage('newPasswordConfirmation must exist')
-                .isLength({ min: config.validationSettings.password.min, max: config.validationSettings.password.max }).withMessage("newPasswordConfirmation can\'t be empty")
+                .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("newPasswordConfirmation can\'t be empty")
                 .isString().withMessage('newPasswordConfirmation must be of type string')
         ];
     }

@@ -10,7 +10,7 @@ import StatusCode from "../Lib/StatusCode";
 import IToken from "../Lib/Auth/IToken";
 import jwt from "jwt-simple";
 import KeepAlivePayload from "../Payloads/Auth/KeepAlivePayload";
-import Config from "../../config/config";
+import Config from "config";
 import ForgotPasswordPayload from "../Payloads/Auth/ForgotPasswordPayload";
 import ChangeForgotPasswordPayload from "../Payloads/Auth/ChangeForgotPasswordPayload";
 import Mail from "../Lib/Mail/Mail";
@@ -46,14 +46,14 @@ class AuthService
             throw new ErrorException(StatusCode.HTTP_FORBIDDEN, 'Error credentials');
         }
         
-        return await this.tokenFactory.token(user);
+        return this.tokenFactory.token(user);
     }
 
     public static decodeToken (token: string): any
     {
         let TokenArray = token.split(" ");
 
-        let secret = String(Config.jwt.secret);
+        let secret: string = Config.get('jwt.secret');
         
         return jwt.decode(TokenArray[1], secret, false, 'HS512');
     }
@@ -79,7 +79,7 @@ class AuthService
 
         const user = await this.repository.getOneByEmail(email);
 
-        return await this.tokenFactory.token(user);
+        return this.tokenFactory.token(user);
     }
 
     public async forgotPassword (payload: ForgotPasswordPayload): Promise<any>
@@ -89,16 +89,16 @@ class AuthService
         user.confirmationToken = String(await payload.confirmationToken());
         user.passwordRequestedAt = payload.passwordRequestedAT();
 
-        let updateUser = await this.repository.update(user);
+        await this.repository.update(user);
 
-        let urlConfirmationToken = Config.url.urlWeb + 'changeForgotPassword/' + user.confirmationToken;
-        let senderName = String(Config.mail.senderName);
-        let from = String(Config.mail.senderEmailDefault);
+        let urlConfirmationToken: string = Config.get('url.urlWeb') + 'changeForgotPassword/' + user.confirmationToken;
+        let senderName: string = Config.get('mail.senderName');
+        let from: string = Config.get('mail.senderEmailDefault');
         let to = payload.email();
         let cc = "";
         let subject = "Password Recovery";
         let html = `<!DOCTYPE html>
-                        <html>
+                        <html lang="en">
                         <head>
                             <title></title>
                         </head>
@@ -126,7 +126,7 @@ class AuthService
         user.passwordRequestedAt = null;
         user.password = await payload.password();
 
-        const userUpdate = await this.repository.update(user);
+        await this.repository.update(user);
 
         return {message: "Your password has been changed"};
     }

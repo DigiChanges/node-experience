@@ -1,7 +1,7 @@
 import * as express from "express";
 import {body} from "express-validator";
 import AuthPayload from "../../../Payloads/Auth/AuthPayload";
-import config from "../../../../config/config";
+import Config from "config";
 
 class AuthRequest implements AuthPayload
 {
@@ -30,7 +30,7 @@ class AuthRequest implements AuthPayload
                 .isEmail().withMessage('email must be a valid email'),
             body('password')
                 .exists().withMessage('password must exist')
-                .isLength({ min: config.validationSettings.password.min, max: config.validationSettings.password.max }).withMessage("password can\'t be empty")
+                .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("password can\'t be empty")
                 .isString().withMessage('password must be of type string')
         ];
     }

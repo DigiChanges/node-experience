@@ -1,24 +1,23 @@
-// @ts-ignore
 import moment from "moment";
 import jwt from "jwt-simple";
 import User from "../../Entities/User";
 import IToken from "./IToken";
-import Config from "../../../config/config";
+import Config from "config";
 
 // TODO: Refactoring to remove User entity
 class JWTToken implements IToken
 {
-    private expires: number;
-    private hash: string;
-    private user: User;
+    private readonly expires: number;
+    private readonly hash: string;
+    private readonly user: User;
 
     constructor(expires: number, user: User, secret: string)
     {
         this.user = user;
         this.expires = moment().utc().add({ minutes: expires }).unix();
         this.hash = jwt.encode({
-            iss: Config.jwt.iss,
-            aud: Config.jwt.aud,
+            iss: Config.get('jwt.iss'),
+            aud: Config.get('jwt.aud'),
             sub: user.email,
             iat: this.expires,
             exp: this.expires,

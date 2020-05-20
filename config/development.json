@@ -1,6 +1,6 @@
 {
-  "env": "production",
-  "serverPort": 80,
+  "env": "development",
+  "serverPort": 8089,
   "dbConfig": {
     "type": "mongodb",
     "host": "localhost",
@@ -12,13 +12,13 @@
     "migrationsRun": false,
     "logging": true,
     "entities": [
-      "dist/src/Entities/*{.ts,.js}"
+      "src/Entities/*.ts"
     ],
     "migrations": [
-      "dist/src/Migrations/**/*{.ts,.js}"
+      "src/Migrations/**/*.ts"
     ],
     "subscribers": [
-      "dist/src/Subscribers/**/*{.ts,.js}"
+      "src/Subscribers/**/*.ts"
     ],
     "cli": {
       "entitiesDir": "/src/Entities",
@@ -48,7 +48,7 @@
     "port": 1025,
     "username": "",
     "password": "",
-    "secure":false,
+    "secure": false,
     "senderName": "Notifications",
     "senderEmailDefault": "notification@localhost.com"
   },

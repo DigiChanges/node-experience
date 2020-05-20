@@ -1,4 +1,4 @@
-import config from "../../../config/config";
+import Config from "config";
 import bcrypt from "bcrypt";
 import ErrorException from "../ErrorException";
 import StatusCode from "../StatusCode";
@@ -6,9 +6,6 @@ import IEncryptionStrategy from "./IEncryptionStrategy";
 
 class BcryptEncryptionStrategy implements IEncryptionStrategy
 {
-
-    private encryptionConfig = config.encryption.bcrypt;
-
     async compare(chain: string, chainHashed: string): Promise<boolean>
     {
         return await bcrypt.compare(chain, chainHashed);
@@ -21,7 +18,7 @@ class BcryptEncryptionStrategy implements IEncryptionStrategy
 
     async encrypt(chain: string): Promise<string>
     {
-        const saltRounds = Number(this.encryptionConfig.saltRounds);
+        const saltRounds: number = Config.get('encryption.bcrypt.saltRounds');
 
         return await bcrypt.hash(chain, saltRounds);
     }

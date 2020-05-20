@@ -1,13 +1,15 @@
-import config from "../../config/config";
+import Config from "config";
 import StatusCode from "../Lib/StatusCode";
 import AuthService from "../Services/AuthService";
 import ErrorException from '../Lib/ErrorException';
 
-const AuthenticationMiddleware = (req: any, res: any, next: any) => {
-
+const AuthenticationMiddleware = (req: any, res: any, next: any) =>
+{
     let existMethodAndUrl = false;
-    config.apiWhitelist.forEach((conf) => {
-        if(conf.method.includes(req.method) && conf.url === req.path){
+    const apiWhitelist:any[] = Config.get('apiWhitelist');
+
+    apiWhitelist.forEach((conf) => {
+        if(conf.method.includes(req.method) && conf.url === req.path) {
             existMethodAndUrl = true;
             return;
         }

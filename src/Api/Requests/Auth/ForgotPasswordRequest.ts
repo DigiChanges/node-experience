@@ -4,7 +4,7 @@ import moment from "moment";
 import {body} from "express-validator";
 import IEncryptionStrategy from "../../../Lib/Encryption/IEncryptionStrategy";
 import EncryptionFactory from "../../../Lib/Factories/EncryptionFactory";
-import Config from "../../../../config/config";
+import Config from "config";
 
 class ForgotPasswordRequest implements ForgotPasswordPayload
 {
@@ -22,7 +22,7 @@ class ForgotPasswordRequest implements ForgotPasswordPayload
 
     async confirmationToken(): Promise<string>
     {
-        let encryption: IEncryptionStrategy = EncryptionFactory.create(Config.encryption.md5.type);
+        let encryption: IEncryptionStrategy = EncryptionFactory.create(Config.get('encryption.md5.type'));
 
         let stringToEncrypt = this.email() + moment().utc().unix();
 
