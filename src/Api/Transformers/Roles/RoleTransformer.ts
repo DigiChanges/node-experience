@@ -1,11 +1,11 @@
 // @ts-ignore
 import moment from "moment";
 import Transformer from "../../../Lib/Transformer";
-import Role from "../../../Entities/Role";
+import IRole from "../../../Entities/Contracts/IRole";
 
 class RoleTransformer extends Transformer
 {
-    public transform(role: Role)
+    public transform(role: IRole)
     {
         return {
             'id': role._id,

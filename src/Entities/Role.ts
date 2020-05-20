@@ -6,10 +6,11 @@ import {
     ObjectIdColumn,
     ObjectID
 } from "typeorm";
+import IRole from "./Contracts/IRole";
 
 @Entity()
-class Role {
-
+class Role implements IRole
+{
     @ObjectIdColumn()
     _id: ObjectID;
 

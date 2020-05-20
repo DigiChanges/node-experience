@@ -9,6 +9,7 @@ import ICriteria from "../Lib/Contracts/ICriteria";
 import IRoleService from "./Contracts/IRoleService";
 import IEncryptionStrategy from "../Lib/Encryption/IEncryptionStrategy";
 import EncryptionFactory from "../Lib/Factories/EncryptionFactory";
+import IRole from "../Entities/Contracts/IRole";
 
 @injectable()
 class RoleService implements IRoleService
@@ -22,7 +23,7 @@ class RoleService implements IRoleService
         this.encryption = EncryptionFactory.create();
     }
 
-    public async save (payload: RoleRepPayload): Promise<Role>
+    public async save (payload: RoleRepPayload): Promise<IRole>
     {
         const role = new Role();
         role.name = payload.name();
@@ -35,10 +36,10 @@ class RoleService implements IRoleService
         return role;
     }
 
-    public async update (payload: RoleUpdatePayload): Promise<Role>
+    public async update (payload: RoleUpdatePayload): Promise<IRole>
     {
         const id = payload.id();
-        let role = await this.repository.findOne(id);
+        let role: IRole = await this.repository.findOne(id);
 
         role.name = payload.name();
         role.slug = payload.slug();
@@ -55,7 +56,7 @@ class RoleService implements IRoleService
         return await this.repository.list(criteria);
     }
 
-    public async getOne (payload: IdPayload): Promise<Role>
+    public async getOne (payload: IdPayload): Promise<IRole>
     {
         const id = payload.id();
         return await this.repository.findOne(id);

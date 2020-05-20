@@ -1,11 +1,11 @@
 // @ts-ignore
 import moment from "moment";
 import Transformer from "../../../Lib/Transformer";
-import Item from "../../../Entities/Item";
+import IItem from "../../../Entities/Contracts/IItem";
 
 class ItemTransformer extends Transformer
 {
-    public transform(item: Item)
+    public transform(item: IItem)
     {
         return {
           'id': item._id,

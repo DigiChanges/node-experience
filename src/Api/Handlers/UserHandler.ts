@@ -17,6 +17,7 @@ import {SERVICES} from "../../services";
 import IUserService from "../../Services/Contracts/IUserService";
 import ChangeUserPasswordRequest from "../Requests/Users/ChangeUserPasswordRequest";
 import ChangeMyPasswordRequest from "../Requests/Users/ChangeMyPasswordRequest";
+import IUser from "../../Entities/Contracts/IUser";
 
 @controller('/api/users')
 class UserHandler
@@ -34,7 +35,7 @@ class UserHandler
     public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const userRepRequest = new UserRepRequest(req);
-        const user = await this.service.save(userRepRequest);
+        const user: IUser = await this.service.save(userRepRequest);
 
         this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
@@ -52,7 +53,7 @@ class UserHandler
     public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const UserRequestShow = new IdRequest(req);
-        const user = await this.service.getOne(UserRequestShow);
+        const user: IUser = await this.service.getOne(UserRequestShow);
 
         this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -61,7 +62,7 @@ class UserHandler
     public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const userRequest = new UserUpdateRequest(req);
-        const user = await this.service.update(userRequest);
+        const user: IUser = await this.service.update(userRequest);
 
         this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -71,7 +72,7 @@ class UserHandler
     {
         const userRequest = new UserAssignRoleRequest(req);
 
-        const user = await this.service.assignRole(userRequest);
+        const user: IUser = await this.service.assignRole(userRequest);
 
         this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -80,7 +81,7 @@ class UserHandler
     public async remove (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const userRequest = new IdRequest(req);
-        const user = await this.service.remove(userRequest);
+        const user: IUser = await this.service.remove(userRequest);
 
         this.responder.send(user, res, StatusCode.HTTP_OK);
     }
@@ -90,9 +91,9 @@ class UserHandler
     {
         const changeMyPasswordRequest = new ChangeMyPasswordRequest(req);
 
-        const payload = await this.service.changeMyPassword(changeMyPasswordRequest);
+        const user: IUser = await this.service.changeMyPassword(changeMyPasswordRequest);
 
-        this.responder.send(payload, res, StatusCode.HTTP_CREATED, new UserTransformer());
+        this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
     @httpPut('/changeUserPassword/:id', ...ChangeUserPasswordRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD))
@@ -100,9 +101,9 @@ class UserHandler
     {
         const changeUserPasswordRequest = new ChangeUserPasswordRequest(req);
 
-        const payload = await this.service.changeUserPassword(changeUserPasswordRequest);
+        const user: IUser = await this.service.changeUserPassword(changeUserPasswordRequest);
 
-        this.responder.send(payload, res, StatusCode.HTTP_CREATED, new UserTransformer());
+        this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 }
 

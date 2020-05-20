@@ -14,6 +14,7 @@ import AuthorizeMiddleware from "../../Middlewares/AuthorizeMiddleware";
 import Permissions from "../Libs/Permissions";
 import {SERVICES} from "../../services";
 import IRoleService from "../../Services/Contracts/IRoleService";
+import IRole from "../../Entities/Contracts/IRole";
 
 @controller('/api/roles')
 class RoleHandler
@@ -31,7 +32,7 @@ class RoleHandler
     public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const roleRepRequest = new RoleRepRequest(req);
-        const role = await this.service.save(roleRepRequest);
+        const role: IRole = await this.service.save(roleRepRequest);
 
         this.responder.send(role, res, StatusCode.HTTP_CREATED, new RoleTransformer());
     }
@@ -49,7 +50,7 @@ class RoleHandler
     public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const roleRequestShow = new IdRequest(req);
-        const role = await this.service.getOne(roleRequestShow);
+        const role: IRole = await this.service.getOne(roleRequestShow);
 
         this.responder.send(role, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
@@ -58,7 +59,7 @@ class RoleHandler
     public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const roleRequest = new RoleUpdateRequest(req);
-        const role = await this.service.update(roleRequest);
+        const role: IRole = await this.service.update(roleRequest);
 
         this.responder.send(role, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
@@ -67,7 +68,7 @@ class RoleHandler
     public async remove (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const roleRequest = new IdRequest(req);
-        const role = await this.service.remove(roleRequest);
+        const role: IRole = await this.service.remove(roleRequest);
 
         this.responder.send(role, res, StatusCode.HTTP_OK);
     }

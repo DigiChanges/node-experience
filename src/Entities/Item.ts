@@ -7,9 +7,11 @@ import {
     ObjectID
 } from "typeorm";
 
-@Entity()
-class Item {
+import IItem from "./Contracts/IItem";
 
+@Entity()
+class Item implements IItem
+{
     @ObjectIdColumn()
     _id: ObjectID;
 

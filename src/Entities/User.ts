@@ -6,10 +6,11 @@ import {
     ObjectIdColumn,
     ObjectID
 } from "typeorm";
+import IUser from "./Contracts/IUser";
 
 @Entity()
-class User {
-
+class User implements IUser
+{
     @ObjectIdColumn()
     _id: ObjectID;
 

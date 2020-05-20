@@ -1,11 +1,11 @@
-import Transformer from "../../../Lib/Transformer";
-import User from "../../../Entities/User";
 // @ts-ignore
 import moment from "moment";
+import Transformer from "../../../Lib/Transformer";
+import IUser from "../../../Entities/Contracts/IUser";
 
 class UserTransformer extends Transformer
 {
-    public transform(user: User)
+    public transform(user: IUser)
     {
         return {
             'id': user._id,

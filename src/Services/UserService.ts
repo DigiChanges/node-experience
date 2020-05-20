@@ -19,6 +19,7 @@ import IRoleRepository from "../Repositories/Contracts/IRoleRepository";
 import RoleRepoFactory from "../Repositories/Factories/RoleRepoFactory";
 import Role from "../Entities/Role";
 import Roles from "../Api/Libs/Roles";
+import IUser from "../Entities/Contracts/IUser";
 
 @injectable()
 class UserService implements IUserService
@@ -32,9 +33,9 @@ class UserService implements IUserService
         this.encryption = EncryptionFactory.create();
     }
 
-    public async save (payload: UserRepPayload): Promise<User>
+    public async save (payload: UserRepPayload): Promise<IUser>
     {
-        const user = new User();
+        const user: IUser = new User();
         user.firstName = payload.firstName();
         user.lastName = payload.lastName();
         user.email = payload.email();
@@ -54,7 +55,7 @@ class UserService implements IUserService
     public async update (payload: UserUpdatePayload): Promise<User>
     {
         const id = payload.id();
-        const user = await this.repository.findOne(id);
+        const user: IUser = await this.repository.findOne(id);
         const enable = payload.enable();
 
         if(typeof user.roles !== 'undefined' && enable !== null){
@@ -82,7 +83,7 @@ class UserService implements IUserService
         return user;
     }
 
-    public async assignRole (payload: UserAssignRolePayload): Promise<any>
+    public async assignRole (payload: UserAssignRolePayload): Promise<IUser>
     {
         const id = payload.id();
         const user = await this.repository.findOne(id);
@@ -99,7 +100,7 @@ class UserService implements IUserService
         return await this.repository.list(criteria);
     }
 
-    public async getOne (payload: IdPayload): Promise<User>
+    public async getOne (payload: IdPayload): Promise<IUser>
     {
         const id = payload.id();
         return await this.repository.findOne(id);
@@ -111,7 +112,7 @@ class UserService implements IUserService
         return await this.repository.delete(id);
     }
 
-    public async changeMyPassword(payload: ChangeMyPasswordPayload): Promise<User>
+    public async changeMyPassword(payload: ChangeMyPasswordPayload): Promise<IUser>
     {
         const id = payload.id();
         const user = await this.repository.findOne(id);
@@ -126,10 +127,10 @@ class UserService implements IUserService
         return user;
     }
 
-    public async changeUserPassword (payload: ChangeUserPasswordPayload): Promise<User>
+    public async changeUserPassword (payload: ChangeUserPasswordPayload): Promise<IUser>
     {
         const id = payload.id();
-        const user = await this.repository.findOne(id);
+        const user: IUser = await this.repository.findOne(id);
 
         user.password = await this.encryption.encrypt(payload.newPassword());
 

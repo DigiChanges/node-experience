@@ -14,6 +14,7 @@ import AuthorizeMiddleware from "../../Middlewares/AuthorizeMiddleware";
 import Permissions from "../Libs/Permissions";
 import IItemService from "../../Services/Contracts/IItemService";
 import {SERVICES} from "../../services";
+import IItem from "../../Entities/Contracts/IItem";
 
 @controller('/api/items')
 class ItemHandler
@@ -31,7 +32,7 @@ class ItemHandler
     public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const itemRepRequest = new ItemRepRequest(req);
-        const item = await this.service.save(itemRepRequest);
+        const item: IItem = await this.service.save(itemRepRequest);
 
         this.responder.send(item, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
@@ -49,7 +50,7 @@ class ItemHandler
     public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const itemRequestShow = new IdRequest(req);
-        const item = await this.service.getOne(itemRequestShow);
+        const item: IItem = await this.service.getOne(itemRequestShow);
 
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
@@ -58,7 +59,7 @@ class ItemHandler
     public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const itemRequest = new ItemUpdateRequest(req);
-        const item = await this.service.update(itemRequest);
+        const item: IItem = await this.service.update(itemRequest);
 
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
@@ -67,7 +68,7 @@ class ItemHandler
     public async remove (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const itemRequest = new IdRequest(req);
-        const item = await this.service.remove(itemRequest);
+        const item: IItem = await this.service.remove(itemRequest);
 
         this.responder.send(item, res, StatusCode.HTTP_OK);
     }

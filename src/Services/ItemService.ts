@@ -7,6 +7,7 @@ import {REPOSITORIES} from "../repositories";
 import IItemRepository from "../Repositories/Contracts/IItemRepository";
 import ICriteria from "../Lib/Contracts/ICriteria";
 import IItemService from "./Contracts/IItemService";
+import IItem from "../Entities/Contracts/IItem";
 
 @injectable()
 class ItemService implements IItemService
@@ -18,9 +19,8 @@ class ItemService implements IItemService
         this.repository = repository;
     }
 
-    public async save (payload: ItemRepPayload): Promise<Item>
+    public async save (payload: ItemRepPayload): Promise<IItem>
     {
-
         const item = new Item();
         item.name = payload.name();
         item.type = payload.type();
@@ -31,7 +31,7 @@ class ItemService implements IItemService
         return item;
     }
 
-    public async update (payload: ItemUpdatePayload): Promise<Item>
+    public async update (payload: ItemUpdatePayload): Promise<IItem>
     {
         const id = payload.id();
         const item = await this.repository.findOne(id);
@@ -50,7 +50,7 @@ class ItemService implements IItemService
         return await this.repository.list(criteria);
     }
 
-    public async getOne (payload: IdPayload): Promise<Item>
+    public async getOne (payload: IdPayload): Promise<IItem>
     {
         const id = payload.id();
         return await this.repository.findOne(id);
