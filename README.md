@@ -1,6 +1,6 @@
 # Welcome to Node Experience!
 
-Hi! Node experience it's a set of tools together for a simple projects with an architecture like an MVC.
+Hi! Node experience it's a boilerplate with many tools together for a simple basic project with an architecture like an MVC and Clean Architectures like Hexagonal.
 
 **Tools:**
 * Bcrypt
@@ -18,7 +18,7 @@ Hi! Node experience it's a set of tools together for a simple projects with an a
 * Jsonwebtoken
 * Moment
 * MongoDB
-* NodeJS 10v
+* NodeJS 12v
 * Nodemailer
 * Npx
 * PM2
@@ -30,10 +30,14 @@ Hi! Node experience it's a set of tools together for a simple projects with an a
 * Winston
 
 Execute DEV Environment
-- docker-compose up --build -d
+- **docker-compose up --build -d**
+- Also, you could use **make dev**
 
 Execute PROD Environment
 - docker-compose -f docker-compose.prod.yml up --build
+
+Execute TEST Environment (Experimental)
+- **make test**
 
 TODO: Started
 TODO: Handlers

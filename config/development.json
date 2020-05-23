@@ -3,10 +3,10 @@
   "serverPort": 8089,
   "dbConfig": {
     "type": "mongodb",
-    "host": "localhost",
-    "port": 5432,
+    "host": "db",
+    "port": 27017,
     "database": "experience",
-    "user": "experience",
+    "username": "experience",
     "password": "experience",
     "synchronize": true,
     "migrationsRun": false,

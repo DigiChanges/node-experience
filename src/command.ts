@@ -4,7 +4,7 @@ import {exit} from "shelljs";
 
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y'
 
-import {createConnection} from "typeorm";
+import {ConnectionOptions, createConnection} from "typeorm";
 import commander from 'commander';
 
 import Config from 'config';
@@ -14,9 +14,9 @@ import AddUserRoleCommand from "./Commands/AddUserRoleCommand";
 import AddUserCommand from "./Commands/AddUserCommand";
 import AddRoleCommand from "./Commands/AddRoleCommand";
 
-const configDb: any = Config.get('dbConfig');
+const db: ConnectionOptions = Config.get('dbConfig');
 
-createConnection({...configDb})
+createConnection(db)
     .then(async ()=> {
 
         const program = commander.program;
