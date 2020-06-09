@@ -1,10 +1,10 @@
 {
-  "env": "production",
-  "serverPort": 80,
+  "env": "test",
+  "serverPort": 8089,
   "dbConfig": {
     "type": "mongodb",
-    "host": "localhost",
-    "port": 5432,
+    "host": "db",
+    "port": 27017,
     "database": "experience",
     "username": "experience",
     "password": "experience",
@@ -12,18 +12,18 @@
     "migrationsRun": false,
     "logging": true,
     "entities": [
-      "dist/src/Entities/*{.ts,.js}"
+      "./dist/src/Entities/**/*.js"
     ],
     "migrations": [
-      "dist/src/Migrations/**/*{.ts,.js}"
+      "./dist/src/Migrations/**/*.js"
     ],
     "subscribers": [
-      "dist/src/Subscribers/**/*{.ts,.js}"
+      "./dist/src/Subscribers/**/*.js"
     ],
     "cli": {
-      "entitiesDir": "/src/Entities",
-      "migrationsDir": "/src/Migrations",
-      "subscribersDir": "/src/Subscribers"
+      "entitiesDir": "./src/Entities",
+      "migrationsDir": "./src/Migrations",
+      "subscribersDir": "./src/Subscribers"
     }
   },
   "encryption": {
@@ -48,7 +48,7 @@
     "port": 1025,
     "username": "",
     "password": "",
-    "secure":false,
+    "secure": false,
     "senderName": "Notifications",
     "senderEmailDefault": "notification@localhost.com"
   },

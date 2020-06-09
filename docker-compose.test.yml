@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  node:
+    container_name: experience_test_node_1
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    working_dir: /usr/app
+    entrypoint: bash test.build.sh
+    volumes:
+     - .:/usr/app:cached
+    networks:
+     - experiencenet
+
+  db:
+    container_name: experience_test_db_1
+    restart: always
+    build:
+      context: docker/mongo/
+      dockerfile: Dockerfile
+    environment:
+      MONGODB_ROOT_PASSWORD: 123456
+      MONGODB_USERNAME: experience
+      MONGODB_PASSWORD: experience
+      MONGODB_DATABASE: experience
+    networks:
+      - experiencenet
+
+  mail:
+    container_name: experience_test_mail_1
+    restart: always
+    image: mailhog/mailhog:latest
+    networks:
+      - experiencenet
+
+networks:
+  experiencenet:
+    driver: "bridge"
