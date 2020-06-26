@@ -1,5 +1,5 @@
 import Config from "config";
-import User from "../../Entities/User";
+import User from "../../Infrastructure/Entities/User";
 import JWTToken from "../Auth/JWTToken";
 import IToken from "../Auth/IToken";
 

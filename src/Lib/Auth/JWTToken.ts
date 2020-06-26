@@ -1,6 +1,6 @@
 import moment from "moment";
 import jwt from "jwt-simple";
-import User from "../../Entities/User";
+import User from "../../Infrastructure/Entities/User";
 import IToken from "./IToken";
 import Config from "config";
 

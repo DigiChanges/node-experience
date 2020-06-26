@@ -12,18 +12,18 @@
     "migrationsRun": false,
     "logging": true,
     "entities": [
-      "dist/src/Entities/*{.ts,.js}"
+      "dist/src/Infrastructure/Entities/*{.ts,.js}"
     ],
     "migrations": [
-      "dist/src/Migrations/**/*{.ts,.js}"
+      "dist/src/Infrastructure/Migrations/**/*{.ts,.js}"
     ],
     "subscribers": [
-      "dist/src/Subscribers/**/*{.ts,.js}"
+      "dist/src/Infrastructure/Subscribers/**/*{.ts,.js}"
     ],
     "cli": {
-      "entitiesDir": "/src/Entities",
-      "migrationsDir": "/src/Migrations",
-      "subscribersDir": "/src/Subscribers"
+      "entitiesDir": "/src/Infrastructure/Entities",
+      "migrationsDir": "/src/Infrastructure/Migrations",
+      "subscribersDir": "/src/Infrastructure/Subscribers"
     }
   },
   "encryption": {

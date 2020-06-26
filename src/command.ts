@@ -10,9 +10,9 @@ import commander from 'commander';
 import Config from 'config';
 import {loggerCli} from "./Lib/Logger";
 
-import AddUserRoleCommand from "./Commands/AddUserRoleCommand";
-import AddUserCommand from "./Commands/AddUserCommand";
-import AddRoleCommand from "./Commands/AddRoleCommand";
+import AddUserRoleCommand from "./Application/Commands/AddUserRoleCommand";
+import AddUserCommand from "./Application/Commands/AddUserCommand";
+import AddRoleCommand from "./Application/Commands/AddRoleCommand";
 
 const db: ConnectionOptions = Config.get('dbConfig');
 
