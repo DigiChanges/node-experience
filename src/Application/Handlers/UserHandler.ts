@@ -1,41 +1,53 @@
 import {NextFunction, Request, Response} from 'express';
-import { inject } from 'inversify'
-import StatusCode from "../../Lib/StatusCode";
+import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
+
+import {lazyInject} from "../../inversify.config";
 import { TYPES } from "../../types";
+import {SERVICES} from "../../services";
+import StatusCode from "../../Lib/StatusCode";
 import Responder from "../../Lib/Responder";
+
+import ValidatorRules from "../Middlewares/ValidatorRules";
+import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
+import Permissions from "../../../config/Permissions";
+
 import UserTransformer from "../Transformers/Users/UserTransformer";
+
 import UserRepRequest from "../Requests/Users/UserRepRequest";
 import IdRequest from "../Requests/Defaults/IdRequest";
 import UserRequestCriteria from "../Requests/Users/UserRequestCriteria";
 import UserUpdateRequest from "../Requests/Users/UserUpdateRequest";
-import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
-import ValidatorRules from "../Middlewares/ValidatorRules";
 import UserAssignRoleRequest from "../Requests/Users/UserAssignRoleRequest";
-import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
-import Permissions from "../../../config/Permissions";
-import {SERVICES} from "../../services";
-import IUserService from "../../InterfaceAdapters/IServices/IUserService";
 import ChangeUserPasswordRequest from "../Requests/Users/ChangeUserPasswordRequest";
 import ChangeMyPasswordRequest from "../Requests/Users/ChangeMyPasswordRequest";
+
+import IUserService from "../../InterfaceAdapters/IServices/IUserService";
 import IUser from "../../InterfaceAdapters/IEntities/IUser";
+import IPaginator from "../../Lib/Contracts/IPaginator";
+
+import GetUserUseCase from "../../Domain/UseCases/User/GetUserUseCase";
+import ListUsersUseCase from "../../Domain/UseCases/User/ListUsersUseCase";
+import SaveUserUseCase from "../../Domain/UseCases/User/SaveUserUseCase";
+import AssignRoleUseCase from "../../Domain/UseCases/User/AssignRoleUseCase";
+import RemoveUserUseCase from "../../Domain/UseCases/User/RemoveUserUseCase";
+import ChangeMyPasswordUseCase from "../../Domain/UseCases/User/ChangeMyPasswordUseCase";
+import ChangeUserPasswordUseCase from "../../Domain/UseCases/User/ChangeUserPasswordUseCase";
 
 @controller('/api/users')
 class UserHandler
 {
+    @lazyInject(SERVICES.IUserService)
     private service: IUserService;
+    @lazyInject(TYPES.Responder)
     private responder: Responder;
-
-    constructor(@inject(SERVICES.IUserService) service: IUserService, @inject(TYPES.Responder) responder: Responder)
-    {
-        this.service = service;
-        this.responder = responder;
-    }
 
     @httpPost('/', ...UserRepRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_SAVE))
     public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const userRepRequest = new UserRepRequest(req);
-        const user: IUser = await this.service.save(userRepRequest);
+        const _request = new UserRepRequest(req);
+        const saveUserUseCase = new SaveUserUseCase();
+
+        const user: IUser = await saveUserUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
@@ -43,8 +55,10 @@ class UserHandler
     @httpGet('/', AuthorizeMiddleware(Permissions.USERS_LIST))
     public async list (@request() req: Request, @response() res: Response)
     {
-        const userRequest = new UserRequestCriteria(req);
-        const paginator = await this.service.list(userRequest);
+        const _request = new UserRequestCriteria(req);
+        const listUsersUseCase = new ListUsersUseCase();
+
+        const paginator: IPaginator = await listUsersUseCase.handle(_request);
 
         await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -52,8 +66,10 @@ class UserHandler
     @httpGet('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_SHOW))
     public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const UserRequestShow = new IdRequest(req);
-        const user: IUser = await this.service.getOne(UserRequestShow);
+        const _request = new IdRequest(req);
+        const getUserUseCase = new GetUserUseCase();
+
+        const user: IUser = await getUserUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -61,8 +77,10 @@ class UserHandler
     @httpPut('/:id', ...UserUpdateRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_UPDATE))
     public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const userRequest = new UserUpdateRequest(req);
-        const user: IUser = await this.service.update(userRequest);
+        const _request = new UserUpdateRequest(req);
+        const getUserUseCase = new GetUserUseCase();
+
+        const user: IUser = await getUserUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -70,9 +88,10 @@ class UserHandler
     @httpPut('/assignRole/:id', ...UserAssignRoleRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_ASSIGN_ROLE))
     public async assignRole (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const userRequest = new UserAssignRoleRequest(req);
+        const _request = new UserAssignRoleRequest(req);
+        const assignRoleUseCase = new AssignRoleUseCase();
 
-        const user: IUser = await this.service.assignRole(userRequest);
+        const user: IUser = await assignRoleUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -80,18 +99,21 @@ class UserHandler
     @httpDelete('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_DELETE))
     public async remove (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const userRequest = new IdRequest(req);
-        const user: IUser = await this.service.remove(userRequest);
+        const _request = new IdRequest(req);
+        const removeUserUseCase = new RemoveUserUseCase();
 
-        this.responder.send(user, res, StatusCode.HTTP_OK);
+        const data = await removeUserUseCase.handle(_request);
+
+        this.responder.send(data, res, StatusCode.HTTP_OK);
     }
 
     @httpPost('/changeMyPassword', ...ChangeMyPasswordRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD))
     public async changeMyPassword (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const changeMyPasswordRequest = new ChangeMyPasswordRequest(req);
+        const _request = new ChangeMyPasswordRequest(req);
+        const changeMyPasswordUseCase = new ChangeMyPasswordUseCase();
 
-        const user: IUser = await this.service.changeMyPassword(changeMyPasswordRequest);
+        const user: IUser = await changeMyPasswordUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
@@ -99,9 +121,10 @@ class UserHandler
     @httpPut('/changeUserPassword/:id', ...ChangeUserPasswordRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD))
     public async changeUserPassword (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const changeUserPasswordRequest = new ChangeUserPasswordRequest(req);
+        const _request = new ChangeUserPasswordRequest(req);
+        const changeUserPasswordUseCase = new ChangeUserPasswordUseCase();
 
-        const user: IUser = await this.service.changeUserPassword(changeUserPasswordRequest);
+        const user: IUser = await changeUserPasswordUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }

@@ -34,10 +34,10 @@ class RoleHandler
     @httpPost('/', ...RoleRepRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ROLES_SAVE))
     public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const roleRepRequest = new RoleRepRequest(req);
+        const _request = new RoleRepRequest(req);
         const saveRoleUseCase = new SaveRoleUseCase();
 
-        const role: IRole = await saveRoleUseCase.handle(roleRepRequest);
+        const role: IRole = await saveRoleUseCase.handle(_request);
 
         this.responder.send(role, res, StatusCode.HTTP_CREATED, new RoleTransformer());
     }
@@ -45,10 +45,10 @@ class RoleHandler
     @httpGet('/', AuthorizeMiddleware(Permissions.ROLES_LIST))
     public async list (@request() req: Request, @response() res: Response)
     {
-        const roleRequest = new RoleRequestCriteria(req);
+        const _request = new RoleRequestCriteria(req);
         const listRolesUseCase = new ListRolesUseCase();
 
-        const paginator: IPaginator = await listRolesUseCase.handle(roleRequest);
+        const paginator: IPaginator = await listRolesUseCase.handle(_request);
 
         await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
@@ -56,10 +56,10 @@ class RoleHandler
     @httpGet('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ROLES_SHOW))
     public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const roleRequestShow = new IdRequest(req);
+        const _request = new IdRequest(req);
         const getRoleUseCase = new GetRoleUseCase();
 
-        const role: IRole = await getRoleUseCase.handle(roleRequestShow);
+        const role: IRole = await getRoleUseCase.handle(_request);
 
         this.responder.send(role, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
@@ -67,10 +67,10 @@ class RoleHandler
     @httpPut('/:id', ...RoleUpdateRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ROLES_UPDATE))
     public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const roleRequest = new RoleUpdateRequest(req);
+        const _request = new RoleUpdateRequest(req);
         const getRoleUseCase = new GetRoleUseCase();
 
-        const role: IRole = await getRoleUseCase.handle(roleRequest);
+        const role: IRole = await getRoleUseCase.handle(_request);
 
         this.responder.send(role, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
@@ -78,10 +78,10 @@ class RoleHandler
     @httpDelete('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ROLES_DELETE))
     public async remove (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const roleRequest = new IdRequest(req);
+        const _request = new IdRequest(req);
         const removeRoleUseCase = new RemoveRoleUseCase();
 
-        const data = await removeRoleUseCase.handle(roleRequest);
+        const data = await removeRoleUseCase.handle(_request);
 
         this.responder.send(data, res, StatusCode.HTTP_OK);
     }
