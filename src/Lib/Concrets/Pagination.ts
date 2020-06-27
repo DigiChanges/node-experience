@@ -1,14 +1,16 @@
 import IPagination from "../Contracts/IPagination";
 import * as express from "express";
+import Config from "config";
 // import querystring from "querystring"; // TODO: Encapsulate and separet on an lib to create new functionality
 
 class Pagination implements IPagination
 {
-    private limit: number;
-    private offset: number;
+    private readonly limit: number;
+    private readonly offset: number;
     private request: express.Request;
     private exist: boolean = false;
     private pagination: any;
+    private readonly host: string;
 
     constructor(request: express.Request)
     {
@@ -17,6 +19,7 @@ class Pagination implements IPagination
         this.limit = request.query.hasOwnProperty('pagination') ? Number(this.pagination.limit) : 10;
         this.offset = request.query.hasOwnProperty('pagination') ? Number(this.pagination.offset) : 0;
         this.exist = request.query.hasOwnProperty('pagination');
+        this.host = Config.get('url.urlApi');
     }
 
     getLimit(): number
@@ -31,7 +34,7 @@ class Pagination implements IPagination
 
     getCurrentUrl(): string
     {
-        return this.exist ? this.request.get('host') + this.request.url : '';
+        return this.exist ? this.host + this.request.url.replace("/api/", "") : '';
     }
 
     // TODO: Refactoring with querystrings to reform query without harcoding URI
@@ -43,7 +46,7 @@ class Pagination implements IPagination
         {
             let offset = this.offset + this.limit;
 
-            url = this.request.get('host') + this.request.url;
+            url = this.host + this.request.url.replace("/api/", "");
             const searchValue = 'pagination[offset]=' + this.pagination.offset;
             const newValue = 'pagination[offset]=' + offset;
 
