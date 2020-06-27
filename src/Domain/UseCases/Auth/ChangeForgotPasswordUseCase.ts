@@ -8,9 +8,9 @@ class ChangeForgotPasswordUseCase
     @lazyInject(SERVICES.IAuthService)
     private service: IAuthService;
 
-    async handle(data: ChangeForgotPasswordPayload)
+    async handle(payload: ChangeForgotPasswordPayload)
     {
-        return await this.service.changeForgotPassword(data);
+        return await this.service.changeForgotPassword(payload);
     }
 }
 

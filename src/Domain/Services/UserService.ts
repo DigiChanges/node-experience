@@ -83,11 +83,8 @@ class UserService implements IUserService
         return user;
     }
 
-    public async assignRole (payload: UserAssignRolePayload): Promise<IUser>
+    public async assignRole (payload: UserAssignRolePayload, user: IUser): Promise<IUser>
     {
-        const id = payload.id();
-        const user = await this.repository.findOne(id);
-
         user.roles = await payload.rolesId();
 
         await this.repository.save(user);

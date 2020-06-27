@@ -6,6 +6,7 @@ import UserRepPayload from "../Payloads/Users/UserRepPayload";
 import ChangeMyPasswordPayload from "../Payloads/Users/ChangeMyPasswordPayload";
 import ChangeUserPasswordPayload from "../Payloads/Users/ChangeUserPasswordPayload";
 import CheckUserRolePayload from "../Payloads/Auxiliars/CheckUserRolePayload";
+import IUser from "../IEntities/IUser";
 
 interface IUserService
 {
@@ -14,7 +15,7 @@ interface IUserService
     list (criteria: ICriteria): any;
     getOne (payload: IdPayload): any;
     remove (payload: IdPayload): any;
-    assignRole (payload: UserAssignRolePayload): any;
+    assignRole (payload: UserAssignRolePayload, user: IUser): any;
     changeMyPassword(payload: ChangeMyPasswordPayload): any;
     changeUserPassword(payload: ChangeUserPasswordPayload): any;
     checkIfUserHasRole(payload: CheckUserRolePayload): Promise<boolean>;

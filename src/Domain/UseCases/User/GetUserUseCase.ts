@@ -9,9 +9,9 @@ class GetUserUseCase
     @lazyInject(SERVICES.IUserService)
     private service: IUserService;
 
-    async handle(data: IdPayload): Promise<IUser>
+    async handle(payload: IdPayload): Promise<IUser>
     {
-        return await this.service.getOne(data);
+        return await this.service.getOne(payload);
     }
 }
 

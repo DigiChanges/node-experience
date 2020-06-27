@@ -9,9 +9,9 @@ class UpdateRoleUseCase
     @lazyInject(SERVICES.IRoleService)
     private service: IRoleService;
 
-    async handle(data: RoleUpdatePayload): Promise<IRole>
+    async handle(payload: RoleUpdatePayload): Promise<IRole>
     {
-        return await this.service.update(data);
+        return await this.service.update(payload);
     }
 }
 

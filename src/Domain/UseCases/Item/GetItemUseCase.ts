@@ -9,9 +9,9 @@ class GetItemUseCase
     @lazyInject(SERVICES.IItemService)
     private service: IItemService;
 
-    async handle(data: IdPayload): Promise<IItem>
+    async handle(payload: IdPayload): Promise<IItem>
     {
-        return await this.service.getOne(data);
+        return await this.service.getOne(payload);
     }
 }
 

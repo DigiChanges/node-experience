@@ -9,9 +9,9 @@ class UpdateItemUseCase
     @lazyInject(SERVICES.IItemService)
     private service: IItemService;
 
-    async handle(data: ItemUpdatePayload): Promise<IItem>
+    async handle(payload: ItemUpdatePayload): Promise<IItem>
     {
-        return await this.service.update(data);
+        return await this.service.update(payload);
     }
 }
 

@@ -9,9 +9,9 @@ class GetRoleUseCase
     @lazyInject(SERVICES.IRoleService)
     private service: IRoleService;
 
-    async handle(data: IdPayload): Promise<IRole>
+    async handle(payload: IdPayload): Promise<IRole>
     {
-        return await this.service.getOne(data);
+        return await this.service.getOne(payload);
     }
 }
 

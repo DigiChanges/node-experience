@@ -8,9 +8,9 @@ class LoginUseCase
     @lazyInject(SERVICES.IAuthService)
     private service: IAuthService;
 
-    async handle(data: AuthPayload)
+    async handle(payload: AuthPayload)
     {
-        return await this.service.login(data);
+        return await this.service.login(payload);
     }
 }
 

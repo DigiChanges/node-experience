@@ -9,9 +9,9 @@ class SaveItemUseCase
     @lazyInject(SERVICES.IItemService)
     private service: IItemService;
 
-    async handle(data: ItemRepPayload): Promise<IItem>
+    async handle(payload: ItemRepPayload): Promise<IItem>
     {
-        return await this.service.save(data);
+        return await this.service.save(payload);
     }
 }
 

@@ -9,9 +9,9 @@ class UpdateUserUseCase
     @lazyInject(SERVICES.IUserService)
     private service: IUserService;
 
-    async handle(data: UserUpdatePayload): Promise<IUser>
+    async handle(payload: UserUpdatePayload): Promise<IUser>
     {
-        return await this.service.update(data);
+        return await this.service.update(payload);
     }
 }
 

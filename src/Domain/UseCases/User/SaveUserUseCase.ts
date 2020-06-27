@@ -9,9 +9,9 @@ class SaveUserUseCase
     @lazyInject(SERVICES.IUserService)
     private service: IUserService;
 
-    async handle(data: UserRepPayload): Promise<IUser>
+    async handle(payload: UserRepPayload): Promise<IUser>
     {
-        return await this.service.save(data);
+        return await this.service.save(payload);
     }
 }
 

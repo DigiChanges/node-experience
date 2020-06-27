@@ -3,15 +3,18 @@ import {SERVICES} from "../../../services";
 import IUser from "../../../InterfaceAdapters/IEntities/IUser";
 import IUserService from "../../../InterfaceAdapters/IServices/IUserService";
 import UserAssignRolePayload from "../../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload";
+import ErrorException from "../../../Lib/ErrorException";
 
 class AssignRoleUseCase
 {
     @lazyInject(SERVICES.IUserService)
     private service: IUserService;
 
-    async handle(data: UserAssignRolePayload): Promise<IUser>
+    async handle(payload: UserAssignRolePayload): Promise<IUser>
     {
-        return await this.service.assignRole(data);
+        const user: IUser = await this.service.getOne(payload);
+
+        return await this.service.assignRole(payload, user);
     }
 }
 

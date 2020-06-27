@@ -9,9 +9,9 @@ class SaveRoleUseCase
     @lazyInject(SERVICES.IRoleService)
     private service: IRoleService;
 
-    async handle(data: RoleRepPayload): Promise<IRole>
+    async handle(payload: RoleRepPayload): Promise<IRole>
     {
-        return await this.service.save(data);
+        return await this.service.save(payload);
     }
 }
 

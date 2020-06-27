@@ -8,9 +8,9 @@ class KeepAliveUseCase
     @lazyInject(SERVICES.IAuthService)
     private service: IAuthService;
 
-    async handle(data: KeepAlivePayload)
+    async handle(payload: KeepAlivePayload)
     {
-        return await this.service.regenerateToken(data);
+        return await this.service.regenerateToken(payload);
     }
 }
 

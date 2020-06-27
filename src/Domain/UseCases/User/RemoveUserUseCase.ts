@@ -8,9 +8,9 @@ class RemoveUserUseCase
     @lazyInject(SERVICES.IUserService)
     private service: IUserService;
 
-    async handle(data: IdPayload): Promise<any>
+    async handle(payload: IdPayload): Promise<any>
     {
-        return await this.service.remove(data);
+        return await this.service.remove(payload);
     }
 }
 

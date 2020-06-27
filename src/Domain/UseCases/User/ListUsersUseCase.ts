@@ -9,9 +9,9 @@ class ListUsersUseCase
     @lazyInject(SERVICES.IUserService)
     private service: IUserService;
 
-    async handle(data: ICriteria): Promise<IPaginator>
+    async handle(payload: ICriteria): Promise<IPaginator>
     {
-        return await this.service.list(data);
+        return await this.service.list(payload);
     }
 }
 

@@ -9,9 +9,9 @@ class ChangeMyPasswordUseCase
     @lazyInject(SERVICES.IUserService)
     private service: IUserService;
 
-    async handle(data: ChangeMyPasswordPayload): Promise<IUser>
+    async handle(payload: ChangeMyPasswordPayload): Promise<IUser>
     {
-        return await this.service.changeMyPassword(data);
+        return await this.service.changeMyPassword(payload);
     }
 }
 
