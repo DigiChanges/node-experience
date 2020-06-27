@@ -12,32 +12,30 @@ class Responder
     @inject(TYPES.IFormatResponder)
     private formatResponder: IFormatResponder;
 
-    public send(data: any, response: Response, status: number, transformer: Transformer = null)
+    public send(data: any, response: Response, status: any, transformer: Transformer = null)
     {
         if (!transformer) {
-            return response.status(status).send(data);
+            return response.status(status.code).send(data);
         }
 
         data = transformer.handle(data);
 
-        response.status(status).send(this.formatResponder.getFormatData(data));
+        response.status(status.code).send(this.formatResponder.getFormatData(data, status));
     }
 
     // TODO: Refactor to encapsulate this logic
-    public async paginate(paginator: IPaginator, response: Response, status: number, transformer: Transformer = null)
+    public async paginate(paginator: IPaginator, response: Response, status: any, transformer: Transformer = null)
     {
         let data = await paginator.paginate();
 
+        let result = this.formatResponder.getFormatData(data, status)
+
         if (!transformer)
         {
-            return response.status(status).send(data);
+            return response.status(status.code).send(result);
         }
 
-        data = transformer.handle(data);
-
-        let result = {
-            'data': data
-        };
+        result.data = transformer.handle(data);
 
         if (paginator.getExist())
         {
@@ -51,12 +49,12 @@ class Responder
             Object.assign(result, pagination);
         }
 
-        await response.status(status).send(result);
+        await response.status(status.code).send(result);
     }
 
-    public error(data: any, response: Response, status: number)
+    public error(data: any, response: Response, status: any)
     {
-        response.status(status).send(data);
+        response.status(status.code).send(data);
     }
 }
 

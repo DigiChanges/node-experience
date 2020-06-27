@@ -1,21 +1,21 @@
 import * as express from "express";
 import {inject, injectable} from "inversify";
 import {REPOSITORIES} from "../../repositories";
-import IUserRepository from "../../Infrastructure/Repositories/Contracts/IUserRepository";
-import AuthPayload from "../Payloads/Auth/AuthPayload";
+import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
+import AuthPayload from "../../InterfaceAdapters/Payloads/Auth/AuthPayload";
 import TokenFactory from "../../Lib/Factories/TokenFactory";
 import IEncryptionStrategy from "../../Lib/Encryption/IEncryptionStrategy";
 import ErrorException from "../../Lib/ErrorException";
 import StatusCode from "../../Lib/StatusCode";
 import IToken from "../../Lib/Auth/IToken";
 import jwt from "jwt-simple";
-import KeepAlivePayload from "../Payloads/Auth/KeepAlivePayload";
+import KeepAlivePayload from "../../InterfaceAdapters/Payloads/Auth/KeepAlivePayload";
 import Config from "config";
-import ForgotPasswordPayload from "../Payloads/Auth/ForgotPasswordPayload";
-import ChangeForgotPasswordPayload from "../Payloads/Auth/ChangeForgotPasswordPayload";
+import ForgotPasswordPayload from "../../InterfaceAdapters/Payloads/Auth/ForgotPasswordPayload";
+import ChangeForgotPasswordPayload from "../../InterfaceAdapters/Payloads/Auth/ChangeForgotPasswordPayload";
 import Mail from "../../Lib/Mail/Mail";
 import EncryptionFactory from "../../Lib/Factories/EncryptionFactory";
-import IAuthService from "./Contracts/IAuthService";
+import IAuthService from "../../InterfaceAdapters/IServices/IAuthService";
 
 @injectable()
 class AuthService implements IAuthService

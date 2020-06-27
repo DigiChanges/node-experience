@@ -1,4 +1,4 @@
-import UserRepPayload from "../../../Domain/Payloads/Users/UserRepPayload";
+import UserRepPayload from "../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
 import Role from "../../../Infrastructure/Entities/Role";
 
 class UserCommandRepRequest implements UserRepPayload

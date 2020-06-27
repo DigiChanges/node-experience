@@ -1,5 +1,5 @@
 import container from "../../../inversify.config";
-import IUserRepository from "../Contracts/IUserRepository";
+import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import {REPOSITORIES} from "../../../repositories";
 
 class UserRepoFactory

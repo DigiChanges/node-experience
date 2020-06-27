@@ -1,5 +1,5 @@
 import container from "../../../inversify.config";
-import IUserService from "../Contracts/IUserService";
+import IUserService from "../../../InterfaceAdapters/IServices/IUserService";
 import {SERVICES} from "../../../services";
 
 class UserServiceFactory

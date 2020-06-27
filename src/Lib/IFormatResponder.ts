@@ -2,7 +2,7 @@
 
 interface IFormatResponder
 {
-    getFormatData(data: any): any
+    getFormatData(data: any, statusHttpCode: number): any
 }
 
 export default IFormatResponder;

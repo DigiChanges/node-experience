@@ -5,11 +5,11 @@ import AuthService from "../../Domain/Services/AuthService";
 import Role from "../../Infrastructure/Entities/Role";
 import User from "../../Infrastructure/Entities/User";
 
-import IRoleRepository from "../../Infrastructure/Repositories/Contracts/IRoleRepository";
-import IUserRepository from "../../Infrastructure/Repositories/Contracts/IUserRepository";
+import IRoleRepository from "../../InterfaceAdapters/IRepositories/IRoleRepository";
+import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
 import UserRepoFactory from "../../Infrastructure/Repositories/Factories/UserRepoFactory";
 import RoleRepoFactory from "../../Infrastructure/Repositories/Factories/RoleRepoFactory";
-import Roles from "../Api/Libs/Roles";
+import Roles from "../../../config/Roles";
 
 // TODO: Refactor. 1. Remove hardcording of repositories and set logic with isAllowed to disable authorization
 const AuthorizeMiddleware = (...handlerPermissions: any) =>

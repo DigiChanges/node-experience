@@ -6,7 +6,7 @@ import {
     ObjectIdColumn,
     ObjectID
 } from "typeorm";
-import IRole from "./Contracts/IRole";
+import IRole from "../../InterfaceAdapters/IEntities/IRole";
 
 @Entity()
 class Role implements IRole

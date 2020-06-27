@@ -1,7 +1,7 @@
 import { lazyInject } from '../../../inversify.config'
-import AuthPayload from "../../Payloads/Auth/AuthPayload";
+import AuthPayload from "../../../InterfaceAdapters/Payloads/Auth/AuthPayload";
 import {SERVICES} from "../../../services";
-import IAuthService from "../../Services/Contracts/IAuthService";
+import IAuthService from "../../../InterfaceAdapters/IServices/IAuthService";
 
 class LoginUseCase
 {

@@ -6,7 +6,7 @@ import {
     ObjectIdColumn,
     ObjectID
 } from "typeorm";
-import IUser from "./Contracts/IUser";
+import IUser from "../../InterfaceAdapters/IEntities/IUser";
 
 @Entity()
 class User implements IUser

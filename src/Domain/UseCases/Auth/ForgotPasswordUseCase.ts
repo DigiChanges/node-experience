@@ -1,7 +1,7 @@
 import { lazyInject } from '../../../inversify.config'
-import ForgotPasswordPayload from "../../Payloads/Auth/ForgotPasswordPayload";
+import ForgotPasswordPayload from "../../../InterfaceAdapters/Payloads/Auth/ForgotPasswordPayload";
 import {SERVICES} from "../../../services";
-import IAuthService from "../../Services/Contracts/IAuthService";
+import IAuthService from "../../../InterfaceAdapters/IServices/IAuthService";
 
 class ForgotPasswordUseCase
 {

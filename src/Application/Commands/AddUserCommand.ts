@@ -1,4 +1,4 @@
-import UserRepPayload from "../../Domain/Payloads/Users/UserRepPayload";
+import UserRepPayload from "../../InterfaceAdapters/Payloads/Users/UserRepPayload";
 import UserCommandRepRequest from "./Requests/UserCommandRepRequest";
 import { loggerCli } from "../../Lib/Logger";
 import commander from "commander";

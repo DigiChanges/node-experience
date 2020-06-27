@@ -1,25 +1,25 @@
 import User from '../../Infrastructure/Entities/User';
 import {inject, injectable} from 'inversify';
-import UserRepPayload from "../Payloads/Users/UserRepPayload";
-import IdPayload from "../Payloads/Defaults/IdPayload";
-import UserUpdatePayload from "../Payloads/Users/UserUpdatePayload";
+import UserRepPayload from "../../InterfaceAdapters/Payloads/Users/UserRepPayload";
+import IdPayload from "../../InterfaceAdapters/Payloads/Defaults/IdPayload";
+import UserUpdatePayload from "../../InterfaceAdapters/Payloads/Users/UserUpdatePayload";
 import {REPOSITORIES} from "../../repositories";
-import IUserRepository from "../../Infrastructure/Repositories/Contracts/IUserRepository";
+import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
 import ICriteria from "../../Lib/Contracts/ICriteria";
 import IEncryptionStrategy from "../../Lib/Encryption/IEncryptionStrategy";
-import UserAssignRolePayload from "../Payloads/Users/UserAssignRolePayload";
-import IUserService from "./Contracts/IUserService";
+import UserAssignRolePayload from "../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload";
+import IUserService from "../../InterfaceAdapters/IServices/IUserService";
 import EncryptionFactory from "../../Lib/Factories/EncryptionFactory";
-import ChangeUserPasswordPayload from "../Payloads/Users/ChangeUserPasswordPayload";
-import ChangeMyPasswordPayload from "../Payloads/Users/ChangeMyPasswordPayload";
+import ChangeUserPasswordPayload from "../../InterfaceAdapters/Payloads/Users/ChangeUserPasswordPayload";
+import ChangeMyPasswordPayload from "../../InterfaceAdapters/Payloads/Users/ChangeMyPasswordPayload";
 import ErrorException from "../../Lib/ErrorException";
 import StatusCode from "../../Lib/StatusCode";
-import CheckUserRolePayload from "../Payloads/Auxiliars/CheckUserRolePayload";
-import IRoleRepository from "../../Infrastructure/Repositories/Contracts/IRoleRepository";
+import CheckUserRolePayload from "../../InterfaceAdapters/Payloads/Auxiliars/CheckUserRolePayload";
+import IRoleRepository from "../../InterfaceAdapters/IRepositories/IRoleRepository";
 import RoleRepoFactory from "../../Infrastructure/Repositories/Factories/RoleRepoFactory";
 import Role from "../../Infrastructure/Entities/Role";
-import Roles from "../../Application/Api/Libs/Roles";
-import IUser from "../../Infrastructure/Entities/Contracts/IUser";
+import Roles from "../../../config/Roles";
+import IUser from "../../InterfaceAdapters/IEntities/IUser";
 
 @injectable()
 class UserService implements IUserService

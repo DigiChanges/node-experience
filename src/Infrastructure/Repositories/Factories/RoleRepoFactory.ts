@@ -1,5 +1,5 @@
 import container from "../../../inversify.config";
-import IRoleRepository from "../Contracts/IRoleRepository";
+import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
 import {REPOSITORIES} from "../../../repositories";
 
 class RoleRepoFactory

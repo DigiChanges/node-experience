@@ -1,7 +1,7 @@
 import { lazyInject } from '../../../inversify.config'
-import KeepAlivePayload from "../../Payloads/Auth/KeepAlivePayload";
+import KeepAlivePayload from "../../../InterfaceAdapters/Payloads/Auth/KeepAlivePayload";
 import {SERVICES} from "../../../services";
-import IAuthService from "../../Services/Contracts/IAuthService";
+import IAuthService from "../../../InterfaceAdapters/IServices/IAuthService";
 
 class KeepAliveUseCase
 {

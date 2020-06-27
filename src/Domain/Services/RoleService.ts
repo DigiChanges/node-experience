@@ -1,15 +1,15 @@
 import Role from '../../Infrastructure/Entities/Role';
 import {inject, injectable} from 'inversify';
-import IdPayload from "../Payloads/Defaults/IdPayload";
-import RoleRepPayload from "../Payloads/Roles/RoleRepPayload";
-import RoleUpdatePayload from "../Payloads/Roles/RoleUpdatePayload";
+import IdPayload from "../../InterfaceAdapters/Payloads/Defaults/IdPayload";
+import RoleRepPayload from "../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
+import RoleUpdatePayload from "../../InterfaceAdapters/Payloads/Roles/RoleUpdatePayload";
 import {REPOSITORIES} from "../../repositories";
-import IRoleRepository from "../../Infrastructure/Repositories/Contracts/IRoleRepository";
+import IRoleRepository from "../../InterfaceAdapters/IRepositories/IRoleRepository";
 import ICriteria from "../../Lib/Contracts/ICriteria";
-import IRoleService from "./Contracts/IRoleService";
+import IRoleService from "../../InterfaceAdapters/IServices/IRoleService";
 import IEncryptionStrategy from "../../Lib/Encryption/IEncryptionStrategy";
 import EncryptionFactory from "../../Lib/Factories/EncryptionFactory";
-import IRole from "../../Infrastructure/Entities/Contracts/IRole";
+import IRole from "../../InterfaceAdapters/IEntities/IRole";
 
 @injectable()
 class RoleService implements IRoleService

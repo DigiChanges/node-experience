@@ -1,13 +1,14 @@
 import Item from '../../Infrastructure/Entities/Item';
 import {inject, injectable} from 'inversify';
-import ItemRepPayload from "../Payloads/Items/ItemRepPayload";
-import IdPayload from "../Payloads/Defaults/IdPayload";
-import ItemUpdatePayload from "../Payloads/Items/ItemUpdatePayload";
+import ItemRepPayload from "../../InterfaceAdapters/Payloads/Items/ItemRepPayload";
+import IdPayload from "../../InterfaceAdapters/Payloads/Defaults/IdPayload";
+import ItemUpdatePayload from "../../InterfaceAdapters/Payloads/Items/ItemUpdatePayload";
 import {REPOSITORIES} from "../../repositories";
-import IItemRepository from "../../Infrastructure/Repositories/Contracts/IItemRepository";
+import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemRepository";
 import ICriteria from "../../Lib/Contracts/ICriteria";
-import IItemService from "./Contracts/IItemService";
-import IItem from "../../Infrastructure/Entities/Contracts/IItem";
+import IItemService from "../../InterfaceAdapters/IServices/IItemService";
+import IItem from "../../InterfaceAdapters/IEntities/IItem";
+import IPaginator from "../../Lib/Contracts/IPaginator";
 
 @injectable()
 class ItemService implements IItemService
@@ -45,7 +46,7 @@ class ItemService implements IItemService
         return item;
     }
 
-    public async list (criteria: ICriteria)
+    public async list (criteria: ICriteria): Promise<IPaginator>
     {
         return await this.repository.list(criteria);
     }

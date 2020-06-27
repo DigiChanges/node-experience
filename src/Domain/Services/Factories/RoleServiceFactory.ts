@@ -1,5 +1,5 @@
 import container from "../../../inversify.config";
-import IRoleService from "../Contracts/IRoleService";
+import IRoleService from "../../../InterfaceAdapters/IServices/IRoleService";
 import {SERVICES} from "../../../services";
 
 class RoleServiceFactory

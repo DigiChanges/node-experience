@@ -1,6 +1,6 @@
 import { loggerCli } from "../../Lib/Logger";
 import commander from "commander";
-import RoleRepPayload from "../../Domain/Payloads/Roles/RoleRepPayload";
+import RoleRepPayload from "../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
 import RoleCommandRepRequest from "./Requests/RoleUserCommandRepRequest";
 import RoleServiceFactory from "../../Domain/Services/Factories/RoleServiceFactory";
 

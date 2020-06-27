@@ -1,6 +1,6 @@
-import RoleRepPayload from "../../Domain/Payloads/Roles/RoleRepPayload";
+import RoleRepPayload from "../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
 import RoleCommandRepRequest from "./Requests/RoleUserCommandRepRequest";
-import UserRepPayload from "../../Domain/Payloads/Users/UserRepPayload";
+import UserRepPayload from "../../InterfaceAdapters/Payloads/Users/UserRepPayload";
 import UserCommandRepRequest from "./Requests/UserCommandRepRequest";
 import { loggerCli } from "../../Lib/Logger";
 import commander from "commander";
