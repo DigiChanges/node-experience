@@ -4,7 +4,7 @@ import User from "../Entities/User";
 import {injectable} from "inversify";
 import ErrorException from "../../Lib/ErrorException";
 import StatusCode from "../../Lib/StatusCode";
-import Paginator from "../../Lib/Paginator";
+import Paginator from "../../Lib/Concrets/Paginator";
 import IPaginator from "../../Lib/Contracts/IPaginator";
 import ICriteria from "../../Lib/Contracts/ICriteria";
 import UserFilter from "../../Application/Criterias/User/UserFilter";

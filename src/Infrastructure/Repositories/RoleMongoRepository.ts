@@ -4,7 +4,7 @@ import Role from "../Entities/Role";
 import {injectable} from "inversify";
 import ErrorException from "../../Lib/ErrorException";
 import StatusCode from "../../Lib/StatusCode";
-import MongoPaginator from "../../Lib/MongoPaginator";
+import MongoPaginator from "../../Lib/Concrets/MongoPaginator";
 import IPaginator from "../../Lib/Contracts/IPaginator";
 import ICriteria from "../../Lib/Contracts/ICriteria";
 import RoleFilter from "../../Application/Criterias/Role/RoleFilter";
@@ -35,7 +35,7 @@ class RoleMongoRepository implements IRoleRepository {
     async list(criteria: ICriteria): Promise<IPaginator>
     {
         const count = await this.repository.count();
-        let cursor = await this.repository.createCursor();
+        let aggregationCursor = await this.repository.aggregate([]);
         const filter = criteria.getFilter();
         let filters = {};
 
@@ -58,10 +58,10 @@ class RoleMongoRepository implements IRoleRepository {
         }
         if (Object.entries(filters))
         {
-            cursor.filter(filters);
+            aggregationCursor.match(filters);
         }
 
-        const paginator = new MongoPaginator(cursor, criteria, count);
+        const paginator = new MongoPaginator(aggregationCursor, criteria, count);
 
         return await paginator;
     }

@@ -7,7 +7,7 @@ import StatusCode from "../../Lib/StatusCode";
 import IPaginator from "../../Lib/Contracts/IPaginator";
 import ICriteria from "../../Lib/Contracts/ICriteria";
 import ItemFilter from "../../Application/Criterias/Item/ItemFilter";
-import MongoPaginator from "../../Lib/MongoPaginator";
+import MongoPaginator from "../../Lib/Concrets/MongoPaginator";
 
 @injectable()
 class ItemMongoRepository implements IItemRepository {
@@ -39,7 +39,7 @@ class ItemMongoRepository implements IItemRepository {
     async list(criteria: ICriteria): Promise<IPaginator>
     {
         const count = await this.repository.count();
-        let cursor = await this.repository.createCursor();
+        let aggregationCursor = await this.repository.aggregate([]);
         const filter = criteria.getFilter();
         let filters = {};
 
@@ -65,10 +65,10 @@ class ItemMongoRepository implements IItemRepository {
 
         if (Object.entries(filters))
         {
-            cursor.filter(filters);
+            aggregationCursor.match(filters);
         }
 
-        const paginator = new MongoPaginator(cursor, criteria, count);
+        const paginator = new MongoPaginator(aggregationCursor, criteria, count);
 
         return await paginator;
     }

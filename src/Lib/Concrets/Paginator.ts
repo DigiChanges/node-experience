@@ -1,31 +1,34 @@
-import IPaginator from "./Contracts/IPaginator";
-import {Cursor} from "typeorm";
-import ICriteria from "./Contracts/ICriteria";
-import IFilter from "./Contracts/IFilter";
-import ISort from "./Contracts/ISort";
-import IPagination from "./Contracts/IPagination";
+import IPaginator from "../Contracts/IPaginator";
+import {SelectQueryBuilder} from "typeorm";
+import ICriteria from "../Contracts/ICriteria";
+import IFilter from "../Contracts/IFilter";
+import ISort from "../Contracts/ISort";
+import IPagination from "../Contracts/IPagination";
 
-class MongoPaginator implements IPaginator
+class Paginator implements IPaginator
 {
-    private cursor: Cursor<any>;
+    private queryBuilder: SelectQueryBuilder<any>;
     private filter: IFilter;
     private sort: ISort;
     private pagination: IPagination;
     private count: number;
-    private total: number;
 
-    constructor(cursor: Cursor<any>, criteria: ICriteria, count: number)
+    constructor(queryBuilder: SelectQueryBuilder<any>, criteria: ICriteria)
     {
-        this.cursor = cursor;
+        this.queryBuilder = queryBuilder;
         this.filter = criteria.getFilter();
         this.sort = criteria.getSort();
         this.pagination = criteria.getPagination();
-        this.count = count;
     }
 
     public getTotal(): number
     {
-        return this.total;
+        const offset = this.pagination.getOffset();
+        const limit = this.pagination.getLimit();
+
+        const total = this.count - offset;
+
+        return total<=limit ? total : limit;
     }
 
     public getCount(): number
@@ -49,8 +52,8 @@ class MongoPaginator implements IPaginator
         this.addOrderBy();
         this.addPagination();
 
-        const data = await this.cursor.toArray();
-        this.total = data.length;
+        const data = await this.queryBuilder.getMany();
+        this.count = await this.queryBuilder.getCount();
 
         return data;
     }
@@ -59,18 +62,17 @@ class MongoPaginator implements IPaginator
     {
         return this.pagination.getExist();
     }
-    // TODO: See when multiple sorts
+
     private addOrderBy()
     {
         let sorts = this.sort.get();
 
         sorts.forEach((value: string, key: string ) => {
-            let order: any = value.toUpperCase();
-            order = (order === 'DESC') ? -1 : 1;
+            let order: string = value.toUpperCase();
+            order = (order === 'DESC') ? "DESC" : "ASC";
 
-            const obj = {[key]: order};
-
-            this.cursor.sort(obj);
+            // @ts-ignore
+            this.queryBuilder.addOrderBy(key, order);
         });
     }
 
@@ -80,11 +82,11 @@ class MongoPaginator implements IPaginator
 
         if (exist)
         {
-            this.cursor
+            this.queryBuilder
                 .skip(this.pagination.getOffset())
-                .limit(this.pagination.getLimit());
+                .take(this.pagination.getLimit());
         }
     }
 }
 
-export default MongoPaginator;
+export default Paginator;

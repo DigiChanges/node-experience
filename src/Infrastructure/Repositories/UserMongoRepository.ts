@@ -4,7 +4,7 @@ import User from "../Entities/User";
 import {injectable} from "inversify";
 import ErrorException from "../../Lib/ErrorException";
 import StatusCode from "../../Lib/StatusCode";
-import MongoPaginator from "../../Lib/MongoPaginator";
+import MongoPaginator from "../../Lib/Concrets/MongoPaginator";
 import IPaginator from "../../Lib/Contracts/IPaginator";
 import ICriteria from "../../Lib/Contracts/ICriteria";
 import UserFilter from "../../Application/Criterias/User/UserFilter";
@@ -65,8 +65,22 @@ class UserMongoRepository implements IUserRepository {
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
+        let aggregateData = [];
+        aggregateData.push({
+                $project: {
+                    "id": "$_id"
+                },
+                $lookup: {
+                    from: "role",
+                    localField: "roles",
+                    foreignField: "_id",
+                    as: "roles"
+                }
+            }
+        );
+
         const count = await this.repository.count();
-        let cursor = await this.repository.createCursor();
+        let aggregationCursor = this.repository.aggregate(aggregateData);
         const filter = criteria.getFilter();
         let filters = {};
 
@@ -89,22 +103,19 @@ class UserMongoRepository implements IUserRepository {
 
         if (Object.entries(filters))
         {
-            cursor.filter(filters);
+            aggregationCursor.match(filters);
         }
 
-        const paginator = new MongoPaginator(cursor, criteria, count);
-
-        return await paginator;
+        return new MongoPaginator(aggregationCursor, criteria, count);
     }
 
     async update(user: User): Promise<any> {
-        this.repository.save(user);
+        await this.repository.save(user);
     }
 
     async delete(id: string): Promise<DeleteResult> {
         return await this.repository.delete(id);
     }
-
 }
 
 export default UserMongoRepository;

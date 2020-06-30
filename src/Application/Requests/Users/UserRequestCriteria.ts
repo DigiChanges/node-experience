@@ -9,9 +9,9 @@ import Pagination from "../../../Lib/Concrets/Pagination";
 
 class UserRequestCriteria implements ICriteria
 {
-    private sort: ISort;
-    private filter: IFilter;
-    private pagination: IPagination;
+    private readonly sort: ISort;
+    private readonly filter: IFilter;
+    private readonly pagination: IPagination;
 
     constructor(request: express.Request)
     {
