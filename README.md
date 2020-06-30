@@ -1,6 +1,6 @@
 # Welcome to Node Experience!
 
-Hi! Node experience it's a boilerplate with many tools together for a simple basic project with an architecture like an MVC and Clean Architectures like Hexagonal.
+Hi! Node experience it's a boilerplate with many tools together for a simple basic project inspired on Clean Architectures.
 
 **Tools:**
 * Bcrypt
