@@ -1,7 +1,7 @@
 import Config from "config";
 import StatusCode from "../Shared/StatusCode";
 import AuthService from "../../Application/Services/AuthService";
-import ErrorException from '../../Lib/ErrorException';
+import ErrorException from '../../Application/Shared/ErrorException';
 
 const AuthenticationMiddleware = (req: any, res: any, next: any) =>
 {

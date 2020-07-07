@@ -2,7 +2,7 @@ import IRoleRepository from "../../InterfaceAdapters/IRepositories/IRoleReposito
 import {DeleteResult, getMongoRepository, MongoRepository} from "typeorm";
 import Role from "../Entities/Role";
 import {injectable} from "inversify";
-import ErrorException from "../../Lib/ErrorException";
+import ErrorException from "../../Application/Shared/ErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";

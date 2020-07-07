@@ -1,11 +1,11 @@
 import { lazyInject } from '../../../inversify.config'
 import AuthPayload from "../../../InterfaceAdapters/Payloads/Auth/AuthPayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
-import ErrorException from "../../../Lib/ErrorException";
+import ErrorException from "../../../Application/Shared/ErrorException";
 import IEncryptionStrategy from "../../../InterfaceAdapters/Shared/IEncryptionStrategy";
-import EncryptionFactory from "../../../Lib/Factories/EncryptionFactory";
+import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
 import StatusCode from "../../../Presentation/Shared/StatusCode";
-import TokenFactory from "../../../Lib/Factories/TokenFactory";
+import TokenFactory from "../../../Infrastructure/Factories/TokenFactory";
 import {REPOSITORIES} from "../../../repositories";
 
 class LoginUseCase

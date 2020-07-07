@@ -1,10 +1,10 @@
 import * as express from "express";
 import {injectable} from "inversify";
-import TokenFactory from "../../Lib/Factories/TokenFactory";
+import TokenFactory from "../../Infrastructure/Factories/TokenFactory";
 import IEncryptionStrategy from "../../InterfaceAdapters/Shared/IEncryptionStrategy";
 import jwt from "jwt-simple";
 import Config from "config";
-import EncryptionFactory from "../../Lib/Factories/EncryptionFactory";
+import EncryptionFactory from "../../Infrastructure/Factories/EncryptionFactory";
 import IAuthService from "../../InterfaceAdapters/IServices/IAuthService";
 
 @injectable()

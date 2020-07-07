@@ -1,10 +1,10 @@
 import { lazyInject } from '../../../inversify.config'
 import IUser from "../../../InterfaceAdapters/IEntities/IUser";
 import ChangeMyPasswordPayload from "../../../InterfaceAdapters/Payloads/Users/ChangeMyPasswordPayload";
-import ErrorException from "../../../Lib/ErrorException";
+import ErrorException from "../../../Application/Shared/ErrorException";
 import IEncryptionStrategy from "../../../InterfaceAdapters/Shared/IEncryptionStrategy";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
-import EncryptionFactory from "../../../Lib/Factories/EncryptionFactory";
+import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
 import StatusCode from "../../../Presentation/Shared/StatusCode";
 import {REPOSITORIES} from "../../../repositories";
 

@@ -3,7 +3,7 @@ import ForgotPasswordPayload from "../../../InterfaceAdapters/Payloads/Auth/Forg
 import moment from "moment";
 import {body} from "express-validator";
 import IEncryptionStrategy from "../../../InterfaceAdapters/Shared/IEncryptionStrategy";
-import EncryptionFactory from "../../../Lib/Factories/EncryptionFactory";
+import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
 import Config from "config";
 
 class ForgotPasswordRequest implements ForgotPasswordPayload

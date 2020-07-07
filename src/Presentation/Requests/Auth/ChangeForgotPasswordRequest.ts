@@ -2,7 +2,7 @@ import * as express from "express";
 import ChangeForgotPasswordPayload from "../../../InterfaceAdapters/Payloads/Auth/ChangeForgotPasswordPayload";
 import {body} from "express-validator";
 import IEncryptionStrategy from "../../../InterfaceAdapters/Shared/IEncryptionStrategy";
-import EncryptionFactory from "../../../Lib/Factories/EncryptionFactory";
+import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
 import Config from "config";
 
 class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload

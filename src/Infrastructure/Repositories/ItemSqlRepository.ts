@@ -2,7 +2,7 @@ import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemReposito
 import {DeleteResult, getRepository, Repository} from "typeorm";
 import Item from "../Entities/Item";
 import {injectable} from "inversify";
-import ErrorException from "../../Lib/ErrorException";
+import ErrorException from "../../Application/Shared/ErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";
 import Paginator from "../../Presentation/Shared/Paginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";

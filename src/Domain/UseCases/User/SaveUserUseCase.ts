@@ -2,7 +2,7 @@ import { lazyInject } from '../../../inversify.config'
 import UserRepPayload from "../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
 import IUser from "../../../InterfaceAdapters/IEntities/IUser";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
-import EncryptionFactory from "../../../Lib/Factories/EncryptionFactory";
+import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
 import IEncryptionStrategy from "../../../InterfaceAdapters/Shared/IEncryptionStrategy";
 import User from "../../../Infrastructure/Entities/User";
 import {REPOSITORIES} from "../../../repositories";

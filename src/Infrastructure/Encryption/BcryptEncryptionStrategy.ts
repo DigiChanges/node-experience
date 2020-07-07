@@ -1,6 +1,6 @@
 import Config from "config";
 import bcrypt from "bcrypt";
-import ErrorException from "../ErrorException";
+import ErrorException from "../../Application/Shared/ErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";
 import IEncryptionStrategy from "../../InterfaceAdapters/Shared/IEncryptionStrategy";
 

@@ -4,7 +4,7 @@ import UserUpdatePayload from "../../../InterfaceAdapters/Payloads/Users/UserUpd
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import CheckUserRolePayload from "../../../InterfaceAdapters/Payloads/Auxiliars/CheckUserRolePayload";
 import Roles from "../../../../config/Roles";
-import ErrorException from "../../../Lib/ErrorException";
+import ErrorException from "../../../Application/Shared/ErrorException";
 import StatusCode from "../../../Presentation/Shared/StatusCode";
 import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
 import RoleRepoFactory from "../../../Infrastructure/Factories/RoleRepoFactory";

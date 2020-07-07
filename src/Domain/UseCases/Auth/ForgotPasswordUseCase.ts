@@ -2,7 +2,7 @@ import { lazyInject } from '../../../inversify.config'
 import ForgotPasswordPayload from "../../../InterfaceAdapters/Payloads/Auth/ForgotPasswordPayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import Config from "config";
-import Mail from "../../../Lib/Mail/Mail";
+import Mail from "../../../Infrastructure/Notifications/Models/Mail";
 import {REPOSITORIES} from "../../../repositories";
 
 class ForgotPasswordUseCase

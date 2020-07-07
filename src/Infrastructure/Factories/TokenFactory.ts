@@ -1,6 +1,6 @@
 import Config from "config";
-import User from "../../Infrastructure/Entities/User";
-import JWTToken from "../Auth/JWTToken";
+import User from "../Entities/User";
+import JWTToken from "../../Application/Shared/JWTToken";
 import IToken from "../../InterfaceAdapters/Shared/IToken";
 
 // TODO: Change logic with payload to extend and add new payload

@@ -2,7 +2,7 @@ import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserReposito
 import {DeleteResult, getMongoRepository, MongoRepository} from "typeorm";
 import User from "../Entities/User";
 import {injectable} from "inversify";
-import ErrorException from "../../Lib/ErrorException";
+import ErrorException from "../../Application/Shared/ErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";

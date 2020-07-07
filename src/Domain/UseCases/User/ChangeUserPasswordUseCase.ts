@@ -3,7 +3,7 @@ import IUser from "../../../InterfaceAdapters/IEntities/IUser";
 import ChangeUserPasswordPayload from "../../../InterfaceAdapters/Payloads/Users/ChangeUserPasswordPayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import IEncryptionStrategy from "../../../InterfaceAdapters/Shared/IEncryptionStrategy";
-import EncryptionFactory from "../../../Lib/Factories/EncryptionFactory";
+import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
 import {REPOSITORIES} from "../../../repositories";
 
 class ChangeUserPasswordUseCase
