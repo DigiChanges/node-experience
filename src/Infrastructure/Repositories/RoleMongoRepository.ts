@@ -3,11 +3,11 @@ import {DeleteResult, getMongoRepository, MongoRepository} from "typeorm";
 import Role from "../Entities/Role";
 import {injectable} from "inversify";
 import ErrorException from "../../Lib/ErrorException";
-import StatusCode from "../../Lib/StatusCode";
-import MongoPaginator from "../../Lib/Concrets/MongoPaginator";
-import IPaginator from "../../Lib/Contracts/IPaginator";
-import ICriteria from "../../Lib/Contracts/ICriteria";
-import RoleFilter from "../../Application/Criterias/Role/RoleFilter";
+import StatusCode from "../../Presentation/Shared/StatusCode";
+import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
+import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
+import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
+import RoleFilter from "../../Presentation/Criterias/Role/RoleFilter";
 
 @injectable()
 class RoleMongoRepository implements IRoleRepository {

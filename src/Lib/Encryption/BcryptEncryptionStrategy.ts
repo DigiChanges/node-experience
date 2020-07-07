@@ -1,8 +1,8 @@
 import Config from "config";
 import bcrypt from "bcrypt";
 import ErrorException from "../ErrorException";
-import StatusCode from "../StatusCode";
-import IEncryptionStrategy from "./IEncryptionStrategy";
+import StatusCode from "../../Presentation/Shared/StatusCode";
+import IEncryptionStrategy from "../../InterfaceAdapters/Shared/IEncryptionStrategy";
 
 class BcryptEncryptionStrategy implements IEncryptionStrategy
 {

@@ -1,17 +1,18 @@
 import { lazyInject } from "../../../inversify.config";
-import { SERVICES } from "../../../services";
-import IUserService from "../../../InterfaceAdapters/IServices/IUserService";
 import IUser from "../../../InterfaceAdapters/IEntities/IUser";
 import IdPayload from "../../../InterfaceAdapters/Payloads/Defaults/IdPayload";
+import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
+import {REPOSITORIES} from "../../../repositories";
 
 class GetUserUseCase
 {
-    @lazyInject(SERVICES.IUserService)
-    private service: IUserService;
+    @lazyInject(REPOSITORIES.IUserRepository)
+    private repository: IUserRepository;
 
     async handle(payload: IdPayload): Promise<IUser>
     {
-        return await this.service.getOne(payload);
+        const id = payload.id();
+        return await this.repository.findOne(id);
     }
 }
 

@@ -3,11 +3,11 @@ import {DeleteResult, getMongoRepository, MongoRepository} from "typeorm";
 import Item from "../Entities/Item";
 import {injectable} from "inversify";
 import ErrorException from "../../Lib/ErrorException";
-import StatusCode from "../../Lib/StatusCode";
-import IPaginator from "../../Lib/Contracts/IPaginator";
-import ICriteria from "../../Lib/Contracts/ICriteria";
-import ItemFilter from "../../Application/Criterias/Item/ItemFilter";
-import MongoPaginator from "../../Lib/Concrets/MongoPaginator";
+import StatusCode from "../../Presentation/Shared/StatusCode";
+import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
+import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
+import ItemFilter from "../../Presentation/Criterias/Item/ItemFilter";
+import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 
 @injectable()
 class ItemMongoRepository implements IItemRepository {

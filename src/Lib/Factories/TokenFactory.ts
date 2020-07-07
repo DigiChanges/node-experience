@@ -1,7 +1,7 @@
 import Config from "config";
 import User from "../../Infrastructure/Entities/User";
 import JWTToken from "../Auth/JWTToken";
-import IToken from "../Auth/IToken";
+import IToken from "../../InterfaceAdapters/Shared/IToken";
 
 // TODO: Change logic with payload to extend and add new payload
 class TokenFactory

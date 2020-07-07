@@ -1,17 +1,17 @@
 import { lazyInject } from '../../../inversify.config'
-import {SERVICES} from "../../../services";
-import ICriteria from "../../../Lib/Contracts/ICriteria";
-import IPaginator from "../../../Lib/Contracts/IPaginator";
-import IUserService from "../../../InterfaceAdapters/IServices/IUserService";
+import ICriteria from "../../../InterfaceAdapters/Shared/ICriteria";
+import IPaginator from "../../../InterfaceAdapters/Shared/IPaginator";
+import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
+import {REPOSITORIES} from "../../../repositories";
 
 class ListUsersUseCase
 {
-    @lazyInject(SERVICES.IUserService)
-    private service: IUserService;
+    @lazyInject(REPOSITORIES.IUserRepository)
+    private repository: IUserRepository;
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {
-        return await this.service.list(payload);
+        return await this.repository.list(payload);
     }
 }
 

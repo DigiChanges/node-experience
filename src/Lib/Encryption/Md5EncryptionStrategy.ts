@@ -1,7 +1,7 @@
-import IEncryptionStrategy from "./IEncryptionStrategy";
+import IEncryptionStrategy from "../../InterfaceAdapters/Shared/IEncryptionStrategy";
 import md5 from "md5";
 import ErrorException from "../ErrorException";
-import StatusCode from "../StatusCode";
+import StatusCode from "../../Presentation/Shared/StatusCode";
 
 class Md5EncryptionStrategy implements IEncryptionStrategy
 {

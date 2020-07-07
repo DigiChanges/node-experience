@@ -1,4 +1,4 @@
-import IEncryptionStrategy from "../Encryption/IEncryptionStrategy";
+import IEncryptionStrategy from "../../InterfaceAdapters/Shared/IEncryptionStrategy";
 import BcryptEncryptionStrategy from "../Encryption/BcryptEncryptionStrategy";
 import Md5EncryptionStrategy from "../Encryption/Md5EncryptionStrategy";
 import Config from "config";

@@ -1,5 +1,5 @@
-import ICriteria from "../../Lib/Contracts/ICriteria";
-import IPaginator from "../../Lib/Contracts/IPaginator";
+import ICriteria from "../Shared/ICriteria";
+import IPaginator from "../Shared/IPaginator";
 
 interface IBaseRepository {
     save(element: any): any;

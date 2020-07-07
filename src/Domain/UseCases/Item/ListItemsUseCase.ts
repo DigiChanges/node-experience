@@ -1,17 +1,17 @@
 import { lazyInject } from '../../../inversify.config'
-import {SERVICES} from "../../../services";
-import IItemService from "../../../InterfaceAdapters/IServices/IItemService";
-import ICriteria from "../../../Lib/Contracts/ICriteria";
-import IPaginator from "../../../Lib/Contracts/IPaginator";
+import ICriteria from "../../../InterfaceAdapters/Shared/ICriteria";
+import IPaginator from "../../../InterfaceAdapters/Shared/IPaginator";
+import IItemRepository from "../../../InterfaceAdapters/IRepositories/IItemRepository";
+import {REPOSITORIES} from "../../../repositories";
 
 class ListItemsUseCase
 {
-    @lazyInject(SERVICES.IItemService)
-    private service: IItemService;
+    @lazyInject(REPOSITORIES.IItemRepository)
+    private repository: IItemRepository;
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {
-        return await this.service.list(payload);
+        return await this.repository.list(payload);
     }
 }
 

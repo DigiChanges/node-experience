@@ -1,8 +1,8 @@
 import nodemailer from "nodemailer";
-import IMail from "./IMail";
+import IMail from "../../InterfaceAdapters/Shared/IMail";
 import Config from "config";
 import ErrorException from "../ErrorException";
-import StatusCode from "../StatusCode";
+import StatusCode from "../../Presentation/Shared/StatusCode";
 
 class Mail implements IMail
 {

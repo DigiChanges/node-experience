@@ -1,7 +1,7 @@
 import moment from "moment";
 import jwt from "jwt-simple";
 import User from "../../Infrastructure/Entities/User";
-import IToken from "./IToken";
+import IToken from "../../InterfaceAdapters/Shared/IToken";
 import Config from "config";
 
 // TODO: Refactoring to remove User entity

@@ -3,11 +3,11 @@ import {DeleteResult, getMongoRepository, MongoRepository} from "typeorm";
 import User from "../Entities/User";
 import {injectable} from "inversify";
 import ErrorException from "../../Lib/ErrorException";
-import StatusCode from "../../Lib/StatusCode";
-import MongoPaginator from "../../Lib/Concrets/MongoPaginator";
-import IPaginator from "../../Lib/Contracts/IPaginator";
-import ICriteria from "../../Lib/Contracts/ICriteria";
-import UserFilter from "../../Application/Criterias/User/UserFilter";
+import StatusCode from "../../Presentation/Shared/StatusCode";
+import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
+import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
+import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
+import UserFilter from "../../Presentation/Criterias/User/UserFilter";
 
 @injectable()
 class UserMongoRepository implements IUserRepository {

@@ -3,11 +3,11 @@ import {DeleteResult, getRepository, Repository} from "typeorm";
 import Item from "../Entities/Item";
 import {injectable} from "inversify";
 import ErrorException from "../../Lib/ErrorException";
-import StatusCode from "../../Lib/StatusCode";
-import Paginator from "../../Lib/Concrets/Paginator";
-import IPaginator from "../../Lib/Contracts/IPaginator";
-import ICriteria from "../../Lib/Contracts/ICriteria";
-import ItemFilter from "../../Application/Criterias/Item/ItemFilter";
+import StatusCode from "../../Presentation/Shared/StatusCode";
+import Paginator from "../../Presentation/Shared/Paginator";
+import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
+import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
+import ItemFilter from "../../Presentation/Criterias/Item/ItemFilter";
 
 @injectable()
 class ItemSqlRepository implements IItemRepository {

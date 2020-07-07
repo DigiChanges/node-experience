@@ -1,17 +1,17 @@
 import { lazyInject } from '../../../inversify.config'
-import {SERVICES} from "../../../services";
-import ICriteria from "../../../Lib/Contracts/ICriteria";
-import IPaginator from "../../../Lib/Contracts/IPaginator";
-import IRoleService from "../../../InterfaceAdapters/IServices/IRoleService";
+import ICriteria from "../../../InterfaceAdapters/Shared/ICriteria";
+import IPaginator from "../../../InterfaceAdapters/Shared/IPaginator";
+import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
+import {REPOSITORIES} from "../../../repositories";
 
 class ListRolesUseCase
 {
-    @lazyInject(SERVICES.IRoleService)
-    private service: IRoleService;
+    @lazyInject(REPOSITORIES.IRoleRepository)
+    private repository: IRoleRepository;
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {
-        return await this.service.list(payload);
+        return await this.repository.list(payload);
     }
 }
 

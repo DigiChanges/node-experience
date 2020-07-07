@@ -1,17 +1,18 @@
 import { lazyInject } from '../../../inversify.config'
-import {SERVICES} from "../../../services";
-import IItemService from "../../../InterfaceAdapters/IServices/IItemService";
 import IItem from "../../../InterfaceAdapters/IEntities/IItem";
 import IdPayload from "../../../InterfaceAdapters/Payloads/Defaults/IdPayload";
+import IItemRepository from "../../../InterfaceAdapters/IRepositories/IItemRepository";
+import {REPOSITORIES} from "../../../repositories";
 
 class GetItemUseCase
 {
-    @lazyInject(SERVICES.IItemService)
-    private service: IItemService;
+    @lazyInject(REPOSITORIES.IItemRepository)
+    private repository: IItemRepository;
 
     async handle(payload: IdPayload): Promise<IItem>
     {
-        return await this.service.getOne(payload);
+        const id = payload.id();
+        return await this.repository.findOne(id);
     }
 }
 

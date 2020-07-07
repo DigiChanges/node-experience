@@ -1,20 +1,24 @@
 import { lazyInject } from '../../../inversify.config'
-import {SERVICES} from "../../../services";
 import IUser from "../../../InterfaceAdapters/IEntities/IUser";
-import IUserService from "../../../InterfaceAdapters/IServices/IUserService";
 import UserAssignRolePayload from "../../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload";
-import ErrorException from "../../../Lib/ErrorException";
+import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
+import {REPOSITORIES} from "../../../repositories";
 
 class AssignRoleUseCase
 {
-    @lazyInject(SERVICES.IUserService)
-    private service: IUserService;
+    @lazyInject(REPOSITORIES.IUserRepository)
+    private repository: IUserRepository;
 
     async handle(payload: UserAssignRolePayload): Promise<IUser>
     {
-        const user: IUser = await this.service.getOne(payload);
+        const id = payload.id();
+        let user: IUser = await this.repository.findOne(id);
 
-        return await this.service.assignRole(payload, user);
+        user.roles = await payload.rolesId();
+
+        await this.repository.save(user);
+
+        return user;
     }
 }
 

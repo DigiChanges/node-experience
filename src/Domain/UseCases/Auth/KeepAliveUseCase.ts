@@ -1,16 +1,27 @@
 import { lazyInject } from '../../../inversify.config'
 import KeepAlivePayload from "../../../InterfaceAdapters/Payloads/Auth/KeepAlivePayload";
-import {SERVICES} from "../../../services";
-import IAuthService from "../../../InterfaceAdapters/IServices/IAuthService";
+import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
+import TokenFactory from "../../../Lib/Factories/TokenFactory";
+import {REPOSITORIES} from "../../../repositories";
 
 class KeepAliveUseCase
 {
-    @lazyInject(SERVICES.IAuthService)
-    private service: IAuthService;
+    @lazyInject(REPOSITORIES.IUserRepository)
+    private repository: IUserRepository;
+    private tokenFactory: TokenFactory;
+
+    constructor()
+    {
+        this.tokenFactory = new TokenFactory();
+    }
 
     async handle(payload: KeepAlivePayload)
     {
-        return await this.service.regenerateToken(payload);
+        const email = payload.email();
+
+        const user = await this.repository.getOneByEmail(email);
+
+        return this.tokenFactory.token(user);
     }
 }
 
