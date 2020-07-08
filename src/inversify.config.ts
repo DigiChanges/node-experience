@@ -1,35 +1,26 @@
 import "reflect-metadata";
 import {Container} from "inversify";
-import {TYPES} from "./types";
+import getDecorators from "inversify-inject-decorators";
+
+import FormatResponder from "./Presentation/Shared/FormatResponder";
+import IFormatResponder from "./InterfaceAdapters/Shared/IFormatResponder";
+import Responder from "./Presentation/Shared/Responder";
+
+import IItemRepository from "./InterfaceAdapters/IRepositories/IItemRepository";
+import ItemMongoRepository from "./Infrastructure/Repositories/ItemMongoRepository";
+import IUserRepository from "./InterfaceAdapters/IRepositories/IUserRepository";
+import UserMongoRepository from "./Infrastructure/Repositories/UserMongoRepository";
+import IRoleRepository from "./InterfaceAdapters/IRepositories/IRoleRepository";
+import RoleMongoRepository from "./Infrastructure/Repositories/RoleMongoRepository";
+import IAuthService from "./InterfaceAdapters/IServices/IAuthService";
+import AuthService from "./Application/Services/AuthService";
 import {REPOSITORIES} from "./repositories";
-import FormatResponder from "./Lib/FormatResponder";
-import IFormatResponder from "./Lib/IFormatResponder";
-import Responder from "./Lib/Responder";
-
-import IItemRepository from "./Repositories/Contracts/IItemRepository";
-import ItemMongoRepository from "./Repositories/Concrets/ItemMongoRepository";
-import IUserRepository from "./Repositories/Contracts/IUserRepository";
-import UserMongoRepository from "./Repositories/Concrets/UserMongoRepository";
-import IRoleRepository from "./Repositories/Contracts/IRoleRepository";
-import RoleMongoRepository from "./Repositories/Concrets/RoleMongoRepository";
-
-import UserService from "./Services/UserService";
-import ItemService from "./Services/ItemService";
-import RoleService from "./Services/RoleService";
-import AuthService from "./Services/AuthService";
-
-import IUserService from "./Services/Contracts/IUserService";
-import IRoleService from "./Services/Contracts/IRoleService";
-import {SERVICES} from "./services";
-import IItemService from "./Services/Contracts/IItemService";
+import {TYPES} from "./types";
 
 const container = new Container();
 
-/* Services */
-container.bind<IUserService>(SERVICES.IUserService).to(UserService);
-container.bind<IRoleService>(SERVICES.IRoleService).to(RoleService);
-container.bind<IItemService>(SERVICES.IItemService).to(ItemService);
-container.bind<AuthService>(AuthService).toSelf();
+/* IServices */
+container.bind<IAuthService>(REPOSITORIES.IAuthService).to(AuthService);
 
 /* Libs */
 container.bind<Responder>(TYPES.Responder).to(Responder);
@@ -39,5 +30,7 @@ container.bind<IFormatResponder>(TYPES.IFormatResponder).to(FormatResponder);
 container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMongoRepository);
 container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository);
 container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongoRepository);
+
+export let { lazyInject } = getDecorators(container);
 
 export default container;

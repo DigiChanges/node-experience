@@ -1,11 +1,11 @@
 import dotenv from 'dotenv';
 dotenv.config(); // Need before get config
 
-import App from './app';
+import App from './Application/app';
 import { validateEnv } from '../config/validateEnv';
 import Config from "config";
 import {createConnection} from "typeorm";
-import {loggerCli} from "./Lib/Logger";
+import {loggerCli} from "./Infrastructure/Shared/Logger";
 
 (async () => {
     try {

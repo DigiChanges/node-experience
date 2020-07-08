@@ -1,18 +1,17 @@
 #!/usr/bin/env ts-node
 
 import {exit} from "shelljs";
+import {ConnectionOptions, createConnection} from "typeorm";
+import commander from 'commander';
+import Config from 'config';
 
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y'
 
-import {ConnectionOptions, createConnection} from "typeorm";
-import commander from 'commander';
+import {loggerCli} from "./Infrastructure/Shared/Logger";
 
-import Config from 'config';
-import {loggerCli} from "./Lib/Logger";
-
-import AddUserRoleCommand from "./Commands/AddUserRoleCommand";
-import AddUserCommand from "./Commands/AddUserCommand";
-import AddRoleCommand from "./Commands/AddRoleCommand";
+import AddUserRoleCommand from "./Presentation/Commands/AddUserRoleCommand";
+import AddUserCommand from "./Presentation/Commands/AddUserCommand";
+import AddRoleCommand from "./Presentation/Commands/AddRoleCommand";
 
 const db: ConnectionOptions = Config.get('dbConfig');
 

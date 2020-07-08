@@ -36,6 +36,7 @@
     "helmet": "^3.22.0",
     "inversify": "^5.0.1",
     "inversify-express-utils": "^6.3.2",
+    "inversify-inject-decorators": "^3.1.0",
     "jasmine": "^3.5.0",
     "jasmine-ts-console-reporter": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
@@ -52,14 +53,6 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "fs-extra": "^8.1.0",
-    "nodemon": "^2.0.2",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2",
-    "shelljs": "^0.8.3",
-    "ts-node": "^8.9.1",
-    "tslint": "^6.0.0",
-    "typescript": "^3.8.3",
     "@types/axios": "^0.14.0",
     "@types/bcrypt": "^3.0.0",
     "@types/bcryptjs": "^2.4.2",
@@ -72,15 +65,24 @@
     "@types/express-winston": "^4.0.0",
     "@types/fs-extra": "^8.1.0",
     "@types/helmet": "^0.0.45",
+    "@types/inversify-inject-decorators": "^2.0.0",
     "@types/jasmine": "^3.5.10",
     "@types/jwt-simple": "^0.5.33",
     "@types/md5": "^2.2.0",
     "@types/node": "^13.9.5",
     "@types/nodemailer": "^6.4.0",
     "@types/pg": "^7.14.1",
-    "@types/shelljs": "^0.8.6"
+    "@types/shelljs": "^0.8.6",
+    "fs-extra": "^8.1.0",
+    "nodemon": "^2.0.2",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "shelljs": "^0.8.3",
+    "ts-node": "^8.9.1",
+    "tslint": "^6.0.0",
+    "typescript": "^3.8.3"
   },
   "engines": {
-    "node": "12.16"
+    "node": "12.*"
   }
 }

@@ -1,5 +1,5 @@
-import {AxiosFactory} from "../Lib/Factories/AxiosFactory";
-import {DataResponse} from "../Lib/DataReponse";
+import {AxiosFactory} from "../Infrastructure/Factories/AxiosFactory";
+import {DataResponse} from "./DataReponse";
 import "jasmine";
 
 
