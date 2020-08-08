@@ -2,11 +2,14 @@
   "env": "NODE_ENV",
   "serverPort": "SERVER_PORT",
   "dbConfig": {
-    "host": "DB_HOST",
-    "port": "DB_PORT",
-    "username": "DB_USER",
-    "password": "DB_PASSWORD",
-    "database": "DB_DATABASE"
+    "typeORM": {
+      "host": "DB_HOST",
+      "port": "DB_PORT",
+      "username": "DB_USER",
+      "password": "DB_PASSWORD",
+      "database": "DB_DATABASE"
+    },
+    "default" : "DB_TYPE_DEFAULT"
   },
   "jwt": {
     "secret": "JWT_SECRET",

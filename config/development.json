@@ -2,29 +2,32 @@
   "env": "development",
   "serverPort": 8089,
   "dbConfig": {
-    "type": "mongodb",
-    "host": "db",
-    "port": 27017,
-    "database": "experience",
-    "username": "experience",
-    "password": "experience",
-    "synchronize": true,
-    "migrationsRun": false,
-    "logging": true,
-    "entities": [
-      "src/Infrastructure/Entities/*.ts"
-    ],
-    "migrations": [
-      "src/Infrastructure/Migrations/**/*.ts"
-    ],
-    "subscribers": [
-      "src/Infrastructure/Subscribers/**/*.ts"
-    ],
-    "cli": {
-      "entitiesDir": "/src/Infrastructure/Entities",
-      "migrationsDir": "/src/Infrastructure/Migrations",
-      "subscribersDir": "/src/Infrastructure/Subscribers"
-    }
+    "TypeORM": {
+      "type": "mongodb",
+      "host": "db",
+      "port": 27017,
+      "database": "experience",
+      "username": "experience",
+      "password": "experience",
+      "synchronize": true,
+      "migrationsRun": false,
+      "logging": true,
+      "entities": [
+        "src/Infrastructure/Entities/*.ts"
+      ],
+      "migrations": [
+        "src/Infrastructure/Migrations/**/*.ts"
+      ],
+      "subscribers": [
+        "src/Infrastructure/Subscribers/**/*.ts"
+      ],
+      "cli": {
+        "entitiesDir": "/src/Infrastructure/Entities",
+        "migrationsDir": "/src/Infrastructure/Migrations",
+        "subscribersDir": "/src/Infrastructure/Subscribers"
+      }
+    },
+    "default": "TypeORM"
   },
   "encryption": {
     "bcrypt": {
