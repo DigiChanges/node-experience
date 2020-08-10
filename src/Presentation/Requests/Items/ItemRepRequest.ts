@@ -2,27 +2,32 @@ import * as express from "express";
 import ItemRepPayload from "../../../InterfaceAdapters/Payloads/Items/ItemRepPayload";
 import {body} from "express-validator";
 
-class ItemRepRequest implements ItemRepPayload {
-
+class ItemRepRequest implements ItemRepPayload
+{
     private request: express.Request;
 
-    constructor(request: express.Request) {
+    constructor(request: express.Request)
+    {
         this.request = request;
     }
 
-    name(): string {
+    name(): string
+    {
         return this.request.body.name;
     }
 
-    type(): number {
+    type(): number
+    {
         return this.request.body.type;
     }
 
-    enable(): boolean {
+    enable(): boolean
+    {
         return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
     }
 
-    static validate() {
+    static validate()
+    {
         return [
             body('name')
                 .exists().withMessage('name must exist')

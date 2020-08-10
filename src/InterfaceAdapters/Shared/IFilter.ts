@@ -1,7 +1,7 @@
 
 interface IFilter {
     values(): Map<string, string>;
-    get(key: string): string | boolean;
+    get(key: string): string;
     getArray(key: string): any[];
     has(key: string): boolean;
     isEmpty(): boolean;

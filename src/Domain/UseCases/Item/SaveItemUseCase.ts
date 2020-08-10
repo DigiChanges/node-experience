@@ -1,7 +1,7 @@
 import { lazyInject } from '../../../inversify.config'
 import ItemRepPayload from "../../../InterfaceAdapters/Payloads/Items/ItemRepPayload";
-import IItem from "../../../InterfaceAdapters/IEntities/IItem";
-import Item from "../../../Infrastructure/Entities/Item";
+import IItemDomain from "../../../InterfaceAdapters/IDomain/IItemDomain";
+import Item from "../../../Domain/Entities/Item";
 import IItemRepository from "../../../InterfaceAdapters/IRepositories/IItemRepository";
 import {REPOSITORIES} from "../../../repositories";
 
@@ -10,14 +10,13 @@ class SaveItemUseCase
     @lazyInject(REPOSITORIES.IItemRepository)
     private repository: IItemRepository;
 
-    async handle(payload: ItemRepPayload): Promise<IItem>
+    async handle(payload: ItemRepPayload): Promise<IItemDomain>
     {
-        const item = new Item();
+        let item = new Item();
         item.name = payload.name();
         item.type = payload.type();
-        item.enable = payload.enable();
 
-        await this.repository.save(item);
+        item = await this.repository.save(item);
 
         return item;
     }

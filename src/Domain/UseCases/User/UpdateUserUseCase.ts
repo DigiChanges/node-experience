@@ -1,5 +1,4 @@
 import { lazyInject } from '../../../inversify.config'
-import IUser from "../../../InterfaceAdapters/IEntities/IUser";
 import UserUpdatePayload from "../../../InterfaceAdapters/Payloads/Users/UserUpdatePayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import CheckUserRolePayload from "../../../InterfaceAdapters/Payloads/Auxiliars/CheckUserRolePayload";
@@ -8,18 +7,19 @@ import ErrorException from "../../../Application/Shared/ErrorException";
 import StatusCode from "../../../Presentation/Shared/StatusCode";
 import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
 import RoleRepoFactory from "../../../Infrastructure/Factories/RoleRepoFactory";
-import Role from "../../../Infrastructure/Entities/Role";
+import Role from "../../../Infrastructure/Entities/TypeORM/Mongo/Role";
 import {REPOSITORIES} from "../../../repositories";
+import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
 
 class UpdateUserUseCase
 {
     @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
 
-    async handle(payload: UserUpdatePayload): Promise<IUser>
+    async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {
         const id = payload.id();
-        const user: IUser = await this.repository.findOne(id);
+        const user: IUserDomain = await this.repository.getOne(id);
         const enable = payload.enable();
 
         if(typeof user.roles !== 'undefined' && enable !== null){
@@ -54,7 +54,7 @@ class UpdateUserUseCase
 
         for (let i = 0; i < count; i++)
         {
-            const role: Role = await roleRepository.findOne(payload.user.roles[i]);
+            const role: Role = await roleRepository.getOne(payload.user.roles[i]);
             if(role.slug === payload.roleToCheck){
                 return true;
             }

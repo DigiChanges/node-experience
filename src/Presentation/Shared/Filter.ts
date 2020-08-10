@@ -39,9 +39,9 @@ abstract class Filter implements IFilter
         });
     }
 
-    get(key: string): string | boolean
+    get(key: string): string
     {
-        return this.filters.has(key) ? this.filters.get(key) : false;
+        return this.filters.has(key) ? this.filters.get(key) : '';
     }
 
     getArray(): any

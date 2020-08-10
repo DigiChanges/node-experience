@@ -3,6 +3,7 @@ import {body, param} from "express-validator";
 import UserAssignRolePayload from "../../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload";
 import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
 import RoleMongoRepository from "../../../Infrastructure/Repositories/RoleMongoRepository";
+import {ObjectID} from "mongodb";
 
 class UserAssignRoleRequest implements UserAssignRolePayload
 {
@@ -22,9 +23,9 @@ class UserAssignRoleRequest implements UserAssignRolePayload
         return this.request.body.rolesId;
     }
 
-    id(): string
+    id(): ObjectID
     {
-        return this.request.params.id;
+        return new ObjectID(this.request.params.id);
     }
 
     static validate()

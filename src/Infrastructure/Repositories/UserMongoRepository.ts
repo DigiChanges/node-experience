@@ -1,6 +1,4 @@
 import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
-import {DeleteResult, getMongoRepository, MongoRepository} from "typeorm";
-import User from "../Entities/User";
 import {injectable} from "inversify";
 import ErrorException from "../../Application/Shared/ErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";
@@ -8,20 +6,29 @@ import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import UserFilter from "../../Presentation/Criterias/User/UserFilter";
+import IUser from "../../InterfaceAdapters/IEntities/Mongoose/IUserDocument";
+import UserSchema from "../Schema/User";
+import {Model} from "mongoose";
+import {ObjectID} from "typeorm";
+import {connection} from "../Database/MongooseCreateConnection";
 
 @injectable()
-class UserMongoRepository implements IUserRepository {
-    private repository: MongoRepository<User>;
+class UserMongoRepository implements IUserRepository
+{
+    private repository: Model<IUser>;
 
-    constructor() {
-        this.repository = getMongoRepository(User);
+    constructor()
+    {
+        this.repository = connection.model<IUser>('User', UserSchema);
     }
 
-    async save (user: User): Promise<User> {
-        return await this.repository.save(user);
+    async save (user: IUser): Promise<IUser>
+    {
+        return await this.repository.create(user);
     }
 
-    async findOne(id: string): Promise<User> {
+    async getOne(id: ObjectID): Promise<IUser>
+    {
         const user = await this.repository.findOne(id);
 
         if (!user) {
@@ -31,11 +38,14 @@ class UserMongoRepository implements IUserRepository {
         return user;
     }
 
-    async getOneByEmail(email: string): Promise<User> {
-        try {
+    async getOneByEmail(email: string): Promise<IUser>
+    {
+        try
+        {
             const user = await this.repository.findOne({"email": email});
 
-            if (!user) {
+            if (!user)
+            {
                 throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
             }
 
@@ -47,11 +57,14 @@ class UserMongoRepository implements IUserRepository {
 
     }
 
-    async getOneByConfirmationToken(confirmationToken: string): Promise<User> {
-        try {
+    async getOneByConfirmationToken(confirmationToken: string): Promise<IUser>
+    {
+        try
+        {
             const user = await this.repository.findOne({"confirmationToken": confirmationToken});
 
-            if (!user) {
+            if (!user)
+            {
                 throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
             }
 
@@ -66,6 +79,7 @@ class UserMongoRepository implements IUserRepository {
     async list(criteria: ICriteria): Promise<IPaginator>
     {
         let aggregateData = [];
+
         aggregateData.push({
                 $project: {
                     "id": "$_id"
@@ -79,6 +93,7 @@ class UserMongoRepository implements IUserRepository {
             }
         );
 
+        // @ts-ignore
         const count = await this.repository.count();
         let aggregationCursor = this.repository.aggregate(aggregateData);
         const filter = criteria.getFilter();
@@ -106,14 +121,19 @@ class UserMongoRepository implements IUserRepository {
             aggregationCursor.match(filters);
         }
 
+        // @ts-ignore
         return new MongoPaginator(aggregationCursor, criteria, count);
     }
 
-    async update(user: User): Promise<any> {
-        await this.repository.save(user);
+    async update(user: IUser): Promise<IUser>
+    {
+        // @ts-ignore
+        return await this.repository.save(user);
     }
 
-    async delete(id: string): Promise<DeleteResult> {
+    async delete(id: string): Promise<any>
+    {
+        // @ts-ignore
         return await this.repository.delete(id);
     }
 }

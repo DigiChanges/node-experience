@@ -1,4 +1,5 @@
-interface AuthPayload {
+interface AuthPayload
+{
     email(): string;
     password(): string;
 }

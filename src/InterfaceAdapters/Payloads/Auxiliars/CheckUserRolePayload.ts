@@ -1,9 +1,9 @@
-import User from "../../../Infrastructure/Entities/User";
+import IUserDomain from "../../IDomain/IUserDomain";
 
 interface CheckUserRolePayload
 {
     roleToCheck: string;
-    user:  User;
+    user:  IUserDomain;
 }
 
 export default CheckUserRolePayload

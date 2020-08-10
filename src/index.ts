@@ -17,11 +17,12 @@ import DatabaseFactory from "./Infrastructure/Factories/DatabaseFactory";
 
         await createConnection.create();
 
-    } catch (error) {
+        const app = new App();
+        await app.listen();
+    }
+    catch (error)
+    {
         loggerCli.info('Error while connecting to the database', error);
         return error;
     }
-
-    const app = new App();
-    await app.listen();
 })();

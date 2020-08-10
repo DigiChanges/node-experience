@@ -7,7 +7,7 @@ import {
     ObjectID
 } from "typeorm";
 
-import IItem from "../../InterfaceAdapters/IEntities/IItem";
+import IItem from "../../../../InterfaceAdapters/IEntities/TypeORM/IItem";
 
 @Entity()
 class Item implements IItem

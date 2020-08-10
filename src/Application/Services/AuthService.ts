@@ -19,7 +19,7 @@ class AuthService implements IAuthService
         this.encryption = EncryptionFactory.create();
     }
 
-    public decodeToken (token: string): any
+    public decodeToken (token: string): any // TODO: Add type
     {
         let TokenArray = token.split(" ");
 

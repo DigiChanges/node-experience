@@ -21,7 +21,7 @@ class RoleRepRequest implements RoleRepPayload
         return this.request.body.slug;
     }
 
-    permissions(): []
+    permissions(): string[]
     {
         return this.request.body.permissions;
     }

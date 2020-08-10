@@ -1,7 +1,7 @@
 // @ts-ignore
 import moment from "moment";
 import Transformer from "../../Shared/Transformer";
-import IRole from "../../../InterfaceAdapters/IEntities/IRole";
+import IRole from "../../../InterfaceAdapters/IEntities/TypeORM/IRole";
 
 class RoleTransformer extends Transformer
 {

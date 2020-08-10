@@ -1,17 +1,17 @@
 import moment from "moment";
 import jwt from "jwt-simple";
-import User from "../../Infrastructure/Entities/User";
 import IToken from "../../InterfaceAdapters/Shared/IToken";
 import Config from "config";
+import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 
 // TODO: Refactoring to remove User entity
 class JWTToken implements IToken
 {
     private readonly expires: number;
     private readonly hash: string;
-    private readonly user: User;
+    private readonly user: IUserDomain;
 
-    constructor(expires: number, user: User, secret: string)
+    constructor(expires: number, user: IUserDomain, secret: string)
     {
         this.user = user;
         this.expires = moment().utc().add({ minutes: expires }).unix();
@@ -21,7 +21,7 @@ class JWTToken implements IToken
             sub: user.email,
             iat: this.expires,
             exp: this.expires,
-            userId: user._id,
+            userId: user.getId(),
             email: user.email
         }, secret, 'HS512');
     }
@@ -36,7 +36,7 @@ class JWTToken implements IToken
         return this.hash;
     }
 
-    getUser(): User
+    getUser(): IUserDomain
     {
         return this.user;
     }

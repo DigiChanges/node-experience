@@ -21,7 +21,7 @@ import UserAssignRoleRequest from "../Requests/Users/UserAssignRoleRequest";
 import ChangeUserPasswordRequest from "../Requests/Users/ChangeUserPasswordRequest";
 import ChangeMyPasswordRequest from "../Requests/Users/ChangeMyPasswordRequest";
 
-import IUser from "../../InterfaceAdapters/IEntities/IUser";
+import IUser from "../../InterfaceAdapters/IEntities/TypeORM/IUser";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 
 import GetUserUseCase from "../../Domain/UseCases/User/GetUserUseCase";
@@ -44,7 +44,7 @@ class UserHandler
         const _request = new UserRepRequest(req);
         const saveUserUseCase = new SaveUserUseCase();
 
-        const user: IUser = await saveUserUseCase.handle(_request);
+        const user: any = await saveUserUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
@@ -66,7 +66,7 @@ class UserHandler
         const _request = new IdRequest(req);
         const getUserUseCase = new GetUserUseCase();
 
-        const user: IUser = await getUserUseCase.handle(_request);
+        const user: any = await getUserUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -77,7 +77,7 @@ class UserHandler
         const _request = new UserUpdateRequest(req);
         const getUserUseCase = new GetUserUseCase();
 
-        const user: IUser = await getUserUseCase.handle(_request);
+        const user: any = await getUserUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -88,7 +88,7 @@ class UserHandler
         const _request = new UserAssignRoleRequest(req);
         const assignRoleUseCase = new AssignRoleUseCase();
 
-        const _response: IUser = await assignRoleUseCase.handle(_request);
+        const _response: any = await assignRoleUseCase.handle(_request);
 
         this.responder.send(_response, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -110,7 +110,7 @@ class UserHandler
         const _request = new ChangeMyPasswordRequest(req);
         const changeMyPasswordUseCase = new ChangeMyPasswordUseCase();
 
-        const user: IUser = await changeMyPasswordUseCase.handle(_request);
+        const user: any = await changeMyPasswordUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
@@ -121,7 +121,7 @@ class UserHandler
         const _request = new ChangeUserPasswordRequest(req);
         const changeUserPasswordUseCase = new ChangeUserPasswordUseCase();
 
-        const user: IUser = await changeUserPasswordUseCase.handle(_request);
+        const user: any = await changeUserPasswordUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }

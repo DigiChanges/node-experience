@@ -1,32 +1,39 @@
 import * as express from "express";
+import {ObjectID} from "mongodb";
 import ItemUpdatePayload from "../../../InterfaceAdapters/Payloads/Items/ItemUpdatePayload";
 import {body, param} from "express-validator";
 
-class ItemUpdateRequest implements ItemUpdatePayload {
-
+class ItemUpdateRequest implements ItemUpdatePayload
+{
     private request: express.Request;
 
-    constructor(request: express.Request) {
+    constructor(request: express.Request)
+    {
         this.request = request;
     }
 
-    name(): string {
+    name(): string
+    {
         return this.request.body.name;
     }
 
-    type(): number {
+    type(): number
+    {
         return this.request.body.type;
     }
 
-    enable(): boolean {
+    enable(): boolean
+    {
         return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
     }
 
-    id(): string {
-        return this.request.params.id;
+    id(): ObjectID
+    {
+        return new ObjectID(this.request.params.id);
     }
 
-    static validate() {
+    static validate()
+    {
         return [
             body('name')
                 .exists().withMessage('name must exist')

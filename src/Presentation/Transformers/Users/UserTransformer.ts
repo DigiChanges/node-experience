@@ -1,7 +1,7 @@
 // @ts-ignore
 import moment from "moment";
 import Transformer from "../../Shared/Transformer";
-import IUser from "../../../InterfaceAdapters/IEntities/IUser";
+import IUser from "../../../InterfaceAdapters/IEntities/TypeORM/IUser";
 
 class UserTransformer extends Transformer
 {

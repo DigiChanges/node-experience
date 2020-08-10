@@ -1,6 +1,7 @@
 import Config from "config";
 import ICreateConnection from "../../InterfaceAdapters/IDatabase/ICreateConnection";
 import TypeORMCreateConnection from "../Database/TypeORMCreateConnection";
+import MongooseCreateConnection from "../Database/MongooseCreateConnection";
 
 class DatabaseFactory
 {
@@ -25,6 +26,10 @@ class DatabaseFactory
         if (this.dbDefault === 'TypeORM')
         {
             createConnection = new TypeORMCreateConnection(config);
+        }
+        else if (this.dbDefault === 'Mongoose')
+        {
+            createConnection = new MongooseCreateConnection(config);
         }
 
         return createConnection;

@@ -1,6 +1,6 @@
 import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
 import {DeleteResult, getRepository, Repository} from "typeorm";
-import User from "../Entities/User";
+import User from "../Entities/TypeORM/Mongo/User";
 import {injectable} from "inversify";
 import ErrorException from "../../Application/Shared/ErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";
@@ -10,41 +10,50 @@ import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import UserFilter from "../../Presentation/Criterias/User/UserFilter";
 
 @injectable()
-class UserSqlRepository implements IUserRepository {
+class UserSqlRepository implements IUserRepository
+{
     private repository: Repository<User>;
 
-    constructor() {
+    constructor()
+    {
         this.repository = getRepository(User);
     }
 
-    async save (user: User): Promise<User> {
+    async save (user: User): Promise<User>
+    {
         return await this.repository.save(user);
     }
 
-    async findOne(id: string): Promise<User> {
+    async getOne(id: string): Promise<User>
+    {
         const user = await this.repository.findOne(id);
 
-        if (!user) {
+        if (!user)
+        {
             throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found')
         }
 
         return user;
     }
 
-    async getOneByEmail(email: string): Promise<User> {
+    async getOneByEmail(email: string): Promise<User>
+    {
         const user = await this.repository.findOne({"email": email});
 
-        if (!user) {
+        if (!user)
+        {
             throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found')
         }
 
         return user;
     }
 
-    async getOneByConfirmationToken(confirmationToken: string): Promise<User> {
+    async getOneByConfirmationToken(confirmationToken: string): Promise<User>
+    {
         const user = await this.repository.findOne({"confirmationToken": confirmationToken});
 
-        if (!user) {
+        if (!user)
+        {
             throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found')
         }
 
@@ -70,16 +79,16 @@ class UserSqlRepository implements IUserRepository {
             queryBuilder.setParameter(UserFilter.EMAIL, '%' + filter.get(UserFilter.EMAIL) + '%');
         }
 
-        const paginator = new Paginator(queryBuilder, criteria);
-
-        return await paginator;
+        return new Paginator(queryBuilder, criteria);
     }
 
-    async update(user: User): Promise<any> {
-        this.repository.save(user);
+    async update(user: User): Promise<any>
+    {
+        await this.repository.save(user);
     }
 
-    async delete(id: string): Promise<DeleteResult> {
+    async delete(id: string): Promise<DeleteResult>
+    {
         return await this.repository.delete(id);
     }
 

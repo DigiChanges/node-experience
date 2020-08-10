@@ -1,6 +1,4 @@
 import IRoleRepository from "../../InterfaceAdapters/IRepositories/IRoleRepository";
-import {DeleteResult, getMongoRepository, MongoRepository} from "typeorm";
-import Role from "../Entities/Role";
 import {injectable} from "inversify";
 import ErrorException from "../../Application/Shared/ErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";
@@ -8,24 +6,34 @@ import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import RoleFilter from "../../Presentation/Criterias/Role/RoleFilter";
+import {Model} from "mongoose";
+import IRole from "../../InterfaceAdapters/IEntities/Mongoose/IRoleDocument";
+import RoleSchema from "../Schema/Role";
+import {ObjectID} from "mongodb";
+import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
+import {connection} from "../Database/MongooseCreateConnection";
 
 @injectable()
-class RoleMongoRepository implements IRoleRepository {
-    private repository: MongoRepository<Role>;
+class RoleMongoRepository implements IRoleRepository
+{
+     private repository: Model<IRole>;
 
-    constructor() {
-        this.repository = getMongoRepository(Role);
+    constructor()
+    {
+        this.repository = connection.model<IRole>('Role', RoleSchema);
     }
 
-    async save (role: Role): Promise<Role> {
-        return await this.repository.save(role);
+    async save (role: IRoleDomain): Promise<IRole>
+    {
+        return await this.repository.create(role);
     }
 
-    async findOne(id: string): Promise<Role>
+    async getOne(id: ObjectID): Promise<IRole>
     {
         const role = await this.repository.findOne(id);
 
-        if (!role) {
+        if (!role)
+        {
             throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found');
         }
 
@@ -34,6 +42,7 @@ class RoleMongoRepository implements IRoleRepository {
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
+        // @ts-ignore
         const count = await this.repository.count();
         let aggregationCursor = await this.repository.aggregate([]);
         const filter = criteria.getFilter();
@@ -58,23 +67,27 @@ class RoleMongoRepository implements IRoleRepository {
         }
         if (Object.entries(filters))
         {
+            // @ts-ignore
             aggregationCursor.match(filters);
         }
 
-        const paginator = new MongoPaginator(aggregationCursor, criteria, count);
-
-        return await paginator;
+        // @ts-ignore
+        return new MongoPaginator(aggregationCursor, criteria, count);
     }
 
-    async update(role: Role): Promise<any> {
-        this.repository.save(role);
+    async update(role: IRoleDomain): Promise<any>
+    {
+        // @ts-ignore
+        await this.repository.save(role);
     }
 
-    async delete(id: string): Promise<DeleteResult> {
+    async delete(id: ObjectID): Promise<any>
+    {
+        // @ts-ignore
         return await this.repository.delete(id);
     }
 
-    async exists(ids: string[]): Promise<boolean>
+    async exists(ids: ObjectID[]): Promise<boolean>
     {
         let exist: boolean  = true;
 
@@ -82,6 +95,7 @@ class RoleMongoRepository implements IRoleRepository {
 
         for (let i = 0; i < count; i++)
         {
+            // @ts-ignore
             const role = await this.repository.findOne(ids[i]);
 
             if (!role)

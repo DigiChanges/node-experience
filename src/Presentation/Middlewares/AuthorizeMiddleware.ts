@@ -2,14 +2,13 @@ import {NextFunction, Request, Response} from 'express';
 
 import AuthService from "../../Application/Services/AuthService";
 
-import Role from "../../Infrastructure/Entities/Role";
-import User from "../../Infrastructure/Entities/User";
-
 import IRoleRepository from "../../InterfaceAdapters/IRepositories/IRoleRepository";
 import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
 import UserRepoFactory from "../../Infrastructure/Factories/UserRepoFactory";
 import RoleRepoFactory from "../../Infrastructure/Factories/RoleRepoFactory";
 import Roles from "../../../config/Roles";
+import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
+import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
 
 // TODO: Refactor. 1. Remove hardcording of repositories and set logic with isAllowed to disable authorization
 const AuthorizeMiddleware = (...handlerPermissions: any) =>
@@ -27,13 +26,13 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
         let userRepository: IUserRepository = UserRepoFactory.create();
         let roleRepository: IRoleRepository = RoleRepoFactory.create();
 
-        let user: User = await userRepository.getOneByEmail(tokentDecode.email);
+        let user: IUserDomain = await userRepository.getOneByEmail(tokentDecode.email);
 
         const count = (typeof user.roles === 'undefined') ? 0 : user.roles.length;
 
         for (let i = 0; i < count; i++)
         {
-            const role: Role = await roleRepository.findOne(user.roles[i]);
+            const role: IRoleDomain = await roleRepository.getOne(user.roles[i]);
 
             if (role.slug === Roles.ADMIN.toLocaleLowerCase() || role.slug === Roles.SUPER_ADMIN.toLocaleLowerCase())
             {
@@ -47,7 +46,8 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
 
         let totalPermissions = [...new Set(rolesPermissions)];
 
-        totalPermissions.forEach( (permission: string) => {
+        totalPermissions.forEach( (permission: string) =>
+        {
             if (permission === handlerPermission)
             {
                 isAllowed = true;

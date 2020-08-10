@@ -13,13 +13,13 @@
       "migrationsRun": false,
       "logging": true,
       "entities": [
-        "dist/src/Infrastructure/Entities/*{.ts,.js}"
+        "dist/src/Infrastructure/Entities/TypeORM/Mongo/*{.ts,.js}"
       ],
       "migrations": [
-        "dist/src/Infrastructure/Migrations/**/*{.ts,.js}"
+        "dist/src/Infrastructure/Migrations/TypeORM/Mongo/**/*{.ts,.js}"
       ],
       "subscribers": [
-        "dist/src/Infrastructure/Subscribers/**/*{.ts,.js}"
+        "dist/src/Infrastructure/Subscribers/TypeORM/Mongo/**/*{.ts,.js}"
       ],
       "cli": {
         "entitiesDir": "/src/Infrastructure/Entities",
@@ -27,7 +27,11 @@
         "subscribersDir": "/src/Infrastructure/Subscribers"
       },
       "default": "TypeORM"
-    }
+    },
+    "Mongoose": {
+      "connection": "mongodb://experience:experience@db:27017/experience"
+    },
+    "default": "Mongoose"
   },
   "encryption": {
     "bcrypt": {

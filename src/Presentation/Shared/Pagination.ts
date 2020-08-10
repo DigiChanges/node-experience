@@ -8,7 +8,7 @@ class Pagination implements IPagination
     private readonly limit: number;
     private readonly offset: number;
     private request: express.Request;
-    private exist: boolean = false;
+    private readonly exist: boolean = false;
     private pagination: any;
     private readonly host: string;
 
