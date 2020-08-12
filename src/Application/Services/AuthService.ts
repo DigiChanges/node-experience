@@ -1,11 +1,14 @@
 import * as express from "express";
 import {injectable} from "inversify";
-import TokenFactory from "../../Infrastructure/Factories/TokenFactory";
-import IEncryptionStrategy from "../../InterfaceAdapters/Shared/IEncryptionStrategy";
 import jwt from "jwt-simple";
 import Config from "config";
+
+import TokenFactory from "../../Infrastructure/Factories/TokenFactory";
+import IEncryptionStrategy from "../../InterfaceAdapters/Shared/IEncryptionStrategy";
 import EncryptionFactory from "../../Infrastructure/Factories/EncryptionFactory";
 import IAuthService from "../../InterfaceAdapters/IServices/IAuthService";
+import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
+import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
 
 @injectable()
 class AuthService implements IAuthService
@@ -40,6 +43,22 @@ class AuthService implements IAuthService
         const tokenDecoded = this.decodeToken(request.get('Authorization'));
 
         return tokenDecoded.email;
+    }
+
+    public getPermissions(user: IUserDomain): string[]
+    {
+        let permissions: string[] = user.permissions;
+        const roles: IRoleDomain[] = user.getRoles();
+
+        for (const role of roles)
+        {
+            if (role.permissions)
+            {
+                 role.permissions.map( (rolePermission: string) => permissions.push(rolePermission));
+            }
+        }
+
+        return [...new Set(permissions)];
     }
 }
 

@@ -1,20 +1,25 @@
 import moment from "moment";
 import Transformer from "../../Shared/Transformer";
 import IToken from "../../../InterfaceAdapters/Shared/IToken";
-import RoleTransformer from "../Roles/RoleTransformer";
+import RoleUserTransformer from "../Roles/RoleUserTransformer";
+import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
+import AuthService from "../../../Application/Services/AuthService";
 
 class AuthTransformer extends Transformer
 {
-    private roleTransformer: RoleTransformer;
+    private roleUserTransformer: RoleUserTransformer;
 
     constructor()
     {
         super();
-        this.roleTransformer = new RoleTransformer();
+        this.roleUserTransformer = new RoleUserTransformer();
     }
 
     public transform(token: IToken)
     {
+        const user: IUserDomain = token.getUser();
+        const authService: AuthService = new AuthService();
+
         return {
             'user': {
                 'id': token.getUser().getId(),
@@ -22,7 +27,8 @@ class AuthTransformer extends Transformer
                 'lastName': token.getUser().lastName,
                 'email': token.getUser().email,
                 'enable': token.getUser().enable,
-                'roles': this.roleTransformer.handle(token.getUser().roles),
+                'permissions': authService.getPermissions(user),
+                'roles': this.roleUserTransformer.handle(token.getUser().roles),
                 'createdAt': moment(token.getUser().createdAt).utc().unix(),
                 'updatedAt': moment(token.getUser().updatedAt).utc().unix(),
             },

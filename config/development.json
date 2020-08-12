@@ -1,6 +1,9 @@
 {
   "env": "development",
   "serverPort": 8089,
+  "auth": {
+    "authorization": false
+  },
   "dbConfig": {
     "TypeORM": {
       "type": "mongodb",

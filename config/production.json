@@ -1,6 +1,9 @@
 {
   "env": "production",
   "serverPort": 80,
+    "auth": {
+      "authorization": true
+  },
   "dbConfig": {
     "TypeORM": {
       "type": "mongodb",

@@ -42,6 +42,7 @@
     "jasmine-ts-console-reporter": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.6",
+    "lodash": "^4.17.19",
     "md5": "^2.2.1",
     "moment": "^2.24.0",
     "mongodb": "^3.5.5",
