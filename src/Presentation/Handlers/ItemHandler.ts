@@ -28,7 +28,7 @@ class ItemHandler
     @lazyInject(TYPES.Responder)
     private responder: Responder;
 
-    @httpPost('/', ...ItemRepRequest.validate(), ValidatorRules)
+    @httpPost('/', ...ItemRepRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ITEMS_SAVE))
     public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ItemRepRequest(req);
@@ -39,7 +39,7 @@ class ItemHandler
         this.responder.send(item, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
 
-    @httpGet('/')
+    @httpGet('/', AuthorizeMiddleware(Permissions.ITEMS_LIST))
     public async list (@request() req: Request, @response() res: Response)
     {
         const _request = new ItemRequestCriteria(req);
@@ -50,7 +50,7 @@ class ItemHandler
         await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpGet('/:id', ...IdRequest.validate(), ValidatorRules)
+    @httpGet('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ITEMS_SHOW))
     public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req);
@@ -61,7 +61,7 @@ class ItemHandler
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpPut('/:id', ...ItemUpdateRequest.validate(), ValidatorRules)
+    @httpPut('/:id', ...ItemUpdateRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ITEMS_UPDATE))
     public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ItemUpdateRequest(req);
@@ -72,7 +72,7 @@ class ItemHandler
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpDelete('/:id', ...IdRequest.validate(), ValidatorRules)
+    @httpDelete('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ITEMS_DELETE))
     public async remove (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req);

@@ -1,9 +1,7 @@
 #!/usr/bin/env ts-node
 
 import {exit} from "shelljs";
-import {ConnectionOptions, createConnection} from "typeorm";
 import commander from 'commander';
-import Config from 'config';
 
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y'
 
@@ -12,11 +10,19 @@ import {loggerCli} from "./Infrastructure/Shared/Logger";
 import AddUserRoleCommand from "./Presentation/Commands/AddUserRoleCommand";
 import AddUserCommand from "./Presentation/Commands/AddUserCommand";
 import AddRoleCommand from "./Presentation/Commands/AddRoleCommand";
+import {validateEnv} from "../config/validateEnv";
+import DatabaseFactory from "./Infrastructure/Factories/DatabaseFactory";
 
-const db: ConnectionOptions = Config.get('dbConfig');
+(async () => {
+    try {
+        // Initialize configuration
+        validateEnv();
 
-createConnection(db)
-    .then(async ()=> {
+        const databaseFactory = new DatabaseFactory();
+
+        const createConnection = databaseFactory.create();
+
+        await createConnection.create();
 
         const program = commander.program;
 
@@ -26,10 +32,11 @@ createConnection(db)
 
         await program.parseAsync(process.argv);
         exit();
-
-    })
-    .catch( (error) => {
-            loggerCli.info('Error');
-            loggerCli.info(error.message);
-            exit();
-    });
+    }
+    catch (error)
+    {
+        loggerCli.info('Error while connecting to the database', error);
+        loggerCli.info(error.message);
+        exit();
+    }
+})();

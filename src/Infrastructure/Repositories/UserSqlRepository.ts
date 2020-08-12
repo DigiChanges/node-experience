@@ -1,6 +1,6 @@
 import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
 import {DeleteResult, getRepository, Repository} from "typeorm";
-import User from "../Entities/TypeORM/Mongo/User";
+import User from "../Entities/TypeORM/User";
 import {injectable} from "inversify";
 import ErrorException from "../../Application/Shared/ErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";
@@ -8,6 +8,7 @@ import Paginator from "../../Presentation/Shared/Paginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import UserFilter from "../../Presentation/Criterias/User/UserFilter";
+import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 
 @injectable()
 class UserSqlRepository implements IUserRepository
@@ -36,7 +37,7 @@ class UserSqlRepository implements IUserRepository
         return user;
     }
 
-    async getOneByEmail(email: string): Promise<User>
+    async getOneByEmail(email: string): Promise<IUserDomain>
     {
         const user = await this.repository.findOne({"email": email});
 

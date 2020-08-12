@@ -1,25 +1,19 @@
 import * as express from "express";
 import {body, param} from "express-validator";
 import UserAssignRolePayload from "../../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload";
-import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
-import RoleMongoRepository from "../../../Infrastructure/Repositories/RoleMongoRepository";
 import {ObjectID} from "mongodb";
 
 class UserAssignRoleRequest implements UserAssignRolePayload
 {
     private request: express.Request;
-    private repository: IRoleRepository;
 
     constructor(request: express.Request)
     {
         this.request = request;
-        this.repository = new RoleMongoRepository();
     }
 
-    async rolesId(): Promise<string[]>
+    rolesId(): string[]
     {
-        await this.repository.exists(this.request.body.rolesId);
-
         return this.request.body.rolesId;
     }
 

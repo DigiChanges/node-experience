@@ -2,8 +2,6 @@ import {DocumentQuery, Model} from "mongoose";
 import {ObjectID} from "mongodb";
 import {injectable} from "inversify";
 
-
-
 import ErrorException from "../../Application/Shared/ErrorException";
 import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemRepository";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
@@ -13,7 +11,6 @@ import StatusCode from "../../Presentation/Shared/StatusCode";
 import ItemFilter from "../../Presentation/Criterias/Item/ItemFilter";
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import IItem from "../../InterfaceAdapters/IEntities/Mongoose/IItemDocument";
-import ItemSchema from "../Schema/Item";
 import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
 import {connection} from "../Database/MongooseCreateConnection";
 
@@ -24,7 +21,7 @@ class ItemMongoRepository implements IItemRepository
 
     constructor()
     {
-        this.repository = connection.model<IItem>('Item', ItemSchema);
+        this.repository = connection.model<IItem>('Item');
     }
 
     async save (item: IItemDomain): Promise<IItemDomain>
@@ -36,7 +33,7 @@ class ItemMongoRepository implements IItemRepository
     {
         try
         {
-            const item = await this.repository.findOne(id);
+            const item = await this.repository.findOne({_id: id});
 
             if (!item)
             {
@@ -82,7 +79,7 @@ class ItemMongoRepository implements IItemRepository
     {
         try
         {
-            const item = await this.repository.findByIdAndDelete(id);
+            const item = await this.repository.findByIdAndDelete({_id: id});
 
             if (!item)
             {

@@ -1,6 +1,6 @@
 import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemRepository";
 import {DeleteResult, getRepository, Repository} from "typeorm";
-import Item from "../Entities/TypeORM/Mongo/Item";
+import Item from "../Entities/TypeORM/Item";
 import {injectable} from "inversify";
 import ErrorException from "../../Application/Shared/ErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";

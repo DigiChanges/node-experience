@@ -7,10 +7,10 @@ import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import UserFilter from "../../Presentation/Criterias/User/UserFilter";
 import IUser from "../../InterfaceAdapters/IEntities/Mongoose/IUserDocument";
-import UserSchema from "../Schema/User";
-import {Model} from "mongoose";
-import {ObjectID} from "typeorm";
+import {DocumentQuery, Model} from "mongoose";
+import {ObjectID} from "mongodb";
 import {connection} from "../Database/MongooseCreateConnection";
+import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 
 @injectable()
 class UserMongoRepository implements IUserRepository
@@ -19,34 +19,42 @@ class UserMongoRepository implements IUserRepository
 
     constructor()
     {
-        this.repository = connection.model<IUser>('User', UserSchema);
+        this.repository = connection.model<IUser>('User');
     }
 
-    async save (user: IUser): Promise<IUser>
+    async save (user: IUserDomain): Promise<IUserDomain>
     {
         return await this.repository.create(user);
     }
 
-    async getOne(id: ObjectID): Promise<IUser>
-    {
-        const user = await this.repository.findOne(id);
-
-        if (!user) {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found')
-        }
-
-        return user;
-    }
-
-    async getOneByEmail(email: string): Promise<IUser>
+    async getOne(id: ObjectID): Promise<IUserDomain>
     {
         try
         {
-            const user = await this.repository.findOne({"email": email});
+            let user = await this.repository.findOne({_id: id}).populate('roles');
 
             if (!user)
             {
                 throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
+            }
+
+            return user;
+        }
+        catch(e)
+        {
+            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
+        }
+    }
+
+    async getOneByEmail(email: string): Promise<any>
+    {
+        try
+        {
+            const user = await this.repository.findOne({'email': email}).populate('roles');
+
+            if (!user)
+            {
+                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found');
             }
 
             return user;
@@ -57,11 +65,11 @@ class UserMongoRepository implements IUserRepository
 
     }
 
-    async getOneByConfirmationToken(confirmationToken: string): Promise<IUser>
+    async getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>
     {
         try
         {
-            const user = await this.repository.findOne({"confirmationToken": confirmationToken});
+            const user = await this.repository.findOne({"confirmationToken": confirmationToken}).populate('roles');
 
             if (!user)
             {
@@ -78,63 +86,57 @@ class UserMongoRepository implements IUserRepository
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        let aggregateData = [];
-
-        aggregateData.push({
-                $project: {
-                    "id": "$_id"
-                },
-                $lookup: {
-                    from: "role",
-                    localField: "roles",
-                    foreignField: "_id",
-                    as: "roles"
-                }
-            }
-        );
-
-        // @ts-ignore
-        const count = await this.repository.count();
-        let aggregationCursor = this.repository.aggregate(aggregateData);
+        const queryBuilder: DocumentQuery<IUser[], IUser> = this.repository.find({});
         const filter = criteria.getFilter();
-        let filters = {};
 
         if (filter.has(UserFilter.ENABLE))
         {
             let _enable = filter.get(UserFilter.ENABLE);
             const enable: boolean = _enable !== 'false';
 
-            Object.assign(filters, {enable: { $eq : enable }});
+            queryBuilder.where(UserFilter.ENABLE).equals(enable);
         }
-        if (filter.has(UserFilter.EMAIL)) {
-            let email = filter.get(UserFilter.EMAIL);
-
-            Object.assign(filters, {email: { $regex: email }});
-        }
-        if (filter.has(UserFilter.IS_SUPER_ADMIN)) {
-            let isSuperAdmin = filter.get(UserFilter.IS_SUPER_ADMIN);
-            Object.assign(filters, {isSuperAdmin: {$eq : isSuperAdmin}});
-        }
-
-        if (Object.entries(filters))
+        if (filter.has(UserFilter.EMAIL))
         {
-            aggregationCursor.match(filters);
+            let email = filter.get(UserFilter.EMAIL);
+            const rsearch = new RegExp(email, "g");
+
+            queryBuilder.where(UserFilter.EMAIL).regex(rsearch);
+        }
+        if (filter.has(UserFilter.IS_SUPER_ADMIN))
+        {
+            let isSuperAdmin: boolean = filter.get(UserFilter.IS_SUPER_ADMIN);
+            
+            queryBuilder.where(UserFilter.IS_SUPER_ADMIN).equals(isSuperAdmin);
         }
 
-        // @ts-ignore
-        return new MongoPaginator(aggregationCursor, criteria, count);
+        queryBuilder.populate('roles');
+
+        return new MongoPaginator(queryBuilder, criteria);
     }
 
-    async update(user: IUser): Promise<IUser>
+    async update(user: IUserDomain): Promise<IUserDomain>
     {
-        // @ts-ignore
-        return await this.repository.save(user);
+        return this.repository.findByIdAndUpdate({_id: user.getId()}, user).populate('roles');
     }
 
-    async delete(id: string): Promise<any>
+    async delete(id: string): Promise<IUserDomain>
     {
-        // @ts-ignore
-        return await this.repository.delete(id);
+        try
+        {
+            const user = await this.repository.findByIdAndDelete(id).populate('roles');
+
+            if (!user)
+            {
+                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
+            }
+
+            return user;
+        }
+        catch(e)
+        {
+            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
+        }
     }
 }
 

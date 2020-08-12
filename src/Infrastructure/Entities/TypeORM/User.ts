@@ -6,10 +6,11 @@ import {
     ObjectIdColumn,
     ObjectID
 } from "typeorm";
-import IUser from "../../../../InterfaceAdapters/IEntities/TypeORM/IUser";
+import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
+import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
 
 @Entity()
-class User implements IUser
+class User implements IUserDomain
 {
     @ObjectIdColumn()
     _id: ObjectID;
@@ -27,7 +28,7 @@ class User implements IUser
     password: string | undefined;
 
     @Column()
-    roles: string[];
+    roles: IRoleDomain[];
 
     @Column()
     permissions: string[];
@@ -39,16 +40,41 @@ class User implements IUser
     isSuperAdmin: boolean;
 
     @Column()
-    confirmationToken: string | undefined;
+    confirmationToken: string;
 
     @Column()
-    passwordRequestedAt: Date | undefined;
+    passwordRequestedAt: Date;
 
     @CreateDateColumn()
-    createdAt: Date | undefined;
+    createdAt: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date | undefined;
+    updatedAt: Date;
+
+    getFullName(): string
+    {
+        return `${this.firstName} ${this.lastName}`;
+    }
+
+    setRole(role: IRoleDomain): void
+    {
+        this.roles.push(role);
+    }
+
+    getRoles(): IRoleDomain[]
+    {
+        return this.roles;
+    }
+
+    clearRoles(): void
+    {
+        this.roles = [];
+    }
+
+    getId(): ObjectID
+    {
+        return this._id;
+    }
 }
 
 export default User;

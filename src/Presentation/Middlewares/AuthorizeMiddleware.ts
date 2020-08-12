@@ -21,7 +21,7 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
         let rolesPermissions: any = [];
         let isAllowed: any = process.env.AUTHORIZATION;
         let token = req.get('Authorization');
-        let tokentDecode = authService.decodeToken(token);
+        let tokentDecode = await authService.decodeToken(token);
 
         let userRepository: IUserRepository = UserRepoFactory.create();
         let roleRepository: IRoleRepository = RoleRepoFactory.create();

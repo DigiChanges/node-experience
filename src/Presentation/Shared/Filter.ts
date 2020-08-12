@@ -3,7 +3,7 @@ import * as express from "express";
 
 abstract class Filter implements IFilter
 {
-    private filters: Map<string, string>;
+    private filters: Map<string, any>;
 
     constructor(request: express.Request)
     {
@@ -59,7 +59,7 @@ abstract class Filter implements IFilter
         return this.filters.size === 0;
     }
 
-    values(): Map<string, string>
+    values(): Map<string, any>
     {
         return this.filters;
     }

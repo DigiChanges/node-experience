@@ -4,7 +4,7 @@ import {body, param} from "express-validator";
 import {lazyInject} from "../../../inversify.config";
 import {SERVICES} from "../../../services";
 import IAuthService from "../../../InterfaceAdapters/IServices/IAuthService";
-import {ObjectID} from "typeorm";
+import {ObjectID} from "mongodb";
 
 class UserUpdateRequest implements UserUpdatePayload
 {

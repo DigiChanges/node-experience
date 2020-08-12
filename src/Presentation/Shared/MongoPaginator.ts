@@ -59,6 +59,7 @@ class MongoPaginator implements IPaginator
     private addOrderBy()
     {
         let sorts = this.sort.get();
+        let _objectSort = {};
 
         sorts.forEach((value: string, key: string ) =>
         {
@@ -66,9 +67,10 @@ class MongoPaginator implements IPaginator
             order = (order === 'DESC') ? -1 : 1;
 
             const obj = {[key]: order};
-
-            this.documentQuery.sort(obj);
+            Object.assign(_objectSort,obj)
         });
+
+        this.documentQuery.sort(_objectSort);
     }
 
     private addPagination()

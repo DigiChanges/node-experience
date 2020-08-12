@@ -14,7 +14,7 @@ class RoleUpdateRequest implements RoleUpdatePayload
 
     name(): string
     {
-        return this.request.body.email;
+        return this.request.body.name;
     }
 
     slug(): string

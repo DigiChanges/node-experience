@@ -19,6 +19,7 @@ interface IUserDomain
     getFullName(): string;
     setRole(role: IRoleDomain): void;
     getRoles(): IRoleDomain[];
+    clearRoles(): void;
     getId(): ObjectID;
 }
 

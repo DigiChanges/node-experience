@@ -1,7 +1,8 @@
 import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
 import {ObjectID} from "mongodb";
+import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 
-class User
+class User implements IUserDomain
 {
     _id: ObjectID;
     firstName: string;
@@ -22,9 +23,19 @@ class User
         return `${this.firstName} ${this.lastName}`;
     }
 
+    clearRoles(): void
+    {
+        this.roles = [];
+    }
+
     setRole(role: IRoleDomain): void
     {
-        this.roles.push(role);
+        const find = this.roles.find((_role) => _role.getId().toString() === role.getId().toString() );
+
+        if (!find)
+        {
+            this.roles.push(role);
+        }
     }
 
     getRoles(): IRoleDomain[]

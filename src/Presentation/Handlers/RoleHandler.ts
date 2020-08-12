@@ -12,7 +12,6 @@ import RoleUpdateRequest from "../Requests/Roles/RoleUpdateRequest";
 import ValidatorRules from "../Middlewares/ValidatorRules";
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
 import Permissions from "../../../config/Permissions";
-import IRole from "../../InterfaceAdapters/IEntities/TypeORM/IRole";
 
 import SaveRoleUseCase from "../../Domain/UseCases/Role/SaveRoleUseCase";
 import ListRolesUseCase from "../../Domain/UseCases/Role/ListRolesUseCase";
@@ -21,6 +20,7 @@ import RemoveRoleUseCase from "../../Domain/UseCases/Role/RemoveRoleUseCase";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import {lazyInject} from "../../inversify.config";
 import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
+import UpdateRoleUseCase from "../../Domain/UseCases/Role/UpdateRoleUseCase";
 
 @controller('/api/roles')
 class RoleHandler
@@ -65,9 +65,9 @@ class RoleHandler
     public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new RoleUpdateRequest(req);
-        const getRoleUseCase = new GetRoleUseCase();
+        const updateRoleUseCase = new UpdateRoleUseCase();
 
-        const role: any = await getRoleUseCase.handle(_request);
+        const role: any = await updateRoleUseCase.handle(_request);
 
         this.responder.send(role, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
@@ -80,7 +80,7 @@ class RoleHandler
 
         const data = await removeRoleUseCase.handle(_request);
 
-        this.responder.send(data, res, StatusCode.HTTP_OK);
+        this.responder.send(data, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
 }
 

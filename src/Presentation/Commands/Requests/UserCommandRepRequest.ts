@@ -1,4 +1,5 @@
 import UserRepPayload from "../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
+import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
 
 class UserCommandRepRequest implements UserRepPayload
 {
@@ -51,19 +52,12 @@ class UserCommandRepRequest implements UserRepPayload
         return null;
     }
 
-    roles(): any[]
+    roles(): IRoleDomain[]
     {
-        let roles = [];
-
-        if (this.role)
-        {
-            roles.push(this.role._id);
-        }
-
-        return roles;
+        return this.role ? [this.role] : [];
     }
 
-    permissions(): any[]
+    permissions(): string[]
     {
         return [];
     }

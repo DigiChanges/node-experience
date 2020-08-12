@@ -32,9 +32,7 @@ class SaveUserUseCase
         user.roles = payload.roles();
         user.isSuperAdmin = payload.isSuperAdmin();
 
-        await this.repository.save(user);
-
-        return user;
+        return await this.repository.save(user);
     }
 }
 

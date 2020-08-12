@@ -1,22 +1,30 @@
-// @ts-ignore
 import moment from "moment";
 import Transformer from "../../Shared/Transformer";
-import IUser from "../../../InterfaceAdapters/IEntities/TypeORM/IUser";
+import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
+import RoleTransformer from "../Roles/RoleTransformer";
 
 class UserTransformer extends Transformer
 {
-    public transform(user: IUser)
+    private roleTransformer: RoleTransformer;
+
+    constructor()
+    {
+        super();
+        this.roleTransformer = new RoleTransformer();
+    }
+
+    public transform(user: IUserDomain)
     {
         return {
-            'id': user._id,
+            'id': user.getId(),
             'firstName': user.firstName,
             'lastName': user.lastName,
             'email': user.email,
             'enable': user.enable,
-            'roles': user.roles,
+            'roles': this.roleTransformer.handle(user.getRoles()),
             'permissions': user.permissions,
-            'createdAt': moment(user.createdAt).format('DD-MM-YYYY HH:SS'),
-            'updatedAt': moment(user.updatedAt).format('DD-MM-YYYY HH:SS')
+            'createdAt': moment(user.createdAt).utc().unix(),
+            'updatedAt': moment(user.updatedAt).utc().unix(),
         };
     }
 }

@@ -1,9 +1,5 @@
 import IBaseRepository from "./IBaseRepository";
-import {ObjectID} from "mongodb";
 
-interface IRoleRepository extends IBaseRepository
-{
-    exists(ids: ObjectID[]): Promise<boolean>;
-}
+interface IRoleRepository extends IBaseRepository {}
 
 export default IRoleRepository;

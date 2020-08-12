@@ -7,7 +7,7 @@ import ErrorException from "../../../Application/Shared/ErrorException";
 import StatusCode from "../../../Presentation/Shared/StatusCode";
 import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
 import RoleRepoFactory from "../../../Infrastructure/Factories/RoleRepoFactory";
-import Role from "../../../Infrastructure/Entities/TypeORM/Mongo/Role";
+import Role from "../../../Infrastructure/Entities/TypeORM/Role";
 import {REPOSITORIES} from "../../../repositories";
 import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
 
