@@ -1,5 +1,6 @@
-import ICreateConnection from "../../InterfaceAdapters/IDatabase/ICreateConnection";
 import mongoose from "mongoose";
+import Config from "config";
+import ICreateConnection from "../../InterfaceAdapters/IDatabase/ICreateConnection";
 import IUserDocument from "../../InterfaceAdapters/IEntities/Mongoose/IUserDocument";
 import IRoleDocument from "../../InterfaceAdapters/IEntities/Mongoose/IRoleDocument";
 import IItemDocument from "../../InterfaceAdapters/IEntities/Mongoose/IItemDocument";
@@ -20,7 +21,10 @@ class MongooseCreateConnection implements ICreateConnection
 
     async create(): Promise<any>
     {
-        connection = await mongoose.createConnection(`mongodb://experience:experience@db:27017/experience`, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true });
+        const config: any = Config.get('dbConfig.Mongoose');
+        const uri: string = `mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`
+
+        connection = await mongoose.createConnection(uri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true });
 
         await connection.model<IUserDocument>('User', UserSchema);
         await connection.model<IRoleDocument>('Role', RoleSchema);

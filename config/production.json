@@ -32,7 +32,11 @@
       "default": "TypeORM"
     },
     "Mongoose": {
-      "connection": "mongodb://experience:experience@db:27017/experience"
+      "host": "db",
+      "port": 27017,
+      "database": "experience",
+      "username": "experience",
+      "password": "experience"
     },
     "default": "Mongoose"
   },
