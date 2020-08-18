@@ -21,7 +21,6 @@ import UserAssignRoleRequest from "../Requests/Users/UserAssignRoleRequest";
 import ChangeUserPasswordRequest from "../Requests/Users/ChangeUserPasswordRequest";
 import ChangeMyPasswordRequest from "../Requests/Users/ChangeMyPasswordRequest";
 
-import IUser from "../../InterfaceAdapters/IEntities/IUser";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 
 import GetUserUseCase from "../../Domain/UseCases/User/GetUserUseCase";
@@ -31,6 +30,7 @@ import AssignRoleUseCase from "../../Domain/UseCases/User/AssignRoleUseCase";
 import RemoveUserUseCase from "../../Domain/UseCases/User/RemoveUserUseCase";
 import ChangeMyPasswordUseCase from "../../Domain/UseCases/User/ChangeMyPasswordUseCase";
 import ChangeUserPasswordUseCase from "../../Domain/UseCases/User/ChangeUserPasswordUseCase";
+import UpdateUserUseCase from "../../Domain/UseCases/User/UpdateUserUseCase";
 
 @controller('/api/users')
 class UserHandler
@@ -44,7 +44,7 @@ class UserHandler
         const _request = new UserRepRequest(req);
         const saveUserUseCase = new SaveUserUseCase();
 
-        const user: IUser = await saveUserUseCase.handle(_request);
+        const user: any = await saveUserUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
@@ -66,7 +66,7 @@ class UserHandler
         const _request = new IdRequest(req);
         const getUserUseCase = new GetUserUseCase();
 
-        const user: IUser = await getUserUseCase.handle(_request);
+        const user: any = await getUserUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -75,9 +75,9 @@ class UserHandler
     public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new UserUpdateRequest(req);
-        const getUserUseCase = new GetUserUseCase();
+        const getUserUseCase = new UpdateUserUseCase();
 
-        const user: IUser = await getUserUseCase.handle(_request);
+        const user: any = await getUserUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -88,7 +88,7 @@ class UserHandler
         const _request = new UserAssignRoleRequest(req);
         const assignRoleUseCase = new AssignRoleUseCase();
 
-        const _response: IUser = await assignRoleUseCase.handle(_request);
+        const _response: any = await assignRoleUseCase.handle(_request);
 
         this.responder.send(_response, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -101,7 +101,7 @@ class UserHandler
 
         const data = await removeUserUseCase.handle(_request);
 
-        this.responder.send(data, res, StatusCode.HTTP_OK);
+        this.responder.send(data, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
     @httpPost('/changeMyPassword', ...ChangeMyPasswordRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD))
@@ -110,7 +110,7 @@ class UserHandler
         const _request = new ChangeMyPasswordRequest(req);
         const changeMyPasswordUseCase = new ChangeMyPasswordUseCase();
 
-        const user: IUser = await changeMyPasswordUseCase.handle(_request);
+        const user: any = await changeMyPasswordUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
@@ -121,7 +121,7 @@ class UserHandler
         const _request = new ChangeUserPasswordRequest(req);
         const changeUserPasswordUseCase = new ChangeUserPasswordUseCase();
 
-        const user: IUser = await changeUserPasswordUseCase.handle(_request);
+        const user: any = await changeUserPasswordUseCase.handle(_request);
 
         this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }

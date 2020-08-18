@@ -1,5 +1,6 @@
 
-interface KeepAlivePayload {
+interface KeepAlivePayload
+{
     email(): string;
 }
 

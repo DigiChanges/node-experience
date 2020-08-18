@@ -2,7 +2,8 @@ import IPagination from "./IPagination";
 import IFilter from "./IFilter";
 import ISort from "./ISort";
 
-interface ICriteria {
+interface ICriteria
+{
     getPagination(): IPagination;
     getFilter(): IFilter;
     getSort(): ISort;

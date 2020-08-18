@@ -1,10 +1,10 @@
 import * as express from "express";
 import UserUpdatePayload from "../../../InterfaceAdapters/Payloads/Users/UserUpdatePayload";
 import {body, param} from "express-validator";
-import AuthService from "../../../Application/Services/AuthService";
 import {lazyInject} from "../../../inversify.config";
 import {SERVICES} from "../../../services";
 import IAuthService from "../../../InterfaceAdapters/IServices/IAuthService";
+import {ObjectID} from "mongodb";
 
 class UserUpdateRequest implements UserUpdatePayload
 {
@@ -42,16 +42,17 @@ class UserUpdateRequest implements UserUpdatePayload
 
         // TODO: Move logic on UserCase
         // The logged user cant disable to himself.
-        if(userId === this.id()){
+        if(userId === this.id().toString())
+        {
             return true;
         }
 
         return this.request.body.enable;
     }
 
-    id(): string
+    id(): ObjectID
     {
-        return this.request.params.id;
+        return new ObjectID(this.request.params.id);
     }
 
     static validate()

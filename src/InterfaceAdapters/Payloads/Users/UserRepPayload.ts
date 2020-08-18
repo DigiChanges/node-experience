@@ -1,4 +1,6 @@
-interface UserRepPayload {
+
+interface UserRepPayload
+{
     firstName(): string;
     lastName(): string;
     email(): string;
@@ -6,7 +8,7 @@ interface UserRepPayload {
     passwordConfirmation(): string;
     enable(): boolean;
     roles(): any[];
-    permissions(): any[];
+    permissions(): string[];
     confirmationToken(): null;
     passwordRequestedAt(): null;
     isSuperAdmin(): boolean;

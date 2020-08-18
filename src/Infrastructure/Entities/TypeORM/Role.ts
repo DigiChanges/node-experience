@@ -6,11 +6,11 @@ import {
     ObjectIdColumn,
     ObjectID
 } from "typeorm";
-
-import IItem from "../../InterfaceAdapters/IEntities/IItem";
+import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
+import { ObjectId } from "mongodb";
 
 @Entity()
-class Item implements IItem
+class Role implements IRoleDomain
 {
     @ObjectIdColumn()
     _id: ObjectID;
@@ -18,17 +18,25 @@ class Item implements IItem
     @Column()
     name: string | undefined;
 
-    @Column()
-    type: number | undefined;
+    @Column({unique: true})
+    slug: string | undefined;
 
     @Column({ default: "true" })
     enable: boolean | undefined;
+
+    @Column()
+    permissions: string[];
 
     @CreateDateColumn()
     createdAt: Date | undefined;
 
     @UpdateDateColumn()
     updatedAt: Date | undefined;
+
+    getId(): ObjectId
+    {
+        throw new Error("Method not implemented.");
+    }
 }
 
-export default Item;
+export default Role;

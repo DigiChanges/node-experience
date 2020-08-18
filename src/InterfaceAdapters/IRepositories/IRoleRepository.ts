@@ -1,8 +1,5 @@
 import IBaseRepository from "./IBaseRepository";
 
-interface IRoleRepository extends IBaseRepository
-{
-    exists(ids: string[]): Promise<boolean>;
-}
+interface IRoleRepository extends IBaseRepository {}
 
 export default IRoleRepository;

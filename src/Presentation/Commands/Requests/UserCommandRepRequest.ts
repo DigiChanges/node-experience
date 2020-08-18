@@ -1,12 +1,12 @@
 import UserRepPayload from "../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
-import Role from "../../../Infrastructure/Entities/Role";
+import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
 
 class UserCommandRepRequest implements UserRepPayload
 {
     private env: any;
-    private readonly role: Role;
+    private readonly role: any;
 
-    constructor(env: any, role: Role = null)
+    constructor(env: any, role: any = null)
     {
         this.env = env;
         this.role = role;
@@ -52,24 +52,18 @@ class UserCommandRepRequest implements UserRepPayload
         return null;
     }
 
-    roles(): any[]
+    roles(): IRoleDomain[]
     {
-        let roles = [];
-
-        if (this.role)
-        {
-            roles.push(this.role._id);
-        }
-
-        return roles;
+        return this.role ? [this.role] : [];
     }
 
-    permissions(): any[]
+    permissions(): string[]
     {
         return [];
     }
 
-    isSuperAdmin(): boolean {
+    isSuperAdmin(): boolean
+    {
         return this.env.isSuperAdmin;
     }
 }

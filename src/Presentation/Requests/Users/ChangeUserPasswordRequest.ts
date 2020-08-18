@@ -2,6 +2,7 @@ import * as express from "express";
 import ChangeUserPasswordPayload from "../../../InterfaceAdapters/Payloads/Users/ChangeUserPasswordPayload";
 import {body, param} from "express-validator";
 import Config from "config";
+import {ObjectID} from "mongodb";
 
 class ChangeUserPasswordRequest implements ChangeUserPasswordPayload
 {
@@ -22,9 +23,9 @@ class ChangeUserPasswordRequest implements ChangeUserPasswordPayload
         return this.request.body.newPasswordConfirmation;
     }
 
-    id(): string
+    id(): ObjectID
     {
-        return this.request.params.id;
+        return new ObjectID(this.request.params.id);
     }
 
     static validate()

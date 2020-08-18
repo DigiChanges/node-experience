@@ -3,22 +3,26 @@ dotenv.config(); // Need before get config
 
 import App from './Application/app';
 import { validateEnv } from '../config/validateEnv';
-import Config from "config";
-import {createConnection} from "typeorm";
 import {loggerCli} from "./Infrastructure/Shared/Logger";
+import DatabaseFactory from "./Infrastructure/Factories/DatabaseFactory";
 
 (async () => {
     try {
         // Initialize configuration
         validateEnv();
-        const configDb: any = Config.get('dbConfig');
 
-        await createConnection({...configDb}); // Create connection for typeORM
-    } catch (error) {
+        const databaseFactory = new DatabaseFactory();
+
+        const createConnection = databaseFactory.create();
+
+        await createConnection.create();
+
+        const app = new App();
+        await app.listen();
+    }
+    catch (error)
+    {
         loggerCli.info('Error while connecting to the database', error);
         return error;
     }
-
-    const app = new App();
-    await app.listen();
 })();

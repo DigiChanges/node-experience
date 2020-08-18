@@ -1,16 +1,16 @@
 import { lazyInject } from '../../../inversify.config'
 import RoleRepPayload from "../../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
-import IRole from "../../../InterfaceAdapters/IEntities/IRole";
 import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
-import Role from "../../../Infrastructure/Entities/Role";
+import Role from "../../../Infrastructure/Entities/TypeORM/Role";
 import {REPOSITORIES} from "../../../repositories";
+import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
 
 class SaveRoleUseCase
 {
     @lazyInject(REPOSITORIES.IRoleRepository)
     private repository: IRoleRepository;
 
-    async handle(payload: RoleRepPayload): Promise<IRole>
+    async handle(payload: RoleRepPayload): Promise<IRoleDomain>
     {
         const role = new Role();
         role.name = payload.name();
@@ -18,9 +18,7 @@ class SaveRoleUseCase
         role.permissions = payload.permissions();
         role.enable = payload.enable();
 
-        await this.repository.save(role);
-
-        return role;
+        return await this.repository.save(role);
     }
 }
 

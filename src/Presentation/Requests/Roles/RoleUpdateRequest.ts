@@ -1,6 +1,7 @@
 import * as express from "express";
 import RoleUpdatePayload from "../../../InterfaceAdapters/Payloads/Roles/RoleUpdatePayload";
 import {body, param} from "express-validator";
+import { ObjectID } from "mongodb";
 
 class RoleUpdateRequest implements RoleUpdatePayload
 {
@@ -13,7 +14,7 @@ class RoleUpdateRequest implements RoleUpdatePayload
 
     name(): string
     {
-        return this.request.body.email;
+        return this.request.body.name;
     }
 
     slug(): string
@@ -21,7 +22,7 @@ class RoleUpdateRequest implements RoleUpdatePayload
         return this.request.body.slug;
     }
 
-    permissions(): []
+    permissions(): string[]
     {
         return this.request.body.permissions;
     }
@@ -31,9 +32,9 @@ class RoleUpdateRequest implements RoleUpdatePayload
         return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
     }
 
-    id(): string
+    id(): ObjectID
     {
-        return this.request.params.id;
+        return new ObjectID(this.request.params.id);
     }
 
     static validate()

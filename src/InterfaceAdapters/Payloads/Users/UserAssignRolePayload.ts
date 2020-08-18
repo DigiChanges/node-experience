@@ -2,7 +2,7 @@ import IdPayload from "../Defaults/IdPayload";
 
 interface UserAssignRolePayload extends IdPayload
 {
-    rolesId():  Promise<string[]>;
+    rolesId(): string[];
 }
 
 export default UserAssignRolePayload

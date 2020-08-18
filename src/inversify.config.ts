@@ -9,13 +9,14 @@ import Responder from "./Presentation/Shared/Responder";
 import IItemRepository from "./InterfaceAdapters/IRepositories/IItemRepository";
 import ItemMongoRepository from "./Infrastructure/Repositories/ItemMongoRepository";
 import IUserRepository from "./InterfaceAdapters/IRepositories/IUserRepository";
-import UserMongoRepository from "./Infrastructure/Repositories/UserMongoRepository";
 import IRoleRepository from "./InterfaceAdapters/IRepositories/IRoleRepository";
-import RoleMongoRepository from "./Infrastructure/Repositories/RoleMongoRepository";
 import IAuthService from "./InterfaceAdapters/IServices/IAuthService";
 import AuthService from "./Application/Services/AuthService";
 import {REPOSITORIES} from "./repositories";
 import {TYPES} from "./types";
+import UserMongoRepository from "./Infrastructure/Repositories/UserMongoRepository";
+import RoleMongoRepository from "./Infrastructure/Repositories/RoleMongoRepository";
+
 
 const container = new Container();
 

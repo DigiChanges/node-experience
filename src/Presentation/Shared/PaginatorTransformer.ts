@@ -7,7 +7,6 @@ class PaginatorTransformer extends Transformer
     {
         return {
             'total': paginator.getTotal(),
-            'count': paginator.getCount(),
             'currentUrl': paginator.getCurrentUrl(),
             'nextUrl': paginator.getNextUrl(),
         };

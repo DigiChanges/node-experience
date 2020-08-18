@@ -1,11 +1,11 @@
 import { lazyInject } from '../../../inversify.config'
 import UserRepPayload from "../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
-import IUser from "../../../InterfaceAdapters/IEntities/IUser";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
 import IEncryptionStrategy from "../../../InterfaceAdapters/Shared/IEncryptionStrategy";
-import User from "../../../Infrastructure/Entities/User";
 import {REPOSITORIES} from "../../../repositories";
+import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
+import User from '../../Entities/User';
 
 class SaveUserUseCase
 {
@@ -18,9 +18,9 @@ class SaveUserUseCase
         this.encryption = EncryptionFactory.create();
     }
 
-    async handle(payload: UserRepPayload): Promise<IUser>
+    async handle(payload: UserRepPayload): Promise<IUserDomain>
     {
-        const user: IUser = new User();
+        const user: IUserDomain = new User();
         user.firstName = payload.firstName();
         user.lastName = payload.lastName();
         user.email = payload.email();
@@ -32,9 +32,7 @@ class SaveUserUseCase
         user.roles = payload.roles();
         user.isSuperAdmin = payload.isSuperAdmin();
 
-        await this.repository.save(user);
-
-        return user;
+        return await this.repository.save(user);
     }
 }
 

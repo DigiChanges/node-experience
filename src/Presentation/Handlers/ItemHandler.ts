@@ -13,13 +13,14 @@ import ItemRepRequest from "../Requests/Items/ItemRepRequest";
 import IdRequest from "../Requests/Defaults/IdRequest";
 import ItemRequestCriteria from "../Requests/Items/ItemRequestCriteria";
 import ItemUpdateRequest from "../Requests/Items/ItemUpdateRequest";
-import IItem from "../../InterfaceAdapters/IEntities/IItem";
+import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
 
 import SaveItemUseCase from "../../Domain/UseCases/Item/SaveItemUseCase";
 import ListItemsUseCase from "../../Domain/UseCases/Item/ListItemsUseCase";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import GetItemUseCase from "../../Domain/UseCases/Item/GetItemUseCase";
 import RemoveItemUseCase from "../../Domain/UseCases/Item/RemoveItemUseCase";
+import UpdateItemUseCase from "../../Domain/UseCases/Item/UpdateItemUseCase";
 
 @controller('/api/items')
 class ItemHandler
@@ -33,7 +34,7 @@ class ItemHandler
         const _request = new ItemRepRequest(req);
         const saveItemUseCase = new SaveItemUseCase();
 
-        const item: IItem = await saveItemUseCase.handle(_request);
+        const item: IItemDomain = await saveItemUseCase.handle(_request);
 
         this.responder.send(item, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
@@ -46,7 +47,7 @@ class ItemHandler
 
         const paginator: IPaginator = await listItemsUseCase.handle(_request);
 
-        await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, null);
+        await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
     @httpGet('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ITEMS_SHOW))
@@ -55,7 +56,7 @@ class ItemHandler
         const _request = new IdRequest(req);
         const getItemUseCase = new GetItemUseCase();
 
-        const item: IItem = await getItemUseCase.handle(_request);
+        const item: IItemDomain = await getItemUseCase.handle(_request);
 
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
@@ -64,9 +65,9 @@ class ItemHandler
     public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ItemUpdateRequest(req);
-        const getItemUseCase = new GetItemUseCase();
+        const updateItemUseCase = new UpdateItemUseCase();
 
-        const item: IItem = await getItemUseCase.handle(_request);
+        const item: IItemDomain = await updateItemUseCase.handle(_request);
 
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
@@ -77,9 +78,9 @@ class ItemHandler
         const _request = new IdRequest(req);
         const removeItemUseCase = new RemoveItemUseCase();
 
-        const data = await removeItemUseCase.handle(_request);
+        const item: IItemDomain = await removeItemUseCase.handle(_request);
 
-        this.responder.send(data, res, StatusCode.HTTP_OK);
+        this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 }
 

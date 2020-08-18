@@ -1,36 +1,48 @@
-import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemRepository";
-import {DeleteResult, getMongoRepository, MongoRepository} from "typeorm";
-import Item from "../Entities/Item";
+import {DocumentQuery, Model} from "mongoose";
+import {ObjectID} from "mongodb";
 import {injectable} from "inversify";
+
 import ErrorException from "../../Application/Shared/ErrorException";
-import StatusCode from "../../Presentation/Shared/StatusCode";
+import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemRepository";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
+
+import StatusCode from "../../Presentation/Shared/StatusCode";
 import ItemFilter from "../../Presentation/Criterias/Item/ItemFilter";
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
+import IItem from "../../InterfaceAdapters/IEntities/Mongoose/IItemDocument";
+import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
+import {connection} from "../Database/MongooseCreateConnection";
 
 @injectable()
-class ItemMongoRepository implements IItemRepository {
-    private repository: MongoRepository<Item>;
+class ItemMongoRepository implements IItemRepository
+{
+    private readonly repository: Model<IItem>;
 
-    constructor() {
-        this.repository = getMongoRepository(Item);
+    constructor()
+    {
+        this.repository = connection.model<IItem>('Item');
     }
 
-    async save (item: Item): Promise<Item> {
-        return await this.repository.save(item);
+    async save (item: IItemDomain): Promise<IItemDomain>
+    {
+        return await this.repository.create(item);
     }
 
-    async findOne(id: string): Promise<Item> {
-        try {
-            const item = await this.repository.findOne(id);
+    async getOne(id: ObjectID): Promise<IItemDomain>
+    {
+        try
+        {
+            const item = await this.repository.findOne({_id: id});
 
-            if (!item) {
+            if (!item)
+            {
                 throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Item Not Found');
             }
 
             return item;
-        } catch(e)
+        }
+        catch(e)
         {
             throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Item Not Found');
         }
@@ -38,47 +50,48 @@ class ItemMongoRepository implements IItemRepository {
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        const count = await this.repository.count();
-        let aggregationCursor = await this.repository.aggregate([]);
+        const queryBuilder: DocumentQuery<IItem[], IItem> = this.repository.find();
         const filter = criteria.getFilter();
-        let filters = {};
 
-        if (filter.has(ItemFilter.ENABLE))
-        {
-            let _enable = filter.get(ItemFilter.ENABLE);
-            const enable: boolean = _enable !== 'false';
-
-            Object.assign(filters, {enable: { $eq : enable }});
-        }
         if (filter.has(ItemFilter.TYPE))
         {
-            let type = filter.get(ItemFilter.TYPE);
+            const type = filter.get(ItemFilter.TYPE);
 
-            Object.assign(filters, {type: { $eq : type }});
+            queryBuilder.where(ItemFilter.TYPE).equals(type);
         }
         if (filter.has(ItemFilter.NAME))
         {
-            let name = filter.get(ItemFilter.NAME);
+            const name: string = filter.get(ItemFilter.NAME);
+            const rsearch = new RegExp(name, "g");
 
-            Object.assign(filters, {name: { $regex : name }});
+            queryBuilder.where(ItemFilter.NAME).regex(rsearch);
         }
 
-        if (Object.entries(filters))
+        return new MongoPaginator(queryBuilder, criteria);
+    }
+
+    async update(item: IItemDomain): Promise<IItemDomain>
+    {
+        return this.repository.updateOne({_id: item.getId()}, item);
+    }
+
+    async delete(id: ObjectID): Promise<IItemDomain>
+    {
+        try
         {
-            aggregationCursor.match(filters);
+            const item = await this.repository.findByIdAndDelete({_id: id});
+
+            if (!item)
+            {
+                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Item Not Found');
+            }
+
+            return item;
         }
-
-        const paginator = new MongoPaginator(aggregationCursor, criteria, count);
-
-        return await paginator;
-    }
-
-    async update(item: Item): Promise<any> {
-        this.repository.save(item);
-    }
-
-    async delete(id: string): Promise<DeleteResult> {
-        return await this.repository.delete(id);
+        catch(e)
+        {
+            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Item Not Found');
+        }
     }
 
 }

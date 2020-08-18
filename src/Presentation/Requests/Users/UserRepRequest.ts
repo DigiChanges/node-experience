@@ -2,6 +2,7 @@ import * as express from "express";
 import UserRepPayload from "../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
 import {body} from "express-validator";
 import Config from "config";
+import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
 
 class UserRepRequest implements UserRepPayload
 {
@@ -12,11 +13,13 @@ class UserRepRequest implements UserRepPayload
         this.request = request;
     }
 
-    firstName(): string {
+    firstName(): string
+    {
         return this.request.body.firstName;
     }
 
-    lastName(): string {
+    lastName(): string
+    {
         return this.request.body.lastName;
     }
 
@@ -40,23 +43,28 @@ class UserRepRequest implements UserRepPayload
         return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
     }
 
-    confirmationToken(): null {
+    confirmationToken(): null
+    {
         return null;
     }
 
-    passwordRequestedAt(): null {
+    passwordRequestedAt(): null
+    {
         return null;
     }
 
-    roles(): null {
-        return null;
+    roles(): IRoleDomain[]
+    {
+        return [];
     }
 
-    permissions(): null {
-        return null;
+    permissions(): string[]
+    {
+        return this.request.body.permissions;
     }
 
-    isSuperAdmin(): boolean {
+    isSuperAdmin(): boolean
+    {
         return false;
     }
 

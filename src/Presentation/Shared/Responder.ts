@@ -14,7 +14,8 @@ class Responder
 
     public send(data: any, response: Response, status: any, transformer: Transformer = null)
     {
-        if (!transformer) {
+        if (!transformer)
+        {
             return response.status(status.code).send(data);
         }
 
@@ -42,9 +43,7 @@ class Responder
             let paginatorTransformer = new PaginatorTransformer();
             paginator = paginatorTransformer.handle(paginator);
 
-            let pagination = {
-              'pagination': paginator
-            };
+            let pagination = { 'pagination': paginator };
 
             Object.assign(result, pagination);
         }

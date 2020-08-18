@@ -1,26 +1,24 @@
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
-import {AggregationCursor} from "typeorm";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import IFilter from "../../InterfaceAdapters/Shared/IFilter";
 import ISort from "../../InterfaceAdapters/Shared/ISort";
 import IPagination from "../../InterfaceAdapters/Shared/IPagination";
+import {DocumentQuery} from "mongoose";
 
 class MongoPaginator implements IPaginator
 {
-    private aggregationCursor: AggregationCursor<any>;
+    private documentQuery: DocumentQuery<any[], any>;
     private filter: IFilter;
     private sort: ISort;
     private pagination: IPagination;
-    private readonly count: number;
     private total: number;
 
-    constructor(aggregationCursor: AggregationCursor<any>, criteria: ICriteria, count: number)
+    constructor(documentQuery: DocumentQuery<any[], any>, criteria: ICriteria)
     {
-        this.aggregationCursor = aggregationCursor;
+        this.documentQuery = documentQuery;
         this.filter = criteria.getFilter();
         this.sort = criteria.getSort();
         this.pagination = criteria.getPagination();
-        this.count = count;
     }
 
     public getTotal(): number
@@ -28,17 +26,14 @@ class MongoPaginator implements IPaginator
         return this.total;
     }
 
-    public getCount(): number
+    public getCurrentUrl(): string
     {
-        return this.count;
-    }
-
-    public getCurrentUrl(): string {
         return this.pagination.getCurrentUrl();
     }
 
     // TODO: Dont show next url when it doesnt exist more data
-    public getNextUrl(): string {
+    public getNextUrl(): string
+    {
         return this.pagination.getNextUrl();
     }
 
@@ -49,7 +44,8 @@ class MongoPaginator implements IPaginator
         this.addOrderBy();
         this.addPagination();
 
-        const data = await this.aggregationCursor.toArray();
+        const data = await this.documentQuery.exec();
+
         this.total = data.length;
 
         return data;
@@ -63,15 +59,18 @@ class MongoPaginator implements IPaginator
     private addOrderBy()
     {
         let sorts = this.sort.get();
+        let _objectSort = {};
 
-        sorts.forEach((value: string, key: string ) => {
+        sorts.forEach((value: string, key: string ) =>
+        {
             let order: any = value.toUpperCase();
             order = (order === 'DESC') ? -1 : 1;
 
             const obj = {[key]: order};
-
-            this.aggregationCursor.sort(obj);
+            Object.assign(_objectSort,obj)
         });
+
+        this.documentQuery.sort(_objectSort);
     }
 
     private addPagination()
@@ -80,7 +79,7 @@ class MongoPaginator implements IPaginator
 
         if (exist)
         {
-            this.aggregationCursor
+            this.documentQuery
                 .skip(this.pagination.getOffset())
                 .limit(this.pagination.getLimit());
         }

@@ -3,22 +3,14 @@ import * as express from "express";
 
 abstract class Sort implements ISort
 {
-    private sorts: Map<string, string>;
+    private readonly sorts: Map<string, string>;
 
-    constructor(request: express.Request) {
+    constructor(request: express.Request)
+    {
         // TODO: Remove logic from constructor
         this.sorts = new Map<string, string>();
         let sorts = request.query.hasOwnProperty('sort') ? request.query.sort : [];
         let keys = this.getFields();
-
-        let defaultSorts = this.getDefaultSorts();
-
-        defaultSorts.forEach((defaultSort: any) => {
-            const defaultKey: string = Object.keys(defaultSort)[0];
-            const defaultValue: string = defaultSort[defaultKey];
-
-            this.sorts.set(defaultKey, defaultValue);
-        });
 
         let newSorts = Object.keys(sorts).map((key: string) =>
         {
@@ -38,6 +30,19 @@ abstract class Sort implements ISort
 
             this.sorts.set(defaultKey, defaultValue);
         });
+
+        let defaultSorts = this.getDefaultSorts();
+
+        if (this.sorts.size === 0)
+        {
+            defaultSorts.forEach((defaultSort: any) =>
+            {
+                const defaultKey: string = Object.keys(defaultSort)[0];
+                const defaultValue: string = defaultSort[defaultKey];
+
+                this.sorts.set(defaultKey, defaultValue);
+            });
+        }
     }
 
     public get(): Map<string, string>
@@ -47,7 +52,6 @@ abstract class Sort implements ISort
 
     abstract getFields(): any;
     abstract getDefaultSorts(): any;
-
 }
 
 export default Sort;

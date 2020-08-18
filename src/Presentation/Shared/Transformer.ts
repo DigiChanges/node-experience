@@ -8,7 +8,8 @@ abstract class Transformer
 
         if (data instanceof Array)
         {
-            result = data.map((element: any) => {
+            result = data.map((element: any) =>
+            {
                 return this.transform(element);
             });
         }

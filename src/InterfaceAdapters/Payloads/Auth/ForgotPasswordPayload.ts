@@ -1,4 +1,5 @@
-interface ForgotPasswordPayload {
+interface ForgotPasswordPayload
+{
     email(): string;
     confirmationToken(): Promise<string>;
     passwordRequestedAT(): Date;

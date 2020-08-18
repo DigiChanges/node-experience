@@ -1,10 +1,10 @@
 import IBaseRepository from "./IBaseRepository";
-import User from "../../Infrastructure/Entities/User";
+import IUserDomain from "../IDomain/IUserDomain";
 
 interface IUserRepository extends IBaseRepository
 {
-    getOneByEmail(email: string): Promise<User>;
-    getOneByConfirmationToken(confirmationToken: string): Promise<User>;
+    getOneByEmail(email: string): Promise<IUserDomain>;
+    getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>;
 }
 
 export default IUserRepository;

@@ -1,6 +1,4 @@
 import IRoleRepository from "../../InterfaceAdapters/IRepositories/IRoleRepository";
-import {DeleteResult, getMongoRepository, MongoRepository} from "typeorm";
-import Role from "../Entities/Role";
 import {injectable} from "inversify";
 import ErrorException from "../../Application/Shared/ErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";
@@ -8,90 +6,98 @@ import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import RoleFilter from "../../Presentation/Criterias/Role/RoleFilter";
+import {DocumentQuery, Model} from "mongoose";
+import IRole from "../../InterfaceAdapters/IEntities/Mongoose/IRoleDocument";
+import {ObjectID} from "mongodb";
+import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
+import {connection} from "../Database/MongooseCreateConnection";
 
 @injectable()
-class RoleMongoRepository implements IRoleRepository {
-    private repository: MongoRepository<Role>;
+class RoleMongoRepository implements IRoleRepository
+{
+     private repository: Model<IRole>;
 
-    constructor() {
-        this.repository = getMongoRepository(Role);
-    }
-
-    async save (role: Role): Promise<Role> {
-        return await this.repository.save(role);
-    }
-
-    async findOne(id: string): Promise<Role>
+    constructor()
     {
-        const role = await this.repository.findOne(id);
+        this.repository = connection.model<IRole>('Role');
+    }
 
-        if (!role) {
+    async save (role: IRoleDomain): Promise<IRoleDomain>
+    {
+        return await this.repository.create(role);
+    }
+
+    async getOne(id: ObjectID): Promise<IRoleDomain>
+    {
+        try
+        {
+            const role = await this.repository.findOne({_id: id});
+
+            if (!role)
+            {
+                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found');
+            }
+
+            return role;
+        }
+        catch(e)
+        {
             throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found');
         }
-
-        return role;
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        const count = await this.repository.count();
-        let aggregationCursor = await this.repository.aggregate([]);
+        const queryBuilder: DocumentQuery<IRole[], IRole> = this.repository.find();
         const filter = criteria.getFilter();
-        let filters = {};
 
         if (filter.has(RoleFilter.ENABLE))
         {
-            let _enable = filter.get(RoleFilter.ENABLE);
+            const _enable = filter.get(RoleFilter.ENABLE);
             const enable: boolean = _enable !== 'false';
 
-            Object.assign(filters, {enable: { $eq : enable }});
+            queryBuilder.where(RoleFilter.ENABLE).equals(enable);
         }
-        if (filter.has(RoleFilter.NAME)) {
-            let name = filter.get(RoleFilter.NAME);
-
-            Object.assign(filters, {name: { $regex: name }});
-        }
-        if (filter.has(RoleFilter.SLUG)) {
-            let slug = filter.get(RoleFilter.SLUG);
-
-            Object.assign(filters, {slug: { $regex: slug }});
-        }
-        if (Object.entries(filters))
+        if (filter.has(RoleFilter.NAME))
         {
-            aggregationCursor.match(filters);
+            const name = filter.get(RoleFilter.NAME);
+            const rsearch = new RegExp(name, "g");
+
+            queryBuilder.where(RoleFilter.NAME).regex(rsearch);
+        }
+        if (filter.has(RoleFilter.SLUG))
+        {
+            const slug = filter.get(RoleFilter.SLUG);
+            const rsearch = new RegExp(slug, "g");
+
+            queryBuilder.where(RoleFilter.SLUG).regex(rsearch);
         }
 
-        const paginator = new MongoPaginator(aggregationCursor, criteria, count);
-
-        return await paginator;
+        return new MongoPaginator(queryBuilder, criteria);
     }
 
-    async update(role: Role): Promise<any> {
-        this.repository.save(role);
-    }
-
-    async delete(id: string): Promise<DeleteResult> {
-        return await this.repository.delete(id);
-    }
-
-    async exists(ids: string[]): Promise<boolean>
+    async update(role: IRoleDomain): Promise<IRoleDomain>
     {
-        let exist: boolean  = true;
+        return this.repository.updateOne({_id: role.getId()}, role);
+    }
 
-        const count = ids.length;
-
-        for (let i = 0; i < count; i++)
+    async delete(id: ObjectID): Promise<IRoleDomain>
+    {
+        try
         {
-            const role = await this.repository.findOne(ids[i]);
+            const item = await this.repository.findByIdAndDelete({_id: id});
 
-            if (!role)
+            if (!item)
             {
-                exist = false;
-                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found: ' + ids[i]);
+                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found');
             }
-        }
 
-        return exist;
+            return item;
+        }
+        catch(e)
+        {
+            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found');
+        }
     }
 }
 

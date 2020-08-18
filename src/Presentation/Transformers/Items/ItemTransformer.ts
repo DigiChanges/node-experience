@@ -1,19 +1,17 @@
-// @ts-ignore
 import moment from "moment";
 import Transformer from "../../Shared/Transformer";
-import IItem from "../../../InterfaceAdapters/IEntities/IItem";
+import IItemDomain from "../../../InterfaceAdapters/IDomain/IItemDomain";
 
 class ItemTransformer extends Transformer
 {
-    public transform(item: IItem)
+    public transform(item: IItemDomain)
     {
         return {
-          'id': item._id,
+          'id': item.getId(),
           'name': item.name,
           'type': item.type,
-          'enable': item.enable,
-          'createdAt': moment(item.createdAt).format('DD-MM-YYYY HH:SS'),
-          'updatedAt': moment(item.updatedAt).format('DD-MM-YYYY HH:SS'),
+          'createdAt': moment(item.createdAt).utc().unix(),
+          'updatedAt': moment(item.updatedAt).utc().unix(),
         };
     }
 }

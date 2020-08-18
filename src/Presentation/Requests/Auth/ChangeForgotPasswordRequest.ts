@@ -26,7 +26,8 @@ class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
         return await encryption.encrypt(this.request.body.password);
     }
 
-    passwordConfirmation(): string {
+    passwordConfirmation(): string
+    {
         return this.request.body.passwordConfirmation;
     }
 

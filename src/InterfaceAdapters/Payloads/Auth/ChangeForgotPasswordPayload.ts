@@ -1,4 +1,5 @@
-interface ChangeForgotPasswordPayload {
+interface ChangeForgotPasswordPayload
+{
     confirmationToken(): string;
     password(): Promise<string>;
     passwordConfirmation(): string;

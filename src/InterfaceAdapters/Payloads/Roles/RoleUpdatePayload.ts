@@ -4,7 +4,7 @@ interface RoleUpdatePayload extends IdPayload
 {
     name(): string;
     slug(): string;
-    permissions(): any[];
+    permissions(): string[];
     enable(): boolean;
 }
 
