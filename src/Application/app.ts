@@ -6,6 +6,7 @@ import "../Presentation/Handlers/ItemHandler";
 import "../Presentation/Handlers/UserHandler";
 import "../Presentation/Handlers/AuthHandler";
 import "../Presentation/Handlers/RoleHandler";
+import "../Presentation/Handlers/FileHandler";
 import compression from "compression";
 import cors from "cors";
 import helmet from "helmet";
@@ -32,12 +33,15 @@ class App
         this.server.setConfig((app: any) =>
         {
             app.use(bodyParser.urlencoded({
-                extended: true
+                extended: true,
+                limit: '5mb'
             }));
-            app.use(bodyParser.json());
+            // app.use(bodyParser.json({
+            //     limit: '5mb'
+            // }));
             app.use(compression());
             app.use(cors());
-            app.use(helmet());
+            // app.use(helmet());
             app.use(LoggerWinston);
             app.use(AuthenticationMiddleware);
         });

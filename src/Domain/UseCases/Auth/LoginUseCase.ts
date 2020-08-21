@@ -2,7 +2,7 @@ import { lazyInject } from '../../../inversify.config'
 import AuthPayload from "../../../InterfaceAdapters/Payloads/Auth/AuthPayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import ErrorException from "../../../Application/Shared/ErrorException";
-import IEncryptionStrategy from "../../../InterfaceAdapters/Shared/IEncryptionStrategy";
+import IEncryption from "../../../InterfaceAdapters/Shared/IEncryption";
 import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
 import StatusCode from "../../../Presentation/Shared/StatusCode";
 import TokenFactory from "../../../Infrastructure/Factories/TokenFactory";
@@ -12,7 +12,7 @@ class LoginUseCase
 {
     @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-    private encryption: IEncryptionStrategy;
+    private encryption: IEncryption;
     private tokenFactory: TokenFactory;
 
     constructor()

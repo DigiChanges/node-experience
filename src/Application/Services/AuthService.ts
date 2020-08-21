@@ -3,7 +3,7 @@ import jwt from "jwt-simple";
 import Config from "config";
 
 import TokenFactory from "../../Infrastructure/Factories/TokenFactory";
-import IEncryptionStrategy from "../../InterfaceAdapters/Shared/IEncryptionStrategy";
+import IEncryption from "../../InterfaceAdapters/Shared/IEncryption";
 import EncryptionFactory from "../../Infrastructure/Factories/EncryptionFactory";
 import IAuthService from "../../InterfaceAdapters/IServices/IAuthService";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
@@ -12,7 +12,7 @@ import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
 @injectable()
 class AuthService implements IAuthService
 {
-    private encryption: IEncryptionStrategy;
+    private encryption: IEncryption;
     private tokenFactory: TokenFactory;
 
     constructor()
