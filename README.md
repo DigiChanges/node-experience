@@ -32,6 +32,9 @@ Hi! Node experience it's a boilerplate with many tools together for a simple bas
 Execute DEV Environment
 - **docker-compose up --build -d**
 - Also, you could use **make dev**
+- docker-composen exec node bash and bash dev.init.sh
+
+
 
 Execute PROD Environment
 - docker-compose -f docker-compose.prod.yml up --build

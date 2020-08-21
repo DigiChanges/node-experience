@@ -36,12 +36,12 @@ class App
                 extended: true,
                 limit: '5mb'
             }));
-            // app.use(bodyParser.json({
-            //     limit: '5mb'
-            // }));
+            app.use(bodyParser.json({
+                 limit: '5mb'
+            }));
             app.use(compression());
             app.use(cors());
-            // app.use(helmet());
+            app.use(helmet());
             app.use(LoggerWinston);
             app.use(AuthenticationMiddleware);
         });
