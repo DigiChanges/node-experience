@@ -1,5 +1,5 @@
 import * as express from "express";
-import ItemRepPayload from "../../../InterfaceAdapters/Payloads/Items/ItemRepPayload";
+import ItemRepPayload from "../../../../InterfaceAdapters/Payloads/Items/ItemRepPayload";
 import {body} from "express-validator";
 
 class ItemRepRequest implements ItemRepPayload

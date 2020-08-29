@@ -1,5 +1,5 @@
 import * as express from "express";
-import RoleRepPayload from "../../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
+import RoleRepPayload from "../../../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
 import {body} from "express-validator";
 
 class RoleRepRequest implements RoleRepPayload

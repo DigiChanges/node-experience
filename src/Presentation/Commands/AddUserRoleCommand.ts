@@ -1,7 +1,7 @@
 import RoleRepPayload from "../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
-import RoleCommandRepRequest from "./Requests/RoleUserCommandRepRequest";
+import RoleCommandRepRequest from "../Requests/Command/Requests/RoleUserCommandRepRequest";
 import UserRepPayload from "../../InterfaceAdapters/Payloads/Users/UserRepPayload";
-import UserCommandRepRequest from "./Requests/UserCommandRepRequest";
+import UserCommandRepRequest from "../Requests/Command/Requests/UserCommandRepRequest";
 import { loggerCli } from "../../Infrastructure/Shared/Logger";
 import commander from "commander";
 import SaveUserUseCase from "../../Domain/UseCases/User/SaveUserUseCase";

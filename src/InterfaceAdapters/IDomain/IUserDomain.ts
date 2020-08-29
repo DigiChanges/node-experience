@@ -1,4 +1,3 @@
-import { ObjectID } from "mongodb";
 import IRoleDomain from "./IRoleDomain";
 
 interface IUserDomain
@@ -20,7 +19,7 @@ interface IUserDomain
     setRole(role: IRoleDomain): void;
     getRoles(): IRoleDomain[];
     clearRoles(): void;
-    getId(): ObjectID;
+    getId(): string;
 }
 
 export default IUserDomain;

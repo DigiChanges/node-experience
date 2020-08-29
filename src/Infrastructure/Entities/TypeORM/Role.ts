@@ -1,19 +1,11 @@
-import {
-    Entity,
-    Column,
-    CreateDateColumn,
-    UpdateDateColumn,
-    ObjectIdColumn,
-    ObjectID
-} from "typeorm";
+import { Entity, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
-import { ObjectId } from "mongodb";
 
 @Entity()
 class Role implements IRoleDomain
 {
-    @ObjectIdColumn()
-    _id: ObjectID;
+    @Column()
+    _id: string;
 
     @Column()
     name: string | undefined;
@@ -33,7 +25,7 @@ class Role implements IRoleDomain
     @UpdateDateColumn()
     updatedAt: Date | undefined;
 
-    getId(): ObjectId
+    getId(): string
     {
         throw new Error("Method not implemented.");
     }

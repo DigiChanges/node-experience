@@ -1,10 +1,9 @@
 import * as express from "express";
-import UserUpdatePayload from "../../../InterfaceAdapters/Payloads/Users/UserUpdatePayload";
+import UserUpdatePayload from "../../../../InterfaceAdapters/Payloads/Users/UserUpdatePayload";
 import {body, param} from "express-validator";
-import {lazyInject} from "../../../inversify.config";
-import {SERVICES} from "../../../services";
-import IAuthService from "../../../InterfaceAdapters/IServices/IAuthService";
-import {ObjectID} from "mongodb";
+import {lazyInject} from "../../../../inversify.config";
+import {SERVICES} from "../../../../services";
+import IAuthService from "../../../../InterfaceAdapters/IServices/IAuthService";
 
 class UserUpdateRequest implements UserUpdatePayload
 {
@@ -50,9 +49,9 @@ class UserUpdateRequest implements UserUpdatePayload
         return this.request.body.enable;
     }
 
-    id(): ObjectID
+    id(): string
     {
-        return new ObjectID(this.request.params.id);
+        return this.request.params.id;
     }
 
     static validate()
@@ -71,9 +70,8 @@ class UserUpdateRequest implements UserUpdatePayload
                 .optional()
                 .isBoolean().withMessage('enable must be of type boolean'),
             param('id')
-                .exists().withMessage('id mus exist')
-                .isLength({ min: 24, max:24 })
-                .isString().withMessage('id must string type')
+                .exists().withMessage('id must exist')
+                .isUUID().withMessage('id must uuid type')
         ];
     }
 }

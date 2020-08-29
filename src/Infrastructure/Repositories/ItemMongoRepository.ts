@@ -1,5 +1,4 @@
 import {DocumentQuery, Model} from "mongoose";
-import {ObjectID} from "mongodb";
 import {injectable} from "inversify";
 
 import ErrorException from "../../Application/Shared/ErrorException";
@@ -29,7 +28,7 @@ class ItemMongoRepository implements IItemRepository
         return await this.repository.create(item);
     }
 
-    async getOne(id: ObjectID): Promise<IItemDomain>
+    async getOne(id: string): Promise<IItemDomain>
     {
         try
         {
@@ -75,7 +74,7 @@ class ItemMongoRepository implements IItemRepository
         return this.repository.updateOne({_id: item.getId()}, item);
     }
 
-    async delete(id: ObjectID): Promise<IItemDomain>
+    async delete(id: string): Promise<IItemDomain>
     {
         try
         {

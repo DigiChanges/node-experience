@@ -54,11 +54,14 @@ class UpdateUserUseCase
 
         for (let i = 0; i < count; i++)
         {
-            const role: Role = await roleRepository.getOne(payload.user.roles[i]);
-            if(role.slug === payload.roleToCheck){
+            const role: Role = await roleRepository.getOne(payload.user.roles[i].getId());
+
+            if(role.slug === payload.roleToCheck)
+            {
                 return true;
             }
         }
+
         return false;
     }
 }

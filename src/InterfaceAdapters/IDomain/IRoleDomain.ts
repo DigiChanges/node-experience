@@ -1,4 +1,3 @@
-import {ObjectID} from "mongodb";
 
 interface IRoleDomain
 {
@@ -9,7 +8,7 @@ interface IRoleDomain
     createdAt: Date;
     updatedAt: Date;
 
-    getId(): ObjectID;
+    getId(): string;
 }
 
 export default IRoleDomain;

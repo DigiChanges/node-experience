@@ -1,7 +1,6 @@
 import * as express from "express";
 import {body, param} from "express-validator";
-import UserAssignRolePayload from "../../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload";
-import {ObjectID} from "mongodb";
+import UserAssignRolePayload from "../../../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload";
 
 class UserAssignRoleRequest implements UserAssignRolePayload
 {
@@ -17,9 +16,9 @@ class UserAssignRoleRequest implements UserAssignRolePayload
         return this.request.body.rolesId;
     }
 
-    id(): ObjectID
+    id(): string
     {
-        return new ObjectID(this.request.params.id);
+        return this.request.params.id;
     }
 
     static validate()
@@ -29,11 +28,10 @@ class UserAssignRoleRequest implements UserAssignRolePayload
                 .exists().withMessage('rolesId must exist')
                 .isArray().withMessage('rolesId must be of type array'),
             body('rolesId.*')
-                .isLength({ min: 24, max:24 }),
+                .isUUID().withMessage('id must uuid type'),
             param('id')
                 .exists().withMessage('id must exist')
-                .isLength({ min: 24, max:24 })
-                .isString().withMessage('id must be of type string')
+                .isUUID().withMessage('id must uuid type')
         ];
     }
 }

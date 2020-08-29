@@ -1,10 +1,10 @@
 import * as express from "express";
-import ChangeMyPasswordPayload from "../../../InterfaceAdapters/Payloads/Users/ChangeMyPasswordPayload";
+import ChangeMyPasswordPayload from "../../../../InterfaceAdapters/Payloads/Users/ChangeMyPasswordPayload";
 import {body} from "express-validator";
 import Config from "config";
-import {lazyInject} from "../../../inversify.config";
-import {SERVICES} from "../../../services";
-import IAuthService from "../../../InterfaceAdapters/IServices/IAuthService";
+import {lazyInject} from "../../../../inversify.config";
+import {SERVICES} from "../../../../services";
+import IAuthService from "../../../../InterfaceAdapters/IServices/IAuthService";
 
 class ChangeMyPasswordRequest implements ChangeMyPasswordPayload
 {

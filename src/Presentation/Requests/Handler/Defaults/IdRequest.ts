@@ -1,7 +1,6 @@
 import * as express from "express";
-import IdPayload from "../../../InterfaceAdapters/Payloads/Defaults/IdPayload";
+import IdPayload from "../../../../InterfaceAdapters/Payloads/Defaults/IdPayload";
 import {param} from "express-validator";
-import {ObjectID} from "mongodb";
 
 class IdRequest implements IdPayload
 {
@@ -12,18 +11,17 @@ class IdRequest implements IdPayload
         this.request = request;
     }
 
-    id(): ObjectID
+    id(): string
     {
-        return new ObjectID(this.request.params.id);
+        return this.request.params.id;
     }
 
     static validate()
     {
         return [
             param('id')
-                .exists().withMessage("id must exist")
-                .isLength({ min: 24, max:24 })
-                .isString().withMessage("Invalid ID")
+                .exists().withMessage('id must exist')
+                .isUUID().withMessage('id must uuid type')
         ];
     }
 }

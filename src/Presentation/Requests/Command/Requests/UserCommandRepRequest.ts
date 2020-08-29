@@ -1,5 +1,5 @@
-import UserRepPayload from "../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
-import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
+import UserRepPayload from "../../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
+import IRoleDomain from "../../../../InterfaceAdapters/IDomain/IRoleDomain";
 
 class UserCommandRepRequest implements UserRepPayload
 {

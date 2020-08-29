@@ -1,8 +1,8 @@
 import * as express from "express";
-import UserRepPayload from "../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
+import UserRepPayload from "../../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
 import {body} from "express-validator";
 import Config from "config";
-import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
+import IRoleDomain from "../../../../InterfaceAdapters/IDomain/IRoleDomain";
 
 class UserRepRequest implements UserRepPayload
 {

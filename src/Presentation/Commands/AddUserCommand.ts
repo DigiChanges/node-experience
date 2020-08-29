@@ -1,5 +1,5 @@
 import UserRepPayload from "../../InterfaceAdapters/Payloads/Users/UserRepPayload";
-import UserCommandRepRequest from "./Requests/UserCommandRepRequest";
+import UserCommandRepRequest from "../Requests/Command/Requests/UserCommandRepRequest";
 import { loggerCli } from "../../Infrastructure/Shared/Logger";
 import commander from "commander";
 import SaveUserUseCase from "../../Domain/UseCases/User/SaveUserUseCase";

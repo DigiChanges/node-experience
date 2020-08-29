@@ -19,7 +19,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@types/mongoose": "^5.7.36",
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
@@ -54,6 +53,7 @@
     "reflect-metadata": "^0.1.13",
     "ts-mongoose": "^0.0.21",
     "typeorm": "^0.2.24",
+    "uuid": "^8.3.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
@@ -73,10 +73,12 @@
     "@types/jasmine": "^3.5.10",
     "@types/jwt-simple": "^0.5.33",
     "@types/md5": "^2.2.0",
+    "@types/mongoose": "^5.7.36",
     "@types/node": "^13.9.5",
     "@types/nodemailer": "^6.4.0",
     "@types/pg": "^7.14.1",
     "@types/shelljs": "^0.8.6",
+    "@types/uuid": "^8.3.0",
     "fs-extra": "^8.1.0",
     "nodemon": "^2.0.2",
     "npm-run-all": "^4.1.5",

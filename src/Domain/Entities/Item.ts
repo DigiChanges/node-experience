@@ -1,15 +1,20 @@
 import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
-import { ObjectID } from "mongodb";
+import { v4 as uuidv4 } from 'uuid';
 
 class Item implements IItemDomain
 {
-    _id: ObjectID;
+    _id: string;
     name: string;
     type: number;
     createdAt: Date;
     updatedAt: Date;
 
-    getId(): ObjectID
+    constructor()
+    {
+        this._id = uuidv4();
+    }
+
+    getId(): string
     {
         return this._id;
     }

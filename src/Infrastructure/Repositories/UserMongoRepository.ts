@@ -8,7 +8,6 @@ import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import UserFilter from "../../Presentation/Criterias/User/UserFilter";
 import IUser from "../../InterfaceAdapters/IEntities/Mongoose/IUserDocument";
 import {DocumentQuery, Model} from "mongoose";
-import {ObjectID} from "mongodb";
 import {connection} from "../Database/MongooseCreateConnection";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 
@@ -27,7 +26,7 @@ class UserMongoRepository implements IUserRepository
         return await this.repository.create(user);
     }
 
-    async getOne(id: ObjectID): Promise<IUserDomain>
+    async getOne(id: string): Promise<IUserDomain>
     {
         try
         {
@@ -46,7 +45,7 @@ class UserMongoRepository implements IUserRepository
         }
     }
 
-    async getOneByEmail(email: string): Promise<any>
+    async getOneByEmail(email: string): Promise<IUserDomain>
     {
         try
         {

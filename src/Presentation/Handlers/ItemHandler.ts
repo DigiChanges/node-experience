@@ -9,10 +9,10 @@ import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
 import Permissions from "../../../config/Permissions";
 
 import ItemTransformer from "../Transformers/Items/ItemTransformer";
-import ItemRepRequest from "../Requests/Items/ItemRepRequest";
-import IdRequest from "../Requests/Defaults/IdRequest";
-import ItemRequestCriteria from "../Requests/Items/ItemRequestCriteria";
-import ItemUpdateRequest from "../Requests/Items/ItemUpdateRequest";
+import ItemRepRequest from "../Requests/Handler/Items/ItemRepRequest";
+import IdRequest from "../Requests/Handler/Defaults/IdRequest";
+import ItemRequestCriteria from "../Requests/Handler/Items/ItemRequestCriteria";
+import ItemUpdateRequest from "../Requests/Handler/Items/ItemUpdateRequest";
 import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
 
 import SaveItemUseCase from "../../Domain/UseCases/Item/SaveItemUseCase";

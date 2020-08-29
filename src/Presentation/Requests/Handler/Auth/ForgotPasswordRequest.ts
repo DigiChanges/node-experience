@@ -1,9 +1,9 @@
 import * as express from "express";
-import ForgotPasswordPayload from "../../../InterfaceAdapters/Payloads/Auth/ForgotPasswordPayload";
+import ForgotPasswordPayload from "../../../../InterfaceAdapters/Payloads/Auth/ForgotPasswordPayload";
 import moment from "moment";
 import {body} from "express-validator";
-import IEncryptionStrategy from "../../../InterfaceAdapters/Shared/IEncryptionStrategy";
-import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
+import IEncryptionStrategy from "../../../../InterfaceAdapters/Shared/IEncryptionStrategy";
+import EncryptionFactory from "../../../../Infrastructure/Factories/EncryptionFactory";
 import Config from "config";
 
 class ForgotPasswordRequest implements ForgotPasswordPayload
