@@ -12,7 +12,8 @@ class ListObjectsRequest implements ListObjectsPayload
 
     recursive(): boolean
     {
-        return (this.request.query.recursive === 'true');
+        const recursive: string = this.request.query.recursive ? String(this.request.query.recursive): undefined;
+        return (recursive?.toLowerCase() === 'true');
     }
 
     prefix(): string
