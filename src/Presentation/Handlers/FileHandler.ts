@@ -20,19 +20,32 @@ import * as fs from "fs";
 
 import path from "path";
 import { write } from "fs";
+import {lazyInject} from "../../inversify.config";
+import { TYPES } from '../../types';
+import Responder from '../Shared/Responder';
 
 @controller('/api/files')
 class FileHandler
 {
+    @lazyInject(TYPES.Responder)
+    private responder: Responder;
+
     @httpPost('/uploadBase64')
     public async uploadBase64 (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         // Agregar posible ruta del archivo
-        const filename = "archivoTest1.png";
-        const image = req.body.image;
+        const filename = req.body.data?.filename; // cambiar por uuid
+        const fileExtension = filename.split(".").pop(); // guardar filename y extension
+        const mimeTypeKey = Object.keys(req.body?.base64);
+        if (Array.isArray( mimeTypeKey ) && mimeTypeKey.length > 0)
+        {
+            const buffer = req.body.base64[mimeTypeKey[0]];
+            await filesystem.uploadFileByBuffer(filename, buffer);
 
-        return await filesystem.uploadFileByBuffer(filename, image);
+            this.responder.send({message: "File uploaded"}, res, StatusCode.HTTP_CREATED , null );
+        }
 
+        this.responder.send({message: "File not included"}, res, StatusCode.HTTP_PAYMENT_REQUIRED , null );
         // const _request = new AuthRequest(req);
         // const loginUseCase = new LoginUseCase();
         //
