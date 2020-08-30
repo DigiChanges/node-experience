@@ -30,6 +30,14 @@ class FileHandler
     @lazyInject(TYPES.Responder)
     private responder: Responder;
 
+    @httpGet('/')
+    public async getObjects (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const objects = await filesystem.listObjects();
+
+        this.responder.send( {data: objects}, res, StatusCode.HTTP_OK, null )
+    }
+
     @httpPost('/uploadBase64')
     public async uploadBase64 (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {

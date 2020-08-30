@@ -44,6 +44,26 @@ class S3Strategy implements IFilesystem
         return filePath;
     }
 
+    async listObjects()
+    {
+        const stream = this.filesystem.listObjectsV2(this.bucketName) ;
+        return new Promise((resolve, reject) => {
+            const files: any = [];
+
+            stream.on('data', obj => {
+                files.push(obj);
+            } )
+
+            stream.on('end', () => resolve(files));
+
+            stream.on('close', () => resolve(files));
+
+            stream.on('error', (error) => reject(error));
+
+        })
+
+    }
+
     getClient(): any
     {
         return this.filesystem;
