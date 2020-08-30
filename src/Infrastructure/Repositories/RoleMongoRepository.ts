@@ -8,7 +8,6 @@ import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import RoleFilter from "../../Presentation/Criterias/Role/RoleFilter";
 import {DocumentQuery, Model} from "mongoose";
 import IRole from "../../InterfaceAdapters/IEntities/Mongoose/IRoleDocument";
-import {ObjectID} from "mongodb";
 import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
 import {connection} from "../Database/MongooseCreateConnection";
 
@@ -27,7 +26,7 @@ class RoleMongoRepository implements IRoleRepository
         return await this.repository.create(role);
     }
 
-    async getOne(id: ObjectID): Promise<IRoleDomain>
+    async getOne(id: string): Promise<IRoleDomain>
     {
         try
         {
@@ -81,7 +80,7 @@ class RoleMongoRepository implements IRoleRepository
         return this.repository.updateOne({_id: role.getId()}, role);
     }
 
-    async delete(id: ObjectID): Promise<IRoleDomain>
+    async delete(id: string): Promise<IRoleDomain>
     {
         try
         {

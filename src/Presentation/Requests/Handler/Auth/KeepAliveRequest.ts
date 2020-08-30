@@ -1,8 +1,8 @@
 import * as express from "express";
-import KeepAlivePayload from "../../../InterfaceAdapters/Payloads/Auth/KeepAlivePayload";
-import {lazyInject} from "../../../inversify.config";
-import {SERVICES} from "../../../services";
-import IAuthService from "../../../InterfaceAdapters/IServices/IAuthService";
+import KeepAlivePayload from "../../../../InterfaceAdapters/Payloads/Auth/KeepAlivePayload";
+import {lazyInject} from "../../../../inversify.config";
+import {SERVICES} from "../../../../services";
+import IAuthService from "../../../../InterfaceAdapters/IServices/IAuthService";
 
 class KeepAliveRequest implements KeepAlivePayload
 {

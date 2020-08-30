@@ -1,4 +1,4 @@
-import { ObjectID } from "mongodb";
+// import { ObjectID } from "mongodb";
 
 interface IItemDomain
 {
@@ -7,7 +7,7 @@ interface IItemDomain
     createdAt: Date;
     updatedAt: Date;
 
-    getId(): ObjectID;
+    getId(): string;
 }
 
 export default IItemDomain;

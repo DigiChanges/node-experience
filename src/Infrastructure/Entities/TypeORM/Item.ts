@@ -1,20 +1,11 @@
-import {
-    Entity,
-    Column,
-    CreateDateColumn,
-    UpdateDateColumn,
-    ObjectIdColumn,
-    ObjectID
-} from "typeorm";
-
+import { Entity, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import IItemDomain from "../../../InterfaceAdapters/IDomain/IItemDomain";
-import { ObjectId } from "mongodb";
 
 @Entity()
 class Item implements IItemDomain
 {
-    @ObjectIdColumn()
-    _id: ObjectID;
+    @Column()
+    id: string;
 
     @Column()
     name: string;
@@ -31,7 +22,8 @@ class Item implements IItemDomain
     @UpdateDateColumn()
     updatedAt: Date;
 
-    getId(): ObjectId {
+    getId(): string
+    {
         throw new Error("Method not implemented.");
     }
 }

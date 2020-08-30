@@ -1,4 +1,4 @@
-import RoleRepPayload from "../../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
+import RoleRepPayload from "../../../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
 
 class RoleCommandRepRequest implements RoleRepPayload
 {

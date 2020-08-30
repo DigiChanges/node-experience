@@ -1,9 +1,9 @@
-import {ObjectID} from "mongodb";
 import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
+import { v4 as uuidv4 } from 'uuid';
 
 class Role implements IRoleDomain
 {
-    _id: ObjectID;
+    _id: string;
     name: string;
     slug: string;
     enable: boolean;
@@ -11,7 +11,12 @@ class Role implements IRoleDomain
     createdAt: Date;
     updatedAt: Date;
 
-    getId(): ObjectID
+    constructor()
+    {
+        this._id = uuidv4();
+    }
+
+    getId(): string
     {
         return this._id;
     }

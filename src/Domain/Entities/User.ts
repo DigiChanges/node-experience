@@ -1,10 +1,10 @@
 import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
-import {ObjectID} from "mongodb";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
+import { v4 as uuidv4 } from 'uuid';
 
 class User implements IUserDomain
 {
-    _id: ObjectID;
+    _id: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -17,6 +17,11 @@ class User implements IUserDomain
     passwordRequestedAt: Date ;
     createdAt: Date;
     updatedAt: Date;
+
+    constructor()
+    {
+        this._id = uuidv4();
+    }
 
     getFullName(): string
     {
@@ -43,7 +48,7 @@ class User implements IUserDomain
         return this.roles;
     }
 
-    getId(): ObjectID
+    getId(): string
     {
         return this._id;
     }

@@ -1,6 +1,6 @@
 import * as express from "express";
 import {body} from "express-validator";
-import AuthPayload from "../../../InterfaceAdapters/Payloads/Auth/AuthPayload";
+import AuthPayload from "../../../../InterfaceAdapters/Payloads/Auth/AuthPayload";
 import Config from "config";
 
 class AuthRequest implements AuthPayload

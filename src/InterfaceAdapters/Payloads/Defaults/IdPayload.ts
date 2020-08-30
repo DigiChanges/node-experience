@@ -1,8 +1,7 @@
-import { ObjectID } from "mongodb";
 
 interface IdPayload
 {
-    id(): ObjectID;
+    id(): string;
 }
 
 export default IdPayload

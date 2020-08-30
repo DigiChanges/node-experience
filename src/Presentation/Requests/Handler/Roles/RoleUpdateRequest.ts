@@ -1,7 +1,6 @@
 import * as express from "express";
-import RoleUpdatePayload from "../../../InterfaceAdapters/Payloads/Roles/RoleUpdatePayload";
+import RoleUpdatePayload from "../../../../InterfaceAdapters/Payloads/Roles/RoleUpdatePayload";
 import {body, param} from "express-validator";
-import { ObjectID } from "mongodb";
 
 class RoleUpdateRequest implements RoleUpdatePayload
 {
@@ -32,9 +31,9 @@ class RoleUpdateRequest implements RoleUpdatePayload
         return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
     }
 
-    id(): ObjectID
+    id(): string
     {
-        return new ObjectID(this.request.params.id);
+        return this.request.params.id;
     }
 
     static validate()
@@ -53,9 +52,8 @@ class RoleUpdateRequest implements RoleUpdatePayload
                 .optional()
                 .isArray().withMessage('permissions must be of type array'),
             param('id')
-                .exists().withMessage('id mus exist')
-                .isLength({ min: 24, max:24 })
-                .isString().withMessage('id must string type')
+                .exists().withMessage('id must exist')
+                .isUUID().withMessage('id must uuid type')
         ];
     }
 }

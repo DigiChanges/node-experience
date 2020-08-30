@@ -1,6 +1,5 @@
 import * as express from "express";
-import {ObjectID} from "mongodb";
-import ItemUpdatePayload from "../../../InterfaceAdapters/Payloads/Items/ItemUpdatePayload";
+import ItemUpdatePayload from "../../../../InterfaceAdapters/Payloads/Items/ItemUpdatePayload";
 import {body, param} from "express-validator";
 
 class ItemUpdateRequest implements ItemUpdatePayload
@@ -27,9 +26,9 @@ class ItemUpdateRequest implements ItemUpdatePayload
         return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
     }
 
-    id(): ObjectID
+    id(): string
     {
-        return new ObjectID(this.request.params.id);
+        return this.request.params.id;
     }
 
     static validate()
@@ -46,8 +45,7 @@ class ItemUpdateRequest implements ItemUpdatePayload
                 .isBoolean().withMessage('enable must be of type boolean'),
             param('id')
                 .exists().withMessage('id must exist')
-                .isLength({ min: 24, max:24 })
-                .isString().withMessage('id must string type')
+                .isUUID().withMessage('id must uuid type')
         ];
     }
 }

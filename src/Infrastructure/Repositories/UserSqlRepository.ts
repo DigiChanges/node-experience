@@ -20,12 +20,12 @@ class UserSqlRepository implements IUserRepository
         this.repository = getRepository(User);
     }
 
-    async save (user: User): Promise<User>
+    async save (user: IUserDomain): Promise<IUserDomain>
     {
         return await this.repository.save(user);
     }
 
-    async getOne(id: string): Promise<User>
+    async getOne(id: string): Promise<IUserDomain>
     {
         const user = await this.repository.findOne(id);
 
@@ -83,7 +83,7 @@ class UserSqlRepository implements IUserRepository
         return new Paginator(queryBuilder, criteria);
     }
 
-    async update(user: User): Promise<any>
+    async update(user: IUserDomain): Promise<any>
     {
         await this.repository.save(user);
     }

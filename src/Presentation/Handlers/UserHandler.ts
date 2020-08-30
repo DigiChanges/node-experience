@@ -3,7 +3,6 @@ import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, n
 
 import {lazyInject} from "../../inversify.config";
 import { TYPES } from "../../types";
-import {SERVICES} from "../../services";
 import StatusCode from "../Shared/StatusCode";
 import Responder from "../Shared/Responder";
 
@@ -13,13 +12,13 @@ import Permissions from "../../../config/Permissions";
 
 import UserTransformer from "../Transformers/Users/UserTransformer";
 
-import UserRepRequest from "../Requests/Users/UserRepRequest";
-import IdRequest from "../Requests/Defaults/IdRequest";
-import UserRequestCriteria from "../Requests/Users/UserRequestCriteria";
-import UserUpdateRequest from "../Requests/Users/UserUpdateRequest";
-import UserAssignRoleRequest from "../Requests/Users/UserAssignRoleRequest";
-import ChangeUserPasswordRequest from "../Requests/Users/ChangeUserPasswordRequest";
-import ChangeMyPasswordRequest from "../Requests/Users/ChangeMyPasswordRequest";
+import UserRepRequest from "../Requests/Handler/Users/UserRepRequest";
+import IdRequest from "../Requests/Handler/Defaults/IdRequest";
+import UserRequestCriteria from "../Requests/Handler/Users/UserRequestCriteria";
+import UserUpdateRequest from "../Requests/Handler/Users/UserUpdateRequest";
+import UserAssignRoleRequest from "../Requests/Handler/Users/UserAssignRoleRequest";
+import ChangeUserPasswordRequest from "../Requests/Handler/Users/ChangeUserPasswordRequest";
+import ChangeMyPasswordRequest from "../Requests/Handler/Users/ChangeMyPasswordRequest";
 
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 

@@ -1,8 +1,7 @@
 import * as express from "express";
-import ChangeUserPasswordPayload from "../../../InterfaceAdapters/Payloads/Users/ChangeUserPasswordPayload";
+import ChangeUserPasswordPayload from "../../../../InterfaceAdapters/Payloads/Users/ChangeUserPasswordPayload";
 import {body, param} from "express-validator";
 import Config from "config";
-import {ObjectID} from "mongodb";
 
 class ChangeUserPasswordRequest implements ChangeUserPasswordPayload
 {
@@ -23,9 +22,9 @@ class ChangeUserPasswordRequest implements ChangeUserPasswordPayload
         return this.request.body.newPasswordConfirmation;
     }
 
-    id(): ObjectID
+    id(): string
     {
-        return new ObjectID(this.request.params.id);
+        return this.request.params.id;
     }
 
     static validate()
@@ -42,8 +41,7 @@ class ChangeUserPasswordRequest implements ChangeUserPasswordPayload
                 .isString().withMessage('newPasswordConfirmation must be of type string'),
             param('id')
                 .exists().withMessage('id must exist')
-                .isLength({ min: 24, max:24 })
-                .isString().withMessage('id must string type')
+                .isUUID().withMessage('id must uuid type')
         ];
     }
 }

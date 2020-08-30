@@ -11,10 +11,10 @@ import ValidatorRules from "../Middlewares/ValidatorRules";
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
 import Permissions from "../../../config/Permissions";
 
-import AuthRequest from "../Requests/Auth/AuthRequest";
-import ForgotPasswordRequest from "../Requests/Auth/ForgotPasswordRequest";
-import ChangeForgotPasswordRequest from "../Requests/Auth/ChangeForgotPasswordRequest";
-import KeepAliveRequest from "../Requests/Auth/KeepAliveRequest";
+import AuthRequest from "../Requests/Handler/Auth/AuthRequest";
+import ForgotPasswordRequest from "../Requests/Handler/Auth/ForgotPasswordRequest";
+import ChangeForgotPasswordRequest from "../Requests/Handler/Auth/ChangeForgotPasswordRequest";
+import KeepAliveRequest from "../Requests/Handler/Auth/KeepAliveRequest";
 import AuthTransformer from "../Transformers/Auth/AuthTransformer";
 
 import IAuthService from "../../InterfaceAdapters/IServices/IAuthService";

@@ -1,19 +1,12 @@
-import {
-    Entity,
-    Column,
-    CreateDateColumn,
-    UpdateDateColumn,
-    ObjectIdColumn,
-    ObjectID
-} from "typeorm";
+import { Entity, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
 import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
 
 @Entity()
 class User implements IUserDomain
 {
-    @ObjectIdColumn()
-    _id: ObjectID;
+    @Column()
+    id: string;
 
     @Column()
     firstName: string | undefined;
@@ -71,9 +64,9 @@ class User implements IUserDomain
         this.roles = [];
     }
 
-    getId(): ObjectID
+    getId(): string
     {
-        return this._id;
+        return this.id;
     }
 }
 

@@ -1,11 +1,11 @@
 import * as express from "express";
-import ICriteria from "../../../InterfaceAdapters/Shared/ICriteria";
-import IPagination from "../../../InterfaceAdapters/Shared/IPagination";
-import IFilter from "../../../InterfaceAdapters/Shared/IFilter";
-import ISort from "../../../InterfaceAdapters/Shared/ISort";
-import RoleSort from "../../Criterias/Role/RoleSort";
-import RoleFilter from "../../Criterias/Role/RoleFilter";
-import Pagination from "../../Shared/Pagination";
+import ICriteria from "../../../../InterfaceAdapters/Shared/ICriteria";
+import IPagination from "../../../../InterfaceAdapters/Shared/IPagination";
+import IFilter from "../../../../InterfaceAdapters/Shared/IFilter";
+import ISort from "../../../../InterfaceAdapters/Shared/ISort";
+import RoleSort from "../../../Criterias/Role/RoleSort";
+import RoleFilter from "../../../Criterias/Role/RoleFilter";
+import Pagination from "../../../Shared/Pagination";
 
 class RoleRequestCriteria implements ICriteria
 {

@@ -41,6 +41,7 @@ class App
             app.use(LoggerWinston);
             // app.use(AuthenticationMiddleware);
         });
+
         this.server.setErrorConfig((app: any) =>
         {
             app.use(ErrorHandler.handle);
