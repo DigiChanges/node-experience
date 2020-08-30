@@ -44,9 +44,10 @@ class S3Strategy implements IFilesystem
         return filePath;
     }
 
-    async listObjects()
+    async listObjects(prefix?: string, recursive?: boolean)
     {
-        const stream = this.filesystem.listObjectsV2(this.bucketName) ;
+        const stream = this.filesystem.listObjectsV2(this.bucketName, prefix, recursive) ;
+
         return new Promise((resolve, reject) => {
             const files: any = [];
 

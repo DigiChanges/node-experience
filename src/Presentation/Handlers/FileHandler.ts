@@ -23,6 +23,8 @@ import { write } from "fs";
 import {lazyInject} from "../../inversify.config";
 import { TYPES } from '../../types';
 import Responder from '../Shared/Responder';
+import ListObjectsRequest from '../Requests/FileSystem/ListObjectsRequest';
+import ListObjectsUseCase from '../../Domain/UseCases/FileSystem/ListObjectsUseCase';
 
 @controller('/api/files')
 class FileHandler
@@ -31,11 +33,14 @@ class FileHandler
     private responder: Responder;
 
     @httpGet('/')
-    public async getObjects (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async listObjects (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const objects = await filesystem.listObjects();
+        const _request = new ListObjectsRequest(req);
+        const listObjectsUseCase = new ListObjectsUseCase();
 
-        this.responder.send( {data: objects}, res, StatusCode.HTTP_OK, null )
+        const listObjects = await listObjectsUseCase.handle(_request);
+
+        this.responder.send( {data: listObjects}, res, StatusCode.HTTP_OK, null )
     }
 
     @httpPost('/uploadBase64')
