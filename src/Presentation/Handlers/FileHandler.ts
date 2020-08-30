@@ -25,6 +25,8 @@ import { TYPES } from '../../types';
 import Responder from '../Shared/Responder';
 import ListObjectsRequest from '../Requests/FileSystem/ListObjectsRequest';
 import ListObjectsUseCase from '../../Domain/UseCases/FileSystem/ListObjectsUseCase';
+import UploadBase64Request from '../Requests/FileSystem/UploadBase64Request';
+import UploadBase64UseCase from '../../Domain/UseCases/FileSystem/UploadBse64UseCase';
 
 @controller('/api/files')
 class FileHandler
@@ -40,31 +42,18 @@ class FileHandler
 
         const listObjects = await listObjectsUseCase.handle(_request);
 
-        this.responder.send( {data: listObjects}, res, StatusCode.HTTP_OK, null )
+        this.responder.send( {data: listObjects}, res, StatusCode.HTTP_OK, null );
     }
 
     @httpPost('/uploadBase64')
     public async uploadBase64 (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        // Agregar posible ruta del archivo
-        const filename = req.body.data?.filename; // cambiar por uuid
-        const fileExtension = filename.split(".").pop(); // guardar filename y extension
-        const mimeTypeKey = Object.keys(req.body?.base64);
-        if (Array.isArray( mimeTypeKey ) && mimeTypeKey.length > 0)
-        {
-            const buffer = req.body.base64[mimeTypeKey[0]];
-            await filesystem.uploadFileByBuffer(filename, buffer);
+        const _request = new UploadBase64Request(req);
+        const uploadBase64UseCase = new UploadBase64UseCase();
 
-            this.responder.send({message: "File uploaded"}, res, StatusCode.HTTP_CREATED , null );
-        }
+        const payload = await uploadBase64UseCase.handle(_request);
 
-        this.responder.send({message: "File not included"}, res, StatusCode.HTTP_PAYMENT_REQUIRED , null );
-        // const _request = new AuthRequest(req);
-        // const loginUseCase = new LoginUseCase();
-        //
-        // const payload = await loginUseCase.handle(_request);
-        //
-        // this.responder.send(payload, res, StatusCode.HTTP_CREATED, new AuthTransformer());
+        this.responder.send({message: "File uploaded", payload}, res, StatusCode.HTTP_CREATED , null );
     }
 
     @httpPost('/download')
