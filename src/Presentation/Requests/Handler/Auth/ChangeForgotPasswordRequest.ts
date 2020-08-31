@@ -1,6 +1,7 @@
 import * as express from "express";
 import ChangeForgotPasswordPayload from "../../../../InterfaceAdapters/Payloads/Auth/ChangeForgotPasswordPayload";
-import IEncryptionStrategy from "../../../../InterfaceAdapters/Shared/IEncryptionStrategy";
+import {body} from "express-validator";
+import IEncryption from "../../../../InterfaceAdapters/Shared/IEncryption";
 import EncryptionFactory from "../../../../Infrastructure/Factories/EncryptionFactory";
 import Config from "config";
 import {IsString, Length} from "class-validator";
@@ -33,7 +34,7 @@ class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
 
     async getPassword(): Promise<string>
     {
-        let encryption: IEncryptionStrategy = EncryptionFactory.create();
+        let encryption: IEncryption = EncryptionFactory.create();
 
         return await encryption.encrypt(this.password);
     }

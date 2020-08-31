@@ -7,15 +7,6 @@ import ValidatorRules from "../Middlewares/ValidatorRules";
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
 import Permissions from "../../../config/Permissions";
 
-import AuthRequest from "../Requests/Auth/AuthRequest";
-import KeepAliveRequest from "../Requests/Auth/KeepAliveRequest";
-import AuthTransformer from "../Transformers/Auth/AuthTransformer";
-
-import LoginUseCase from "../../Domain/UseCases/Auth/LoginUseCase";
-import KeepAliveUseCase from "../../Domain/UseCases/Auth/KeepAliveUseCase";
-import {filesystem} from "../../index";
-import internal from "stream";
-import {Client} from "minio";
 import * as fs from "fs";
 
 import path from "path";
