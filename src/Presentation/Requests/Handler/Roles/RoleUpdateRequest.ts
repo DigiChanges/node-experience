@@ -56,4 +56,4 @@ class RoleUpdateRequest extends IdRequest implements RoleUpdatePayload
     }
 }
 
-export default RoleUpdateRequest
+export default RoleUpdateRequest;

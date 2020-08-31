@@ -1,4 +1,3 @@
-// import { ObjectID } from "mongodb";
 
 interface IItemDomain
 {

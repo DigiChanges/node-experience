@@ -44,4 +44,4 @@ class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
     }
 }
 
-export default ChangeForgotPasswordRequest
+export default ChangeForgotPasswordRequest;

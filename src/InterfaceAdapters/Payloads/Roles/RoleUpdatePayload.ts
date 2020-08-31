@@ -8,4 +8,4 @@ interface RoleUpdatePayload extends IdPayload
     getEnable(): boolean;
 }
 
-export default RoleUpdatePayload
+export default RoleUpdatePayload;

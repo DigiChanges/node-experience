@@ -39,4 +39,4 @@ class ItemUpdateRequest extends IdRequest implements ItemUpdatePayload
     }
 }
 
-export default ItemUpdateRequest
+export default ItemUpdateRequest;

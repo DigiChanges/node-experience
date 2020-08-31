@@ -37,4 +37,4 @@ class ItemRepRequest implements ItemRepPayload
     }
 }
 
-export default ItemRepRequest
+export default ItemRepRequest;

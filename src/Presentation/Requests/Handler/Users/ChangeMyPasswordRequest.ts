@@ -73,4 +73,4 @@ class ChangeMyPasswordRequest implements ChangeMyPasswordPayload
     // }
 }
 
-export default ChangeMyPasswordRequest
+export default ChangeMyPasswordRequest;

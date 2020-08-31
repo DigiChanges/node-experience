@@ -1,6 +1,5 @@
 import * as express from "express";
 import ChangeUserPasswordPayload from "../../../../InterfaceAdapters/Payloads/Users/ChangeUserPasswordPayload";
-import {body, param} from "express-validator";
 import Config from "config";
 import {IsString} from "class-validator";
 import IdRequest from "../Defaults/IdRequest";
@@ -49,4 +48,4 @@ class ChangeUserPasswordRequest extends IdRequest implements ChangeUserPasswordP
     // }
 }
 
-export default ChangeUserPasswordRequest
+export default ChangeUserPasswordRequest;

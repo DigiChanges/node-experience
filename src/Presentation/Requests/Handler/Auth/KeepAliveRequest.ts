@@ -26,4 +26,4 @@ class KeepAliveRequest implements KeepAlivePayload
     }
 }
 
-export default KeepAliveRequest
+export default KeepAliveRequest;

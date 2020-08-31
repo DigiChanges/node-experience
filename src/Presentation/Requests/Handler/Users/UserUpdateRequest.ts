@@ -89,4 +89,4 @@ class UserUpdateRequest extends IdRequest implements UserUpdatePayload
     // }
 }
 
-export default UserUpdateRequest
+export default UserUpdateRequest;

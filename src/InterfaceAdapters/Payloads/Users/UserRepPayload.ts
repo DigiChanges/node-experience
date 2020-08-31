@@ -14,4 +14,4 @@ interface UserRepPayload
     getIsSuperAdmin(): boolean;
 }
 
-export default UserRepPayload
+export default UserRepPayload;

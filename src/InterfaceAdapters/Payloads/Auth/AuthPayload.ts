@@ -1,7 +1,8 @@
+
 interface AuthPayload
 {
     getEmail(): string;
     getPassword(): string;
 }
 
-export default AuthPayload
+export default AuthPayload;

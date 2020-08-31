@@ -1,3 +1,4 @@
+
 interface ChangeForgotPasswordPayload
 {
     getConfirmationToken(): string;
@@ -5,4 +6,4 @@ interface ChangeForgotPasswordPayload
     getPasswordConfirmation(): string;
 }
 
-export default ChangeForgotPasswordPayload
+export default ChangeForgotPasswordPayload;

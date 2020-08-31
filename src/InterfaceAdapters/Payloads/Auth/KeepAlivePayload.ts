@@ -4,4 +4,4 @@ interface KeepAlivePayload
     getEmail(): string;
 }
 
-export default KeepAlivePayload
+export default KeepAlivePayload;

@@ -7,4 +7,4 @@ interface ChangeMyPasswordPayload extends IdPayload
     getNewPasswordConfirmation(): string;
 }
 
-export default ChangeMyPasswordPayload
+export default ChangeMyPasswordPayload;

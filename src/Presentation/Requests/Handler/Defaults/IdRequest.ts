@@ -18,4 +18,4 @@ class IdRequest implements IdPayload
     }
 }
 
-export default IdRequest
+export default IdRequest;

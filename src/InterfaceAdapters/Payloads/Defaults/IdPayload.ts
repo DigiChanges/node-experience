@@ -4,4 +4,4 @@ interface IdPayload
     getId(): string;
 }
 
-export default IdPayload
+export default IdPayload;

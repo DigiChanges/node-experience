@@ -29,4 +29,4 @@ class AuthRequest implements AuthPayload
     }
 }
 
-export default AuthRequest
+export default AuthRequest;

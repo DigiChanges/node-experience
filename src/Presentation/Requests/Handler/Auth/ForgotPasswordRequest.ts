@@ -38,4 +38,4 @@ class ForgotPasswordRequest implements ForgotPasswordPayload
     }
 }
 
-export default ForgotPasswordRequest
+export default ForgotPasswordRequest;

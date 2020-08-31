@@ -5,4 +5,4 @@ interface ItemRepPayload
     getType(): number;
 }
 
-export default ItemRepPayload
+export default ItemRepPayload;

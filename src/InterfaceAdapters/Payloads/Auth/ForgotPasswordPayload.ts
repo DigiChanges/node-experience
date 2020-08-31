@@ -1,3 +1,4 @@
+
 interface ForgotPasswordPayload
 {
     getEmail(): string;
@@ -5,4 +6,4 @@ interface ForgotPasswordPayload
     getPasswordRequestedAT(): Date;
 }
 
-export default ForgotPasswordPayload
+export default ForgotPasswordPayload;

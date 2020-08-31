@@ -6,4 +6,4 @@ interface ChangeUserPasswordPayload extends IdPayload
     getNewPasswordConfirmation(): string;
 }
 
-export default ChangeUserPasswordPayload
+export default ChangeUserPasswordPayload;

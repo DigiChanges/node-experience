@@ -9,4 +9,4 @@ interface IFilter
     getFields(): any[];
 }
 
-export default IFilter
+export default IFilter;

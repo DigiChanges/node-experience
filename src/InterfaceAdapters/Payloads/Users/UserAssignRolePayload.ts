@@ -5,4 +5,4 @@ interface UserAssignRolePayload extends IdPayload
     getRolesId(): string[];
 }
 
-export default UserAssignRolePayload
+export default UserAssignRolePayload;

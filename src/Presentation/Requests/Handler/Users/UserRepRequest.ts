@@ -135,4 +135,4 @@ class UserRepRequest implements UserRepPayload
     // }
 }
 
-export default UserRepRequest
+export default UserRepRequest;

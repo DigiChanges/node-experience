@@ -8,4 +8,4 @@ interface UserUpdatePayload extends IdPayload
     getEnable(): boolean | null;
 }
 
-export default UserUpdatePayload
+export default UserUpdatePayload;

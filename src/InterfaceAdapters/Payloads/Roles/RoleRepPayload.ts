@@ -7,4 +7,4 @@ interface RoleRepPayload
     getEnable(): boolean;
 }
 
-export default RoleRepPayload
+export default RoleRepPayload;

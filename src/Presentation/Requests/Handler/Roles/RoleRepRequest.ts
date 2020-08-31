@@ -49,4 +49,4 @@ class RoleRepRequest implements RoleRepPayload
     }
 }
 
-export default RoleRepRequest
+export default RoleRepRequest;
