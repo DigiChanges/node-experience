@@ -1,30 +1,48 @@
 import RoleRepPayload from "../../../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
+import {IsArray, IsBoolean, IsOptional, IsString} from "class-validator";
 
 class RoleCommandRepRequest implements RoleRepPayload
 {
-    private env: any;
+    @IsString()
+    name: string;
+
+    @IsString()
+    slug: string;
+
+    @IsArray()
+    @IsString({
+        each: true,
+    })
+    permissions: string[];
+
+    @IsOptional()
+    @IsBoolean()
+    enable: boolean;
 
     constructor(env: any)
     {
-        this.env = env;
+        this.name = env.role;
+        this.slug = env.role.toLowerCase();
+        this.permissions = [];
+        this.enable = true;
     }
 
-    name(): string
+    getName(): string
     {
-        return this.env.role;
+        return this.name
     }
 
-    slug(): string
+    getSlug(): string
     {
-        return this.env.role.toLowerCase();
+        return this.slug;
     }
 
-    enable(): boolean
+    getEnable(): boolean
     {
-        return true;
+        return this.enable
     }
 
-    permissions(): any[]
+    getPermissions(): any[]
     {
         return [];
     }

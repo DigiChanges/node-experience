@@ -19,10 +19,10 @@ class ChangeUserPasswordUseCase
 
     async handle(payload: ChangeUserPasswordPayload): Promise<IUserDomain>
     {
-        const id = payload.id();
+        const id = payload.getId();
         const user: IUserDomain = await this.repository.getOne(id);
 
-        user.password = await this.encryption.encrypt(payload.newPassword());
+        user.password = await this.encryption.encrypt(payload.getNewPassword());
 
         await this.repository.save(user);
 

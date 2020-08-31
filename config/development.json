@@ -90,10 +90,6 @@
     {
       "method": ["POST"],
       "url": "/api/auth/changeForgotPassword"
-    },
-    {
-      "method": ["POST"],
-      "url": "/api/users"
     }
   ]
 }

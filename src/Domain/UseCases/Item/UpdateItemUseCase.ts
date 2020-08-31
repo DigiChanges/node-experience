@@ -11,11 +11,11 @@ class UpdateItemUseCase
 
     async handle(payload: ItemUpdatePayload): Promise<IItemDomain>
     {
-        const id = payload.id();
+        const id = payload.getId();
         const item = await this.repository.getOne(id);
 
-        item.name = payload.name();
-        item.type = payload.type();
+        item.name = payload.getName();
+        item.type = payload.getType();
 
         await this.repository.save(item);
 

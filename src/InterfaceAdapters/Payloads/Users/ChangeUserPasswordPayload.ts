@@ -2,8 +2,8 @@ import IdPayload from "../Defaults/IdPayload";
 
 interface ChangeUserPasswordPayload extends IdPayload
 {
-    newPassword(): string;
-    newPasswordConfirmation(): string;
+    getNewPassword(): string;
+    getNewPasswordConfirmation(): string;
 }
 
 export default ChangeUserPasswordPayload

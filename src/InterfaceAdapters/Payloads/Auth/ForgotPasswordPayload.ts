@@ -1,8 +1,8 @@
 interface ForgotPasswordPayload
 {
-    email(): string;
-    confirmationToken(): Promise<string>;
-    passwordRequestedAT(): Date;
+    getEmail(): string;
+    getConfirmationToken(): Promise<string>;
+    getPasswordRequestedAT(): Date;
 }
 
 export default ForgotPasswordPayload

@@ -1,52 +1,41 @@
 import * as express from "express";
 import ItemUpdatePayload from "../../../../InterfaceAdapters/Payloads/Items/ItemUpdatePayload";
-import {body, param} from "express-validator";
+import {IsBoolean, IsInt, IsOptional, IsString} from "class-validator";
+import IdRequest from "../Defaults/IdRequest";
 
-class ItemUpdateRequest implements ItemUpdatePayload
+class ItemUpdateRequest extends IdRequest implements ItemUpdatePayload
 {
-    private request: express.Request;
+    @IsString()
+    name: string;
+
+    @IsInt()
+    type: number;
+
+    @IsOptional()
+    @IsBoolean()
+    enable: boolean;
 
     constructor(request: express.Request)
     {
-        this.request = request;
+        super(request);
+        this.name = request.body.name;
+        this.type = request.body.type;
+        this.enable = request.body.hasOwnProperty('enable') ? request.body.enable : true;
     }
 
-    name(): string
+    getName(): string
     {
-        return this.request.body.name;
+        return this.name;
     }
 
-    type(): number
+    getType(): number
     {
-        return this.request.body.type;
+        return this.type;
     }
 
-    enable(): boolean
+    getEnable(): boolean
     {
-        return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
-    }
-
-    id(): string
-    {
-        return this.request.params.id;
-    }
-
-    static validate()
-    {
-        return [
-            body('name')
-                .exists().withMessage('name must exist')
-                .isString().withMessage('name must be of type string'),
-            body('type')
-                .exists().withMessage('type must exist')
-                .isInt().withMessage('type must be of type integer'),
-            body('enable')
-                .optional()
-                .isBoolean().withMessage('enable must be of type boolean'),
-            param('id')
-                .exists().withMessage('id must exist')
-                .isUUID().withMessage('id must uuid type')
-        ];
+        return this.enable;
     }
 }
 

@@ -13,8 +13,8 @@ class SaveItemUseCase
     async handle(payload: ItemRepPayload): Promise<IItemDomain>
     {
         let item = new Item();
-        item.name = payload.name();
-        item.type = payload.type();
+        item.name = payload.getName();
+        item.type = payload.getType();
 
         item = await this.repository.save(item);
 

@@ -2,10 +2,10 @@ import IdPayload from "../Defaults/IdPayload";
 
 interface RoleUpdatePayload extends IdPayload
 {
-    name(): string;
-    slug(): string;
-    permissions(): string[];
-    enable(): boolean;
+    getName(): string;
+    getSlug(): string;
+    getPermissions(): string[];
+    getEnable(): boolean;
 }
 
 export default RoleUpdatePayload

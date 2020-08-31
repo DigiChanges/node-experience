@@ -1,7 +1,7 @@
 
 interface KeepAlivePayload
 {
-    email(): string;
+    getEmail(): string;
 }
 
 export default KeepAlivePayload

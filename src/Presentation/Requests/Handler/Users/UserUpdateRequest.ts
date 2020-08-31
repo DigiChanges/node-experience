@@ -1,79 +1,92 @@
 import * as express from "express";
 import UserUpdatePayload from "../../../../InterfaceAdapters/Payloads/Users/UserUpdatePayload";
-import {body, param} from "express-validator";
-import {lazyInject} from "../../../../inversify.config";
-import {SERVICES} from "../../../../services";
-import IAuthService from "../../../../InterfaceAdapters/IServices/IAuthService";
+import IdRequest from "../Defaults/IdRequest";
+import {IsArray, IsBoolean, IsString} from "class-validator";
 
-class UserUpdateRequest implements UserUpdatePayload
+class UserUpdateRequest extends IdRequest implements UserUpdatePayload
 {
-    private readonly request: express.Request;
-    @lazyInject(SERVICES.IAuthService)
-    private service: IAuthService;
+    @IsString()
+    firstName: string
+
+    @IsString()
+    lastName: string
+
+    @IsString()
+    email: string
+
+    @IsString()
+    password: string
+
+    @IsString()
+    passwordConfirmation: string
+
+    @IsBoolean()
+    enable: boolean
+
+    @IsArray()
+    @IsString({
+        each: true,
+    })
+    permissions: string[]
 
     constructor(request: express.Request)
     {
-        this.request = request;
+        super(request);
+        this.firstName = request.body.firstName;
+        this.lastName = request.body.lastName;
+        this.email = request.body.email;
+        this.enable = request.body.enable;
     }
 
-    firstName(): string
+    getFirstName(): string
     {
-        return this.request.body.firstName;
+        return this.firstName;
     }
 
-    lastName(): string
+    getLastName(): string
     {
-        return this.request.body.lastName;
+        return this.lastName;
     }
 
-    email(): string
+    getEmail(): string
     {
-        return this.request.body.email;
+        return this.email;
     }
 
-    enable(): boolean | null
+    getEnable(): boolean
     {
-        if(!this.request.body.hasOwnProperty('enable')){
-            return null;
-        }
-
-        const userId = this.service.getLoggedId(this.request);
+        // const userId = this.service.getLoggedId(this.request);
 
         // TODO: Move logic on UserCase
         // The logged user cant disable to himself.
-        if(userId === this.id().toString())
-        {
-            return true;
-        }
+        // if(userId === this.id)
+        // {
+        //    return true;
+        // }
 
-        return this.request.body.enable;
+        return this.enable;
     }
 
-    id(): string
-    {
-        return this.request.params.id;
-    }
-
-    static validate()
-    {
-        return [
-            body('firstName')
-                .isLength({ min: 3, max: 50 }).withMessage("firstName can\'t be empty")
-                .isString().withMessage('firstName must be of type string'),
-            body('lastName')
-                .isLength({ min: 3, max: 50 }).withMessage("lastName can\'t be empty")
-                .isString().withMessage('lastName must be of type string'),
-            body('email')
-                .exists().withMessage('email must exist')
-                .isEmail().withMessage('email must be a valid email'),
-            body('enable')
-                .optional()
-                .isBoolean().withMessage('enable must be of type boolean'),
-            param('id')
-                .exists().withMessage('id must exist')
-                .isUUID().withMessage('id must uuid type')
-        ];
-    }
+    // static validate()
+    // {
+    //     return [
+    //         body('firstName')
+    //             .isLength({ min: 3, max: 50 }).withMessage("firstName can\'t be empty")
+    //             .isString().withMessage('firstName must be of type string'),
+    //         body('lastName')
+    //             .isLength({ min: 3, max: 50 }).withMessage("lastName can\'t be empty")
+    //             .isString().withMessage('lastName must be of type string'),
+    //         body('email')
+    //             .exists().withMessage('email must exist')
+    //             .isEmail().withMessage('email must be a valid email'),
+    //         body('enable')
+    //             .optional()
+    //             .isBoolean().withMessage('enable must be of type boolean'),
+    //         param('id')
+    //             .exists().withMessage('id must exist')
+    //             .isUUID().withMessage('id must uuid type')
+    //     ];
+    // }
 }
 
 export default UserUpdateRequest

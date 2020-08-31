@@ -23,8 +23,8 @@ class LoginUseCase
 
     async handle(payload: AuthPayload)
     {
-        const email = payload.email();
-        const password = payload.password();
+        const email = payload.getEmail();
+        const password = payload.getPassword();
         const user =  await this.repository.getOneByEmail(email);
 
         if(user.enable === false)

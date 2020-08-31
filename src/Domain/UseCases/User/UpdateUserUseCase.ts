@@ -18,29 +18,34 @@ class UpdateUserUseCase
 
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {
-        const id = payload.id();
+        const id = payload.getId();
         const user: IUserDomain = await this.repository.getOne(id);
-        const enable = payload.enable();
+        const enable = payload.getEnable();
 
-        if(typeof user.roles !== 'undefined' && enable !== null){
+        if(typeof user.roles !== 'undefined' && enable !== null)
+        {
             let checkRole: CheckUserRolePayload = {
                 roleToCheck: Roles.SUPER_ADMIN.toLocaleLowerCase(),
                 user
             }
+
             const verifyRole = await this.checkIfUserHasRole(checkRole);
-            if(verifyRole && !enable){
+
+            if(verifyRole && !enable)
+            {
                 throw new ErrorException(StatusCode.HTTP_FORBIDDEN, "SuperAdmin can't be disable");
             }
         }
 
-        user.firstName = payload.firstName();
-        user.lastName = payload.lastName();
+        user.firstName = payload.getFirstName();
+        user.lastName = payload.getLastName();
 
-        if(enable !== null){
+        if(enable !== null)
+        {
             user.enable = enable;
         }
 
-        user.email = payload.email();
+        user.email = payload.getEmail();
 
         await this.repository.save(user);
 

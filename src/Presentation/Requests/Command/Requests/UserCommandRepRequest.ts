@@ -1,70 +1,102 @@
 import UserRepPayload from "../../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
 import IRoleDomain from "../../../../InterfaceAdapters/IDomain/IRoleDomain";
+import {IsArray, IsBoolean, IsString} from "class-validator";
 
 class UserCommandRepRequest implements UserRepPayload
 {
-    private env: any;
-    private readonly role: any;
+    @IsString()
+    firstName: string;
+
+    @IsString()
+    lastName: string;
+
+    @IsString()
+    email: string;
+
+    @IsString()
+    password: string;
+
+    @IsString()
+    passwordConfirmation: string;
+
+    @IsBoolean()
+    enable: boolean;
+
+    @IsArray()
+    @IsString({
+        each: true,
+    })
+    permissions: string[];
+
+    @IsArray()
+    roles: IRoleDomain[];
+
+    @IsBoolean()
+    isSuperAdmin: boolean;
 
     constructor(env: any, role: any = null)
     {
-        this.env = env;
-        this.role = role;
+        this.firstName = env.firstName;
+        this.firstName = env.lastName;
+        this.firstName = env.password;
+        this.enable = true;
+        this.roles = role ? [role] : [];
+        this.isSuperAdmin = env.isSuperAdmin;
     }
 
-    firstName(): string
+    getFirstName(): string
     {
-        return this.env.firstName;
+        return this.firstName;
     }
 
-    lastName(): string
+    getLastName(): string
     {
-        return this.env.lastName;
+        return this.lastName;
     }
 
-    email(): string
+    getEmail(): string
     {
-        return this.env.email;
+        return this.email;
     }
 
-    password(): string
+    getPassword(): string
     {
-        return this.env.password;
+        return this.password;
     }
 
-    passwordConfirmation(): string
+    getPasswordConfirmation(): string
     {
-        return this.env.password;
+        return this.password;
     }
 
-    enable(): boolean
+    getEnable(): boolean
     {
-        return true;
+        return this.enable;
     }
 
-    confirmationToken(): null
+    getConfirmationToken(): null
     {
         return null;
     }
 
-    passwordRequestedAt(): null
+    getPasswordRequestedAt(): null
     {
         return null;
     }
 
-    roles(): IRoleDomain[]
+    getRoles(): IRoleDomain[]
     {
-        return this.role ? [this.role] : [];
+        return this.roles;
     }
 
-    permissions(): string[]
+    getPermissions(): string[]
     {
         return [];
     }
 
-    isSuperAdmin(): boolean
+    getIsSuperAdmin(): boolean
     {
-        return this.env.isSuperAdmin;
+        return this.isSuperAdmin;
     }
 }
 

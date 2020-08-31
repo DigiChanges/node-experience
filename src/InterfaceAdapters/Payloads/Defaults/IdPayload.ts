@@ -1,7 +1,7 @@
 
 interface IdPayload
 {
-    id(): string;
+    getId(): string;
 }
 
 export default IdPayload

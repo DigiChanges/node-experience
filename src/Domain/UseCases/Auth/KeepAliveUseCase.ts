@@ -17,7 +17,7 @@ class KeepAliveUseCase
 
     async handle(payload: KeepAlivePayload)
     {
-        const email = payload.email();
+        const email = payload.getEmail();
 
         const user = await this.repository.getOneByEmail(email);
 

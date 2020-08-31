@@ -10,7 +10,7 @@ class RemoveUserUseCase
 
     async handle(payload: IdPayload): Promise<any>
     {
-        const id = payload.id();
+        const id = payload.getId();
         return await this.repository.delete(id);
     }
 }

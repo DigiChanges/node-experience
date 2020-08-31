@@ -21,16 +21,16 @@ class SaveUserUseCase
     async handle(payload: UserRepPayload): Promise<IUserDomain>
     {
         const user: IUserDomain = new User();
-        user.firstName = payload.firstName();
-        user.lastName = payload.lastName();
-        user.email = payload.email();
-        user.password = await this.encryption.encrypt(payload.password());
-        user.enable = payload.enable();
-        user.confirmationToken = payload.confirmationToken();
-        user.passwordRequestedAt = payload.passwordRequestedAt();
-        user.permissions = payload.permissions();
-        user.roles = payload.roles();
-        user.isSuperAdmin = payload.isSuperAdmin();
+        user.firstName = payload.getFirstName();
+        user.lastName = payload.getLastName();
+        user.email = payload.getEmail();
+        user.password = await this.encryption.encrypt(payload.getPassword());
+        user.enable = payload.getEnable();
+        user.confirmationToken = payload.getConfirmationToken();
+        user.passwordRequestedAt = payload.getPasswordRequestedAt();
+        user.permissions = payload.getPermissions();
+        user.roles = payload.getRoles();
+        user.isSuperAdmin = payload.getIsSuperAdmin();
 
         return await this.repository.save(user);
     }
