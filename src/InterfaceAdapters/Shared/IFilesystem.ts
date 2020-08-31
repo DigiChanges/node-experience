@@ -1,4 +1,3 @@
-import internal from "stream";
 
 interface IFilesystem
 {

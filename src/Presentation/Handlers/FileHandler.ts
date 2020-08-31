@@ -19,7 +19,6 @@ import {Client} from "minio";
 import * as fs from "fs";
 
 import path from "path";
-import { write } from "fs";
 import {lazyInject} from "../../inversify.config";
 import { TYPES } from '../../types';
 import Responder from '../Shared/Responder';

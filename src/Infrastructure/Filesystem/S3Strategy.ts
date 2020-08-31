@@ -12,7 +12,7 @@ class S3Strategy implements IFilesystem
 {
     private readonly filesystem: Client = null;
     private readonly bucketName: string;
-    private pathTemp: string;
+    private readonly pathTemp: string;
 
     constructor(_config: any)
     {
@@ -51,7 +51,7 @@ class S3Strategy implements IFilesystem
         return new Promise((resolve, reject) => {
             const files: any = [];
 
-            stream.on('data', obj => {
+            stream.on('data', (obj: any) => {
                 files.push(obj);
             } )
 
@@ -59,8 +59,7 @@ class S3Strategy implements IFilesystem
 
             stream.on('close', () => resolve(files));
 
-            stream.on('error', (error) => reject(error));
-
+            stream.on('error', (error: any) => reject(error));
         })
 
     }
@@ -75,13 +74,6 @@ class S3Strategy implements IFilesystem
   //   {
   //       const filePath= 'sampleFile/${fileName}.pdf'
   //       return await this.filesystem.viewLink({object: filePath}, false);
-  //   }
-  //
-  //   async listFilesList()
-  //   {
-  //       const baseUrl= 'sampleFile/';
-  //
-  //       return await this.filesystem.listDirectoryObjects({ object: baseUrl });
   //   }
   //
   //   async downloadFile(req: any, res: any, name: any)
