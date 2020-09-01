@@ -2,10 +2,11 @@ import IdPayload from "../Defaults/IdPayload";
 
 interface UserUpdatePayload extends IdPayload
 {
-    getFirstName(): string | null;
-    getLastName(): string | null;
+    getFirstName(): string;
+    getLastName(): string;
     getEmail(): string;
-    getEnable(): boolean | null;
+    getEnable(): boolean;
+    getTokenUserId(): string;
 }
 
 export default UserUpdatePayload;

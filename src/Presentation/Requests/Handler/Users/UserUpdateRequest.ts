@@ -1,41 +1,34 @@
-import * as express from "express";
 import UserUpdatePayload from "../../../../InterfaceAdapters/Payloads/Users/UserUpdatePayload";
 import IdRequest from "../Defaults/IdRequest";
-import {IsArray, IsBoolean, IsString} from "class-validator";
+import {IsBoolean, IsEmail, IsString, Length} from "class-validator";
 
 class UserUpdateRequest extends IdRequest implements UserUpdatePayload
 {
+    @Length(3, 50)
     @IsString()
     firstName: string
 
+    @Length(3, 50)
     @IsString()
     lastName: string
 
-    @IsString()
+    @IsEmail()
     email: string
-
-    @IsString()
-    password: string
-
-    @IsString()
-    passwordConfirmation: string
 
     @IsBoolean()
     enable: boolean
 
-    @IsArray()
-    @IsString({
-        each: true,
-    })
-    permissions: string[]
+    @IsString()
+    userId: string;
 
-    constructor(request: express.Request)
+    constructor(request: any)
     {
         super(request);
         this.firstName = request.body.firstName;
         this.lastName = request.body.lastName;
         this.email = request.body.email;
         this.enable = request.body.enable;
+        this.userId = request.tokenDecode.userId;
     }
 
     getFirstName(): string
@@ -55,38 +48,13 @@ class UserUpdateRequest extends IdRequest implements UserUpdatePayload
 
     getEnable(): boolean
     {
-        // const userId = this.service.getLoggedId(this.request);
-
-        // TODO: Move logic on UserCase
-        // The logged user cant disable to himself.
-        // if(userId === this.id)
-        // {
-        //    return true;
-        // }
-
         return this.enable;
     }
 
-    // static validate()
-    // {
-    //     return [
-    //         body('firstName')
-    //             .isLength({ min: 3, max: 50 }).withMessage("firstName can\'t be empty")
-    //             .isString().withMessage('firstName must be of type string'),
-    //         body('lastName')
-    //             .isLength({ min: 3, max: 50 }).withMessage("lastName can\'t be empty")
-    //             .isString().withMessage('lastName must be of type string'),
-    //         body('email')
-    //             .exists().withMessage('email must exist')
-    //             .isEmail().withMessage('email must be a valid email'),
-    //         body('enable')
-    //             .optional()
-    //             .isBoolean().withMessage('enable must be of type boolean'),
-    //         param('id')
-    //             .exists().withMessage('id must exist')
-    //             .isUUID().withMessage('id must uuid type')
-    //     ];
-    // }
+    getTokenUserId(): string
+    {
+        return this.userId;
+    }
 }
 
 export default UserUpdateRequest;

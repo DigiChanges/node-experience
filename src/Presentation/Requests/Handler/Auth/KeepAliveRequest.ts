@@ -1,4 +1,3 @@
-import * as express from "express";
 import KeepAlivePayload from "../../../../InterfaceAdapters/Payloads/Auth/KeepAlivePayload";
 import {lazyInject} from "../../../../inversify.config";
 import {SERVICES} from "../../../../services";
@@ -7,17 +6,15 @@ import {IsEmail} from "class-validator";
 
 class KeepAliveRequest implements KeepAlivePayload
 {
-    private readonly request: express.Request;
     @lazyInject(SERVICES.IAuthService)
     private service: IAuthService;
 
     @IsEmail()
     email: string;
 
-    constructor(request: express.Request)
+    constructor(request: any)
     {
-        this.request = request;
-        this.email = this.service.getLoggedEmail(this.request);
+        this.email = request.tokenDecode.email;
     }
 
     getEmail(): string

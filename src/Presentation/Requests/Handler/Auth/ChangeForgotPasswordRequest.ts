@@ -14,7 +14,7 @@ class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
 
     @IsString()
     @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
-    @Match('password')
+    @Match('password', {message: "passwordConfirmation don't match"})
     passwordConfirmation: string;
 
     @IsString()

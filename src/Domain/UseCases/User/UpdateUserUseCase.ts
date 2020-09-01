@@ -10,17 +10,31 @@ import RoleRepoFactory from "../../../Infrastructure/Factories/RoleRepoFactory";
 import Role from "../../../Infrastructure/Entities/TypeORM/Role";
 import {REPOSITORIES} from "../../../repositories";
 import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
+import AuthService from "../../../Application/Services/AuthService";
 
 class UpdateUserUseCase
 {
     @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
 
+    @lazyInject(REPOSITORIES.IAuthService)
+    private authService: AuthService;
+
+    // constructor()
+    // {
+    //     authService = new AuthService();
+    // }
+
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {
         const id = payload.getId();
         const user: IUserDomain = await this.repository.getOne(id);
-        const enable = payload.getEnable();
+        let enable = payload.getEnable();
+
+        if (payload.getTokenUserId() === user.getId())
+        {
+            enable = true;
+        }
 
         if(typeof user.roles !== 'undefined' && enable !== null)
         {
@@ -39,11 +53,6 @@ class UpdateUserUseCase
 
         user.firstName = payload.getFirstName();
         user.lastName = payload.getLastName();
-
-        if(enable !== null)
-        {
-            user.enable = enable;
-        }
 
         user.email = payload.getEmail();
 

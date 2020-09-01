@@ -1,12 +1,14 @@
 import * as express from "express";
 import RoleRepPayload from "../../../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
-import {IsArray, IsBoolean, IsOptional, IsString} from "class-validator";
+import {IsArray, IsBoolean, IsOptional, IsString, Length} from "class-validator";
 
 class RoleRepRequest implements RoleRepPayload
 {
+    @Length(3, 30)
     @IsString()
     name: string;
 
+    @Length(3, 30)
     @IsString()
     slug: string;
 

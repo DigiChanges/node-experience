@@ -1,55 +1,51 @@
-import * as express from "express";
 import ChangeMyPasswordPayload from "../../../../InterfaceAdapters/Payloads/Users/ChangeMyPasswordPayload";
+import {IsString, IsUUID, Length} from "class-validator";
 import Config from "config";
-import {lazyInject} from "../../../../inversify.config";
-import {SERVICES} from "../../../../services";
-import IAuthService from "../../../../InterfaceAdapters/IServices/IAuthService";
-import {IsArray, IsBoolean, IsOptional, IsString} from "class-validator";
+import {Match} from "../../../../Infrastructure/Shared/Decorators/match";
 
 class ChangeMyPasswordRequest implements ChangeMyPasswordPayload
 {
-    private request: express.Request;
-    @lazyInject(SERVICES.IAuthService)
-    private service: IAuthService;
+    @IsString()
+    @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
+    currentPassword: string;
 
     @IsString()
-    name: string;
+    @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
+    newPassword: string;
 
     @IsString()
-    slug: string;
+    @Match('newPassword', {message: "newPassword don't match"})
+    newPasswordConfirmation: string;
 
-    @IsArray()
-    permissions: string[];
+    @IsUUID("4")
+    userId: boolean;
 
-    @IsOptional()
-    @IsBoolean()
-    enable: boolean;
-
-    constructor(request: express.Request)
+    constructor(request: any)
     {
-        this.request = request;
+        this.currentPassword = request.body.currentPassword;
+        this.newPassword = request.body.newPassword;
+        this.newPasswordConfirmation = request.body.newPasswordConfirmation;
+        this.userId = request.tokenDecode.userId;
     }
 
     getCurrentPassword(): string
     {
-        return this.request.body.currentPassword;
+        return this.currentPassword;
     }
 
     getNewPassword(): string
     {
-        return this.request.body.newPassword;
+        return this.newPassword;
     }
 
     getNewPasswordConfirmation(): string
     {
-        return this.request.body.newPasswordConfirmation;
+        return this.newPasswordConfirmation;
     }
 
     getId(): any
     {
-        let tokenDecoded = this.service.decodeToken(this.request.get('Authorization'));
-
-        return tokenDecoded.userId;
+        return this.userId;
     }
 
     // static validate()
