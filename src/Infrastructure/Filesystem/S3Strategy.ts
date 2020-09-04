@@ -27,6 +27,10 @@ class S3Strategy implements IFilesystem
               useSSL: _config.useSSL === 'true',
         });
     }
+    async presignedGetObject(objectName: string): Promise<string> {
+
+        return await this.filesystem.presignedGetObject(this.bucketName, objectName, 24 * 60 * 60);
+    }
 
     async uploadFileByBuffer(objectName: string, base64Data: string)
     {
@@ -42,6 +46,11 @@ class S3Strategy implements IFilesystem
         await this.filesystem.fGetObject(this.bucketName, objectName, filePath);
 
         return filePath;
+    }
+
+    async downloadStreamFile(objectName: string): Promise<internal.Readable>
+    {
+        return await this.filesystem.getObject(this.bucketName, objectName);
     }
 
     async listObjects(prefix?: string, recursive?: boolean)

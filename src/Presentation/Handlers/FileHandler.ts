@@ -17,6 +17,12 @@ import ListObjectsRequest from '../Requests/FileSystem/ListObjectsRequest';
 import ListObjectsUseCase from '../../Domain/UseCases/FileSystem/ListObjectsUseCase';
 import UploadBase64Request from '../Requests/FileSystem/UploadBase64Request';
 import UploadBase64UseCase from '../../Domain/UseCases/FileSystem/UploadBse64UseCase';
+import DownloadRequest from '../Requests/FileSystem/DownloadRequest';
+import DownloadUseCase from '../../Domain/UseCases/FileSystem/DownloadUseCase';
+import GetPresignedGetObjectUseCase from '../../Domain/UseCases/FileSystem/GetPresignedGetObjectUseCase';
+import internal from 'stream';
+import GetFileSystemWithPathUseCase from '../../Domain/UseCases/FileSystem/GetFileSystemWithPathUseCase';
+import { createReadStream } from "fs";
 
 @controller('/api/files')
 class FileHandler
@@ -46,79 +52,135 @@ class FileHandler
         this.responder.send({message: "File uploaded", payload}, res, StatusCode.HTTP_CREATED , null );
     }
 
-    @httpPost('/download')
-    public download (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    @httpPost('/presignedGetObject', ...DownloadRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
+    public async getPresignedGetObject (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const filename = req.params.filename;
-        // let readableStream: internal.Readable = await filesystem.downloadFile(filename);
-        //
-        // res.attachment(filename);
-        // readableStream.pipe(res);
-        // const minioClient: Client = filesystem.getClient();
+        const _request = new DownloadRequest(req);
+        const getPresignedGetObjectUseCase = new GetPresignedGetObjectUseCase();
 
-        let dataBuffer: any = [];
+        const presignedGetObject = await getPresignedGetObjectUseCase.handle(_request);
 
-        // const filePath = await filesystem.downloadFile(filename);
-        // const path = await minioClient.fGetObject('experience', req.body.filename, '/tmp/' + req.body.filename);
-
-       res.setHeader("Content-Type", "text/plain");
-
-        // let readStream = fs.createReadStream('/tmp/' + filename);
-        //
-        // readStream.on('open', () => {
-        //     // This just pipes the read stream to the response object (which goes to the client)
-        //     readStream.pipe(res);
-        // });
-        // res.setHeader('Content-Type','text/plain');
-        // res.setHeader('Content-disposition', 'attachment; filename=hola.txt');
-
-        let pathUrl = req.path;
-
-        console.log('__dirname')
-        console.log(__dirname)
-        console.log(path.join(__dirname, "./hola.txt"))
-
-        console.log('pathUrl before')
-        console.log(pathUrl)
-
-        console.log('pathUrl after')
-        console.log(pathUrl)
-
-        const stream = fs.createReadStream(path.join(__dirname, "./hola.txt"));
-
-
-        stream.on('data', (chunk)=>  {
-            // const buffer = Buffer.(chunk)
-            // dataBuffer.push(chunk);
-        });
-
-        stream.on('end', ()=>  {
-           console.log('dataBuffer');
-           console.log(dataBuffer);
-           const buffer = Buffer.concat(dataBuffer);
-           console.log('buffer.toString()')
-           console.log(buffer.toString())
-           // res.set('Content-Type','text/plain');
-           // res.send(buffer);
-           //  console.log(stream);
-            // stream.pipe(res);
-            res.end()
-        });
-
-        stream.on('close', ()=>
-        {
-            res.end()
-        });
-
-        // let through = require('through');
-
-        stream.setEncoding('UTF8');
-        stream.on('end', () => res.end());
-        // stream.pipe(res);
-        // res.send('hola');
-
-        console.log("Program Ended");
+        this.responder.send(presignedGetObject, res, StatusCode.HTTP_OK, null);
+        // res.redirect(presignedGetObject);
     }
+
+    @httpPost('/download', ...DownloadRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
+    public async download (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const _request = new DownloadRequest(req);
+        const downloadUseCase = new DownloadUseCase();
+
+        // const download = await downloadUseCase.handle(_request);
+
+        const redeable = await downloadUseCase.handle(_request);
+
+        redeable.on("data",data => res.write(data));
+
+        redeable.on("end", () => res.status(200).send());
+
+    }
+
+    @httpPost('/downloadfilesystem', ...DownloadRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
+    public async downloadfilesystem (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const _request = new DownloadRequest(req);
+        const getFileSystemWithPathUseCase = new GetFileSystemWithPathUseCase();
+
+        // const download = await getFileSystemWithPathUseCase.handle(_request);
+
+        const pathFile = await getFileSystemWithPathUseCase.handle(_request);
+
+        return pathFile;
+
+        // const readStream = createReadStream(pathFile); 
+
+        // readStream.on("data",(data) => {
+        //     // if (error) {
+        //     //     console.log(error)
+        //     // }
+        //     res.write(data)
+        // });
+
+        // readStream.on("end", () => res.status(200).send());
+
+    }
+
+
+
+
+//     @httpPost('/download')
+//     public download (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+//     {
+//         const filename = req.params.filename;
+//         // let readableStream: internal.Readable = await filesystem.downloadFile(filename);
+//         //
+//         // res.attachment(filename);
+//         // readableStream.pipe(res);
+//         // const minioClient: Client = filesystem.getClient();
+
+//         let dataBuffer: any = [];
+
+//         // const filePath = await filesystem.downloadFile(filename);
+//         // const path = await minioClient.fGetObject('experience', req.body.filename, '/tmp/' + req.body.filename);
+
+//        res.setHeader("Content-Type", "text/plain");
+
+//         // let readStream = fs.createReadStream('/tmp/' + filename);
+//         //
+//         // readStream.on('open', () => {
+//         //     // This just pipes the read stream to the response object (which goes to the client)
+//         //     readStream.pipe(res);
+//         // });
+//         // res.setHeader('Content-Type','text/plain');
+//         // res.setHeader('Content-disposition', 'attachment; filename=hola.txt');
+
+//         let pathUrl = req.path;
+
+//         console.log('__dirname')
+//         console.log(__dirname)
+//         console.log(path.join(__dirname, "./hola.txt"))
+
+//         console.log('pathUrl before')
+//         console.log(pathUrl)
+
+//         console.log('pathUrl after')
+//         console.log(pathUrl)
+
+//         const stream = fs.createReadStream(path.join(__dirname, "./hola.txt"));
+
+
+//         stream.on('data', (chunk)=>  {
+//             // const buffer = Buffer.(chunk)
+//             // dataBuffer.push(chunk);
+//         });
+
+//         stream.on('end', ()=>  {
+//            console.log('dataBuffer');
+//            console.log(dataBuffer);
+//            const buffer = Buffer.concat(dataBuffer);
+//            console.log('buffer.toString()')
+//            console.log(buffer.toString())
+//            // res.set('Content-Type','text/plain');
+//            // res.send(buffer);
+//            //  console.log(stream);
+//             // stream.pipe(res);
+//             res.end()
+//         });
+
+//         stream.on('close', ()=>
+//         {
+//             res.end()
+//         });
+
+//         // let through = require('through');
+
+//         stream.setEncoding('UTF8');
+//         stream.on('end', () => res.end());
+//         // stream.pipe(res);
+//         // res.send('hola');
+
+//         console.log("Program Ended");
+//     }
 }
 
 export default FileHandler;
