@@ -1,15 +1,16 @@
 import {injectable} from "inversify";
 import IFormatResponder from "../../InterfaceAdapters/Shared/IFormatResponder";
+import IStatusCode from "../../InterfaceAdapters/IPresentation/IStatusCode";
 
 @injectable()
 class FormatResponder implements IFormatResponder
 {
-    getFormatData = (data: any, statusHttpCode: any): any =>
+    getFormatData = (data: any, statusCode: IStatusCode): any =>
     {
         return {
-            'code': statusHttpCode.code,
-            'statusCode': statusHttpCode.statusCode,
-            'status': statusHttpCode.status,
+            'status': statusCode.status,
+            'code': statusCode.code,
+            'statusCode': statusCode.statusCode,
             'data': data
         };
     };

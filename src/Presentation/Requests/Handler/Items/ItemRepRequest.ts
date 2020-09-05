@@ -1,45 +1,40 @@
 import * as express from "express";
 import ItemRepPayload from "../../../../InterfaceAdapters/Payloads/Items/ItemRepPayload";
-import {body} from "express-validator";
+import {IsBoolean, IsInt, IsOptional, IsString} from "class-validator";
 
 class ItemRepRequest implements ItemRepPayload
 {
-    private request: express.Request;
+    @IsString()
+    name: string;
+
+    @IsInt()
+    type: number;
+
+    @IsOptional()
+    @IsBoolean()
+    enable: boolean;
 
     constructor(request: express.Request)
     {
-        this.request = request;
+        this.name = request.body.name;
+        this.type = request.body.type;
+        this.enable = request.body.hasOwnProperty('enable') ? request.body.enable : true;
     }
 
-    name(): string
+    getName(): string
     {
-        return this.request.body.name;
+        return this.name;
     }
 
-    type(): number
+    getType(): number
     {
-        return this.request.body.type;
+        return this.type;
     }
 
-    enable(): boolean
+    getEnable(): boolean
     {
-        return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
-    }
-
-    static validate()
-    {
-        return [
-            body('name')
-                .exists().withMessage('name must exist')
-                .isString().withMessage('name must be of type string'),
-            body('type')
-                .exists().withMessage('type must exist')
-                .isInt().withMessage('type must be of type integer'),
-            body('enable')
-                .optional()
-                .isBoolean().withMessage('enable must be of type boolean')
-        ];
+        return this.enable;
     }
 }
 
-export default ItemRepRequest
+export default ItemRepRequest;

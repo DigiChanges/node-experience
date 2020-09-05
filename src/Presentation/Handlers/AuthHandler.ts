@@ -7,7 +7,6 @@ import {SERVICES} from "../../services";
 import StatusCode from "../Shared/StatusCode";
 import Responder from "../Shared/Responder";
 
-import ValidatorRules from "../Middlewares/ValidatorRules";
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
 import Permissions from "../../../config/Permissions";
 
@@ -24,6 +23,8 @@ import ChangeForgotPasswordUseCase from "../../Domain/UseCases/Auth/ChangeForgot
 import ForgotPasswordUseCase from "../../Domain/UseCases/Auth/ForgotPasswordUseCase";
 import KeepAliveUseCase from "../../Domain/UseCases/Auth/KeepAliveUseCase";
 
+import ValidatorRequest from "../../Application/Shared/ValidatorRequest";
+
 @controller('/api/auth')
 class AuthHandler
 {
@@ -32,12 +33,13 @@ class AuthHandler
     @lazyInject(TYPES.Responder)
     private responder: Responder;
 
-    @httpPost('/login', ...AuthRequest.validate(), ValidatorRules)
+    @httpPost('/login')
     public async login (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new AuthRequest(req);
-        const loginUseCase = new LoginUseCase();
+        await ValidatorRequest.handle(_request);
 
+        const loginUseCase = new LoginUseCase();
         const payload = await loginUseCase.handle(_request);
 
         this.responder.send(payload, res, StatusCode.HTTP_CREATED, new AuthTransformer());
@@ -47,30 +49,33 @@ class AuthHandler
     public async keepAlive (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new KeepAliveRequest(req);
-        const keepAliveUseCase = new KeepAliveUseCase();
+        await ValidatorRequest.handle(_request);
 
+        const keepAliveUseCase = new KeepAliveUseCase();
         const payload = await keepAliveUseCase.handle(_request);
 
         this.responder.send(payload, res, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
 
-    @httpPost('/forgotPassword', ...ForgotPasswordRequest.validate(), ValidatorRules)
+    @httpPost('/forgotPassword')
     public async forgotPassword (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ForgotPasswordRequest(req);
-        const forgotPasswordUseCase = new ForgotPasswordUseCase();
+        await ValidatorRequest.handle(_request);
 
+        const forgotPasswordUseCase = new ForgotPasswordUseCase();
         const payload = await forgotPasswordUseCase.handle(_request);
 
         this.responder.send(payload, res, StatusCode.HTTP_CREATED, null);
     }
 
-    @httpPost('/changeForgotPassword', ...ChangeForgotPasswordRequest.validate(), ValidatorRules)
+    @httpPost('/changeForgotPassword')
     public async changeForgotPassword (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ChangeForgotPasswordRequest(req);
-        const changeForgotPasswordUseCase = new ChangeForgotPasswordUseCase();
+        await ValidatorRequest.handle(_request);
 
+        const changeForgotPasswordUseCase = new ChangeForgotPasswordUseCase();
         const payload = await changeForgotPasswordUseCase.handle(_request);
 
         this.responder.send(payload, res, StatusCode.HTTP_CREATED, null);

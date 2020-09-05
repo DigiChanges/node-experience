@@ -42,4 +42,4 @@ class JWTToken implements IToken
     }
 }
 
-export default JWTToken
+export default JWTToken;

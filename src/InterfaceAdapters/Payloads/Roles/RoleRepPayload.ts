@@ -1,10 +1,10 @@
 
 interface RoleRepPayload
 {
-    name(): string;
-    slug(): string;
-    permissions(): string[];
-    enable(): boolean;
+    getName(): string;
+    getSlug(): string;
+    getPermissions(): string[];
+    getEnable(): boolean;
 }
 
-export default RoleRepPayload
+export default RoleRepPayload;

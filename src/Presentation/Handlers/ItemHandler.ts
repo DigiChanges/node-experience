@@ -4,7 +4,6 @@ import { TYPES } from "../../types";
 import {lazyInject} from "../../inversify.config";
 import Responder from "../Shared/Responder";
 import StatusCode from "../Shared/StatusCode";
-import ValidatorRules from "../Middlewares/ValidatorRules";
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
 import Permissions from "../../../config/Permissions";
 
@@ -21,6 +20,7 @@ import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import GetItemUseCase from "../../Domain/UseCases/Item/GetItemUseCase";
 import RemoveItemUseCase from "../../Domain/UseCases/Item/RemoveItemUseCase";
 import UpdateItemUseCase from "../../Domain/UseCases/Item/UpdateItemUseCase";
+import ValidatorRequest from "../../Application/Shared/ValidatorRequest";
 
 @controller('/api/items')
 class ItemHandler
@@ -28,12 +28,13 @@ class ItemHandler
     @lazyInject(TYPES.Responder)
     private responder: Responder;
 
-    @httpPost('/', ...ItemRepRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ITEMS_SAVE))
+    @httpPost('/', AuthorizeMiddleware(Permissions.ITEMS_SAVE))
     public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ItemRepRequest(req);
-        const saveItemUseCase = new SaveItemUseCase();
+        await ValidatorRequest.handle(_request);
 
+        const saveItemUseCase = new SaveItemUseCase();
         const item: IItemDomain = await saveItemUseCase.handle(_request);
 
         this.responder.send(item, res, StatusCode.HTTP_CREATED, new ItemTransformer());
@@ -43,41 +44,45 @@ class ItemHandler
     public async list (@request() req: Request, @response() res: Response)
     {
         const _request = new ItemRequestCriteria(req);
-        const listItemsUseCase = new ListItemsUseCase();
+        await ValidatorRequest.handle(_request);
 
+        const listItemsUseCase = new ListItemsUseCase();
         const paginator: IPaginator = await listItemsUseCase.handle(_request);
 
         await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpGet('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ITEMS_SHOW))
+    @httpGet('/:id', AuthorizeMiddleware(Permissions.ITEMS_SHOW))
     public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req);
-        const getItemUseCase = new GetItemUseCase();
+        await ValidatorRequest.handle(_request);
 
+        const getItemUseCase = new GetItemUseCase();
         const item: IItemDomain = await getItemUseCase.handle(_request);
 
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpPut('/:id', ...ItemUpdateRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ITEMS_UPDATE))
+    @httpPut('/:id', AuthorizeMiddleware(Permissions.ITEMS_UPDATE))
     public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ItemUpdateRequest(req);
-        const updateItemUseCase = new UpdateItemUseCase();
+        await ValidatorRequest.handle(_request);
 
+        const updateItemUseCase = new UpdateItemUseCase();
         const item: IItemDomain = await updateItemUseCase.handle(_request);
 
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpDelete('/:id', ...IdRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.ITEMS_DELETE))
+    @httpDelete('/:id', AuthorizeMiddleware(Permissions.ITEMS_DELETE))
     public async remove (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req);
-        const removeItemUseCase = new RemoveItemUseCase();
+        await ValidatorRequest.handle(_request);
 
+        const removeItemUseCase = new RemoveItemUseCase();
         const item: IItemDomain = await removeItemUseCase.handle(_request);
 
         this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());

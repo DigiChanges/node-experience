@@ -1,7 +1,8 @@
+
 interface ItemRepPayload
 {
-    name(): string;
-    type(): number;
+    getName(): string;
+    getType(): number;
 }
 
-export default ItemRepPayload
+export default ItemRepPayload;

@@ -1,8 +1,9 @@
+
 interface ChangeForgotPasswordPayload
 {
-    confirmationToken(): string;
-    password(): Promise<string>;
-    passwordConfirmation(): string;
+    getConfirmationToken(): string;
+    getPassword(): Promise<string>;
+    getPasswordConfirmation(): string;
 }
 
-export default ChangeForgotPasswordPayload
+export default ChangeForgotPasswordPayload;

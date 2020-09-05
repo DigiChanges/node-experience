@@ -36,4 +36,4 @@ class ItemRequestCriteria implements ICriteria
     }
 }
 
-export default ItemRequestCriteria
+export default ItemRequestCriteria;

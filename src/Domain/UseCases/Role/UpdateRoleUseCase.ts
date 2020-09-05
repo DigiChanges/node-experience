@@ -11,13 +11,13 @@ class UpdateRoleUseCase
 
     async handle(payload: RoleUpdatePayload): Promise<IRoleDomain>
     {
-        const id = payload.id();
+        const id = payload.getId();
         let role: IRoleDomain = await this.repository.getOne(id);
 
-        role.name = payload.name();
-        role.slug = payload.slug();
-        role.permissions = payload.permissions();
-        role.enable = payload.enable();
+        role.name = payload.getName();
+        role.slug = payload.getSlug();
+        role.permissions = payload.getPermissions();
+        role.enable = payload.getEnable();
 
         return await this.repository.save(role);
     }

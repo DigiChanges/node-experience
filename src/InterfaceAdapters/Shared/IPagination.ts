@@ -7,4 +7,4 @@ interface IPagination {
      getExist(): boolean;
 }
 
-export default IPagination
+export default IPagination;

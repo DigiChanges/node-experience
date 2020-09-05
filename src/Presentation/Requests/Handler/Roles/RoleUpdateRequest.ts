@@ -1,61 +1,59 @@
 import * as express from "express";
 import RoleUpdatePayload from "../../../../InterfaceAdapters/Payloads/Roles/RoleUpdatePayload";
-import {body, param} from "express-validator";
+import {IsArray, IsBoolean, IsOptional, IsString} from "class-validator";
+import IdRequest from "../Defaults/IdRequest";
 
-class RoleUpdateRequest implements RoleUpdatePayload
+class RoleUpdateRequest extends IdRequest implements RoleUpdatePayload
 {
-    private request: express.Request;
+    @IsString()
+    name: string;
+
+    @IsString()
+    slug: string;
+
+    @IsArray()
+    @IsString({
+        each: true,
+    })
+    permissions: string[];
+
+    @IsOptional()
+    @IsBoolean()
+    enable: boolean;
 
     constructor(request: express.Request)
     {
-        this.request = request;
+        super(request);
+        this.name = request.body.name;
+        this.slug = request.body.slug;
+        this.permissions = request.body.permissions;
+        this.enable = request.body.hasOwnProperty('enable') ? request.body.enable : true;
     }
 
-    name(): string
+    getName(): string
     {
-        return this.request.body.name;
+        return this.name;
     }
 
-    slug(): string
+    getSlug(): string
     {
-        return this.request.body.slug;
+        return this.slug;
     }
 
-    permissions(): string[]
+    getPermissions(): string[]
     {
-        return this.request.body.permissions;
+        return this.permissions;
     }
 
-    enable(): boolean
+    getEnable(): boolean
     {
-        return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
+        return this.enable;
     }
 
-    id(): string
+    getId(): string
     {
-        return this.request.params.id;
-    }
-
-    static validate()
-    {
-        return [
-            body('name')
-                .exists().withMessage('name must exist')
-                .isString().withMessage('name must be of type string'),
-            body('slug')
-                .exists().withMessage('slug must exist')
-                .isString().withMessage('slug must be of type string'),
-            body('enable')
-                .optional()
-                .isBoolean().withMessage('enable must be of type boolean'),
-            body('permissions')
-                .optional()
-                .isArray().withMessage('permissions must be of type array'),
-            param('id')
-                .exists().withMessage('id must exist')
-                .isUUID().withMessage('id must uuid type')
-        ];
+        return this.id;
     }
 }
 
-export default RoleUpdateRequest
+export default RoleUpdateRequest;

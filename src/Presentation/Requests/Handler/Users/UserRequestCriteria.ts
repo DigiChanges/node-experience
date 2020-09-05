@@ -36,4 +36,4 @@ class UserRequestCriteria implements ICriteria
     }
 }
 
-export default UserRequestCriteria
+export default UserRequestCriteria;

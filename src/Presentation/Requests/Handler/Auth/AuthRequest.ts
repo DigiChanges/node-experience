@@ -1,39 +1,32 @@
 import * as express from "express";
-import {body} from "express-validator";
 import AuthPayload from "../../../../InterfaceAdapters/Payloads/Auth/AuthPayload";
 import Config from "config";
+import {IsString, IsEmail, Length} from "class-validator";
 
 class AuthRequest implements AuthPayload
 {
-    private request: express.Request;
+    @IsEmail()
+    email: string;
+
+    @IsString()
+    @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
+    password: string;
 
     constructor(request: express.Request)
     {
-        this.request = request;
+        this.email = request.body.email;
+        this.password = request.body.password;
     }
 
-    email(): string
+    getEmail(): string
     {
-        return this.request.body.email;
+        return this.email;
     }
 
-    password(): string
+    getPassword(): string
     {
-        return this.request.body.password;
-    }
-
-    static validate()
-    {
-        return [
-            body('email')
-                .exists().withMessage('email must exist')
-                .isEmail().withMessage('email must be a valid email'),
-            body('password')
-                .exists().withMessage('password must exist')
-                .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("password can\'t be empty")
-                .isString().withMessage('password must be of type string')
-        ];
+        return this.password;
     }
 }
 
-export default AuthRequest
+export default AuthRequest;

@@ -11,7 +11,7 @@ class GetUserUseCase
 
     async handle(payload: IdPayload): Promise<IUserDomain>
     {
-        const id = payload.id();
+        const id = payload.getId();
         return await this.repository.getOne(id);
     }
 }

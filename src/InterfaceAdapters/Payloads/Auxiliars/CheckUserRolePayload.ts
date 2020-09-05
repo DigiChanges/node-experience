@@ -6,4 +6,4 @@ interface CheckUserRolePayload
     user:  IUserDomain;
 }
 
-export default CheckUserRolePayload
+export default CheckUserRolePayload;

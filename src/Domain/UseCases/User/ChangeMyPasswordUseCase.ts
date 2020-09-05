@@ -21,15 +21,15 @@ class ChangeMyPasswordUseCase
 
     async handle(payload: ChangeMyPasswordPayload): Promise<IUserDomain>
     {
-        const id = payload.id();
+        const id = payload.getId();
         const user = await this.repository.getOne(id);
 
-        if(! await this.encryption.compare(payload.currentPassword(), user.password))
+        if(! await this.encryption.compare(payload.getCurrentPassword(), user.password))
         {
             throw new ErrorException(StatusCode.HTTP_FORBIDDEN, 'Your current password is wrong');
         }
 
-        user.password = await this.encryption.encrypt(payload.newPassword());
+        user.password = await this.encryption.encrypt(payload.getNewPassword());
 
         return await this.repository.save(user);
     }

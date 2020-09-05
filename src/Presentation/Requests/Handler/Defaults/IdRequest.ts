@@ -1,29 +1,21 @@
 import * as express from "express";
 import IdPayload from "../../../../InterfaceAdapters/Payloads/Defaults/IdPayload";
-import {param} from "express-validator";
+import {IsUUID} from "class-validator";
 
 class IdRequest implements IdPayload
 {
-    private request: express.Request;
+    @IsUUID("4")
+    id: string;
 
     constructor(request: express.Request)
     {
-        this.request = request;
+        this.id = request.params.id;
     }
 
-    id(): string
+    getId(): string
     {
-        return this.request.params.id;
-    }
-
-    static validate()
-    {
-        return [
-            param('id')
-                .exists().withMessage('id must exist')
-                .isUUID().withMessage('id must uuid type')
-        ];
+        return this.id;
     }
 }
 
-export default IdRequest
+export default IdRequest;

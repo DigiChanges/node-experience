@@ -14,7 +14,7 @@ import LoggerWinston from "../Presentation/Middlewares/LoggerWinston";
 import AuthenticationMiddleware from "../Presentation/Middlewares/AuthenticationMiddleware";
 import {ErrorHandler} from "../Presentation/Shared/ErrorHandler";
 import {loggerCli} from "../Infrastructure/Shared/Logger";
-
+import RedirectRouteNotFoundMiddleware from "../Presentation/Middlewares/RedirectRouteNotFoundMiddleware";
 
 class App
 {
@@ -39,7 +39,7 @@ class App
             app.use(cors());
             app.use(helmet());
             app.use(LoggerWinston);
-            // app.use(AuthenticationMiddleware);
+            app.use(AuthenticationMiddleware);
         });
 
         this.server.setErrorConfig((app: any) =>
@@ -47,8 +47,11 @@ class App
             app.use(ErrorHandler.handle);
         });
 
-        const serverInstance = await this.server.build();
-        serverInstance.listen(this.port, () => {
+        const appServer = await this.server.build();
+
+        appServer.use(RedirectRouteNotFoundMiddleware);
+
+        appServer.listen(this.port, () => {
             loggerCli.debug(`App listening on the port ${this.port}`);
         });
     }

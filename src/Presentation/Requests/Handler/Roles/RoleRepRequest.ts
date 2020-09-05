@@ -1,53 +1,54 @@
 import * as express from "express";
 import RoleRepPayload from "../../../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
-import {body} from "express-validator";
+import {IsArray, IsBoolean, IsOptional, IsString, Length} from "class-validator";
 
 class RoleRepRequest implements RoleRepPayload
 {
-    private request: express.Request;
+    @Length(3, 30)
+    @IsString()
+    name: string;
+
+    @Length(3, 30)
+    @IsString()
+    slug: string;
+
+    @IsArray()
+    @IsString({
+        each: true,
+    })
+    permissions: string[];
+
+    @IsOptional()
+    @IsBoolean()
+    enable: boolean;
 
     constructor(request: express.Request)
     {
-        this.request = request;
+        this.name = request.body.name;
+        this.slug = request.body.slug;
+        this.permissions = request.body.permissions;
+        this.enable = request.body.hasOwnProperty('enable') ? request.body.enable : true;
     }
 
-    name(): string
+    getName(): string
     {
-        return this.request.body.name;
+        return this.name;
     }
 
-    slug(): string
+    getSlug(): string
     {
-        return this.request.body.slug;
+        return this.slug;
     }
 
-    permissions(): string[]
+    getPermissions(): string[]
     {
-        return this.request.body.permissions;
+        return this.permissions;
     }
 
-    enable(): boolean
+    getEnable(): boolean
     {
-        return this.request.body.hasOwnProperty('enable') ? this.request.body.enable : true;
-    }
-
-    static validate()
-    {
-        return [
-            body('name')
-                .exists().withMessage('name must exist')
-                .isString().withMessage('name must be of type string'),
-            body('slug')
-                .exists().withMessage('slug must exist')
-                .isString().withMessage('slug must be of type string'),
-            body('enable')
-                .optional()
-                .isBoolean().withMessage('enable must be of type boolean'),
-            body('permissions')
-                .optional()
-                .isArray().withMessage('permissions must be of type array')
-        ];
+        return this.enable;
     }
 }
 
-export default RoleRepRequest
+export default RoleRepRequest;

@@ -1,63 +1,72 @@
-import * as express from "express";
 import ChangeMyPasswordPayload from "../../../../InterfaceAdapters/Payloads/Users/ChangeMyPasswordPayload";
-import {body} from "express-validator";
+import {IsString, IsUUID, Length} from "class-validator";
 import Config from "config";
-import {lazyInject} from "../../../../inversify.config";
-import {SERVICES} from "../../../../services";
-import IAuthService from "../../../../InterfaceAdapters/IServices/IAuthService";
+import {Match} from "../../../../Infrastructure/Shared/Decorators/match";
 
 class ChangeMyPasswordRequest implements ChangeMyPasswordPayload
 {
-    private request: express.Request;
-    @lazyInject(SERVICES.IAuthService)
-    private service: IAuthService;
+    @IsString()
+    @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
+    currentPassword: string;
 
-    constructor(request: express.Request)
+    @IsString()
+    @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
+    newPassword: string;
+
+    @IsString()
+    @Match('newPassword', {message: "newPassword don't match"})
+    newPasswordConfirmation: string;
+
+    @IsUUID("4")
+    userId: boolean;
+
+    constructor(request: any)
     {
-        this.request = request;
+        this.currentPassword = request.body.currentPassword;
+        this.newPassword = request.body.newPassword;
+        this.newPasswordConfirmation = request.body.newPasswordConfirmation;
+        this.userId = request.tokenDecode.userId;
     }
 
-    currentPassword(): string
+    getCurrentPassword(): string
     {
-        return this.request.body.currentPassword;
+        return this.currentPassword;
     }
 
-    newPassword(): string
+    getNewPassword(): string
     {
-        return this.request.body.newPassword;
+        return this.newPassword;
     }
 
-    newPasswordConfirmation(): string
+    getNewPasswordConfirmation(): string
     {
-        return this.request.body.newPasswordConfirmation;
+        return this.newPasswordConfirmation;
     }
 
-    id(): any
+    getId(): any
     {
-        let tokenDecoded = this.service.decodeToken(this.request.get('Authorization'));
-
-        return tokenDecoded.userId;
+        return this.userId;
     }
 
-    static validate()
-    {
-        return [
-            body('currentPassword')
-                .exists().withMessage('currentPassword must exist')
-                .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("currentPassword can\'t be empty")
-                .isString().withMessage('currentPassword must be of type string')
-                .custom((value, { req }) => value !== req.body.newPassword).withMessage("CurrentPassword and NewPassword can't be the same"),
-            body('newPassword')
-                .exists().withMessage('newPassword must exist')
-                .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("newPassword can\'t be empty")
-                .isString().withMessage('newPassword must be of type string')
-                .custom((value, { req }) => value === req.body.newPasswordConfirmation).withMessage("newPassword don't match"),
-            body('newPasswordConfirmation')
-                .exists().withMessage('newPasswordConfirmation must exist')
-                .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("newPasswordConfirmation can\'t be empty")
-                .isString().withMessage('newPasswordConfirmation must be of type string')
-        ];
-    }
+    // static validate()
+    // {
+    //     return [
+    //         body('currentPassword')
+    //             .exists().withMessage('currentPassword must exist')
+    //             .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("currentPassword can\'t be empty")
+    //             .isString().withMessage('currentPassword must be of type string')
+    //             .custom((value, { req }) => value !== req.body.newPassword).withMessage("CurrentPassword and NewPassword can't be the same"),
+    //         body('newPassword')
+    //             .exists().withMessage('newPassword must exist')
+    //             .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("newPassword can\'t be empty")
+    //             .isString().withMessage('newPassword must be of type string')
+    //             .custom((value, { req }) => value === req.body.newPasswordConfirmation).withMessage("newPassword don't match"),
+    //         body('newPasswordConfirmation')
+    //             .exists().withMessage('newPasswordConfirmation must exist')
+    //             .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("newPasswordConfirmation can\'t be empty")
+    //             .isString().withMessage('newPasswordConfirmation must be of type string')
+    //     ];
+    // }
 }
 
-export default ChangeMyPasswordRequest
+export default ChangeMyPasswordRequest;

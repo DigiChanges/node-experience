@@ -27,4 +27,3 @@ export function validateEnv() {
         ENCRYPTION_DEFAULT: str(),
     });
 }
-

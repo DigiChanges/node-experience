@@ -14,12 +14,12 @@ class AssignRoleUseCase
 
     async handle(payload: UserAssignRolePayload): Promise<IUserDomain>
     {
-        const id = payload.id();
+        const id = payload.getId();
         let user: IUserDomain = await this.repository.getOne(id);
 
         user.clearRoles();
 
-        for await (const roleId of payload.rolesId())
+        for await (const roleId of payload.getRolesId())
         {
             const role = await this.roleRepository.getOne(roleId);
             user.setRole(role);

@@ -1,51 +1,47 @@
 import * as express from "express";
 import ChangeForgotPasswordPayload from "../../../../InterfaceAdapters/Payloads/Auth/ChangeForgotPasswordPayload";
-import {body} from "express-validator";
 import IEncryptionStrategy from "../../../../InterfaceAdapters/Shared/IEncryptionStrategy";
 import EncryptionFactory from "../../../../Infrastructure/Factories/EncryptionFactory";
 import Config from "config";
+import {IsString, Length} from "class-validator";
+import {Match} from "../../../../Infrastructure/Shared/Decorators/match";
 
 class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
 {
-    private request: express.Request;
+    @IsString()
+    @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
+    password: string;
+
+    @IsString()
+    @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
+    @Match('password', {message: "passwordConfirmation don't match"})
+    passwordConfirmation: string;
+
+    @IsString()
+    confirmationToken: string;
 
     constructor(request: express.Request)
     {
-        this.request = request;
+        this.password = request.body.password;
+        this.confirmationToken = request.body.confirmationToken;
     }
 
-    confirmationToken(): string
+    getConfirmationToken(): string
     {
-        return this.request.body.confirmationToken;
+        return this.confirmationToken;
     }
 
-    async password(): Promise<string>
+    async getPassword(): Promise<string>
     {
         let encryption: IEncryptionStrategy = EncryptionFactory.create();
 
-        return await encryption.encrypt(this.request.body.password);
+        return await encryption.encrypt(this.password);
     }
 
-    passwordConfirmation(): string
+    getPasswordConfirmation(): string
     {
-        return this.request.body.passwordConfirmation;
+        return this.passwordConfirmation;
     }
-
-    static validate()
-    {
-        return [
-            body('password')
-                .exists().withMessage('password must exist')
-                .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("password can\'t be empty")
-                .isString().withMessage('password must be of type string')
-                .custom((value, { req }) => value === req.body.passwordConfirmation).withMessage("password don't match"),
-            body('passwordConfirmation')
-                .exists().withMessage('passwordConfirmation must exist')
-                .isLength({ min: Config.get('validationSettings.password.min'), max: Config.get('validationSettings.password.max') }).withMessage("passwordConfirmation can\'t be empty")
-                .isString().withMessage('passwordConfirmation must be of type string'),
-        ];
-    }
-
 }
 
-export default ChangeForgotPasswordRequest
+export default ChangeForgotPasswordRequest;

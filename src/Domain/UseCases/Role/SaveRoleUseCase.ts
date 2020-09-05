@@ -13,10 +13,10 @@ class SaveRoleUseCase
     async handle(payload: RoleRepPayload): Promise<IRoleDomain>
     {
         const role = new Role();
-        role.name = payload.name();
-        role.slug = payload.slug();
-        role.permissions = payload.permissions();
-        role.enable = payload.enable();
+        role.name = payload.getName();
+        role.slug = payload.getSlug();
+        role.permissions = payload.getPermissions();
+        role.enable = payload.getEnable();
 
         return await this.repository.save(role);
     }

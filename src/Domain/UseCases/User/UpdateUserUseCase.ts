@@ -10,37 +10,51 @@ import RoleRepoFactory from "../../../Infrastructure/Factories/RoleRepoFactory";
 import Role from "../../../Infrastructure/Entities/TypeORM/Role";
 import {REPOSITORIES} from "../../../repositories";
 import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
+import AuthService from "../../../Application/Services/AuthService";
 
 class UpdateUserUseCase
 {
     @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
 
+    @lazyInject(REPOSITORIES.IAuthService)
+    private authService: AuthService;
+
+    // constructor()
+    // {
+    //     authService = new AuthService();
+    // }
+
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {
-        const id = payload.id();
+        const id = payload.getId();
         const user: IUserDomain = await this.repository.getOne(id);
-        const enable = payload.enable();
+        let enable = payload.getEnable();
 
-        if(typeof user.roles !== 'undefined' && enable !== null){
+        if (payload.getTokenUserId() === user.getId())
+        {
+            enable = true;
+        }
+
+        if(typeof user.roles !== 'undefined' && enable !== null)
+        {
             let checkRole: CheckUserRolePayload = {
                 roleToCheck: Roles.SUPER_ADMIN.toLocaleLowerCase(),
                 user
             }
+
             const verifyRole = await this.checkIfUserHasRole(checkRole);
-            if(verifyRole && !enable){
+
+            if(verifyRole && !enable)
+            {
                 throw new ErrorException(StatusCode.HTTP_FORBIDDEN, "SuperAdmin can't be disable");
             }
         }
 
-        user.firstName = payload.firstName();
-        user.lastName = payload.lastName();
+        user.firstName = payload.getFirstName();
+        user.lastName = payload.getLastName();
 
-        if(enable !== null){
-            user.enable = enable;
-        }
-
-        user.email = payload.email();
+        user.email = payload.getEmail();
 
         await this.repository.save(user);
 

@@ -1,4 +1,3 @@
-import * as express from "express";
 import {injectable} from "inversify";
 import jwt from "jwt-simple";
 import Config from "config";
@@ -29,20 +28,6 @@ class AuthService implements IAuthService
         let secret: string = Config.get('jwt.secret');
         
         return jwt.decode(TokenArray[1], secret, false, 'HS512');
-    }
-
-    public getLoggedId(request: express.Request): string
-    {
-        const tokenDecoded = this.decodeToken(request.get('Authorization'));
-
-        return tokenDecoded.userId;
-    }
-
-    public getLoggedEmail(request: express.Request): string
-    {
-        const tokenDecoded = this.decodeToken(request.get('Authorization'));
-
-        return tokenDecoded.email;
     }
 
     public getPermissions(user: IUserDomain): string[]

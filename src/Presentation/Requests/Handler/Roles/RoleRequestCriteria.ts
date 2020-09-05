@@ -36,4 +36,4 @@ class RoleRequestCriteria implements ICriteria
     }
 }
 
-export default RoleRequestCriteria
+export default RoleRequestCriteria;

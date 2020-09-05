@@ -1,39 +1,26 @@
 import * as express from "express";
-import {body, param} from "express-validator";
 import UserAssignRolePayload from "../../../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload";
+import {IsArray, IsUUID} from "class-validator";
+import IdRequest from "../Defaults/IdRequest";
 
-class UserAssignRoleRequest implements UserAssignRolePayload
+class UserAssignRoleRequest extends IdRequest implements UserAssignRolePayload
 {
-    private request: express.Request;
+    @IsArray()
+    @IsUUID("4", {
+        each: true,
+    })
+    rolesId: string[]
 
     constructor(request: express.Request)
     {
-        this.request = request;
+        super(request);
+        this.rolesId = request.body.rolesId;
     }
 
-    rolesId(): string[]
+    getRolesId(): string[]
     {
-        return this.request.body.rolesId;
-    }
-
-    id(): string
-    {
-        return this.request.params.id;
-    }
-
-    static validate()
-    {
-        return [
-            body('rolesId')
-                .exists().withMessage('rolesId must exist')
-                .isArray().withMessage('rolesId must be of type array'),
-            body('rolesId.*')
-                .isUUID().withMessage('id must uuid type'),
-            param('id')
-                .exists().withMessage('id must exist')
-                .isUUID().withMessage('id must uuid type')
-        ];
+        return this.rolesId;
     }
 }
 
-export default UserAssignRoleRequest
+export default UserAssignRoleRequest;;

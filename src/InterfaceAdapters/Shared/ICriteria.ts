@@ -9,4 +9,4 @@ interface ICriteria
     getSort(): ISort;
 }
 
-export default ICriteria
+export default ICriteria;

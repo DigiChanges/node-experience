@@ -7,10 +7,7 @@ class Md5EncryptionStrategy implements IEncryptionStrategy
 {
     async compare(chain: string, chainHashed: string): Promise<boolean>
     {
-        if(await md5(chain) === chainHashed){
-            return true;
-        }
-        return false;
+        return await md5(chain) === chainHashed;
     }
 
     async decrypt(chain: string): Promise<string>
@@ -20,9 +17,8 @@ class Md5EncryptionStrategy implements IEncryptionStrategy
 
     async encrypt(chain: string): Promise<string>
     {
-       return await md5(chain);
+       return md5(chain);
     }
-
 }
 
 export default Md5EncryptionStrategy;
