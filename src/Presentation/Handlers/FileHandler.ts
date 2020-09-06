@@ -23,6 +23,7 @@ import GetPresignedGetObjectUseCase from '../../Domain/UseCases/FileSystem/GetPr
 import internal from 'stream';
 import GetFileSystemWithPathUseCase from '../../Domain/UseCases/FileSystem/GetFileSystemWithPathUseCase';
 import { createReadStream } from "fs";
+import { stream } from "winston";
 
 @controller('/api/files')
 class FileHandler
@@ -72,37 +73,36 @@ class FileHandler
 
         // const download = await downloadUseCase.handle(_request);
 
-        const redeable = await downloadUseCase.handle(_request);
+        const readable = await downloadUseCase.handle(_request);
 
-        redeable.on("data",data => res.write(data));
+        readable.pipe( res )
+        readable.pipe(res);
+        readable.unpipe(res);
 
-        redeable.on("end", () => res.status(200).send());
+        readable.on('data', (chunk) => { console.log(chunk.toString()); });
 
+        readable.resume();
     }
 
-    @httpPost('/downloadfilesystem', ...DownloadRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
+    @httpPost('/downloadfilesystem')
     public async downloadfilesystem (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new DownloadRequest(req);
         const getFileSystemWithPathUseCase = new GetFileSystemWithPathUseCase();
 
-        // const download = await getFileSystemWithPathUseCase.handle(_request);
-
         const pathFile = await getFileSystemWithPathUseCase.handle(_request);
 
-        return pathFile;
+        // return pathFile;
 
-        // const readStream = createReadStream(pathFile); 
+        // const pathFile = __dirname + '/hola.txt';
+        console.log("pathFile", pathFile);
+        const readStream = createReadStream(pathFile); 
+        readStream.pipe(res);
+        readStream.unpipe(res);
 
-        // readStream.on("data",(data) => {
-        //     // if (error) {
-        //     //     console.log(error)
-        //     // }
-        //     res.write(data)
-        // });
+        readStream.on('data', (chunk) => { console.log(chunk.toString()); });
 
-        // readStream.on("end", () => res.status(200).send());
-
+        readStream.resume();
     }
 
 
