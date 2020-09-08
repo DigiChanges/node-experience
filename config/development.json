@@ -78,7 +78,8 @@
     "password": "",
     "secure": false,
     "senderName": "Notifications",
-    "senderEmailDefault": "notification@localhost.com"
+    "senderEmailDefault": "notification@localhost.com",
+    "templateDir": "Infrastructure/templates/emails"
   },
   "url":{
     "urlApi": "http://localhost:8089/api/",
