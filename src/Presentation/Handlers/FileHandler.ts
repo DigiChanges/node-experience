@@ -23,7 +23,6 @@ import GetPresignedGetObjectUseCase from '../../Domain/UseCases/FileSystem/GetPr
 import internal from 'stream';
 import GetFileSystemWithPathUseCase from '../../Domain/UseCases/FileSystem/GetFileSystemWithPathUseCase';
 import { createReadStream } from "fs";
-import { stream } from "winston";
 
 @controller('/api/files')
 class FileHandler
@@ -61,8 +60,7 @@ class FileHandler
 
         const presignedGetObject = await getPresignedGetObjectUseCase.handle(_request);
 
-        this.responder.send(presignedGetObject, res, StatusCode.HTTP_OK, null);
-        // res.redirect(presignedGetObject);
+        this.responder.send({presignedGetObject}, res, StatusCode.HTTP_OK, null);
     }
 
     @httpPost('/download', ...DownloadRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
@@ -71,17 +69,12 @@ class FileHandler
         const _request = new DownloadRequest(req);
         const downloadUseCase = new DownloadUseCase();
 
-        // const download = await downloadUseCase.handle(_request);
+        // TODO: Agregar el header correcto mediante la persistencia de los archivos en mongo y guardando su metadata
+        res.writeHead(200, {'Content-Type': 'image/jpeg' });
 
-        const readable = await downloadUseCase.handle(_request);
+        const stream = await downloadUseCase.handle(_request);
 
-        readable.pipe( res )
-        readable.pipe(res);
-        readable.unpipe(res);
-
-        readable.on('data', (chunk) => { console.log(chunk.toString()); });
-
-        readable.resume();
+        this.responder.sendStream(stream, res, StatusCode.HTTP_OK);
     }
 
     @httpPost('/downloadfilesystem')

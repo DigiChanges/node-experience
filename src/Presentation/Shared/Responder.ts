@@ -5,6 +5,7 @@ import IFormatResponder from '../../InterfaceAdapters/Shared/IFormatResponder';
 import { TYPES } from "../../types";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import PaginatorTransformer from "./PaginatorTransformer";
+import internal from "stream";
 
 @injectable()
 class Responder
@@ -49,6 +50,13 @@ class Responder
         }
 
         await response.status(status.code).send(result);
+    }
+
+    public sendStream(stream: internal.Readable, response: Response, status: any)
+    {
+        // TODO: Agregar el header aqui
+
+        stream.pipe(response);
     }
 
     public error(data: any, response: Response, status: any)
