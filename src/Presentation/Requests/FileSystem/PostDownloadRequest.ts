@@ -1,8 +1,8 @@
 import * as express from 'express';
 import DownloadPayload from '../../../InterfaceAdapters/Payloads/FileSystem/DownloadPayload';
-import {param} from "express-validator";
+import {body} from "express-validator";
 
-class DownloadRequest implements DownloadPayload
+class PostDownloadRequest implements DownloadPayload
 {
     private request: express.Request;
 
@@ -13,17 +13,17 @@ class DownloadRequest implements DownloadPayload
 
     filename(): string
     {
-        return this.request.params.filename;
+        return this.request.body.data?.filename;
     }
 
     static validate()
     {
         return [
-            param('filename')
-                .exists().withMessage('filename must exist')
+            body('data')
+                .exists().withMessage('data must exist')
         ];
     }
     
 }
 
-export default DownloadRequest;
+export default PostDownloadRequest;

@@ -17,6 +17,7 @@ import ListObjectsRequest from '../Requests/FileSystem/ListObjectsRequest';
 import ListObjectsUseCase from '../../Domain/UseCases/FileSystem/ListObjectsUseCase';
 import UploadBase64Request from '../Requests/FileSystem/UploadBase64Request';
 import UploadBase64UseCase from '../../Domain/UseCases/FileSystem/UploadBse64UseCase';
+import PostDownloadRequest from '../Requests/FileSystem/PostDownloadRequest';
 import DownloadRequest from '../Requests/FileSystem/DownloadRequest';
 import DownloadUseCase from '../../Domain/UseCases/FileSystem/DownloadUseCase';
 import GetPresignedGetObjectUseCase from '../../Domain/UseCases/FileSystem/GetPresignedGetObjectUseCase';
@@ -63,8 +64,22 @@ class FileHandler
         this.responder.send({presignedGetObject}, res, StatusCode.HTTP_OK, null);
     }
 
-    @httpPost('/download', ...DownloadRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
+    @httpPost('/download', ...PostDownloadRequest .validate(), ValidatorRules, AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
     public async download (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const _request = new PostDownloadRequest(req);
+        const downloadUseCase = new DownloadUseCase();
+
+        // TODO: Agregar el header correcto mediante la persistencia de los archivos en mongo y guardando su metadata
+        res.writeHead(200, {'Content-Type': 'image/jpeg' });
+
+        const stream = await downloadUseCase.handle(_request);
+
+        this.responder.sendStream(stream, res, StatusCode.HTTP_OK);
+    }
+
+    @httpGet('/download/:filename', ...DownloadRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
+    public async downloadStreamFile (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new DownloadRequest(req);
         const downloadUseCase = new DownloadUseCase();
@@ -77,26 +92,26 @@ class FileHandler
         this.responder.sendStream(stream, res, StatusCode.HTTP_OK);
     }
 
-    @httpPost('/downloadfilesystem')
-    public async downloadfilesystem (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
-    {
-        const _request = new DownloadRequest(req);
-        const getFileSystemWithPathUseCase = new GetFileSystemWithPathUseCase();
+    // @httpPost('/downloadfilesystem')
+    // public async downloadfilesystem (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    // {
+    //     const _request = new DownloadRequest(req);
+    //     const getFileSystemWithPathUseCase = new GetFileSystemWithPathUseCase();
 
-        const pathFile = await getFileSystemWithPathUseCase.handle(_request);
+    //     const pathFile = await getFileSystemWithPathUseCase.handle(_request);
 
-        // return pathFile;
+    //     // return pathFile;
 
-        // const pathFile = __dirname + '/hola.txt';
-        console.log("pathFile", pathFile);
-        const readStream = createReadStream(pathFile); 
-        readStream.pipe(res);
-        readStream.unpipe(res);
+    //     // const pathFile = __dirname + '/hola.txt';
+    //     console.log("pathFile", pathFile);
+    //     const readStream = createReadStream(pathFile); 
+    //     readStream.pipe(res);
+    //     readStream.unpipe(res);
 
-        readStream.on('data', (chunk) => { console.log(chunk.toString()); });
+    //     readStream.on('data', (chunk) => { console.log(chunk.toString()); });
 
-        readStream.resume();
-    }
+    //     readStream.resume();
+    // }
 
 
 
