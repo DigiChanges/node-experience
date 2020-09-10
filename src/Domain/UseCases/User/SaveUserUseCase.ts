@@ -6,6 +6,8 @@ import IEncryption from "../../../InterfaceAdapters/Shared/IEncryption";
 import {REPOSITORIES} from "../../../repositories";
 import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
 import User from '../../Entities/User';
+import EventHandler from "../../../Infrastructure/Events/EventHandler";
+import UserCreatedEvent from "../../../Infrastructure/Events/UserCreatedEvent";
 
 class SaveUserUseCase
 {
@@ -20,7 +22,7 @@ class SaveUserUseCase
 
     async handle(payload: UserRepPayload): Promise<IUserDomain>
     {
-        const user: IUserDomain = new User();
+        let user: IUserDomain = new User();
         user.firstName = payload.getFirstName();
         user.lastName = payload.getLastName();
         user.email = payload.getEmail();
@@ -32,7 +34,13 @@ class SaveUserUseCase
         user.roles = payload.getRoles();
         user.isSuperAdmin = payload.getIsSuperAdmin();
 
-        return await this.repository.save(user);
+        user = await this.repository.save(user);
+
+        const eventHandler = EventHandler.getInstance();
+
+        eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, {email: user.email});
+
+        return user;
     }
 }
 

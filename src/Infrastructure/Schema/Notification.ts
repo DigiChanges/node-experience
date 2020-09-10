@@ -16,8 +16,9 @@ export const EmailNotificationSchema = new Schema({
     senderName: { type: String, required: true },
     from: { type: String, required: true },
     to: { type: String, required: true },
-    cc: { type: String, required: true, default : null },
-    subject: { type: String, required: true }
+    cc: { type: String, default : null },
+    subject: { type: String, required: true },
+    description: { type: String, default : null }
 }, options).loadClass(EmailNotification);
 
 export const PushNotificationSchema = new Schema({

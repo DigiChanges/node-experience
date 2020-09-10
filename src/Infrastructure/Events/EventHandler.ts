@@ -1,5 +1,6 @@
 import events from "events";
-import UserCreatedListener from "../Listeners/UserCreatedListener";
+import UserCreatedEvent from "./UserCreatedEvent";
+import ForgotPasswordEvent from "./ForgotPasswordEvent";
 
 class EventHandler extends events.EventEmitter
 {
@@ -28,7 +29,8 @@ class EventHandler extends events.EventEmitter
 
     private setListeners()
     {
-        this.on('userCreated', UserCreatedListener);
+        this.on(UserCreatedEvent.USER_CREATED_EVENT, UserCreatedEvent.userCreatedListener);
+        this.on(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT, ForgotPasswordEvent.forgotPasswordListener);
     }
 }
 

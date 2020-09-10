@@ -6,14 +6,15 @@ class EmailNotification extends Notification
     senderName: string;
     from: string;
     to: string;
-    cc?: string;
+    cc: string;
     subject: string;
     description: string;
 
     constructor()
     {
         super();
-        this.description = "";
+        this.cc = null;
+        this.description = null;
     }
 }
 

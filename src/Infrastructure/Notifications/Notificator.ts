@@ -10,6 +10,7 @@ import NotificationMongoRepository from "../Repositories/NotificationMongoReposi
 
 class Notificator
 {
+    // TODO: This need more abstraction
     public static async sendEmail(emailNotification: EmailNotification, templatePathNameFile: string, data: object = {}, save: boolean = true)
     {
         const repository = new NotificationMongoRepository();
@@ -23,7 +24,8 @@ class Notificator
 
             let smtpConfig = {host, port, secure};
 
-            if(smtpConfig.secure){
+            if(smtpConfig.secure)
+            {
                 const auth = {
                                 auth: {
                                         user: String(Config.get('mail.username')),
@@ -52,6 +54,11 @@ class Notificator
                 html
             };
 
+            if (emailNotification.cc)
+            {
+                Object.assign(mailData, {cc: emailNotification.cc});
+            }
+
             return await transporter.sendMail(mailData)
                             .then((info: any) =>
                             {
@@ -69,7 +76,7 @@ class Notificator
                                 throw new ErrorException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, "Something is wrong. Please try again later.");
                             });
         } catch(e) {
-            console.log(e)
+            throw Error("Error to send Email");
         }
     }
 }
