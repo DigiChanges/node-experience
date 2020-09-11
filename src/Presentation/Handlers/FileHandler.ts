@@ -1,9 +1,9 @@
 import {controller, httpPost, request, response, next, httpGet} from "inversify-express-utils";
 import { NextFunction, Request, Response } from "express";
+import multer from "multer";
 
 import StatusCode from "../Shared/StatusCode";
 
-import ValidatorRules from "../Middlewares/ValidatorRules";
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
 import Permissions from "../../../config/Permissions";
 
@@ -24,6 +24,8 @@ import GetPresignedGetObjectUseCase from '../../Domain/UseCases/FileSystem/GetPr
 import internal from 'stream';
 import GetFileSystemWithPathUseCase from '../../Domain/UseCases/FileSystem/GetFileSystemWithPathUseCase';
 import { createReadStream } from "fs";
+import UploadMultipartUseCase from '../../Domain/UseCases/FileSystem/UploadMultipartUseCase';
+import UploadMultipartRequest from "Presentation/Requests/FileSystem/UploadMultipartRequest";
 
 @controller('/api/files')
 class FileHandler
@@ -42,7 +44,7 @@ class FileHandler
         this.responder.send( {data: listObjects}, res, StatusCode.HTTP_OK, null );
     }
 
-    @httpPost('/uploadBase64')
+    @httpPost('/base64')
     public async uploadBase64 (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new UploadBase64Request(req);
@@ -53,7 +55,18 @@ class FileHandler
         this.responder.send({message: "File uploaded", payload}, res, StatusCode.HTTP_CREATED , null );
     }
 
-    @httpPost('/presignedGetObject', ...DownloadRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
+    @httpPost('/')
+    public async uploadMultipart (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const _request = new UploadMultipartRequest(req);
+        const uploadMultipartUseCase = new UploadMultipartUseCase();
+
+        const payload = await uploadMultipartUseCase.handle(_request);
+
+        this.responder.send({message: "File uploaded", payload}, res, StatusCode.HTTP_CREATED , null );
+    }
+
+    @httpPost('/presignedGetObject', AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
     public async getPresignedGetObject (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new DownloadRequest(req);
@@ -64,7 +77,7 @@ class FileHandler
         this.responder.send({presignedGetObject}, res, StatusCode.HTTP_OK, null);
     }
 
-    @httpPost('/download', ...PostDownloadRequest .validate(), ValidatorRules, AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
+    @httpPost('/download', AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
     public async download (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new PostDownloadRequest(req);
@@ -78,7 +91,7 @@ class FileHandler
         this.responder.sendStream(stream, res, StatusCode.HTTP_OK);
     }
 
-    @httpGet('/download/:filename', ...DownloadRequest.validate(), ValidatorRules, AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
+    @httpGet('/:filename', AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
     public async downloadStreamFile (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new DownloadRequest(req);
