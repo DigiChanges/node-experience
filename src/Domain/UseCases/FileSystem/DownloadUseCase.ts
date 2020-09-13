@@ -1,12 +1,12 @@
 import { filesystem } from '../../../index';
-import DownloadPayload from '../../../InterfaceAdapters/Payloads/FileSystem/DownloadPayload';
+import FileRepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/DownloadPayload';
 import internal from "stream";
 
 class DownloadUseCase
 {
-    async handle(payload: DownloadPayload): Promise<internal.Readable>
+    async handle(payload: FileRepPayload): Promise<internal.Readable>
     {
-        const filename = payload.filename();
+        const filename = payload.getFilename();
 
         return await filesystem.downloadStreamFile(filename);
     }

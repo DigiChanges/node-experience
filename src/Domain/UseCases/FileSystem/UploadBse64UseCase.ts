@@ -1,29 +1,23 @@
 import { filesystem } from '../../../index';
-import Base64RepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/Base64RepPayload';
+import Base64FileRepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/Base64FileRepPayload';
 
 
 class UploadBase64UseCase
 {
-    async handle(payload: Base64RepPayload): Promise<any>
+    async handle(payload: Base64FileRepPayload): Promise<any>
     {
-        const filename = payload.filename() || 'uuidfilename';
+        const filename = payload.getFilename() || 'uuidfilename';
 
         const fileExtension = filename.split(".").pop();
 
-        const base64File: { [key: string]: string; } = payload.base64();
+        const base64Payload = payload.getBase64();
 
-        const mimeTypeKeys = Object.keys(base64File);
+        const mimeTypeKeys = base64Payload.split(";base64")[0].split("data:").pop();
 
-        if (Array.isArray( mimeTypeKeys ) && mimeTypeKeys.length > 0)
-        {
-            const key = mimeTypeKeys[0];
+        const buffer = base64Payload.split(";base64").pop();
 
-            const buffer = base64File[key];
+        return await filesystem.uploadFileByBuffer(filename, buffer);
 
-            return await filesystem.uploadFileByBuffer(filename, buffer);
-        }
-
-        return false;
     }
 }
 

@@ -1,5 +1,5 @@
 import * as express from 'express';
-import ListObjectsPayload from "../../../InterfaceAdapters/Payloads/FileSystem/ListObjectsPayload"
+import ListObjectsPayload from "../../../../InterfaceAdapters/Payloads/FileSystem/ListObjectsPayload"
 import {query} from "express-validator";
 class ListObjectsRequest implements ListObjectsPayload
 {

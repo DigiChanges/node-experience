@@ -1,12 +1,12 @@
 import { filesystem } from '../../../index';
-import MultipartRepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/MultipartRepPayload';
+import MultipartFileRepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/MultipartFileRepPayload';
 
 
 class UploadMultipartUseCase
 {
-    async handle(payload: MultipartRepPayload): Promise<any>
+    async handle(payload: MultipartFileRepPayload): Promise<any>
     {
-        return await filesystem.uploadFile(payload.file().originalname, payload.file().path);
+        return await filesystem.uploadFile(payload.getFile().originalname, payload.getFile().path);
     }
 }
 

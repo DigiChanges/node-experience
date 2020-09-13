@@ -6,26 +6,21 @@ import StatusCode from "../Shared/StatusCode";
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
 import Permissions from "../../../config/Permissions";
 
-import * as fs from "fs";
-
-import path from "path";
 import {lazyInject} from "../../inversify.config";
 import { TYPES } from '../../types';
 import Responder from '../Shared/Responder';
-import ListObjectsRequest from '../Requests/FileSystem/ListObjectsRequest';
+import ListObjectsRequest from '../Requests/Handler/FileSystem/ListObjectsRequest';
 import ListObjectsUseCase from '../../Domain/UseCases/FileSystem/ListObjectsUseCase';
-import UploadBase64Request from '../Requests/FileSystem/UploadBase64Request';
 import UploadBase64UseCase from '../../Domain/UseCases/FileSystem/UploadBse64UseCase';
-import PostDownloadRequest from '../Requests/FileSystem/PostDownloadRequest';
-import DownloadRequest from '../Requests/FileSystem/DownloadRequest';
+import FileRepRequest from '../Requests/Handler/FileSystem/FileRepRequest';
 import DownloadUseCase from '../../Domain/UseCases/FileSystem/DownloadUseCase';
 import GetPresignedGetObjectUseCase from '../../Domain/UseCases/FileSystem/GetPresignedGetObjectUseCase';
-import internal from 'stream';
-import GetFileSystemWithPathUseCase from '../../Domain/UseCases/FileSystem/GetFileSystemWithPathUseCase';
-import { createReadStream } from "fs";
 import UploadMultipartUseCase from '../../Domain/UseCases/FileSystem/UploadMultipartUseCase';
-import UploadMultipartRequest from "../../Presentation/Requests/FileSystem/UploadMultipartRequest";
 import FileReqMulter from '../Middlewares/FileReqMulter';
+import Base64FileRepRequest from '../Requests/Handler/FileSystem/Base64FileRepRequest';
+import ValidatorRequest from '../../Application/Shared/ValidatorRequest';
+import MultipartFileRepRequest from '../Requests/Handler/FileSystem/MultipartFileRepRequest';
+import DownloadPostFileRepRequest from '../Requests/Handler/FileSystem/DownloadPostFileRepRequest';
 
 @controller('/api/files')
 class FileHandler
@@ -37,8 +32,9 @@ class FileHandler
     public async listObjects (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ListObjectsRequest(req);
-        const listObjectsUseCase = new ListObjectsUseCase();
+        await ValidatorRequest.handle(_request);
 
+        const listObjectsUseCase = new ListObjectsUseCase();
         const listObjects = await listObjectsUseCase.handle(_request);
 
         this.responder.send( {data: listObjects}, res, StatusCode.HTTP_OK, null );
@@ -47,9 +43,10 @@ class FileHandler
     @httpPost('/base64')
     public async uploadBase64 (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new UploadBase64Request(req);
-        const uploadBase64UseCase = new UploadBase64UseCase();
+        const _request = new Base64FileRepRequest(req);
+        await ValidatorRequest.handle(_request);
 
+        const uploadBase64UseCase = new UploadBase64UseCase();
         const payload = await uploadBase64UseCase.handle(_request);
 
         this.responder.send({message: "File uploaded", payload}, res, StatusCode.HTTP_CREATED , null );
@@ -58,9 +55,10 @@ class FileHandler
     @httpPost('/', FileReqMulter.single('file'))
     public async uploadMultipart (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new UploadMultipartRequest(req);
-        const uploadMultipartUseCase = new UploadMultipartUseCase();
+        const _request = new MultipartFileRepRequest(req);
+        await ValidatorRequest.handle(_request);
 
+        const uploadMultipartUseCase = new UploadMultipartUseCase();
         const payload = await uploadMultipartUseCase.handle(_request);
 
         this.responder.send({message: "File uploaded", payload}, res, StatusCode.HTTP_CREATED , null );
@@ -69,9 +67,10 @@ class FileHandler
     @httpPost('/presignedGetObject', AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
     public async getPresignedGetObject (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new DownloadRequest(req);
-        const getPresignedGetObjectUseCase = new GetPresignedGetObjectUseCase();
+        const _request = new DownloadPostFileRepRequest(req);
+        await ValidatorRequest.handle(_request);
 
+        const getPresignedGetObjectUseCase = new GetPresignedGetObjectUseCase();
         const presignedGetObject = await getPresignedGetObjectUseCase.handle(_request);
 
         this.responder.send({presignedGetObject}, res, StatusCode.HTTP_OK, null);
@@ -80,7 +79,9 @@ class FileHandler
     @httpPost('/download', AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
     public async download (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new PostDownloadRequest(req);
+        const _request = new DownloadPostFileRepRequest(req);
+        await ValidatorRequest.handle(_request);
+
         const downloadUseCase = new DownloadUseCase();
 
         // TODO: Agregar el header correcto mediante la persistencia de los archivos en mongo y guardando su metadata
@@ -94,7 +95,7 @@ class FileHandler
     @httpGet('/:filename', AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))
     public async downloadStreamFile (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new DownloadRequest(req);
+        const _request = new FileRepRequest(req);
         const downloadUseCase = new DownloadUseCase();
 
         // TODO: Agregar el header correcto mediante la persistencia de los archivos en mongo y guardando su metadata
@@ -104,104 +105,6 @@ class FileHandler
 
         this.responder.sendStream(stream, res, StatusCode.HTTP_OK);
     }
-
-    // @httpPost('/downloadfilesystem')
-    // public async downloadfilesystem (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
-    // {
-    //     const _request = new DownloadRequest(req);
-    //     const getFileSystemWithPathUseCase = new GetFileSystemWithPathUseCase();
-
-    //     const pathFile = await getFileSystemWithPathUseCase.handle(_request);
-
-    //     // return pathFile;
-
-    //     // const pathFile = __dirname + '/hola.txt';
-    //     console.log("pathFile", pathFile);
-    //     const readStream = createReadStream(pathFile); 
-    //     readStream.pipe(res);
-    //     readStream.unpipe(res);
-
-    //     readStream.on('data', (chunk) => { console.log(chunk.toString()); });
-
-    //     readStream.resume();
-    // }
-
-
-
-
-//     @httpPost('/download')
-//     public download (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
-//     {
-//         const filename = req.params.filename;
-//         // let readableStream: internal.Readable = await filesystem.downloadFile(filename);
-//         //
-//         // res.attachment(filename);
-//         // readableStream.pipe(res);
-//         // const minioClient: Client = filesystem.getClient();
-
-//         let dataBuffer: any = [];
-
-//         // const filePath = await filesystem.downloadFile(filename);
-//         // const path = await minioClient.fGetObject('experience', req.body.filename, '/tmp/' + req.body.filename);
-
-//        res.setHeader("Content-Type", "text/plain");
-
-//         // let readStream = fs.createReadStream('/tmp/' + filename);
-//         //
-//         // readStream.on('open', () => {
-//         //     // This just pipes the read stream to the response object (which goes to the client)
-//         //     readStream.pipe(res);
-//         // });
-//         // res.setHeader('Content-Type','text/plain');
-//         // res.setHeader('Content-disposition', 'attachment; filename=hola.txt');
-
-//         let pathUrl = req.path;
-
-//         console.log('__dirname')
-//         console.log(__dirname)
-//         console.log(path.join(__dirname, "./hola.txt"))
-
-//         console.log('pathUrl before')
-//         console.log(pathUrl)
-
-//         console.log('pathUrl after')
-//         console.log(pathUrl)
-
-//         const stream = fs.createReadStream(path.join(__dirname, "./hola.txt"));
-
-
-//         stream.on('data', (chunk)=>  {
-//             // const buffer = Buffer.(chunk)
-//             // dataBuffer.push(chunk);
-//         });
-
-//         stream.on('end', ()=>  {
-//            console.log('dataBuffer');
-//            console.log(dataBuffer);
-//            const buffer = Buffer.concat(dataBuffer);
-//            console.log('buffer.toString()')
-//            console.log(buffer.toString())
-//            // res.set('Content-Type','text/plain');
-//            // res.send(buffer);
-//            //  console.log(stream);
-//             // stream.pipe(res);
-//             res.end()
-//         });
-
-//         stream.on('close', ()=>
-//         {
-//             res.end()
-//         });
-
-//         // let through = require('through');
-
-//         stream.setEncoding('UTF8');
-//         stream.on('end', () => res.end());
-//         // stream.pipe(res);
-//         // res.send('hola');
-
-//         console.log("Program Ended");
-//     }
 }
 
 export default FileHandler;

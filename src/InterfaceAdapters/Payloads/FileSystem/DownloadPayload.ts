@@ -1,7 +1,7 @@
 
-interface DownloadPayload
+interface FileRepPayload
 {
-    filename(): string,
+    getFilename(): string,
 }
 
-export default DownloadPayload
+export default FileRepPayload
