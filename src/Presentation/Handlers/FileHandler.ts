@@ -1,6 +1,5 @@
 import {controller, httpPost, request, response, next, httpGet} from "inversify-express-utils";
 import { NextFunction, Request, Response } from "express";
-import multer from "multer";
 
 import StatusCode from "../Shared/StatusCode";
 
@@ -25,7 +24,8 @@ import internal from 'stream';
 import GetFileSystemWithPathUseCase from '../../Domain/UseCases/FileSystem/GetFileSystemWithPathUseCase';
 import { createReadStream } from "fs";
 import UploadMultipartUseCase from '../../Domain/UseCases/FileSystem/UploadMultipartUseCase';
-import UploadMultipartRequest from "Presentation/Requests/FileSystem/UploadMultipartRequest";
+import UploadMultipartRequest from "../../Presentation/Requests/FileSystem/UploadMultipartRequest";
+import FileReqMulter from '../Middlewares/FileReqMulter';
 
 @controller('/api/files')
 class FileHandler
@@ -55,7 +55,7 @@ class FileHandler
         this.responder.send({message: "File uploaded", payload}, res, StatusCode.HTTP_CREATED , null );
     }
 
-    @httpPost('/')
+    @httpPost('/', FileReqMulter.single('file'))
     public async uploadMultipart (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new UploadMultipartRequest(req);

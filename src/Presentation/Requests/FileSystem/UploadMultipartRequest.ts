@@ -1,21 +1,18 @@
 import * as express from 'express';
-import multer from 'multer';
 import MultipartRepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/MultipartRepPayload';
 
 class UploadMultipartRequest implements MultipartRepPayload
 {
     private request: express.Request;
-    private fields: multer.Multer;
 
     constructor(request: express.Request)
     {
         this.request = request;
     }
 
-    file(): any
+    file(): Express.Multer.File
     {
-        console.log(this.request.body);
-        return this.request.body.file;
+        return this.request.file;
     }
     
 }

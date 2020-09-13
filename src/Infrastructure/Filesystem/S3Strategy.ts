@@ -1,5 +1,5 @@
 
-import { Client } from 'minio';
+import { Client, ItemBucketMetadata } from 'minio';
 import Fs from 'fs';
 
 import ErrorException from "../../Application/Shared/ErrorException";
@@ -30,6 +30,11 @@ class S3Strategy implements IFilesystem
     async presignedGetObject(objectName: string): Promise<string> {
 
         return await this.filesystem.presignedGetObject(this.bucketName, objectName, 24 * 60 * 60);
+    }
+
+    async uploadFile(objectName: string, path: string)
+    {
+        return await this.filesystem.fPutObject(this.bucketName, objectName, path, {})
     }
 
     async uploadFileByBuffer(objectName: string, base64Data: string)

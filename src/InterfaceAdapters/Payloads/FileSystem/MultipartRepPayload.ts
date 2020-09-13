@@ -1,10 +1,7 @@
 
 interface MultipartRepPayload
 {
-    file(): any;
-    // data(): object,
-    // filename(): string,
-    // base64(): {[key: string]: string},
+    file(): Express.Multer.File
 }
 
 export default MultipartRepPayload
