@@ -12,7 +12,7 @@ class FileRepRequest implements FileRepPayload
         this.filename = request.params.filename;
     }
 
-    getFilename(): string
+    getName(): string
     {
         return this.filename;
     }    

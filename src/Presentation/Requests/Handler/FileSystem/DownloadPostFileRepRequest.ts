@@ -12,7 +12,7 @@ class DownloadPostFileRepRequest implements FileRepPayload
         this.filename = request.body.filename;
     }
 
-    getFilename(): string
+    getName(): string
     {
         return this.filename;
     }    

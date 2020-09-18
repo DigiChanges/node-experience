@@ -6,15 +6,9 @@ class UploadBase64UseCase
 {
     async handle(payload: Base64FileRepPayload): Promise<any>
     {
-        const filename = payload.getFilename() || 'uuidfilename';
+        const filename = payload.getOriginalName() || 'uuidfilename';
 
-        const fileExtension = filename.split(".").pop();
-
-        const base64Payload = payload.getBase64();
-
-        const mimeTypeKeys = base64Payload.split(";base64")[0].split("data:").pop();
-
-        const buffer = base64Payload.split(";base64").pop();
+        const buffer = payload.getBase64();
 
         return await filesystem.uploadFileByBuffer(filename, buffer);
 

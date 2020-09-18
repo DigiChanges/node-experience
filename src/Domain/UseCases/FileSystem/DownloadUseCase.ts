@@ -6,7 +6,7 @@ class DownloadUseCase
 {
     async handle(payload: FileRepPayload): Promise<internal.Readable>
     {
-        const filename = payload.getFilename();
+        const filename = payload.getName();
 
         return await filesystem.downloadStreamFile(filename);
     }

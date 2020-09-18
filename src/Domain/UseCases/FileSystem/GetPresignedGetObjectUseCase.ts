@@ -6,7 +6,7 @@ class GetPresignedGetObjectUseCase
 {
     async handle(payload: FileRepPayload): Promise<string>
     {
-        const filename = payload.getFilename();
+        const filename = payload.getName();
 
         return await filesystem.presignedGetObject(filename);
 

@@ -1,7 +1,7 @@
+import FileRepPayload from "./FileRepPayload";
 
-interface Base64FileRepPayload
+interface Base64FileRepPayload extends FileRepPayload
 {
-    getFilename(): string,
     getBase64(): string,
 }
 

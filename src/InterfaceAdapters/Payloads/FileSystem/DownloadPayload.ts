@@ -1,7 +1,7 @@
 
 interface FileRepPayload
 {
-    getFilename(): string,
+    getName(): string,
 }
 
 export default FileRepPayload
