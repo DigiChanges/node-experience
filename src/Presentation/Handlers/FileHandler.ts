@@ -47,9 +47,9 @@ class FileHandler
         await ValidatorRequest.handle(_request);
 
         const uploadBase64UseCase = new UploadBase64UseCase();
-        const payload = await uploadBase64UseCase.handle(_request);
+        const data = await uploadBase64UseCase.handle(_request);
 
-        this.responder.send({message: "File uploaded", payload}, res, StatusCode.HTTP_CREATED , null );
+        this.responder.send({message: "File uploaded", data}, res, StatusCode.HTTP_CREATED , null );
     }
 
     @httpPost('/', FileReqMulter.single('file'))
@@ -59,9 +59,9 @@ class FileHandler
         await ValidatorRequest.handle(_request);
 
         const uploadMultipartUseCase = new UploadMultipartUseCase();
-        const payload = await uploadMultipartUseCase.handle(_request);
+        const data = await uploadMultipartUseCase.handle(_request);
 
-        this.responder.send({message: "File uploaded", payload}, res, StatusCode.HTTP_CREATED , null );
+        this.responder.send({message: "File uploaded", data}, res, StatusCode.HTTP_CREATED , null );
     }
 
     @httpPost('/presignedGetObject', AuthorizeMiddleware(Permissions.DOWNLOAD_FILE))

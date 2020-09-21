@@ -7,6 +7,8 @@ import IItemDocument from "../../InterfaceAdapters/IEntities/Mongoose/IItemDocum
 import ItemSchema from "../Schema/Item";
 import RoleSchema from "../Schema/Role";
 import UserSchema from "../Schema/User";
+import IFileDocument from "../../InterfaceAdapters/IEntities/Mongoose/IFileDocument";
+import FileSchema from "../Schema/File";
 
 export let connection: mongoose.Connection = null;
 
@@ -29,6 +31,7 @@ class MongooseCreateConnection implements ICreateConnection
         await connection.model<IUserDocument>('User', UserSchema);
         await connection.model<IRoleDocument>('Role', RoleSchema);
         await connection.model<IItemDocument>('Item', ItemSchema);
+        await connection.model<IFileDocument>('File', FileSchema);
 
         return connection;
     }

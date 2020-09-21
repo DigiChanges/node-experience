@@ -12,6 +12,26 @@ class MultipartFileRepRequest implements MultipartFileRepPayload
         this.file = request.file;
     }
 
+    getName(): string {
+        return this.file.filename.split(".").shift();
+    }
+
+    getOriginalName(): string {
+        return this.file.originalname;
+    }
+
+    getMimeType(): string {
+        return this.file.mimetype;
+    }
+
+    getPath(): string {
+        return "/";
+    }
+
+    getExtension(): string {
+        return this.file.originalname.split(".").pop();
+    }
+
     getFile(): Express.Multer.File
     {
         return this.file;

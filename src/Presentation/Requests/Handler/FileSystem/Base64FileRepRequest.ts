@@ -37,7 +37,7 @@ class Base64FileRepRequest implements Base64FileRepPayload
 
     getPath(): string
     {
-        throw new Error("Method not implemented.");
+        return "/";
     }
 
     getExtension(): string

@@ -1,5 +1,6 @@
+import FileRepPayload from "./FileRepPayload";
 
-interface MultipartFileRepPayload
+interface MultipartFileRepPayload extends FileRepPayload
 {
     getFile(): Express.Multer.File
 }

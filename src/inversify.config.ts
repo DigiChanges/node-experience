@@ -16,6 +16,8 @@ import {REPOSITORIES} from "./repositories";
 import {TYPES} from "./types";
 import UserMongoRepository from "./Infrastructure/Repositories/UserMongoRepository";
 import RoleMongoRepository from "./Infrastructure/Repositories/RoleMongoRepository";
+import IFileRepository from "./InterfaceAdapters/IRepositories/IFileRepository";
+import FileMongoRepository from "./Infrastructure/Repositories/FileMongoRepository";
 
 
 const container = new Container();
@@ -31,6 +33,7 @@ container.bind<IFormatResponder>(TYPES.IFormatResponder).to(FormatResponder);
 container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMongoRepository);
 container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository);
 container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongoRepository);
+container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository);
 
 export let { lazyInject } = getDecorators(container);
 
