@@ -10,6 +10,7 @@ import {lazyInject} from "../../inversify.config";
 import { TYPES } from '../../types';
 import Responder from '../Shared/Responder';
 import ListObjectsRequest from '../Requests/Handler/FileSystem/ListObjectsRequest';
+import ListFilesUseCase from '../../Domain/UseCases/FileSystem/ListFilesUseCase';
 import ListObjectsUseCase from '../../Domain/UseCases/FileSystem/ListObjectsUseCase';
 import UploadBase64UseCase from '../../Domain/UseCases/FileSystem/UploadBse64UseCase';
 import FileRepRequest from '../Requests/Handler/FileSystem/FileRepRequest';
@@ -21,6 +22,7 @@ import Base64FileRepRequest from '../Requests/Handler/FileSystem/Base64FileRepRe
 import ValidatorRequest from '../../Application/Shared/ValidatorRequest';
 import MultipartFileRepRequest from '../Requests/Handler/FileSystem/MultipartFileRepRequest';
 import DownloadPostFileRepRequest from '../Requests/Handler/FileSystem/DownloadPostFileRepRequest';
+import FileRequestCriteria from "../Requests/Handler/FileSystem/FileRequestCriteria";
 
 @controller('/api/files')
 class FileHandler
@@ -29,7 +31,19 @@ class FileHandler
     private responder: Responder;
 
     @httpGet('/')
-    public async listObjects (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async list (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const _request = new FileRequestCriteria(req);
+        await ValidatorRequest.handle(_request);
+
+        const listFilesUseCase = new ListFilesUseCase();
+        const listFiles = await listFilesUseCase.handle(_request);
+
+        this.responder.send( {data: listFiles}, res, StatusCode.HTTP_OK, null );
+    }
+
+    @httpGet('/objects')
+    public async listFilesystemObjects (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ListObjectsRequest(req);
         await ValidatorRequest.handle(_request);
