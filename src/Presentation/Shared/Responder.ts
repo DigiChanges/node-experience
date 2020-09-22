@@ -5,7 +5,7 @@ import IFormatResponder from '../../InterfaceAdapters/Shared/IFormatResponder';
 import { TYPES } from "../../types";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import PaginatorTransformer from "./PaginatorTransformer";
-import internal from "stream";
+import IFileDTO from '../../InterfaceAdapters/Payloads/FileSystem/IFileDTO';
 
 @injectable()
 class Responder
@@ -52,11 +52,11 @@ class Responder
         await response.status(status.code).send(result);
     }
 
-    public sendStream(stream: internal.Readable, response: Response, status: any)
+    public sendStream(fileDto: IFileDTO, response: Response, status: any)
     {
-        // TODO: Agregar el header aqui
+        response.writeHead(status.code, {'Content-Type': fileDto.metadata.mimeType });
 
-        stream.pipe(response);
+        fileDto.stream.pipe(response);
     }
 
     public error(data: any, response: Response, status: any)

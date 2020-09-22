@@ -20,7 +20,9 @@ class Roles
                 Permissions.ITEMS_UPDATE,
                 Permissions.ITEMS_SHOW,
                 Permissions.ITEMS_LIST,
-                Permissions.DOWNLOAD_FILE,
+                Permissions.FILES_UPLOAD,
+                Permissions.FILES_DOWNLOAD,
+                Permissions.FILES_LIST,
             ]
         };
     }

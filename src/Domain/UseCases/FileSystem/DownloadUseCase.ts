@@ -1,14 +1,28 @@
+import { lazyInject } from '../../../inversify.config';
+import IFileRepository from '../../../InterfaceAdapters/IRepositories/IFileRepository';
+import { REPOSITORIES } from '../../../repositories';
+
 import { filesystem } from '../../../index';
-import DownloadFileRepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/DownloadFileRepPayload';
-import internal from "stream";
+import IdPayload from '../../../InterfaceAdapters/Payloads/Defaults/IdPayload';
+import IFileDTO from '../../../InterfaceAdapters/Payloads/FileSystem/IFileDTO';
 
 class DownloadUseCase
 {
-    async handle(payload: DownloadFileRepPayload): Promise<internal.Readable>
-    {
-        const filename = payload.getName();
+    @lazyInject(REPOSITORIES.IFileRepository)
+    private repository: IFileRepository;
 
-        return await filesystem.downloadStreamFile(filename);
+    async handle(payload: IdPayload): Promise<IFileDTO>
+    {
+        const id = payload.getId();
+        const metadata = await this.repository.getOne(id);
+
+        const stream = await filesystem.downloadStreamFile(id);
+        const fileDto: IFileDTO = {
+            metadata,
+            stream
+        }
+
+        return fileDto;
     }
 }
 

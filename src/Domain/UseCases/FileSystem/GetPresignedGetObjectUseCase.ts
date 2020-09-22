@@ -1,10 +1,10 @@
 import { filesystem } from '../../../index';
-import DownloadFileRepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/DownloadFileRepPayload';
+import PresignedFileRepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/PresignedFileRepPayload';
 
 
 class GetPresignedGetObjectUseCase
 {
-    async handle(payload: DownloadFileRepPayload): Promise<string>
+    async handle(payload: PresignedFileRepPayload): Promise<string>
     {
         const filename = payload.getName();
 

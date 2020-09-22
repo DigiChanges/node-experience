@@ -1,8 +1,8 @@
 import * as express from 'express';
-import DownloadFileRepPayload from '../../../../InterfaceAdapters/Payloads/FileSystem/DownloadFileRepPayload';
+import PresignedFileRepPayload from '../../../../InterfaceAdapters/Payloads/FileSystem/PresignedFileRepPayload';
 import {IsString} from "class-validator";
 
-class DownloadPostFileRepRequest implements DownloadFileRepPayload
+class PresignedFileRepRequest implements PresignedFileRepPayload
 {
     @IsString()
     filename: string;
@@ -18,4 +18,4 @@ class DownloadPostFileRepRequest implements DownloadFileRepPayload
     }    
 }
 
-export default DownloadPostFileRepRequest;
+export default PresignedFileRepRequest;
