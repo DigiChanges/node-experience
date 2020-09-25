@@ -1,31 +1,33 @@
 import { filesystem } from '../../../index';
-import FileMultipartRepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/FileMultipartRepPayload';
 import IFileRepository from "../../../InterfaceAdapters/IRepositories/IFileRepository";
 import { lazyInject } from '../../../inversify.config';
 import { REPOSITORIES } from '../../../repositories';
-import File from '../../Entities/File';
+import FileUpdateBase64Payload from '../../../InterfaceAdapters/Payloads/FileSystem/FileUpdateBase64Payload';
 
-class UploadMultipartUseCase
+class UpdateFileBase64UseCase
 {
     @lazyInject(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;
 
-    async handle(payload: FileMultipartRepPayload): Promise<any>
+    async handle(payload: FileUpdateBase64Payload): Promise<any>
     {
-        const file = new File();
+        const id = payload.getId();
 
+        const file = await this.repository.getOne(id);
+        const currentVersion = file.version;
         file.extension = payload.getExtension();
         file.originalName = payload.getName();
         file.path = payload.getPath();
         file.mimeType = payload.getMimeType();
         file.size = payload.getSize();
+        file.version = currentVersion + 1;
 
         await this.repository.save(file);
 
-        await filesystem.uploadFile(file.name, payload.getFile().path);
+        await await filesystem.uploadFileByBuffer(file.name, payload.getBase64());
 
-        return file;        
+        return file;
     }
 }
 
-export default UploadMultipartUseCase;
+export default UpdateFileBase64UseCase;

@@ -1,8 +1,8 @@
 import * as express from "express";
-import Base64FileRepPayload from "../../../../InterfaceAdapters/Payloads/FileSystem/Base64FileRepPayload";
+import FileBase64RepPayload from "../../../../InterfaceAdapters/Payloads/FileSystem/FileBase64RepPayload";
 import {IsBase64, IsMimeType, IsString} from "class-validator";
 
-class Base64FileRepRequest implements Base64FileRepPayload
+class FileBase64RepRequest implements FileBase64RepPayload
 {
     @IsMimeType()
     mimeType: string;
@@ -56,4 +56,4 @@ class Base64FileRepRequest implements Base64FileRepPayload
     }
 }
 
-export default Base64FileRepRequest;
+export default FileBase64RepRequest;

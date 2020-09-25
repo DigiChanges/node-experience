@@ -1,8 +1,8 @@
 import * as express from "express";
-import MultipartFileRepPayload from "../../../../InterfaceAdapters/Payloads/FileSystem/MultipartFileRepPayload";
+import FileMultipartRepPayload from "../../../../InterfaceAdapters/Payloads/FileSystem/FileMultipartRepPayload";
 import {IsDefined} from "class-validator";
 
-class MultipartFileRepRequest implements MultipartFileRepPayload
+class FileMultipartRepRequest implements FileMultipartRepPayload
 {
     @IsDefined()
     file: Express.Multer.File;
@@ -42,4 +42,4 @@ class MultipartFileRepRequest implements MultipartFileRepPayload
     }
 }
 
-export default MultipartFileRepRequest;
+export default FileMultipartRepRequest;

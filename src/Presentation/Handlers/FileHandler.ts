@@ -17,9 +17,9 @@ import DownloadUseCase from '../../Domain/UseCases/FileSystem/DownloadUseCase';
 import GetPresignedGetObjectUseCase from '../../Domain/UseCases/FileSystem/GetPresignedGetObjectUseCase';
 import UploadMultipartUseCase from '../../Domain/UseCases/FileSystem/UploadMultipartUseCase';
 import FileReqMulter from '../Middlewares/FileReqMulter';
-import Base64FileRepRequest from '../Requests/Handler/FileSystem/Base64FileRepRequest';
+import FileBase64RepRequest from '../Requests/Handler/FileSystem/FileBase64RepRequest';
 import ValidatorRequest from '../../Application/Shared/ValidatorRequest';
-import MultipartFileRepRequest from '../Requests/Handler/FileSystem/MultipartFileRepRequest';
+import FileMultipartRepRequest from '../Requests/Handler/FileSystem/FileMultipartRepRequest';
 import PresignedFileRepRequest from '../Requests/Handler/FileSystem/PresignedFileRepRequest';
 import FileRequestCriteria from '../Requests/Handler/FileSystem/FileRequestCriteria';
 import FileTransformer from '../Transformers/Files/FileTransformer';
@@ -27,6 +27,9 @@ import IPaginator from '../../InterfaceAdapters/Shared/IPaginator';
 import IdRequest from '../Requests/Handler/Defaults/IdRequest';
 import FileUpdateMultipartRequest from "../Requests/Handler/FileSystem/FileUpdateMultipartRequest";
 import UpdateFileMultipartUseCase from "../../Domain/UseCases/FileSystem/UpdateFileMultipartUseCase";
+import FileUpdateBase64Request from "../Requests/Handler/FileSystem/FileUpdateBase64Request";
+import UpdateFileBase64UseCase from "../../Domain/UseCases/FileSystem/UpdateFileBase64UseCase";
+import ObjectTransformer from "../Transformers/Files/ObjectTransformer";
 
 @controller('/api/files')
 class FileHandler
@@ -53,15 +56,15 @@ class FileHandler
         await ValidatorRequest.handle(_request);
 
         const listObjectsUseCase = new ListObjectsUseCase();
-        const listObjects = await listObjectsUseCase.handle(_request);
+        const objects = await listObjectsUseCase.handle(_request);
 
-        this.responder.send( {data: listObjects}, res, StatusCode.HTTP_OK, null );
+        this.responder.send(objects, res, StatusCode.HTTP_OK, new ObjectTransformer());
     }
 
     @httpPost('/base64', AuthorizeMiddleware(Permissions.FILES_UPLOAD))
     public async uploadBase64 (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new Base64FileRepRequest(req);
+        const _request = new FileBase64RepRequest(req);
         await ValidatorRequest.handle(_request);
 
         const uploadBase64UseCase = new UploadBase64UseCase();
@@ -73,7 +76,7 @@ class FileHandler
     @httpPost('/', FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPLOAD))
     public async uploadMultipart (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new MultipartFileRepRequest(req);
+        const _request = new FileMultipartRepRequest(req);
         await ValidatorRequest.handle(_request);
 
         const uploadMultipartUseCase = new UploadMultipartUseCase();
@@ -105,6 +108,18 @@ class FileHandler
         const fileDto = await downloadUseCase.handle(_request);
 
         this.responder.sendStream(fileDto, res, StatusCode.HTTP_OK);
+    }
+
+    @httpPut('/base64/:id', AuthorizeMiddleware(Permissions.FILES_UPDATE))
+    public async updateBase64 (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const _request = new FileUpdateBase64Request(req);
+        await ValidatorRequest.handle(_request);
+
+        const updateFileBase64UseCase = new UpdateFileBase64UseCase();
+        const file = await updateFileBase64UseCase.handle(_request);
+
+        this.responder.send(file, res, StatusCode.HTTP_CREATED , new FileTransformer());
     }
 
     @httpPut('/:id',FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPDATE))

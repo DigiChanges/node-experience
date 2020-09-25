@@ -1,6 +1,6 @@
 import { filesystem } from '../../../index';
 import IFileRepository from '../../../InterfaceAdapters/IRepositories/IFileRepository';
-import Base64FileRepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/Base64FileRepPayload';
+import FileBase64RepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/FileBase64RepPayload';
 import { lazyInject } from '../../../inversify.config';
 import { REPOSITORIES } from '../../../repositories';
 import File from '../../Entities/File';
@@ -11,7 +11,7 @@ class UploadBase64UseCase
     @lazyInject(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;
 
-    async handle(payload: Base64FileRepPayload): Promise<any>
+    async handle(payload: FileBase64RepPayload): Promise<any>
     {
         const file = new File();
 
