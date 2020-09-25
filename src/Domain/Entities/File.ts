@@ -9,6 +9,8 @@ class File implements IFileDomain
     mimeType: string;
     path: string;
     extension: string;
+    size: number;
+    version: number;
     createdAt: Date;
     updatedAt: Date;
 
@@ -16,6 +18,7 @@ class File implements IFileDomain
     {
         this._id = uuidv4();
         this.name = this._id;
+        this.version = 1;
     }
 
     getId(): string

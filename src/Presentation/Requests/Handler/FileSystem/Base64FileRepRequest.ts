@@ -45,9 +45,14 @@ class Base64FileRepRequest implements Base64FileRepPayload
         return this.filename.split(".").pop();
     }
 
+    getSize(): number
+    {
+        return Math.round((this.base64.length - 814) / 1.37)  ;
+    }
+
     getBase64(): string
     {
-        return this.base64.split(";base64").pop();
+        return this.base64;
     }
 }
 

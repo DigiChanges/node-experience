@@ -5,6 +5,7 @@ import { REPOSITORIES } from '../../../repositories';
 import { filesystem } from '../../../index';
 import IdPayload from '../../../InterfaceAdapters/Payloads/Defaults/IdPayload';
 import IFileDTO from '../../../InterfaceAdapters/Payloads/FileSystem/IFileDTO';
+import FileDTO from '../../../InterfaceAdapters/Payloads/FileSystem/FileDTO';
 
 class DownloadUseCase
 {
@@ -17,10 +18,7 @@ class DownloadUseCase
         const metadata = await this.repository.getOne(id);
 
         const stream = await filesystem.downloadStreamFile(id);
-        const fileDto: IFileDTO = {
-            metadata,
-            stream
-        }
+        const fileDto = new FileDTO(metadata, stream);
 
         return fileDto;
     }

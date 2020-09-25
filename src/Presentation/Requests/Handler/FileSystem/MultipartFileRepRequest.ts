@@ -32,6 +32,10 @@ class MultipartFileRepRequest implements MultipartFileRepPayload
         return this.file.originalname.split(".").pop();
     }
 
+    getSize(): number {
+        return this.file.size;
+    }
+
     getFile(): Express.Multer.File
     {
         return this.file;

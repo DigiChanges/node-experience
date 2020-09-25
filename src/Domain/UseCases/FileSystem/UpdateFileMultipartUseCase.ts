@@ -1,24 +1,26 @@
 import { filesystem } from '../../../index';
-import MultipartFileRepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/MultipartFileRepPayload';
 import IFileRepository from "../../../InterfaceAdapters/IRepositories/IFileRepository";
 import { lazyInject } from '../../../inversify.config';
 import { REPOSITORIES } from '../../../repositories';
-import File from '../../Entities/File';
+import FileUpdateMultipartPayload from '../../../InterfaceAdapters/Payloads/FileSystem/FileUpdateMultipartPayload';
 
-class UploadMultipartUseCase
+class UpdateFileMultipartUseCase
 {
     @lazyInject(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;
 
-    async handle(payload: MultipartFileRepPayload): Promise<any>
+    async handle(payload: FileUpdateMultipartPayload): Promise<any>
     {
-        const file = new File();
+        const id = payload.getId();
 
+        const file = await this.repository.getOne(id);
+        const currentVersion = file.version;
         file.extension = payload.getExtension();
         file.originalName = payload.getName();
         file.path = payload.getPath();
         file.mimeType = payload.getMimeType();
         file.size = payload.getSize();
+        file.version = currentVersion + 1;
 
         await this.repository.save(file);
 
@@ -28,4 +30,4 @@ class UploadMultipartUseCase
     }
 }
 
-export default UploadMultipartUseCase;
+export default UpdateFileMultipartUseCase;

@@ -19,6 +19,7 @@ class UploadBase64UseCase
         file.originalName = payload.getName();
         file.path = payload.getPath();
         file.mimeType = payload.getMimeType();
+        file.size = payload.getSize();
 
         await this.repository.save(file);
 

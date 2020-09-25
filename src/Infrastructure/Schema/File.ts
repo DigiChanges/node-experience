@@ -8,7 +8,9 @@ const FileSchema = new Schema({
     originalName: {type:String, required: true},
     mimeType: {type:String, required: true},
     path: {type:String},
-    extension: {type:String, required: true}
+    extension: {type:String, required: true},
+    size: {type:Number, required: true},
+    version: {type:Number, required:true}
 }, {timestamps: true});
 
 FileSchema.loadClass(File);

@@ -13,6 +13,8 @@ class FileTransformer extends Transformer
             'extension': file.extension,
             'path': file.path,
             'mimeType': file.mimeType,
+            'size': file.size,
+            'version': file.version,
             'createdAt': moment(file.createdAt).utc().unix(),
             'updatedAt': moment(file.updatedAt).utc().unix(),
         };

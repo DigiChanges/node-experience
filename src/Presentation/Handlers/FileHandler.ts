@@ -1,4 +1,4 @@
-import {controller, httpPost, request, response, next, httpGet} from "inversify-express-utils";
+import {controller, httpPost, request, response, next, httpGet, httpPut} from "inversify-express-utils";
 import { NextFunction, Request, Response } from "express";
 
 import StatusCode from "../Shared/StatusCode";
@@ -25,6 +25,8 @@ import FileRequestCriteria from '../Requests/Handler/FileSystem/FileRequestCrite
 import FileTransformer from '../Transformers/Files/FileTransformer';
 import IPaginator from '../../InterfaceAdapters/Shared/IPaginator';
 import IdRequest from '../Requests/Handler/Defaults/IdRequest';
+import FileUpdateMultipartRequest from "../Requests/Handler/FileSystem/FileUpdateMultipartRequest";
+import UpdateFileMultipartUseCase from "../../Domain/UseCases/FileSystem/UpdateFileMultipartUseCase";
 
 @controller('/api/files')
 class FileHandler
@@ -63,9 +65,9 @@ class FileHandler
         await ValidatorRequest.handle(_request);
 
         const uploadBase64UseCase = new UploadBase64UseCase();
-        const data = await uploadBase64UseCase.handle(_request);
+        const file = await uploadBase64UseCase.handle(_request);
 
-        this.responder.send({message: "File uploaded", data}, res, StatusCode.HTTP_CREATED , null );
+        this.responder.send(file, res, StatusCode.HTTP_CREATED , new FileTransformer());
     }
 
     @httpPost('/', FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPLOAD))
@@ -75,9 +77,9 @@ class FileHandler
         await ValidatorRequest.handle(_request);
 
         const uploadMultipartUseCase = new UploadMultipartUseCase();
-        const data = await uploadMultipartUseCase.handle(_request);
+        const file = await uploadMultipartUseCase.handle(_request);
 
-        this.responder.send({message: "File uploaded", data}, res, StatusCode.HTTP_CREATED , null );
+        this.responder.send(file, res, StatusCode.HTTP_CREATED , new FileTransformer());
     }
 
     @httpPost('/presignedGetObject', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))
@@ -103,6 +105,18 @@ class FileHandler
         const fileDto = await downloadUseCase.handle(_request);
 
         this.responder.sendStream(fileDto, res, StatusCode.HTTP_OK);
+    }
+
+    @httpPut('/:id',FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPDATE))
+    public async updateMultipart (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const _request = new FileUpdateMultipartRequest(req);
+        await ValidatorRequest.handle(_request);
+
+        const updateFileMultipartUseCase = new UpdateFileMultipartUseCase();
+        const file = await updateFileMultipartUseCase.handle(_request);
+
+        this.responder.send(file, res, StatusCode.HTTP_CREATED , new FileTransformer());
     }
 }
 
