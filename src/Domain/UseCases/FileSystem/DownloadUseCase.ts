@@ -6,6 +6,7 @@ import { filesystem } from '../../../index';
 import IdPayload from '../../../InterfaceAdapters/Payloads/Defaults/IdPayload';
 import IFileDTO from '../../../InterfaceAdapters/Payloads/FileSystem/IFileDTO';
 import FileDTO from '../../../InterfaceAdapters/Payloads/FileSystem/FileDTO';
+import IFileDomain from '../../../InterfaceAdapters/IDomain/IFileDomain';
 
 class DownloadUseCase
 {
@@ -15,7 +16,7 @@ class DownloadUseCase
     async handle(payload: IdPayload): Promise<IFileDTO>
     {
         const id = payload.getId();
-        const metadata = await this.repository.getOne(id);
+        const metadata: IFileDomain = await this.repository.getOne(id);
 
         const stream = await filesystem.downloadStreamFile(id);
         const fileDto = new FileDTO(metadata, stream);

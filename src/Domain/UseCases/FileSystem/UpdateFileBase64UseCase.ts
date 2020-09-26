@@ -3,6 +3,7 @@ import IFileRepository from "../../../InterfaceAdapters/IRepositories/IFileRepos
 import { lazyInject } from '../../../inversify.config';
 import { REPOSITORIES } from '../../../repositories';
 import FileUpdateBase64Payload from '../../../InterfaceAdapters/Payloads/FileSystem/FileUpdateBase64Payload';
+import IFileDomain from '../../../InterfaceAdapters/IDomain/IFileDomain';
 
 class UpdateFileBase64UseCase
 {
@@ -13,14 +14,13 @@ class UpdateFileBase64UseCase
     {
         const id = payload.getId();
 
-        const file = await this.repository.getOne(id);
-        const currentVersion = file.version;
+        const file: IFileDomain = await this.repository.getOne(id);
         file.extension = payload.getExtension();
         file.originalName = payload.getName();
         file.path = payload.getPath();
         file.mimeType = payload.getMimeType();
         file.size = payload.getSize();
-        file.version = currentVersion + 1;
+        file.version += 1;
 
         await this.repository.save(file);
 

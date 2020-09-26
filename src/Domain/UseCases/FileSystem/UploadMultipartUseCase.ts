@@ -4,6 +4,7 @@ import IFileRepository from "../../../InterfaceAdapters/IRepositories/IFileRepos
 import { lazyInject } from '../../../inversify.config';
 import { REPOSITORIES } from '../../../repositories';
 import File from '../../Entities/File';
+import IFileDomain from '../../../InterfaceAdapters/IDomain/IFileDomain';
 
 class UploadMultipartUseCase
 {
@@ -12,7 +13,7 @@ class UploadMultipartUseCase
 
     async handle(payload: FileMultipartRepPayload): Promise<any>
     {
-        const file = new File();
+        const file: IFileDomain = new File();
 
         file.extension = payload.getExtension();
         file.originalName = payload.getName();

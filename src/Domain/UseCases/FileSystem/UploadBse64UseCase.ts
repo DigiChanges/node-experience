@@ -1,4 +1,5 @@
 import { filesystem } from '../../../index';
+import IFileDomain from '../../../InterfaceAdapters/IDomain/IFileDomain';
 import IFileRepository from '../../../InterfaceAdapters/IRepositories/IFileRepository';
 import FileBase64RepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/FileBase64RepPayload';
 import { lazyInject } from '../../../inversify.config';
@@ -13,7 +14,7 @@ class UploadBase64UseCase
 
     async handle(payload: FileBase64RepPayload): Promise<any>
     {
-        const file = new File();
+        const file: IFileDomain = new File();
 
         file.extension = payload.getExtension();
         file.originalName = payload.getName();

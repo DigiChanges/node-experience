@@ -3,8 +3,8 @@ import IFileDomain from "../../IDomain/IFileDomain";
 
 interface IFileDTO
 {
-    getMetadata(): IFileDomain;
-    getStream(): internal.Readable;
+    metadata: IFileDomain;
+    stream: internal.Readable;
 }
 
 export default IFileDTO;

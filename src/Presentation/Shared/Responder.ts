@@ -54,9 +54,9 @@ class Responder
 
     public sendStream(fileDto: IFileDTO, response: Response, status: any)
     {
-        response.writeHead(status.code, {'Content-Type': fileDto.getMetadata().mimeType });
+        response.writeHead(status.code, {'Content-Type': fileDto.metadata.mimeType });
 
-        fileDto.getStream().pipe(response);
+        fileDto.stream.pipe(response);
     }
 
     public error(data: any, response: Response, status: any)

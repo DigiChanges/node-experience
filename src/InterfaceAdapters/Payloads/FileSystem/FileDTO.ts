@@ -4,23 +4,31 @@ import IFileDTO from "./IFileDTO";
 
 class FileDTO implements IFileDTO
 {
-    private metadata: IFileDomain;
-    private stream: internal.Readable;
+    private _metadata : IFileDomain;
+    private _stream : internal.Readable;
 
     constructor( metadata: IFileDomain, stream: internal.Readable )
     {
-        this.metadata = metadata;
-        this.stream = stream;
+        this._metadata = metadata;
+        this._stream = stream;
     }
 
-    getMetadata(): IFileDomain
+    public get metadata() : IFileDomain
     {
-        return this.metadata;
+        return this._metadata;
+    }
+    public set metadata(v : IFileDomain)
+    {
+        this._metadata = v;
     }
 
-    getStream(): internal.Readable
+    public get stream() : internal.Readable
     {
-        return this.stream;
+        return this._stream;
+    }
+    public set stream(v : internal.Readable)
+    {
+        this._stream = v;
     }
 
 }

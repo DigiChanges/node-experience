@@ -47,7 +47,9 @@ class FileBase64RepRequest implements FileBase64RepPayload
 
     getSize(): number
     {
-        return Math.round((this.base64.length - 814) / 1.37)  ;
+        const MIMETYPE_SIZE = 814;
+        const ENCODING_INCREMENT_SIZE = 1.37;
+        return Math.floor((this.base64.length - MIMETYPE_SIZE) / ENCODING_INCREMENT_SIZE)  ;
     }
 
     getBase64(): string
