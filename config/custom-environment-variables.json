@@ -21,6 +21,18 @@
     },
     "default" : "DB_TYPE_DEFAULT"
   },
+  "filesystem": {
+    "s3": {
+      "endPoint": "S3_HOST",
+      "accessKey": "S3_ACCESS_KEY",
+      "secretKey": "S3_SECRET_KEY",
+      "useSSL": "S3_USE_SSL",
+      "port": "S3_PORT",
+      "bucket": "S3_BUCKET_NAME"
+    },
+    "local": "",
+    "default": "FILLESYSTEM_DEFAULT"
+  },
   "jwt": {
     "secret": "JWT_SECRET",
     "expires": "JWT_EXPIRES",

@@ -5,6 +5,7 @@ import IFormatResponder from '../../InterfaceAdapters/Shared/IFormatResponder';
 import { TYPES } from "../../types";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import PaginatorTransformer from "./PaginatorTransformer";
+import IFileDTO from '../../InterfaceAdapters/Payloads/FileSystem/IFileDTO';
 
 @injectable()
 class Responder
@@ -49,6 +50,13 @@ class Responder
         }
 
         await response.status(status.code).send(result);
+    }
+
+    public sendStream(fileDto: IFileDTO, response: Response, status: any)
+    {
+        response.writeHead(status.code, {'Content-Type': fileDto.metadata.mimeType });
+
+        fileDto.stream.pipe(response);
     }
 
     public error(data: any, response: Response, status: any)

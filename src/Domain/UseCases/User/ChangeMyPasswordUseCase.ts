@@ -1,7 +1,7 @@
 import { lazyInject } from '../../../inversify.config'
 import ChangeMyPasswordPayload from "../../../InterfaceAdapters/Payloads/Users/ChangeMyPasswordPayload";
 import ErrorException from "../../../Application/Shared/ErrorException";
-import IEncryptionStrategy from "../../../InterfaceAdapters/Shared/IEncryptionStrategy";
+import IEncryption from "../../../InterfaceAdapters/Shared/IEncryption";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
 import StatusCode from "../../../Presentation/Shared/StatusCode";
@@ -12,7 +12,7 @@ class ChangeMyPasswordUseCase
 {
     @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-    private encryption: IEncryptionStrategy;
+    private encryption: IEncryption;
 
     constructor()
     {

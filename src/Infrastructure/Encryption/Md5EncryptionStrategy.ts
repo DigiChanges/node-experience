@@ -1,9 +1,9 @@
-import IEncryptionStrategy from "../../InterfaceAdapters/Shared/IEncryptionStrategy";
+import IEncryption from "../../InterfaceAdapters/Shared/IEncryption";
 import md5 from "md5";
 import ErrorException from "../../Application/Shared/ErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";
 
-class Md5EncryptionStrategy implements IEncryptionStrategy
+class Md5EncryptionStrategy implements IEncryption
 {
     async compare(chain: string, chainHashed: string): Promise<boolean>
     {

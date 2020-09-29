@@ -32,6 +32,11 @@ Hi! Node experience it's a boilerplate with many tools together for a simple bas
 Execute DEV Environment
 - **docker-compose up --build -d**
 - Also, you could use **make dev**
+- docker-compose exec node bash dev.init.sh
+
+Minio Browser
+- http://127.0.0.1:9002/minio/
+- Create Bucket experience
 
 Execute PROD Environment
 - docker-compose -f docker-compose.prod.yml up --build

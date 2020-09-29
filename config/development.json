@@ -39,6 +39,21 @@
     },
     "default": "Mongoose"
   },
+  "filesystem": {
+    "s3": {
+      "type": "s3",
+      "endPoint": "s3",
+      "accessKey": "minio",
+      "secretKey": "12345678",
+      "useSSL": false,
+      "port": 9000,
+      "bucket": "experience"
+    },
+    "local": {
+      "type": "local"
+    },
+    "default": "s3"
+  },
   "encryption": {
     "bcrypt": {
       "type": "bcrypt",

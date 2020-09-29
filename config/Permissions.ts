@@ -23,6 +23,12 @@ class Permissions
     static readonly USERS_CHANGE_MY_PASSWORD: string = 'usersChangeMyPassword';
     static readonly USERS_CHANGE_USER_PASSWORD:string = 'usersChangeUserPassword';
 
+    // USERS
+    static readonly FILES_UPLOAD: string = 'filesUpload';
+    static readonly FILES_UPDATE: string = 'filesUpdate';
+    static readonly FILES_DOWNLOAD: string = 'filesDownload';
+    static readonly FILES_LIST: string = 'filesList';
+
     // ROLES
     static readonly ROLES_SAVE: string = 'rolesSave';
     static readonly ROLES_UPDATE: string = 'rolesUpdate';
@@ -45,6 +51,9 @@ class Permissions
             [Permissions.USERS_DELETE],
             [Permissions.USERS_CHANGE_MY_PASSWORD],
             [Permissions.USERS_CHANGE_USER_PASSWORD],
+            [Permissions.FILES_UPLOAD],
+            [Permissions.FILES_UPDATE],
+            [Permissions.FILES_DOWNLOAD],
             [Permissions.ROLES_SAVE],
             [Permissions.ROLES_UPDATE],
             [Permissions.ROLES_SHOW],

@@ -2,9 +2,9 @@ import Config from "config";
 import bcrypt from "bcrypt";
 import ErrorException from "../../Application/Shared/ErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";
-import IEncryptionStrategy from "../../InterfaceAdapters/Shared/IEncryptionStrategy";
+import IEncryption from "../../InterfaceAdapters/Shared/IEncryption";
 
-class BcryptEncryptionStrategy implements IEncryptionStrategy
+class BcryptEncryptionStrategy implements IEncryption
 {
     async compare(chain: string, chainHashed: string): Promise<boolean>
     {
