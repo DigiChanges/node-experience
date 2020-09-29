@@ -19,6 +19,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@types/email-templates": "^7.1.0",
+    "@types/web-push": "^3.3.0",
     "@types/lodash": "^4.14.161",
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
@@ -60,6 +62,7 @@
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.28",
     "uuid": "^8.3.0",
+    "web-push": "^3.4.4",
     "winston": "^3.2.1"
   },
   "devDependencies": {
