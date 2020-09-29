@@ -14,17 +14,17 @@ class ForgotPasswordUseCase
 
     async handle(payload: ForgotPasswordPayload)
     {
-        const user = await this.repository.getOneByEmail(payload.email());
+        const user = await this.repository.getOneByEmail(payload.getEmail());
 
-        user.confirmationToken = String(await payload.confirmationToken());
-        user.passwordRequestedAt = payload.passwordRequestedAT();
+        user.confirmationToken = String(await payload.getConfirmationToken());
+        user.passwordRequestedAt = payload.getPasswordRequestedAT();
 
         const emailNotification = new EmailNotification();
 
         let urlConfirmationToken: string = Config.get('url.urlWeb') + 'changeForgotPassword/' + user.confirmationToken;
 
         emailNotification.name = "Forgot Password";
-        emailNotification.to = payload.email();
+        emailNotification.to = payload.getEmail();
         emailNotification.subject = "Forgot Password";
 
         const eventHandler = EventHandler.getInstance();

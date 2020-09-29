@@ -1,7 +1,6 @@
 import * as express from "express";
 import ForgotPasswordPayload from "../../../../InterfaceAdapters/Payloads/Auth/ForgotPasswordPayload";
 import moment from "moment";
-import {body} from "express-validator";
 import IEncryption from "../../../../InterfaceAdapters/Shared/IEncryption";
 import EncryptionFactory from "../../../../Infrastructure/Factories/EncryptionFactory";
 import Config from "config";
@@ -9,14 +8,12 @@ import {IsEmail} from "class-validator";
 
 class ForgotPasswordRequest implements ForgotPasswordPayload
 {
-    private request: express.Request;
-
     @IsEmail()
     email: string;
 
     constructor(request: express.Request)
     {
-        this.request = request;
+        this.email = request.body.email;
     }
 
     getEmail(): string
