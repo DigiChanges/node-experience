@@ -24,7 +24,7 @@ class UploadBase64UseCase
 
         await this.repository.save(file);
 
-        await await filesystem.uploadFileByBuffer(file.name, payload.getBase64());
+        await filesystem.uploadFileByBuffer(file.name, payload.getBase64());
 
         return file;
     }
