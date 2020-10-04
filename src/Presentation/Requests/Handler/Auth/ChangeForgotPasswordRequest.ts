@@ -1,6 +1,5 @@
 import * as express from "express";
 import ChangeForgotPasswordPayload from "../../../../InterfaceAdapters/Payloads/Auth/ChangeForgotPasswordPayload";
-import {body} from "express-validator";
 import IEncryption from "../../../../InterfaceAdapters/Shared/IEncryption";
 import EncryptionFactory from "../../../../Infrastructure/Factories/EncryptionFactory";
 import Config from "config";
