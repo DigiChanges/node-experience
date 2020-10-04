@@ -36,9 +36,10 @@ class UserCommandRepRequest implements UserRepPayload
 
     constructor(env: any, role: any = null)
     {
+        this.email = env.email;
         this.firstName = env.firstName;
-        this.firstName = env.lastName;
-        this.firstName = env.password;
+        this.lastName = env.lastName;
+        this.password = env.password;
         this.enable = true;
         this.roles = role ? [role] : [];
         this.isSuperAdmin = env.isSuperAdmin;

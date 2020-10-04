@@ -1,11 +1,7 @@
 
 import { Client, ItemBucketMetadata } from 'minio';
-import Fs from 'fs';
 
-import ErrorException from "../../Application/Shared/ErrorException";
-import StatusCode from "../../Presentation/Shared/StatusCode";
 import IFilesystem from "../../InterfaceAdapters/Shared/IFilesystem";
-import moment from "moment";
 import internal from "stream";
 
 class S3Strategy implements IFilesystem
@@ -27,8 +23,8 @@ class S3Strategy implements IFilesystem
               useSSL: _config.useSSL === 'true',
         });
     }
-    async presignedGetObject(objectName: string): Promise<string> {
-
+    async presignedGetObject(objectName: string): Promise<string>
+    {
         return await this.filesystem.presignedGetObject(this.bucketName, objectName, 24 * 60 * 60);
     }
 

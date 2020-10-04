@@ -12,27 +12,33 @@ class FileMultipartRepRequest implements FileMultipartRepPayload
         this.file = request.file;
     }
 
-    getName(): string {
+    getName(): string
+    {
         return this.file.filename.split(".").shift();
     }
 
-    getOriginalName(): string {
+    getOriginalName(): string
+    {
         return this.file.originalname;
     }
 
-    getMimeType(): string {
+    getMimeType(): string
+    {
         return this.file.mimetype;
     }
 
-    getPath(): string {
+    getPath(): string
+    {
         return "/";
     }
 
-    getExtension(): string {
+    getExtension(): string
+    {
         return this.file.originalname.split(".").pop();
     }
 
-    getSize(): number {
+    getSize(): number
+    {
         return this.file.size;
     }
 

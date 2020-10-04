@@ -30,7 +30,7 @@ AddUserRoleCommand
 
         if (user && role)
         {
-                loggerCli.info('User and Role created successfully.');
+            loggerCli.info('User and Role created successfully.');
         }
     });
 

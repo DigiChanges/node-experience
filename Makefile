@@ -38,6 +38,18 @@ dev:
 	@echo '************                               ************'
 	docker-compose up --build -d
 
+exec:
+	@echo '************                               ************'
+	@echo '************           Exec NODE    	      ************'
+	@echo '************                               ************'
+	docker-compose exec node bash
+
+init:
+	@echo '************                               ************'
+	@echo '************           Init NODE    	      ************'
+	@echo '************                               ************'
+	docker-compose exec node bash dev.init.sh
+
 clean:
 	docker-compose down -v --remove-orphans
 	docker ps -a | grep _run_ | awk '{print $$1}' | xargs -I {} docker rm {}

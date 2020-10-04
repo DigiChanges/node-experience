@@ -6,7 +6,7 @@ class ListObjectsUseCase
 {
     async handle(payload: ListObjectsPayload): Promise<any>
     {
-        return await filesystem.listObjects(payload.prefix(), payload.recursive());
+        return await filesystem.listObjects(payload.getPrefix(), payload.getRecursive());
     }
 }
 

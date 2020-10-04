@@ -1,8 +1,8 @@
 
 interface ListObjectsPayload
 {
-    recursive(): boolean,
-    prefix(): string,
+    getRecursive(): boolean,
+    getPrefix(): string,
 }
 
 export default ListObjectsPayload
