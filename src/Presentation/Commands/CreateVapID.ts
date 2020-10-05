@@ -13,7 +13,9 @@ CreateVapID
 
         if (vapidKeys)
         {
+            loggerCli.info("publicKey:");
             loggerCli.info(vapidKeys.publicKey);
+            loggerCli.info("privateKey:");
             loggerCli.info(vapidKeys.privateKey);
         }
     });

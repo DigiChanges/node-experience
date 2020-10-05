@@ -1,12 +1,20 @@
 import Notification from "../Entities/Notification";
+import webPush from "web-push";
 
 class PushNotification extends Notification
 {
-    url: string;
+    subscription: webPush.PushSubscription;
+    title: string;
 
     constructor()
     {
         super();
+        this.title = null;
+    }
+
+    getSubscription()
+    {
+        return this.subscription;
     }
 }
 

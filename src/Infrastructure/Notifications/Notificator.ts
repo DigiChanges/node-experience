@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import webPush from "web-push"
 import Config from "config";
 import EmailNotification from "../Entities/EmailNotification";
 import path from "path";
@@ -7,6 +8,7 @@ import Fs from "fs";
 import ErrorException from "../../Application/Shared/ErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";
 import NotificationMongoRepository from "../Repositories/NotificationMongoRepository";
+import PushNotification from "../Entities/PushNotification";
 
 class Notificator
 {
@@ -77,6 +79,38 @@ class Notificator
                             });
         } catch(e) {
             throw Error("Error to send Email");
+        }
+    }
+
+    public static async sendPushNotification(pushNotification: PushNotification, message: string, save: boolean = true)
+    {
+        const repository = new NotificationMongoRepository();
+
+        try {
+            const publicKey: string = Config.get('push.publicKey');
+            const privateKey: string = Config.get('push.privateKey');
+            const subject: string = Config.get('url.urlWeb');
+
+            const pushSubscription = pushNotification.getSubscription();
+
+            const payload = JSON.stringify({
+                title: pushNotification.title,
+                message
+            });
+
+            const options = {
+                vapidDetails: {
+                    subject,
+                    publicKey,
+                    privateKey,
+                },
+            }
+
+            const result = await webPush.sendNotification(pushSubscription, payload, options);
+
+            return result;
+        } catch(e) {
+            throw Error("Error to send Push Notification");
         }
     }
 }
