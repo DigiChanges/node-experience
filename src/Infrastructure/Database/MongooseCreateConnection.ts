@@ -4,11 +4,11 @@ import ICreateConnection from "../../InterfaceAdapters/IDatabase/ICreateConnecti
 import IUserDocument from "../../InterfaceAdapters/IEntities/Mongoose/IUserDocument";
 import IRoleDocument from "../../InterfaceAdapters/IEntities/Mongoose/IRoleDocument";
 import IItemDocument from "../../InterfaceAdapters/IEntities/Mongoose/IItemDocument";
-import ItemSchema from "../Schema/Item";
-import RoleSchema from "../Schema/Role";
-import UserSchema from "../Schema/User";
+import ItemSchema from "../Schema/Mongoose/Item";
+import RoleSchema from "../Schema/Mongoose/Role";
+import UserSchema from "../Schema/Mongoose/User";
+import FileSchema from "../Schema/Mongoose/File";
 import IFileDocument from "../../InterfaceAdapters/IEntities/Mongoose/IFileDocument";
-import FileSchema from "../Schema/File";
 
 export let connection: mongoose.Connection = null;
 

@@ -1,0 +1,69 @@
+version: '3'
+
+services:
+  node:
+    container_name: experience_node_1
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    working_dir: /usr/app
+    entrypoint: bash dev.build.sh
+    volumes:
+     - .:/usr/app:cached
+    ports:
+      - "8089:8089"
+    networks:
+     - experiencenet
+
+  db:
+    container_name: experience_db_1
+    restart: always
+    build:
+      context: docker/postgres/
+      dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=experience
+      - POSTGRES_DB=experience
+      - POSTGRES_PASSWORD=experience
+    volumes:
+      - data:/var/lib/postgresql/data
+    networks:
+      - experiencenet
+
+  mail:
+    container_name: experience_mail_1
+    restart: always
+    image: mailhog/mailhog:latest
+    ports:
+      - "8027:8025"
+    networks:
+      - experiencenet
+
+  s3:
+    container_name: experience_s3_1
+    restart: always
+    image: minio/minio
+    ports:
+      - "9002:9000"
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: 12345678
+    volumes:
+      - s3:/data
+    networks:
+      - experiencenet
+    command: server /data
+
+networks:
+  experiencenet:
+    driver: "bridge"
+
+volumes:
+  data:
+    driver: "local"
+  s3:
+    driver: "local"
+             

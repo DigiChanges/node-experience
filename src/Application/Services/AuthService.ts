@@ -32,18 +32,18 @@ class AuthService implements IAuthService
 
     public getPermissions(user: IUserDomain): string[]
     {
-        let permissions: string[] = user.permissions;
+        // let permissions: string[] = user.permissions;
         const roles: IRoleDomain[] = user.getRoles();
 
-        for (const role of roles)
-        {
-            if (role.permissions)
-            {
-                 role.permissions.map( (rolePermission: string) => permissions.push(rolePermission));
-            }
-        }
+        // for (const role of roles)
+        // {
+        //     if (role.permissions)
+        //     {
+        //          role.permissions.map( (rolePermission: string) => permissions.push(rolePermission));
+        //     }
+        // }
 
-        return [...new Set(permissions)];
+        return [...new Set([])];
     }
 }
 

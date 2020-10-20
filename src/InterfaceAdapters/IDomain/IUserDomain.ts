@@ -7,7 +7,7 @@ interface IUserDomain
     email: string;
     password: string;
     roles: IRoleDomain[];
-    permissions: string[];
+    // permissions: string[];
     enable: boolean;
     isSuperAdmin: boolean;
     confirmationToken: string ;

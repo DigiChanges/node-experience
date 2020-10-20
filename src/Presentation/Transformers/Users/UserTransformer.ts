@@ -22,7 +22,7 @@ class UserTransformer extends Transformer
             'email': user.email,
             'enable': user.enable,
             'roles': this.roleTransformer.handle(user.getRoles()),
-            'permissions': user.permissions,
+            // 'permissions': user.permissions,
             'createdAt': moment(user.createdAt).utc().unix(),
             'updatedAt': moment(user.updatedAt).utc().unix(),
         };
