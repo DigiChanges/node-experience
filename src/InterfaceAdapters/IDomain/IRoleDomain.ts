@@ -4,7 +4,7 @@ interface IRoleDomain
     name: string;
     slug: string;
     enable: boolean;
-    // permissions: string[];
+    permissions: string[];
     createdAt: Date;
     updatedAt: Date;
 

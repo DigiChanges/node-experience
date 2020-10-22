@@ -19,10 +19,10 @@
         "src/Infrastructure/Schema/TypeORM/*.ts"
       ],
       "migrations": [
-        "src/Infrastructure/Migrations/TypeORM/Mongo/**/*.ts"
+        "src/Infrastructure/Migrations/TypeORM/**/*.ts"
       ],
       "subscribers": [
-        "src/Infrastructure/Subscribers/TypeORM/Mongo/**/*.ts"
+        "src/Infrastructure/Subscribers/TypeORM/**/*.ts"
       ],
       "cli": {
         "entitiesDir": "/src/Infrastructure/Entities/TypeORM",

@@ -1,4 +1,4 @@
-import {createConnection} from "typeorm";
+import {createConnection, getConnection} from "typeorm";
 import ICreateConnection from "../../InterfaceAdapters/IDatabase/ICreateConnection";
 
 class TypeORMCreateConnection implements ICreateConnection

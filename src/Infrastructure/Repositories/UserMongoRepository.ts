@@ -116,7 +116,7 @@ class UserMongoRepository implements IUserRepository
 
     async update(user: IUserDomain): Promise<IUserDomain>
     {
-        return this.repository.findByIdAndUpdate({_id: user.getId()}, user).populate('roles');
+        return this.repository.findByIdAndUpdate({_id: user.getId}, user).populate('roles');
     }
 
     async delete(id: string): Promise<IUserDomain>

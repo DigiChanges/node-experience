@@ -32,11 +32,23 @@ run_test_clean:
 	docker rm --force -v experience_test_node_1
 	docker rm --force -v experience_test_mail_1
 
+down:
+	@echo '************                               ************'
+	@echo '************           DOWN CONTAINERS     ************'
+	@echo '************                               ************'
+	docker-compose down
+
 dev:
 	@echo '************                               ************'
 	@echo '************           DEV INIT    	      ************'
 	@echo '************                               ************'
 	docker-compose up --build -d
+
+dev_sql:
+	@echo '************                               ************'
+	@echo '************           DEV INIT    	      ************'
+	@echo '************                               ************'
+	docker-compose -f docker-compose.yml -f docker-compose.sql.yml up --build -d
 
 exec:
 	@echo '************                               ************'

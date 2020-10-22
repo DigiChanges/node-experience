@@ -1,15 +1,15 @@
 import { EntitySchema } from "typeorm";
 import Role from "../../../Domain/Entities/Role";
-import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
-import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
-import User from "./User";
 
 const RoleSchema = new EntitySchema<Role>({
-    name: "role",
+    name: 'Role',
+    target: Role,
+    tableName: 'roles',
     columns: {
         _id: {
             type: String,
-            primary: true
+            primary: true,
+            unique: true
         },
         name: {
             type: String,
@@ -21,6 +21,10 @@ const RoleSchema = new EntitySchema<Role>({
         enable: {
             type: Boolean,
             default: true,
+        },
+        permissions: {
+            type: 'simple-array',
+            nullable: true
         },
         createdAt: {
             name: 'createdAt',

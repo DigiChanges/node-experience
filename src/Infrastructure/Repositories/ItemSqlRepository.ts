@@ -69,7 +69,6 @@ class ItemSqlRepository implements IItemRepository
     {
         return await this.repository.delete(id);
     }
-
 }
 
 export default ItemSqlRepository;

@@ -38,7 +38,8 @@ class UserHandler
     @lazyInject(TYPES.Responder)
     private responder: Responder;
 
-    @httpPost('/', AuthorizeMiddleware(Permissions.USERS_SAVE))
+    // @httpPost('/', AuthorizeMiddleware(Permissions.USERS_SAVE))
+    @httpPost('/')
     public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new UserRepRequest(req);
@@ -62,7 +63,8 @@ class UserHandler
         await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
-    @httpGet('/:id', AuthorizeMiddleware(Permissions.USERS_SHOW))
+    @httpGet('/:id')
+    // @httpGet('/:id', AuthorizeMiddleware(Permissions.USERS_SHOW))
     public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req);
@@ -70,7 +72,8 @@ class UserHandler
 
         const getUserUseCase = new GetUserUseCase();
         const user: IUserDomain = await getUserUseCase.handle(_request);
-
+        console.log("getOne")
+        console.log(user)
         this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 

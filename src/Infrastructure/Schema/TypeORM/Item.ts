@@ -2,11 +2,14 @@ import { EntitySchema } from "typeorm";
 import Item from "../../../Domain/Entities/Item";
 
 const ItemSchema = new EntitySchema<Item>({
-    name: "item",
+    name: "Item",
+    target: Item,
+    tableName: 'items',
     columns: {
         _id: {
             type: String,
-            primary: true
+            primary: true,
+            unique: true
         },
         name: {
             type: String
