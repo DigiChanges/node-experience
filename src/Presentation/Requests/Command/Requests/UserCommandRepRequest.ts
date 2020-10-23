@@ -42,7 +42,7 @@ class UserCommandRepRequest implements UserRepPayload
         this.password = env.password;
         this.enable = true;
         this.roles = role ? [role] : [];
-        this.isSuperAdmin = env.isSuperAdmin;
+        this.isSuperAdmin = env.isSuperAdmin === 'true';
     }
 
     getFirstName(): string

@@ -62,7 +62,7 @@ class UserSqlRepository implements IUserRepository
         return user;
     }
 
-    async list(criteria: ICriteria): Promise<IPaginator>
+    async list(criteria: ICriteria): Promise<any>
     {
         let queryBuilder = await this.repository.createQueryBuilder("i");
 
@@ -80,6 +80,8 @@ class UserSqlRepository implements IUserRepository
             queryBuilder.andWhere("i." + UserFilter.EMAIL + " like :" + UserFilter.EMAIL);
             queryBuilder.setParameter(UserFilter.EMAIL, '%' + filter.get(UserFilter.EMAIL) + '%');
         }
+
+        queryBuilder.leftJoinAndSelect("i.roles", "role");
 
         return new Paginator(queryBuilder, criteria);
     }

@@ -28,7 +28,7 @@ class Paginator implements IPaginator
 
         const total = this.count - offset;
 
-        return total<=limit ? total : limit;
+        return total <= limit ? total : limit;
     }
 
     public getCount(): number
@@ -36,12 +36,14 @@ class Paginator implements IPaginator
         return this.count;
     }
 
-    public getCurrentUrl(): string {
+    public getCurrentUrl(): string
+    {
         return this.pagination.getCurrentUrl();
     }
 
     // TODO: Dont show next url when it doesnt exist more data
-    public getNextUrl(): string {
+    public getNextUrl(): string
+    {
         return this.pagination.getNextUrl();
     }
 

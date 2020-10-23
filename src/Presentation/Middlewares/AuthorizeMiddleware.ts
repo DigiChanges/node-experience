@@ -13,38 +13,45 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
 {
     return async (req: any, response: Response, next: NextFunction) =>
     {
-        const authService = new AuthService();
-
-        let handlerPermission = handlerPermissions[0]; // TODO: Refactor for more permissions for handler
-        let isAllowed: boolean = Config.get('auth.authorization') !== 'true';
-        let tokentDecode = req.tokenDecode;
-
-        let userRepository: IUserRepository = UserRepoFactory.create();
-
-        let user: IUserDomain = await userRepository.getOneByEmail(tokentDecode.email);
-
-        if (user.isSuperAdmin)
+        try
         {
-            isAllowed = true;
-        }
+            const authService = new AuthService();
 
-        let totalPermissions = authService.getPermissions(user);
+            let handlerPermission = handlerPermissions[0]; // TODO: Refactor for more permissions for handler
+            let isAllowed: boolean = Config.get('auth.authorization') !== 'true';
+            let tokentDecode = req.tokenDecode;
 
-        totalPermissions.forEach( (permission: string) =>
-        {
-            if (permission === handlerPermission)
+            let userRepository: IUserRepository = UserRepoFactory.create();
+
+            let user: IUserDomain = await userRepository.getOneByEmail(tokentDecode.email);
+
+            if (user.isSuperAdmin)
             {
                 isAllowed = true;
             }
-        });
 
-        if (isAllowed)
-        {
-            next();
+            let totalPermissions = authService.getPermissions(user);
+
+            totalPermissions.forEach( (permission: string) =>
+            {
+                if (permission === handlerPermission)
+                {
+                    isAllowed = true;
+                }
+            });
+
+            if (isAllowed)
+            {
+                next();
+            }
+            else
+            {
+                throw new ErrorException(StatusCode.HTTP_FORBIDDEN, "Forbidden");
+            }
         }
-        else
+        catch(err)
         {
-            throw new ErrorException(StatusCode.HTTP_FORBIDDEN, "Forbidden");
+            next(err);
         }
     }
 };

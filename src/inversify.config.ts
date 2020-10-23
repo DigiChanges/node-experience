@@ -34,14 +34,14 @@ container.bind<Responder>(TYPES.Responder).to(Responder);
 container.bind<IFormatResponder>(TYPES.IFormatResponder).to(FormatResponder);
 
 /* Repositories */
-// container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMongoRepository);
-// container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository);
-// container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongoRepository);
-// container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository);
-container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemSqlRepository);
-container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserSqlRepository);
-container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleSqlRepository);
-container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileSqlRepository);
+container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMongoRepository);
+container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository);
+container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongoRepository);
+container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository);
+// container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemSqlRepository);
+// container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserSqlRepository);
+// container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleSqlRepository);
+// container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileSqlRepository);
 
 export let { lazyInject } = getDecorators(container);
 

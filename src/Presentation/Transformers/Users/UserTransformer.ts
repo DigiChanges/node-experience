@@ -21,7 +21,7 @@ class UserTransformer extends Transformer
             'lastName': user.lastName,
             'email': user.email,
             'enable': user.enable,
-            // 'roles': this.roleTransformer.handle(user.getRoles()),
+            'roles': this.roleTransformer.handle(user.getRoles()),
             'permissions': user.permissions,
             'createdAt': moment(user.createdAt).utc().unix(),
             'updatedAt': moment(user.updatedAt).utc().unix(),
