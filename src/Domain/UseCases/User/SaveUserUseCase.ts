@@ -28,7 +28,7 @@ class SaveUserUseCase
         user.enable = payload.getEnable();
         user.confirmationToken = payload.getConfirmationToken();
         user.passwordRequestedAt = payload.getPasswordRequestedAt();
-        // user.permissions = payload.getPermissions();
+        user.permissions = payload.getPermissions();
         user.roles = payload.getRoles();
         user.isSuperAdmin = payload.getIsSuperAdmin();
 

@@ -15,7 +15,7 @@ class SaveRoleUseCase
         const role = new Role();
         role.name = payload.getName();
         role.slug = payload.getSlug();
-        // role.permissions = payload.getPermissions();
+        role.permissions = payload.getPermissions();
         role.enable = payload.getEnable();
 
         return await this.repository.save(role);

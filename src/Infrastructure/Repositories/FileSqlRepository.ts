@@ -46,11 +46,6 @@ class FileSqlRepository implements IFileRepository
 
         queryBuilder.where("1 = 1");
 
-        if (filter.has(FileFilter.TYPE))
-        {
-            queryBuilder.andWhere("i." + FileFilter.TYPE + " = :" + FileFilter.TYPE);
-            queryBuilder.setParameter(FileFilter.TYPE, filter.get(FileFilter.TYPE));
-        }
         if (filter.has(FileFilter.NAME))
         {
             queryBuilder.andWhere("i." + FileFilter.NAME + " like :" + FileFilter.NAME);

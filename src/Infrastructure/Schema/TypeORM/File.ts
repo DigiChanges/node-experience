@@ -2,7 +2,9 @@ import { EntitySchema } from "typeorm";
 import File from "../../../Domain/Entities/File";
 
 const FileSchema = new EntitySchema<File>({
-    name: "files",
+    name: "File",
+    target: File,
+    tableName: 'files',
     columns: {
         _id: {
             type: String,
