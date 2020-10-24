@@ -14,7 +14,7 @@ class Item implements IItemDomain
         this._id = uuidv4();
     }
 
-    getId = (): string =>
+    getId(): string
     {
         return this._id;
     }

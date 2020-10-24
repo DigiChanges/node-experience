@@ -101,6 +101,8 @@ To change from Mongoose to TypeORM the following steps must be followed:
        
            This is because typeORM and SQL aliases are used and in this case it is necessary for you to 
            understand each filter and each order that we need to add.
+       5. Finally, you need to change the methods of all domain entities to array functions so that
+          TypeORM can access those methods.
        
 Commands Available:
  * npx ts-node src/command.ts addUserRole --role Admin --email user@node.com --firstName node --lastName node --password 12345678

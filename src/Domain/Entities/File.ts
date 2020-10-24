@@ -21,7 +21,7 @@ class File implements IFileDomain
         this.version = 1;
     }
 
-    getId = (): string =>
+    getId(): string
     {
         return this._id;
     }
