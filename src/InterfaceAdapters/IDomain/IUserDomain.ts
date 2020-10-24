@@ -10,8 +10,8 @@ interface IUserDomain
     permissions: string[];
     enable: boolean;
     isSuperAdmin: boolean;
-    confirmationToken: string ;
-    passwordRequestedAt: Date ;
+    confirmationToken: string;
+    passwordRequestedAt: Date;
     createdAt: Date;
     updatedAt: Date;
 

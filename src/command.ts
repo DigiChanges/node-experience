@@ -2,11 +2,12 @@
 
 import {exit} from "shelljs";
 import commander from 'commander';
+import dotenv from 'dotenv';
+dotenv.config(); // Need before get config
 
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y'
 
 import {loggerCli} from "./Infrastructure/Shared/Logger";
-
 import AddUserRoleCommand from "./Presentation/Commands/AddUserRoleCommand";
 import AddUserCommand from "./Presentation/Commands/AddUserCommand";
 import AddRoleCommand from "./Presentation/Commands/AddRoleCommand";

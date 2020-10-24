@@ -1,7 +1,7 @@
 import { lazyInject } from '../../../inversify.config'
 import RoleRepPayload from "../../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
 import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
-import Role from "../../../Infrastructure/Entities/TypeORM/Role";
+import Role from '../../Entities/Role';
 import {REPOSITORIES} from "../../../repositories";
 import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
 

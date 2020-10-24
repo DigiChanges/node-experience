@@ -6,9 +6,9 @@
   },
   "dbConfig": {
     "TypeORM": {
-      "type": "mongodb",
+      "type": "postgres",
       "host": "db",
-      "port": 27017,
+      "port": 5432,
       "database": "experience",
       "username": "experience",
       "password": "experience",
@@ -16,16 +16,16 @@
       "migrationsRun": false,
       "logging": true,
       "entities": [
-        "src/Infrastructure/Entities/TypeORM/Mongo/*.ts"
+        "src/Infrastructure/Schema/TypeORM/*.ts"
       ],
       "migrations": [
-        "src/Infrastructure/Migrations/TypeORM/Mongo/**/*.ts"
+        "src/Infrastructure/Migrations/TypeORM/**/*.ts"
       ],
       "subscribers": [
-        "src/Infrastructure/Subscribers/TypeORM/Mongo/**/*.ts"
+        "src/Infrastructure/Subscribers/TypeORM/**/*.ts"
       ],
       "cli": {
-        "entitiesDir": "/src/Infrastructure/Entities",
+        "entitiesDir": "/src/Infrastructure/Entities/TypeORM",
         "migrationsDir": "/src/Infrastructure/Migrations",
         "subscribersDir": "/src/Infrastructure/Subscribers"
       }

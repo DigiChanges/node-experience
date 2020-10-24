@@ -1,5 +1,5 @@
 import {Schema} from "mongoose";
-import File from "../../Domain/Entities/File";
+import File from "../../../Domain/Entities/File";
 import { v4 as uuidv4 } from 'uuid';
 
 const FileSchema = new Schema({

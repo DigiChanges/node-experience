@@ -1,6 +1,6 @@
 import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemRepository";
 import {DeleteResult, getRepository, Repository} from "typeorm";
-import Item from "../Entities/TypeORM/Item";
+import Item from "../../Domain/Entities/Item";
 import {injectable} from "inversify";
 import ErrorException from "../../Application/Shared/ErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";
@@ -8,7 +8,8 @@ import Paginator from "../../Presentation/Shared/Paginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import ItemFilter from "../../Presentation/Criterias/Item/ItemFilter";
-import IItem from "../../InterfaceAdapters/IEntities/TypeORM/IItem";
+import ItemSchema from "../Schema/TypeORM/Item";
+import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
 
 @injectable()
 class ItemSqlRepository implements IItemRepository
@@ -17,10 +18,10 @@ class ItemSqlRepository implements IItemRepository
 
     constructor()
     {
-        this.repository = getRepository(Item);
+        this.repository = getRepository<Item>(ItemSchema);
     }
 
-    async save (item: Item): Promise<Item>
+    async save (item: IItemDomain ): Promise<Item>
     {
         return await this.repository.save(item);
     }
@@ -39,7 +40,7 @@ class ItemSqlRepository implements IItemRepository
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        let queryBuilder = await this.repository.createQueryBuilder("i");
+        let queryBuilder = this.repository.createQueryBuilder("i");
 
         const filter = criteria.getFilter();
 
@@ -59,7 +60,7 @@ class ItemSqlRepository implements IItemRepository
         return new Paginator(queryBuilder, criteria);
     }
 
-    async update(item: IItem): Promise<any>
+    async update(item: IItemDomain): Promise<any>
     {
         await this.repository.save(item);
     }
@@ -68,7 +69,6 @@ class ItemSqlRepository implements IItemRepository
     {
         return await this.repository.delete(id);
     }
-
 }
 
 export default ItemSqlRepository;

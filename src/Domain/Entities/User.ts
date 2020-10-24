@@ -23,19 +23,19 @@ class User implements IUserDomain
         this._id = uuidv4();
     }
 
-    getFullName(): string
+    getFullName = (): string =>
     {
         return `${this.firstName} ${this.lastName}`;
     }
 
-    clearRoles(): void
+    clearRoles = (): void =>
     {
         this.roles = [];
     }
 
-    setRole(role: IRoleDomain): void
+    setRole = (role: IRoleDomain): void =>
     {
-        const find = this.roles.find((_role) => _role.getId().toString() === role.getId().toString() );
+        const find = this.roles.find((_role) => _role.getId().toString() === role.getId().toString());
 
         if (!find)
         {
@@ -43,12 +43,12 @@ class User implements IUserDomain
         }
     }
 
-    getRoles(): IRoleDomain[]
+    getRoles = (): IRoleDomain[] =>
     {
         return this.roles;
     }
 
-    getId(): string
+    getId = (): string =>
     {
         return this._id;
     }

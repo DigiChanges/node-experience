@@ -16,7 +16,7 @@ class UserSort extends Sort
     getDefaultSorts(): any
     {
         return [
-            {[UserSort.CREATED_AT]: 'desc'}
+            {[UserSort.CREATED_AT]: 'DESC'}
         ];
     }
 }
