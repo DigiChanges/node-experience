@@ -1,14 +1,11 @@
-import IStatusCode from "../../InterfaceAdapters/IPresentation/IStatusCode";
 
 class ErrorException extends Error
 {
-    private statusCode: IStatusCode;
-
-    constructor(statusCode: IStatusCode, message: string)
+    constructor(message: string, name = ErrorException.name)
     {
         super();
-        this.statusCode = statusCode;
         this.message = message;
+        this.name = name;
     }
 }
 

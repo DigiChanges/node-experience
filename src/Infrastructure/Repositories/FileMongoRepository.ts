@@ -1,17 +1,17 @@
 import {DocumentQuery, Model} from "mongoose";
 import {injectable} from "inversify";
 
-import ErrorException from "../../Application/Shared/ErrorException";
 import IFileRepository from "../../InterfaceAdapters/IRepositories/IFileRepository";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 
-import StatusCode from "../../Presentation/Shared/StatusCode";
 import FileFilter from "../../Presentation/Criterias/File/FileFilter";
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import IFile from "../../InterfaceAdapters/IEntities/Mongoose/IFileDocument";
 import IFileDomain from "../../InterfaceAdapters/IDomain/IFileDomain";
 import {connection} from "../Database/MongooseCreateConnection";
+
+import NotFoundException from "../Exceptions/NotFoundException";
 
 @injectable()
 class FileMongoRepository implements IFileRepository
@@ -36,14 +36,14 @@ class FileMongoRepository implements IFileRepository
 
             if (!item)
             {
-                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'File Not Found');
+                throw new NotFoundException('File');
             }
 
             return item;
         }
         catch(e)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'File Not Found');
+            throw new NotFoundException('File');
         }
     }
 
@@ -76,14 +76,14 @@ class FileMongoRepository implements IFileRepository
 
             if (!item)
             {
-                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'File Not Found');
+                throw new NotFoundException('File');
             }
 
             return item;
         }
         catch(e)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'File Not Found');
+            throw new NotFoundException('File');
         }
     }
 

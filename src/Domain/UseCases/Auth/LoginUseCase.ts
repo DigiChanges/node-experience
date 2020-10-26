@@ -1,12 +1,12 @@
 import { lazyInject } from '../../../inversify.config'
 import AuthPayload from "../../../InterfaceAdapters/Payloads/Auth/AuthPayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
-import ErrorException from "../../../Application/Shared/ErrorException";
 import IEncryption from "../../../InterfaceAdapters/Shared/IEncryption";
 import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
-import StatusCode from "../../../Presentation/Shared/StatusCode";
 import TokenFactory from "../../../Infrastructure/Factories/TokenFactory";
 import {REPOSITORIES} from "../../../repositories";
+import BadCredentialsException from "../../Exceptions/BadCredentialsException";
+import UserDisabledException from "../../Exceptions/UserDisabledException";
 
 class LoginUseCase
 {
@@ -29,12 +29,12 @@ class LoginUseCase
 
         if(user.enable === false)
         {
-            throw new ErrorException(StatusCode.HTTP_FORBIDDEN, 'Your user is disable');
+            throw new UserDisabledException();
         }
 
         if (! await this.encryption.compare(password, user.password))
         {
-            throw new ErrorException(StatusCode.HTTP_FORBIDDEN, 'Error credentials');
+            throw new BadCredentialsException();
         }
 
         return this.tokenFactory.token(user);

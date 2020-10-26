@@ -3,7 +3,7 @@ import UserUpdatePayload from "../../../InterfaceAdapters/Payloads/Users/UserUpd
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import CheckUserRolePayload from "../../../InterfaceAdapters/Payloads/Auxiliars/CheckUserRolePayload";
 import Roles from "../../../../config/Roles";
-import ErrorException from "../../../Application/Shared/ErrorException";
+import ErrorHttpException from "../../../Application/Shared/ErrorHttpException";
 import StatusCode from "../../../Presentation/Shared/StatusCode";
 import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
 import RoleRepoFactory from "../../../Infrastructure/Factories/RoleRepoFactory";
@@ -11,6 +11,7 @@ import Role from '../../Entities/Role';
 import {REPOSITORIES} from "../../../repositories";
 import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
 import AuthService from "../../../Application/Services/AuthService";
+import CantDisabledException from "../../Exceptions/CantDisabledException";
 
 class UpdateUserUseCase
 {
@@ -19,11 +20,6 @@ class UpdateUserUseCase
 
     @lazyInject(REPOSITORIES.IAuthService)
     private authService: AuthService;
-
-    // constructor()
-    // {
-    //     authService = new AuthService();
-    // }
 
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {
@@ -36,7 +32,7 @@ class UpdateUserUseCase
             enable = true;
         }
 
-        if(typeof user.roles !== 'undefined' && enable !== null)
+        if(typeof user.roles !== 'undefined' && enable !== null) // TODO: Refactoring
         {
             let checkRole: CheckUserRolePayload = {
                 roleToCheck: Roles.SUPER_ADMIN.toLocaleLowerCase(),
@@ -47,7 +43,7 @@ class UpdateUserUseCase
 
             if(verifyRole && !enable)
             {
-                throw new ErrorException(StatusCode.HTTP_FORBIDDEN, "SuperAdmin can't be disable");
+                throw new CantDisabledException();
             }
         }
 
@@ -61,7 +57,7 @@ class UpdateUserUseCase
         return user;
     }
 
-    public async checkIfUserHasRole (payload: CheckUserRolePayload): Promise<boolean>
+    public async checkIfUserHasRole (payload: CheckUserRolePayload): Promise<boolean> // TODO: Create a service
     {
         let roleRepository: IRoleRepository = RoleRepoFactory.create();
         let count = payload.user.roles.length;

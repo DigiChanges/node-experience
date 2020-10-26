@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import IMail from "../../../InterfaceAdapters/Shared/IMail";
 import Config from "config";
-import ErrorException from "../../../Application/Shared/ErrorException";
+import ErrorHttpException from "../../../Application/Shared/ErrorHttpException";
 import StatusCode from "../../../Presentation/Shared/StatusCode";
 
 class Mail implements IMail
@@ -88,7 +88,7 @@ class Mail implements IMail
                                         return true;
                                     })
                                     .catch((err: any) => {
-                                        throw new ErrorException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, "Something is wrong. Please try again later.");
+                                        throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, "Something is wrong. Please try again later.");
                                     });
     }
 }

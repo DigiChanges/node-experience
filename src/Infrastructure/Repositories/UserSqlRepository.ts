@@ -2,14 +2,15 @@ import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserReposito
 import {DeleteResult, getRepository, Repository} from "typeorm";
 import User from "../../Domain/Entities/User";
 import {injectable} from "inversify";
-import ErrorException from "../../Application/Shared/ErrorException";
-import StatusCode from "../../Presentation/Shared/StatusCode";
+
 import Paginator from "../../Presentation/Shared/Paginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import UserFilter from "../../Presentation/Criterias/User/UserFilter";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 import UserSchema from "../Schema/TypeORM/User";
+
+import NotFoundException from "../Exceptions/NotFoundException";
 
 @injectable()
 class UserSqlRepository implements IUserRepository
@@ -32,7 +33,7 @@ class UserSqlRepository implements IUserRepository
 
         if (!user)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found')
+            throw new NotFoundException('User');
         }
 
         return user;
@@ -44,7 +45,7 @@ class UserSqlRepository implements IUserRepository
 
         if (!user)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found')
+            throw new NotFoundException('User');
         }
 
         return user;
@@ -56,15 +57,15 @@ class UserSqlRepository implements IUserRepository
 
         if (!user)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found')
+            throw new NotFoundException('User');
         }
 
         return user;
     }
 
-    async list(criteria: ICriteria): Promise<any>
+    async list(criteria: ICriteria): Promise<IPaginator>
     {
-        let queryBuilder = await this.repository.createQueryBuilder("i");
+        let queryBuilder = this.repository.createQueryBuilder("i");
 
         const filter = criteria.getFilter();
 

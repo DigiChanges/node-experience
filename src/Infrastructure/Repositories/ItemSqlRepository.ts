@@ -2,14 +2,15 @@ import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemReposito
 import {DeleteResult, getRepository, Repository} from "typeorm";
 import Item from "../../Domain/Entities/Item";
 import {injectable} from "inversify";
-import ErrorException from "../../Application/Shared/ErrorException";
-import StatusCode from "../../Presentation/Shared/StatusCode";
+
 import Paginator from "../../Presentation/Shared/Paginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import ItemFilter from "../../Presentation/Criterias/Item/ItemFilter";
 import ItemSchema from "../Schema/TypeORM/Item";
 import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
+
+import NotFoundException from "../Exceptions/NotFoundException";
 
 @injectable()
 class ItemSqlRepository implements IItemRepository
@@ -32,7 +33,7 @@ class ItemSqlRepository implements IItemRepository
 
         if (!item)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Item Not Found')
+            throw new NotFoundException('Item');
         }
 
         return item;

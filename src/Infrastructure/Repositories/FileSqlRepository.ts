@@ -1,8 +1,7 @@
 import IFileRepository from "../../InterfaceAdapters/IRepositories/IFileRepository";
 import {DeleteResult, getRepository, Repository} from "typeorm";
 import {injectable} from "inversify";
-import ErrorException from "../../Application/Shared/ErrorException";
-import StatusCode from "../../Presentation/Shared/StatusCode";
+
 import Paginator from "../../Presentation/Shared/Paginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
@@ -10,6 +9,8 @@ import FileFilter from "../../Presentation/Criterias/File/FileFilter";
 import FileSchema from "../Schema/TypeORM/File";
 import File from "../../Domain/Entities/File";
 import IFileDomain from "../../InterfaceAdapters/IDomain/IFileDomain";
+
+import NotFoundException from "../Exceptions/NotFoundException";
 
 @injectable()
 class FileSqlRepository implements IFileRepository
@@ -32,7 +33,7 @@ class FileSqlRepository implements IFileRepository
 
         if (!file)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'File Not Found')
+            throw new NotFoundException('File');
         }
 
         return file;

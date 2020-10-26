@@ -1,7 +1,7 @@
 import Config from "config";
 import StatusCode from "../Shared/StatusCode";
 import AuthService from "../../Application/Services/AuthService";
-import ErrorException from '../../Application/Shared/ErrorException';
+import ErrorHttpException from '../../Application/Shared/ErrorHttpException';
 
 const AuthenticationMiddleware = (req: any, res: any, next: any) =>
 {
@@ -30,14 +30,14 @@ const AuthenticationMiddleware = (req: any, res: any, next: any) =>
 
             if(typeof token === 'undefined' || token.indexOf('Bearer') === -1)
             {
-                throw new ErrorException(StatusCode.HTTP_FORBIDDEN, 'You must be authenticated' );
+                throw new ErrorHttpException(StatusCode.HTTP_FORBIDDEN, 'You must be authenticated' );
             }
 
             let TokenArray = token.split(" ");
 
             if(typeof TokenArray[1] === 'undefined')
             {
-                throw new ErrorException(StatusCode.HTTP_FORBIDDEN, 'Token Not Found' );
+                throw new ErrorHttpException(StatusCode.HTTP_FORBIDDEN, 'Token Not Found' );
             }
 
             const authService = new AuthService();
@@ -50,7 +50,7 @@ const AuthenticationMiddleware = (req: any, res: any, next: any) =>
         }
         catch(error)
         {
-            throw new ErrorException(StatusCode.HTTP_FORBIDDEN, error.message);
+            throw new ErrorHttpException(StatusCode.HTTP_FORBIDDEN, error.message);
 
         }
     }

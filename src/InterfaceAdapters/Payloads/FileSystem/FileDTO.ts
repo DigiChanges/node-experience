@@ -17,6 +17,7 @@ class FileDTO implements IFileDTO
     {
         return this._metadata;
     }
+
     public set metadata(v : IFileDomain)
     {
         this._metadata = v;

@@ -1,17 +1,17 @@
 import {DocumentQuery, Model} from "mongoose";
 import {injectable} from "inversify";
 
-import ErrorException from "../../Application/Shared/ErrorException";
 import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemRepository";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 
-import StatusCode from "../../Presentation/Shared/StatusCode";
 import ItemFilter from "../../Presentation/Criterias/Item/ItemFilter";
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import IItem from "../../InterfaceAdapters/IEntities/Mongoose/IItemDocument";
 import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
 import {connection} from "../Database/MongooseCreateConnection";
+
+import NotFoundException from "../Exceptions/NotFoundException";
 
 @injectable()
 class ItemMongoRepository implements IItemRepository
@@ -30,21 +30,14 @@ class ItemMongoRepository implements IItemRepository
 
     async getOne(id: string): Promise<IItemDomain>
     {
-        try
-        {
-            const item = await this.repository.findOne({_id: id});
+        const item = await this.repository.findOne({_id: id});
 
-            if (!item)
-            {
-                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Item Not Found');
-            }
-
-            return item;
-        }
-        catch(e)
+        if (!item)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Item Not Found');
+            throw new NotFoundException('Item');
         }
+
+        return item;
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -76,21 +69,14 @@ class ItemMongoRepository implements IItemRepository
 
     async delete(id: string): Promise<IItemDomain>
     {
-        try
-        {
-            const item = await this.repository.findByIdAndDelete({_id: id});
+        const item = await this.repository.findByIdAndDelete({_id: id});
 
-            if (!item)
-            {
-                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Item Not Found');
-            }
-
-            return item;
-        }
-        catch(e)
+        if (!item)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Item Not Found');
+            throw new NotFoundException('Item');
         }
+
+        return item;
     }
 
 }

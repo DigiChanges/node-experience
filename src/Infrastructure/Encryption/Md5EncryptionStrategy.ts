@@ -1,7 +1,6 @@
 import IEncryption from "../../InterfaceAdapters/Shared/IEncryption";
 import md5 from "md5";
-import ErrorException from "../../Application/Shared/ErrorException";
-import StatusCode from "../../Presentation/Shared/StatusCode";
+import DecryptForbiddenException from "../Exceptions/DecryptForbiddenException";
 
 class Md5EncryptionStrategy implements IEncryption
 {
@@ -12,7 +11,7 @@ class Md5EncryptionStrategy implements IEncryption
 
     async decrypt(chain: string): Promise<string>
     {
-        throw new ErrorException(StatusCode.HTTP_NOT_ACCEPTABLE, 'Decrypt forbidden')
+        throw new DecryptForbiddenException();
     }
 
     async encrypt(chain: string): Promise<string>
