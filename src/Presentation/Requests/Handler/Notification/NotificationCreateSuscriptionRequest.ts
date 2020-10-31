@@ -4,13 +4,15 @@ import NotificationRepPayload from "../../../../InterfaceAdapters/Payloads/Notif
 
 class NotificationSuscriptionRequest implements NotificationRepPayload
 {
-    private subscription: webPush.PushSubscription;
+    private readonly subscription: webPush.PushSubscription;
 
-    constructor(request: express.Request) {
+    constructor(request: express.Request)
+    {
         this.subscription = request.body.subscription;
     }
 
-    getSubscription(): webPush.PushSubscription {
+    getSubscription(): webPush.PushSubscription
+    {
         return this.subscription;
     }
 }

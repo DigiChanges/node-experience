@@ -84,8 +84,6 @@ class Notificator
 
     public static async sendPushNotification(pushNotification: PushNotification, message: string, save: boolean = true)
     {
-        const repository = new NotificationMongoRepository();
-
         try {
             const publicKey: string = Config.get('push.publicKey');
             const privateKey: string = Config.get('push.privateKey');
@@ -94,7 +92,7 @@ class Notificator
             const pushSubscription = pushNotification.getSubscription();
 
             const payload = JSON.stringify({
-                title: pushNotification.title,
+                name: pushNotification.name,
                 message
             });
 

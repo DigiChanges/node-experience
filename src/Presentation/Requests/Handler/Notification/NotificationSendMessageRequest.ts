@@ -4,20 +4,23 @@ import NotificationSuscriptionRequest from "./NotificationCreateSuscriptionReque
 
 class NotificationSendMessageRequest extends NotificationSuscriptionRequest implements NotificationSendMessagePayload
 {
-    private title: string;
-    private message: string;
+    private readonly name: string;
+    private readonly message: string;
 
-    constructor(request: express.Request) {
+    constructor(request: express.Request)
+    {
         super(request);
-        this.title = request.body.title;
+        this.name = request.body.name;
         this.message = request.body.message;
     }
     
-    getTitle(): string {
-        return this.title;
+    getName(): string
+    {
+        return this.name;
     }
     
-    getMessage(): string {
+    getMessage(): string
+    {
         return this.message;
     }
 }

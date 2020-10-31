@@ -1,8 +1,8 @@
 import {Schema} from "mongoose";
 import { v4 as uuidv4 } from 'uuid';
-import Notification from "../Entities/Notification";
-import EmailNotification from "../Entities/EmailNotification";
-import PushNotification from "../Entities/PushNotification";
+import Notification from "../../Entities/Notification";
+import EmailNotification from "../../Entities/EmailNotification";
+import PushNotification from "../../Entities/PushNotification";
 
 let options = { discriminatorKey: 'kind', timestamps: true };
 

@@ -2,7 +2,7 @@ import NotificationRepPayload from "./NotificationRepPayload";
 
 interface NotificationSendMessagePayload extends NotificationRepPayload
 {
-    getTitle(): string;
+    getName(): string;
     getMessage(): string;
 }
 

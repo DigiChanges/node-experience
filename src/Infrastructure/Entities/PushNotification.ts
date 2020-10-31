@@ -4,12 +4,12 @@ import webPush from "web-push";
 class PushNotification extends Notification
 {
     subscription: webPush.PushSubscription;
-    title: string;
+    url: string;
 
     constructor()
     {
         super();
-        this.title = null;
+        this.url = null;
     }
 
     getSubscription()

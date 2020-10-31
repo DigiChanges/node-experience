@@ -9,7 +9,7 @@ import RoleSchema from "../Schema/Mongoose/Role";
 import UserSchema from "../Schema/Mongoose/User";
 import FileSchema from "../Schema/Mongoose/File";
 import INotificationDocument from "../../InterfaceAdapters/IEntities/Mongoose/INotificationDocument";
-import {EmailNotificationSchema, NotificationSchema, PushNotificationSchema} from "../Schema/Notification";
+import {EmailNotificationSchema, NotificationSchema, PushNotificationSchema} from "../Schema/Mongoose/Notification";
 import IFileDocument from "../../InterfaceAdapters/IEntities/Mongoose/IFileDocument";
 
 export let connection: mongoose.Connection = null;
