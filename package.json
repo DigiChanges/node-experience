@@ -94,9 +94,9 @@
     "shelljs": "^0.8.3",
     "ts-node": "^8.9.1",
     "tslint": "^6.0.0",
-    "typescript": "^3.8.3"
+    "typescript": "^4.0.5"
   },
   "engines": {
-    "node": "12.*"
+    "node": "14.*"
   }
 }

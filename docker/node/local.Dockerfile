@@ -1,4 +1,4 @@
-FROM node:12-stretch
+FROM node:14-stretch
 
 RUN npm install --global yarn cross-env --force
 
