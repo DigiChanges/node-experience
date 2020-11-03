@@ -1,8 +1,7 @@
 import IRoleRepository from "../../InterfaceAdapters/IRepositories/IRoleRepository";
 import {DeleteResult, getRepository, Repository} from "typeorm";
 import {injectable} from "inversify";
-import ErrorException from "../../Application/Shared/ErrorException";
-import StatusCode from "../../Presentation/Shared/StatusCode";
+
 import Paginator from "../../Presentation/Shared/Paginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
@@ -10,6 +9,7 @@ import RoleFilter from "../../Presentation/Criterias/Role/RoleFilter";
 import RoleSchema from "../Schema/TypeORM/Role";
 import Role from "../../Domain/Entities/Role";
 import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
+import NotFoundException from "../Exceptions/NotFoundException";
 
 @injectable()
 class RoleSqlRepository implements IRoleRepository
@@ -32,7 +32,7 @@ class RoleSqlRepository implements IRoleRepository
 
         if (!role)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found')
+            throw new NotFoundException('Role');
         }
 
         return role;

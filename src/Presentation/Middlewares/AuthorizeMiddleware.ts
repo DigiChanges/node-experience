@@ -7,7 +7,7 @@ import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserReposito
 import UserRepoFactory from "../../Infrastructure/Factories/UserRepoFactory";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 import StatusCode from "../Shared/StatusCode";
-import ErrorException from "../../Application/Shared/ErrorException";
+import ErrorHttpException from "../../Application/Shared/ErrorHttpException";
 
 const AuthorizeMiddleware = (...handlerPermissions: any) =>
 {
@@ -46,7 +46,7 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
             }
             else
             {
-                throw new ErrorException(StatusCode.HTTP_FORBIDDEN, "Forbidden");
+                throw new ErrorHttpException(StatusCode.HTTP_FORBIDDEN, "Forbidden");
             }
         }
         catch(err)

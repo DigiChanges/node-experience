@@ -1,7 +1,6 @@
 import IRoleRepository from "../../InterfaceAdapters/IRepositories/IRoleRepository";
 import {injectable} from "inversify";
-import ErrorException from "../../Application/Shared/ErrorException";
-import StatusCode from "../../Presentation/Shared/StatusCode";
+
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
@@ -10,6 +9,8 @@ import {DocumentQuery, Model} from "mongoose";
 import IRole from "../../InterfaceAdapters/IEntities/Mongoose/IRoleDocument";
 import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
 import {connection} from "../Database/MongooseCreateConnection";
+
+import NotFoundException from "../Exceptions/NotFoundException";
 
 @injectable()
 class RoleMongoRepository implements IRoleRepository
@@ -28,21 +29,14 @@ class RoleMongoRepository implements IRoleRepository
 
     async getOne(id: string): Promise<IRoleDomain>
     {
-        try
-        {
-            const role = await this.repository.findOne({_id: id});
+        const role = await this.repository.findOne({_id: id});
 
-            if (!role)
-            {
-                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found');
-            }
-
-            return role;
-        }
-        catch(e)
+        if (!role)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found');
+            throw new NotFoundException('Role');
         }
+
+        return role;
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -82,21 +76,14 @@ class RoleMongoRepository implements IRoleRepository
 
     async delete(id: string): Promise<IRoleDomain>
     {
-        try
-        {
-            const item = await this.repository.findByIdAndDelete({_id: id});
+        const item = await this.repository.findByIdAndDelete({_id: id});
 
-            if (!item)
-            {
-                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found');
-            }
-
-            return item;
-        }
-        catch(e)
+        if (!item)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found');
+            throw new NotFoundException('Role');
         }
+
+        return item;
     }
 }
 

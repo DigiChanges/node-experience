@@ -1,12 +1,11 @@
 import { lazyInject } from '../../../inversify.config'
 import ChangeMyPasswordPayload from "../../../InterfaceAdapters/Payloads/Users/ChangeMyPasswordPayload";
-import ErrorException from "../../../Application/Shared/ErrorException";
 import IEncryption from "../../../InterfaceAdapters/Shared/IEncryption";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
-import StatusCode from "../../../Presentation/Shared/StatusCode";
 import {REPOSITORIES} from "../../../repositories";
 import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
+import PasswordWrongException from "../../Exceptions/PasswordWrongException";
 
 class ChangeMyPasswordUseCase
 {
@@ -26,7 +25,7 @@ class ChangeMyPasswordUseCase
 
         if(! await this.encryption.compare(payload.getCurrentPassword(), user.password))
         {
-            throw new ErrorException(StatusCode.HTTP_FORBIDDEN, 'Your current password is wrong');
+            throw new PasswordWrongException();
         }
 
         user.password = await this.encryption.encrypt(payload.getNewPassword());

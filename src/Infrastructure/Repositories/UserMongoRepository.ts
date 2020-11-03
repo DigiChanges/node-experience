@@ -1,7 +1,6 @@
 import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
 import {injectable} from "inversify";
-import ErrorException from "../../Application/Shared/ErrorException";
-import StatusCode from "../../Presentation/Shared/StatusCode";
+
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
@@ -10,6 +9,8 @@ import IUser from "../../InterfaceAdapters/IEntities/Mongoose/IUserDocument";
 import {DocumentQuery, Model} from "mongoose";
 import {connection} from "../Database/MongooseCreateConnection";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
+
+import NotFoundException from "../Exceptions/NotFoundException";
 
 @injectable()
 class UserMongoRepository implements IUserRepository
@@ -28,59 +29,39 @@ class UserMongoRepository implements IUserRepository
 
     async getOne(id: string): Promise<IUserDomain>
     {
-        try
-        {
-            let user = await this.repository.findOne({_id: id}).populate('roles');
+        let user = await this.repository.findOne({_id: id}).populate('roles');
 
-            if (!user)
-            {
-                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
-            }
-
-            return user;
-        }
-        catch(e)
+        if (!user)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
+            throw new NotFoundException('User');
         }
+
+        return user;
     }
 
     async getOneByEmail(email: string): Promise<IUserDomain>
     {
-        try
-        {
-            const user = await this.repository.findOne({'email': email}).populate('roles');
+        const user = await this.repository.findOne({'email': email}).populate('roles');
 
-            if (!user)
-            {
-                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'Role Not Found');
-            }
-
-            return user;
-        } catch(e)
+        if (!user)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
+            throw new NotFoundException('User');
         }
+
+        return user;
 
     }
 
     async getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>
     {
-        try
-        {
-            const user = await this.repository.findOne({"confirmationToken": confirmationToken}).populate('roles');
+        const user = await this.repository.findOne({"confirmationToken": confirmationToken}).populate('roles');
 
-            if (!user)
-            {
-                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
-            }
-
-            return user;
-        } catch(e)
+        if (!user)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
+            throw new NotFoundException('User');
         }
 
+        return user;
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -121,21 +102,14 @@ class UserMongoRepository implements IUserRepository
 
     async delete(id: string): Promise<IUserDomain>
     {
-        try
-        {
-            const user = await this.repository.findByIdAndDelete(id).populate('roles');
+        const user = await this.repository.findByIdAndDelete(id).populate('roles');
 
-            if (!user)
-            {
-                throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
-            }
-
-            return user;
-        }
-        catch(e)
+        if (!user)
         {
-            throw new ErrorException(StatusCode.HTTP_BAD_REQUEST, 'User Not Found');
+            throw new NotFoundException('User');
         }
+
+        return user;
     }
 }
 

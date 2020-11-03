@@ -1,8 +1,8 @@
-import ErrorException from "./ErrorException";
+import ErrorHttpException from "./ErrorHttpException";
 import {ValidationError} from "class-validator";
 import IStatusCode from "../../InterfaceAdapters/IPresentation/IStatusCode";
 
-class ValidationErrorException extends ErrorException
+class ValidationErrorException extends ErrorHttpException
 {
     errors: ValidationError[];
 

@@ -1,8 +1,7 @@
 import Config from "config";
 import bcrypt from "bcrypt";
-import ErrorException from "../../Application/Shared/ErrorException";
-import StatusCode from "../../Presentation/Shared/StatusCode";
 import IEncryption from "../../InterfaceAdapters/Shared/IEncryption";
+import DecryptForbiddenException from "../Exceptions/DecryptForbiddenException";
 
 class BcryptEncryptionStrategy implements IEncryption
 {
@@ -13,7 +12,7 @@ class BcryptEncryptionStrategy implements IEncryption
 
     async decrypt(chain: string): Promise<string>
     {
-        throw new ErrorException(StatusCode.HTTP_NOT_ACCEPTABLE, 'Decrypt forbidden')
+        throw new DecryptForbiddenException();
     }
 
     async encrypt(chain: string): Promise<string>
