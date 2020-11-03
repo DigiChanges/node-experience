@@ -40,11 +40,3 @@ const RoleSchema = new EntitySchema<Role>({
 })
 
 export default RoleSchema;
-
-    // @OneToMany(type => Permission, permission => permission.role) // note: we will create author property in the Permission class below
-    // permissions: Permissions[];
-    // @Column()
-    // permissions: string[];
-
-    // @ManyToMany(type => User, user => user.roles)
-    // users: IUserDomain[];

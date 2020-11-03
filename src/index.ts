@@ -9,6 +9,7 @@ import FilesystemFactory from "./Infrastructure/Factories/FilesystemFactory";
 import IFilesystem from "./InterfaceAdapters/Shared/IFilesystem";
 
 export let filesystem: IFilesystem = null;
+import EventHandler from "./Infrastructure/Events/EventHandler";
 
 (async () => {
     try {
@@ -22,6 +23,8 @@ export let filesystem: IFilesystem = null;
         await createConnection.create();
 
         filesystem = FilesystemFactory.create();
+
+        const eventHandler = EventHandler.getInstance();
 
         const app = new App();
         await app.listen();

@@ -19,7 +19,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@types/lodash": "^4.14.161",
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
@@ -33,8 +32,8 @@
     "dotenv": "^8.2.0",
     "envalid": "^6.0.1",
     "express": "^4.17.1",
-    "express-validator": "^6.4.0",
     "express-winston": "^4.0.3",
+    "handlebars": "^4.7.6",
     "helmet": "^3.22.0",
     "inversify": "^5.0.1",
     "inversify-express-utils": "^6.3.2",
@@ -58,6 +57,7 @@
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.28",
     "uuid": "^8.3.0",
+    "web-push": "^3.4.4",
     "winston": "^3.2.1"
   },
   "devDependencies": {
@@ -76,6 +76,7 @@
     "@types/inversify-inject-decorators": "^2.0.0",
     "@types/jasmine": "^3.5.10",
     "@types/jwt-simple": "^0.5.33",
+    "@types/lodash": "^4.14.161",
     "@types/md5": "^2.2.0",
     "@types/minio": "^7.0.6",
     "@types/mongoose": "^5.7.36",
@@ -85,6 +86,7 @@
     "@types/pg": "^7.14.1",
     "@types/shelljs": "^0.8.6",
     "@types/uuid": "^8.3.0",
+    "@types/web-push": "^3.3.0",
     "fs-extra": "^8.1.0",
     "nodemon": "^2.0.2",
     "npm-run-all": "^4.1.5",
@@ -92,9 +94,9 @@
     "shelljs": "^0.8.3",
     "ts-node": "^8.9.1",
     "tslint": "^6.0.0",
-    "typescript": "^3.8.3"
+    "typescript": "^4.0.5"
   },
   "engines": {
-    "node": "12.*"
+    "node": "14.*"
   }
 }

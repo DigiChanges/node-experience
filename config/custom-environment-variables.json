@@ -47,6 +47,10 @@
     "senderName": "SMTP_SENDERNAME",
     "senderEmailDefault": "SMTP_SENDER_EMAIL_DEFAULT"
   },
+  "push": {
+    "privateKey": "PUSH_PRIVATE_KEY",
+    "publicKey": "PUSH_PUBLIC_KEY"
+  },
   "productInfo":{
     "productName": "PRODUCT_NAME"
   },

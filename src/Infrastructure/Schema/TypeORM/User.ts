@@ -74,10 +74,3 @@ const UserSchema = new EntitySchema<User>({
 });
 
 export default UserSchema;
-
-// @ManyToMany(type => Role, role => role.users)
-// @JoinTable()
-// roles: IRoleDomain[];
-
-// @Column()
-// permissions: string[];

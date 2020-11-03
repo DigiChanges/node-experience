@@ -7,6 +7,7 @@ import "../Presentation/Handlers/UserHandler";
 import "../Presentation/Handlers/AuthHandler";
 import "../Presentation/Handlers/RoleHandler";
 import "../Presentation/Handlers/FileHandler";
+import "../Presentation/Handlers/NotificationHandler";
 import compression from "compression";
 import cors from "cors";
 import helmet from "helmet";

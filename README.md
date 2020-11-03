@@ -34,6 +34,9 @@ Execute DEV Environment
 - Also, you could use **make dev**
 - docker-compose exec node bash dev.init.sh
 
+Create Push Notifications Keys
+- docker-compose exec node npx ts-node src/command.ts createVapID
+
 Minio Browser
 - http://127.0.0.1:9002/minio/
 - Create Bucket experience
@@ -108,3 +111,4 @@ Commands Available:
  * npx ts-node src/command.ts addUserRole --role Admin --email user@node.com --firstName node --lastName node --password 12345678
  * npx ts-node src/Commands/command.ts addRole --name Admin --slug admin
  * npx ts-node src/Commands/command.ts addUser --name Admin --slug admin --email user@node.com --firstName node --lastName node --password 12345678
+ * npx ts-node src/command.ts createVapID
