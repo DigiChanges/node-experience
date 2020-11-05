@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import {Container} from "inversify";
 import getDecorators from "inversify-inject-decorators";
+import Config from "config";
 
 import FormatResponder from "./Presentation/Shared/FormatResponder";
 import IFormatResponder from "./InterfaceAdapters/Shared/IFormatResponder";
@@ -34,14 +35,21 @@ container.bind<Responder>(TYPES.Responder).to(Responder);
 container.bind<IFormatResponder>(TYPES.IFormatResponder).to(FormatResponder);
 
 /* Repositories */
-container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMongoRepository);
-container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository);
-container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongoRepository);
-container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository);
-// container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemSqlRepository);
-// container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserSqlRepository);
-// container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleSqlRepository);
-// container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileSqlRepository);
+if (Config.get('dbConfig.default') === 'TypeORM')
+{
+    container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemSqlRepository);
+    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserSqlRepository);
+    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleSqlRepository);
+    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileSqlRepository);
+}
+else if (Config.get('dbConfig.default') === 'Mongoose')
+{
+    container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMongoRepository);
+    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository);
+    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongoRepository);
+    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository);
+}
+
 
 export let { lazyInject } = getDecorators(container);
 

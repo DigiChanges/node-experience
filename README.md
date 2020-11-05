@@ -70,22 +70,7 @@ To change from Mongoose to TypeORM the following steps must be followed:
         a. DB_PORT=27017 -> DB_PORT=5432
         b. DB_TYPE_DEFAULT=Mongoose -> DB_TYPE_DEFAULT=TypeORM
     
-    
-     2. We have a command with Makefile to lift the corresponding containers.
-        a. make dev_sql
-        b. The command with docker compose would be:
-                
-                docker-compose -f docker-compose.yml -f docker-compose.sql.yml up --build -d
-           
-           This above command replaces the mongo container with the postgres container.
-    
-    3. Finally, in the inversify configuration, the SQL repositories must be binded.
-        container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemSqlRepository);
-        container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserSqlRepository);
-        container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleSqlRepository);
-        container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileSqlRepository);
-    
-    4. Important note. The filters and sorting files of each entity should also have a change depending on the relationship.
+    2. Important note. The filters and sorting files of each entity should also have a change depending on the relationship.
         For example UserSort has
        
        class UserSort extends Sort
@@ -104,8 +89,14 @@ To change from Mongoose to TypeORM the following steps must be followed:
        
            This is because typeORM and SQL aliases are used and in this case it is necessary for you to 
            understand each filter and each order that we need to add.
-       5. Finally, you need to change the methods of all domain entities to array functions so that
-          TypeORM can access those methods.
+     2. Finally, we have a command with Makefile to lift the corresponding containers.
+        a. make dev_sql
+        b. The command with docker compose would be:
+                
+                docker-compose -f docker-compose.yml -f docker-compose.sql.yml up --build -d
+           
+           This above command replaces the mongo container with the postgres container.
+    
        
 Commands Available:
  * npx ts-node src/command.ts addUserRole --role Admin --email user@node.com --firstName node --lastName node --password 12345678
