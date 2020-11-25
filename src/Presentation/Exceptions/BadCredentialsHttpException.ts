@@ -5,7 +5,7 @@ class BadCredentialsHttpException extends ErrorHttpException
 {
     constructor()
     {
-        super(StatusCode.HTTP_FORBIDDEN, 'Error credentials');
+        super(StatusCode.HTTP_FORBIDDEN, 'Error credentials', []);
     }
 }
 

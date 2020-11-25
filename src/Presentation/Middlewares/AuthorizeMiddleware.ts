@@ -46,7 +46,7 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
             }
             else
             {
-                throw new ErrorHttpException(StatusCode.HTTP_FORBIDDEN, "Forbidden");
+                throw new ErrorHttpException(StatusCode.HTTP_FORBIDDEN, "Forbidden", []);
             }
         }
         catch(err)

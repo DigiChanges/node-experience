@@ -5,7 +5,7 @@ class DecryptForbiddenHttpException extends ErrorHttpException
 {
     constructor()
     {
-        super(StatusCode.HTTP_FORBIDDEN, 'Decrypt forbidden');
+        super(StatusCode.HTTP_FORBIDDEN, 'Decrypt forbidden', []);
     }
 }
 

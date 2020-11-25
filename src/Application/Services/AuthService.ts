@@ -1,5 +1,5 @@
 import {injectable} from "inversify";
-import jwt from "jwt-simple";
+import jwt, { TAlgorithm } from "jwt-simple";
 import Config from "config";
 
 import TokenFactory from "../../Infrastructure/Factories/TokenFactory";
@@ -26,8 +26,9 @@ class AuthService implements IAuthService
         let TokenArray = token.split(" ");
 
         let secret: string = Config.get('jwt.secret');
-        
-        return jwt.decode(TokenArray[1], secret, false, 'HS512');
+        const algorithm: TAlgorithm = Config.get('encryption.bcrypt.algorithm');
+
+        return jwt.decode(TokenArray[1], secret, false, algorithm);
     }
 
     public getPermissions(user: IUserDomain): string[]

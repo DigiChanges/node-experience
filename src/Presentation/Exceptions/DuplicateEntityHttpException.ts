@@ -5,7 +5,7 @@ class DuplicateEntityHttpException extends ErrorHttpException
 {
     constructor()
     {
-        super(StatusCode.HTTP_UNPROCESSABLE_ENTITY, "Duplicate entity.");
+        super(StatusCode.HTTP_UNPROCESSABLE_ENTITY, "Duplicate entity.", []);
     }
 }
 

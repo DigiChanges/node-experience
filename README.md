@@ -48,15 +48,25 @@ Execute TEST Environment (Experimental)
 - **make test**
 
 TODO: Started
+
 TODO: Handlers
+
 TODO: Transformers
+
 TODO: Entities
+
 TODO: Services
+
 TODO: Repositories
+
 TODO: Commands
+
 TODO: Middlewares
+
 TODO: Lib
+
 TODO: Config
+
 TODO: Future
 
 How to use TypeORM:
@@ -89,14 +99,13 @@ To change from Mongoose to TypeORM the following steps must be followed:
        
            This is because typeORM and SQL aliases are used and in this case it is necessary for you to 
            understand each filter and each order that we need to add.
-     2. Finally, we have a command with Makefile to lift the corresponding containers.
+     3. Finally, we have a command with Makefile to lift the corresponding containers.
         a. make dev_sql
         b. The command with docker compose would be:
                 
                 docker-compose -f docker-compose.yml -f docker-compose.sql.yml up --build -d
            
            This above command replaces the mongo container with the postgres container.
-    
        
 Commands Available:
  * npx ts-node src/command.ts addUserRole --role Admin --email user@node.com --firstName node --lastName node --password 12345678

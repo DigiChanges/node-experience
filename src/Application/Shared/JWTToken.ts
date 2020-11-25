@@ -4,7 +4,6 @@ import IToken from "../../InterfaceAdapters/Shared/IToken";
 import Config from "config";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 
-// TODO: Refactoring to remove User entity
 class JWTToken implements IToken
 {
     private readonly expires: number;

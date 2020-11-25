@@ -4,6 +4,7 @@ import StatusCode from "./StatusCode";
 import FormatError from "./FormatError";
 import {loggerCli, loggerFile} from '../../Infrastructure/Shared/Logger';
 import {ErrorExceptionMapper} from './ErrorExceptionMapper';
+import ErrorHttpException from "../../Application/Shared/ErrorHttpException";
 
 export class ErrorHandler
 {
@@ -12,14 +13,9 @@ export class ErrorHandler
         const responder = new Responder();
         const formatError = new FormatError();
 
-        let {statusCode, message, errors} = ErrorExceptionMapper.handle(err);
+        let exception: ErrorHttpException = ErrorExceptionMapper.handle(err);
 
-        if (!statusCode)
-        {
-            statusCode = StatusCode.HTTP_INTERNAL_SERVER_ERROR;
-        }
-
-        if (statusCode.code === StatusCode.HTTP_INTERNAL_SERVER_ERROR.code)
+        if (exception.statusCode.code === StatusCode.HTTP_INTERNAL_SERVER_ERROR.code)
         {
             const meta = {
                 code: StatusCode.HTTP_INTERNAL_SERVER_ERROR.code,
@@ -33,6 +29,6 @@ export class ErrorHandler
 
         loggerCli.debug(err.stack);
 
-        responder.error(formatError.getFormat(message, statusCode, errors), res, statusCode);
+        responder.error(formatError.getFormat(exception), res, exception.statusCode);
     }
 }
