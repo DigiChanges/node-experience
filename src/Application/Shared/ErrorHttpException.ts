@@ -3,8 +3,8 @@ import {ValidationError} from "class-validator";
 
 class ErrorHttpException extends Error
 {
-    private readonly _statusCode: IStatusCode;
-    private readonly _errors: ValidationError[];
+    private _statusCode: IStatusCode;
+    private _errors: ValidationError[];
 
     constructor(statusCode: IStatusCode, message: string, errors: ValidationError[])
     {
@@ -19,9 +19,19 @@ class ErrorHttpException extends Error
         return this._statusCode;
     }
 
+    public set statusCode(value: IStatusCode)
+    {
+        this._statusCode = value;
+    }
+
     public get errors() : ValidationError[]
     {
         return this._errors;
+    }
+
+    public set errors(err: ValidationError[])
+    {
+        this._errors = err;
     }
 }
 
