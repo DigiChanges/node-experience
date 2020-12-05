@@ -42,7 +42,7 @@ class AuthHandler
         const loginUseCase = new LoginUseCase();
         const payload = await loginUseCase.handle(_request);
 
-        this.responder.send(payload, res, StatusCode.HTTP_CREATED, new AuthTransformer());
+        this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
 
     @httpPost('/keepAlive', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE))
@@ -54,7 +54,7 @@ class AuthHandler
         const keepAliveUseCase = new KeepAliveUseCase();
         const payload = await keepAliveUseCase.handle(_request);
 
-        this.responder.send(payload, res, StatusCode.HTTP_CREATED, new AuthTransformer());
+        this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
 
     @httpPost('/forgotPassword')
@@ -66,7 +66,7 @@ class AuthHandler
         const forgotPasswordUseCase = new ForgotPasswordUseCase();
         const payload = await forgotPasswordUseCase.handle(_request);
 
-        this.responder.send(payload, res, StatusCode.HTTP_CREATED, null);
+        this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, null);
     }
 
     @httpPost('/changeForgotPassword')
@@ -78,7 +78,7 @@ class AuthHandler
         const changeForgotPasswordUseCase = new ChangeForgotPasswordUseCase();
         const payload = await changeForgotPasswordUseCase.handle(_request);
 
-        this.responder.send(payload, res, StatusCode.HTTP_CREATED, null);
+        this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, null);
     }
 }
 

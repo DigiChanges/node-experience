@@ -37,7 +37,7 @@ class RoleHandler
         const saveRoleUseCase = new SaveRoleUseCase();
         const role: IRoleDomain = await saveRoleUseCase.handle(_request);
 
-        this.responder.send(role, res, StatusCode.HTTP_CREATED, new RoleTransformer());
+        this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
     }
 
     @httpGet('/', AuthorizeMiddleware(Permissions.ROLES_LIST))
@@ -49,7 +49,7 @@ class RoleHandler
         const listRolesUseCase = new ListRolesUseCase();
         const paginator: IPaginator = await listRolesUseCase.handle(_request);
 
-        await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, new RoleTransformer());
+        await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.ROLES_SHOW))
@@ -61,7 +61,7 @@ class RoleHandler
         const getRoleUseCase = new GetRoleUseCase();
         const role: IRoleDomain = await getRoleUseCase.handle(_request);
 
-        this.responder.send(role, res, StatusCode.HTTP_OK, new RoleTransformer());
+        this.responder.send(role, req, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
 
     @httpPut('/:id', AuthorizeMiddleware(Permissions.ROLES_UPDATE))
@@ -73,7 +73,7 @@ class RoleHandler
         const updateRoleUseCase = new UpdateRoleUseCase();
         const role: IRoleDomain = await updateRoleUseCase.handle(_request);
 
-        this.responder.send(role, res, StatusCode.HTTP_OK, new RoleTransformer());
+        this.responder.send(role, req, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.ROLES_DELETE))
@@ -85,7 +85,7 @@ class RoleHandler
         const removeRoleUseCase = new RemoveRoleUseCase();
         const data = await removeRoleUseCase.handle(_request);
 
-        this.responder.send(data, res, StatusCode.HTTP_OK, new RoleTransformer());
+        this.responder.send(data, req, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
 }
 

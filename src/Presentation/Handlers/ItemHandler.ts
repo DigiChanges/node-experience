@@ -37,7 +37,7 @@ class ItemHandler
         const saveItemUseCase = new SaveItemUseCase();
         const item: IItemDomain = await saveItemUseCase.handle(_request);
 
-        this.responder.send(item, res, StatusCode.HTTP_CREATED, new ItemTransformer());
+        this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
 
     @httpGet('/', AuthorizeMiddleware(Permissions.ITEMS_LIST))
@@ -49,7 +49,7 @@ class ItemHandler
         const listItemsUseCase = new ListItemsUseCase();
         const paginator: IPaginator = await listItemsUseCase.handle(_request);
 
-        await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, new ItemTransformer());
+        await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.ITEMS_SHOW))
@@ -61,7 +61,7 @@ class ItemHandler
         const getItemUseCase = new GetItemUseCase();
         const item: IItemDomain = await getItemUseCase.handle(_request);
 
-        this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
+        this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
     @httpPut('/:id', AuthorizeMiddleware(Permissions.ITEMS_UPDATE))
@@ -73,7 +73,7 @@ class ItemHandler
         const updateItemUseCase = new UpdateItemUseCase();
         const item: IItemDomain = await updateItemUseCase.handle(_request);
 
-        this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
+        this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.ITEMS_DELETE))
@@ -85,7 +85,7 @@ class ItemHandler
         const removeItemUseCase = new RemoveItemUseCase();
         const item: IItemDomain = await removeItemUseCase.handle(_request);
 
-        this.responder.send(item, res, StatusCode.HTTP_OK, new ItemTransformer());
+        this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 }
 

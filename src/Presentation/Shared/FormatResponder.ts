@@ -5,13 +5,14 @@ import IStatusCode from "../../InterfaceAdapters/IPresentation/IStatusCode";
 @injectable()
 class FormatResponder implements IFormatResponder
 {
-    getFormatData = (data: any, statusCode: IStatusCode): any =>
+    getFormatData = (data: any, statusCode: IStatusCode, metadata: any = null): any =>
     {
         return {
             'status': statusCode.status,
             'code': statusCode.code,
             'statusCode': statusCode.statusCode,
-            'data': data
+            'data': data,
+            'metadata': metadata ? metadata : undefined
         };
     };
 }

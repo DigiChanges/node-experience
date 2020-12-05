@@ -46,7 +46,7 @@ class FileHandler
         const listFilesUseCase = new ListFilesUseCase();
         const paginator: IPaginator = await listFilesUseCase.handle(_request);
 
-        await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, new FileTransformer());
+        await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new FileTransformer());
     }
 
     @httpGet('/objects', AuthorizeMiddleware(Permissions.FILES_LIST))
@@ -58,7 +58,7 @@ class FileHandler
         const listObjectsUseCase = new ListObjectsUseCase();
         const objects = await listObjectsUseCase.handle(_request);
 
-        this.responder.send(objects, res, StatusCode.HTTP_OK, new ObjectTransformer());
+        this.responder.send(objects, req, res, StatusCode.HTTP_OK, new ObjectTransformer());
     }
 
     @httpPost('/base64', AuthorizeMiddleware(Permissions.FILES_UPLOAD))
@@ -70,7 +70,7 @@ class FileHandler
         const uploadBase64UseCase = new UploadBase64UseCase();
         const file = await uploadBase64UseCase.handle(_request);
 
-        this.responder.send(file, res, StatusCode.HTTP_CREATED , new FileTransformer());
+        this.responder.send(file, req, res, StatusCode.HTTP_CREATED , new FileTransformer());
     }
 
     @httpPost('/', FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPLOAD))
@@ -82,7 +82,7 @@ class FileHandler
         const uploadMultipartUseCase = new UploadMultipartUseCase();
         const file = await uploadMultipartUseCase.handle(_request);
 
-        this.responder.send(file, res, StatusCode.HTTP_CREATED , new FileTransformer());
+        this.responder.send(file, req, res, StatusCode.HTTP_CREATED , new FileTransformer());
     }
 
     @httpPost('/presignedGetObject', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))
@@ -94,7 +94,7 @@ class FileHandler
         const getPresignedGetObjectUseCase = new GetPresignedGetObjectUseCase();
         const presignedGetObject = await getPresignedGetObjectUseCase.handle(_request);
 
-        this.responder.send({presignedGetObject}, res, StatusCode.HTTP_OK, null);
+        this.responder.send({presignedGetObject}, req, res, StatusCode.HTTP_OK, null);
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))
@@ -119,7 +119,7 @@ class FileHandler
         const updateFileBase64UseCase = new UpdateFileBase64UseCase();
         const file = await updateFileBase64UseCase.handle(_request);
 
-        this.responder.send(file, res, StatusCode.HTTP_CREATED , new FileTransformer());
+        this.responder.send(file, req, res, StatusCode.HTTP_CREATED , new FileTransformer());
     }
 
     @httpPut('/:id',FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPDATE))
@@ -131,7 +131,7 @@ class FileHandler
         const updateFileMultipartUseCase = new UpdateFileMultipartUseCase();
         const file = await updateFileMultipartUseCase.handle(_request);
 
-        this.responder.send(file, res, StatusCode.HTTP_CREATED , new FileTransformer());
+        this.responder.send(file, req, res, StatusCode.HTTP_CREATED , new FileTransformer());
     }
 }
 

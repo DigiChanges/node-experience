@@ -44,9 +44,7 @@ const AuthenticationMiddleware = (req: any, res: any, next: any) =>
 
             const authService = new AuthService();
 
-            let tokentDecode = authService.decodeToken(token);
-
-            req.tokenDecode = tokentDecode;
+            req.tokenDecode = authService.decodeToken(token);
 
             next();
         }

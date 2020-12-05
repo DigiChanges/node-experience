@@ -75,7 +75,7 @@ class Notificator
                                     emailNotification.description = err;
                                     repository.save(emailNotification);
                                 }
-                                throw new ErrorException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, "Something is wrong. Please try again later.");
+                                throw new ErrorException("Something is wrong. Please try again later.", "NotificatorException");
                             });
         } catch(e) {
             throw Error("Error to send Email");
