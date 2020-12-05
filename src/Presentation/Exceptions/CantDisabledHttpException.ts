@@ -5,7 +5,7 @@ class CantDisabledHttpException extends ErrorHttpException
 {
     constructor()
     {
-        super(StatusCode.HTTP_FORBIDDEN, "SuperAdmin can't be disable");
+        super(StatusCode.HTTP_FORBIDDEN, "SuperAdmin can't be disable", []);
     }
 }
 

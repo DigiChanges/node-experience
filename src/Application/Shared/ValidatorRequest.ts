@@ -1,7 +1,7 @@
 import {validate} from "class-validator";
 import _ from "lodash";
-import ValidationErrorException from "./ValidationErrorException";
 import StatusCode from "../../Presentation/Shared/StatusCode";
+import ErrorHttpException from "./ErrorHttpException";
 
 class ValidatorRequest
 {
@@ -11,7 +11,7 @@ class ValidatorRequest
 
         if (!_.isEmpty(errors))
         {
-            throw new ValidationErrorException(StatusCode.HTTP_FORBIDDEN, 'Failed Request.', errors);
+            throw new ErrorHttpException(StatusCode.HTTP_FORBIDDEN, 'Failed Request.', errors);
         }
     }
 }

@@ -5,7 +5,7 @@ class UserDisabledHttpException extends ErrorHttpException
 {
     constructor()
     {
-        super(StatusCode.HTTP_FORBIDDEN, 'Your user is disable');
+        super(StatusCode.HTTP_FORBIDDEN, 'Your user is disable', []);
     }
 }
 

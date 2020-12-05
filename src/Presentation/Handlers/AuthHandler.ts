@@ -40,10 +40,6 @@ class AuthHandler
         const _request = new AuthRequest(req);
         await ValidatorRequest.handle(_request);
 
-        const bcryptEncryptionStrategy = new BcryptEncryptionStrategy();
-
-        // await bcryptEncryptionStrategy.decrypt("1234");
-
         const loginUseCase = new LoginUseCase();
         const payload = await loginUseCase.handle(_request);
 

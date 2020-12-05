@@ -3,9 +3,9 @@ import StatusCode from "../Shared/StatusCode";
 
 class NotFoundHttpException extends ErrorHttpException
 {
-    constructor(message: string)
+    constructor()
     {
-        super(StatusCode.HTTP_BAD_REQUEST, message);
+        super(StatusCode.HTTP_BAD_REQUEST, 'message', []);
     }
 }
 

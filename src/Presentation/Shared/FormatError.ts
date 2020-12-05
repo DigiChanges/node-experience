@@ -3,11 +3,14 @@ import {ValidationError} from "class-validator";
 import ValidationModel from "../../Application/Shared/ValidationModel";
 import _ from "lodash";
 import IStatusCode from "../../InterfaceAdapters/IPresentation/IStatusCode";
+import ErrorHttpException from "../../Application/Shared/ErrorHttpException";
 
 class FormatError
 {
-    getFormat = (message: any, statusCode: IStatusCode, errors: ValidationError[]): any =>
+    // getFormat = (message: any, statusCode: IStatusCode, errors: ValidationError[]): any =>
+    getFormat = (errorHttpException: ErrorHttpException): any =>
     {
+        let {statusCode, message, errors} = errorHttpException;
         let validationModels: ValidationModel[] = [];
 
         if (!_.isEmpty(errors))
@@ -23,7 +26,7 @@ class FormatError
             'status': statusCode.status,
             'code': statusCode.code,
             'statusCode': statusCode.statusCode,
-            'message': statusCode === StatusCode.HTTP_INTERNAL_SERVER_ERROR.code ? 'Internal Error Server' : message,
+            'message': statusCode.code === StatusCode.HTTP_INTERNAL_SERVER_ERROR.code ? 'Internal Error Server' : message,
             'errors': _.isEmpty(validationModels) ? null : validationModels
         };
     };

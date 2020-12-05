@@ -5,7 +5,7 @@ class PasswordWrongHttpException extends ErrorHttpException
 {
     constructor()
     {
-        super(StatusCode.HTTP_FORBIDDEN, 'Your current password is wrong');
+        super(StatusCode.HTTP_FORBIDDEN, 'Your current password is wrong', []);
     }
 }
 
