@@ -97,6 +97,10 @@
   },
   "apiWhitelist": [
     {
+      "method": ["GET"],
+      "url": "/"
+    },
+    {
       "method": ["POST"],
       "url": "/api/auth/login"
     },

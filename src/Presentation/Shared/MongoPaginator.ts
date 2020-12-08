@@ -3,17 +3,17 @@ import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import IFilter from "../../InterfaceAdapters/Shared/IFilter";
 import ISort from "../../InterfaceAdapters/Shared/ISort";
 import IPagination from "../../InterfaceAdapters/Shared/IPagination";
-import {DocumentQuery} from "mongoose";
+import {Query} from "mongoose";
 
 class MongoPaginator implements IPaginator
 {
-    private documentQuery: DocumentQuery<any[], any>;
+    private documentQuery: Query<any[], any>;
     private filter: IFilter;
     private sort: ISort;
     private pagination: IPagination;
     private total: number;
 
-    constructor(documentQuery: DocumentQuery<any[], any>, criteria: ICriteria)
+    constructor(documentQuery: Query<any[], any>, criteria: ICriteria)
     {
         this.documentQuery = documentQuery;
         this.filter = criteria.getFilter();

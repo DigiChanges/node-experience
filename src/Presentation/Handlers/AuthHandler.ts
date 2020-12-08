@@ -24,7 +24,6 @@ import ForgotPasswordUseCase from "../../Domain/UseCases/Auth/ForgotPasswordUseC
 import KeepAliveUseCase from "../../Domain/UseCases/Auth/KeepAliveUseCase";
 
 import ValidatorRequest from "../../Application/Shared/ValidatorRequest";
-import BcryptEncryptionStrategy from "../../Infrastructure/Encryption/BcryptEncryptionStrategy";
 
 @controller('/api/auth')
 class AuthHandler

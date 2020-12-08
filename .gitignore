@@ -228,4 +228,7 @@ override.tf.json
 id_rsa
 id_rsa.pub
 
+# Jest Test
+globalConfig.json
+
 # End of https://www.gitignore.io/api/node,phpstorm+all

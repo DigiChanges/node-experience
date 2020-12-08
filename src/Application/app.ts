@@ -1,17 +1,22 @@
 import "reflect-metadata";
 import * as bodyParser from "body-parser";
+import express from "express";
 import {InversifyExpressServer} from "inversify-express-utils";
+import compression from "compression";
+import cors from "cors";
+import helmet from "helmet";
+import Config from "config";
+
 import Container from "../inversify.config";
+
+import "../Presentation/Handlers/IndexHandler";
 import "../Presentation/Handlers/ItemHandler";
 import "../Presentation/Handlers/UserHandler";
 import "../Presentation/Handlers/AuthHandler";
 import "../Presentation/Handlers/RoleHandler";
 import "../Presentation/Handlers/FileHandler";
 import "../Presentation/Handlers/NotificationHandler";
-import compression from "compression";
-import cors from "cors";
-import helmet from "helmet";
-import Config from "config";
+
 import LoggerWinston from "../Presentation/Middlewares/LoggerWinston";
 import AuthenticationMiddleware from "../Presentation/Middlewares/AuthenticationMiddleware";
 import {ErrorHandler} from "../Presentation/Shared/ErrorHandler";
@@ -22,6 +27,7 @@ class App
 {
     public port?: number;
     private server: InversifyExpressServer;
+    private app: express.Application;
 
     constructor()
     {
@@ -29,7 +35,7 @@ class App
         this.server = new InversifyExpressServer(Container);
     }
 
-    public async listen()
+    public async initConfig()
     {
         this.server.setConfig((app: any) =>
         {
@@ -51,14 +57,25 @@ class App
         {
             app.use(ErrorHandler.handle);
         });
+    }
 
-        const appServer = await this.server.build();
+    public async build()
+    {
+        this.app = await this.server.build();
+    }
 
-        appServer.use(RedirectRouteNotFoundMiddleware);
+    public async listen()
+    {
+        this.app.use(RedirectRouteNotFoundMiddleware);
 
-        appServer.listen(this.port, () => {
+        this.app.listen(this.port, () => {
             loggerCli.debug(`App listening on the port ${this.port}`);
         });
+    }
+
+    public getApp()
+    {
+        return this.app;
     }
 }
 

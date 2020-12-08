@@ -6,7 +6,7 @@ import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import UserFilter from "../../Presentation/Criterias/User/UserFilter";
 import IUser from "../../InterfaceAdapters/IEntities/Mongoose/IUserDocument";
-import {DocumentQuery, Model} from "mongoose";
+import {Query, Model} from "mongoose";
 import {connection} from "../Database/MongooseCreateConnection";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 
@@ -49,7 +49,6 @@ class UserMongoRepository implements IUserRepository
         }
 
         return user;
-
     }
 
     async getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>
@@ -66,7 +65,7 @@ class UserMongoRepository implements IUserRepository
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        const queryBuilder: DocumentQuery<IUser[], IUser> = this.repository.find({});
+        const queryBuilder: Query<IUser[], IUser> = this.repository.find({});
         const filter = criteria.getFilter();
 
         if (filter.has(UserFilter.ENABLE))

@@ -16,7 +16,7 @@
     "types": [
       "node",
       "reflect-metadata",
-      "jasmine"
+      "jest"
     ],
     "typeRoots": [
       "./node_modules/@types"
@@ -32,7 +32,8 @@
     }
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "./typings/*"
   ],
   "exclude": [
     "src/public"

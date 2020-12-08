@@ -21,7 +21,7 @@ class DatabaseFactory
            this.dbDefault = Config.get('dbConfig.default');
         }
 
-        const config = Config.get('dbConfig.' + this.dbDefault);
+        const config = Config.get(`dbConfig.${this.dbDefault}`);
 
         if (this.dbDefault === 'TypeORM')
         {
