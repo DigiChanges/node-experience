@@ -23,6 +23,7 @@ import CreateVapID from "./Presentation/Commands/CreateVapID";
         const databaseFactory = new DatabaseFactory();
 
         const createConnection = databaseFactory.create();
+        createConnection.initConfig();
 
         await createConnection.create();
 
