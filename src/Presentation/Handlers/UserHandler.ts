@@ -47,7 +47,7 @@ class UserHandler
         const saveUserUseCase = new SaveUserUseCase();
         const user: IUserDomain = await saveUserUseCase.handle(_request);
 
-        this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
+        this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
     @httpGet('/', AuthorizeMiddleware(Permissions.USERS_LIST))
@@ -59,7 +59,7 @@ class UserHandler
         const listUsersUseCase = new ListUsersUseCase();
         const paginator: IPaginator = await listUsersUseCase.handle(_request);
 
-        await this.responder.paginate(paginator, res, StatusCode.HTTP_OK, new UserTransformer());
+        await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.USERS_SHOW))
@@ -71,7 +71,7 @@ class UserHandler
         const getUserUseCase = new GetUserUseCase();
         const user: IUserDomain = await getUserUseCase.handle(_request);
 
-        this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
+        this.responder.send(user, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
     @httpPut('/:id', AuthorizeMiddleware(Permissions.USERS_UPDATE))
@@ -83,7 +83,7 @@ class UserHandler
         const getUserUseCase = new UpdateUserUseCase();
         const user: IUserDomain = await getUserUseCase.handle(_request);
 
-        this.responder.send(user, res, StatusCode.HTTP_OK, new UserTransformer());
+        this.responder.send(user, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
     @httpPut('/assignRole/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN_ROLE))
@@ -95,7 +95,7 @@ class UserHandler
         const assignRoleUseCase = new AssignRoleUseCase();
         const _response: IUserDomain = await assignRoleUseCase.handle(_request);
 
-        this.responder.send(_response, res, StatusCode.HTTP_OK, new UserTransformer());
+        this.responder.send(_response, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.USERS_DELETE))
@@ -107,7 +107,7 @@ class UserHandler
         const removeUserUseCase = new RemoveUserUseCase();
         const data = await removeUserUseCase.handle(_request);
 
-        this.responder.send(data, res, StatusCode.HTTP_OK, new UserTransformer());
+        this.responder.send(data, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
     @httpPost('/changeMyPassword', AuthorizeMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD))
@@ -119,7 +119,7 @@ class UserHandler
         const changeMyPasswordUseCase = new ChangeMyPasswordUseCase();
         const user: IUserDomain = await changeMyPasswordUseCase.handle(_request);
 
-        this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
+        this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
     @httpPut('/changeUserPassword/:id', AuthorizeMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD))
@@ -131,7 +131,7 @@ class UserHandler
         const changeUserPasswordUseCase = new ChangeUserPasswordUseCase();
         const user: IUserDomain = await changeUserPasswordUseCase.handle(_request);
 
-        this.responder.send(user, res, StatusCode.HTTP_CREATED, new UserTransformer());
+        this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 }
 

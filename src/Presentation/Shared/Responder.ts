@@ -1,4 +1,4 @@
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import Transformer from "./Transformer";
 import { inject, injectable } from "inversify";
 import IFormatResponder from '../../InterfaceAdapters/Shared/IFormatResponder';
@@ -6,6 +6,7 @@ import { TYPES } from "../../types";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import PaginatorTransformer from "./PaginatorTransformer";
 import IFileDTO from '../../InterfaceAdapters/Payloads/FileSystem/IFileDTO';
+import IHttpStatusCode from "../../InterfaceAdapters/Shared/IHttpStatusCode";
 
 @injectable()
 class Responder
@@ -13,8 +14,10 @@ class Responder
     @inject(TYPES.IFormatResponder)
     private formatResponder: IFormatResponder;
 
-    public send(data: any, response: Response, status: any, transformer: Transformer = null)
+    public send(data: any, request: Request | any, response: Response, status: IHttpStatusCode, transformer: Transformer = null)
     {
+        let metadata = null;
+
         if (!transformer)
         {
             return response.status(status.code).send(data);
@@ -22,15 +25,30 @@ class Responder
 
         data = transformer.handle(data);
 
-        response.status(status.code).send(this.formatResponder.getFormatData(data, status));
+        if (request)
+        {
+            metadata = {
+                refreshToken: request.refreshToken
+            }
+        }
+
+        response.status(status.code).send(this.formatResponder.getFormatData(data, status, metadata));
     }
 
     // TODO: Refactor to encapsulate this logic
-    public async paginate(paginator: IPaginator, response: Response, status: any, transformer: Transformer = null)
+    public async paginate(paginator: IPaginator, request: Request | any, response: Response, status: IHttpStatusCode, transformer: Transformer = null)
     {
+        let metadata = null;
         let data = await paginator.paginate();
 
-        let result = this.formatResponder.getFormatData(data, status)
+        if (request)
+        {
+            metadata = {
+                refreshToken: request.refreshToken
+            }
+        }
+
+        let result = this.formatResponder.getFormatData(data, status, metadata)
 
         if (!transformer)
         {
@@ -52,7 +70,7 @@ class Responder
         await response.status(status.code).send(result);
     }
 
-    public sendStream(fileDto: IFileDTO, response: Response, status: any)
+    public sendStream(fileDto: IFileDTO, response: Response, status: IHttpStatusCode)
     {
         response.writeHead(status.code, {'Content-Type': fileDto.metadata.mimeType });
 

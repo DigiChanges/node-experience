@@ -22,6 +22,7 @@ import AuthenticationMiddleware from "../Presentation/Middlewares/Authentication
 import {ErrorHandler} from "../Presentation/Shared/ErrorHandler";
 import {loggerCli} from "../Infrastructure/Shared/Logger";
 import RedirectRouteNotFoundMiddleware from "../Presentation/Middlewares/RedirectRouteNotFoundMiddleware";
+import RefreshTokenMiddleware from "../Presentation/Middlewares/RefreshTokenMiddleware";
 
 class App
 {
@@ -51,6 +52,7 @@ class App
             app.use(helmet());
             app.use(LoggerWinston);
             app.use(AuthenticationMiddleware);
+            app.use(RefreshTokenMiddleware);
         });
 
         this.server.setErrorConfig((app: any) =>

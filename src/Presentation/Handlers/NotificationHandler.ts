@@ -26,7 +26,7 @@ class NotificationHandler {
         const createSubscriptionUseCase = new CreateSubscriptionUseCase();
         const notification = await createSubscriptionUseCase.handle(_request);
 
-        this.responder.send(notification, res, StatusCode.HTTP_CREATED, null);
+        this.responder.send(notification, req, res, StatusCode.HTTP_CREATED, null);
     }
 
     @httpPost('/message')
@@ -38,7 +38,7 @@ class NotificationHandler {
         const sendPushNotificationUseCase = new SendPushNotificationUseCase();
         const notification = await sendPushNotificationUseCase.handle(_request);
 
-        this.responder.send(notification, res, StatusCode.HTTP_CREATED, null);
+        this.responder.send(notification, req, res, StatusCode.HTTP_CREATED, null);
     }
 }
 
