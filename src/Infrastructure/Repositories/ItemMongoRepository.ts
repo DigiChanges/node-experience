@@ -1,4 +1,4 @@
-import {DocumentQuery, Model} from "mongoose";
+import {Query, Model} from "mongoose";
 import {injectable} from "inversify";
 
 import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemRepository";
@@ -42,7 +42,7 @@ class ItemMongoRepository implements IItemRepository
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        const queryBuilder: DocumentQuery<IItem[], IItem> = this.repository.find();
+        const queryBuilder: Query<IItem[], IItem> = this.repository.find();
         const filter = criteria.getFilter();
 
         if (filter.has(ItemFilter.TYPE))

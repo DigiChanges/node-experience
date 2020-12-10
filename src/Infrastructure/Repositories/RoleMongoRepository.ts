@@ -5,7 +5,7 @@ import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import RoleFilter from "../../Presentation/Criterias/Role/RoleFilter";
-import {DocumentQuery, Model} from "mongoose";
+import {Query, Model} from "mongoose";
 import IRole from "../../InterfaceAdapters/IEntities/Mongoose/IRoleDocument";
 import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
 import {connection} from "../Database/MongooseCreateConnection";
@@ -41,7 +41,7 @@ class RoleMongoRepository implements IRoleRepository
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        const queryBuilder: DocumentQuery<IRole[], IRole> = this.repository.find();
+        const queryBuilder: Query<IRole[], IRole> = this.repository.find();
         const filter = criteria.getFilter();
 
         if (filter.has(RoleFilter.ENABLE))

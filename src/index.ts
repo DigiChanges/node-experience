@@ -10,6 +10,7 @@ import IFilesystem from "./InterfaceAdapters/Shared/IFilesystem";
 
 export let filesystem: IFilesystem = null;
 import EventHandler from "./Infrastructure/Events/EventHandler";
+import ICreateConnection from "./InterfaceAdapters/IDatabase/ICreateConnection";
 
 (async () => {
     try {
@@ -18,8 +19,9 @@ import EventHandler from "./Infrastructure/Events/EventHandler";
 
         const databaseFactory = new DatabaseFactory();
 
-        const createConnection = databaseFactory.create();
+        const createConnection: ICreateConnection = databaseFactory.create();
 
+        createConnection.initConfig();
         await createConnection.create();
 
         filesystem = FilesystemFactory.create();
@@ -27,9 +29,11 @@ import EventHandler from "./Infrastructure/Events/EventHandler";
         const eventHandler = EventHandler.getInstance();
 
         const app = new App();
+        await app.initConfig();
+        await app.build();
         await app.listen();
     }
-    catch (error)
+    catch (error) // TODO: Change this error catch
     {
         loggerCli.info('Error while connecting to the database', error);
         return error;

@@ -1,4 +1,4 @@
-import {DocumentQuery, Model} from "mongoose";
+import {Query, Model} from "mongoose";
 import {injectable} from "inversify";
 
 import ErrorException from "../../Application/Shared/ErrorException";
@@ -56,7 +56,7 @@ class NotificationMongoRepository implements INotificationRepository
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        const queryBuilder: DocumentQuery<INotification[], INotification> = this.repository.find();
+        const queryBuilder: Query<INotification[], INotification> = this.repository.find();
         const filter = criteria.getFilter();
 
         if (filter.has(NotificationFilter.KIND))

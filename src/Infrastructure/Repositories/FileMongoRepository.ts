@@ -1,4 +1,4 @@
-import {DocumentQuery, Model} from "mongoose";
+import {Query, Model} from "mongoose";
 import {injectable} from "inversify";
 
 import IFileRepository from "../../InterfaceAdapters/IRepositories/IFileRepository";
@@ -49,7 +49,7 @@ class FileMongoRepository implements IFileRepository
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        const queryBuilder: DocumentQuery<IFile[], IFile> = this.repository.find();
+        const queryBuilder: Query<IFile[], IFile> = this.repository.find();
         const filter = criteria.getFilter();
 
         if (filter.has(FileFilter.NAME))
