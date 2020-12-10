@@ -15,7 +15,7 @@ class IndexHandler
     @httpGet('/')
     public async index (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        this.responder.send({message: 'Greetings to Node Experience'}, res, StatusCode.HTTP_OK, null);
+        this.responder.send({message: 'Greetings to Node Experience'}, req, res, StatusCode.HTTP_OK, null);
     }
 }
 
