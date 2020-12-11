@@ -38,6 +38,11 @@ class RoleSqlRepository implements IRoleRepository
         return role;
     }
 
+    async getBySlug(slug: string): Promise<IRoleDomain>
+    {
+        return await this.repository.findOne({slug});
+    }
+
     async list(criteria: ICriteria): Promise<IPaginator>
     {
         let queryBuilder = this.repository.createQueryBuilder("i");

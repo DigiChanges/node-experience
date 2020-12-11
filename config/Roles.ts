@@ -2,11 +2,11 @@ import Permissions from "./Permissions";
 
 class Roles
 {
-    static readonly SUPER_ADMIN: string = 'superAdmin';
-    static readonly ADMIN: string = 'admin';
-    static readonly OPERATOR: string = 'operator';
+    static readonly SUPER_ADMIN: string = 'SuperAdmin';
+    static readonly ADMIN: string = 'Admin';
+    static readonly OPERATOR: string = 'Operator';
 
-    getRoles(): any
+    static getRoles(): any
     {
         return {
             [Roles.SUPER_ADMIN]: [

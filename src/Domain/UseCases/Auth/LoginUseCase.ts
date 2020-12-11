@@ -1,4 +1,4 @@
-import { lazyInject } from '../../../inversify.config'
+import { lazyInject } from '../../../inversify.config';
 import AuthPayload from "../../../InterfaceAdapters/Payloads/Auth/AuthPayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import IEncryption from "../../../InterfaceAdapters/Shared/IEncryption";

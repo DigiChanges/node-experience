@@ -39,6 +39,11 @@ class RoleMongoRepository implements IRoleRepository
         return role;
     }
 
+    async getBySlug(slug: string): Promise<IRoleDomain>
+    {
+        return this.repository.findOne({slug});
+    }
+
     async list(criteria: ICriteria): Promise<IPaginator>
     {
         const queryBuilder: Query<IRole[], IRole> = this.repository.find();

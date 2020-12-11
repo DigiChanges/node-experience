@@ -23,28 +23,21 @@ class FileMongoRepository implements IFileRepository
         this.repository = connection.model<IFile>('File');
     }
 
-    async save (item: IFileDomain): Promise<IFileDomain>
+    async save (file: IFileDomain): Promise<IFileDomain>
     {
-        return await this.repository.create(item);
+        return await this.repository.create(file);
     }
 
     async getOne(id: string): Promise<IFileDomain>
     {
-        try
-        {
-            const item = await this.repository.findOne({_id: id});
+        const file = await this.repository.findOne({_id: id});
 
-            if (!item)
-            {
-                throw new NotFoundException('File');
-            }
-
-            return item;
-        }
-        catch(e)
+        if (!file)
         {
             throw new NotFoundException('File');
         }
+
+        return file;
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -63,28 +56,21 @@ class FileMongoRepository implements IFileRepository
         return new MongoPaginator(queryBuilder, criteria);
     }
 
-    async update(item: IFileDomain): Promise<IFileDomain>
+    async update(file: IFileDomain): Promise<IFileDomain>
     {
-        return this.repository.updateOne({_id: item.getId()}, item);
+        return this.repository.updateOne({_id: file.getId()}, file);
     }
 
     async delete(id: string): Promise<IFileDomain>
     {
-        try
-        {
-            const item = await this.repository.findByIdAndDelete({_id: id});
+        const file = await this.repository.findByIdAndDelete({_id: id});
 
-            if (!item)
-            {
-                throw new NotFoundException('File');
-            }
-
-            return item;
-        }
-        catch(e)
+        if (!file)
         {
             throw new NotFoundException('File');
         }
+
+        return file;
     }
 
 }
