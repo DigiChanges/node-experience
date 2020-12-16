@@ -26,6 +26,8 @@ class ExceptionFactory
     {
         let exception = this.exceptionsMapper[err?.name || 'Error'];
 
+        exception.message = err?.message || exception.message;
+
         if (err instanceof ErrorHttpException)
         {
             exception.statusCode = err.statusCode;

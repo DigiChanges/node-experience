@@ -74,11 +74,6 @@ class App
             loggerCli.debug(`App listening on the port ${this.port}`);
         });
     }
-
-    public getApp()
-    {
-        return this.app;
-    }
 }
 
 export default App;

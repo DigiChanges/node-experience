@@ -24,7 +24,6 @@ import UserSqlRepository from "./Infrastructure/Repositories/UserSqlRepository";
 import FileSqlRepository from "./Infrastructure/Repositories/FileSqlRepository";
 import RoleSqlRepository from "./Infrastructure/Repositories/RoleSqlRepository";
 
-
 const container = new Container();
 
 /* IServices */

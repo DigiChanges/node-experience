@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
 import { TYPES } from "../../types";
-import {lazyInject} from "../../inversify.config";
+import {inject} from "inversify";
 import Responder from "../Shared/Responder";
 import StatusCode from "../Shared/StatusCode";
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
@@ -25,7 +25,7 @@ import ValidatorRequest from "../../Application/Shared/ValidatorRequest";
 @controller('/api/items')
 class ItemHandler
 {
-    @lazyInject(TYPES.Responder)
+    @inject(TYPES.Responder)
     private responder: Responder;
 
     @httpPost('/', AuthorizeMiddleware(Permissions.ITEMS_SAVE))
@@ -73,7 +73,7 @@ class ItemHandler
         const updateItemUseCase = new UpdateItemUseCase();
         const item: IItemDomain = await updateItemUseCase.handle(_request);
 
-        this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
+        this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.ITEMS_DELETE))

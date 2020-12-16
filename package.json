@@ -13,12 +13,13 @@
     "dev": "nodemon --watch src -e ts,ejs --exec yarn dev:start",
     "start": "ts-node src/index.ts",
     "start:test": "node dist/src/index.js",
-    "test": "jest"
+    "test": "jest --runInBand --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@types/faker": "^5.1.5",
     "@types/jest": "^26.0.16",
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
@@ -34,6 +35,7 @@
     "envalid": "^6.0.1",
     "express": "^4.17.1",
     "express-winston": "^4.0.3",
+    "faker": "^5.1.0",
     "handlebars": "^4.7.6",
     "helmet": "^3.22.0",
     "inversify": "^5.0.1",
@@ -49,6 +51,7 @@
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.28",
     "multer": "^1.4.2",
+    "multiple-faker": "^1.0.0",
     "node-minio": "^1.0.2",
     "nodemailer": "6.4.6",
     "npx": "^10.2.2",
