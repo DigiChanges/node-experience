@@ -36,7 +36,12 @@ module.exports = {
     "/node_modules/",
     "dist/src/Tests/coverage",
     "dist/src/Presentation/Requests/Command/*",
-    "src/Presentation/Commands/*"
+    "src/Presentation/Commands/*",
+    "src/Application/app.*",
+    "src/index.*",
+    "src/command.*",
+    "src/Presentation/Shared/StatusCode.*",
+    "config/validateEnv.*"
   ],
 
   // Indicates which provider should be used to instrument code for coverage

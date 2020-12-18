@@ -41,6 +41,22 @@ class UserSeedFactory
 
         await this.roleRepo.save(roleAdmin);
 
+        const roleOperator: IRoleDomain = new Role();
+        roleOperator.name = 'Operator';
+        roleOperator.slug = 'operator';
+        roleOperator.permissions = [];
+        roleOperator.enable = true;
+
+        await this.roleRepo.save(roleOperator);
+
+        const roleOperatorDisabled: IRoleDomain = new Role();
+        roleOperatorDisabled.name = 'OperatorDisabled';
+        roleOperatorDisabled.slug = 'operatordisabled';
+        roleOperatorDisabled.permissions = [];
+        roleOperatorDisabled.enable = false;
+
+        await this.roleRepo.save(roleOperatorDisabled);
+
         let userSuperAdmin: IUserDomain = new User();
         userSuperAdmin.firstName = 'Super';
         userSuperAdmin.lastName = 'Admin';
@@ -50,7 +66,7 @@ class UserSeedFactory
         userSuperAdmin.confirmationToken = null;
         userSuperAdmin.passwordRequestedAt = null;
         userSuperAdmin.permissions = [];
-        userSuperAdmin.roles = [roleAdmin];
+        userSuperAdmin.roles = [roleSuperAdmin];
         userSuperAdmin.isSuperAdmin = true;
 
         await this.userRepo.save(userSuperAdmin);
@@ -64,10 +80,52 @@ class UserSeedFactory
         userAdmin.confirmationToken = null;
         userAdmin.passwordRequestedAt = null;
         userAdmin.permissions = [];
-        userAdmin.roles = [roleSuperAdmin];
+        userAdmin.roles = [roleAdmin];
         userAdmin.isSuperAdmin = false;
 
         await this.userRepo.save(userAdmin);
+
+        let userOperator: IUserDomain = new User();
+        userOperator.firstName = 'operator';
+        userOperator.lastName = 'enable';
+        userOperator.email = 'operator@enable.com';
+        userOperator.password = await this.encryption.encrypt('123456789');
+        userOperator.enable = true;
+        userOperator.confirmationToken = null;
+        userOperator.passwordRequestedAt = null;
+        userOperator.permissions = [];
+        userOperator.roles = [roleOperator];
+        userOperator.isSuperAdmin = false;
+
+        await this.userRepo.save(userOperator);
+
+        let userOperatorDisabled: IUserDomain = new User();
+        userOperatorDisabled.firstName = 'operator';
+        userOperatorDisabled.lastName = 'disabled';
+        userOperatorDisabled.email = 'operator@disabled.com';
+        userOperatorDisabled.password = await this.encryption.encrypt('1234567901');
+        userOperatorDisabled.enable = false;
+        userOperatorDisabled.confirmationToken = null;
+        userOperatorDisabled.passwordRequestedAt = null;
+        userOperatorDisabled.permissions = [];
+        userOperatorDisabled.roles = [roleOperator];
+        userOperatorDisabled.isSuperAdmin = false;
+
+        await this.userRepo.save(userOperatorDisabled);
+
+        let userOperatorRoleDisabled: IUserDomain = new User();
+        userOperatorRoleDisabled.firstName = 'operator';
+        userOperatorRoleDisabled.lastName = 'roleDisabled';
+        userOperatorRoleDisabled.email = 'operator@roleDisabled.com';
+        userOperatorRoleDisabled.password = await this.encryption.encrypt('123456790');
+        userOperatorRoleDisabled.enable = true;
+        userOperatorRoleDisabled.confirmationToken = null;
+        userOperatorRoleDisabled.passwordRequestedAt = null;
+        userOperatorRoleDisabled.permissions = [];
+        userOperatorRoleDisabled.roles = [roleOperatorDisabled];
+        userOperatorRoleDisabled.isSuperAdmin = false;
+
+        await this.userRepo.save(userOperatorRoleDisabled);
     }
 }
 

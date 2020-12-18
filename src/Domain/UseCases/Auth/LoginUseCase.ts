@@ -4,9 +4,12 @@ import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepos
 import IEncryption from "../../../InterfaceAdapters/Shared/IEncryption";
 import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
 import TokenFactory from "../../../Infrastructure/Factories/TokenFactory";
+
 import {REPOSITORIES} from "../../../repositories";
+
 import BadCredentialsException from "../../Exceptions/BadCredentialsException";
 import UserDisabledException from "../../Exceptions/UserDisabledException";
+import RoleDisabledException from "../../Exceptions/RoleDisabledException";
 
 class LoginUseCase
 {
@@ -30,6 +33,13 @@ class LoginUseCase
         if(user.enable === false)
         {
             throw new UserDisabledException();
+        }
+
+        const roleDisabled = user.getRoles().find(role => role.enable === false);
+
+        if (roleDisabled)
+        {
+            throw new RoleDisabledException();
         }
 
         if (! await this.encryption.compare(password, user.password))

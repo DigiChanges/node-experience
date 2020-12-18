@@ -8,6 +8,7 @@ import PasswordWrongHttpException from "../Exceptions/PasswordWrongHttpException
 import NotFoundHttpException from "../Exceptions/NotFoundHttpException";
 import TokenExpiredHttpException from "../Exceptions/TokenExpiredHttpException";
 import DuplicateEntityHttpException from "../Exceptions/DuplicateEntityHttpException";
+import RoleDisabledHttpException from "../Exceptions/RoleDisabledHttpException";
 
 class ExceptionFactory
 {
@@ -15,6 +16,7 @@ class ExceptionFactory
         'DecryptForbiddenException': new DecryptForbiddenHttpException(),
         'BadCredentialsException': new BadCredentialsHttpException(),
         'UserDisabledException': new UserDisabledHttpException(),
+        'RoleDisabledException': new RoleDisabledHttpException(),
         'CantDisabledException': new CantDisabledHttpException(),
         'PasswordWrongException': new PasswordWrongHttpException(),
         'NotFoundException': new NotFoundHttpException(),

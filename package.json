@@ -51,7 +51,6 @@
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.28",
     "multer": "^1.4.2",
-    "multiple-faker": "^1.0.0",
     "node-minio": "^1.0.2",
     "nodemailer": "6.4.6",
     "npx": "^10.2.2",

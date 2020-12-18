@@ -25,77 +25,115 @@ describe("Start Login Test", () => {
         done();
     }));
 
-    describe('Login User Success', () => {
-        test('Login POST /', async (done) => {
-            const payload = {
-                email: "user@node.com",
-                password: "12345678"
-            };
+    test('Login User Success', async (done) => {
+        const payload = {
+            email: "user@node.com",
+            password: "12345678"
+        };
 
-            const response: any = await request
-                .post("/api/auth/login?provider=local")
-                .set('Accept', 'application/json')
-                .send(payload);
+        const response: any = await request
+            .post("/api/auth/login?provider=local")
+            .set('Accept', 'application/json')
+            .send(payload);
 
-            const {body: {status, statusCode, data}} = response;
+        const {body: {status, statusCode, data}} = response;
 
-            expect(response.statusCode).toBe(201);
-            expect(status).toBe('success');
-            expect(statusCode).toBe('HTTP_CREATED');
+        expect(response.statusCode).toBe(201);
+        expect(status).toBe('success');
+        expect(statusCode).toBe('HTTP_CREATED');
 
-            expect(data.user.email).toEqual("user@node.com");
-            expect(data.user.firstName).toEqual("user");
+        expect(data.user.email).toEqual("user@node.com");
+        expect(data.user.firstName).toEqual("user");
 
-            await done();
-        });
+        await done();
     });
 
-    describe('Login SuperAdmin Success', () => {
-        test('Login POST /', async (done) => {
-            const payload = {
-                email: "superadmin@node.com",
-                password: "12345678"
-            };
+    test('Login SuperAdmin Success', async (done) => {
+        const payload = {
+            email: "superadmin@node.com",
+            password: "12345678"
+        };
 
-            const response: any = await request
-                .post("/api/auth/login?provider=local")
-                .set('Accept', 'application/json')
-                .send(payload);
+        const response: any = await request
+            .post("/api/auth/login?provider=local")
+            .set('Accept', 'application/json')
+            .send(payload);
 
-            const {body: {status, statusCode, data}} = response;
+        const {body: {status, statusCode, data}} = response;
 
-            expect(response.statusCode).toBe(201);
-            expect(status).toBe('success');
-            expect(statusCode).toBe('HTTP_CREATED');
+        expect(response.statusCode).toBe(201);
+        expect(status).toBe('success');
+        expect(statusCode).toBe('HTTP_CREATED');
 
-            expect(data.user.email).toEqual("superadmin@node.com");
-            expect(data.user.firstName).toEqual("Super");
+        expect(data.user.email).toEqual("superadmin@node.com");
+        expect(data.user.firstName).toEqual("Super");
 
-            await done();
-        });
+        await done();
     });
 
-    describe('Login SuperAdmin Wrong Credentials', () => {
-        test('Login POST /', async (done) => {
-            const payload = {
-                email: "superadmin@node.com",
-                password: "123456789"
-            };
+    test('Login SuperAdmin Wrong Credentials', async (done) => {
+        const payload = {
+            email: "superadmin@node.com",
+            password: "123456789"
+        };
 
-            const response: any = await request
-                .post("/api/auth/login?provider=local")
-                .set('Accept', 'application/json')
-                .send(payload);
+        const response: any = await request
+            .post("/api/auth/login?provider=local")
+            .set('Accept', 'application/json')
+            .send(payload);
 
-            const {body: {status, statusCode, message}} = response;
+        const {body: {status, statusCode, message}} = response;
 
-            expect(response.statusCode).toBe(403);
-            expect(status).toBe('error');
-            expect(statusCode).toBe('HTTP_FORBIDDEN');
+        expect(response.statusCode).toBe(403);
+        expect(status).toBe('error');
+        expect(statusCode).toBe('HTTP_FORBIDDEN');
 
-            expect(message).toEqual("Error credentials");
+        expect(message).toEqual("Error credentials");
 
-            await done();
-        });
+        await done();
+    });
+
+    test('Login Operator Enable False', async (done) => {
+        const payload = {
+            email: "operator@disabled.com",
+            password: "1234567901"
+        };
+
+        const response: any = await request
+            .post("/api/auth/login?provider=local")
+            .set('Accept', 'application/json')
+            .send(payload);
+
+        const {body: {status, statusCode, message}} = response;
+
+        expect(response.statusCode).toBe(403);
+        expect(status).toBe('error');
+        expect(statusCode).toBe('HTTP_FORBIDDEN');
+
+        expect(message).toEqual("Your user is disable");
+
+        await done();
+    });
+
+    test('Login Operator with Role Operator Enable False', async (done) => {
+        const payload = {
+            email: "operator@roleDisabled.com",
+            password: "123456790"
+        };
+
+        const response: any = await request
+            .post("/api/auth/login?provider=local")
+            .set('Accept', 'application/json')
+            .send(payload);
+
+        const {body: {status, statusCode, message}} = response;
+
+        expect(response.statusCode).toBe(403);
+        expect(status).toBe('error');
+        expect(statusCode).toBe('HTTP_FORBIDDEN');
+
+        expect(message).toEqual("Your role is disable");
+
+        await done();
     });
 });
