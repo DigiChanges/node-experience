@@ -38,14 +38,14 @@ describe("Start Login Test", () => {
 
         const {body: {status, statusCode, data}} = response;
 
-        expect(response.statusCode).toBe(201);
-        expect(status).toBe('success');
-        expect(statusCode).toBe('HTTP_CREATED');
+        expect(response.statusCode).toStrictEqual(201);
+        expect(status).toStrictEqual('success');
+        expect(statusCode).toStrictEqual('HTTP_CREATED');
 
-        expect(data.user.email).toEqual("user@node.com");
-        expect(data.user.firstName).toEqual("user");
+        expect(data.user.email).toStrictEqual("user@node.com");
+        expect(data.user.firstName).toStrictEqual("user");
 
-        await done();
+        done();
     });
 
     test('Login SuperAdmin Success', async (done) => {
@@ -61,14 +61,14 @@ describe("Start Login Test", () => {
 
         const {body: {status, statusCode, data}} = response;
 
-        expect(response.statusCode).toBe(201);
-        expect(status).toBe('success');
-        expect(statusCode).toBe('HTTP_CREATED');
+        expect(response.statusCode).toStrictEqual(201);
+        expect(status).toStrictEqual('success');
+        expect(statusCode).toStrictEqual('HTTP_CREATED');
 
-        expect(data.user.email).toEqual("superadmin@node.com");
-        expect(data.user.firstName).toEqual("Super");
+        expect(data.user.email).toStrictEqual("superadmin@node.com");
+        expect(data.user.firstName).toStrictEqual("Super");
 
-        await done();
+        done();
     });
 
     test('Login SuperAdmin Wrong Credentials', async (done) => {
@@ -84,13 +84,13 @@ describe("Start Login Test", () => {
 
         const {body: {status, statusCode, message}} = response;
 
-        expect(response.statusCode).toBe(403);
-        expect(status).toBe('error');
-        expect(statusCode).toBe('HTTP_FORBIDDEN');
+        expect(response.statusCode).toStrictEqual(403);
+        expect(status).toStrictEqual('error');
+        expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
-        expect(message).toEqual("Error credentials");
+        expect(message).toStrictEqual("Error credentials");
 
-        await done();
+        done();
     });
 
     test('Login Operator Enable False', async (done) => {
@@ -106,13 +106,13 @@ describe("Start Login Test", () => {
 
         const {body: {status, statusCode, message}} = response;
 
-        expect(response.statusCode).toBe(403);
-        expect(status).toBe('error');
-        expect(statusCode).toBe('HTTP_FORBIDDEN');
+        expect(response.statusCode).toStrictEqual(403);
+        expect(status).toStrictEqual('error');
+        expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
-        expect(message).toEqual("Your user is disable");
+        expect(message).toStrictEqual("Your user is disable");
 
-        await done();
+        done();
     });
 
     test('Login Operator with Role Operator Enable False', async (done) => {
@@ -128,12 +128,12 @@ describe("Start Login Test", () => {
 
         const {body: {status, statusCode, message}} = response;
 
-        expect(response.statusCode).toBe(403);
-        expect(status).toBe('error');
-        expect(statusCode).toBe('HTTP_FORBIDDEN');
+        expect(response.statusCode).toStrictEqual(403);
+        expect(status).toStrictEqual('error');
+        expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
-        expect(message).toEqual("Your role is disable");
+        expect(message).toStrictEqual("Your role is disable");
 
-        await done();
+        done();
     });
 });

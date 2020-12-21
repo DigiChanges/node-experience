@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
 
-import {lazyInject} from "../../inversify.config";
+import {inject} from "inversify";
 import { TYPES } from "../../types";
 import StatusCode from "../Shared/StatusCode";
 import Responder from "../Shared/Responder";
@@ -35,7 +35,7 @@ import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 @controller('/api/users')
 class UserHandler
 {
-    @lazyInject(TYPES.Responder)
+    @inject(TYPES.Responder)
     private responder: Responder;
 
     @httpPost('/', AuthorizeMiddleware(Permissions.USERS_SAVE))
@@ -83,7 +83,7 @@ class UserHandler
         const getUserUseCase = new UpdateUserUseCase();
         const user: IUserDomain = await getUserUseCase.handle(_request);
 
-        this.responder.send(user, req, res, StatusCode.HTTP_OK, new UserTransformer());
+        this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
     @httpPut('/assignRole/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN_ROLE))
@@ -95,7 +95,7 @@ class UserHandler
         const assignRoleUseCase = new AssignRoleUseCase();
         const _response: IUserDomain = await assignRoleUseCase.handle(_request);
 
-        this.responder.send(_response, req, res, StatusCode.HTTP_OK, new UserTransformer());
+        this.responder.send(_response, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.USERS_DELETE))

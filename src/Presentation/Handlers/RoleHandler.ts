@@ -1,3 +1,4 @@
+import {inject} from "inversify";
 import {NextFunction, Request, Response} from 'express';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
 
@@ -17,7 +18,6 @@ import ListRolesUseCase from "../../Domain/UseCases/Role/ListRolesUseCase";
 import GetRoleUseCase from "../../Domain/UseCases/Role/GetRoleUseCase";
 import RemoveRoleUseCase from "../../Domain/UseCases/Role/RemoveRoleUseCase";
 import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
-import {lazyInject} from "../../inversify.config";
 import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
 import UpdateRoleUseCase from "../../Domain/UseCases/Role/UpdateRoleUseCase";
 import ValidatorRequest from "../../Application/Shared/ValidatorRequest";
@@ -25,7 +25,7 @@ import ValidatorRequest from "../../Application/Shared/ValidatorRequest";
 @controller('/api/roles')
 class RoleHandler
 {
-    @lazyInject(TYPES.Responder)
+    @inject(TYPES.Responder)
     private responder: Responder;
 
     @httpPost('/', AuthorizeMiddleware(Permissions.ROLES_SAVE))
@@ -73,7 +73,7 @@ class RoleHandler
         const updateRoleUseCase = new UpdateRoleUseCase();
         const role: IRoleDomain = await updateRoleUseCase.handle(_request);
 
-        this.responder.send(role, req, res, StatusCode.HTTP_OK, new RoleTransformer());
+        this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.ROLES_DELETE))
@@ -85,7 +85,7 @@ class RoleHandler
         const removeRoleUseCase = new RemoveRoleUseCase();
         const data = await removeRoleUseCase.handle(_request);
 
-        this.responder.send(data, req, res, StatusCode.HTTP_OK, new RoleTransformer());
+        this.responder.send(data, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
     }
 }
 

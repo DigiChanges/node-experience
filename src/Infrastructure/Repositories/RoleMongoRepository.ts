@@ -1,16 +1,17 @@
-import IRoleRepository from "../../InterfaceAdapters/IRepositories/IRoleRepository";
-import {injectable} from "inversify";
+import IRoleRepository from '../../InterfaceAdapters/IRepositories/IRoleRepository';
+import {injectable} from 'inversify';
 
-import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
-import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
-import RoleFilter from "../../Presentation/Criterias/Role/RoleFilter";
-import {Query, Model} from "mongoose";
-import IRole from "../../InterfaceAdapters/IEntities/Mongoose/IRoleDocument";
-import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
-import {connection} from "../Database/MongooseCreateConnection";
+import MongoPaginator from '../../Presentation/Shared/MongoPaginator';
+import IPaginator from '../../InterfaceAdapters/Shared/IPaginator';
+import ICriteria from '../../InterfaceAdapters/Shared/ICriteria';
+import RoleFilter from '../../Presentation/Criterias/Role/RoleFilter';
+import {Query, Model} from 'mongoose';
+import IRole from '../../InterfaceAdapters/IEntities/Mongoose/IRoleDocument';
+import IRoleDomain from '../../InterfaceAdapters/IDomain/IRoleDomain';
+import {connection} from '../Database/MongooseCreateConnection';
 
-import NotFoundException from "../Exceptions/NotFoundException";
+import NotFoundException from '../Exceptions/NotFoundException';
+import Roles from "../../../config/Roles";
 
 @injectable()
 class RoleMongoRepository implements IRoleRepository
@@ -59,17 +60,19 @@ class RoleMongoRepository implements IRoleRepository
         if (filter.has(RoleFilter.NAME))
         {
             const name = filter.get(RoleFilter.NAME);
-            const rsearch = new RegExp(name, "g");
+            const rsearch = new RegExp(name, 'g');
 
             queryBuilder.where(RoleFilter.NAME).regex(rsearch);
         }
         if (filter.has(RoleFilter.SLUG))
         {
             const slug = filter.get(RoleFilter.SLUG);
-            const rsearch = new RegExp(slug, "g");
+            const rsearch = new RegExp(slug, 'g');
 
             queryBuilder.where(RoleFilter.SLUG).regex(rsearch);
         }
+
+        queryBuilder.where(RoleFilter.SLUG).ne(Roles.SUPER_ADMIN.toLowerCase());
 
         return new MongoPaginator(queryBuilder, criteria);
     }

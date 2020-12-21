@@ -4,15 +4,21 @@ import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepos
 import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
 import IEncryption from "../../../InterfaceAdapters/Shared/IEncryption";
 import {REPOSITORIES} from "../../../repositories";
+import {SERVICES} from "../../../services";
 import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
 import User from '../../Entities/User';
 import EventHandler from "../../../Infrastructure/Events/EventHandler";
 import UserCreatedEvent from "../../../Infrastructure/Events/UserCreatedEvent";
+import IAuthService from "../../../InterfaceAdapters/IServices/IAuthService";
 
 class SaveUserUseCase
 {
     @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
+
+    @lazyInject(SERVICES.IAuthService)
+    private authService: IAuthService;
+
     private encryption: IEncryption;
 
     constructor()
@@ -22,6 +28,8 @@ class SaveUserUseCase
 
     async handle(payload: UserRepPayload): Promise<IUserDomain>
     {
+        this.authService.validatePermissions(payload.getPermissions());
+
         let user: IUserDomain = new User();
         user.firstName = payload.getFirstName();
         user.lastName = payload.getLastName();

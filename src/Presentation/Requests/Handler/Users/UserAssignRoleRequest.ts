@@ -23,4 +23,4 @@ class UserAssignRoleRequest extends IdRequest implements UserAssignRolePayload
     }
 }
 
-export default UserAssignRoleRequest;;
+export default UserAssignRoleRequest;

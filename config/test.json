@@ -2,7 +2,7 @@
   "env": "test",
   "serverPort": 8089,
   "auth": {
-    "authorization": false
+    "authorization": true
   },
   "dbConfig": {
     "TypeORM": {

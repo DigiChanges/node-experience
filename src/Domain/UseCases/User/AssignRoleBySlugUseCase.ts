@@ -1,33 +1,30 @@
 import { lazyInject } from '../../../inversify.config'
-import UserAssignRolePayload from "../../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload";
+import UserAssignRoleByPayload from "../../../InterfaceAdapters/Payloads/Users/UserAssignRoleByPayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import {REPOSITORIES} from "../../../repositories";
 import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
 import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
+import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
 
-class AssignRoleUseCase
+class AssignRoleBySlugUseCase
 {
     @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-
     @lazyInject(REPOSITORIES.IRoleRepository)
     private roleRepository: IRoleRepository;
 
-    async handle(payload: UserAssignRolePayload): Promise<IUserDomain>
+    async handle(payload: UserAssignRoleByPayload): Promise<IUserDomain>
     {
-        const id = payload.getId();
-        let user: IUserDomain = await this.repository.getOne(id);
+        const email = payload.getEmail();
+        const slug = payload.getSlugRole();
 
-        user.clearRoles();
+        let user: IUserDomain = await this.repository.getOneByEmail(email);
+        let role: IRoleDomain = await this.roleRepository.getBySlug(slug);
 
-        for await (const roleId of payload.getRolesId())
-        {
-            const role = await this.roleRepository.getOne(roleId);
-            user.setRole(role);
-        }
+        user.setRole(role);
 
         return await this.repository.save(user);
     }
 }
 
-export default AssignRoleUseCase;
+export default AssignRoleBySlugUseCase;

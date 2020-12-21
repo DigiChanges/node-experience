@@ -3,13 +3,13 @@ import supertest from "supertest";
 import ICreateConnection from "../../../InterfaceAdapters/IDatabase/ICreateConnection";
 import initServer from "../../initServer";
 
-describe("Start Item Test", () =>
+describe("Start User Test", () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
     let token: any = null;
-    let itemId: string = '';
+    let userId: string = '';
     let deleteResponse: any = null;
 
     beforeAll(async (done) => {
@@ -29,7 +29,7 @@ describe("Start Item Test", () =>
         done();
     }));
 
-    describe('Item Success', () =>
+    describe('User Success', () =>
     {
         beforeAll(async (done) => {
            const payload = {
@@ -49,14 +49,18 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Add Item /items', async done => {
-           const payload = {
-                name: 'Item 1',
-                type: 10
+        test('Add User without enable property /users', async done => {
+            const payload: any = {
+                firstName: "Jhon",
+                lastName: "Doe",
+                email: "user2@node.com",
+                password: "12345678",
+                passwordConfirmation: "12345678",
+                permissions: []
             };
 
             const response: any = await request
-                .post('/api/items')
+                .post('/api/users')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
@@ -67,23 +71,60 @@ describe("Start Item Test", () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_CREATED');
 
-            expect(data.name).toStrictEqual(payload.name);
-            expect(data.type).toStrictEqual(payload.type);
+            expect(data.firstName).toStrictEqual(payload.firstName);
+            expect(data.email).toStrictEqual(payload.email);
+            expect(data.enable).toStrictEqual(true);
 
-            itemId = data.id;
+            userId = data.id;
 
             done();
         });
 
-        test('Get Item /items/:id', async done => {
-
-            const payload = {
-                name: 'Item 1',
-                type: 10
+        test('Add User with enable property /users', async done => {
+            const payload: any = {
+                firstName: "Jhon",
+                lastName: "Doe",
+                email: "user3@node.com",
+                password: "12345678",
+                passwordConfirmation: "12345678",
+                enable: false,
+                permissions: []
             };
 
             const response: any = await request
-                .get(`/api/items/${itemId}`)
+                .post('/api/users')
+                .set('Accept', 'application/json')
+                .set('Authorization', `Bearer ${token}`)
+                .send(payload);
+
+            const {body: {status, statusCode, data}} = response;
+
+            expect(response.statusCode).toStrictEqual(201);
+            expect(status).toStrictEqual('success');
+            expect(statusCode).toStrictEqual('HTTP_CREATED');
+
+            expect(data.firstName).toStrictEqual(payload.firstName);
+            expect(data.email).toStrictEqual(payload.email);
+            expect(data.enable).toStrictEqual(payload.enable);
+
+            userId = data.id;
+
+            done();
+        });
+
+        test('Get User /users/:id', async done => {
+
+            const payload: any = {
+                firstName: "Jhon",
+                lastName: "Doe",
+                email: "user3@node.com",
+                password: "12345678",
+                passwordConfirmation: "12345678",
+                permissions: []
+            };
+
+            const response: any = await request
+                .get(`/api/users/${userId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -94,20 +135,23 @@ describe("Start Item Test", () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(data.name).toStrictEqual(payload.name);
-            expect(data.type).toStrictEqual(payload.type);
+            expect(data.firstName).toStrictEqual(payload.firstName);
+            expect(data.email).toStrictEqual(payload.email);
 
             done();
         });
 
-        test('Update Item /items/:id', async done => {
-            const payload = {
-                name: 'Item 1 update',
-                type: 11
-            }
+        test('Update User /users/:id', async done => {
+            const payload: any = {
+                firstName: "Jhon Update",
+                lastName: "Doe Update",
+                email: "user2@update.com",
+                enable: false,
+                permissions: []
+            };
 
             const response: any = await request
-                .put(`/api/items/${itemId}`)
+                .put(`/api/users/${userId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
@@ -118,26 +162,73 @@ describe("Start Item Test", () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_CREATED');
 
-            expect(data.name).toStrictEqual(payload.name);
-            expect(data.type).toStrictEqual(payload.type);
+            expect(data.firstName).toStrictEqual(payload.firstName);
+            expect(data.email).toStrictEqual(payload.email);
+            expect(data.enable).toStrictEqual(payload.enable);
 
             done();
         });
 
-        test('Delete Item /items/:id', async done => {
-            const payload = {
-                name: 'Item 13 for delete',
-                type: 13
-            }
+        test('Change my Password /users/changeMyPassword', async done => {
+            let payload: any = {
+                currentPassword: "12345678",
+                newPassword: "123456789",
+                newPasswordConfirmation: "123456789"
+            };
+
+            let response: any = await request
+                .post('/api/users/changeMyPassword')
+                .set('Accept', 'application/json')
+                .set('Authorization', `Bearer ${token}`)
+                .send(payload);
+
+            let {body: {status, statusCode}} = response;
+
+            expect(response.statusCode).toStrictEqual(201);
+            expect(status).toStrictEqual('success');
+            expect(statusCode).toStrictEqual('HTTP_CREATED');
+
+           payload = {
+                email: "user@node.com",
+                password: "123456789"
+            };
+
+            response = await request
+                .post("/api/auth/login?provider=local")
+                .set('Accept', 'application/json')
+                .send(payload);
+
+            expect(response.statusCode).toStrictEqual(201);
+            expect(response.body.status).toStrictEqual('success');
+            expect(statusCode).toStrictEqual('HTTP_CREATED');
+
+            expect(response.body.data.user.email).toStrictEqual("user@node.com");
+            expect(response.body.data.user.firstName).toStrictEqual("user");
+
+            token = response.body.data.token;
+
+            done();
+        });
+
+        test('Delete User /users/:id', async done => {
+            const payload: any = {
+                firstName: "Jhon for delete",
+                lastName: "Doe Update",
+                email: "user2@delete.com",
+                password: "12345678",
+                enable: false,
+                passwordConfirmation: "12345678",
+                permissions: []
+            };
 
             const createResponse: any = await request
-                .post('/api/items')
+                .post('/api/users')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
             deleteResponse = await request
-                .delete(`/api/items/${createResponse.body.data.id}`)
+                .delete(`/api/users/${createResponse.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -148,16 +239,16 @@ describe("Start Item Test", () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(data.name).toStrictEqual(payload.name);
-            expect(data.type).toStrictEqual(payload.type);
+            expect(data.firstName).toStrictEqual(payload.firstName);
+            expect(data.email).toStrictEqual(payload.email);
 
             done();
         });
 
-        test('Get Items /items', async done => {
+        test('Get Users /users', async done => {
 
             const response: any = await request
-                .get('/api/items?pagination[limit]=5&pagination[offset]=0')
+                .get('/api/users?pagination[limit]=5&pagination[offset]=0')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -170,16 +261,16 @@ describe("Start Item Test", () =>
 
             expect(data.length).toStrictEqual(5);
             expect(pagination.total).toStrictEqual(5);
-            expect(pagination.currentUrl).toContain('/api/items?pagination[limit]=5&pagination[offset]=0');
-            expect(pagination.nextUrl).toContain('/api/items?pagination[limit]=5&pagination[offset]=5');
+            expect(pagination.currentUrl).toContain('/api/users?pagination[limit]=5&pagination[offset]=0');
+            expect(pagination.nextUrl).toContain('/api/users?pagination[limit]=5&pagination[offset]=5');
 
             done();
         });
 
-        test('Get Items /items without pagination', async done => {
+        test('Get Users /users without pagination', async done => {
 
             const response: any = await request
-                .get('/api/items')
+                .get('/api/users')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -190,16 +281,16 @@ describe("Start Item Test", () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(data.length).toStrictEqual(11);
+            expect(data.length).toStrictEqual(6);
             expect(pagination).not.toBeDefined();
 
             done();
         });
 
-        test('Get Items /items with Filter Type', async done => {
+        test('Get Users /users with Filter Type', async done => {
 
             const response: any = await request
-                .get('/api/items?pagination[limit]=20&pagination[offset]=0&filter[type]=11')
+                .get('/api/users?pagination[limit]=20&pagination[offset]=0&filter[email]=user2@node.com')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -213,37 +304,36 @@ describe("Start Item Test", () =>
             expect(data.length).toStrictEqual(1);
             expect(pagination.total).toStrictEqual(1);
 
-            expect(data[0].type).toStrictEqual(11);
-
             done();
         });
 
-        test('Get Items /items with Sort Desc Type', async done => {
+        test('Get Users /users with Sort Desc Type', async done => {
 
             const response: any = await request
-                .get('/api/items?pagination[limit]=20&pagination[offset]=0&sort[type]=desc')
+                .get('/api/users?pagination[limit]=20&pagination[offset]=0&sort[email]=desc')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data: [item1, item2]}} = response;
+            const {body: {status, statusCode, data: [user1, user2]}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(item1.type).toBeGreaterThanOrEqual(item2.type);
+            expect(user1.email).toStrictEqual('user@node.com');
+            expect(user2.email).toStrictEqual('user2@update.com');
 
             done();
         });
     });
 
-    describe('Item Fails', () =>
+    describe('User Fails', () =>
     {
         beforeAll(async (done) => {
            const payload = {
                 email: "user@node.com",
-                password: "12345678"
+                password: "123456789"
             };
 
             const response: any = await request
@@ -258,14 +348,14 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Add Item /items', async done => {
+        test('Add User /users', async done => {
            const payload = {
-                name: 'Item 2',
-                type: 'Item 1'
+                name: 'User 2',
+                type: 'User 1'
             };
 
             const response: any = await request
-                .post('/api/items')
+                .post('/api/users')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
@@ -277,16 +367,17 @@ describe("Start Item Test", () =>
             expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
             expect(message).toStrictEqual('Failed Request.');
 
-            expect(error.property).toStrictEqual('type');
-            expect(error.constraints.isInt).toStrictEqual('type must be an integer number');
+            expect(error.property).toStrictEqual('firstName');
+            expect(error.constraints.isString).toBeDefined();
+            expect(error.constraints.isString).toStrictEqual('firstName must be a string');
 
             done();
         });
 
-        test('Get Item /items/:id', async done => {
+        test('Get User /users/:id', async done => {
 
             const response: any = await request
-                .get(`/api/items/${itemId}dasdasda123`)
+                .get(`/api/users/${userId}dasdasda123`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -305,40 +396,38 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Update Item /items/:id', async done => {
+        test('Update User /users/:id', async done => {
             const payload = {
-                name: 11,
-                type: 'asdasd'
-            }
+                email: "aaaa1@update.com",
+                firstName: 150,
+                lastName: "Doe 1",
+                enable: true
+            };
 
             const response: any = await request
-                .put(`/api/items/${itemId}`)
+                .put(`/api/users/${userId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, message, errors: [errorName, errorType]}} = response;
+            const {body: {status, statusCode, message, errors: [error]}} = response;
 
             expect(response.statusCode).toStrictEqual(403);
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
             expect(message).toStrictEqual('Failed Request.');
 
-            expect(errorName.property).toStrictEqual('name');
-            expect(errorName.constraints.isString).toBeDefined();
-            expect(errorName.constraints.isString).toStrictEqual('name must be a string');
-
-            expect(errorType.property).toStrictEqual('type');
-            expect(errorType.constraints.isInt).toBeDefined();
-            expect(errorType.constraints.isInt).toStrictEqual('type must be an integer number');
+            expect(error.property).toStrictEqual('firstName');
+            expect(error.constraints.isString).toBeDefined();
+            expect(error.constraints.isString).toStrictEqual('firstName must be a string');
 
             done();
         });
 
-        test('Delete Item error /items/:id', async done => {
+        test('Delete User error /users/:id', async done => {
 
             const deleteErrorResponse: any = await request
-                .delete(`/api/items/${deleteResponse.body.data.id}`)
+                .delete(`/api/users/${deleteResponse.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -348,7 +437,7 @@ describe("Start Item Test", () =>
             expect(deleteErrorResponse.statusCode).toStrictEqual(400);
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
-            expect(message).toStrictEqual('Item Not Found');
+            expect(message).toStrictEqual('User Not Found');
 
             done();
         });

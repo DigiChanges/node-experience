@@ -1,7 +1,5 @@
 import Config from "config";
-import StatusCode from "../Shared/StatusCode";
 import AuthService from "../../Application/Services/AuthService";
-import ErrorHttpException from '../../Application/Shared/ErrorHttpException';
 import TokenExpiredHttpException from "../Exceptions/TokenExpiredHttpException";
 import TokenNotFoundHttpException from "../Exceptions/TokenNotFoundHttpException";
 

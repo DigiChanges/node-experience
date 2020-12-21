@@ -12,9 +12,13 @@ import IUserRepository from "./InterfaceAdapters/IRepositories/IUserRepository";
 import IRoleRepository from "./InterfaceAdapters/IRepositories/IRoleRepository";
 import IAuthService from "./InterfaceAdapters/IServices/IAuthService";
 import IFileRepository from "./InterfaceAdapters/IRepositories/IFileRepository";
+
 import AuthService from "./Application/Services/AuthService";
+
 import {REPOSITORIES} from "./repositories";
 import {TYPES} from "./types";
+import {SERVICES} from "./services";
+
 import ItemMongoRepository from "./Infrastructure/Repositories/ItemMongoRepository";
 import UserMongoRepository from "./Infrastructure/Repositories/UserMongoRepository";
 import RoleMongoRepository from "./Infrastructure/Repositories/RoleMongoRepository";
@@ -27,7 +31,7 @@ import RoleSqlRepository from "./Infrastructure/Repositories/RoleSqlRepository";
 const container = new Container();
 
 /* IServices */
-container.bind<IAuthService>(REPOSITORIES.IAuthService).to(AuthService);
+container.bind<IAuthService>(SERVICES.IAuthService).to(AuthService);
 
 /* Libs */
 container.bind<Responder>(TYPES.Responder).to(Responder);

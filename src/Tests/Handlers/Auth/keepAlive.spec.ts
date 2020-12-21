@@ -58,9 +58,9 @@ describe("Start Keep Alive Test", () =>
 
             const {body: {status, statusCode}} = response;
 
-            expect(response.statusCode).toBe(201);
-            expect(status).toBe('success');
-            expect(statusCode).toBe('HTTP_CREATED');
+            expect(response.statusCode).toStrictEqual(201);
+            expect(status).toStrictEqual('success');
+            expect(statusCode).toStrictEqual('HTTP_CREATED');
 
             done();
         });

@@ -29,7 +29,7 @@ describe("Start Index Test", () =>
     describe("#get", () => {
         test("should have a status code of 200", async (done) => {
             const response: any = await request.get("/");
-            expect(response.statusCode).toBe(200);
+            expect(response.statusCode).toStrictEqual(200);
 
             done();
         });

@@ -3,8 +3,8 @@ import "reflect-metadata";
 import "../Presentation/Handlers/IndexHandler";
 import "../Presentation/Handlers/AuthHandler";
 import "../Presentation/Handlers/ItemHandler";
-// import "../Presentation/Handlers/UserHandler";
-// import "../Presentation/Handlers/RoleHandler";
+import "../Presentation/Handlers/UserHandler";
+import "../Presentation/Handlers/RoleHandler";
 // import "../Presentation/Handlers/FileHandler";
 // import "../Presentation/Handlers/NotificationHandler";
 
@@ -24,6 +24,7 @@ import ICreateConnection from "../InterfaceAdapters/IDatabase/ICreateConnection"
 import DatabaseFactory from "../Infrastructure/Factories/DatabaseFactory";
 import SeedFactory from "../Infrastructure/Seeds/SeedFactory";
 import EventHandler from "../Infrastructure/Events/EventHandler";
+import RedirectRouteNotFoundMiddleware from "../Presentation/Middlewares/RedirectRouteNotFoundMiddleware";
 
 const initServer = async () =>
 {   let server: InversifyExpressServer;
@@ -62,6 +63,7 @@ const initServer = async () =>
     });
 
     const application = await server.build();
+    application.use(RedirectRouteNotFoundMiddleware);
     request = supertest(application);
 
     const seed = new SeedFactory();

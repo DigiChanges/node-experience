@@ -16,6 +16,7 @@ class Roles
                 Permissions.ALL
             ],
             [Roles.OPERATOR]: [
+                Permissions.USERS_CHANGE_MY_PASSWORD,
                 Permissions.ITEMS_SAVE,
                 Permissions.ITEMS_UPDATE,
                 Permissions.ITEMS_SHOW,
