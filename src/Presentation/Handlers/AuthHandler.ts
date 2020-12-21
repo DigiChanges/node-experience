@@ -103,5 +103,3 @@ class AuthHandler
         this.responder.send({message: "Sync Successfully"}, null, res, StatusCode.HTTP_CREATED, null);
     }
 }
-
-export default AuthHandler;

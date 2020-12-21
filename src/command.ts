@@ -17,6 +17,7 @@ import CreateVapID from "./Presentation/Commands/CreateVapID";
 import {validateEnv} from "../config/validateEnv";
 import DatabaseFactory from "./Infrastructure/Factories/DatabaseFactory";
 import AssignRoleToUserCommand from "./Presentation/Commands/AssingRoleToUserCommand";
+import SyncRolesPermissionCommand from "./Presentation/Commands/SyncRolesPermissionCommand";
 
 (async () => {
     try {
@@ -37,6 +38,7 @@ import AssignRoleToUserCommand from "./Presentation/Commands/AssingRoleToUserCom
         program.addCommand(AddRoleCommand);
         program.addCommand(AssignRoleToUserCommand);
         program.addCommand(CreateVapID);
+        program.addCommand(SyncRolesPermissionCommand);
 
         await program.parseAsync(process.argv);
         exit();
