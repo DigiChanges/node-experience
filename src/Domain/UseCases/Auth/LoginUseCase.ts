@@ -47,7 +47,7 @@ class LoginUseCase
             throw new BadCredentialsException();
         }
 
-        return this.tokenFactory.token(user);
+        return this.tokenFactory.createToken(user);
     }
 }
 

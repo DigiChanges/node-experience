@@ -25,7 +25,7 @@ const AuthenticationMiddleware = (req: any, res: any, next: any) =>
         }
         else
         {
-            // Not exist the token in the Header
+            // Not exist the createToken in the Header
             let token = req.get('Authorization');
 
             if(typeof token === 'undefined' || token.indexOf('Bearer') === -1)

@@ -1,7 +1,7 @@
 import {InversifyExpressServer} from "inversify-express-utils";
 import supertest from "supertest";
-import ICreateConnection from "../../../InterfaceAdapters/IDatabase/ICreateConnection";
-import initServer from "../../initServer";
+import ICreateConnection from "../../InterfaceAdapters/IDatabase/ICreateConnection";
+import initServer from "../initServer";
 
 describe("Start Role Test", () =>
 {
@@ -62,7 +62,7 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, data}} = response;
+            const {body: {status, statusCode, data, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
@@ -74,6 +74,7 @@ describe("Start Role Test", () =>
             expect(data.enable).toStrictEqual(true);
 
             roleId = data.id;
+            token = refreshToken;
 
             done();
         });
@@ -92,7 +93,7 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, data}} = response;
+            const {body: {status, statusCode, data, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
@@ -104,6 +105,7 @@ describe("Start Role Test", () =>
             expect(data.enable).toStrictEqual(payload.enable);
 
             roleId = data.id;
+            token = refreshToken;
 
             done();
         });
@@ -122,7 +124,7 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, data}} = response;
+            const {body: {status, statusCode, data, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
@@ -134,6 +136,7 @@ describe("Start Role Test", () =>
             expect(data.enable).toStrictEqual(payload.enable);
 
             roleId = data.id;
+            token = refreshToken;
 
             done();
         });
@@ -153,7 +156,7 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data}} = response;
+            const {body: {status, statusCode, data, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -163,6 +166,8 @@ describe("Start Role Test", () =>
             expect(data.slug).toStrictEqual(payload.slug);
             expect(data.permissions).toStrictEqual(payload.permissions);
             expect(data.enable).toStrictEqual(payload.enable);
+
+            token = refreshToken;
 
             done();
         });
@@ -181,7 +186,7 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, data}} = response;
+            const {body: {status, statusCode, data, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
@@ -191,6 +196,8 @@ describe("Start Role Test", () =>
             expect(data.slug).toStrictEqual(payload.slug);
             expect(data.permissions).toStrictEqual(payload.permissions);
             expect(data.enable).toStrictEqual(payload.enable);
+
+            token = refreshToken;
 
             done();
         });
@@ -209,13 +216,15 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
+            token = createResponse.body.metadata.refreshToken;
+
             deleteResponse = await request
                 .delete(`/api/roles/${createResponse.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data}} = deleteResponse;
+            const {body: {status, statusCode, data, metadata: {refreshToken}}} = deleteResponse;
 
             expect(deleteResponse.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
@@ -225,6 +234,8 @@ describe("Start Role Test", () =>
             expect(data.slug).toStrictEqual(payload.slug);
             expect(data.permissions).toStrictEqual(payload.permissions);
             expect(data.enable).toStrictEqual(payload.enable);
+
+            token = refreshToken;
 
             done();
         });
@@ -237,7 +248,7 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data, pagination}} = response;
+            const {body: {status, statusCode, data, metadata: {refreshToken}, pagination}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -247,6 +258,8 @@ describe("Start Role Test", () =>
             expect(pagination.total).toEqual(5);
             expect(pagination.currentUrl).toContain('/api/roles?pagination[limit]=5&pagination[offset]=0');
             expect(pagination.nextUrl).toContain('/api/roles?pagination[limit]=5&pagination[offset]=5');
+
+            token = refreshToken;
 
             done();
         });
@@ -259,7 +272,7 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data, pagination}} = response;
+            const {body: {status, statusCode, data, metadata: {refreshToken}, pagination}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -267,6 +280,8 @@ describe("Start Role Test", () =>
 
             expect(data.length).toStrictEqual(6);
             expect(pagination).not.toBeDefined();
+
+            token = refreshToken;
 
             done();
         });
@@ -279,7 +294,7 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data, pagination}} = response;
+            const {body: {status, statusCode, data, metadata: {refreshToken}, pagination}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -287,6 +302,8 @@ describe("Start Role Test", () =>
 
             expect(data.length).toStrictEqual(1);
             expect(pagination.total).toStrictEqual(1);
+
+            token = refreshToken;
 
             done();
         });
@@ -299,7 +316,7 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data: [role1, role2]}} = response;
+            const {body: {status, statusCode, data: [role1, role2], metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -307,6 +324,8 @@ describe("Start Role Test", () =>
 
             expect(role1.slug).toStrictEqual('role3testupdate');
             expect(role2.slug).toStrictEqual('role2test');
+
+            token = refreshToken;
 
             done();
         });
@@ -319,10 +338,12 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {message}} = response;
+            const {body: {message, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(message).toStrictEqual('Sync Successfully');
+
+            token = refreshToken;
 
             done();
         });
@@ -360,7 +381,7 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, message, errors: [error]}} = response;
+            const {body: {status, statusCode, message, errors: [error], metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(403);
             expect(status).toStrictEqual('error');
@@ -370,6 +391,8 @@ describe("Start Role Test", () =>
             expect(error.property).toStrictEqual('slug');
             expect(error.constraints.isString).toBeDefined();
             expect(error.constraints.isString).toStrictEqual('slug must be a string');
+
+            token = refreshToken;
 
             done();
         });
@@ -382,7 +405,7 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, message, errors: [error]}} = response;
+            const {body: {status, statusCode, message, errors: [error], metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(403);
             expect(status).toStrictEqual('error');
@@ -392,6 +415,8 @@ describe("Start Role Test", () =>
             expect(error.property).toStrictEqual('id');
             expect(error.constraints.isUuid).toBeDefined();
             expect(error.constraints.isUuid).toStrictEqual('id must be an UUID');
+
+            token = refreshToken;
 
             done();
         });
@@ -409,7 +434,7 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, message, errors: [error1, error2]}} = response;
+            const {body: {status, statusCode, message, errors: [error1, error2], metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(403);
             expect(status).toStrictEqual('error');
@@ -424,6 +449,8 @@ describe("Start Role Test", () =>
             expect(error2.constraints.isArray).toBeDefined();
             expect(error2.constraints.isArray).toStrictEqual('permissions must be an array');
 
+            token = refreshToken;
+
             done();
         });
 
@@ -435,12 +462,14 @@ describe("Start Role Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, message}} = deleteErrorResponse;
+            const {body: {status, statusCode, message, metadata: {refreshToken}}} = deleteErrorResponse;
 
             expect(deleteErrorResponse.statusCode).toStrictEqual(400);
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
             expect(message).toStrictEqual('Role Not Found');
+
+            token = refreshToken;
 
             done();
         });

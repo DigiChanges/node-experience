@@ -5,6 +5,8 @@ class Permissions
 
     // AUTH
     static readonly AUTH_KEEP_ALIVE: string = 'authKeepAlive';
+    static readonly AUTH_SYNC_PERMISSIONS: string = 'authSyncPermissions';
+    static readonly GET_PERMISSIONS: string = 'getPermissions';
 
     // ITEMS
     static readonly ITEMS_SAVE: string = 'itemsSave';
@@ -40,6 +42,8 @@ class Permissions
     {
         return [
             `${Permissions.AUTH_KEEP_ALIVE}`,
+            `${Permissions.AUTH_SYNC_PERMISSIONS}`,
+            `${Permissions.GET_PERMISSIONS}`,
 
             `${Permissions.ITEMS_SAVE}`,
             `${Permissions.ITEMS_UPDATE}`,

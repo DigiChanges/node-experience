@@ -9,12 +9,14 @@ class JWTToken implements IToken
     private readonly expires: number;
     private readonly hash: string;
     private readonly user: IUserDomain;
+    private readonly payload: {};
 
-    constructor(expires: number, user: IUserDomain, secret: string)
+    constructor(id: string, expires: number, user: IUserDomain, secret: string)
     {
         this.user = user;
         this.expires = moment().utc().add({ minutes: expires }).unix();
-        this.hash = jwt.encode({
+        this.payload = {
+            id,
             iss: Config.get('jwt.iss'),
             aud: Config.get('jwt.aud'),
             sub: user.email,
@@ -22,7 +24,8 @@ class JWTToken implements IToken
             exp: this.expires,
             userId: user.getId(),
             email: user.email
-        }, secret, 'HS512');
+        };
+        this.hash = jwt.encode(this.payload, secret, 'HS512');
     }
 
     getExpires(): number
@@ -33,6 +36,11 @@ class JWTToken implements IToken
     getHash(): string
     {
         return this.hash;
+    }
+
+    getPayload(): any
+    {
+        return this.payload;
     }
 
     getUser(): IUserDomain

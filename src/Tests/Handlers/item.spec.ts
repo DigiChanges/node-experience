@@ -1,7 +1,7 @@
 import {InversifyExpressServer} from "inversify-express-utils";
 import supertest from "supertest";
-import ICreateConnection from "../../../InterfaceAdapters/IDatabase/ICreateConnection";
-import initServer from "../../initServer";
+import ICreateConnection from "../../InterfaceAdapters/IDatabase/ICreateConnection";
+import initServer from "../initServer";
 
 describe("Start Item Test", () =>
 {
@@ -61,7 +61,7 @@ describe("Start Item Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, data}} = response;
+            const {body: {status, statusCode, data, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
@@ -70,6 +70,7 @@ describe("Start Item Test", () =>
             expect(data.name).toStrictEqual(payload.name);
             expect(data.type).toStrictEqual(payload.type);
 
+            token = refreshToken;
             itemId = data.id;
 
             done();
@@ -88,7 +89,7 @@ describe("Start Item Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data}} = response;
+            const {body: {status, statusCode, data, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -96,6 +97,8 @@ describe("Start Item Test", () =>
 
             expect(data.name).toStrictEqual(payload.name);
             expect(data.type).toStrictEqual(payload.type);
+
+            token = refreshToken;
 
             done();
         });
@@ -112,7 +115,7 @@ describe("Start Item Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, data}} = response;
+            const {body: {status, statusCode, data, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
@@ -120,6 +123,8 @@ describe("Start Item Test", () =>
 
             expect(data.name).toStrictEqual(payload.name);
             expect(data.type).toStrictEqual(payload.type);
+
+            token = refreshToken;
 
             done();
         });
@@ -139,10 +144,10 @@ describe("Start Item Test", () =>
             deleteResponse = await request
                 .delete(`/api/items/${createResponse.body.data.id}`)
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Authorization', `Bearer ${createResponse.body.metadata.refreshToken}`)
                 .send();
 
-            const {body: {status, statusCode, data}} = deleteResponse;
+            const {body: {status, statusCode, data, metadata: {refreshToken}}} = deleteResponse;
 
             expect(deleteResponse.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -150,6 +155,8 @@ describe("Start Item Test", () =>
 
             expect(data.name).toStrictEqual(payload.name);
             expect(data.type).toStrictEqual(payload.type);
+
+            token = refreshToken;
 
             done();
         });
@@ -162,7 +169,7 @@ describe("Start Item Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data, pagination}} = response;
+            const {body: {status, statusCode, data, pagination, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -172,6 +179,8 @@ describe("Start Item Test", () =>
             expect(pagination.total).toStrictEqual(5);
             expect(pagination.currentUrl).toContain('/api/items?pagination[limit]=5&pagination[offset]=0');
             expect(pagination.nextUrl).toContain('/api/items?pagination[limit]=5&pagination[offset]=5');
+
+            token = refreshToken;
 
             done();
         });
@@ -184,7 +193,7 @@ describe("Start Item Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data, pagination}} = response;
+            const {body: {status, statusCode, data, pagination, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -192,6 +201,8 @@ describe("Start Item Test", () =>
 
             expect(data.length).toStrictEqual(11);
             expect(pagination).not.toBeDefined();
+
+            token = refreshToken;
 
             done();
         });
@@ -204,7 +215,7 @@ describe("Start Item Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data, pagination}} = response;
+            const {body: {status, statusCode, data, pagination, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -214,6 +225,8 @@ describe("Start Item Test", () =>
             expect(pagination.total).toStrictEqual(1);
 
             expect(data[0].type).toStrictEqual(11);
+
+            token = refreshToken;
 
             done();
         });
@@ -226,13 +239,15 @@ describe("Start Item Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data: [item1, item2]}} = response;
+            const {body: {status, statusCode, data: [item1, item2], metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(item1.type).toBeGreaterThanOrEqual(item2.type);
+
+            token = refreshToken;
 
             done();
         });
@@ -270,7 +285,7 @@ describe("Start Item Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, message, errors: [error]}} = response;
+            const {body: {status, statusCode, message, errors: [error], metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(403);
             expect(status).toStrictEqual('error');
@@ -279,6 +294,8 @@ describe("Start Item Test", () =>
 
             expect(error.property).toStrictEqual('type');
             expect(error.constraints.isInt).toStrictEqual('type must be an integer number');
+
+            token = refreshToken;
 
             done();
         });
@@ -291,7 +308,7 @@ describe("Start Item Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, message, errors: [error]}} = response;
+            const {body: {status, statusCode, message, errors: [error], metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(403);
             expect(status).toStrictEqual('error');
@@ -301,6 +318,8 @@ describe("Start Item Test", () =>
             expect(error.property).toStrictEqual('id');
             expect(error.constraints.isUuid).toBeDefined();
             expect(error.constraints.isUuid).toStrictEqual('id must be an UUID');
+
+            token = refreshToken;
 
             done();
         });
@@ -317,7 +336,7 @@ describe("Start Item Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, message, errors: [errorName, errorType]}} = response;
+            const {body: {status, statusCode, message, errors: [errorName, errorType], metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(403);
             expect(status).toStrictEqual('error');
@@ -332,6 +351,8 @@ describe("Start Item Test", () =>
             expect(errorType.constraints.isInt).toBeDefined();
             expect(errorType.constraints.isInt).toStrictEqual('type must be an integer number');
 
+            token = refreshToken;
+
             done();
         });
 
@@ -343,12 +364,14 @@ describe("Start Item Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, message}} = deleteErrorResponse;
+            const {body: {status, statusCode, message, metadata: {refreshToken}}} = deleteErrorResponse;
 
             expect(deleteErrorResponse.statusCode).toStrictEqual(400);
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
             expect(message).toStrictEqual('Item Not Found');
+
+            token = refreshToken;
 
             done();
         });

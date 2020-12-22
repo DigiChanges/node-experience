@@ -3,7 +3,6 @@ import jwt, { TAlgorithm } from "jwt-simple";
 import _ from "lodash/fp";
 import Config from "config";
 
-import TokenFactory from "../../Infrastructure/Factories/TokenFactory";
 import IEncryption from "../../InterfaceAdapters/Shared/IEncryption";
 import EncryptionFactory from "../../Infrastructure/Factories/EncryptionFactory";
 import IAuthService from "../../InterfaceAdapters/IServices/IAuthService";
@@ -16,11 +15,9 @@ import WrongPermissionsException from "../Exceptions/WrongPermissionsException";
 class AuthService implements IAuthService
 {
     private encryption: IEncryption;
-    private tokenFactory: TokenFactory;
 
     constructor()
     {
-        this.tokenFactory = new TokenFactory();
         this.encryption = EncryptionFactory.create();
     }
 

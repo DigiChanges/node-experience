@@ -11,6 +11,8 @@ import TokenExpiredHttpException from "../Exceptions/TokenExpiredHttpException";
 import DuplicateEntityHttpException from "../Exceptions/DuplicateEntityHttpException";
 import RoleDisabledHttpException from "../Exceptions/RoleDisabledHttpException";
 import WrongPermissionsHttpException from "../Exceptions/WrongPermissionsHttpException";
+import TokenBlackListedHttpException from "../Exceptions/TokenBlackListedHttpException";
+import ErrorException from "../../Application/Shared/ErrorException";
 
 class ExceptionFactory
 {
@@ -50,6 +52,10 @@ class ExceptionFactory
             exception.statusCode = err.statusCode;
             exception.message = err.message;
             exception.errors = err.errors;
+        }
+        else if(!exception)
+        {
+            exception = this.exceptionsMapper.ErrorHttpException;
         }
 
         exception.message = message;

@@ -1,12 +1,13 @@
 import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
-import ICreateConnection from '../../../InterfaceAdapters/IDatabase/ICreateConnection';
-import initServer from '../../initServer';
+import ICreateConnection from '../../InterfaceAdapters/IDatabase/ICreateConnection';
+import initServer from '../initServer';
 
 describe('Start Permission Test', () => {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
+    let token: any = null;
 
     beforeAll(async (done) => {
         const configServer = await initServer();
@@ -27,8 +28,6 @@ describe('Start Permission Test', () => {
 
     describe('', () =>
     {
-       let token: any = null;
-
         beforeAll(async (done) => {
            const payload = {
                 email: 'user@node.com',
@@ -55,7 +54,7 @@ describe('Start Permission Test', () => {
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data}} = response;
+            const {body: {status, statusCode, data, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -63,23 +62,7 @@ describe('Start Permission Test', () => {
 
             expect(data[0]).toStrictEqual('authKeepAlive');
 
-            done();
-        });
-
-        test('Not authorized', async (done) => {
-
-            const response: any = await request
-                .get('/api/auth/permissions')
-                .set('Accept', 'application/json')
-                .send();
-
-            const {body: {status, statusCode, message}} = response;
-
-            expect(response.statusCode).toStrictEqual(403);
-            expect(status).toStrictEqual('error');
-            expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
-
-            expect(message).toStrictEqual('You must be authenticated');
+            token = refreshToken;
 
             done();
         });
@@ -92,13 +75,33 @@ describe('Start Permission Test', () => {
                 .set('Accept', 'application/json')
                 .send();
 
-            const {body: {status, statusCode, message}} = response;
+            const {body: {status, statusCode, message, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(404);
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_NOT_FOUND');
 
             expect(message).toStrictEqual('Route Not Found');
+
+            token = refreshToken;
+
+            done();
+        });
+
+        test('Not authorized', async (done) => {
+
+            const response: any = await request
+                .get('/api/auth/permissions')
+                .set('Accept', 'application/json')
+                .send();
+
+            const {body: {status, statusCode, message, metadata: {refreshToken}}} = response;
+
+            expect(response.statusCode).toStrictEqual(403);
+            expect(status).toStrictEqual('error');
+            expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
+
+            expect(message).toStrictEqual('You must be authenticated');
 
             done();
         });

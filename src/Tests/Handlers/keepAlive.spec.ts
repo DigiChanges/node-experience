@@ -1,13 +1,14 @@
 import {InversifyExpressServer} from "inversify-express-utils";
 import supertest from "supertest";
-import ICreateConnection from "../../../InterfaceAdapters/IDatabase/ICreateConnection";
-import initServer from "../../initServer";
+import ICreateConnection from "../../InterfaceAdapters/IDatabase/ICreateConnection";
+import initServer from "../initServer";
 
 describe("Start Keep Alive Test", () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
+    let token: any = null;
 
     beforeAll(async (done) => {
         const configServer = await initServer();
@@ -28,8 +29,6 @@ describe("Start Keep Alive Test", () =>
 
     describe('Keep Alive Success', () =>
     {
-        let token: any = null;
-
         beforeAll(async (done) => {
            const payload = {
                 email: "user@node.com",
@@ -48,7 +47,7 @@ describe("Start Keep Alive Test", () =>
             done();
         });
 
-        test('Keep Alive POST /', async done => {
+        test.skip('Keep Alive POST /', async done => {
 
             const response: any = await request
                 .post('/api/auth/keepAlive')
@@ -56,11 +55,13 @@ describe("Start Keep Alive Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode}} = response;
+            const {body: {status, statusCode, metadata: {refreshToken}}} = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_CREATED');
+
+            token = refreshToken;
 
             done();
         });

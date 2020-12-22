@@ -12,6 +12,7 @@ import IUserRepository from "./InterfaceAdapters/IRepositories/IUserRepository";
 import IRoleRepository from "./InterfaceAdapters/IRepositories/IRoleRepository";
 import IAuthService from "./InterfaceAdapters/IServices/IAuthService";
 import IFileRepository from "./InterfaceAdapters/IRepositories/IFileRepository";
+import ITokenRepository from "./InterfaceAdapters/IRepositories/ITokenRepository";
 
 import AuthService from "./Application/Services/AuthService";
 
@@ -23,6 +24,8 @@ import ItemMongoRepository from "./Infrastructure/Repositories/ItemMongoReposito
 import UserMongoRepository from "./Infrastructure/Repositories/UserMongoRepository";
 import RoleMongoRepository from "./Infrastructure/Repositories/RoleMongoRepository";
 import FileMongoRepository from "./Infrastructure/Repositories/FileMongoRepository";
+import TokenMongoRepository from "./Infrastructure/Repositories/TokenMongoRepository";
+
 import ItemSqlRepository from "./Infrastructure/Repositories/ItemSqlRepository";
 import UserSqlRepository from "./Infrastructure/Repositories/UserSqlRepository";
 import FileSqlRepository from "./Infrastructure/Repositories/FileSqlRepository";
@@ -51,6 +54,7 @@ else if (Config.get('dbConfig.default') === 'Mongoose')
     container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository);
     container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongoRepository);
     container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository);
+    container.bind<ITokenRepository>(REPOSITORIES.ITokenRepository).to(TokenMongoRepository);
 }
 
 

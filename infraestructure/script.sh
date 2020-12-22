@@ -28,5 +28,6 @@ cp /tmp/id_rsa /home/experience/.ssh/id_rsa
 cp /tmp/id_rsa.pub /home/experience/.ssh/id_rsa.pub
 cp /tmp/config /home/experience/.ssh/config
 
-chmod 600 ~/.ssh/id_rsa
 chmod 600 /home/experience/.ssh/id_rsa
+chown -R experience:experience /home/experience/.ssh
+

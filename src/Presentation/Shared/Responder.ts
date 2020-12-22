@@ -18,19 +18,19 @@ class Responder
     {
         let metadata = null;
 
-        if (!transformer)
-        {
-            return response.status(status.code).send(data);
-        }
-
-        data = transformer.handle(data);
-
         if (request)
         {
             metadata = {
                 refreshToken: request.refreshToken
             }
         }
+
+        if (!transformer)
+        {
+            return response.status(status.code).send({...data, metadata});
+        }
+
+        data = transformer.handle(data);
 
         response.status(status.code).send(this.formatResponder.getFormatData(data, status, metadata));
     }
@@ -52,7 +52,7 @@ class Responder
 
         if (!transformer)
         {
-            return response.status(status.code).send(result);
+            return response.status(status.code).send({...data, metadata});
         }
 
         result.data = transformer.handle(data);
@@ -70,16 +70,32 @@ class Responder
         await response.status(status.code).send(result);
     }
 
-    public sendStream(fileDto: IFileDTO, response: Response, status: IHttpStatusCode)
+    public sendStream(fileDto: IFileDTO, request: Request | any, response: Response, status: IHttpStatusCode)
     {
-        response.writeHead(status.code, {'Content-Type': fileDto.metadata.mimeType });
+        let refreshToken = 'none';
+
+        if (request)
+        {
+            refreshToken = request.refreshToken
+        }
+
+        response.writeHead(status.code, {'Content-Type': fileDto.metadata.mimeType, 'Refresh-Token':  refreshToken});
 
         fileDto.stream.pipe(response);
     }
 
-    public error(data: any, response: Response, status: any)
+    public error(data: any, request: Request | any, response: Response, status: any)
     {
-        response.status(status.code).send(data);
+        let metadata;
+
+         if (request)
+        {
+            metadata = {
+                refreshToken: request.refreshToken
+            }
+        }
+
+        response.status(status.code).send({...data, metadata});
     }
 }
 
