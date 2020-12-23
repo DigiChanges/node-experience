@@ -24,12 +24,12 @@ import ItemMongoRepository from "./Infrastructure/Repositories/ItemMongoReposito
 import UserMongoRepository from "./Infrastructure/Repositories/UserMongoRepository";
 import RoleMongoRepository from "./Infrastructure/Repositories/RoleMongoRepository";
 import FileMongoRepository from "./Infrastructure/Repositories/FileMongoRepository";
-import TokenMongoRepository from "./Infrastructure/Repositories/TokenMongoRepository";
 
 import ItemSqlRepository from "./Infrastructure/Repositories/ItemSqlRepository";
 import UserSqlRepository from "./Infrastructure/Repositories/UserSqlRepository";
 import FileSqlRepository from "./Infrastructure/Repositories/FileSqlRepository";
 import RoleSqlRepository from "./Infrastructure/Repositories/RoleSqlRepository";
+import TokenRedisRepository from "./Infrastructure/Repositories/TokenRedisRepository";
 
 const container = new Container();
 
@@ -54,9 +54,9 @@ else if (Config.get('dbConfig.default') === 'Mongoose')
     container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository);
     container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongoRepository);
     container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository);
-    container.bind<ITokenRepository>(REPOSITORIES.ITokenRepository).to(TokenMongoRepository);
 }
 
+container.bind<ITokenRepository>(REPOSITORIES.ITokenRepository).to(TokenRedisRepository);
 
 export let { lazyInject } = getDecorators(container);
 

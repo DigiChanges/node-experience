@@ -1,13 +1,13 @@
-import ITokenDomain from "../../../InterfaceAdapters/IInfraestructure/ITokenDomain";
 import TokenBlackListedHttpException from "../../../Presentation/Exceptions/TokenBlackListedHttpException";
 import GetTokenUseCase from "./GetTokenUseCase";
+import Token from "../../../Infrastructure/Entities/Token";
 
 class VerifyTokenBlacklistUseCase
 {
-    async handle(token: ITokenDomain)
+    async handle(token: Token)
     {
         const getTokenUseCase = new GetTokenUseCase();
-        const tokenSaved: ITokenDomain = await getTokenUseCase.handle(token.getId());
+        const tokenSaved: Token = await getTokenUseCase.handle(token._id);
 
         if (tokenSaved.blackListed)
         {

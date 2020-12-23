@@ -21,6 +21,13 @@
     },
     "default" : "DB_TYPE_DEFAULT"
   },
+  "cache": {
+    "redis": {
+      "port": "CACHE_PORT",
+      "host": "CACHE_HOST",
+      "password": "CACHE_PASSWORD"
+    }
+  },
   "filesystem": {
     "s3": {
       "endPoint": "S3_HOST",

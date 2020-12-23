@@ -1,5 +1,9 @@
-import IBaseRepository from "./IBaseRepository";
 
-interface ITokenRepository extends IBaseRepository {}
+interface ITokenRepository
+{
+    save(element: any): Promise<any>;
+    getOne(id: string): Promise<any>;
+    update(element: any): Promise<any>
+}
 
 export default ITokenRepository;

@@ -40,7 +40,14 @@
     },
     "default": "Mongoose"
   },
-    "filesystem": {
+  "cache": {
+    "redis": {
+      "port": 6379,
+      "host": "redis",
+      "password": "ewsua132435"
+    }
+  },
+  "filesystem": {
     "s3": {
       "type": "s3",
       "endPoint": "s3",

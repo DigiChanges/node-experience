@@ -15,7 +15,7 @@ class ItemSeedFactory
 
     public async init()
     {
-        const indexes = [1,2,3,4,5,6,7,8,9,10];
+        const indexes = Array.from( {length: 10}, (v, i) => i + 1 );
 
         for await (const index of indexes)
         {

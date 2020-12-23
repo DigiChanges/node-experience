@@ -25,6 +25,9 @@ import DatabaseFactory from "../Infrastructure/Factories/DatabaseFactory";
 import SeedFactory from "../Infrastructure/Seeds/SeedFactory";
 import EventHandler from "../Infrastructure/Events/EventHandler";
 import RedirectRouteNotFoundMiddleware from "../Presentation/Middlewares/RedirectRouteNotFoundMiddleware";
+import ITokenRepository from "../InterfaceAdapters/IRepositories/ITokenRepository";
+import {REPOSITORIES} from "../repositories";
+import TokenMongoRepository from "../Infrastructure/Repositories/TokenMongoRepository";
 
 const initServer = async () =>
 {   let server: InversifyExpressServer;
@@ -37,6 +40,9 @@ const initServer = async () =>
 
     dbConnection.initConfigTest(process.env.MONGO_URL);
     await dbConnection.create();
+
+    container.unbind(REPOSITORIES.ITokenRepository);
+    container.bind<ITokenRepository>(REPOSITORIES.ITokenRepository).to(TokenMongoRepository);
 
     server = new InversifyExpressServer(container);
 
