@@ -35,7 +35,7 @@ const AuthenticationMiddleware = (req: any, res: any, next: any) =>
 
             let TokenArray = token.split(" ");
 
-            if(typeof TokenArray[1] === 'undefined')
+            if(typeof TokenArray[1] === 'undefined' || TokenArray[1] === 'null' || !token)
             {
                 throw new TokenNotFoundHttpException();
             }
