@@ -1,6 +1,7 @@
-import DecryptForbiddenHttpException from "../Exceptions/DecryptForbiddenHttpException";
 import ErrorHttpException from "../../Application/Shared/ErrorHttpException";
 import StatusCode from "./StatusCode";
+
+import DecryptForbiddenHttpException from "../Exceptions/DecryptForbiddenHttpException";
 import BadCredentialsHttpException from "../Exceptions/BadCredentialsHttpException";
 import UserDisabledHttpException from "../Exceptions/UserDisabledHttpException";
 import CantDisabledHttpException from "../Exceptions/CantDisabledHttpException";
@@ -8,6 +9,10 @@ import PasswordWrongHttpException from "../Exceptions/PasswordWrongHttpException
 import NotFoundHttpException from "../Exceptions/NotFoundHttpException";
 import TokenExpiredHttpException from "../Exceptions/TokenExpiredHttpException";
 import DuplicateEntityHttpException from "../Exceptions/DuplicateEntityHttpException";
+import RoleDisabledHttpException from "../Exceptions/RoleDisabledHttpException";
+import WrongPermissionsHttpException from "../Exceptions/WrongPermissionsHttpException";
+import TokenBlackListedHttpException from "../Exceptions/TokenBlackListedHttpException";
+import ErrorException from "../../Application/Shared/ErrorException";
 
 class ExceptionFactory
 {
@@ -15,10 +20,13 @@ class ExceptionFactory
         'DecryptForbiddenException': new DecryptForbiddenHttpException(),
         'BadCredentialsException': new BadCredentialsHttpException(),
         'UserDisabledException': new UserDisabledHttpException(),
+        'RoleDisabledException': new RoleDisabledHttpException(),
         'CantDisabledException': new CantDisabledHttpException(),
         'PasswordWrongException': new PasswordWrongHttpException(),
         'NotFoundException': new NotFoundHttpException(),
+        'WrongPermissionsException': new WrongPermissionsHttpException(),
         'Error': new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, "Internal Error", []),
+        'TypeError': new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, "Internal Error", []),
         'ErrorHttpException': new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, "Internal Error", []),
     };
 
@@ -26,13 +34,9 @@ class ExceptionFactory
     {
         let exception = this.exceptionsMapper[err?.name || 'Error'];
 
-        if (err instanceof ErrorHttpException)
-        {
-            exception.statusCode = err.statusCode;
-            exception.message = err.message;
-            exception.errors = err.errors;
-        }
-        else if(err instanceof Error && err.message === "Token expired")
+        const message = err?.message || exception?.message;
+
+        if(err instanceof Error && err.message === "Token expired")
         {
             exception = new TokenExpiredHttpException();
         }
@@ -43,6 +47,18 @@ class ExceptionFactory
                 exception = new DuplicateEntityHttpException();
             }
         }
+        else if (err instanceof ErrorHttpException)
+        {
+            exception.statusCode = err.statusCode;
+            exception.message = err.message;
+            exception.errors = err.errors;
+        }
+        else if(!exception)
+        {
+            exception = this.exceptionsMapper.ErrorHttpException;
+        }
+
+        exception.message = message;
 
         return exception;
     }

@@ -12,23 +12,29 @@ import IUserRepository from "./InterfaceAdapters/IRepositories/IUserRepository";
 import IRoleRepository from "./InterfaceAdapters/IRepositories/IRoleRepository";
 import IAuthService from "./InterfaceAdapters/IServices/IAuthService";
 import IFileRepository from "./InterfaceAdapters/IRepositories/IFileRepository";
+import ITokenRepository from "./InterfaceAdapters/IRepositories/ITokenRepository";
+
 import AuthService from "./Application/Services/AuthService";
+
 import {REPOSITORIES} from "./repositories";
 import {TYPES} from "./types";
+import {SERVICES} from "./services";
+
 import ItemMongoRepository from "./Infrastructure/Repositories/ItemMongoRepository";
 import UserMongoRepository from "./Infrastructure/Repositories/UserMongoRepository";
 import RoleMongoRepository from "./Infrastructure/Repositories/RoleMongoRepository";
 import FileMongoRepository from "./Infrastructure/Repositories/FileMongoRepository";
+
 import ItemSqlRepository from "./Infrastructure/Repositories/ItemSqlRepository";
 import UserSqlRepository from "./Infrastructure/Repositories/UserSqlRepository";
 import FileSqlRepository from "./Infrastructure/Repositories/FileSqlRepository";
 import RoleSqlRepository from "./Infrastructure/Repositories/RoleSqlRepository";
-
+import TokenRedisRepository from "./Infrastructure/Repositories/TokenRedisRepository";
 
 const container = new Container();
 
 /* IServices */
-container.bind<IAuthService>(REPOSITORIES.IAuthService).to(AuthService);
+container.bind<IAuthService>(SERVICES.IAuthService).to(AuthService);
 
 /* Libs */
 container.bind<Responder>(TYPES.Responder).to(Responder);
@@ -50,6 +56,7 @@ else if (Config.get('dbConfig.default') === 'Mongoose')
     container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository);
 }
 
+container.bind<ITokenRepository>(REPOSITORIES.ITokenRepository).to(TokenRedisRepository);
 
 export let { lazyInject } = getDecorators(container);
 

@@ -12,7 +12,7 @@ services:
     volumes:
      - .:/usr/app:cached
     ports:
-      - "8089:8089"
+      - 8089:8089
     networks:
      - experiencenet
 
@@ -23,7 +23,7 @@ services:
       context: docker/mongo/
       dockerfile: Dockerfile
     ports:
-      - "27017:27017"
+      - 27017:27017
     environment:
       MONGODB_ROOT_PASSWORD: 123456
       MONGODB_USERNAME: experience
@@ -48,7 +48,7 @@ services:
     restart: always
     image: minio/minio
     ports:
-      - "9002:9000"
+      - 9002:9000
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: 12345678
@@ -57,6 +57,20 @@ services:
     networks:
       - experiencenet
     command: server /data
+
+  redis:
+    image: bitnami/redis:latest
+    restart: always
+    container_name: experience_redis_1
+    environment:
+      - REDIS_PASSWORD=ewsua132435 # Security reasons
+      - DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG # Security reasons
+    ports:
+      - 6379:6379
+    volumes:
+      - data:/bitnami/redis/data
+    networks:
+      - experiencenet
 
 networks:
   experiencenet:

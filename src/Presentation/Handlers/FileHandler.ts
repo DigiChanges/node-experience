@@ -107,7 +107,7 @@ class FileHandler
 
         const fileDto = await downloadUseCase.handle(_request);
 
-        this.responder.sendStream(fileDto, res, StatusCode.HTTP_OK);
+        this.responder.sendStream(fileDto, req, res, StatusCode.HTTP_OK);
     }
 
     @httpPut('/base64/:id', AuthorizeMiddleware(Permissions.FILES_UPDATE))

@@ -5,6 +5,7 @@ import {InversifyExpressServer} from "inversify-express-utils";
 import compression from "compression";
 import cors from "cors";
 import helmet from "helmet";
+import throttle from "express-rate-limit";
 import Config from "config";
 
 import Container from "../inversify.config";
@@ -23,6 +24,7 @@ import {ErrorHandler} from "../Presentation/Shared/ErrorHandler";
 import {loggerCli} from "../Infrastructure/Shared/Logger";
 import RedirectRouteNotFoundMiddleware from "../Presentation/Middlewares/RedirectRouteNotFoundMiddleware";
 import RefreshTokenMiddleware from "../Presentation/Middlewares/RefreshTokenMiddleware";
+import StatusCode from "../Presentation/Shared/StatusCode";
 
 class App
 {
@@ -38,6 +40,22 @@ class App
 
     public async initConfig()
     {
+        // TODO: Refactor this code
+        const meta: any = {
+            status: StatusCode.HTTP_TOO_MANY_REQUESTS.status,
+            code: StatusCode.HTTP_TOO_MANY_REQUESTS.code,
+            statusCode: StatusCode.HTTP_TOO_MANY_REQUESTS.statusCode,
+            message: 'Exceed 1 request per second',
+            errors: null
+        };
+
+        // Blocking when exceed more than 1 request per second
+        const CreateThrottle = throttle({
+                      windowMs: 2 * 1000, // 2 second
+                      max: 1, // start blocking after 1 request
+                      message: meta
+        });
+
         this.server.setConfig((app: any) =>
         {
             app.use(bodyParser.urlencoded({
@@ -51,6 +69,7 @@ class App
             app.use(cors());
             app.use(helmet());
             app.use(LoggerWinston);
+            app.use(CreateThrottle);
             app.use(AuthenticationMiddleware);
             app.use(RefreshTokenMiddleware);
         });
@@ -73,11 +92,6 @@ class App
         this.app.listen(this.port, () => {
             loggerCli.debug(`App listening on the port ${this.port}`);
         });
-    }
-
-    public getApp()
-    {
-        return this.app;
     }
 }
 

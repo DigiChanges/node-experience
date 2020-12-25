@@ -11,16 +11,11 @@ class ItemUpdateRequest extends IdRequest implements ItemUpdatePayload
     @IsInt()
     type: number;
 
-    @IsOptional()
-    @IsBoolean()
-    enable: boolean;
-
     constructor(request: express.Request)
     {
         super(request);
         this.name = request.body.name;
         this.type = request.body.type;
-        this.enable = request.body.hasOwnProperty('enable') ? request.body.enable : true;
     }
 
     getName(): string
@@ -31,11 +26,6 @@ class ItemUpdateRequest extends IdRequest implements ItemUpdatePayload
     getType(): number
     {
         return this.type;
-    }
-
-    getEnable(): boolean
-    {
-        return this.enable;
     }
 }
 

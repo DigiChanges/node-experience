@@ -1,16 +1,20 @@
 import mongoose from "mongoose";
 import Config from "config";
 import ICreateConnection from "../../InterfaceAdapters/IDatabase/ICreateConnection";
+
 import IUserDocument from "../../InterfaceAdapters/IEntities/Mongoose/IUserDocument";
 import IRoleDocument from "../../InterfaceAdapters/IEntities/Mongoose/IRoleDocument";
 import IItemDocument from "../../InterfaceAdapters/IEntities/Mongoose/IItemDocument";
+import IFileDocument from "../../InterfaceAdapters/IEntities/Mongoose/IFileDocument";
+import INotificationDocument from "../../InterfaceAdapters/IEntities/Mongoose/INotificationDocument";
+import ITokenDocument from "../../InterfaceAdapters/IEntities/Mongoose/ITokenDocument";
+
 import ItemSchema from "../Schema/Mongoose/Item";
 import RoleSchema from "../Schema/Mongoose/Role";
 import UserSchema from "../Schema/Mongoose/User";
 import FileSchema from "../Schema/Mongoose/File";
-import INotificationDocument from "../../InterfaceAdapters/IEntities/Mongoose/INotificationDocument";
 import {EmailNotificationSchema, NotificationSchema, PushNotificationSchema} from "../Schema/Mongoose/Notification";
-import IFileDocument from "../../InterfaceAdapters/IEntities/Mongoose/IFileDocument";
+import TokenSchema from "../Schema/Mongoose/Token";
 
 export let connection: mongoose.Connection = null;
 
@@ -46,10 +50,11 @@ class MongooseCreateConnection implements ICreateConnection
         connection.model<IItemDocument>('Item', ItemSchema);
         connection.model<IFileDocument>('File', FileSchema);
 
-        // Notifications
+        // Infrastructure
         const NotificationModel = connection.model<INotificationDocument>('Notification', NotificationSchema);
         NotificationModel.discriminator('EmailNotification', EmailNotificationSchema);
         NotificationModel.discriminator('PushNotification', PushNotificationSchema);
+        connection.model<ITokenDocument>('Token', TokenSchema);
 
         return connection;
     }

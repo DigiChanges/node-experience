@@ -3,11 +3,17 @@ import KeepAlivePayload from "../../../InterfaceAdapters/Payloads/Auth/KeepAlive
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import TokenFactory from "../../../Infrastructure/Factories/TokenFactory";
 import {REPOSITORIES} from "../../../repositories";
+import VerifyTokenBlacklistUseCase from "../Tokens/VerifyTokenBlacklistUseCase";
+import ITokenRepository from "../../../InterfaceAdapters/IRepositories/ITokenRepository";
+import SetTokenBlacklistUseCase from "../Tokens/SetTokenBlacklistUseCase";
 
 class KeepAliveUseCase
 {
     @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
+    @lazyInject(REPOSITORIES.ITokenRepository)
+    private tokenRepository: ITokenRepository;
+
     private tokenFactory: TokenFactory;
 
     constructor()
@@ -18,10 +24,18 @@ class KeepAliveUseCase
     async handle(payload: KeepAlivePayload)
     {
         const email = payload.getEmail();
+        const tokenId = payload.getTokenId()
 
         const user = await this.repository.getOneByEmail(email);
+        const token: any = await this.tokenRepository.getOne(tokenId);
 
-        return this.tokenFactory.token(user);
+        const verifyTokenBlacklistUseCase = new VerifyTokenBlacklistUseCase();
+        await verifyTokenBlacklistUseCase.handle(token);
+
+        const setTokenBlacklistUseCase = new SetTokenBlacklistUseCase();
+        await setTokenBlacklistUseCase.handle(token);
+
+        return await this.tokenFactory.createToken(user);
     }
 }
 

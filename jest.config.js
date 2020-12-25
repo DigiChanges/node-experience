@@ -21,8 +21,7 @@ module.exports = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  // collectCoverageFrom: ["dist/src/Tests/**/*.js"],
-  collectCoverageFrom : ["**/*.js", "src/**/*.{js,jsx,ts,tsx}", "dist/**/*.{js,jsx,ts,tsx}", "./dist/**/*.{js,jsx,ts,tsx}"],
+  collectCoverageFrom: ["dist/**/{*.js,ts}", "../dist/**/{*.js,ts}", "/**/*.js"],
 
   // transform: tsjPreset.transform,
   // transform: {
@@ -34,11 +33,19 @@ module.exports = {
 
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
-    "/node_modules/"
+    "/node_modules/",
+    "dist/src/Tests/coverage",
+    "dist/src/Presentation/Requests/Command/*",
+    "src/Presentation/Commands/*",
+    "src/Application/app.*",
+    "src/index.*",
+    "src/command.*",
+    "src/Presentation/Shared/StatusCode.*",
+    "config/validateEnv.*"
   ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
+  coverageProvider: "babel",
 
   // A list of reporter names that Jest uses when writing coverage reports
   coverageReporters: [
@@ -81,7 +88,7 @@ module.exports = {
   //   },
 
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
-  maxWorkers: "50%",
+  maxWorkers: "70%",
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [
@@ -97,8 +104,8 @@ module.exports = {
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/mocks.js",
-      "\\.(css|less)$": "<rootDir>/__mocks__/mocks.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "./dist/src/Tests/__mocks__/mocks.js",
+      "\\.(css|less)$": "./dist/src/Tests/__mocks__/mocks.js"
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -132,7 +139,7 @@ module.exports = {
   // restoreMocks: false,
 
   // The root directory that Jest should scan for tests and modules within
-  rootDir: "./dist/src/Tests",
+  // rootDir: "./dist/src/Tests",
 
   // A list of paths to directories that Jest should use to search for files in
   // roots: [
@@ -143,10 +150,12 @@ module.exports = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  // setupFiles: [],
+  setupFiles: [
+      'dotenv/config'
+  ],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ['<rootDir>/setup.js'],
+  // setupFilesAfterEnv: ['./dist/src/Tests/setup.js'],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,

@@ -11,6 +11,9 @@ import IFilesystem from "./InterfaceAdapters/Shared/IFilesystem";
 export let filesystem: IFilesystem = null;
 import EventHandler from "./Infrastructure/Events/EventHandler";
 import ICreateConnection from "./InterfaceAdapters/IDatabase/ICreateConnection";
+import ICacheRepository from "./InterfaceAdapters/IRepositories/ICacheRepository";
+import CacheFactory from "./Infrastructure/Factories/CacheFactory";
+import Config from "config";
 
 (async () => {
     try {
@@ -23,6 +26,10 @@ import ICreateConnection from "./InterfaceAdapters/IDatabase/ICreateConnection";
 
         createConnection.initConfig();
         await createConnection.create();
+
+        let cache: ICacheRepository = CacheFactory.createRedisCache(); // Create for redis repository
+        await cache.createConnection(Config.get("cache.redis")); // Create connection for cache
+        await cache.cleanAll();
 
         filesystem = FilesystemFactory.create();
 

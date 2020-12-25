@@ -2,6 +2,6 @@ export const REPOSITORIES = {
     IItemRepository: 'IItemRepository',
     IUserRepository: 'IUserRepository',
     IRoleRepository: 'IRoleRepository',
-    IAuthService: "IAuthService",
-    IFileRepository: "IFileRepository"
+    IFileRepository: 'IFileRepository',
+    ITokenRepository: 'ITokenRepository'
 };

@@ -1,23 +1,23 @@
 import {injectable} from "inversify";
 import jwt, { TAlgorithm } from "jwt-simple";
+import _ from "lodash/fp";
 import Config from "config";
 
-import TokenFactory from "../../Infrastructure/Factories/TokenFactory";
 import IEncryption from "../../InterfaceAdapters/Shared/IEncryption";
 import EncryptionFactory from "../../Infrastructure/Factories/EncryptionFactory";
 import IAuthService from "../../InterfaceAdapters/IServices/IAuthService";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
+import Permissions from "../../../config/Permissions";
+import WrongPermissionsException from "../Exceptions/WrongPermissionsException";
 
 @injectable()
 class AuthService implements IAuthService
 {
     private encryption: IEncryption;
-    private tokenFactory: TokenFactory;
 
     constructor()
     {
-        this.tokenFactory = new TokenFactory();
         this.encryption = EncryptionFactory.create();
     }
 
@@ -45,6 +45,14 @@ class AuthService implements IAuthService
         }
 
         return [...new Set(permissions)];
+    }
+
+    public validatePermissions(permissions: string[]): void
+    {
+        if (!_.isEmpty(permissions) && _.isEmpty(_.intersection(permissions, Permissions.permissions())))
+        {
+            throw new WrongPermissionsException();
+        }
     }
 }
 

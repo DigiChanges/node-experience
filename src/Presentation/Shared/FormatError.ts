@@ -1,8 +1,6 @@
-import StatusCode from "./StatusCode";
-import {ValidationError} from "class-validator";
-import ValidationModel from "../../Application/Shared/ValidationModel";
 import _ from "lodash";
-import IStatusCode from "../../InterfaceAdapters/IPresentation/IStatusCode";
+import StatusCode from "./StatusCode";
+import ValidationModel from "../../Application/Shared/ValidationModel";
 import ErrorHttpException from "../../Application/Shared/ErrorHttpException";
 
 class FormatError
@@ -23,11 +21,11 @@ class FormatError
         }
 
         return {
-            'status': statusCode.status,
-            'code': statusCode.code,
-            'statusCode': statusCode.statusCode,
-            'message': statusCode.code === StatusCode.HTTP_INTERNAL_SERVER_ERROR.code ? 'Internal Error Server' : message,
-            'errors': _.isEmpty(validationModels) ? null : validationModels
+            status: statusCode.status,
+            code: statusCode.code,
+            statusCode: statusCode.statusCode,
+            message: statusCode.code === StatusCode.HTTP_INTERNAL_SERVER_ERROR.code ? 'Internal Error Server' : message,
+            errors: _.isEmpty(validationModels) ? null : validationModels
         };
     };
 }

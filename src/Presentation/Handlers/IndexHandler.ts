@@ -1,21 +1,20 @@
-import {controller, request, response, next, httpGet} from "inversify-express-utils";
-import { NextFunction, Request, Response } from "express";
+import {inject} from "inversify";
+import {controller, httpGet, BaseHttpController} from "inversify-express-utils";
 
-import {lazyInject } from "../../inversify.config";
 import StatusCode from "../Shared/StatusCode";
 import Responder from "../Shared/Responder";
 import {TYPES} from "../../types";
 
 @controller('/')
-class IndexHandler
+class IndexHandler extends BaseHttpController
 {
-    @lazyInject(TYPES.Responder)
+    @inject(TYPES.Responder)
     private responder: Responder;
 
     @httpGet('/')
-    public async index (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async index ()
     {
-        this.responder.send({message: 'Greetings to Node Experience'}, req, res, StatusCode.HTTP_OK, null);
+        return this.responder.send({message: 'Welcome to Node Experience'}, this.httpContext.request, this.httpContext.response, StatusCode.HTTP_OK, null);
     }
 }
 

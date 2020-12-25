@@ -5,6 +5,8 @@ class Permissions
 
     // AUTH
     static readonly AUTH_KEEP_ALIVE: string = 'authKeepAlive';
+    static readonly AUTH_SYNC_PERMISSIONS: string = 'authSyncPermissions';
+    static readonly GET_PERMISSIONS: string = 'getPermissions';
 
     // ITEMS
     static readonly ITEMS_SAVE: string = 'itemsSave';
@@ -36,34 +38,36 @@ class Permissions
     static readonly ROLES_LIST: string = 'rolesList';
     static readonly ROLES_DELETE: string = 'rolesDelete';
 
-    static permissions(): object
+    static permissions(): string[]
     {
         return [
-            [Permissions.AUTH_KEEP_ALIVE],
+            `${Permissions.AUTH_KEEP_ALIVE}`,
+            `${Permissions.AUTH_SYNC_PERMISSIONS}`,
+            `${Permissions.GET_PERMISSIONS}`,
 
-            [Permissions.ITEMS_SAVE],
-            [Permissions.ITEMS_UPDATE],
-            [Permissions.ITEMS_SHOW],
-            [Permissions.ITEMS_LIST],
-            [Permissions.ITEMS_DELETE],
+            `${Permissions.ITEMS_SAVE}`,
+            `${Permissions.ITEMS_UPDATE}`,
+            `${Permissions.ITEMS_SHOW}`,
+            `${Permissions.ITEMS_LIST}`,
+            `${Permissions.ITEMS_DELETE}`,
 
-            [Permissions.USERS_SAVE],
-            [Permissions.USERS_UPDATE],
-            [Permissions.USERS_SHOW],
-            [Permissions.USERS_LIST],
-            [Permissions.USERS_DELETE],
-            [Permissions.USERS_CHANGE_MY_PASSWORD],
-            [Permissions.USERS_CHANGE_USER_PASSWORD],
+            `${Permissions.USERS_SAVE}`,
+            `${Permissions.USERS_UPDATE}`,
+            `${Permissions.USERS_SHOW}`,
+            `${Permissions.USERS_LIST}`,
+            `${Permissions.USERS_DELETE}`,
+            `${Permissions.USERS_CHANGE_MY_PASSWORD}`,
+            `${Permissions.USERS_CHANGE_USER_PASSWORD}`,
 
-            [Permissions.ROLES_SAVE],
-            [Permissions.ROLES_UPDATE],
-            [Permissions.ROLES_SHOW],
-            [Permissions.ROLES_LIST],
-            [Permissions.ROLES_DELETE],
+            `${Permissions.ROLES_SAVE}`,
+            `${Permissions.ROLES_UPDATE}`,
+            `${Permissions.ROLES_SHOW}`,
+            `${Permissions.ROLES_LIST}`,
+            `${Permissions.ROLES_DELETE}`,
 
-            [Permissions.FILES_UPLOAD],
-            [Permissions.FILES_UPDATE],
-            [Permissions.FILES_DOWNLOAD]
+            `${Permissions.FILES_UPLOAD}`,
+            `${Permissions.FILES_UPDATE}`,
+            `${Permissions.FILES_DOWNLOAD}`
         ];
     }
 }

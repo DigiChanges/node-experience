@@ -3,12 +3,11 @@ import UserUpdatePayload from "../../../InterfaceAdapters/Payloads/Users/UserUpd
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import CheckUserRolePayload from "../../../InterfaceAdapters/Payloads/Auxiliars/CheckUserRolePayload";
 import Roles from "../../../../config/Roles";
-import ErrorHttpException from "../../../Application/Shared/ErrorHttpException";
-import StatusCode from "../../../Presentation/Shared/StatusCode";
 import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
 import RoleRepoFactory from "../../../Infrastructure/Factories/RoleRepoFactory";
 import Role from '../../Entities/Role';
 import {REPOSITORIES} from "../../../repositories";
+import {SERVICES} from "../../../services";
 import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
 import AuthService from "../../../Application/Services/AuthService";
 import CantDisabledException from "../../Exceptions/CantDisabledException";
@@ -18,7 +17,7 @@ class UpdateUserUseCase
     @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
 
-    @lazyInject(REPOSITORIES.IAuthService)
+    @lazyInject(SERVICES.IAuthService)
     private authService: AuthService;
 
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
@@ -49,7 +48,7 @@ class UpdateUserUseCase
 
         user.firstName = payload.getFirstName();
         user.lastName = payload.getLastName();
-
+        user.enable = payload.getEnable();
         user.email = payload.getEmail();
 
         await this.repository.save(user);
@@ -57,7 +56,7 @@ class UpdateUserUseCase
         return user;
     }
 
-    public async checkIfUserHasRole (payload: CheckUserRolePayload): Promise<boolean> // TODO: Create a service
+    public async checkIfUserHasRole (payload: CheckUserRolePayload): Promise<boolean> // TODO: Create a user service
     {
         let roleRepository: IRoleRepository = RoleRepoFactory.create();
         let count = payload.user.roles.length;

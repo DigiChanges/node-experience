@@ -1,11 +1,14 @@
 {
   "env": "test",
   "serverPort": 8089,
+  "auth": {
+    "authorization": true
+  },
   "dbConfig": {
-    "typeORM": {
-      "type": "mongodb",
+    "TypeORM": {
+      "type": "postgres",
       "host": "db",
-      "port": 27017,
+      "port": 5432,
       "database": "experience",
       "username": "experience",
       "password": "experience",
@@ -13,21 +16,50 @@
       "migrationsRun": false,
       "logging": true,
       "entities": [
-        "./dist/src/Infrastructure/Entities/**/*.js"
+        "src/Infrastructure/Schema/TypeORM/*.ts"
       ],
       "migrations": [
-        "./dist/src/Infrastructure/Migrations/**/*.js"
+        "src/Infrastructure/Migrations/TypeORM/**/*.ts"
       ],
       "subscribers": [
-        "./dist/src/Infrastructure/Subscribers/**/*.js"
+        "src/Infrastructure/Subscribers/TypeORM/**/*.ts"
       ],
       "cli": {
-        "entitiesDir": "./src/Infrastructure/Entities",
-        "migrationsDir": "./src/Infrastructure/Migrations",
-        "subscribersDir": "./src/Infrastructure/Subscribers"
+        "entitiesDir": "/src/Infrastructure/Entities/TypeORM",
+        "migrationsDir": "/src/Infrastructure/Migrations",
+        "subscribersDir": "/src/Infrastructure/Subscribers"
       }
     },
-    "default": "typeORM"
+    "Mongoose": {
+      "host": "db",
+      "port": 27017,
+      "database": "experience",
+      "username": "experience",
+      "password": "experience"
+    },
+    "default": "Mongoose"
+  },
+  "cache": {
+    "redis": {
+      "port": 6379,
+      "host": "redis",
+      "password": "ewsua132435"
+    }
+  },
+  "filesystem": {
+    "s3": {
+      "type": "s3",
+      "endPoint": "s3",
+      "accessKey": "minio",
+      "secretKey": "12345678",
+      "useSSL": false,
+      "port": 9000,
+      "bucket": "experience"
+    },
+    "local": {
+      "type": "local"
+    },
+    "default": "s3"
   },
   "encryption": {
     "bcrypt": {
@@ -53,7 +85,12 @@
     "password": "",
     "secure": false,
     "senderName": "Notifications",
-    "senderEmailDefault": "notification@localhost.com"
+    "senderEmailDefault": "notification@localhost.com",
+    "templateDir": "Infrastructure/templates/emails"
+  },
+  "push": {
+    "privateKey": "BFbzNLYCWO7Ei0cmBco43ZCsEbhFAOzcfop1eHYiK8CVCBK_-xeWEWzHHlQiPEUPvuxwMHc1koGj40t2hcgiWvk",
+    "publicKey": "k8sGjPBnD8iabMkB6toD8payp9plozw4t4FSfjhUPhQ"
   },
   "url":{
     "urlApi": "http://localhost:8089/api/",
@@ -84,10 +121,6 @@
     {
       "method": ["POST"],
       "url": "/api/auth/changeForgotPassword"
-    },
-    {
-      "method": ["POST"],
-      "url": "/api/users"
     }
   ]
 }

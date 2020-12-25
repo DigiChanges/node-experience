@@ -1,7 +1,5 @@
 import Config from "config";
-import StatusCode from "../Shared/StatusCode";
 import AuthService from "../../Application/Services/AuthService";
-import ErrorHttpException from '../../Application/Shared/ErrorHttpException';
 import TokenExpiredHttpException from "../Exceptions/TokenExpiredHttpException";
 import TokenNotFoundHttpException from "../Exceptions/TokenNotFoundHttpException";
 
@@ -27,7 +25,7 @@ const AuthenticationMiddleware = (req: any, res: any, next: any) =>
         }
         else
         {
-            // Not exist the token in the Header
+            // Not exist the createToken in the Header
             let token = req.get('Authorization');
 
             if(typeof token === 'undefined' || token.indexOf('Bearer') === -1)
@@ -37,7 +35,7 @@ const AuthenticationMiddleware = (req: any, res: any, next: any) =>
 
             let TokenArray = token.split(" ");
 
-            if(typeof TokenArray[1] === 'undefined')
+            if(typeof TokenArray[1] === 'undefined' || TokenArray[1] === 'null' || !token)
             {
                 throw new TokenNotFoundHttpException();
             }

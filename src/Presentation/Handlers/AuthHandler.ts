@@ -1,7 +1,7 @@
 import {controller, httpPost, request, response, next, httpGet} from "inversify-express-utils";
 import { NextFunction, Request, Response } from "express";
 
-import {lazyInject } from "../../inversify.config";
+import {inject} from "inversify";
 import {TYPES} from "../../types";
 import {SERVICES} from "../../services";
 import StatusCode from "../Shared/StatusCode";
@@ -32,9 +32,9 @@ import ValidatorRequest from "../../Application/Shared/ValidatorRequest";
 @controller('/api/auth')
 class AuthHandler
 {
-    @lazyInject(SERVICES.IAuthService)
+    @inject(SERVICES.IAuthService)
     private service: IAuthService;
-    @lazyInject(TYPES.Responder)
+    @inject(TYPES.Responder)
     private responder: Responder;
 
     @httpPost('/login')
@@ -85,23 +85,21 @@ class AuthHandler
         this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, null);
     }
 
-    @httpGet('/permissions')
+    @httpGet('/permissions', AuthorizeMiddleware(Permissions.GET_PERMISSIONS))
     public async permissions (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const permissionUseCase = new PermissionUseCase();
         const payload = await permissionUseCase.handle();
 
-        this.responder.send(payload, null, res, StatusCode.HTTP_OK, new PermissionsTransformer());
+        this.responder.send(payload, req, res, StatusCode.HTTP_OK, new PermissionsTransformer());
     }
 
-    @httpPost('/syncRolesPermissions')
+    @httpPost('/syncRolesPermissions', AuthorizeMiddleware(Permissions.AUTH_SYNC_PERMISSIONS))
     public async syncRolesPermissions (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const syncRolesPermissionUseCase = new SyncRolesPermissionUseCase();
         await syncRolesPermissionUseCase.handle();
 
-        this.responder.send({message: "Sync Successfully"}, null, res, StatusCode.HTTP_CREATED, null);
+        this.responder.send({message: "Sync Successfully"}, req, res, StatusCode.HTTP_CREATED, null);
     }
 }
-
-export default AuthHandler;

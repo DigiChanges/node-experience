@@ -9,6 +9,7 @@ class AssignRoleUseCase
 {
     @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
+
     @lazyInject(REPOSITORIES.IRoleRepository)
     private roleRepository: IRoleRepository;
 
