@@ -383,9 +383,9 @@ describe("Start Role Test", () =>
 
             const {body: {status, statusCode, message, errors: [error], metadata: {refreshToken}}} = response;
 
-            expect(response.statusCode).toStrictEqual(403);
+            expect(response.statusCode).toStrictEqual(422);
             expect(status).toStrictEqual('error');
-            expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
+            expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
             expect(error.property).toStrictEqual('slug');
@@ -407,9 +407,9 @@ describe("Start Role Test", () =>
 
             const {body: {status, statusCode, message, errors: [error], metadata: {refreshToken}}} = response;
 
-            expect(response.statusCode).toStrictEqual(403);
+            expect(response.statusCode).toStrictEqual(422);
             expect(status).toStrictEqual('error');
-            expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
+            expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
             expect(error.property).toStrictEqual('id');
@@ -436,9 +436,9 @@ describe("Start Role Test", () =>
 
             const {body: {status, statusCode, message, errors: [error1, error2], metadata: {refreshToken}}} = response;
 
-            expect(response.statusCode).toStrictEqual(403);
+            expect(response.statusCode).toStrictEqual(422);
             expect(status).toStrictEqual('error');
-            expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
+            expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
             expect(error1.property).toStrictEqual('name');

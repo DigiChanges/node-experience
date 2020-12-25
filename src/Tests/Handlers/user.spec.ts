@@ -382,9 +382,9 @@ describe("Start User Test", () =>
 
             const {body: {status, statusCode, message, errors: [error], metadata: {refreshToken}}} = response;
 
-            expect(response.statusCode).toStrictEqual(403);
+            expect(response.statusCode).toStrictEqual(422);
             expect(status).toStrictEqual('error');
-            expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
+            expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
             expect(error.property).toStrictEqual('firstName');
@@ -406,9 +406,9 @@ describe("Start User Test", () =>
 
             const {body: {status, statusCode, message, errors: [error], metadata: {refreshToken}}} = response;
 
-            expect(response.statusCode).toStrictEqual(403);
+            expect(response.statusCode).toStrictEqual(422);
             expect(status).toStrictEqual('error');
-            expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
+            expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
             expect(error.property).toStrictEqual('id');
@@ -436,9 +436,9 @@ describe("Start User Test", () =>
 
             const {body: {status, statusCode, message, errors: [error], metadata: {refreshToken}}} = response;
 
-            expect(response.statusCode).toStrictEqual(403);
+            expect(response.statusCode).toStrictEqual(422);
             expect(status).toStrictEqual('error');
-            expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
+            expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
             expect(error.property).toStrictEqual('firstName');

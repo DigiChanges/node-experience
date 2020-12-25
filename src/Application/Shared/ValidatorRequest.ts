@@ -11,7 +11,7 @@ class ValidatorRequest
 
         if (!_.isEmpty(errors))
         {
-            throw new ErrorHttpException(StatusCode.HTTP_FORBIDDEN, 'Failed Request.', errors);
+            throw new ErrorHttpException(StatusCode.HTTP_UNPROCESSABLE_ENTITY, 'Failed Request.', errors);
         }
     }
 }
