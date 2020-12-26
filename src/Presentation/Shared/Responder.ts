@@ -84,6 +84,16 @@ class Responder
         fileDto.stream.pipe(response);
     }
 
+    public render(data: any, view: any, response: Response, resolve: any, reject: any)
+    {
+        response.render('log', {data}, (err: any, compiled: any) => {
+            if (err) {
+                reject('500 when rendering the template');
+            }
+            resolve(compiled);
+        });
+    }
+
     public error(data: any, request: Request | any, response: Response, status: any)
     {
         let metadata;

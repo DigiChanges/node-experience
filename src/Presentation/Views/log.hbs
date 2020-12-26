@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>Logs</h2>
+        <p class="lead">Only 500 errors logs</p>
+    </div>
+
+    <table class="table" id="customers_table">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Method</th>
+                <th>Path</th>
+                <th>Date</th>
+                <th>Level</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{ code }}</td>
+                <td>{{ method }}</td>
+                <td>{{ path }}</td>
+                <td>{{ date }}</td>
+                <td>{{ level }}</td>
+                <td>{{ message }}</td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="text-center">No data to display.</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

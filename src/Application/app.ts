@@ -1,30 +1,33 @@
-import "reflect-metadata";
-import * as bodyParser from "body-parser";
-import express from "express";
-import {InversifyExpressServer} from "inversify-express-utils";
-import compression from "compression";
-import cors from "cors";
-import helmet from "helmet";
-import throttle from "express-rate-limit";
-import Config from "config";
+import 'reflect-metadata';
+import * as bodyParser from 'body-parser';
+import express from 'express';
+import {InversifyExpressServer} from 'inversify-express-utils';
+import compression from 'compression';
+import cors from 'cors';
+import helmet from 'helmet';
+import exphbs from 'express-handlebars';
+import throttle from 'express-rate-limit';
+import Config from 'config';
 
-import Container from "../inversify.config";
+import Container from '../inversify.config';
 
-import "../Presentation/Handlers/IndexHandler";
-import "../Presentation/Handlers/ItemHandler";
-import "../Presentation/Handlers/UserHandler";
-import "../Presentation/Handlers/AuthHandler";
-import "../Presentation/Handlers/RoleHandler";
-import "../Presentation/Handlers/FileHandler";
-import "../Presentation/Handlers/NotificationHandler";
+import '../Presentation/Handlers/IndexHandler';
+import '../Presentation/Handlers/ItemHandler';
+import '../Presentation/Handlers/UserHandler';
+import '../Presentation/Handlers/AuthHandler';
+import '../Presentation/Handlers/RoleHandler';
+import '../Presentation/Handlers/FileHandler';
+import '../Presentation/Handlers/NotificationHandler';
+import '../Presentation/Handlers/LogHandler';
 
-import LoggerWinston from "../Presentation/Middlewares/LoggerWinston";
-import AuthenticationMiddleware from "../Presentation/Middlewares/AuthenticationMiddleware";
-import {ErrorHandler} from "../Presentation/Shared/ErrorHandler";
-import {loggerCli} from "../Infrastructure/Shared/Logger";
-import RedirectRouteNotFoundMiddleware from "../Presentation/Middlewares/RedirectRouteNotFoundMiddleware";
-import RefreshTokenMiddleware from "../Presentation/Middlewares/RefreshTokenMiddleware";
-import StatusCode from "../Presentation/Shared/StatusCode";
+import LoggerWinston from '../Presentation/Middlewares/LoggerWinston';
+import AuthenticationMiddleware from '../Presentation/Middlewares/AuthenticationMiddleware';
+import {ErrorHandler} from '../Presentation/Shared/ErrorHandler';
+import {loggerCli} from '../Infrastructure/Shared/Logger';
+import RedirectRouteNotFoundMiddleware from '../Presentation/Middlewares/RedirectRouteNotFoundMiddleware';
+import RefreshTokenMiddleware from '../Presentation/Middlewares/RefreshTokenMiddleware';
+import StatusCode from '../Presentation/Shared/StatusCode';
+import * as path from "path";
 
 class App
 {
@@ -68,8 +71,17 @@ class App
             app.use(compression());
             app.use(cors());
             app.use(helmet());
+            const viewRoute = path.join(__dirname, '../Presentation/Views');
+            app.set('views', viewRoute);
+            app.engine('.hbs', exphbs({
+                    defaultLayout: 'main',
+                    extname: '.hbs',
+                    layoutsDir: `${viewRoute}/Layouts`,
+                    partialsDir: `${viewRoute}/Partials`
+            }));
+            app.set('view engine', '.hbs');
             app.use(LoggerWinston);
-            app.use(CreateThrottle);
+            app.use('/api/', CreateThrottle);
             app.use(AuthenticationMiddleware);
             app.use(RefreshTokenMiddleware);
         });

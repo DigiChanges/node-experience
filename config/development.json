@@ -121,6 +121,10 @@
     {
       "method": ["POST"],
       "url": "/api/auth/changeForgotPassword"
+    },
+    {
+      "method": ["GET"],
+      "url": "/log"
     }
   ]
 }
