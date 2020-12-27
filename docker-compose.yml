@@ -39,7 +39,7 @@ services:
     restart: always
     image: mailhog/mailhog:latest
     ports:
-      - "8027:8025"
+      - 8027:8025
     networks:
       - experiencenet
 

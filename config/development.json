@@ -67,11 +67,8 @@
       "saltRounds": 10,
       "algorithm": "HS512"
     },
-    "md5": {
-      "type": "md5"
-    }
+  "encryptionDefault": "bcrypt"
   },
-  "encryptionDefault": "bcrypt",
   "jwt": {
     "secret": "mySecretJWT",
     "expires": 3600,

@@ -5,16 +5,14 @@ import Config from "config";
 
 class EncryptionFactory
 {
-    static create(encryptionConfig: string = Config.get('encryptionDefault')): IEncryption
+    static create(encryptionConfig: string = Config.get('encryption.encryptionDefault')): IEncryption
     {
-        if(encryptionConfig === Config.get('encryption.bcrypt.type'))
-        {
-            return new BcryptEncryptionStrategy();
-        }
-        if(encryptionConfig === Config.get('encryption.md5.type'))
-        {
-            return new Md5EncryptionStrategy();
-        }
+       const encryptions: any = {
+            bcrypt : new BcryptEncryptionStrategy(),
+            md5: new Md5EncryptionStrategy()
+        };
+
+        return encryptions[encryptionConfig];
     }
 }
 

@@ -38,7 +38,7 @@
       "bucket": "S3_BUCKET_NAME"
     },
     "local": "",
-    "default": "FILLESYSTEM_DEFAULT"
+    "default": "FILESYSTEM_DEFAULT"
   },
   "jwt": {
     "secret": "JWT_SECRET",

@@ -12,6 +12,6 @@ services:
     volumes:
       - .:/usr/app:cached
     ports:
-      - "8089:8089"
+      - 8089:8089
     networks:
       - experiencenet
