@@ -15,6 +15,4 @@ services:
       - POSTGRES_PASSWORD=experience
     volumes:
       - data:/var/lib/postgresql/data
-    networks:
-      - experiencenet
-             
+    network_mode: host

@@ -18,6 +18,7 @@ import {validateEnv} from "../config/validateEnv";
 import DatabaseFactory from "./Infrastructure/Factories/DatabaseFactory";
 import AssignRoleToUserCommand from "./Presentation/Commands/AssingRoleToUserCommand";
 import SyncRolesPermissionCommand from "./Presentation/Commands/SyncRolesPermissionCommand";
+import CreateBucketCommand from "./Presentation/Commands/CreateBucketCommand";
 
 (async () => {
     try {
@@ -39,6 +40,7 @@ import SyncRolesPermissionCommand from "./Presentation/Commands/SyncRolesPermiss
         program.addCommand(AssignRoleToUserCommand);
         program.addCommand(CreateVapID);
         program.addCommand(SyncRolesPermissionCommand);
+        program.addCommand(CreateBucketCommand);
 
         await program.parseAsync(process.argv);
         exit();

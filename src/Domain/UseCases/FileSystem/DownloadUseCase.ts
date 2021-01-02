@@ -2,11 +2,11 @@ import { lazyInject } from '../../../inversify.config';
 import IFileRepository from '../../../InterfaceAdapters/IRepositories/IFileRepository';
 import { REPOSITORIES } from '../../../repositories';
 
-import { filesystem } from '../../../index';
 import IdPayload from '../../../InterfaceAdapters/Payloads/Defaults/IdPayload';
 import IFileDTO from '../../../InterfaceAdapters/Payloads/FileSystem/IFileDTO';
 import FileDTO from '../../../InterfaceAdapters/Payloads/FileSystem/FileDTO';
 import IFileDomain from '../../../InterfaceAdapters/IDomain/IFileDomain';
+import FilesystemFactory from "../../../Infrastructure/Factories/FilesystemFactory";
 
 class DownloadUseCase
 {
@@ -18,6 +18,7 @@ class DownloadUseCase
         const id = payload.getId();
         const metadata: IFileDomain = await this.repository.getOne(id);
 
+        const filesystem = FilesystemFactory.create();
         const stream = await filesystem.downloadStreamFile(id);
         const fileDto = new FileDTO(metadata, stream);
 
