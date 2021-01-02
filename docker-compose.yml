@@ -41,7 +41,7 @@ services:
       - 8025:8025
 
   minio:
-    container_name: experience_s3_1
+    container_name: experience_minio_1
     restart: always
     image: minio/minio
     network_mode: host

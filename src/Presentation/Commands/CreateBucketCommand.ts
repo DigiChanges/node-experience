@@ -2,7 +2,7 @@ import { loggerCli } from "../../Infrastructure/Shared/Logger";
 import commander from "commander";
 import CreateBucketCommandRequest from "../Requests/Command/Requests/CreateBucketCommandRepRequest";
 import CreateBucketPayload from "../../InterfaceAdapters/Payloads/FileSystem/CreateBucketPayload";
-import FilesystemFactory from "../../Infrastructure/Factories/FilesystemFactory";
+import CreateBucketUseCase from "../../Domain/UseCases/FileSystem/CreateBucketUseCase";
 
 const CreateBucketCommand = new commander.Command('createBucket');
 
@@ -12,15 +12,10 @@ CreateBucketCommand
     .option('-e, --bucketName <bucketName>','Name of the bucket')
     .option('-fn, --region <region>','Region of the bucket')
     .action(async (env: any) => {
+        const useCase = new CreateBucketUseCase();
         const request: CreateBucketPayload = new CreateBucketCommandRequest(env);
 
-        const bucketName = request.getBucketName();
-        const region = request.getRegion();
-        const bucketPolicy = request.getBucketPolicy();
-
-        const filesystem = FilesystemFactory.create();
-        await filesystem.createBucket(bucketName, region);
-        await filesystem.setBucketPolicy(bucketPolicy, bucketName);
+        await useCase.handle(request);
 
         loggerCli.info('Bucket was created successfully');
     });
