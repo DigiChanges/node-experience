@@ -2,7 +2,7 @@ import {Schema} from "mongoose";
 import User from "../../../Domain/Entities/User";
 import { v4 as uuidv4 } from 'uuid';
 
-const UserSchema = new Schema({
+const UserSchema: any = new Schema({
     _id: {type: String, default: uuidv4},
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},

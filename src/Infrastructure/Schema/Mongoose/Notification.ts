@@ -6,12 +6,12 @@ import PushNotification from "../../Entities/PushNotification";
 
 let options = { discriminatorKey: 'kind', timestamps: true };
 
-export const NotificationSchema = new Schema({
+export const NotificationSchema: any = new Schema({
     _id: {type: String, default: uuidv4},
     name: {type:String, required: true},
 }, options).loadClass(Notification);
 
-export const EmailNotificationSchema = new Schema({
+export const EmailNotificationSchema: any = new Schema({
     emailTemplatePath: { type: String, required: true },
     senderName: { type: String, required: true },
     from: { type: String, required: true },
@@ -21,6 +21,6 @@ export const EmailNotificationSchema = new Schema({
     description: { type: String, default : null }
 }, options).loadClass(EmailNotification);
 
-export const PushNotificationSchema = new Schema({
+export const PushNotificationSchema: any = new Schema({
     url: { type: String, required: true }
 }, options).loadClass(PushNotification);
