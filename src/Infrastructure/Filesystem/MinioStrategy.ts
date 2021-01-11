@@ -1,36 +1,55 @@
 
-import { Client, ItemBucketMetadata } from 'minio';
+import { Client } from 'minio';
 
 import IFilesystem from "../../InterfaceAdapters/Shared/IFilesystem";
 import internal from "stream";
 
-class S3Strategy implements IFilesystem
+class MinioStrategy implements IFilesystem
 {
     private readonly filesystem: Client = null;
     private readonly bucketName: string;
     private readonly pathTemp: string;
+    private readonly region: string;
 
     constructor(_config: any)
     {
         this.bucketName = _config.bucket;
+        this.region = _config.region;
         this.pathTemp = '/tmp/';
 
         this.filesystem = new Client({
               endPoint: _config.endPoint,
               accessKey: _config.accessKey,
               secretKey: _config.secretKey,
+              region: _config.region,
               port: Number(_config.port),
               useSSL: _config.useSSL === 'true',
         });
     }
-    async presignedGetObject(objectName: string): Promise<string>
+
+    async presignedGetObject(objectName: string, expiry: number, respHeaders?: { [key: string]: any; }): Promise<string>
     {
-        return await this.filesystem.presignedGetObject(this.bucketName, objectName, 24 * 60 * 60);
+        return await this.filesystem.presignedGetObject(this.bucketName, objectName, expiry, respHeaders);
+    }
+
+    async presignedPutObject(objectName: string, expiry: number): Promise<string>
+    {
+        return await this.filesystem.presignedPutObject(this.bucketName, objectName, expiry);
+    }
+
+    async createBucket(bucketName: string, region?: string): Promise<void>
+    {
+        return await this.filesystem.makeBucket(bucketName || this.bucketName, region || this.region);
+    }
+
+    async setBucketPolicy(bucketPolicy: string, bucketName?: string): Promise<void>
+    {
+        return await this.filesystem.setBucketPolicy(bucketName || this.bucketName, bucketPolicy);
     }
 
     async uploadFile(objectName: string, path: string)
     {
-        return await this.filesystem.fPutObject(this.bucketName, objectName, path, {})
+        return await this.filesystem.fPutObject(this.bucketName, objectName, path, {});
     }
 
     async uploadFileByBuffer(objectName: string, base64Data: string)
@@ -80,4 +99,4 @@ class S3Strategy implements IFilesystem
     }
 }
 
-export default S3Strategy;
+export default MinioStrategy;

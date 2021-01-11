@@ -48,19 +48,20 @@
     }
   },
   "filesystem": {
-    "s3": {
-      "type": "s3",
-      "endPoint": "s3",
+    "minio": {
+      "type": "minio",
+      "endPoint": "minio",
       "accessKey": "minio",
       "secretKey": "12345678",
       "useSSL": false,
       "port": 9000,
+      "region": "us-east-1",
       "bucket": "experience"
     },
     "local": {
       "type": "local"
     },
-    "default": "s3"
+    "default": "minio"
   },
   "encryption": {
     "bcrypt": {

@@ -1,16 +1,16 @@
 import Config from "config";
 import IFilesystem from "../../InterfaceAdapters/Shared/IFilesystem";
-import S3Strategy from "../Filesystem/S3Strategy";
+import MinioStrategy from "../Filesystem/MinioStrategy";
 
 class FilesystemFactory
 {
     static create(encryptionConfig: string = Config.get('filesystem.default')): IFilesystem
     {
-        if(encryptionConfig === Config.get('filesystem.s3.type'))
+        if(encryptionConfig === 'minio')
         {
-            const config = Config.get('filesystem.s3');
+            const config = Config.get('filesystem.minio');
 
-            return new S3Strategy(config);
+            return new MinioStrategy(config);
         }
     }
 }

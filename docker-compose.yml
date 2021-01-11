@@ -11,10 +11,9 @@ services:
     entrypoint: bash dev.build.sh
     volumes:
      - .:/usr/app:cached
+    network_mode: host
     ports:
       - 8089:8089
-    networks:
-     - experiencenet
 
   db:
     container_name: experience_db_1
@@ -24,13 +23,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - 27017:27017
+    network_mode: host
     environment:
       MONGODB_ROOT_PASSWORD: 123456
       MONGODB_USERNAME: experience
       MONGODB_PASSWORD: experience
       MONGODB_DATABASE: experience
-    networks:
-      - experiencenet
     volumes:
       - data:/bitnami/mongodb
 
@@ -38,30 +36,30 @@ services:
     container_name: experience_mail_1
     restart: always
     image: mailhog/mailhog:latest
+    network_mode: host
     ports:
-      - 8027:8025
-    networks:
-      - experiencenet
+      - 8025:8025
 
-  s3:
-    container_name: experience_s3_1
+  minio:
+    container_name: experience_minio_1
     restart: always
     image: minio/minio
+    network_mode: host
     ports:
-      - 9002:9000
+      - 9000:9000
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: 12345678
+      MINIO_DOMAIN: localhost
     volumes:
-      - s3:/data
-    networks:
-      - experiencenet
+      - minio:/data
     command: server /data
 
   redis:
     image: bitnami/redis:latest
     restart: always
     container_name: experience_redis_1
+    network_mode: host
     environment:
       - REDIS_PASSWORD=ewsua132435 # Security reasons
       - DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG # Security reasons
@@ -69,16 +67,10 @@ services:
       - 6379:6379
     volumes:
       - data:/bitnami/redis/data
-    networks:
-      - experiencenet
-
-networks:
-  experiencenet:
-    driver: "bridge"
 
 volumes:
   data:
     driver: "local"
-  s3:
+  minio:
     driver: "local"
              

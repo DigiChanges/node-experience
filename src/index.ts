@@ -5,10 +5,7 @@ import App from './Application/app';
 import { validateEnv } from '../config/validateEnv';
 import {loggerCli} from "./Infrastructure/Shared/Logger";
 import DatabaseFactory from "./Infrastructure/Factories/DatabaseFactory";
-import FilesystemFactory from "./Infrastructure/Factories/FilesystemFactory";
-import IFilesystem from "./InterfaceAdapters/Shared/IFilesystem";
 
-export let filesystem: IFilesystem = null;
 import EventHandler from "./Infrastructure/Events/EventHandler";
 import ICreateConnection from "./InterfaceAdapters/IDatabase/ICreateConnection";
 import ICacheRepository from "./InterfaceAdapters/IRepositories/ICacheRepository";
@@ -30,8 +27,6 @@ import Config from "config";
         let cache: ICacheRepository = CacheFactory.createRedisCache(); // Create for redis repository
         await cache.createConnection(Config.get("cache.redis")); // Create connection for cache
         await cache.cleanAll();
-
-        filesystem = FilesystemFactory.create();
 
         const eventHandler = EventHandler.getInstance();
 

@@ -1,9 +1,9 @@
-import { filesystem } from '../../../index';
 import IFileRepository from "../../../InterfaceAdapters/IRepositories/IFileRepository";
 import { lazyInject } from '../../../inversify.config';
 import { REPOSITORIES } from '../../../repositories';
 import FileUpdateMultipartPayload from '../../../InterfaceAdapters/Payloads/FileSystem/FileUpdateMultipartPayload';
 import IFileDomain from '../../../InterfaceAdapters/IDomain/IFileDomain';
+import FilesystemFactory from "../../../Infrastructure/Factories/FilesystemFactory";
 
 class UpdateFileMultipartUseCase
 {
@@ -24,6 +24,7 @@ class UpdateFileMultipartUseCase
 
         await this.repository.save(file);
 
+        const filesystem = FilesystemFactory.create();
         await filesystem.uploadFile(file.name, payload.getFile().path);
 
         return file;        
