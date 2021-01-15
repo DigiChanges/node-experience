@@ -43,9 +43,7 @@ class Responder
 
         if (request)
         {
-            metadata = {
-                refreshToken: request.refreshToken
-            }
+            metadata = {};
         }
 
         let result = this.formatResponder.getFormatData(data, status, metadata)

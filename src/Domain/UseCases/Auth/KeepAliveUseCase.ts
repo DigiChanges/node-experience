@@ -3,7 +3,6 @@ import KeepAlivePayload from "../../../InterfaceAdapters/Payloads/Auth/KeepAlive
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import TokenFactory from "../../../Infrastructure/Factories/TokenFactory";
 import {REPOSITORIES} from "../../../repositories";
-import VerifyTokenBlacklistUseCase from "../Tokens/VerifyTokenBlacklistUseCase";
 import ITokenRepository from "../../../InterfaceAdapters/IRepositories/ITokenRepository";
 import SetTokenBlacklistUseCase from "../Tokens/SetTokenBlacklistUseCase";
 
@@ -11,6 +10,7 @@ class KeepAliveUseCase
 {
     @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
+
     @lazyInject(REPOSITORIES.ITokenRepository)
     private tokenRepository: ITokenRepository;
 
@@ -28,9 +28,6 @@ class KeepAliveUseCase
 
         const user = await this.repository.getOneByEmail(email);
         const token: any = await this.tokenRepository.getOne(tokenId);
-
-        const verifyTokenBlacklistUseCase = new VerifyTokenBlacklistUseCase();
-        await verifyTokenBlacklistUseCase.handle(token);
 
         const setTokenBlacklistUseCase = new SetTokenBlacklistUseCase();
         await setTokenBlacklistUseCase.handle(token);
