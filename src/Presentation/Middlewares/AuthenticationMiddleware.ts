@@ -2,6 +2,7 @@ import Config from "config";
 import AuthService from "../../Application/Services/AuthService";
 import TokenExpiredHttpException from "../Exceptions/TokenExpiredHttpException";
 import TokenNotFoundHttpException from "../Exceptions/TokenNotFoundHttpException";
+import _ from "lodash";
 
 const AuthenticationMiddleware = (req: any, res: any, next: any) =>
 {
@@ -34,8 +35,9 @@ const AuthenticationMiddleware = (req: any, res: any, next: any) =>
             }
 
             let TokenArray = token.split(" ");
+            const hash = _.get(TokenArray, 1);
 
-            if(typeof TokenArray[1] === 'undefined' || TokenArray[1] === 'null' || !token)
+            if(!hash || !token)
             {
                 throw new TokenNotFoundHttpException();
             }
