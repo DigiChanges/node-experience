@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { lazyInject } from '../../../inversify.config'
-import Permissions from "../../../../config/Permissions";
-import Roles from "../../../../config/Roles";
+import Permissions from "../../../Config/Permissions";
+import Roles from "../../../Config/Roles";
 import {REPOSITORIES} from "../../../repositories";
 import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
 import Role from "../../Entities/Role";

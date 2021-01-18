@@ -14,7 +14,7 @@ import AddUserCommand from "./Presentation/Commands/AddUserCommand";
 import AddRoleCommand from "./Presentation/Commands/AddRoleCommand";
 import CreateVapID from "./Presentation/Commands/CreateVapID";
 
-import {validateEnv} from "../config/validateEnv";
+import {validateEnv} from "./Config/validateEnv";
 import DatabaseFactory from "./Infrastructure/Factories/DatabaseFactory";
 import AssignRoleToUserCommand from "./Presentation/Commands/AssingRoleToUserCommand";
 import SyncRolesPermissionCommand from "./Presentation/Commands/SyncRolesPermissionCommand";

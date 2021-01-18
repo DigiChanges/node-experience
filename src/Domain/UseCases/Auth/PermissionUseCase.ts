@@ -1,4 +1,4 @@
-import Permissions from "../../../../config/Permissions";
+import Permissions from "../../../Config/Permissions";
 import _ from "lodash";
 
 class PermissionUseCase

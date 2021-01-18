@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config(); // Need before get config
 
 import App from './Application/app';
-import { validateEnv } from '../config/validateEnv';
+import { validateEnv } from './Config/validateEnv';
 import {loggerCli} from "./Infrastructure/Shared/Logger";
 import DatabaseFactory from "./Infrastructure/Factories/DatabaseFactory";
 

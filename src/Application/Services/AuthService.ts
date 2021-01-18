@@ -8,7 +8,7 @@ import EncryptionFactory from "../../Infrastructure/Factories/EncryptionFactory"
 import IAuthService from "../../InterfaceAdapters/IServices/IAuthService";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
-import Permissions from "../../../config/Permissions";
+import Permissions from "../../Config/Permissions";
 import WrongPermissionsException from "../Exceptions/WrongPermissionsException";
 
 @injectable()

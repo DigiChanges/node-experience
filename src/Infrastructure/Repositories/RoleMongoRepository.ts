@@ -11,7 +11,7 @@ import IRoleDomain from '../../InterfaceAdapters/IDomain/IRoleDomain';
 import {connection} from '../Database/MongooseCreateConnection';
 
 import NotFoundException from '../Exceptions/NotFoundException';
-import Roles from "../../../config/Roles";
+import Roles from "../../Config/Roles";
 
 @injectable()
 class RoleMongoRepository implements IRoleRepository
