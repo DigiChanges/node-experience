@@ -7,7 +7,8 @@ COPY src /usr/app
 COPY package.json /usr/app
 COPY ecosystem.config.js /usr/app
 
-RUN npm install --global yarn cross-env jq --force
+RUN apt update && apt install jq original-awk -y
+RUN npm install --global yarn cross-env --force
 RUN chown -R node:node /usr/app
 
 ENV NPM_CONFIG_LOGLEVEL warn
