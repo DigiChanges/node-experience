@@ -34,14 +34,19 @@ module.exports = {
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
     "/node_modules/",
-    "dist/src/Tests/coverage",
-    "dist/src/Presentation/Requests/Command/*",
-    "src/Presentation/Commands/*",
-    "src/Application/app.*",
-    "src/index.*",
-    "src/command.*",
-    "src/Presentation/Shared/StatusCode.*",
-    "config/validateEnv.*"
+    "dist/Tests/coverage",
+    "dist/Presentation/Requests/Command/*",
+    "dist/Presentation/Commands/*",
+    "dist/Presentation/Commands/*",
+    "dist/Application/app.*",
+    "dist/index.*",
+    "dist/command.*",
+    "dist/Presentation/Shared/StatusCode.*",
+    "dist/Infrastructure/Repositories/RedisCacheRepository.*",
+    "dist/Infrastructure/Repositories/FileSqlRepository.*",
+    "dist/Infrastructure/Repositories/ItemSqlRepository.*",
+    "dist/Infrastructure/Repositories/UserSqlRepository.*",
+    "dist/Infrastructure/Repositories/RoleSqlRepository.*"
   ],
 
   // Indicates which provider should be used to instrument code for coverage

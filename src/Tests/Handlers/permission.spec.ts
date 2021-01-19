@@ -54,15 +54,13 @@ describe('Start Permission Test', () => {
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data, metadata: {refreshToken}}} = response;
+            const {body: {status, statusCode, data}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(data[0]).toStrictEqual('authKeepAlive');
-
-            token = refreshToken;
 
             done();
         });
@@ -75,15 +73,13 @@ describe('Start Permission Test', () => {
                 .set('Accept', 'application/json')
                 .send();
 
-            const {body: {status, statusCode, message, metadata: {refreshToken}}} = response;
+            const {body: {status, statusCode, message}} = response;
 
             expect(response.statusCode).toStrictEqual(404);
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_NOT_FOUND');
 
             expect(message).toStrictEqual('Route Not Found');
-
-            token = refreshToken;
 
             done();
         });
@@ -106,7 +102,4 @@ describe('Start Permission Test', () => {
             done();
         });
     });
-
-
-
 });

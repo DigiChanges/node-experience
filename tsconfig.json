@@ -34,8 +34,5 @@
   "include": [
     "src/**/*.ts",
     "./typings/*"
-  ],
-  "exclude": [
-    "src/public"
   ]
 }

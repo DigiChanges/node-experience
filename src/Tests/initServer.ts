@@ -28,11 +28,14 @@ import RedirectRouteNotFoundMiddleware from "../Presentation/Middlewares/Redirec
 import ITokenRepository from "../InterfaceAdapters/IRepositories/ITokenRepository";
 import {REPOSITORIES} from "../repositories";
 import TokenMongoRepository from "../Infrastructure/Repositories/TokenMongoRepository";
+import {validateEnv} from "../Config/validateEnv";
 
 const initServer = async () =>
 {   let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
+
+    validateEnv();
 
     const databaseFactory = new DatabaseFactory();
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-files=$(git diff --name-only --diff-filter=ACMRTUXB)
+files=$(git diff --name-only --diff-filter=d)
 EXTENDS="./tsconfig.json"
 compile=""
 space=" "
