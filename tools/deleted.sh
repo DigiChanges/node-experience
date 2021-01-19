@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
-filesRemove=$(git diff --name-only --diff-filter=D --staged)
+files=$(git diff --name-only --diff-filter=D --staged)
+filesRemove=""
+space=" "
 
-for file in $filesRemove; do
+for file in $files; do
     if [[ "$file" == *"src/"* ]]; then
       fileToDelete=$(echo "$file" | sed -r 's/.ts+/.js/g')
-      echo "$fileToDelete"
-#      echo "$file"
-#      compile=$file$space$compile
-#      EXIST=1
+      fileToDelete=$(echo "$fileToDelete" | sed -r 's/src+/dist/g')
+
+      filesRemove=$fileToDelete$space$fileToDelete'.map'
+
+      rm -rf $filesRemove
     fi
  done
