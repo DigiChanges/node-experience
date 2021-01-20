@@ -231,7 +231,8 @@ id_rsa.pub
 # Jest Test
 globalConfig.json
 
-# Development tsconfig.json
+# Development files
 extend.tsconfig.json
+.newfiles.dat
 
 # End of https://www.gitignore.io/api/node,phpstorm+all

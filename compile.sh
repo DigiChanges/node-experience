@@ -26,7 +26,7 @@ if [ "$(ls -A $DIR 2>/dev/null)" ]; then
      done
 
     if [ $EXIST == 1 ]; then
-      compile=${compile%?}
+      compile=$compile"src/compile.ts"
 
       VALUES=$(jq -Rnsc 'input | split(" ")' < <(printf '%s\0' "${compile[@]}"))
       (jq -nc '{extends: $ext, include: $val}' --arg ext "$EXTENDS" --argjson val "$VALUES" ) > extend.tsconfig.json

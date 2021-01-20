@@ -13,6 +13,8 @@
     "dev:old": "nodemon --watch src -e ts,ejs --exec yarn dev:start",
     "dev": "nodemon --watch src -e ts,ejs --exec bash compile.sh",
     "start": "node dist/index.js",
+    "start:test": "bash compile.sh",
+    "start:test1": "pm2 start dist/index.js --name 'helloworld' --watch",
     "test": "jest --runInBand --coverage"
   },
   "keywords": [],
