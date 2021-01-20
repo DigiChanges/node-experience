@@ -1,7 +1,7 @@
 const loggerOptions = {
     file: {
         level: 'error',
-        filename: './src/logs/error.log',
+        filename: './dist/logs/error.log',
         handleExceptions: true,
         json: true,
         maxsize: 5242880, // 5MB
