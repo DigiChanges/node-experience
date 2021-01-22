@@ -1,10 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 git add src/*
 
+bash tools/deleted.sh
 bash tools/newfile.sh
 #bash tools/modifiedfile.sh
-bash tools/deleted.sh
 
 files=$(git diff --name-only --diff-filter=d --staged src/*)
 EXTENDS="./tsconfig.json"

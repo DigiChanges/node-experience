@@ -69,6 +69,11 @@ TODO: Config
 
 TODO: Future
 
+There is a hot reloading using bash and git files. With this mechanism we can transpile only the files
+that are necessary to transpile, in addition there are also files to take care of eliminating the transpiled files
+that they are not in the project in case of deleting them, when that happens, as nodemon is used for the refresh, in the case
+of the remove files does not restart and in that specific case it should be restarted manually. Although in the normal development process
+It would not be necessary since eventually you would be modifying another file and it would automatically transpile that file and delete the file that was deleted.
 How to use TypeORM:
 Node experience comes integrated with Mongoose as the default ORM. It also has TypeORM integrated to use any SQL engine that is required.
 

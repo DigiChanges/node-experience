@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 files=$(git diff --name-only --diff-filter=A --staged)
 
