@@ -1,14 +1,16 @@
 #!/bin/bash
 
+sleep 5
+
 git add src/*
 
-bash tools/deleted_detected.sh
-bash tools/execute_detected_files.sh
+bash tools/helper.sh
+bash tools/deleted.sh
 bash tools/add_newfile_detect.sh
-#bash tools/deleted_file_detect.sh
-#bash tools/modifiedfile.sh
-
-bash compile_files.sh
+bash tools/modified_file.sh
 
 yarn lint
+
+bash tools/compile_files.sh
+
 yarn start

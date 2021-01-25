@@ -8,15 +8,13 @@ space=" "
 DIR="./dist"
 
 # Check if exist dist folder
-if [ "$(ls -A $DIR 2>/dev/null)" ]; then
+if [ ! -f "$DIR" ]; then
      EXIST=0
      # If exist then transpile only new and modified files
 
      for file in $files; do
-        if [[ "$file" == *"src/"* ]]; then
           compile=$file$space$compile
           EXIST=1
-        fi
      done
 
     if [ $EXIST == 1 ]; then
