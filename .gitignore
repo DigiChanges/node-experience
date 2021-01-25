@@ -232,6 +232,7 @@ globalConfig.json
 
 # Development files
 extend.tsconfig.json
-.newfiles.dat
+.files_deleted.dat
+.files_to_compile.dat
 
 # End of https://www.gitignore.io/api/node,phpstorm+all
