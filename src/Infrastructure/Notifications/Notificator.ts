@@ -6,7 +6,6 @@ import path from "path";
 import Handlebars from "handlebars";
 import Fs from "fs";
 import ErrorException from "../../Application/Shared/ErrorException";
-import StatusCode from "../../Presentation/Shared/StatusCode";
 import NotificationMongoRepository from "../Repositories/NotificationMongoRepository";
 import PushNotification from "../Entities/PushNotification";
 

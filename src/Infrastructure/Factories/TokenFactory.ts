@@ -5,7 +5,7 @@ import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 import { lazyInject } from "../../inversify.config";
 import {REPOSITORIES} from "../../repositories";
 import ITokenRepository from "../../InterfaceAdapters/IRepositories/ITokenRepository";
-import ITokenDomain from "../../InterfaceAdapters/IInfraestructure/ITokenDomain";
+import ITokenDomain from "../../InterfaceAdapters/IInfrastructure/ITokenDomain";
 import Token from "../Entities/Token";
 import { v4 as uuidv4 } from 'uuid';
 

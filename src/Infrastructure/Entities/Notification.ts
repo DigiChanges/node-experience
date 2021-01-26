@@ -1,4 +1,4 @@
-import INotificationDomain from "../../InterfaceAdapters/IInfraestructure/INotificationDomain";
+import INotificationDomain from "../../InterfaceAdapters/IInfrastructure/INotificationDomain";
 import { v4 as uuidv4 } from 'uuid';
 
 class Notification implements INotificationDomain

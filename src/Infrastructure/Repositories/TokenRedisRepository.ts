@@ -2,7 +2,7 @@ import {injectable} from "inversify";
 
 import ITokenRepository from "../../InterfaceAdapters/IRepositories/ITokenRepository";
 
-import ITokenDomain from "../../InterfaceAdapters/IInfraestructure/ITokenDomain";
+import ITokenDomain from "../../InterfaceAdapters/IInfrastructure/ITokenDomain";
 
 import NotFoundException from "../Exceptions/NotFoundException";
 import CacheFactory from "../Factories/CacheFactory";

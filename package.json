@@ -106,7 +106,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "bash tools/clean_files_dat.sh"
+      "post-commit": "bash tools/hooks/post-commit.sh",
+      "commit-msg": "bash tools/hooks/commit-msg.sh"
     }
   },
   "engines": {

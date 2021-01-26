@@ -25,7 +25,7 @@ class Permissions
     static readonly USERS_CHANGE_MY_PASSWORD: string = 'usersChangeMyPassword';
     static readonly USERS_CHANGE_USER_PASSWORD:string = 'usersChangeUserPassword';
 
-    // USERS
+    // FILES
     static readonly FILES_UPLOAD: string = 'filesUpload';
     static readonly FILES_UPDATE: string = 'filesUpdate';
     static readonly FILES_DOWNLOAD: string = 'filesDownload';
