@@ -7,11 +7,11 @@ diff_array() {
 }
 
 # Delete files with already inside of index - BEGIN
-files=$(git diff --name-only --diff-filter=D --staged src)
+files_D=$(git diff --name-only --diff-filter=D --staged src)
 filesRemove=""
 space=" "
 
-for file in $files; do
+for file in $files_D; do
   fileToDelete=$(echo "$file" | sed 's/\(.*\).ts/\1.js/')
   fileToDelete=$(echo "$fileToDelete" | sed -r 's/src+/dist/g')
 
@@ -23,19 +23,19 @@ done
 # Delete files with already inside of index - END
 
 # Delete files with doesnt inside of index. (New Files) - BEGIN
-files1=$(git diff --name-only --diff-filter=A --staged src)
+files_A_1=$(git diff --name-only --diff-filter=A --staged src)
 
 i=0
 while read line
 do
-    files2[ $i ]="$line"
+    files_A_2[ $i ]="$line"
     (( i++ ))
 done < .files_to_compile.dat
 
-difference=$(diff_array files1[@] files2[@])
+difference_A=$(diff_array files_A_1[@] files_A_2[@])
 
 # shellcheck disable=SC2068
-for file in ${difference[@]}; do
+for file in ${difference_A[@]}; do
     if [[ "$file" == *"src/"* ]]; then
       fileToDelete=$(echo "$file" | sed 's/\(.*\).ts/\1.js/')
       fileToDelete=$(echo "$fileToDelete" | sed -r 's/src+/dist/g')
@@ -50,21 +50,22 @@ done
 # Delete files with doesnt inside of index. (New Files) - END
 
 # Delete files with inside of index. (Modified Files who return without changes) - BEGIN
-files1=$(git diff --name-only --diff-filter=M --staged src)
+files_M_1=$(git diff --name-only --diff-filter=M --staged src)
 
 i=0
 while read line
 do
     echo "$line"
-    files2[ $i ]="$line"
+    files_M_2[ $i ]="$line"
     (( i++ ))
 done < .files_modified.dat
 
-difference=$(diff_array files1[@] files2[@])
+difference_M=$(diff_array files_M_1[@] files_M_2[@])
 
 ## shellcheck disable=SC2068
-for file in "${difference[@]}"; do
-
+for file in "${difference_M[@]}"; do
+echo "1"
+echo "${file[@]}"
       (grep -qxF "$file" .files_to_compile.dat || echo "$file" >> .files_to_compile.dat)
 
       sed -i -e "s|${file}||" .files_modified.dat

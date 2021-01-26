@@ -6,7 +6,6 @@ interface ICreateConnection
     drop(): Promise<any>;
     initConfig(): any;
     initConfigTest(uri: string): any;
-
 }
 
 export default ICreateConnection;

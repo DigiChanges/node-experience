@@ -10,11 +10,9 @@
     "tsc": "tsc",
     "build": "npm-run-all clean lint tsc",
     "dev:start": "npm-run-all build start",
-    "dev:old": "nodemon --watch src -e ts,ejs --exec yarn dev:start",
-    "dev": "nodemon --watch src -e ts,ejs --exec bash compile.sh",
+    "dev": "nodemon --watch src -e ts --exec yarn dev:start",
     "start": "node dist/index.js",
-    "start:test": "bash compile.sh",
-    "start:test1": "pm2 start dist/index.js --name 'helloworld' --watch",
+    "dev:experimental": "nodemon --delay 8 --watch src -e ts --exec bash compile.sh",
     "test": "jest --runInBand --coverage"
   },
   "keywords": [],

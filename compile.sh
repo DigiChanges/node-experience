@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sleep 5
-
 git add src/*
 
 bash tools/helper.sh
