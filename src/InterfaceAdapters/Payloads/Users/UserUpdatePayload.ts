@@ -7,6 +7,7 @@ interface UserUpdatePayload extends IdPayload
     getEmail(): string;
     getEnable(): boolean;
     getTokenUserId(): string;
+    getPermissions(): string[];
 }
 
 export default UserUpdatePayload;

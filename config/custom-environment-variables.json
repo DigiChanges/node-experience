@@ -1,7 +1,7 @@
 {
   "env": "NODE_ENV",
   "serverPort": "SERVER_PORT",
-    "auth": {
+  "auth": {
       "authorization": "AUTHORIZATION"
   },
   "dbConfig": {

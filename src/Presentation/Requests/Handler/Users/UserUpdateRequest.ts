@@ -1,6 +1,6 @@
 import UserUpdatePayload from "../../../../InterfaceAdapters/Payloads/Users/UserUpdatePayload";
 import IdRequest from "../Defaults/IdRequest";
-import {IsBoolean, IsEmail, IsString, Length} from "class-validator";
+import {ArrayMinSize, IsArray, IsBoolean, IsEmail, IsString, Length} from "class-validator";
 
 class UserUpdateRequest extends IdRequest implements UserUpdatePayload
 {
@@ -21,6 +21,14 @@ class UserUpdateRequest extends IdRequest implements UserUpdatePayload
     @IsString()
     userId: string;
 
+    @IsArray()
+    @ArrayMinSize(0)
+    @IsString({
+        each: true,
+
+    })
+    permissions: string[]
+
     constructor(request: any)
     {
         super(request);
@@ -28,6 +36,7 @@ class UserUpdateRequest extends IdRequest implements UserUpdatePayload
         this.lastName = request.body.lastName;
         this.email = request.body.email;
         this.enable = request.body.enable;
+        this.permissions = request.body.permissions;
         this.userId = request.tokenDecode.userId;
     }
 
@@ -54,6 +63,10 @@ class UserUpdateRequest extends IdRequest implements UserUpdatePayload
     getTokenUserId(): string
     {
         return this.userId;
+    }
+    getPermissions(): string[]
+    {
+        return this.permissions;
     }
 }
 

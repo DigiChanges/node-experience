@@ -21,7 +21,6 @@ class BcryptEncryptionStrategy implements IEncryption
 
         return await bcrypt.hash(chain, saltRounds);
     }
-
 }
 
 export default BcryptEncryptionStrategy;

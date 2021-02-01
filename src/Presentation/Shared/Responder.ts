@@ -70,14 +70,7 @@ class Responder
 
     public sendStream(fileDto: IFileDTO, request: Request | any, response: Response, status: IHttpStatusCode)
     {
-        let refreshToken = 'none';
-
-        if (request)
-        {
-            refreshToken = request.refreshToken
-        }
-
-        response.writeHead(status.code, {'Content-Type': fileDto.metadata.mimeType, 'Refresh-Token':  refreshToken});
+        response.writeHead(status.code, { 'Content-Type': fileDto.metadata.mimeType });
 
         fileDto.stream.pipe(response);
     }
