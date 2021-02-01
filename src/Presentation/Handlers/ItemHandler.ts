@@ -5,7 +5,7 @@ import {inject} from "inversify";
 import Responder from "../Shared/Responder";
 import StatusCode from "../Shared/StatusCode";
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
-import Permissions from "../../../config/Permissions";
+import Permissions from "../../Config/Permissions";
 
 import ItemTransformer from "../Transformers/Items/ItemTransformer";
 import ItemRepRequest from "../Requests/Handler/Items/ItemRepRequest";

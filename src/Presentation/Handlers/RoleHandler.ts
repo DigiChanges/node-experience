@@ -11,7 +11,7 @@ import IdRequest from "../Requests/Handler/Defaults/IdRequest";
 import RoleRequestCriteria from "../Requests/Handler/Roles/RoleRequestCriteria";
 import RoleUpdateRequest from "../Requests/Handler/Roles/RoleUpdateRequest";
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
-import Permissions from "../../../config/Permissions";
+import Permissions from "../../Config/Permissions";
 
 import SaveRoleUseCase from "../../Domain/UseCases/Role/SaveRoleUseCase";
 import ListRolesUseCase from "../../Domain/UseCases/Role/ListRolesUseCase";

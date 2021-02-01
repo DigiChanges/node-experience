@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from "express";
 import StatusCode from "../Shared/StatusCode";
 
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
-import Permissions from "../../../config/Permissions";
+import Permissions from "../../Config/Permissions";
 
 import {lazyInject} from "../../inversify.config";
 import { TYPES } from '../../types';

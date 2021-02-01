@@ -8,11 +8,12 @@
     "lint-fix": "tslint -c tslint.json -p tsconfig.json --fix",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "tsc": "tsc",
+    "tsc-e": "yarn tsc --project extend.tsconfig.json",
     "build": "npm-run-all clean lint tsc",
     "dev:start": "npm-run-all build start",
-    "dev": "nodemon --watch src -e ts,ejs --exec yarn dev:start",
-    "start": "ts-node src/index.ts",
-    "start:test": "node dist/src/index.js",
+    "dev": "nodemon --watch src -e ts --exec yarn dev:start",
+    "start": "node dist/index.js",
+    "dev:experimental": "nodemon --delay 8 --watch src -e ts --exec bash compile.sh",
     "test": "jest --runInBand --coverage"
   },
   "keywords": [],
@@ -39,6 +40,7 @@
     "faker": "^5.1.0",
     "handlebars": "^4.7.6",
     "helmet": "^3.22.0",
+    "husky": "^4.3.8",
     "inversify": "^5.0.1",
     "inversify-express-utils": "^6.3.2",
     "inversify-inject-decorators": "^3.1.0",
@@ -101,6 +103,12 @@
     "ts-node": "^8.9.1",
     "tslint": "^6.0.0",
     "typescript": "^4.0.5"
+  },
+  "husky": {
+    "hooks": {
+      "post-commit": "bash tools/hooks/post-commit.sh",
+      "commit-msg": "bash tools/hooks/commit-msg.sh"
+    }
   },
   "engines": {
     "node": "12.*"

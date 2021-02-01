@@ -1,36 +1,3 @@
-mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
-mkfile_dir := $(dir $(mkfile_path))
-
-test: test_node_experience
-
-test_node_experience: build_test run_test run_test_clean
-
-build_test:
-	@echo '************                               ************'
-	@echo '************          BUILD TEST			  ************'
-	@echo '************                               ************'
-	docker-compose -f docker-compose.test.yml build
-	docker run --volume $(mkfile_dir):/usr/app --rm node-experience_node yarn
-	docker run --volume $(mkfile_dir):/usr/app --rm node-experience_node yarn build
-	docker-compose -f docker-compose.test.yml up -d
-
-run_test:
-	@echo '************                               ************'
-	@echo '************          RUN TEST             ************'
-	@echo '************                               ************'
-	sleep 4
-	docker exec experience_test_node_1 yarn test
-
-run_test_clean:
-	@echo '************                               ************'
-	@echo '************           CLEAN TEST	      ************'
-	@echo '************                               ************'
-	docker stop experience_test_db_1
-	docker stop experience_test_node_1
-	docker stop experience_test_mail_1
-	docker rm --force -v experience_test_db_1
-	docker rm --force -v experience_test_node_1
-	docker rm --force -v experience_test_mail_1
 
 down:
 	@echo '************                               ************'

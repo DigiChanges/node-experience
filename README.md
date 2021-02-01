@@ -33,19 +33,19 @@ Execute DEV Environment
 - **docker-compose up --build -d**
 - Also, you could use **make dev**
 - docker-compose exec node bash dev.init.sh
+- Also, you could use **make init**
 
 Create Push Notifications Keys
 - docker-compose exec node npx ts-node src/command.ts createVapID
 
 Minio Browser
-- http://127.0.0.1:9002/minio/
-- Create Bucket experience
+- http://127.0.0.1:9002/minio
 
 Execute PROD Environment
 - docker-compose -f docker-compose.prod.yml up --build
 
-Execute TEST Environment (Experimental)
-- **make test**
+Execute TEST Environment
+- **yarn test**
 
 TODO: Started
 
@@ -69,8 +69,22 @@ TODO: Config
 
 TODO: Future
 
-How to use TypeORM:
-Node experience comes integrated with Mongoose as the default ORM. It also has TypeORM integrated to use any SQL engine that is required.
+## Optimized Transpilation 
+
+There is a hot reloading using bash and git files. With this mechanism we can transpile only the files
+that are necessary to transpile, in addition there are also files to take care of eliminating the transpiled files
+that they are not in the project in case of deleting them, when that happens, as nodemon is used for the refresh, in the
+case of the remove files does not restart and in that specific case it should be restarted manually. Although in the 
+normal development process. It would not be necessary since eventually you would be modifying another file and it 
+would automatically transpile that file and delete the file that was deleted.
+
+As it is still in the experimentation phase, the process may fail. In the event of failure, you can choose to manually 
+compile the file that failed to compile or directly execute ```yarn tsc``` to compile everything again. 
+
+## How to use TypeORM:
+
+Node experience comes integrated with Mongoose as the default ORM. It also has TypeORM integrated to use any SQL engine 
+that is required.
 
 To change from Mongoose to TypeORM the following steps must be followed:
      
@@ -107,8 +121,10 @@ To change from Mongoose to TypeORM the following steps must be followed:
            
            This above command replaces the mongo container with the postgres container.
        
-Commands Available:
- * npx ts-node src/command.ts addUserRole --role Admin --email user@node.com --firstName node --lastName node --password 12345678
- * npx ts-node src/Commands/command.ts addRole --name Admin --slug admin
- * npx ts-node src/Commands/command.ts addUser --name Admin --slug admin --email user@node.com --firstName node --lastName node --password 12345678
+## Commands Available
+
+ * node dist/src/command.js addUserRole --role Admin --email user@node.com --firstName node --lastName node --password 12345678 --isSuperAdmin false
+ * node dist/src/command.js addUserRole --role SuperAdmin --email superadmin@node.com --firstName super --lastName admin --password 12345678 --isSuperAdmin true
+ * node dist/src/command.js syncRolesPermission
+ * node dist/src/command.js createBucket --bucketName experience --region us-east-1
  * npx ts-node src/command.ts createVapID

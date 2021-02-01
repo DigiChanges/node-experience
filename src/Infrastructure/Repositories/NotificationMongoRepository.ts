@@ -8,7 +8,7 @@ import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import INotification from "../../InterfaceAdapters/IEntities/Mongoose/INotificationDocument";
 import {connection} from "../Database/MongooseCreateConnection";
-import INotificationDomain from "../../InterfaceAdapters/IInfraestructure/INotificationDomain";
+import INotificationDomain from "../../InterfaceAdapters/IInfrastructure/INotificationDomain";
 import EmailNotification from "../Entities/EmailNotification";
 import PushNotification from "../Entities/PushNotification";
 import NotificationFilter from "../../Presentation/Criterias/Notification/NotificationFilter";

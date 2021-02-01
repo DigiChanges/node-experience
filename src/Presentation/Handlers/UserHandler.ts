@@ -7,7 +7,7 @@ import StatusCode from "../Shared/StatusCode";
 import Responder from "../Shared/Responder";
 
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
-import Permissions from "../../../config/Permissions";
+import Permissions from "../../Config/Permissions";
 
 import UserTransformer from "../Transformers/Users/UserTransformer";
 

@@ -1,7 +1,7 @@
 {
   "env": "NODE_ENV",
   "serverPort": "SERVER_PORT",
-    "auth": {
+  "auth": {
       "authorization": "AUTHORIZATION"
   },
   "dbConfig": {
@@ -29,7 +29,7 @@
     }
   },
   "filesystem": {
-    "minio": {
+    "minio":  {
       "endPoint": "MINIO_HOST",
       "accessKey": "MINIO_ACCESS_KEY",
       "secretKey": "MINIO_SECRET_KEY",

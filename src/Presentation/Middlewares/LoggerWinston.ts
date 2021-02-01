@@ -1,6 +1,6 @@
 import winston from "winston";
 import expressWinston from "express-winston";
-import loggerOptions from "../../../config/loggerOptions";
+import loggerOptions from "../../Config/LoggerOptions";
 
 const LoggerWinston = expressWinston.logger({
     transports: [

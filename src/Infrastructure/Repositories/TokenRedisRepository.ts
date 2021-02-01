@@ -2,18 +2,19 @@ import {injectable} from "inversify";
 
 import ITokenRepository from "../../InterfaceAdapters/IRepositories/ITokenRepository";
 
-import ITokenDomain from "../../InterfaceAdapters/IInfraestructure/ITokenDomain";
+import ITokenDomain from "../../InterfaceAdapters/IInfrastructure/ITokenDomain";
 
 import NotFoundException from "../Exceptions/NotFoundException";
 import CacheFactory from "../Factories/CacheFactory";
 import ICacheRepository from "../../InterfaceAdapters/IRepositories/ICacheRepository";
 import Token from "../Entities/Token";
+import Config from "config";
 
 @injectable()
 class TokenRedisRepository implements ITokenRepository
 {
     private readonly repository: ICacheRepository;
-    private readonly expire: number = 60;
+    private readonly expire: number = Math.floor((+Config.get('jwt.expires') + 10) * 60);
 
     constructor()
     {

@@ -2,7 +2,7 @@ import { lazyInject } from '../../../inversify.config'
 import UserUpdatePayload from "../../../InterfaceAdapters/Payloads/Users/UserUpdatePayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import CheckUserRolePayload from "../../../InterfaceAdapters/Payloads/Auxiliars/CheckUserRolePayload";
-import Roles from "../../../../config/Roles";
+import Roles from "../../../Config/Roles";
 import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
 import RoleRepoFactory from "../../../Infrastructure/Factories/RoleRepoFactory";
 import Role from '../../Entities/Role';
@@ -50,6 +50,7 @@ class UpdateUserUseCase
         user.lastName = payload.getLastName();
         user.enable = payload.getEnable();
         user.email = payload.getEmail();
+        user.permissions = payload.getPermissions();
 
         await this.repository.save(user);
 

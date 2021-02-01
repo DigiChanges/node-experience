@@ -7,7 +7,7 @@ import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import IToken from "../../InterfaceAdapters/IEntities/Mongoose/ITokenDocument";
-import ITokenDomain from "../../InterfaceAdapters/IInfraestructure/ITokenDomain";
+import ITokenDomain from "../../InterfaceAdapters/IInfrastructure/ITokenDomain";
 import {connection} from "../Database/MongooseCreateConnection";
 
 import NotFoundException from "../Exceptions/NotFoundException";

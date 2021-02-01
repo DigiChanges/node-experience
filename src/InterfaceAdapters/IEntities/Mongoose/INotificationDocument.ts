@@ -1,5 +1,5 @@
 import {Document} from "mongoose";
-import INotificationDomain from "../../IInfraestructure/INotificationDomain";
+import INotificationDomain from "../../IInfrastructure/INotificationDomain";
 
 interface INotificationDocument extends Document, INotificationDomain {}
 
