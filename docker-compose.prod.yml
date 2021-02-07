@@ -13,4 +13,5 @@ services:
       - .:/usr/app:cached
     ports:
       - 8089:8089
-    network_mode: host
+    networks:
+      - experiencenet
