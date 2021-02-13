@@ -12,7 +12,7 @@ const AddUserRoleCommand = new commander.Command('addUserRole');
 AddUserRoleCommand
     .version('0.0.1')
     .description('Add user, role and assign it')
-    .option('-e, --role <role>','Name of the role')
+    .option('-r, --role <role>','Name of the role')
     .option('-e, --email <email>','Email of user')
     .option('-fn, --firstName <firstName>','First Name of the user')
     .option('-ln, --lastName <lastName>','Last Name of the user')
