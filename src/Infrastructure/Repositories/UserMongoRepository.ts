@@ -1,9 +1,8 @@
 import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
 import {injectable} from "inversify";
+import {ICriteria, IPaginator} from "@digichanges/shared-experience";
 
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
-import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import UserFilter from "../../Presentation/Criterias/User/UserFilter";
 import IUser from "../../InterfaceAdapters/IEntities/Mongoose/IUserDocument";
 import {Query, Model} from "mongoose";

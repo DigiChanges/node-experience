@@ -6,7 +6,7 @@ class GetLogViewUseCase
     handle(): any
     {
         const viewRoute = path.join(__dirname, '../../../logs');
-        let rawdata = fs.readFileSync(`${viewRoute}/error.log`,'UTF-8');
+        let rawdata = fs.readFileSync(`${viewRoute}/error.log`, { encoding: 'utf-8'});
 
         // split the contents by new line
         const lines = rawdata.split(/\r?\n/);

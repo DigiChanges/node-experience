@@ -1,5 +1,6 @@
+import {ITokenRepository} from "@digichanges/shared-experience";
+
 import container from "../../inversify.config";
-import ITokenRepository from "../../InterfaceAdapters/IRepositories/ITokenRepository";
 import {REPOSITORIES} from "../../repositories";
 
 class TokenRepoFactory

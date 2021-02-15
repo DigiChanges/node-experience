@@ -1,7 +1,7 @@
 import {inject} from "inversify";
 import {controller, httpGet, BaseHttpController} from "inversify-express-utils";
+import {StatusCode} from "@digichanges/shared-experience";
 
-import StatusCode from "../Shared/StatusCode";
 import Responder from "../Shared/Responder";
 import {TYPES} from "../../types";
 

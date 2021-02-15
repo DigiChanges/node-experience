@@ -1,11 +1,10 @@
 import _ from "lodash";
-import StatusCode from "./StatusCode";
 import ValidationModel from "../../Application/Shared/ValidationModel";
 import ErrorHttpException from "../../Application/Shared/ErrorHttpException";
+import {StatusCode} from "@digichanges/shared-experience";
 
 class FormatError
 {
-    // getFormat = (message: any, statusCode: IStatusCode, errors: ValidationError[]): any =>
     getFormat = (errorHttpException: ErrorHttpException): any =>
     {
         let {statusCode, message, errors} = errorHttpException;

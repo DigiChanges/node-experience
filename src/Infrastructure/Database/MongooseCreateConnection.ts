@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Config from "config";
-import ICreateConnection from "../../InterfaceAdapters/IDatabase/ICreateConnection";
+import {ICreateConnection} from "@digichanges/shared-experience";
 
 import IUserDocument from "../../InterfaceAdapters/IEntities/Mongoose/IUserDocument";
 import IRoleDocument from "../../InterfaceAdapters/IEntities/Mongoose/IRoleDocument";

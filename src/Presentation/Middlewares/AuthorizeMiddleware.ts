@@ -6,8 +6,8 @@ import AuthService from "../../Application/Services/AuthService";
 import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
 import UserRepoFactory from "../../Infrastructure/Factories/UserRepoFactory";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
-import StatusCode from "../Shared/StatusCode";
 import ErrorHttpException from "../../Application/Shared/ErrorHttpException";
+import {StatusCode} from "@digichanges/shared-experience";
 
 const AuthorizeMiddleware = (...handlerPermissions: any) =>
 {

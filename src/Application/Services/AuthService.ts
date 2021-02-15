@@ -3,13 +3,13 @@ import jwt, { TAlgorithm } from "jwt-simple";
 import _ from "lodash/fp";
 import Config from "config";
 
-import IEncryption from "../../InterfaceAdapters/Shared/IEncryption";
 import EncryptionFactory from "../../Infrastructure/Factories/EncryptionFactory";
 import IAuthService from "../../InterfaceAdapters/IServices/IAuthService";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
 import Permissions from "../../Config/Permissions";
 import WrongPermissionsException from "../Exceptions/WrongPermissionsException";
+import {IEncryption} from "@digichanges/shared-experience";
 
 @injectable()
 class AuthService implements IAuthService

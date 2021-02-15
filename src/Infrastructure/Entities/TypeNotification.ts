@@ -1,5 +1,5 @@
 import webPush from "web-push";
-import TypeNotificationEnum from "../Schema/Enums/TypeNotification";
+import {TypeNotificationEnum} from "@digichanges/shared-experience";
 
 class TypeNotification
 {

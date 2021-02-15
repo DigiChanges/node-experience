@@ -1,5 +1,5 @@
 import ErrorHttpException from "../../Application/Shared/ErrorHttpException";
-import StatusCode from "../Shared/StatusCode";
+import {StatusCode} from "@digichanges/shared-experience";
 
 class NotFoundHttpException extends ErrorHttpException
 {

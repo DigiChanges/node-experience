@@ -1,8 +1,9 @@
+import {IEncryption} from "@digichanges/shared-experience";
+
 import { lazyInject } from '../../../inversify.config'
 import UserRepPayload from "../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
-import IEncryption from "../../../InterfaceAdapters/Shared/IEncryption";
 import {REPOSITORIES} from "../../../repositories";
 import {SERVICES} from "../../../services";
 import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";

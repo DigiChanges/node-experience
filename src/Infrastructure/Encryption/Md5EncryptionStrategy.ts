@@ -1,6 +1,6 @@
-import IEncryption from "../../InterfaceAdapters/Shared/IEncryption";
 import md5 from "md5";
 import DecryptForbiddenException from "../Exceptions/DecryptForbiddenException";
+import {IEncryption} from "@digichanges/shared-experience";
 
 class Md5EncryptionStrategy implements IEncryption
 {

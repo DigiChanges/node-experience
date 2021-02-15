@@ -2,7 +2,7 @@ import * as express from "express";
 import webPush from "web-push";
 import NotificationRepPayload from "../../../../InterfaceAdapters/Payloads/Notifications/NotificationRepPayload";
 
-class NotificationSuscriptionRequest implements NotificationRepPayload
+class NotificationSubscriptionRequest implements NotificationRepPayload
 {
     private readonly subscription: webPush.PushSubscription;
 
@@ -17,4 +17,4 @@ class NotificationSuscriptionRequest implements NotificationRepPayload
     }
 }
 
-export default NotificationSuscriptionRequest;
+export default NotificationSubscriptionRequest;

@@ -1,5 +1,4 @@
 import ErrorHttpException from "../../Application/Shared/ErrorHttpException";
-import StatusCode from "./StatusCode";
 
 import DecryptForbiddenHttpException from "../Exceptions/DecryptForbiddenHttpException";
 import BadCredentialsHttpException from "../Exceptions/BadCredentialsHttpException";
@@ -11,8 +10,7 @@ import TokenExpiredHttpException from "../Exceptions/TokenExpiredHttpException";
 import DuplicateEntityHttpException from "../Exceptions/DuplicateEntityHttpException";
 import RoleDisabledHttpException from "../Exceptions/RoleDisabledHttpException";
 import WrongPermissionsHttpException from "../Exceptions/WrongPermissionsHttpException";
-import TokenBlackListedHttpException from "../Exceptions/TokenBlackListedHttpException";
-import ErrorException from "../../Application/Shared/ErrorException";
+import {StatusCode} from "@digichanges/shared-experience";
 
 class ExceptionFactory
 {

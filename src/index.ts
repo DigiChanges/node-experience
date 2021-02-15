@@ -7,10 +7,9 @@ import {loggerCli} from "./Infrastructure/Shared/Logger";
 import DatabaseFactory from "./Infrastructure/Factories/DatabaseFactory";
 
 import EventHandler from "./Infrastructure/Events/EventHandler";
-import ICreateConnection from "./InterfaceAdapters/IDatabase/ICreateConnection";
-import ICacheRepository from "./InterfaceAdapters/IRepositories/ICacheRepository";
 import CacheFactory from "./Infrastructure/Factories/CacheFactory";
 import Config from "config";
+import {ICacheRepository, ICreateConnection} from "@digichanges/shared-experience";
 
 (async () => {
     try {

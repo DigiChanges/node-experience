@@ -12,7 +12,6 @@ import IUserRepository from "./InterfaceAdapters/IRepositories/IUserRepository";
 import IRoleRepository from "./InterfaceAdapters/IRepositories/IRoleRepository";
 import IAuthService from "./InterfaceAdapters/IServices/IAuthService";
 import IFileRepository from "./InterfaceAdapters/IRepositories/IFileRepository";
-import ITokenRepository from "./InterfaceAdapters/IRepositories/ITokenRepository";
 
 import AuthService from "./Application/Services/AuthService";
 
@@ -30,6 +29,7 @@ import UserSqlRepository from "./Infrastructure/Repositories/UserSqlRepository";
 import FileSqlRepository from "./Infrastructure/Repositories/FileSqlRepository";
 import RoleSqlRepository from "./Infrastructure/Repositories/RoleSqlRepository";
 import TokenRedisRepository from "./Infrastructure/Repositories/TokenRedisRepository";
+import {ITokenRepository} from "@digichanges/shared-experience";
 
 const container = new Container();
 

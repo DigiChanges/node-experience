@@ -1,7 +1,7 @@
 import {InversifyExpressServer} from "inversify-express-utils";
 import supertest from "supertest";
-import ICreateConnection from "../../InterfaceAdapters/IDatabase/ICreateConnection";
 import initServer from "../initServer";
+import {ICreateConnection} from "@digichanges/shared-experience";
 
 describe("Start Item Test", () =>
 {

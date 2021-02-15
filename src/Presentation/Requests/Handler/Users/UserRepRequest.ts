@@ -1,6 +1,7 @@
 import * as express from "express";
-import UserRepPayload from "../../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
 import Config from "config";
+
+import UserRepPayload from "../../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
 import IRoleDomain from "../../../../InterfaceAdapters/IDomain/IRoleDomain";
 import {ArrayMinSize, IsArray, IsBoolean, IsEmail, IsString, Length} from "class-validator";
 import {Match} from "../../../../Infrastructure/Shared/Decorators/match";

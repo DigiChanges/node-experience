@@ -1,12 +1,11 @@
 import { Response, Request } from 'express';
-import Transformer from "./Transformer";
 import { inject, injectable } from "inversify";
+import {IHttpStatusCode, IPaginator, Transformer} from "@digichanges/shared-experience";
+
 import IFormatResponder from '../../InterfaceAdapters/Shared/IFormatResponder';
 import { TYPES } from "../../types";
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import PaginatorTransformer from "./PaginatorTransformer";
 import IFileDTO from '../../InterfaceAdapters/Payloads/FileSystem/IFileDTO';
-import IHttpStatusCode from "../../InterfaceAdapters/Shared/IHttpStatusCode";
 
 @injectable()
 class Responder

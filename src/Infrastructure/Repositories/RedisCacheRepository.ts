@@ -1,5 +1,5 @@
 import { Tedis } from "tedis";
-import ICacheRepository from "../../InterfaceAdapters/IRepositories/ICacheRepository";
+import {ICacheRepository} from "@digichanges/shared-experience";
 
 class RedisCacheRepository implements ICacheRepository
 {

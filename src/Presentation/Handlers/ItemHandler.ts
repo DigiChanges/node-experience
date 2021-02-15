@@ -1,9 +1,10 @@
 import {NextFunction, Request, Response} from 'express';
-import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
-import { TYPES } from "../../types";
 import {inject} from "inversify";
+import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
+import {IPaginator, StatusCode} from "@digichanges/shared-experience";
+
+import { TYPES } from "../../types";
 import Responder from "../Shared/Responder";
-import StatusCode from "../Shared/StatusCode";
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
 import Permissions from "../../Config/Permissions";
 
@@ -16,7 +17,6 @@ import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
 
 import SaveItemUseCase from "../../Domain/UseCases/Item/SaveItemUseCase";
 import ListItemsUseCase from "../../Domain/UseCases/Item/ListItemsUseCase";
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import GetItemUseCase from "../../Domain/UseCases/Item/GetItemUseCase";
 import RemoveItemUseCase from "../../Domain/UseCases/Item/RemoveItemUseCase";
 import UpdateItemUseCase from "../../Domain/UseCases/Item/UpdateItemUseCase";

@@ -1,11 +1,12 @@
+import Config from "config";
+import Fs from "fs";
+import Handlebars from "handlebars";
 import nodemailer from "nodemailer";
 import webPush from "web-push"
-import Config from "config";
-import EmailNotification from "../Entities/EmailNotification";
 import path from "path";
-import Handlebars from "handlebars";
-import Fs from "fs";
-import ErrorException from "../../Application/Shared/ErrorException";
+import {ErrorException} from "@digichanges/shared-experience";
+
+import EmailNotification from "../Entities/EmailNotification";
 import NotificationMongoRepository from "../Repositories/NotificationMongoRepository";
 import PushNotification from "../Entities/PushNotification";
 

@@ -1,9 +1,8 @@
 import {Query, Model} from "mongoose";
 import {injectable} from "inversify";
+import {ICriteria, IPaginator} from "@digichanges/shared-experience";
 
 import INotificationRepository from "../../InterfaceAdapters/IRepositories/INotificationRepository";
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
-import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import INotification from "../../InterfaceAdapters/IEntities/Mongoose/INotificationDocument";

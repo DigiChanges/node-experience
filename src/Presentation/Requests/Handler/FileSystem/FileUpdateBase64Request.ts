@@ -3,7 +3,6 @@ import IdRequest from '../Defaults/IdRequest';
 import FileUpdateBase64Payload from '../../../../InterfaceAdapters/Payloads/FileSystem/FileUpdateBase64Payload';
 import {IsBase64, IsMimeType, IsString} from "class-validator";
 
-
 class FileUpdateBase64Request extends IdRequest implements FileUpdateBase64Payload
 {
     @IsMimeType()

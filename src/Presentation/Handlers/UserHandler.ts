@@ -1,9 +1,9 @@
 import {NextFunction, Request, Response} from 'express';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
+import {IPaginator, StatusCode} from "@digichanges/shared-experience";
 
 import {inject} from "inversify";
 import { TYPES } from "../../types";
-import StatusCode from "../Shared/StatusCode";
 import Responder from "../Shared/Responder";
 
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
@@ -18,8 +18,6 @@ import UserUpdateRequest from "../Requests/Handler/Users/UserUpdateRequest";
 import UserAssignRoleRequest from "../Requests/Handler/Users/UserAssignRoleRequest";
 import ChangeUserPasswordRequest from "../Requests/Handler/Users/ChangeUserPasswordRequest";
 import ChangeMyPasswordRequest from "../Requests/Handler/Users/ChangeMyPasswordRequest";
-
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 
 import GetUserUseCase from "../../Domain/UseCases/User/GetUserUseCase";
 import ListUsersUseCase from "../../Domain/UseCases/User/ListUsersUseCase";
