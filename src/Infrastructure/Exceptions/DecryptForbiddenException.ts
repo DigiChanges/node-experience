@@ -1,10 +1,11 @@
 import {ErrorException} from "@digichanges/shared-experience";
+import {Locales} from "../../Application/app";
 
 class DecryptForbiddenException extends ErrorException
 {
     constructor()
     {
-        super('Decrypt forbidden', DecryptForbiddenException.name);
+        super(Locales.__('general.exceptions.decryptForbidden'), DecryptForbiddenException.name);
     }
 }
 

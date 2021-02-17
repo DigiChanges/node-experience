@@ -6,8 +6,7 @@ import AuthService from "../../Application/Services/AuthService";
 import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
 import UserRepoFactory from "../../Infrastructure/Factories/UserRepoFactory";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
-import ErrorHttpException from "../../Application/Shared/ErrorHttpException";
-import {StatusCode} from "@digichanges/shared-experience";
+import ForbiddenHttpException from "../Exceptions/ForbiddenHttpException";
 
 const AuthorizeMiddleware = (...handlerPermissions: any) =>
 {
@@ -19,11 +18,11 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
 
             let handlerPermission = handlerPermissions[0]; // TODO: Refactor for more permissions for handler
             let isAllowed: boolean = Config.get('auth.authorization') !== 'true';
-            let tokentDecode = req.tokenDecode;
+            let tokenDecode = req.tokenDecode;
 
             let userRepository: IUserRepository = UserRepoFactory.create();
 
-            let user: IUserDomain = await userRepository.getOneByEmail(tokentDecode.email);
+            let user: IUserDomain = await userRepository.getOneByEmail(tokenDecode.email);
 
             if (user.isSuperAdmin)
             {
@@ -46,7 +45,7 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
             }
             else
             {
-                throw new ErrorHttpException(StatusCode.HTTP_FORBIDDEN, "Forbidden", []);
+                throw new ForbiddenHttpException();
             }
         }
         catch(err)

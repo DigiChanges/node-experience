@@ -1,10 +1,11 @@
 import {ErrorException} from "@digichanges/shared-experience";
+import {Locales} from "../../Application/app";
 
 class PasswordWrongException extends ErrorException
 {
     constructor()
     {
-        super('Your current password is wrong', PasswordWrongException.name);
+        super(Locales.__('general.exceptions.passwordWrong'), PasswordWrongException.name);
     }
 }
 

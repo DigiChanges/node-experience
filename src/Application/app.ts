@@ -6,8 +6,8 @@ import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 import exphbs from 'express-handlebars';
-import * as path from "path";
 import Config from 'config';
+import i18n from 'i18n';
 
 import Container from '../inversify.config';
 
@@ -28,6 +28,8 @@ import RedirectRouteNotFoundMiddleware from '../Presentation/Middlewares/Redirec
 import Throttle from "../Presentation/Middlewares/Throttle";
 import VerifyTokenMiddleware from "../Presentation/Middlewares/VerifyTokenMiddleware";
 
+export const Locales = i18n;
+
 class App
 {
     public port?: number;
@@ -38,6 +40,13 @@ class App
     {
         this.port = (Config.get('serverPort') || 8090); // default port to listen;
         this.server = new InversifyExpressServer(Container);
+
+        Locales.configure({
+            locales: ['en', 'es'],
+            directory: `${Config.get('nodePath')}/dist/Config/Locales`,
+            defaultLocale: 'en',
+            objectNotation: true
+        });
     }
 
     public async initConfig()
@@ -54,7 +63,7 @@ class App
             app.use(compression());
             app.use(cors());
             app.use(helmet());
-            const viewRoute = path.join(__dirname, '../Presentation/Views');
+            const viewRoute = `${Config.get('nodePath')}/dist/Presentation/Views`;
             app.set('views', viewRoute);
             app.engine('.hbs', exphbs({
                     defaultLayout: 'main',
@@ -67,6 +76,7 @@ class App
             app.use('/api/', Throttle);
             app.use(AuthenticationMiddleware);
             app.use(VerifyTokenMiddleware);
+            app.use(Locales.init);
         });
 
         this.server.setErrorConfig((app: any) =>

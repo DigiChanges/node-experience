@@ -1,10 +1,11 @@
 import {ErrorException} from "@digichanges/shared-experience";
+import {Locales} from "../../Application/app";
 
 class UserDisabledException extends ErrorException
 {
     constructor()
     {
-        super('Your user is disable', UserDisabledException.name);
+        super(Locales.__('general.exceptions.userDisabled'), UserDisabledException.name);
     }
 }
 

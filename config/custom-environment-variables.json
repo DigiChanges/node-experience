@@ -1,5 +1,6 @@
 {
   "env": "NODE_ENV",
+  "nodePath": "NODE_PATH",
   "serverPort": "SERVER_PORT",
   "auth": {
       "authorization": "AUTHORIZATION"

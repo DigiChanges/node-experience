@@ -1,10 +1,11 @@
 import {ErrorException} from "@digichanges/shared-experience";
+import {Locales} from "../../Application/app";
 
 class RoleDisabledException extends ErrorException
 {
     constructor()
     {
-        super('Your role is disable', RoleDisabledException.name);
+        super(Locales.__('general.exceptions.roleDisabled'), RoleDisabledException.name);
     }
 }
 

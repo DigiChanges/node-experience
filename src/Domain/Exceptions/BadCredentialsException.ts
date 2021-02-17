@@ -1,10 +1,11 @@
 import {ErrorException} from "@digichanges/shared-experience";
+import {Locales} from "../../Application/app";
 
 class BadCredentialsException extends ErrorException
 {
     constructor()
     {
-        super('Error credentials', BadCredentialsException.name);
+        super(Locales.__('general.exceptions.badCredentials'), BadCredentialsException.name);
     }
 }
 
