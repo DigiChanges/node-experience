@@ -1,5 +1,4 @@
-import IPaginator from "../Shared/IPaginator";
-import ICriteria from "../Shared/ICriteria";
+import {ICriteria, IPaginator} from "@digichanges/shared-experience";
 
 interface INotificationRepository
 {

@@ -1,10 +1,9 @@
 import IRoleRepository from "../../InterfaceAdapters/IRepositories/IRoleRepository";
 import {DeleteResult, getRepository, Repository} from "typeorm";
 import {injectable} from "inversify";
+import {ICriteria, IPaginator} from "@digichanges/shared-experience";
 
 import Paginator from "../../Presentation/Shared/Paginator";
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
-import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import RoleFilter from "../../Presentation/Criterias/Role/RoleFilter";
 import RoleSchema from "../Schema/TypeORM/Role";
 import Role from "../../Domain/Entities/Role";

@@ -2,10 +2,9 @@ import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemReposito
 import {DeleteResult, getRepository, Repository} from "typeorm";
 import Item from "../../Domain/Entities/Item";
 import {injectable} from "inversify";
+import {ICriteria, IPaginator} from "@digichanges/shared-experience";
 
 import Paginator from "../../Presentation/Shared/Paginator";
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
-import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import ItemFilter from "../../Presentation/Criterias/Item/ItemFilter";
 import ItemSchema from "../Schema/TypeORM/Item";
 import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";

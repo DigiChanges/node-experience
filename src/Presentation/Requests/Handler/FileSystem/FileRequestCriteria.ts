@@ -1,11 +1,8 @@
 import * as express from "express";
-import ICriteria from "../../../../InterfaceAdapters/Shared/ICriteria";
-import IFilter from "../../../../InterfaceAdapters/Shared/IFilter";
-import IPagination from "../../../../InterfaceAdapters/Shared/IPagination";
-import ISort from "../../../../InterfaceAdapters/Shared/ISort";
 import FileFilter from "../../../Criterias/File/FileFilter";
 import FileSort from "../../../Criterias/File/FileSort";
 import Pagination from "../../../Shared/Pagination";
+import {IFilter, IPagination, ISort, ICriteria} from "@digichanges/shared-experience";
 
 class FileRequestCriteria implements ICriteria
 {

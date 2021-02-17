@@ -1,6 +1,7 @@
 import * as express from "express";
-import UserAssignRolePayload from "../../../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload";
 import {IsArray, IsUUID} from "class-validator";
+
+import UserAssignRolePayload from "../../../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload";
 import IdRequest from "../Defaults/IdRequest";
 
 class UserAssignRoleRequest extends IdRequest implements UserAssignRolePayload

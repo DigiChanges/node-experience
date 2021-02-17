@@ -1,6 +1,6 @@
 import * as express from "express";
 import ItemUpdatePayload from "../../../../InterfaceAdapters/Payloads/Items/ItemUpdatePayload";
-import {IsBoolean, IsInt, IsOptional, IsString} from "class-validator";
+import {IsInt, IsString} from "class-validator";
 import IdRequest from "../Defaults/IdRequest";
 
 class ItemUpdateRequest extends IdRequest implements ItemUpdatePayload

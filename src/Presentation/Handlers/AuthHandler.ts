@@ -1,10 +1,10 @@
 import {controller, httpPost, request, response, next, httpGet} from "inversify-express-utils";
 import { NextFunction, Request, Response } from "express";
+import {StatusCode} from "@digichanges/shared-experience";
 
 import {inject} from "inversify";
 import {TYPES} from "../../types";
 import {SERVICES} from "../../services";
-import StatusCode from "../Shared/StatusCode";
 import Responder from "../Shared/Responder";
 
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";

@@ -2,10 +2,9 @@ import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserReposito
 import {DeleteResult, getRepository, Repository} from "typeorm";
 import User from "../../Domain/Entities/User";
 import {injectable} from "inversify";
+import {ICriteria, IPaginator} from "@digichanges/shared-experience";
 
 import Paginator from "../../Presentation/Shared/Paginator";
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
-import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import UserFilter from "../../Presentation/Criterias/User/UserFilter";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 import UserSchema from "../Schema/TypeORM/User";
@@ -73,12 +72,12 @@ class UserSqlRepository implements IUserRepository
 
         if (filter.has(UserFilter.ENABLE))
         {
-            queryBuilder.andWhere("i." + UserFilter.ENABLE + " = :" + UserFilter.ENABLE);
+            queryBuilder.andWhere(`i.${UserFilter.ENABLE} = :${UserFilter.ENABLE}`);
             queryBuilder.setParameter(UserFilter.ENABLE, filter.get(UserFilter.ENABLE));
         }
         if (filter.has(UserFilter.EMAIL))
         {
-            queryBuilder.andWhere("i." + UserFilter.EMAIL + " like :" + UserFilter.EMAIL);
+            queryBuilder.andWhere(`i.${UserFilter.EMAIL} like :${UserFilter.EMAIL}`);
             queryBuilder.setParameter(UserFilter.EMAIL, '%' + filter.get(UserFilter.EMAIL) + '%');
         }
 

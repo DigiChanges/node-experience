@@ -3,7 +3,6 @@ import IdRequest from '../Defaults/IdRequest';
 import FileUpdateMultipartPayload from '../../../../InterfaceAdapters/Payloads/FileSystem/FileUpdateMultipartPayload';
 import { IsDefined } from 'class-validator';
 
-
 class FileUpdateMultipartRequest extends IdRequest implements FileUpdateMultipartPayload
 {
     @IsDefined()

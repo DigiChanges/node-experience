@@ -1,9 +1,8 @@
 import {Query, Model} from "mongoose";
 import {injectable} from "inversify";
+import {ICriteria, IPaginator} from "@digichanges/shared-experience";
 
 import IFileRepository from "../../InterfaceAdapters/IRepositories/IFileRepository";
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
-import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 
 import FileFilter from "../../Presentation/Criterias/File/FileFilter";
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";

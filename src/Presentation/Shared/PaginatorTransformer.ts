@@ -1,5 +1,4 @@
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
-import Transformer from "./Transformer";
+import {IPaginator, Transformer} from "@digichanges/shared-experience";
 
 class PaginatorTransformer extends Transformer
 {

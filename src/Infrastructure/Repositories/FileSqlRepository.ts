@@ -1,10 +1,9 @@
 import IFileRepository from "../../InterfaceAdapters/IRepositories/IFileRepository";
 import {DeleteResult, getRepository, Repository} from "typeorm";
 import {injectable} from "inversify";
+import {ICriteria, IPaginator} from "@digichanges/shared-experience";
 
 import Paginator from "../../Presentation/Shared/Paginator";
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
-import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
 import FileFilter from "../../Presentation/Criterias/File/FileFilter";
 import FileSchema from "../Schema/TypeORM/File";
 import File from "../../Domain/Entities/File";

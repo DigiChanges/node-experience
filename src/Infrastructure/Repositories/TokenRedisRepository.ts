@@ -1,14 +1,12 @@
+import Config from "config";
 import {injectable} from "inversify";
-
-import ITokenRepository from "../../InterfaceAdapters/IRepositories/ITokenRepository";
+import {ICacheRepository, ITokenRepository} from "@digichanges/shared-experience";
 
 import ITokenDomain from "../../InterfaceAdapters/IInfrastructure/ITokenDomain";
 
 import NotFoundException from "../Exceptions/NotFoundException";
 import CacheFactory from "../Factories/CacheFactory";
-import ICacheRepository from "../../InterfaceAdapters/IRepositories/ICacheRepository";
 import Token from "../Entities/Token";
-import Config from "config";
 
 @injectable()
 class TokenRedisRepository implements ITokenRepository

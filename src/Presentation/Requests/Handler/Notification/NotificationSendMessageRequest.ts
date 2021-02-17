@@ -1,8 +1,8 @@
 import * as express from "express";
 import NotificationSendMessagePayload from "../../../../InterfaceAdapters/Payloads/Notifications/NotificationSendMessagePayload";
-import NotificationSuscriptionRequest from "./NotificationCreateSuscriptionRequest";
+import NotificationSubscriptionRequest from "./NotificationCreateSuscriptionRequest";
 
-class NotificationSendMessageRequest extends NotificationSuscriptionRequest implements NotificationSendMessagePayload
+class NotificationSendMessageRequest extends NotificationSubscriptionRequest implements NotificationSendMessagePayload
 {
     private readonly name: string;
     private readonly message: string;

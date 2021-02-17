@@ -1,6 +1,6 @@
-import { lazyInject } from '../../../inversify.config'
-import ICriteria from "../../../InterfaceAdapters/Shared/ICriteria";
-import IPaginator from "../../../InterfaceAdapters/Shared/IPaginator";
+import {ICriteria, IPaginator} from "@digichanges/shared-experience";
+
+import { lazyInject } from '../../../inversify.config';
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import {REPOSITORIES} from "../../../repositories";
 

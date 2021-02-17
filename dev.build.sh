@@ -2,4 +2,4 @@
 
 yarn
 cp ./.env.dev ./.env
-yarn dev:experimental
+yarn dev

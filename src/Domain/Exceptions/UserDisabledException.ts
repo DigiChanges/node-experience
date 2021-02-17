@@ -1,4 +1,4 @@
-import ErrorException from "../../Application/Shared/ErrorException";
+import {ErrorException} from "@digichanges/shared-experience";
 
 class UserDisabledException extends ErrorException
 {

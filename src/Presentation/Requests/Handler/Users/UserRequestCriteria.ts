@@ -1,8 +1,6 @@
 import * as express from "express";
-import ICriteria from "../../../../InterfaceAdapters/Shared/ICriteria";
-import IPagination from "../../../../InterfaceAdapters/Shared/IPagination";
-import IFilter from "../../../../InterfaceAdapters/Shared/IFilter";
-import ISort from "../../../../InterfaceAdapters/Shared/ISort";
+import {ICriteria, IFilter, IPagination, ISort} from "@digichanges/shared-experience";
+
 import UserSort from "../../../Criterias/User/UserSort";
 import UserFilter from "../../../Criterias/User/UserFilter";
 import Pagination from "../../../Shared/Pagination";

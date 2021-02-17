@@ -6,7 +6,6 @@ import { REPOSITORIES } from '../../../repositories';
 import File from '../../Entities/File';
 import FilesystemFactory from "../../../Infrastructure/Factories/FilesystemFactory";
 
-
 class UploadBase64UseCase
 {
     @lazyInject(REPOSITORIES.IFileRepository)

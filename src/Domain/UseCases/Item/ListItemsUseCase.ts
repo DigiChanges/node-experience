@@ -1,8 +1,7 @@
 import { lazyInject } from '../../../inversify.config'
-import ICriteria from "../../../InterfaceAdapters/Shared/ICriteria";
-import IPaginator from "../../../InterfaceAdapters/Shared/IPaginator";
 import IItemRepository from "../../../InterfaceAdapters/IRepositories/IItemRepository";
 import {REPOSITORIES} from "../../../repositories";
+import {ICriteria, IPaginator} from "@digichanges/shared-experience";
 
 class ListItemsUseCase
 {

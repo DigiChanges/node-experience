@@ -1,10 +1,11 @@
 import * as express from "express";
-import ForgotPasswordPayload from "../../../../InterfaceAdapters/Payloads/Auth/ForgotPasswordPayload";
-import moment from "moment";
-import IEncryption from "../../../../InterfaceAdapters/Shared/IEncryption";
-import EncryptionFactory from "../../../../Infrastructure/Factories/EncryptionFactory";
 import Config from "config";
 import {IsEmail} from "class-validator";
+import {IEncryption} from "@digichanges/shared-experience";
+
+import ForgotPasswordPayload from "../../../../InterfaceAdapters/Payloads/Auth/ForgotPasswordPayload";
+import moment from "moment";
+import EncryptionFactory from "../../../../Infrastructure/Factories/EncryptionFactory";
 
 class ForgotPasswordRequest implements ForgotPasswordPayload
 {

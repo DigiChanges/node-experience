@@ -1,9 +1,5 @@
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import {SelectQueryBuilder} from "typeorm";
-import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
-import IFilter from "../../InterfaceAdapters/Shared/IFilter";
-import ISort from "../../InterfaceAdapters/Shared/ISort";
-import IPagination from "../../InterfaceAdapters/Shared/IPagination";
+import {ICriteria, IFilter, IPagination, IPaginator, ISort} from "@digichanges/shared-experience";
 
 class Paginator implements IPaginator
 {

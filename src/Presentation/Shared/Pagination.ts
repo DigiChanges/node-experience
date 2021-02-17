@@ -1,6 +1,6 @@
-import IPagination from "../../InterfaceAdapters/Shared/IPagination";
 import * as express from "express";
 import Config from "config";
+import {IPagination} from "@digichanges/shared-experience";
 // import querystring from "querystring"; // TODO: Encapsulate and separet on an lib to create new functionality
 
 class Pagination implements IPagination

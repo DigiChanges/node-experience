@@ -1,5 +1,6 @@
 import moment from "moment";
-import Transformer from "../../Shared/Transformer";
+import {Transformer} from "@digichanges/shared-experience";
+
 import IItemDomain from "../../../InterfaceAdapters/IDomain/IItemDomain";
 
 class ItemTransformer extends Transformer

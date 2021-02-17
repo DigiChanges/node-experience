@@ -1,10 +1,8 @@
 import {Query, Model} from "mongoose";
 import {injectable} from "inversify";
+import {ICriteria, IPaginator} from "@digichanges/shared-experience";
 
 import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemRepository";
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
-import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
-
 import ItemFilter from "../../Presentation/Criterias/Item/ItemFilter";
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import IItem from "../../InterfaceAdapters/IEntities/Mongoose/IItemDocument";

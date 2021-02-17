@@ -1,9 +1,10 @@
+import {ITokenRepository} from "@digichanges/shared-experience";
+
 import TokenBlackListedHttpException from "../../../Presentation/Exceptions/TokenBlackListedHttpException";
 import GetTokenUseCase from "./GetTokenUseCase";
 import Token from "../../../Infrastructure/Entities/Token";
 import { lazyInject } from "../../../inversify.config";
 import {REPOSITORIES} from "../../../repositories";
-import ITokenRepository from "../../../InterfaceAdapters/IRepositories/ITokenRepository";
 
 class VerifyTokenBlacklistUseCase
 {

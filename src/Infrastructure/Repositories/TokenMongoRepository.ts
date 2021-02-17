@@ -1,9 +1,6 @@
 import {Query, Model} from "mongoose";
 import {injectable} from "inversify";
-
-import ITokenRepository from "../../InterfaceAdapters/IRepositories/ITokenRepository";
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
-import ICriteria from "../../InterfaceAdapters/Shared/ICriteria";
+import {ICriteria, IPaginator, ITokenRepository} from "@digichanges/shared-experience";
 
 import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
 import IToken from "../../InterfaceAdapters/IEntities/Mongoose/ITokenDocument";

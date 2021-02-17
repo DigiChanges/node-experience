@@ -1,8 +1,8 @@
 import {inject} from "inversify";
 import {NextFunction, Request, Response} from 'express';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
+import {IPaginator, StatusCode} from "@digichanges/shared-experience";
 
-import StatusCode from "../Shared/StatusCode";
 import { TYPES } from "../../types";
 import Responder from "../Shared/Responder";
 import RoleTransformer from "../Transformers/Roles/RoleTransformer";
@@ -17,7 +17,6 @@ import SaveRoleUseCase from "../../Domain/UseCases/Role/SaveRoleUseCase";
 import ListRolesUseCase from "../../Domain/UseCases/Role/ListRolesUseCase";
 import GetRoleUseCase from "../../Domain/UseCases/Role/GetRoleUseCase";
 import RemoveRoleUseCase from "../../Domain/UseCases/Role/RemoveRoleUseCase";
-import IPaginator from "../../InterfaceAdapters/Shared/IPaginator";
 import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
 import UpdateRoleUseCase from "../../Domain/UseCases/Role/UpdateRoleUseCase";
 import ValidatorRequest from "../../Application/Shared/ValidatorRequest";

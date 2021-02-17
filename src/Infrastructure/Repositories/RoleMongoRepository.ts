@@ -1,9 +1,8 @@
 import IRoleRepository from '../../InterfaceAdapters/IRepositories/IRoleRepository';
 import {injectable} from 'inversify';
+import {ICriteria, IPaginator} from "@digichanges/shared-experience";
 
 import MongoPaginator from '../../Presentation/Shared/MongoPaginator';
-import IPaginator from '../../InterfaceAdapters/Shared/IPaginator';
-import ICriteria from '../../InterfaceAdapters/Shared/ICriteria';
 import RoleFilter from '../../Presentation/Criterias/Role/RoleFilter';
 import {Query, Model} from 'mongoose';
 import IRole from '../../InterfaceAdapters/IEntities/Mongoose/IRoleDocument';

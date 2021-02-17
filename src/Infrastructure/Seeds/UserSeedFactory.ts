@@ -1,4 +1,6 @@
 import faker from "faker";
+import {IEncryption} from "@digichanges/shared-experience";
+
 import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
 import Role from "../../Domain/Entities/Role";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
@@ -8,7 +10,6 @@ import RoleRepoFactory from "../Factories/RoleRepoFactory";
 import EncryptionFactory from "../Factories/EncryptionFactory";
 import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
 import IRoleRepository from "../../InterfaceAdapters/IRepositories/IRoleRepository";
-import IEncryption from "../../InterfaceAdapters/Shared/IEncryption";
 
 class UserSeedFactory
 {

@@ -1,5 +1,5 @@
-import ICacheRepository from "../../InterfaceAdapters/IRepositories/ICacheRepository";
 import RedisCacheRepository from "../Repositories/RedisCacheRepository";
+import {ICacheRepository} from "@digichanges/shared-experience";
 
 class CacheFactory
 {

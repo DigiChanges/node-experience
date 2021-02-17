@@ -1,7 +1,6 @@
 import {controller, httpPost, request, response, next, httpGet, httpPut} from "inversify-express-utils";
 import { NextFunction, Request, Response } from "express";
-
-import StatusCode from "../Shared/StatusCode";
+import {IPaginator, StatusCode} from "@digichanges/shared-experience";
 
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
 import Permissions from "../../Config/Permissions";
@@ -23,7 +22,6 @@ import FileMultipartRepRequest from '../Requests/Handler/FileSystem/FileMultipar
 import PresignedFileRepRequest from '../Requests/Handler/FileSystem/PresignedFileRepRequest';
 import FileRequestCriteria from '../Requests/Handler/FileSystem/FileRequestCriteria';
 import FileTransformer from '../Transformers/Files/FileTransformer';
-import IPaginator from '../../InterfaceAdapters/Shared/IPaginator';
 import IdRequest from '../Requests/Handler/Defaults/IdRequest';
 import FileUpdateMultipartRequest from "../Requests/Handler/FileSystem/FileUpdateMultipartRequest";
 import UpdateFileMultipartUseCase from "../../Domain/UseCases/FileSystem/UpdateFileMultipartUseCase";

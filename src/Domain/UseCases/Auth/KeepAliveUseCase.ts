@@ -1,9 +1,10 @@
-import { lazyInject } from '../../../inversify.config'
+import {ITokenRepository} from "@digichanges/shared-experience";
+
+import { lazyInject } from '../../../inversify.config';
 import KeepAlivePayload from "../../../InterfaceAdapters/Payloads/Auth/KeepAlivePayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import TokenFactory from "../../../Infrastructure/Factories/TokenFactory";
 import {REPOSITORIES} from "../../../repositories";
-import ITokenRepository from "../../../InterfaceAdapters/IRepositories/ITokenRepository";
 import SetTokenBlacklistUseCase from "../Tokens/SetTokenBlacklistUseCase";
 
 class KeepAliveUseCase

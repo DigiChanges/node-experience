@@ -1,5 +1,6 @@
+import {ITokenRepository} from "@digichanges/shared-experience";
+
 import { lazyInject } from '../../../inversify.config'
-import ITokenRepository from "../../../InterfaceAdapters/IRepositories/ITokenRepository";
 import {REPOSITORIES} from "../../../repositories";
 import ITokenDomain from "../../../InterfaceAdapters/IInfrastructure/ITokenDomain";
 

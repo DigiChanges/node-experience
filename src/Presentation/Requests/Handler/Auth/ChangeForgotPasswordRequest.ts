@@ -1,9 +1,10 @@
-import * as express from "express";
-import ChangeForgotPasswordPayload from "../../../../InterfaceAdapters/Payloads/Auth/ChangeForgotPasswordPayload";
-import IEncryption from "../../../../InterfaceAdapters/Shared/IEncryption";
-import EncryptionFactory from "../../../../Infrastructure/Factories/EncryptionFactory";
 import Config from "config";
 import {IsString, Length} from "class-validator";
+import * as express from "express";
+import {IEncryption} from "@digichanges/shared-experience";
+
+import ChangeForgotPasswordPayload from "../../../../InterfaceAdapters/Payloads/Auth/ChangeForgotPasswordPayload";
+import EncryptionFactory from "../../../../Infrastructure/Factories/EncryptionFactory";
 import {Match} from "../../../../Infrastructure/Shared/Decorators/match";
 
 class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
