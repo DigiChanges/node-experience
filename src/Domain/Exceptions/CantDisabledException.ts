@@ -1,10 +1,11 @@
 import {ErrorException} from "@digichanges/shared-experience";
+import {Locales} from "../../Application/app";
 
 class CantDisabledException extends ErrorException
 {
     constructor()
     {
-        super("SuperAdmin can't be disable", CantDisabledException.name);
+        super(Locales.__('general.exceptions.cantDisabled'), CantDisabledException.name);
     }
 }
 

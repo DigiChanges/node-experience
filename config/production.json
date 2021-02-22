@@ -1,5 +1,6 @@
 {
   "env": "production",
+  "nodePath": "/usr/app",
   "serverPort": 80,
     "auth": {
       "authorization": true
