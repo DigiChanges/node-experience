@@ -57,7 +57,7 @@ class FileMongoRepository implements IFileRepository
 
     async update(file: IFileDomain): Promise<IFileDomain>
     {
-        return this.repository.updateOne({_id: file.getId()}, file);
+        return this.repository.findByIdAndUpdate({_id: file.getId()}, file);
     }
 
     async delete(id: string): Promise<IFileDomain>
