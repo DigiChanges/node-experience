@@ -6,7 +6,7 @@ class RouteNotFoundHttpException extends ErrorHttpException
 {
     constructor()
     {
-        super(StatusCode.HTTP_FORBIDDEN, Locales.__('general.exceptions.routeNotFound'), []);
+        super(StatusCode.HTTP_NOT_FOUND, Locales.__('general.exceptions.routeNotFound'), []);
     }
 }
 
