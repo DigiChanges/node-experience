@@ -78,7 +78,7 @@ class RoleMongoRepository implements IRoleRepository
 
     async update(role: IRoleDomain): Promise<IRoleDomain>
     {
-        return this.repository.updateOne({_id: role.getId()}, role);
+        return this.repository.findByIdAndUpdate({_id: role.getId()}, role);
     }
 
     async delete(id: string): Promise<IRoleDomain>

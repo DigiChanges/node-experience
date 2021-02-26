@@ -45,7 +45,7 @@ class TokenMongoRepository implements ITokenRepository
 
     async update(token: ITokenDomain): Promise<ITokenDomain>
     {
-        return this.repository.updateOne({_id: token.getId()}, token);
+        return this.repository.findByIdAndUpdate({_id: token.getId()}, token);
     }
 
     async delete(id: string): Promise<ITokenDomain>

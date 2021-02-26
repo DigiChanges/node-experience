@@ -62,7 +62,7 @@ class ItemMongoRepository implements IItemRepository
 
     async update(item: IItemDomain): Promise<IItemDomain>
     {
-        return this.repository.updateOne({_id: item.getId()}, item);
+        return this.repository.findByIdAndUpdate({_id: item.getId()}, item);
     }
 
     async delete(id: string): Promise<IItemDomain>
