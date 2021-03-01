@@ -1,13 +1,17 @@
 import {ICriteria, IPaginator} from "@digichanges/shared-experience";
 
-import { lazyInject } from '../../../inversify.config';
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import {REPOSITORIES} from "../../../repositories";
+import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
 
 class ListUsersUseCase
 {
-    @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
+
+    constructor()
+    {
+        this.repository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
+    }
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {

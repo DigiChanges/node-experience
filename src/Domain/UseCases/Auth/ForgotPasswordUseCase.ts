@@ -1,4 +1,3 @@
-import { lazyInject } from '../../../inversify.config'
 import ForgotPasswordPayload from "../../../InterfaceAdapters/Payloads/Auth/ForgotPasswordPayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import Config from "config";
@@ -6,11 +5,16 @@ import {REPOSITORIES} from "../../../repositories";
 import EmailNotification from "../../../Infrastructure/Entities/EmailNotification";
 import EventHandler from "../../../Infrastructure/Events/EventHandler";
 import ForgotPasswordEvent from "../../../Infrastructure/Events/ForgotPasswordEvent";
+import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
 
 class ForgotPasswordUseCase
 {
-    @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
+
+    constructor()
+    {
+        this.repository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
+    }
 
     async handle(payload: ForgotPasswordPayload)
     {

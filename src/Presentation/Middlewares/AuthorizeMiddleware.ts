@@ -4,9 +4,10 @@ import Config from 'config';
 import AuthService from "../../Application/Services/AuthService";
 
 import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
-import UserRepoFactory from "../../Infrastructure/Factories/UserRepoFactory";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 import ForbiddenHttpException from "../Exceptions/ForbiddenHttpException";
+import ContainerFactory from "../../Infrastructure/Factories/ContainerFactory";
+import {REPOSITORIES} from "../../repositories";
 
 const AuthorizeMiddleware = (...handlerPermissions: any) =>
 {
@@ -20,7 +21,7 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
             let isAllowed: boolean = Config.get('auth.authorization') !== 'true';
             let tokenDecode = req.tokenDecode;
 
-            let userRepository: IUserRepository = UserRepoFactory.create();
+            let userRepository: IUserRepository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
 
             let user: IUserDomain = await userRepository.getOneByEmail(tokenDecode.email);
 

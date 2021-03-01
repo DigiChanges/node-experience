@@ -1,3 +1,4 @@
+import {inject} from "inversify";
 import { NextFunction, Request, Response } from "express";
 import { httpPost, request, response, next, controller } from "inversify-express-utils";
 import {StatusCode} from "@digichanges/shared-experience";
@@ -5,16 +6,15 @@ import {StatusCode} from "@digichanges/shared-experience";
 import ValidatorRequest from "../../Application/Shared/ValidatorRequest";
 import CreateSubscriptionUseCase from "../../Domain/UseCases/Notifications/CreateSubscriptionUseCase";
 import SendPushNotificationUseCase from "../../Domain/UseCases/Notifications/SendPushNotificationUseCase";
-import { lazyInject } from "../../inversify.config";
 import { TYPES } from "../../types";
 import NotificationSubscriptionRequest from "../Requests/Handler/Notification/NotificationCreateSuscriptionRequest";
 import NotificationSendMessageRequest from "../Requests/Handler/Notification/NotificationSendMessageRequest";
 import Responder from '../Shared/Responder';
 
 @controller('/api/notifications')
-class NotificationHandler {
-
-    @lazyInject(TYPES.Responder)
+class NotificationHandler
+{
+    @inject(TYPES.Responder)
     private responder: Responder;
 
     @httpPost('/subscription')

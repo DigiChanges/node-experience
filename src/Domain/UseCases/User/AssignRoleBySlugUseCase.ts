@@ -1,17 +1,21 @@
-import { lazyInject } from '../../../inversify.config'
 import UserAssignRoleByPayload from "../../../InterfaceAdapters/Payloads/Users/UserAssignRoleByPayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import {REPOSITORIES} from "../../../repositories";
 import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
 import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
 import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
+import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
 
 class AssignRoleBySlugUseCase
 {
-    @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-    @lazyInject(REPOSITORIES.IRoleRepository)
     private roleRepository: IRoleRepository;
+
+    constructor()
+    {
+        this.repository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
+        this.roleRepository = ContainerFactory.create<IRoleRepository>(REPOSITORIES.IRoleRepository);
+    }
 
     async handle(payload: UserAssignRoleByPayload): Promise<IUserDomain>
     {

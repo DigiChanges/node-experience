@@ -1,16 +1,21 @@
 import _ from "lodash";
-import { lazyInject } from '../../../inversify.config'
+
 import Permissions from "../../../Config/Permissions";
 import Roles from "../../../Config/Roles";
 import {REPOSITORIES} from "../../../repositories";
 import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
 import Role from "../../Entities/Role";
 import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
+import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
 
 class SyncRolesPermissionUseCase
 {
-    @lazyInject(REPOSITORIES.IRoleRepository)
     private repository: IRoleRepository;
+
+    constructor()
+    {
+        this.repository = ContainerFactory.create<IRoleRepository>(REPOSITORIES.IRoleRepository);
+    }
 
     async handle()
     {

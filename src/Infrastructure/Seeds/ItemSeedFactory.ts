@@ -1,8 +1,9 @@
 import faker from "faker";
-import ItemRepoFactory from "../Factories/ItemRepoFactory";
 import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemRepository";
 import Item from "../../Domain/Entities/Item";
 import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
+import ContainerFactory from "../Factories/ContainerFactory";
+import {REPOSITORIES} from "../../repositories";
 
 class ItemSeedFactory
 {
@@ -10,7 +11,7 @@ class ItemSeedFactory
 
     constructor()
     {
-        this.itemRepo = ItemRepoFactory.create();
+        this.itemRepo = ContainerFactory.create<IItemRepository>(REPOSITORIES.IItemRepository);
     }
 
     public async init()

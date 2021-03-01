@@ -1,13 +1,17 @@
-import { lazyInject } from '../../../inversify.config'
 import ItemUpdatePayload from "../../../InterfaceAdapters/Payloads/Items/ItemUpdatePayload";
 import IItemRepository from "../../../InterfaceAdapters/IRepositories/IItemRepository";
 import {REPOSITORIES} from "../../../repositories";
 import IItemDomain from "../../../InterfaceAdapters/IDomain/IItemDomain";
+import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
 
 class UpdateItemUseCase
 {
-    @lazyInject(REPOSITORIES.IItemRepository)
     private repository: IItemRepository;
+
+    constructor()
+    {
+        this.repository = ContainerFactory.create<IItemRepository>(REPOSITORIES.IItemRepository);
+    }
 
     async handle(payload: ItemUpdatePayload): Promise<IItemDomain>
     {

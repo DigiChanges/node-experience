@@ -1,6 +1,5 @@
 import {IEncryption} from "@digichanges/shared-experience";
 
-import { lazyInject } from '../../../inversify.config';
 import AuthPayload from "../../../InterfaceAdapters/Payloads/Auth/AuthPayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
@@ -11,10 +10,10 @@ import {REPOSITORIES} from "../../../repositories";
 import BadCredentialsException from "../../Exceptions/BadCredentialsException";
 import UserDisabledException from "../../Exceptions/UserDisabledException";
 import RoleDisabledException from "../../Exceptions/RoleDisabledException";
+import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
 
 class LoginUseCase
 {
-    @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
     private encryption: IEncryption;
     private tokenFactory: TokenFactory;
@@ -23,6 +22,7 @@ class LoginUseCase
     {
         this.tokenFactory = new TokenFactory();
         this.encryption = EncryptionFactory.create();
+        this.repository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
     }
 
     async handle(payload: AuthPayload)

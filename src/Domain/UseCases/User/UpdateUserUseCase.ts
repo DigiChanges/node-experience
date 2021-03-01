@@ -1,24 +1,26 @@
-import { lazyInject } from '../../../inversify.config'
 import UserUpdatePayload from "../../../InterfaceAdapters/Payloads/Users/UserUpdatePayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import CheckUserRolePayload from "../../../InterfaceAdapters/Payloads/Auxiliars/CheckUserRolePayload";
 import Roles from "../../../Config/Roles";
 import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
-import RoleRepoFactory from "../../../Infrastructure/Factories/RoleRepoFactory";
 import Role from '../../Entities/Role';
 import {REPOSITORIES} from "../../../repositories";
 import {SERVICES} from "../../../services";
 import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
-import AuthService from "../../../Application/Services/AuthService";
 import CantDisabledException from "../../Exceptions/CantDisabledException";
+import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import IAuthService from "../../../InterfaceAdapters/IServices/IAuthService";
 
 class UpdateUserUseCase
 {
-    @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
+    private authService: IAuthService;
 
-    @lazyInject(SERVICES.IAuthService)
-    private authService: AuthService;
+    constructor()
+    {
+        this.repository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
+        this.authService = ContainerFactory.create<IAuthService>(SERVICES.IAuthService);
+    }
 
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {
@@ -59,7 +61,7 @@ class UpdateUserUseCase
 
     public async checkIfUserHasRole (payload: CheckUserRolePayload): Promise<boolean> // TODO: Create a user service
     {
-        let roleRepository: IRoleRepository = RoleRepoFactory.create();
+        let roleRepository: IRoleRepository = ContainerFactory.create<IRoleRepository>(REPOSITORIES.IRoleRepository);
         let count = payload.user.roles.length;
 
         for (let i = 0; i < count; i++)

@@ -1,13 +1,17 @@
 import {ICriteria, IPaginator} from "@digichanges/shared-experience";
 
-import { lazyInject } from "../../../inversify.config";
 import IFileRepository from "../../../InterfaceAdapters/IRepositories/IFileRepository";
 import { REPOSITORIES } from "../../../repositories";
+import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
 
 class ListFilesUseCase
 {
-    @lazyInject(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;
+
+    constructor()
+    {
+        this.repository = ContainerFactory.create<IFileRepository>(REPOSITORIES.IFileRepository);
+    }
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {

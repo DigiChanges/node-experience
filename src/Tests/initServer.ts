@@ -21,7 +21,6 @@ import RefreshTokenMiddleware from "../Presentation/Middlewares/RefreshTokenMidd
 import {InversifyExpressServer} from "inversify-express-utils";
 import {ErrorHandler} from "../Presentation/Shared/ErrorHandler";
 import supertest from "supertest";
-import container from "../inversify.config";
 import DatabaseFactory from "../Infrastructure/Factories/DatabaseFactory";
 import SeedFactory from "../Infrastructure/Seeds/SeedFactory";
 import EventHandler from "../Infrastructure/Events/EventHandler";
@@ -29,6 +28,9 @@ import RedirectRouteNotFoundMiddleware from "../Presentation/Middlewares/Redirec
 import {REPOSITORIES} from "../repositories";
 import TokenMongoRepository from "../Infrastructure/Repositories/TokenMongoRepository";
 import {validateEnv} from "../Config/validateEnv";
+import container from "../inversify.config";
+import Config from "config";
+import {Locales} from "../Application/app";
 
 const initServer = async () =>
 {   let server: InversifyExpressServer;
@@ -47,6 +49,13 @@ const initServer = async () =>
     container.unbind(REPOSITORIES.ITokenRepository);
     container.bind<ITokenRepository>(REPOSITORIES.ITokenRepository).to(TokenMongoRepository);
 
+    Locales.configure({
+        locales: ['en', 'es'],
+        directory: `./dist/Config/Locales`,
+        defaultLocale: 'en',
+        objectNotation: true
+    });
+
     server = new InversifyExpressServer(container);
 
     server.setConfig((app: any) =>
@@ -64,6 +73,7 @@ const initServer = async () =>
         app.use(LoggerWinston);
         app.use(AuthenticationMiddleware);
         app.use(RefreshTokenMiddleware);
+        app.use(Locales.init);
     });
 
     server.setErrorConfig((app: any) =>

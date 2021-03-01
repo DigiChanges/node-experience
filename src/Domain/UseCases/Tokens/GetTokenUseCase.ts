@@ -1,12 +1,16 @@
 import {ITokenRepository} from "@digichanges/shared-experience";
 
-import { lazyInject } from '../../../inversify.config'
 import {REPOSITORIES} from "../../../repositories";
+import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
 
 class GetTokenUseCase
 {
-    @lazyInject(REPOSITORIES.ITokenRepository)
     private repository: ITokenRepository;
+
+    constructor()
+    {
+        this.repository = ContainerFactory.create<ITokenRepository>(REPOSITORIES.ITokenRepository);
+    }
 
     async handle(id: string)
     {

@@ -22,6 +22,7 @@ export class ErrorHandler
                 code: StatusCode.HTTP_INTERNAL_SERVER_ERROR.code,
                 method: req.method,
                 path: req.path,
+                payload: req.body,
                 date: moment().toISOString()
             };
 

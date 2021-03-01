@@ -5,11 +5,11 @@ import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
 import Role from "../../Domain/Entities/Role";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
 import User from "../../Domain/Entities/User";
-import UserRepoFactory from "../Factories/UserRepoFactory";
-import RoleRepoFactory from "../Factories/RoleRepoFactory";
 import EncryptionFactory from "../Factories/EncryptionFactory";
 import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
 import IRoleRepository from "../../InterfaceAdapters/IRepositories/IRoleRepository";
+import {REPOSITORIES} from "../../repositories";
+import ContainerFactory from "../Factories/ContainerFactory";
 
 class UserSeedFactory
 {
@@ -19,8 +19,8 @@ class UserSeedFactory
 
     constructor()
     {
-        this.userRepo = UserRepoFactory.create();
-        this.roleRepo = RoleRepoFactory.create();
+        this.userRepo = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
+        this.roleRepo = ContainerFactory.create<IRoleRepository>(REPOSITORIES.IRoleRepository);
         this.encryption = EncryptionFactory.create();
     }
 
