@@ -5,16 +5,20 @@ import {ITokenRepository} from "@digichanges/shared-experience";
 import JWTToken from "../../Application/Shared/JWTToken";
 import IToken from "../../InterfaceAdapters/Shared/IToken";
 import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
-import { lazyInject } from "../../inversify.config";
 import {REPOSITORIES} from "../../repositories";
 import ITokenDomain from "../../InterfaceAdapters/IInfrastructure/ITokenDomain";
 import Token from "../Entities/Token";
+import ContainerFactory from "./ContainerFactory";
 
 // TODO: Change logic with payload to extend and add new payload
 class TokenFactory
 {
-    @lazyInject(REPOSITORIES.ITokenRepository)
     private repository: ITokenRepository;
+
+    constructor()
+    {
+        this.repository = ContainerFactory.create<ITokenRepository>(REPOSITORIES.ITokenRepository)
+    }
 
     public async createToken(user: IUserDomain): Promise<IToken>
     {

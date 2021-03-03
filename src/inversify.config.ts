@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import {Container} from "inversify";
-import getDecorators from "inversify-inject-decorators";
 import Config from "config";
 
 import FormatResponder from "./Presentation/Shared/FormatResponder";
@@ -57,7 +56,5 @@ else if (Config.get('dbConfig.default') === 'Mongoose')
 }
 
 container.bind<ITokenRepository>(REPOSITORIES.ITokenRepository).to(TokenRedisRepository);
-
-export let { lazyInject } = getDecorators(container);
 
 export default container;

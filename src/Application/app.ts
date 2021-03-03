@@ -9,7 +9,6 @@ import exphbs from 'express-handlebars';
 import Config from 'config';
 import i18n from 'i18n';
 
-import Container from '../inversify.config';
 
 import '../Presentation/Handlers/IndexHandler';
 import '../Presentation/Handlers/ItemHandler';
@@ -27,6 +26,7 @@ import {loggerCli} from '../Infrastructure/Shared/Logger';
 import RedirectRouteNotFoundMiddleware from '../Presentation/Middlewares/RedirectRouteNotFoundMiddleware';
 import Throttle from "../Presentation/Middlewares/Throttle";
 import VerifyTokenMiddleware from "../Presentation/Middlewares/VerifyTokenMiddleware";
+import container from "../inversify.config";
 
 export const Locales = i18n;
 
@@ -39,7 +39,7 @@ class App
     constructor()
     {
         this.port = (Config.get('serverPort') || 8090); // default port to listen;
-        this.server = new InversifyExpressServer(Container);
+        this.server = new InversifyExpressServer(container);
 
         Locales.configure({
             locales: ['en', 'es'],

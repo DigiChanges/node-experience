@@ -1,25 +1,22 @@
 import {ITokenRepository} from "@digichanges/shared-experience";
-
-import { lazyInject } from '../../../inversify.config';
 import KeepAlivePayload from "../../../InterfaceAdapters/Payloads/Auth/KeepAlivePayload";
 import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
 import TokenFactory from "../../../Infrastructure/Factories/TokenFactory";
 import {REPOSITORIES} from "../../../repositories";
 import SetTokenBlacklistUseCase from "../Tokens/SetTokenBlacklistUseCase";
+import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
 
 class KeepAliveUseCase
 {
-    @lazyInject(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-
-    @lazyInject(REPOSITORIES.ITokenRepository)
     private tokenRepository: ITokenRepository;
-
     private tokenFactory: TokenFactory;
 
     constructor()
     {
         this.tokenFactory = new TokenFactory();
+        this.repository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
+        this.tokenRepository = ContainerFactory.create<ITokenRepository>(REPOSITORIES.ITokenRepository);
     }
 
     async handle(payload: KeepAlivePayload)

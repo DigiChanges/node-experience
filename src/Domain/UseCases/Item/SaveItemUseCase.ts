@@ -1,14 +1,18 @@
-import { lazyInject } from '../../../inversify.config'
 import ItemRepPayload from "../../../InterfaceAdapters/Payloads/Items/ItemRepPayload";
 import IItemDomain from "../../../InterfaceAdapters/IDomain/IItemDomain";
 import Item from "../../../Domain/Entities/Item";
 import IItemRepository from "../../../InterfaceAdapters/IRepositories/IItemRepository";
 import {REPOSITORIES} from "../../../repositories";
+import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
 
 class SaveItemUseCase
 {
-    @lazyInject(REPOSITORIES.IItemRepository)
     private repository: IItemRepository;
+
+    constructor()
+    {
+        this.repository = ContainerFactory.create<IItemRepository>(REPOSITORIES.IItemRepository);
+    }
 
     async handle(payload: ItemRepPayload): Promise<IItemDomain>
     {

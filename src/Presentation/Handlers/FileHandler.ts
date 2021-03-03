@@ -1,3 +1,4 @@
+import {inject} from "inversify";
 import {controller, httpPost, request, response, next, httpGet, httpPut} from "inversify-express-utils";
 import { NextFunction, Request, Response } from "express";
 import {IPaginator, StatusCode} from "@digichanges/shared-experience";
@@ -5,7 +6,6 @@ import {IPaginator, StatusCode} from "@digichanges/shared-experience";
 import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
 import Permissions from "../../Config/Permissions";
 
-import {lazyInject} from "../../inversify.config";
 import { TYPES } from '../../types';
 import Responder from '../Shared/Responder';
 import ListObjectsRequest from '../Requests/Handler/FileSystem/ListObjectsRequest';
@@ -32,7 +32,7 @@ import ObjectTransformer from "../Transformers/Files/ObjectTransformer";
 @controller('/api/files')
 class FileHandler
 {
-    @lazyInject(TYPES.Responder)
+    @inject(TYPES.Responder)
     private responder: Responder;
 
     @httpGet('/', AuthorizeMiddleware(Permissions.FILES_LIST))

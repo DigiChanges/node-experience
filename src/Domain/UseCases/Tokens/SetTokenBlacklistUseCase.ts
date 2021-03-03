@@ -1,13 +1,17 @@
 import {ITokenRepository} from "@digichanges/shared-experience";
 
-import { lazyInject } from '../../../inversify.config'
 import {REPOSITORIES} from "../../../repositories";
 import ITokenDomain from "../../../InterfaceAdapters/IInfrastructure/ITokenDomain";
+import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
 
 class SetTokenBlacklistUseCase
 {
-    @lazyInject(REPOSITORIES.ITokenRepository)
     private repository: ITokenRepository;
+
+    constructor()
+    {
+        this.repository = ContainerFactory.create<ITokenRepository>(REPOSITORIES.ITokenRepository);
+    }
 
     async handle(token: ITokenDomain)
     {

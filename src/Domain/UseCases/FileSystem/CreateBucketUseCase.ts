@@ -1,14 +1,17 @@
-import { lazyInject } from '../../../inversify.config';
-
 import CreateBucketPayload from '../../../InterfaceAdapters/Payloads/FileSystem/CreateBucketPayload';
 import {REPOSITORIES} from "../../../repositories";
 import IFileRepository from "../../../InterfaceAdapters/IRepositories/IFileRepository";
 import FilesystemFactory from "../../../Infrastructure/Factories/FilesystemFactory";
+import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
 
 class CreateBucketUseCase
 {
-    @lazyInject(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;
+
+    constructor()
+    {
+        this.repository = ContainerFactory.create<IFileRepository>(REPOSITORIES.IFileRepository);
+    }
 
     async handle(payload: CreateBucketPayload): Promise<void>
     {
