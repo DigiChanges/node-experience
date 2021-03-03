@@ -442,7 +442,7 @@ describe("Start Role Test", () =>
             expect(deleteErrorResponse.statusCode).toStrictEqual(400);
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
-            expect(message).toStrictEqual('Role Not Found');
+            expect(message).toStrictEqual('Role not found.');
 
             done();
         });

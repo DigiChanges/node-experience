@@ -138,7 +138,6 @@ describe("Start User Test", () =>
             expect(data.firstName).toStrictEqual(payload.firstName);
             expect(data.email).toStrictEqual(payload.email);
 
-
             done();
         });
 
@@ -166,7 +165,6 @@ describe("Start User Test", () =>
             expect(data.firstName).toStrictEqual(payload.firstName);
             expect(data.email).toStrictEqual(payload.email);
             expect(data.enable).toStrictEqual(payload.enable);
-
 
             done();
         });
@@ -247,7 +245,6 @@ describe("Start User Test", () =>
             expect(data.firstName).toStrictEqual(payload.firstName);
             expect(data.email).toStrictEqual(payload.email);
 
-
             done();
         });
 
@@ -270,7 +267,6 @@ describe("Start User Test", () =>
             expect(pagination.currentUrl).toContain('/api/users?pagination[limit]=5&pagination[offset]=0');
             expect(pagination.nextUrl).toContain('/api/users?pagination[limit]=5&pagination[offset]=5');
 
-
             done();
         });
 
@@ -290,7 +286,6 @@ describe("Start User Test", () =>
 
             expect(data.length).toStrictEqual(6);
             expect(pagination).not.toBeDefined();
-
 
             done();
         });
@@ -332,7 +327,6 @@ describe("Start User Test", () =>
 
             expect(user1.email).toStrictEqual('user@node.com');
             expect(user2.email).toStrictEqual('user2@update.com');
-
 
             done();
         });
@@ -381,7 +375,6 @@ describe("Start User Test", () =>
             expect(error.constraints.isString).toBeDefined();
             expect(error.constraints.isString).toStrictEqual('firstName must be a string');
 
-
             done();
         });
 
@@ -403,7 +396,6 @@ describe("Start User Test", () =>
             expect(error.property).toStrictEqual('id');
             expect(error.constraints.isUuid).toBeDefined();
             expect(error.constraints.isUuid).toStrictEqual('id must be an UUID');
-
 
             done();
         });
@@ -433,7 +425,6 @@ describe("Start User Test", () =>
             expect(error.constraints.isString).toBeDefined();
             expect(error.constraints.isString).toStrictEqual('firstName must be a string');
 
-
             done();
         });
 
@@ -450,8 +441,7 @@ describe("Start User Test", () =>
             expect(deleteErrorResponse.statusCode).toStrictEqual(400);
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
-            expect(message).toStrictEqual('User Not Found');
-
+            expect(message).toStrictEqual('User not found.');
 
             done();
         });

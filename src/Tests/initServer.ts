@@ -1,5 +1,5 @@
 import "reflect-metadata";
-
+import path from "path";
 import "../Presentation/Handlers/IndexHandler";
 import "../Presentation/Handlers/AuthHandler";
 import "../Presentation/Handlers/ItemHandler";
@@ -7,6 +7,8 @@ import "../Presentation/Handlers/UserHandler";
 import "../Presentation/Handlers/RoleHandler";
 // import "../Presentation/Handlers/FileHandler";
 // import "../Presentation/Handlers/NotificationHandler";
+
+import {Locales} from "../Application/app";
 
 import bodyParser from "body-parser";
 import compression from "compression";
@@ -29,8 +31,6 @@ import {REPOSITORIES} from "../repositories";
 import TokenMongoRepository from "../Infrastructure/Repositories/TokenMongoRepository";
 import {validateEnv} from "../Config/validateEnv";
 import container from "../inversify.config";
-import Config from "config";
-import {Locales} from "../Application/app";
 
 const initServer = async () =>
 {   let server: InversifyExpressServer;
@@ -51,7 +51,7 @@ const initServer = async () =>
 
     Locales.configure({
         locales: ['en', 'es'],
-        directory: `./dist/Config/Locales`,
+        directory: `${process.cwd()}/dist/Config/Locales`,
         defaultLocale: 'en',
         objectNotation: true
     });

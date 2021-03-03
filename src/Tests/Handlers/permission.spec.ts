@@ -79,7 +79,7 @@ describe('Start Permission Test', () => {
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_NOT_FOUND');
 
-            expect(message).toStrictEqual('Route Not Found');
+            expect(message).toStrictEqual('Route not found.');
 
             done();
         });
@@ -97,7 +97,7 @@ describe('Start Permission Test', () => {
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
-            expect(message).toStrictEqual('You must be authenticated');
+            expect(message).toStrictEqual('You must be authenticated.');
 
             done();
         });

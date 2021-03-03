@@ -347,7 +347,7 @@ describe("Start Item Test", () =>
             expect(deleteErrorResponse.statusCode).toStrictEqual(400);
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
-            expect(message).toStrictEqual('Item Not Found');
+            expect(message).toStrictEqual('Item not found.');
 
             done();
         });

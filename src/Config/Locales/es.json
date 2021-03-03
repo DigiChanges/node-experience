@@ -1,0 +1,17 @@
+{
+	"general": {
+		"greetings": "Bienvenido a Node Experience",
+		"exceptions": {
+			"decryptForbidden": "No se puede desencriptar.",
+			"badCredentials": "Error en las credenciales.",
+			"userDisabled": "Tu usuario esta deshabilitado.",
+			"roleDisabled": "Tu rol esta esta deshabilitado.",
+			"cantDisabled": "No se puede deshabilitar.",
+			"passwordWrong": "Error en la contraseña.",
+			"notFound": "no encontrado.",
+			"wrongPermissions": "Error en los permisos.",
+			"routeNotFound": "Ruta no encontrada.",
+			"tokenExpired": "Debes estar autenticado."
+		}
+	}
+}

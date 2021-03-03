@@ -88,7 +88,7 @@ describe("Start Login Test", () => {
         expect(status).toStrictEqual('error');
         expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
-        expect(message).toStrictEqual("Error credentials");
+        expect(message).toStrictEqual("Error credentials.");
 
         done();
     });
@@ -110,7 +110,7 @@ describe("Start Login Test", () => {
         expect(status).toStrictEqual('error');
         expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
-        expect(message).toStrictEqual("Your user is disable");
+        expect(message).toStrictEqual("Your user is disable.");
 
         done();
     });
@@ -132,7 +132,7 @@ describe("Start Login Test", () => {
         expect(status).toStrictEqual('error');
         expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
-        expect(message).toStrictEqual("Your role is disable");
+        expect(message).toStrictEqual("Your role is disable.");
 
         done();
     });

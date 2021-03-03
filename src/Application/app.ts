@@ -9,7 +9,6 @@ import exphbs from 'express-handlebars';
 import Config from 'config';
 import i18n from 'i18n';
 
-
 import '../Presentation/Handlers/IndexHandler';
 import '../Presentation/Handlers/ItemHandler';
 import '../Presentation/Handlers/UserHandler';
@@ -28,7 +27,7 @@ import Throttle from "../Presentation/Middlewares/Throttle";
 import VerifyTokenMiddleware from "../Presentation/Middlewares/VerifyTokenMiddleware";
 import container from "../inversify.config";
 
-export const Locales = i18n;
+export let Locales = i18n;
 
 class App
 {
