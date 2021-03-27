@@ -1,8 +1,8 @@
-import { EntitySchema } from "typeorm";
-import File from "../../../Domain/Entities/File";
+import {EntitySchema} from 'typeorm';
+import File from '../../../Domain/Entities/File';
 
 const FileSchema = new EntitySchema<File>({
-    name: "File",
+    name: 'File',
     target: File,
     tableName: 'files',
     columns: {
@@ -43,6 +43,6 @@ const FileSchema = new EntitySchema<File>({
             updateDate: true,
         }
     }
-})
+});
 
 export default FileSchema;

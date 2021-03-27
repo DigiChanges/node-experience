@@ -1,7 +1,7 @@
-import {ITokenRepository} from "@digichanges/shared-experience";
+import {ITokenRepository} from '@digichanges/shared-experience';
 
-import {REPOSITORIES} from "../../../repositories";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import {REPOSITORIES} from '../../../repositories';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class GetTokenUseCase
 {

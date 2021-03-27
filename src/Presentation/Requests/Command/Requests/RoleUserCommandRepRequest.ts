@@ -1,5 +1,5 @@
-import RoleRepPayload from "../../../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
-import {IsArray, IsBoolean, IsOptional, IsString} from "class-validator";
+import RoleRepPayload from '../../../../InterfaceAdapters/Payloads/Roles/RoleRepPayload';
+import {IsArray, IsBoolean, IsOptional, IsString} from 'class-validator';
 
 class RoleCommandRepRequest implements RoleRepPayload
 {
@@ -29,7 +29,7 @@ class RoleCommandRepRequest implements RoleRepPayload
 
     getName(): string
     {
-        return this.name
+        return this.name;
     }
 
     getSlug(): string
@@ -39,7 +39,7 @@ class RoleCommandRepRequest implements RoleRepPayload
 
     getEnable(): boolean
     {
-        return this.enable
+        return this.enable;
     }
 
     getPermissions(): any[]

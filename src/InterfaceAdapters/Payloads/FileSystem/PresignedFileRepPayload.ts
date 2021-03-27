@@ -5,4 +5,4 @@ interface PresignedFileRepPayload
     getExpiry(): number,
 }
 
-export default PresignedFileRepPayload
+export default PresignedFileRepPayload;

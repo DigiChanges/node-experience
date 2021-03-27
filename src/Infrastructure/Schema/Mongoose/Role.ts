@@ -1,6 +1,6 @@
-import {Schema} from "mongoose";
-import Role from "../../../Domain/Entities/Role";
-import { v4 as uuidv4 } from 'uuid';
+import {Schema} from 'mongoose';
+import Role from '../../../Domain/Entities/Role';
+import {v4 as uuidv4} from 'uuid';
 
 const RoleSchema: any = new Schema({
     _id: {type: String, default: uuidv4},

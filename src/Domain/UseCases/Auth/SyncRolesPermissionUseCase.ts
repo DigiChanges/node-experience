@@ -1,12 +1,12 @@
-import _ from "lodash";
+import _ from 'lodash';
 
-import Permissions from "../../../Config/Permissions";
-import Roles from "../../../Config/Roles";
-import {REPOSITORIES} from "../../../repositories";
-import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
-import Role from "../../Entities/Role";
-import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import Permissions from '../../../Config/Permissions';
+import Roles from '../../../Config/Roles';
+import {REPOSITORIES} from '../../../repositories';
+import IRoleRepository from '../../../InterfaceAdapters/IRepositories/IRoleRepository';
+import Role from '../../Entities/Role';
+import IRoleDomain from '../../../InterfaceAdapters/IDomain/IRoleDomain';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class SyncRolesPermissionUseCase
 {
@@ -21,7 +21,7 @@ class SyncRolesPermissionUseCase
     {
         const roles = Roles.getRoles();
 
-        _.map(roles, async (value: string[], key: string) =>
+        _.map(roles, async(value: string[], key: string) =>
         {
             let permissions = value;
             let amount = false;
@@ -46,7 +46,7 @@ class SyncRolesPermissionUseCase
             }
         });
 
-       return _.flatMap(Permissions.permissions());
+        return _.flatMap(Permissions.permissions());
     }
 }
 

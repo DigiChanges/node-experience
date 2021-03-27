@@ -2,17 +2,19 @@ import dotenv from 'dotenv';
 dotenv.config(); // Need before get config
 
 import App from './Application/app';
-import { validateEnv } from './Config/validateEnv';
-import {loggerCli} from "./Infrastructure/Shared/Logger";
-import DatabaseFactory from "./Infrastructure/Factories/DatabaseFactory";
+import {validateEnv} from './Config/validateEnv';
+import {loggerCli} from './Infrastructure/Shared/Logger';
+import DatabaseFactory from './Infrastructure/Factories/DatabaseFactory';
 
-import EventHandler from "./Infrastructure/Events/EventHandler";
-import CacheFactory from "./Infrastructure/Factories/CacheFactory";
-import Config from "config";
-import {ICacheRepository, ICreateConnection} from "@digichanges/shared-experience";
+import EventHandler from './Infrastructure/Events/EventHandler';
+import CacheFactory from './Infrastructure/Factories/CacheFactory';
+import Config from 'config';
+import {ICacheRepository, ICreateConnection} from '@digichanges/shared-experience';
 
-(async () => {
-    try {
+(async() => 
+{
+    try 
+    {
         // Initialize configuration
         validateEnv();
 
@@ -23,8 +25,8 @@ import {ICacheRepository, ICreateConnection} from "@digichanges/shared-experienc
         createConnection.initConfig();
         await createConnection.create();
 
-        let cache: ICacheRepository = CacheFactory.createRedisCache(); // Create for redis repository
-        await cache.createConnection(Config.get("cache.redis")); // Create connection for cache
+        const cache: ICacheRepository = CacheFactory.createRedisCache(); // Create for redis repository
+        await cache.createConnection(Config.get('cache.redis')); // Create connection for cache
         await cache.cleanAll();
 
         const eventHandler = EventHandler.getInstance();

@@ -1,5 +1,5 @@
-import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
-import { v4 as uuidv4 } from 'uuid';
+import IItemDomain from '../../InterfaceAdapters/IDomain/IItemDomain';
+import {v4 as uuidv4} from 'uuid';
 
 class Item implements IItemDomain
 {

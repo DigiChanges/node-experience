@@ -1,5 +1,5 @@
-import { IsString } from "class-validator";
-import CreateBucketPayload from "../../../../InterfaceAdapters/Payloads/FileSystem/CreateBucketPayload";
+import {IsString} from 'class-validator';
+import CreateBucketPayload from '../../../../InterfaceAdapters/Payloads/FileSystem/CreateBucketPayload';
 
 // TODO: Refactor set policy
 class CreateBucketCommandRequest implements CreateBucketPayload
@@ -17,32 +17,32 @@ class CreateBucketCommandRequest implements CreateBucketPayload
         this.bucketName = env.bucketName;
         this.region = env.region;
         this.bucketPolicy = {
-                                Version: "2012-10-17",
-                                Statement: [
-                                    {
-                                        Effect: "Allow",
-                                        Principal: {"AWS": "*"},
-                                        Action: [
-                                            's3:GetBucketLocation',
-                                            's3:ListBucket',
-                                            's3:ListBucketMultipartUploads',
-                                        ],
-                                        Resource: `arn:aws:s3:::${this.bucketName}`,
-                                    },
-                                    {
-                                        Effect: "Allow",
-                                        Principal: {"AWS": "*"},
-                                        Action: [
-                                            's3:GetObject',
-                                            's3:PutObject',
-                                            's3:DeleteObject',
-                                            's3:ListMultipartUploadParts',
-                                            's3:AbortMultipartUpload',
-                                        ],
-                                        Resource: `arn:aws:s3:::${this.bucketName}/*`,
-                                    },
-                                ],
-                            };
+            Version: '2012-10-17',
+            Statement: [
+                {
+                    Effect: 'Allow',
+                    Principal: {'AWS': '*'},
+                    Action: [
+                        's3:GetBucketLocation',
+                        's3:ListBucket',
+                        's3:ListBucketMultipartUploads',
+                    ],
+                    Resource: `arn:aws:s3:::${this.bucketName}`,
+                },
+                {
+                    Effect: 'Allow',
+                    Principal: {'AWS': '*'},
+                    Action: [
+                        's3:GetObject',
+                        's3:PutObject',
+                        's3:DeleteObject',
+                        's3:ListMultipartUploadParts',
+                        's3:AbortMultipartUpload',
+                    ],
+                    Resource: `arn:aws:s3:::${this.bucketName}/*`,
+                },
+            ],
+        };
     }
 
     getBucketName(): string

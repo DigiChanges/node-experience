@@ -1,4 +1,4 @@
-import Notification from "../Entities/Notification";
+import Notification from '../Entities/Notification';
 
 class EmailNotification extends Notification
 {

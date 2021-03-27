@@ -1,17 +1,18 @@
-import { loggerCli } from "../../Infrastructure/Shared/Logger";
-import commander from "commander";
-import UserAssignRoleByCommandRequest from "../Requests/Command/Requests/UserAssignRoleByCommandRequest";
-import UserAssignRoleByPayload from "../../InterfaceAdapters/Payloads/Users/UserAssignRoleByPayload";
-import AssignRoleBySlugUseCase from "../../Domain/UseCases/User/AssignRoleBySlugUseCase";
+import {loggerCli} from '../../Infrastructure/Shared/Logger';
+import commander from 'commander';
+import UserAssignRoleByCommandRequest from '../Requests/Command/Requests/UserAssignRoleByCommandRequest';
+import UserAssignRoleByPayload from '../../InterfaceAdapters/Payloads/Users/UserAssignRoleByPayload';
+import AssignRoleBySlugUseCase from '../../Domain/UseCases/User/AssignRoleBySlugUseCase';
 
 const AssignRoleToUserCommand = new commander.Command('assignRoleToUser');
 
 AssignRoleToUserCommand
     .version('0.0.1')
     .description('Assign role to user')
-    .option('-s, --slug <slug>','Slug of the role')
-    .option('-e, --email <email>','Email of the user')
-    .action(async (env: any) => {
+    .option('-s, --slug <slug>', 'Slug of the role')
+    .option('-e, --email <email>', 'Email of the user')
+    .action(async(env: any) => 
+    {
         const assignRoleBySlugUseCase = new AssignRoleBySlugUseCase();
 
         const request: UserAssignRoleByPayload = new UserAssignRoleByCommandRequest(env);

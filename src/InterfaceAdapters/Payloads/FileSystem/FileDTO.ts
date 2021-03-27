@@ -1,13 +1,13 @@
-import internal from "stream";
-import IFileDomain from "../../IDomain/IFileDomain";
-import IFileDTO from "./IFileDTO";
+import internal from 'stream';
+import IFileDomain from '../../IDomain/IFileDomain';
+import IFileDTO from './IFileDTO';
 
 class FileDTO implements IFileDTO
 {
     private _metadata : IFileDomain;
     private _stream : internal.Readable;
 
-    constructor( metadata: IFileDomain, stream: internal.Readable )
+    constructor(metadata: IFileDomain, stream: internal.Readable)
     {
         this._metadata = metadata;
         this._stream = stream;

@@ -1,6 +1,6 @@
-import * as express from "express";
-import FileBase64RepPayload from "../../../../InterfaceAdapters/Payloads/FileSystem/FileBase64RepPayload";
-import {IsBase64, IsMimeType, IsString} from "class-validator";
+import * as express from 'express';
+import FileBase64RepPayload from '../../../../InterfaceAdapters/Payloads/FileSystem/FileBase64RepPayload';
+import {IsBase64, IsMimeType, IsString} from 'class-validator';
 
 class FileBase64RepRequest implements FileBase64RepPayload
 {
@@ -16,13 +16,13 @@ class FileBase64RepRequest implements FileBase64RepPayload
     constructor(request: express.Request)
     {
         this.filename = request.body.filename;
-        this.base64 = request.body.base64.split(";base64,").pop();
-        this.mimeType = request.body.base64.split(";base64").shift().split("data:").pop();
+        this.base64 = request.body.base64.split(';base64,').pop();
+        this.mimeType = request.body.base64.split(';base64').shift().split('data:').pop();
     }
 
     getName(): string
     {
-        return this.filename.split(".").shift();
+        return this.filename.split('.').shift();
     }
 
     getOriginalName(): string
@@ -37,19 +37,19 @@ class FileBase64RepRequest implements FileBase64RepPayload
 
     getPath(): string
     {
-        return "/";
+        return '/';
     }
 
     getExtension(): string
     {
-        return this.filename.split(".").pop();
+        return this.filename.split('.').pop();
     }
 
     getSize(): number
     {
         const MIMETYPE_SIZE = 814;
         const ENCODING_INCREMENT_SIZE = 1.37;
-        return Math.floor((this.base64.length - MIMETYPE_SIZE) / ENCODING_INCREMENT_SIZE)  ;
+        return Math.floor((this.base64.length - MIMETYPE_SIZE) / ENCODING_INCREMENT_SIZE);
     }
 
     getBase64(): string

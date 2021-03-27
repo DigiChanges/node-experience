@@ -1,25 +1,25 @@
-import {inject} from "inversify";
+import {inject} from 'inversify';
 import {NextFunction, Request, Response} from 'express';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
-import {IPaginator, StatusCode} from "@digichanges/shared-experience";
+import {IPaginator, StatusCode} from '@digichanges/shared-experience';
 
-import { TYPES } from "../../types";
-import Responder from "../Shared/Responder";
-import RoleTransformer from "../Transformers/Roles/RoleTransformer";
-import RoleRepRequest from "../Requests/Handler/Roles/RoleRepRequest";
-import IdRequest from "../Requests/Handler/Defaults/IdRequest";
-import RoleRequestCriteria from "../Requests/Handler/Roles/RoleRequestCriteria";
-import RoleUpdateRequest from "../Requests/Handler/Roles/RoleUpdateRequest";
-import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
-import Permissions from "../../Config/Permissions";
+import {TYPES} from '../../types';
+import Responder from '../Shared/Responder';
+import RoleTransformer from '../Transformers/Roles/RoleTransformer';
+import RoleRepRequest from '../Requests/Handler/Roles/RoleRepRequest';
+import IdRequest from '../Requests/Handler/Defaults/IdRequest';
+import RoleRequestCriteria from '../Requests/Handler/Roles/RoleRequestCriteria';
+import RoleUpdateRequest from '../Requests/Handler/Roles/RoleUpdateRequest';
+import AuthorizeMiddleware from '../Middlewares/AuthorizeMiddleware';
+import Permissions from '../../Config/Permissions';
 
-import SaveRoleUseCase from "../../Domain/UseCases/Role/SaveRoleUseCase";
-import ListRolesUseCase from "../../Domain/UseCases/Role/ListRolesUseCase";
-import GetRoleUseCase from "../../Domain/UseCases/Role/GetRoleUseCase";
-import RemoveRoleUseCase from "../../Domain/UseCases/Role/RemoveRoleUseCase";
-import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
-import UpdateRoleUseCase from "../../Domain/UseCases/Role/UpdateRoleUseCase";
-import ValidatorRequest from "../../Application/Shared/ValidatorRequest";
+import SaveRoleUseCase from '../../Domain/UseCases/Role/SaveRoleUseCase';
+import ListRolesUseCase from '../../Domain/UseCases/Role/ListRolesUseCase';
+import GetRoleUseCase from '../../Domain/UseCases/Role/GetRoleUseCase';
+import RemoveRoleUseCase from '../../Domain/UseCases/Role/RemoveRoleUseCase';
+import IRoleDomain from '../../InterfaceAdapters/IDomain/IRoleDomain';
+import UpdateRoleUseCase from '../../Domain/UseCases/Role/UpdateRoleUseCase';
+import ValidatorRequest from '../../Application/Shared/ValidatorRequest';
 
 @controller('/api/roles')
 class RoleHandler
@@ -28,7 +28,7 @@ class RoleHandler
     private responder: Responder;
 
     @httpPost('/', AuthorizeMiddleware(Permissions.ROLES_SAVE))
-    public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async save(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new RoleRepRequest(req);
         await ValidatorRequest.handle(_request);
@@ -40,7 +40,7 @@ class RoleHandler
     }
 
     @httpGet('/', AuthorizeMiddleware(Permissions.ROLES_LIST))
-    public async list (@request() req: Request, @response() res: Response)
+    public async list(@request() req: Request, @response() res: Response)
     {
         const _request = new RoleRequestCriteria(req);
         await ValidatorRequest.handle(_request);
@@ -52,7 +52,7 @@ class RoleHandler
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.ROLES_SHOW))
-    public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async getOne(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req);
         await ValidatorRequest.handle(_request);
@@ -64,7 +64,7 @@ class RoleHandler
     }
 
     @httpPut('/:id', AuthorizeMiddleware(Permissions.ROLES_UPDATE))
-    public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async update(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new RoleUpdateRequest(req);
         await ValidatorRequest.handle(_request);
@@ -76,7 +76,7 @@ class RoleHandler
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.ROLES_DELETE))
-    public async remove (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async remove(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req);
         await ValidatorRequest.handle(_request);

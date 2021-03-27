@@ -1,10 +1,10 @@
-import { Response, Request } from 'express';
-import { inject, injectable } from "inversify";
-import {IHttpStatusCode, IPaginator, Transformer} from "@digichanges/shared-experience";
+import {Response, Request} from 'express';
+import {inject, injectable} from 'inversify';
+import {IHttpStatusCode, IPaginator, Transformer} from '@digichanges/shared-experience';
 
 import IFormatResponder from '../../InterfaceAdapters/Shared/IFormatResponder';
-import { TYPES } from "../../types";
-import PaginatorTransformer from "./PaginatorTransformer";
+import {TYPES} from '../../types';
+import PaginatorTransformer from './PaginatorTransformer';
 import IFileDTO from '../../InterfaceAdapters/Payloads/FileSystem/IFileDTO';
 
 @injectable()
@@ -21,7 +21,7 @@ class Responder
         {
             metadata = {
                 refreshToken: request.refreshToken
-            }
+            };
         }
 
         if (!transformer)
@@ -38,14 +38,14 @@ class Responder
     public async paginate(paginator: IPaginator, request: Request | any, response: Response, status: IHttpStatusCode, transformer: Transformer = null)
     {
         let metadata = null;
-        let data = await paginator.paginate();
+        const data = await paginator.paginate();
 
         if (request)
         {
             metadata = {};
         }
 
-        let result = this.formatResponder.getFormatData(data, status, metadata)
+        const result = this.formatResponder.getFormatData(data, status, metadata);
 
         if (!transformer)
         {
@@ -56,10 +56,10 @@ class Responder
 
         if (paginator.getExist())
         {
-            let paginatorTransformer = new PaginatorTransformer();
+            const paginatorTransformer = new PaginatorTransformer();
             paginator = paginatorTransformer.handle(paginator);
 
-            let pagination = { 'pagination': paginator };
+            const pagination = {'pagination': paginator};
 
             Object.assign(result, pagination);
         }
@@ -69,15 +69,17 @@ class Responder
 
     public sendStream(fileDto: IFileDTO, request: Request | any, response: Response, status: IHttpStatusCode)
     {
-        response.writeHead(status.code, { 'Content-Type': fileDto.metadata.mimeType });
+        response.writeHead(status.code, {'Content-Type': fileDto.metadata.mimeType});
 
         fileDto.stream.pipe(response);
     }
 
     public render(data: any, view: any, response: Response, resolve: any, reject: any)
     {
-        response.render('log', {data}, (err: any, compiled: any) => {
-            if (err) {
+        response.render('log', {data}, (err: any, compiled: any) => 
+        {
+            if (err) 
+            {
                 reject('500 when rendering the template');
             }
             resolve(compiled);
@@ -88,11 +90,11 @@ class Responder
     {
         let metadata;
 
-         if (request)
+        if (request)
         {
             metadata = {
                 refreshToken: request.refreshToken
-            }
+            };
         }
 
         response.status(status.code).send({...data, metadata});

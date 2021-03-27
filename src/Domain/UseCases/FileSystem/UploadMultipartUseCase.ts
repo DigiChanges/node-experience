@@ -1,10 +1,10 @@
 import FileMultipartRepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/FileMultipartRepPayload';
-import IFileRepository from "../../../InterfaceAdapters/IRepositories/IFileRepository";
-import { REPOSITORIES } from '../../../repositories';
+import IFileRepository from '../../../InterfaceAdapters/IRepositories/IFileRepository';
+import {REPOSITORIES} from '../../../repositories';
 import File from '../../Entities/File';
 import IFileDomain from '../../../InterfaceAdapters/IDomain/IFileDomain';
-import FilesystemFactory from "../../../Infrastructure/Factories/FilesystemFactory";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import FilesystemFactory from '../../../Infrastructure/Factories/FilesystemFactory';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class UploadMultipartUseCase
 {

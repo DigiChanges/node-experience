@@ -5,4 +5,4 @@ interface ListObjectsPayload
     getPrefix(): string,
 }
 
-export default ListObjectsPayload
+export default ListObjectsPayload;

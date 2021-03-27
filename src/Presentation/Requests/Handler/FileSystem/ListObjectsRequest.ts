@@ -1,6 +1,6 @@
 import * as express from 'express';
-import ListObjectsPayload from "../../../../InterfaceAdapters/Payloads/FileSystem/ListObjectsPayload";
-import {IsBoolean, IsOptional} from "class-validator";
+import ListObjectsPayload from '../../../../InterfaceAdapters/Payloads/FileSystem/ListObjectsPayload';
+import {IsBoolean, IsOptional} from 'class-validator';
 
 class ListObjectsRequest implements ListObjectsPayload
 {
@@ -14,8 +14,8 @@ class ListObjectsRequest implements ListObjectsPayload
 
     constructor(request: express.Request)
     {
-        this.recursive = request.query.recursive ? String(request.query.recursive): undefined;
-        this.prefix = request.query.hasOwnProperty('prefix') ? String(request.query.prefix) : undefined;;
+        this.recursive = request.query.recursive ? String(request.query.recursive) : undefined;
+        this.prefix = request.query.hasOwnProperty('prefix') ? String(request.query.prefix) : undefined;
     }
 
     getRecursive(): boolean

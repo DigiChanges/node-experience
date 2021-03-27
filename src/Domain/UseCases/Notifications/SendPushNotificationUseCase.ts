@@ -17,7 +17,7 @@ class SendPushNotificationUseCase
         const message = payload.getMessage();
         eventHandler.execute(SendMessageEvent.SEND_MESSAGE_EVENT, {pushNotification, message});
 
-        return {message: "We've sent you a notification"};
+        return {message: 'We\'ve sent you a notification'};
     }
 }
 

@@ -1,5 +1,5 @@
-import {ValidationError} from "class-validator";
-import {IStatusCode} from "@digichanges/shared-experience";
+import {ValidationError} from 'class-validator';
+import {IStatusCode} from '@digichanges/shared-experience';
 
 class ErrorHttpException extends Error
 {

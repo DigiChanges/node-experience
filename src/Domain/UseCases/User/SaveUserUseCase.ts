@@ -1,16 +1,16 @@
-import {IEncryption} from "@digichanges/shared-experience";
+import {IEncryption} from '@digichanges/shared-experience';
 
-import UserRepPayload from "../../../InterfaceAdapters/Payloads/Users/UserRepPayload";
-import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
-import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
-import {REPOSITORIES} from "../../../repositories";
-import {SERVICES} from "../../../services";
-import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
+import UserRepPayload from '../../../InterfaceAdapters/Payloads/Users/UserRepPayload';
+import IUserRepository from '../../../InterfaceAdapters/IRepositories/IUserRepository';
+import EncryptionFactory from '../../../Infrastructure/Factories/EncryptionFactory';
+import {REPOSITORIES} from '../../../repositories';
+import {SERVICES} from '../../../services';
+import IUserDomain from '../../../InterfaceAdapters/IDomain/IUserDomain';
 import User from '../../Entities/User';
-import EventHandler from "../../../Infrastructure/Events/EventHandler";
-import UserCreatedEvent from "../../../Infrastructure/Events/UserCreatedEvent";
-import IAuthService from "../../../InterfaceAdapters/IServices/IAuthService";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import EventHandler from '../../../Infrastructure/Events/EventHandler';
+import UserCreatedEvent from '../../../Infrastructure/Events/UserCreatedEvent';
+import IAuthService from '../../../InterfaceAdapters/IServices/IAuthService';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class SaveUserUseCase
 {

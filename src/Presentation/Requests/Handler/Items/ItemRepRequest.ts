@@ -1,6 +1,6 @@
-import * as express from "express";
-import ItemRepPayload from "../../../../InterfaceAdapters/Payloads/Items/ItemRepPayload";
-import {IsInt, IsString} from "class-validator";
+import * as express from 'express';
+import ItemRepPayload from '../../../../InterfaceAdapters/Payloads/Items/ItemRepPayload';
+import {IsInt, IsString} from 'class-validator';
 
 class ItemRepRequest implements ItemRepPayload
 {

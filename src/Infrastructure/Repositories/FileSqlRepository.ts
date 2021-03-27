@@ -1,15 +1,15 @@
-import IFileRepository from "../../InterfaceAdapters/IRepositories/IFileRepository";
-import {DeleteResult, getRepository, Repository} from "typeorm";
-import {injectable} from "inversify";
-import {ICriteria, IPaginator} from "@digichanges/shared-experience";
+import IFileRepository from '../../InterfaceAdapters/IRepositories/IFileRepository';
+import {DeleteResult, getRepository, Repository} from 'typeorm';
+import {injectable} from 'inversify';
+import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 
-import Paginator from "../../Presentation/Shared/Paginator";
-import FileFilter from "../../Presentation/Criterias/File/FileFilter";
-import FileSchema from "../Schema/TypeORM/File";
-import File from "../../Domain/Entities/File";
-import IFileDomain from "../../InterfaceAdapters/IDomain/IFileDomain";
+import Paginator from '../../Presentation/Shared/Paginator';
+import FileFilter from '../../Presentation/Criterias/File/FileFilter';
+import FileSchema from '../Schema/TypeORM/File';
+import File from '../../Domain/Entities/File';
+import IFileDomain from '../../InterfaceAdapters/IDomain/IFileDomain';
 
-import NotFoundException from "../Exceptions/NotFoundException";
+import NotFoundException from '../Exceptions/NotFoundException';
 
 @injectable()
 class FileSqlRepository implements IFileRepository
@@ -21,7 +21,7 @@ class FileSqlRepository implements IFileRepository
         this.repository = getRepository<File>(FileSchema);
     }
 
-    async save (file: IFileDomain ): Promise<File>
+    async save(file: IFileDomain): Promise<File>
     {
         return await this.repository.save(file);
     }
@@ -40,15 +40,15 @@ class FileSqlRepository implements IFileRepository
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        let queryBuilder = this.repository.createQueryBuilder("i");
+        const queryBuilder = this.repository.createQueryBuilder('i');
 
         const filter = criteria.getFilter();
 
-        queryBuilder.where("1 = 1");
+        queryBuilder.where('1 = 1');
 
         if (filter.has(FileFilter.NAME))
         {
-            queryBuilder.andWhere("i." + FileFilter.NAME + " like :" + FileFilter.NAME);
+            queryBuilder.andWhere('i.' + FileFilter.NAME + ' like :' + FileFilter.NAME);
             queryBuilder.setParameter(FileFilter.NAME, '%' + filter.get(FileFilter.NAME) + '%');
         }
 

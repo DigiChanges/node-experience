@@ -1,15 +1,15 @@
-import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
-import {injectable} from "inversify";
-import {ICriteria, IPaginator} from "@digichanges/shared-experience";
+import IUserRepository from '../../InterfaceAdapters/IRepositories/IUserRepository';
+import {injectable} from 'inversify';
+import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 
-import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
-import UserFilter from "../../Presentation/Criterias/User/UserFilter";
-import IUser from "../../InterfaceAdapters/IEntities/Mongoose/IUserDocument";
-import {Query, Model} from "mongoose";
-import {connection} from "../Database/MongooseCreateConnection";
-import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
+import MongoPaginator from '../../Presentation/Shared/MongoPaginator';
+import UserFilter from '../../Presentation/Criterias/User/UserFilter';
+import IUser from '../../InterfaceAdapters/IEntities/Mongoose/IUserDocument';
+import {Query, Model} from 'mongoose';
+import {connection} from '../Database/MongooseCreateConnection';
+import IUserDomain from '../../InterfaceAdapters/IDomain/IUserDomain';
 
-import NotFoundException from "../Exceptions/NotFoundException";
+import NotFoundException from '../Exceptions/NotFoundException';
 
 @injectable()
 class UserMongoRepository implements IUserRepository
@@ -21,14 +21,14 @@ class UserMongoRepository implements IUserRepository
         this.repository = connection.model<IUser>('User');
     }
 
-    async save (user: IUserDomain): Promise<IUserDomain>
+    async save(user: IUserDomain): Promise<IUserDomain>
     {
         return await this.repository.create(user);
     }
 
     async getOne(id: string): Promise<IUserDomain>
     {
-        let user = await this.repository.findOne({_id: id}).populate('roles');
+        const user = await this.repository.findOne({_id: id}).populate('roles');
 
         if (!user)
         {
@@ -52,7 +52,7 @@ class UserMongoRepository implements IUserRepository
 
     async getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>
     {
-        const user = await this.repository.findOne({"confirmationToken": confirmationToken}).populate('roles');
+        const user = await this.repository.findOne({'confirmationToken': confirmationToken}).populate('roles');
 
         if (!user)
         {
@@ -69,21 +69,21 @@ class UserMongoRepository implements IUserRepository
 
         if (filter.has(UserFilter.ENABLE))
         {
-            let _enable = filter.get(UserFilter.ENABLE);
+            const _enable = filter.get(UserFilter.ENABLE);
             const enable: boolean = _enable !== 'false';
 
             queryBuilder.where(UserFilter.ENABLE).equals(enable);
         }
         if (filter.has(UserFilter.EMAIL))
         {
-            let email = filter.get(UserFilter.EMAIL);
-            const rsearch = new RegExp(email, "g");
+            const email = filter.get(UserFilter.EMAIL);
+            const rsearch = new RegExp(email, 'g');
 
             queryBuilder.where(UserFilter.EMAIL).regex(rsearch);
         }
         if (filter.has(UserFilter.IS_SUPER_ADMIN))
         {
-            let isSuperAdmin: boolean = filter.get(UserFilter.IS_SUPER_ADMIN);
+            const isSuperAdmin: boolean = filter.get(UserFilter.IS_SUPER_ADMIN);
             
             queryBuilder.where(UserFilter.IS_SUPER_ADMIN).equals(isSuperAdmin);
         }

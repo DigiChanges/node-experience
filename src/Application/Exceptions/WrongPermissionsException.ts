@@ -1,5 +1,5 @@
-import {ErrorException} from "@digichanges/shared-experience";
-import {Locales} from "../app";
+import {ErrorException} from '@digichanges/shared-experience';
+import {Locales} from '../app';
 
 class WrongPermissionsException extends ErrorException
 {

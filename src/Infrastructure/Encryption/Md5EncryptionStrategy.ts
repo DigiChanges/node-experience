@@ -1,6 +1,6 @@
-import md5 from "md5";
-import DecryptForbiddenException from "../Exceptions/DecryptForbiddenException";
-import {IEncryption} from "@digichanges/shared-experience";
+import md5 from 'md5';
+import DecryptForbiddenException from '../Exceptions/DecryptForbiddenException';
+import {IEncryption} from '@digichanges/shared-experience';
 
 class Md5EncryptionStrategy implements IEncryption
 {
@@ -16,7 +16,7 @@ class Md5EncryptionStrategy implements IEncryption
 
     async encrypt(chain: string): Promise<string>
     {
-       return md5(chain);
+        return md5(chain);
     }
 }
 

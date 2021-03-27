@@ -1,9 +1,9 @@
-import { EntitySchema } from "typeorm";
-import {TypeNotificationEnum} from "@digichanges/shared-experience";
-import TypeNotification from "../../Entities/TypeNotification";
+import {EntitySchema} from 'typeorm';
+import {TypeNotificationEnum} from '@digichanges/shared-experience';
+import TypeNotification from '../../Entities/TypeNotification';
 
 const TypeNotificationSchema = new EntitySchema<TypeNotification>({
-    name: "TypeNotification",
+    name: 'TypeNotification',
     target: TypeNotification,
     tableName: 'notifications',
     columns: {
@@ -48,7 +48,7 @@ const TypeNotificationSchema = new EntitySchema<TypeNotification>({
             nullable: true
         },
         type: {
-            type: "enum",
+            type: 'enum',
             enum: TypeNotificationEnum,
             default: TypeNotificationEnum.EMAIL
         },
@@ -63,6 +63,6 @@ const TypeNotificationSchema = new EntitySchema<TypeNotification>({
             updateDate: true,
         }
     }
-})
+});
 
 export default TypeNotificationSchema;

@@ -1,5 +1,5 @@
-import moment from "moment";
-import {Transformer} from "@digichanges/shared-experience";
+import moment from 'moment';
+import {Transformer} from '@digichanges/shared-experience';
 
 class ObjectTransformer extends Transformer
 {

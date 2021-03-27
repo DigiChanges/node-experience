@@ -1,15 +1,15 @@
-import UserUpdatePayload from "../../../InterfaceAdapters/Payloads/Users/UserUpdatePayload";
-import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
-import CheckUserRolePayload from "../../../InterfaceAdapters/Payloads/Auxiliars/CheckUserRolePayload";
-import Roles from "../../../Config/Roles";
-import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
+import UserUpdatePayload from '../../../InterfaceAdapters/Payloads/Users/UserUpdatePayload';
+import IUserRepository from '../../../InterfaceAdapters/IRepositories/IUserRepository';
+import CheckUserRolePayload from '../../../InterfaceAdapters/Payloads/Auxiliars/CheckUserRolePayload';
+import Roles from '../../../Config/Roles';
+import IRoleRepository from '../../../InterfaceAdapters/IRepositories/IRoleRepository';
 import Role from '../../Entities/Role';
-import {REPOSITORIES} from "../../../repositories";
-import {SERVICES} from "../../../services";
-import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
-import CantDisabledException from "../../Exceptions/CantDisabledException";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
-import IAuthService from "../../../InterfaceAdapters/IServices/IAuthService";
+import {REPOSITORIES} from '../../../repositories';
+import {SERVICES} from '../../../services';
+import IUserDomain from '../../../InterfaceAdapters/IDomain/IUserDomain';
+import CantDisabledException from '../../Exceptions/CantDisabledException';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
+import IAuthService from '../../../InterfaceAdapters/IServices/IAuthService';
 
 class UpdateUserUseCase
 {
@@ -33,16 +33,16 @@ class UpdateUserUseCase
             enable = true;
         }
 
-        if(typeof user.roles !== 'undefined' && enable !== null) // TODO: Refactoring
+        if (typeof user.roles !== 'undefined' && enable !== null) // TODO: Refactoring
         {
-            let checkRole: CheckUserRolePayload = {
+            const checkRole: CheckUserRolePayload = {
                 roleToCheck: Roles.SUPER_ADMIN.toLocaleLowerCase(),
                 user
-            }
+            };
 
             const verifyRole = await this.checkIfUserHasRole(checkRole);
 
-            if(verifyRole && !enable)
+            if (verifyRole && !enable)
             {
                 throw new CantDisabledException();
             }
@@ -59,16 +59,16 @@ class UpdateUserUseCase
         return user;
     }
 
-    public async checkIfUserHasRole (payload: CheckUserRolePayload): Promise<boolean> // TODO: Create a user service
+    public async checkIfUserHasRole(payload: CheckUserRolePayload): Promise<boolean> // TODO: Create a user service
     {
-        let roleRepository: IRoleRepository = ContainerFactory.create<IRoleRepository>(REPOSITORIES.IRoleRepository);
-        let count = payload.user.roles.length;
+        const roleRepository: IRoleRepository = ContainerFactory.create<IRoleRepository>(REPOSITORIES.IRoleRepository);
+        const count = payload.user.roles.length;
 
         for (let i = 0; i < count; i++)
         {
             const role: Role = await roleRepository.getOne(payload.user.roles[i].getId());
 
-            if(role.slug === payload.roleToCheck)
+            if (role.slug === payload.roleToCheck)
             {
                 return true;
             }

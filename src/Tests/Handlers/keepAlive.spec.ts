@@ -1,16 +1,17 @@
-import {InversifyExpressServer} from "inversify-express-utils";
-import supertest from "supertest";
-import {ICreateConnection} from "@digichanges/shared-experience";
-import initServer from "../initServer";
+import {InversifyExpressServer} from 'inversify-express-utils';
+import supertest from 'supertest';
+import {ICreateConnection} from '@digichanges/shared-experience';
+import initServer from '../initServer';
 
-describe("Start Keep Alive Test", () =>
+describe('Start Keep Alive Test', () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
     let token: any = null;
 
-    beforeAll(async (done) => {
+    beforeAll(async(done) => 
+    {
         const configServer = await initServer();
 
         server = configServer.server;
@@ -20,7 +21,8 @@ describe("Start Keep Alive Test", () =>
         done();
     });
 
-    afterAll((async (done) => {
+    afterAll((async(done) => 
+    {
         await dbConnection.drop();
         await dbConnection.close();
 
@@ -29,14 +31,15 @@ describe("Start Keep Alive Test", () =>
 
     describe('Keep Alive Success', () =>
     {
-        beforeAll(async (done) => {
-           const payload = {
-                email: "user@node.com",
-                password: "12345678"
+        beforeAll(async(done) => 
+        {
+            const payload = {
+                email: 'user@node.com',
+                password: '12345678'
             };
 
             const response: any = await request
-                .post("/api/auth/login?provider=local")
+                .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
 
@@ -47,7 +50,8 @@ describe("Start Keep Alive Test", () =>
             done();
         });
 
-        test.skip('Keep Alive POST /', async done => {
+        test.skip('Keep Alive POST /', async done => 
+        {
 
             const response: any = await request
                 .post('/api/auth/keepAlive')

@@ -1,13 +1,13 @@
-import KeepAlivePayload from "../../../../InterfaceAdapters/Payloads/Auth/KeepAlivePayload";
-import {IsEmail} from "class-validator";
-import {IsUUID} from "class-validator";
+import KeepAlivePayload from '../../../../InterfaceAdapters/Payloads/Auth/KeepAlivePayload';
+import {IsEmail} from 'class-validator';
+import {IsUUID} from 'class-validator';
 
 class KeepAliveRequest implements KeepAlivePayload
 {
     @IsEmail()
     email: string;
 
-    @IsUUID("4")
+    @IsUUID('4')
     id: string;
 
     constructor(request: any)

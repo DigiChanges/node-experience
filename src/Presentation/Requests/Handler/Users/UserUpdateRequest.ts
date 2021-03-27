@@ -1,6 +1,6 @@
-import UserUpdatePayload from "../../../../InterfaceAdapters/Payloads/Users/UserUpdatePayload";
-import IdRequest from "../Defaults/IdRequest";
-import {ArrayMinSize, IsArray, IsBoolean, IsEmail, IsString, Length} from "class-validator";
+import UserUpdatePayload from '../../../../InterfaceAdapters/Payloads/Users/UserUpdatePayload';
+import IdRequest from '../Defaults/IdRequest';
+import {ArrayMinSize, IsArray, IsBoolean, IsEmail, IsString, Length} from 'class-validator';
 
 class UserUpdateRequest extends IdRequest implements UserUpdatePayload
 {

@@ -1,5 +1,5 @@
-import webPush from "web-push";
-import {TypeNotificationEnum} from "@digichanges/shared-experience";
+import webPush from 'web-push';
+import {TypeNotificationEnum} from '@digichanges/shared-experience';
 
 class TypeNotification
 {
@@ -29,7 +29,7 @@ class TypeNotification
         this.cc = null;
         this.subject = null;
         this.description = null;
-        this.type = TypeNotificationEnum.EMAIL
+        this.type = TypeNotificationEnum.EMAIL;
     }
 
     getSubscription()

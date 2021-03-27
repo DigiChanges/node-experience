@@ -1,9 +1,9 @@
-import UserAssignRolePayload from "../../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload";
-import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
-import {REPOSITORIES} from "../../../repositories";
-import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
-import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import UserAssignRolePayload from '../../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload';
+import IUserRepository from '../../../InterfaceAdapters/IRepositories/IUserRepository';
+import {REPOSITORIES} from '../../../repositories';
+import IUserDomain from '../../../InterfaceAdapters/IDomain/IUserDomain';
+import IRoleRepository from '../../../InterfaceAdapters/IRepositories/IRoleRepository';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class AssignRoleUseCase
 {
@@ -19,7 +19,7 @@ class AssignRoleUseCase
     async handle(payload: UserAssignRolePayload): Promise<IUserDomain>
     {
         const id = payload.getId();
-        let user: IUserDomain = await this.repository.getOne(id);
+        const user: IUserDomain = await this.repository.getOne(id);
 
         user.clearRoles();
 

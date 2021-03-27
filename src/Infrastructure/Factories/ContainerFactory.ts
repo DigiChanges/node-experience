@@ -1,4 +1,4 @@
-import container from "../../inversify.config";
+import container from '../../inversify.config';
 
 class ContainerFactory
 {

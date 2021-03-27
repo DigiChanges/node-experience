@@ -1,5 +1,5 @@
-import IdPayload from "../Defaults/IdPayload";
-import ItemRepPayload from "./ItemRepPayload";
+import IdPayload from '../Defaults/IdPayload';
+import ItemRepPayload from './ItemRepPayload';
 
 interface ItemUpdatePayload extends IdPayload, ItemRepPayload {}
 

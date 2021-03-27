@@ -1,4 +1,4 @@
-import IRoleDomain from "./IRoleDomain";
+import IRoleDomain from './IRoleDomain';
 
 interface IUserDomain
 {

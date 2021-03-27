@@ -1,6 +1,6 @@
-import {Schema} from "mongoose";
-import { v4 as uuidv4 } from 'uuid';
-import Token from "../../Entities/Token";
+import {Schema} from 'mongoose';
+import {v4 as uuidv4} from 'uuid';
+import Token from '../../Entities/Token';
 
 const TokenSchema: any = new Schema({
     _id: {type: Schema.Types.String, default: uuidv4},

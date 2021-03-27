@@ -1,5 +1,5 @@
-import ItemSeedFactory from "./ItemSeedFactory";
-import UserSeedFactory from "./UserSeedFactory";
+import ItemSeedFactory from './ItemSeedFactory';
+import UserSeedFactory from './UserSeedFactory';
 
 class SeedFactory
 {

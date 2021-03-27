@@ -10,13 +10,13 @@ class CreateSubscriptionUseCase
         const pushNotification = new PushNotification();
 
         pushNotification.subscription = payload.getSubscription();
-        pushNotification.name = "Node Experience";
+        pushNotification.name = 'Node Experience';
 
         const eventHandler = EventHandler.getInstance();
-        const message = "successful subscription";
+        const message = 'successful subscription';
         eventHandler.execute(SendMessageEvent.SEND_MESSAGE_EVENT, {pushNotification, message});
 
-        return {message: "We've sent you a notification"};
+        return {message: 'We\'ve sent you a notification'};
     }
 }
 

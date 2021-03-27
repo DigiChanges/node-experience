@@ -1,5 +1,5 @@
-import { EntitySchema } from "typeorm";
-import Role from "../../../Domain/Entities/Role";
+import {EntitySchema} from 'typeorm';
+import Role from '../../../Domain/Entities/Role';
 
 const RoleSchema = new EntitySchema<Role>({
     name: 'Role',
@@ -37,6 +37,6 @@ const RoleSchema = new EntitySchema<Role>({
             updateDate: true,
         }
     }
-})
+});
 
 export default RoleSchema;

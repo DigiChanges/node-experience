@@ -1,4 +1,4 @@
-import IUserDomain from "../IDomain/IUserDomain";
+import IUserDomain from '../IDomain/IUserDomain';
 
 interface IAuthService
 {

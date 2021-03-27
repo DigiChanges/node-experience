@@ -1,5 +1,5 @@
-import {IBaseRepository} from "@digichanges/shared-experience";
+import {IBaseRepository} from '@digichanges/shared-experience';
 
-interface IFileRepository extends IBaseRepository {}
+type IFileRepository = IBaseRepository
 
 export default IFileRepository;

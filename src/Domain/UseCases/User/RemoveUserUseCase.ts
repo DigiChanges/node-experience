@@ -1,7 +1,7 @@
-import IdPayload from "../../../InterfaceAdapters/Payloads/Defaults/IdPayload";
-import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
-import {REPOSITORIES} from "../../../repositories";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import IdPayload from '../../../InterfaceAdapters/Payloads/Defaults/IdPayload';
+import IUserRepository from '../../../InterfaceAdapters/IRepositories/IUserRepository';
+import {REPOSITORIES} from '../../../repositories';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class RemoveUserUseCase
 {

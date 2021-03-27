@@ -1,8 +1,8 @@
-import {ICriteria, IPaginator} from "@digichanges/shared-experience";
+import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 
-import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
-import {REPOSITORIES} from "../../../repositories";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import IRoleRepository from '../../../InterfaceAdapters/IRepositories/IRoleRepository';
+import {REPOSITORIES} from '../../../repositories';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class ListRolesUseCase
 {

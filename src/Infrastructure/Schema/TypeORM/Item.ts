@@ -1,8 +1,8 @@
-import { EntitySchema } from "typeorm";
-import Item from "../../../Domain/Entities/Item";
+import {EntitySchema} from 'typeorm';
+import Item from '../../../Domain/Entities/Item';
 
 const ItemSchema = new EntitySchema<Item>({
-    name: "Item",
+    name: 'Item',
     target: Item,
     tableName: 'items',
     columns: {

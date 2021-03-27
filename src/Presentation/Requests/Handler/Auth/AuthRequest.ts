@@ -1,7 +1,7 @@
-import * as express from "express";
-import AuthPayload from "../../../../InterfaceAdapters/Payloads/Auth/AuthPayload";
-import Config from "config";
-import {IsString, IsEmail, Length} from "class-validator";
+import * as express from 'express';
+import AuthPayload from '../../../../InterfaceAdapters/Payloads/Auth/AuthPayload';
+import Config from 'config';
+import {IsString, IsEmail, Length} from 'class-validator';
 
 class AuthRequest implements AuthPayload
 {

@@ -1,14 +1,14 @@
-import _ from "lodash";
-import ValidationModel from "../../Application/Shared/ValidationModel";
-import ErrorHttpException from "../../Application/Shared/ErrorHttpException";
-import {StatusCode} from "@digichanges/shared-experience";
+import _ from 'lodash';
+import ValidationModel from '../../Application/Shared/ValidationModel';
+import ErrorHttpException from '../../Application/Shared/ErrorHttpException';
+import {StatusCode} from '@digichanges/shared-experience';
 
 class FormatError
 {
     getFormat = (errorHttpException: ErrorHttpException): any =>
     {
-        let {statusCode, message, errors} = errorHttpException;
-        let validationModels: ValidationModel[] = [];
+        const {statusCode, message, errors} = errorHttpException;
+        const validationModels: ValidationModel[] = [];
 
         if (!_.isEmpty(errors))
         {

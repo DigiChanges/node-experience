@@ -1,26 +1,26 @@
 import {NextFunction, Request, Response} from 'express';
-import {inject} from "inversify";
+import {inject} from 'inversify';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
-import {IPaginator, StatusCode} from "@digichanges/shared-experience";
+import {IPaginator, StatusCode} from '@digichanges/shared-experience';
 
-import { TYPES } from "../../types";
-import Responder from "../Shared/Responder";
-import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
-import Permissions from "../../Config/Permissions";
+import {TYPES} from '../../types';
+import Responder from '../Shared/Responder';
+import AuthorizeMiddleware from '../Middlewares/AuthorizeMiddleware';
+import Permissions from '../../Config/Permissions';
 
-import ItemTransformer from "../Transformers/Items/ItemTransformer";
-import ItemRepRequest from "../Requests/Handler/Items/ItemRepRequest";
-import IdRequest from "../Requests/Handler/Defaults/IdRequest";
-import ItemRequestCriteria from "../Requests/Handler/Items/ItemRequestCriteria";
-import ItemUpdateRequest from "../Requests/Handler/Items/ItemUpdateRequest";
-import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
+import ItemTransformer from '../Transformers/Items/ItemTransformer';
+import ItemRepRequest from '../Requests/Handler/Items/ItemRepRequest';
+import IdRequest from '../Requests/Handler/Defaults/IdRequest';
+import ItemRequestCriteria from '../Requests/Handler/Items/ItemRequestCriteria';
+import ItemUpdateRequest from '../Requests/Handler/Items/ItemUpdateRequest';
+import IItemDomain from '../../InterfaceAdapters/IDomain/IItemDomain';
 
-import SaveItemUseCase from "../../Domain/UseCases/Item/SaveItemUseCase";
-import ListItemsUseCase from "../../Domain/UseCases/Item/ListItemsUseCase";
-import GetItemUseCase from "../../Domain/UseCases/Item/GetItemUseCase";
-import RemoveItemUseCase from "../../Domain/UseCases/Item/RemoveItemUseCase";
-import UpdateItemUseCase from "../../Domain/UseCases/Item/UpdateItemUseCase";
-import ValidatorRequest from "../../Application/Shared/ValidatorRequest";
+import SaveItemUseCase from '../../Domain/UseCases/Item/SaveItemUseCase';
+import ListItemsUseCase from '../../Domain/UseCases/Item/ListItemsUseCase';
+import GetItemUseCase from '../../Domain/UseCases/Item/GetItemUseCase';
+import RemoveItemUseCase from '../../Domain/UseCases/Item/RemoveItemUseCase';
+import UpdateItemUseCase from '../../Domain/UseCases/Item/UpdateItemUseCase';
+import ValidatorRequest from '../../Application/Shared/ValidatorRequest';
 
 @controller('/api/items')
 class ItemHandler
@@ -29,7 +29,7 @@ class ItemHandler
     private responder: Responder;
 
     @httpPost('/', AuthorizeMiddleware(Permissions.ITEMS_SAVE))
-    public async save (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async save(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ItemRepRequest(req);
         await ValidatorRequest.handle(_request);
@@ -41,7 +41,7 @@ class ItemHandler
     }
 
     @httpGet('/', AuthorizeMiddleware(Permissions.ITEMS_LIST))
-    public async list (@request() req: Request, @response() res: Response)
+    public async list(@request() req: Request, @response() res: Response)
     {
         const _request = new ItemRequestCriteria(req);
         await ValidatorRequest.handle(_request);
@@ -53,7 +53,7 @@ class ItemHandler
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.ITEMS_SHOW))
-    public async getOne  (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async getOne(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req);
         await ValidatorRequest.handle(_request);
@@ -65,7 +65,7 @@ class ItemHandler
     }
 
     @httpPut('/:id', AuthorizeMiddleware(Permissions.ITEMS_UPDATE))
-    public async update (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async update(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ItemUpdateRequest(req);
         await ValidatorRequest.handle(_request);
@@ -77,7 +77,7 @@ class ItemHandler
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.ITEMS_DELETE))
-    public async remove (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async remove(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req);
         await ValidatorRequest.handle(_request);

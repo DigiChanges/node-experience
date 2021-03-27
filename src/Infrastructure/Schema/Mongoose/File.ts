@@ -1,6 +1,6 @@
-import {Schema} from "mongoose";
-import File from "../../../Domain/Entities/File";
-import { v4 as uuidv4 } from 'uuid';
+import {Schema} from 'mongoose';
+import File from '../../../Domain/Entities/File';
+import {v4 as uuidv4} from 'uuid';
 
 const FileSchema: any = new Schema({
     _id: {type: String, default: uuidv4},

@@ -1,9 +1,9 @@
 import PresignedFileRepPayload from '../../../InterfaceAdapters/Payloads/FileSystem/PresignedFileRepPayload';
-import {REPOSITORIES} from "../../../repositories";
-import IFileRepository from "../../../InterfaceAdapters/IRepositories/IFileRepository";
-import IFileDomain from "../../../InterfaceAdapters/IDomain/IFileDomain";
-import FilesystemFactory from "../../../Infrastructure/Factories/FilesystemFactory";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import {REPOSITORIES} from '../../../repositories';
+import IFileRepository from '../../../InterfaceAdapters/IRepositories/IFileRepository';
+import IFileDomain from '../../../InterfaceAdapters/IDomain/IFileDomain';
+import FilesystemFactory from '../../../Infrastructure/Factories/FilesystemFactory';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class GetPresignedGetObjectUseCase
 {

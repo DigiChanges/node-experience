@@ -1,9 +1,9 @@
-import * as express from "express";
-import {IFilter, IPagination, ISort, ICriteria} from "@digichanges/shared-experience";
+import * as express from 'express';
+import {IFilter, IPagination, ISort, ICriteria} from '@digichanges/shared-experience';
 
-import RoleSort from "../../../Criterias/Role/RoleSort";
-import RoleFilter from "../../../Criterias/Role/RoleFilter";
-import Pagination from "../../../Shared/Pagination";
+import RoleSort from '../../../Criterias/Role/RoleSort';
+import RoleFilter from '../../../Criterias/Role/RoleFilter';
+import Pagination from '../../../Shared/Pagination';
 
 class RoleRequestCriteria implements ICriteria
 {

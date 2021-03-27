@@ -1,12 +1,12 @@
-import {IEncryption} from "@digichanges/shared-experience";
+import {IEncryption} from '@digichanges/shared-experience';
 
-import ChangeMyPasswordPayload from "../../../InterfaceAdapters/Payloads/Users/ChangeMyPasswordPayload";
-import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
-import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
-import {REPOSITORIES} from "../../../repositories";
-import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
-import PasswordWrongException from "../../Exceptions/PasswordWrongException";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import ChangeMyPasswordPayload from '../../../InterfaceAdapters/Payloads/Users/ChangeMyPasswordPayload';
+import IUserRepository from '../../../InterfaceAdapters/IRepositories/IUserRepository';
+import EncryptionFactory from '../../../Infrastructure/Factories/EncryptionFactory';
+import {REPOSITORIES} from '../../../repositories';
+import IUserDomain from '../../../InterfaceAdapters/IDomain/IUserDomain';
+import PasswordWrongException from '../../Exceptions/PasswordWrongException';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class ChangeMyPasswordUseCase
 {
@@ -24,7 +24,7 @@ class ChangeMyPasswordUseCase
         const id = payload.getId();
         const user = await this.repository.getOne(id);
 
-        if(! await this.encryption.compare(payload.getCurrentPassword(), user.password))
+        if (! await this.encryption.compare(payload.getCurrentPassword(), user.password))
         {
             throw new PasswordWrongException();
         }

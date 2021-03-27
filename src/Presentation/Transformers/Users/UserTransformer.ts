@@ -1,8 +1,8 @@
-import moment from "moment";
-import {Transformer} from "@digichanges/shared-experience";
+import moment from 'moment';
+import {Transformer} from '@digichanges/shared-experience';
 
-import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
-import RoleTransformer from "../Roles/RoleTransformer";
+import IUserDomain from '../../../InterfaceAdapters/IDomain/IUserDomain';
+import RoleTransformer from '../Roles/RoleTransformer';
 
 class UserTransformer extends Transformer
 {

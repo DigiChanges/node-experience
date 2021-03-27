@@ -1,6 +1,6 @@
-import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
-import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
-import { v4 as uuidv4 } from 'uuid';
+import IRoleDomain from '../../InterfaceAdapters/IDomain/IRoleDomain';
+import IUserDomain from '../../InterfaceAdapters/IDomain/IUserDomain';
+import {v4 as uuidv4} from 'uuid';
 
 class User implements IUserDomain
 {

@@ -1,4 +1,4 @@
-import {ValidationError} from "class-validator";
+import {ValidationError} from 'class-validator';
 
 class ValidationModel
 {

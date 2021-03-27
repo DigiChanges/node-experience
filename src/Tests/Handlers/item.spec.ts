@@ -1,18 +1,19 @@
-import {InversifyExpressServer} from "inversify-express-utils";
-import supertest from "supertest";
-import initServer from "../initServer";
-import {ICreateConnection} from "@digichanges/shared-experience";
+import {InversifyExpressServer} from 'inversify-express-utils';
+import supertest from 'supertest';
+import initServer from '../initServer';
+import {ICreateConnection} from '@digichanges/shared-experience';
 
-describe("Start Item Test", () =>
+describe('Start Item Test', () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
     let token: any = null;
-    let itemId: string = '';
+    let itemId = '';
     let deleteResponse: any = null;
 
-    beforeAll(async (done) => {
+    beforeAll(async(done) => 
+    {
         const configServer = await initServer();
 
         server = configServer.server;
@@ -22,7 +23,8 @@ describe("Start Item Test", () =>
         done();
     });
 
-    afterAll((async (done) => {
+    afterAll((async(done) => 
+    {
         await dbConnection.drop();
         await dbConnection.close();
 
@@ -31,14 +33,15 @@ describe("Start Item Test", () =>
 
     describe('Item Success', () =>
     {
-        beforeAll(async (done) => {
-           const payload = {
-                email: "user@node.com",
-                password: "12345678"
+        beforeAll(async(done) => 
+        {
+            const payload = {
+                email: 'user@node.com',
+                password: '12345678'
             };
 
             const response: any = await request
-                .post("/api/auth/login?provider=local")
+                .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
 
@@ -49,8 +52,9 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Add Item /items', async done => {
-           const payload = {
+        test('Add Item /items', async done => 
+        {
+            const payload = {
                 name: 'Item 1',
                 type: 10
             };
@@ -74,7 +78,8 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Get Item /items/:id', async done => {
+        test('Get Item /items/:id', async done => 
+        {
 
             const payload = {
                 name: 'Item 1',
@@ -99,11 +104,12 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Update Item /items/:id', async done => {
+        test('Update Item /items/:id', async done => 
+        {
             const payload = {
                 name: 'Item 1 update',
                 type: 11
-            }
+            };
 
             const response: any = await request
                 .put(`/api/items/${itemId}`)
@@ -123,11 +129,12 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Delete Item /items/:id', async done => {
+        test('Delete Item /items/:id', async done => 
+        {
             const payload = {
                 name: 'Item 13 for delete',
                 type: 13
-            }
+            };
 
             const createResponse: any = await request
                 .post('/api/items')
@@ -153,7 +160,8 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Get Items /items', async done => {
+        test('Get Items /items', async done => 
+        {
 
             const response: any = await request
                 .get('/api/items?pagination[limit]=5&pagination[offset]=0')
@@ -175,7 +183,8 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Get Items /items without pagination', async done => {
+        test('Get Items /items without pagination', async done => 
+        {
 
             const response: any = await request
                 .get('/api/items')
@@ -195,7 +204,8 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Get Items /items with Filter Type', async done => {
+        test('Get Items /items with Filter Type', async done => 
+        {
 
             const response: any = await request
                 .get('/api/items?pagination[limit]=20&pagination[offset]=0&filter[type]=11')
@@ -217,7 +227,8 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Get Items /items with Sort Desc Type', async done => {
+        test('Get Items /items with Sort Desc Type', async done => 
+        {
 
             const response: any = await request
                 .get('/api/items?pagination[limit]=20&pagination[offset]=0&sort[type]=desc')
@@ -239,14 +250,15 @@ describe("Start Item Test", () =>
 
     describe('Item Fails', () =>
     {
-        beforeAll(async (done) => {
-           const payload = {
-                email: "user@node.com",
-                password: "12345678"
+        beforeAll(async(done) => 
+        {
+            const payload = {
+                email: 'user@node.com',
+                password: '12345678'
             };
 
             const response: any = await request
-                .post("/api/auth/login?provider=local")
+                .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
 
@@ -257,8 +269,9 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Add Item /items', async done => {
-           const payload = {
+        test('Add Item /items', async done => 
+        {
+            const payload = {
                 name: 'Item 2',
                 type: 'Item 1'
             };
@@ -282,7 +295,8 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Get Item /items/:id', async done => {
+        test('Get Item /items/:id', async done => 
+        {
 
             const response: any = await request
                 .get(`/api/items/${itemId}dasdasda123`)
@@ -304,11 +318,12 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Update Item /items/:id', async done => {
+        test('Update Item /items/:id', async done => 
+        {
             const payload = {
                 name: 11,
                 type: 'asdasd'
-            }
+            };
 
             const response: any = await request
                 .put(`/api/items/${itemId}`)
@@ -334,7 +349,8 @@ describe("Start Item Test", () =>
             done();
         });
 
-        test('Delete Item error /items/:id', async done => {
+        test('Delete Item error /items/:id', async done => 
+        {
 
             const deleteErrorResponse: any = await request
                 .delete(`/api/items/${deleteResponse.body.data.id}`)

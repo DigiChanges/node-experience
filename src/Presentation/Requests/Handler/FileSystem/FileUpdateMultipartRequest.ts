@@ -1,7 +1,7 @@
 import * as express from 'express';
 import IdRequest from '../Defaults/IdRequest';
 import FileUpdateMultipartPayload from '../../../../InterfaceAdapters/Payloads/FileSystem/FileUpdateMultipartPayload';
-import { IsDefined } from 'class-validator';
+import {IsDefined} from 'class-validator';
 
 class FileUpdateMultipartRequest extends IdRequest implements FileUpdateMultipartPayload
 {
@@ -10,13 +10,13 @@ class FileUpdateMultipartRequest extends IdRequest implements FileUpdateMultipar
 
     constructor(request: express.Request)
     {
-        super(request)
+        super(request);
         this.file = request.file;
     }
 
     getName(): string
     {
-        return this.file.filename.split(".").shift();
+        return this.file.filename.split('.').shift();
     }
 
     getOriginalName(): string
@@ -31,12 +31,12 @@ class FileUpdateMultipartRequest extends IdRequest implements FileUpdateMultipar
 
     getPath(): string
     {
-        return "/";
+        return '/';
     }
 
     getExtension(): string
     {
-        return this.file.originalname.split(".").pop();
+        return this.file.originalname.split('.').pop();
     }
 
     getFile(): Express.Multer.File

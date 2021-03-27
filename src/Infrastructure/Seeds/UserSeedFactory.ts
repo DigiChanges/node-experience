@@ -1,15 +1,15 @@
-import faker from "faker";
-import {IEncryption} from "@digichanges/shared-experience";
+import faker from 'faker';
+import {IEncryption} from '@digichanges/shared-experience';
 
-import IRoleDomain from "../../InterfaceAdapters/IDomain/IRoleDomain";
-import Role from "../../Domain/Entities/Role";
-import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
-import User from "../../Domain/Entities/User";
-import EncryptionFactory from "../Factories/EncryptionFactory";
-import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
-import IRoleRepository from "../../InterfaceAdapters/IRepositories/IRoleRepository";
-import {REPOSITORIES} from "../../repositories";
-import ContainerFactory from "../Factories/ContainerFactory";
+import IRoleDomain from '../../InterfaceAdapters/IDomain/IRoleDomain';
+import Role from '../../Domain/Entities/Role';
+import IUserDomain from '../../InterfaceAdapters/IDomain/IUserDomain';
+import User from '../../Domain/Entities/User';
+import EncryptionFactory from '../Factories/EncryptionFactory';
+import IUserRepository from '../../InterfaceAdapters/IRepositories/IUserRepository';
+import IRoleRepository from '../../InterfaceAdapters/IRepositories/IRoleRepository';
+import {REPOSITORIES} from '../../repositories';
+import ContainerFactory from '../Factories/ContainerFactory';
 
 class UserSeedFactory
 {
@@ -58,7 +58,7 @@ class UserSeedFactory
 
         await this.roleRepo.save(roleOperatorDisabled);
 
-        let userSuperAdmin: IUserDomain = new User();
+        const userSuperAdmin: IUserDomain = new User();
         userSuperAdmin.firstName = 'Super';
         userSuperAdmin.lastName = 'Admin';
         userSuperAdmin.email = 'superadmin@node.com';
@@ -72,7 +72,7 @@ class UserSeedFactory
 
         await this.userRepo.save(userSuperAdmin);
 
-        let userAdmin: IUserDomain = new User();
+        const userAdmin: IUserDomain = new User();
         userAdmin.firstName = 'user';
         userAdmin.lastName = 'node';
         userAdmin.email = 'user@node.com';
@@ -86,7 +86,7 @@ class UserSeedFactory
 
         await this.userRepo.save(userAdmin);
 
-        let userOperator: IUserDomain = new User();
+        const userOperator: IUserDomain = new User();
         userOperator.firstName = 'operator';
         userOperator.lastName = 'enable';
         userOperator.email = 'operator@enable.com';
@@ -100,7 +100,7 @@ class UserSeedFactory
 
         await this.userRepo.save(userOperator);
 
-        let userOperatorDisabled: IUserDomain = new User();
+        const userOperatorDisabled: IUserDomain = new User();
         userOperatorDisabled.firstName = 'operator';
         userOperatorDisabled.lastName = 'disabled';
         userOperatorDisabled.email = 'operator@disabled.com';
@@ -114,7 +114,7 @@ class UserSeedFactory
 
         await this.userRepo.save(userOperatorDisabled);
 
-        let userOperatorRoleDisabled: IUserDomain = new User();
+        const userOperatorRoleDisabled: IUserDomain = new User();
         userOperatorRoleDisabled.firstName = 'operator';
         userOperatorRoleDisabled.lastName = 'roleDisabled';
         userOperatorRoleDisabled.email = 'operator@roleDisabled.com';

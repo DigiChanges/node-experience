@@ -1,4 +1,4 @@
-import ITokenDomain from "../../InterfaceAdapters/IInfrastructure/ITokenDomain";
+import ITokenDomain from '../../InterfaceAdapters/IInfrastructure/ITokenDomain';
 
 class Token implements ITokenDomain
 {

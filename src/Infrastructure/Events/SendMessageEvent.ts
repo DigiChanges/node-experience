@@ -1,8 +1,8 @@
-import Notificator from "../Notifications/Notificator";
+import Notificator from '../Notifications/Notificator';
 
 class SendMessageEvent
 {
-    public static SEND_MESSAGE_EVENT: string = "SEND_MESSAGE_EVENT";
+    public static SEND_MESSAGE_EVENT = 'SEND_MESSAGE_EVENT';
 
     public static sendMessageListener = (props: any) =>
     {
@@ -10,8 +10,11 @@ class SendMessageEvent
 
         Notificator
             .sendPushNotification(pushNotification, message)
-            .then((success) => success )
-            .catch((error: any) => { throw Error("Error To send Web Push Notification") });
+            .then((success) => success)
+            .catch((error: any) => 
+            {
+                throw Error('Error To send Web Push Notification'); 
+            });
     }
 }
 

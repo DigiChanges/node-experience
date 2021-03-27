@@ -1,7 +1,7 @@
-import IItemRepository from "../../../InterfaceAdapters/IRepositories/IItemRepository";
-import {REPOSITORIES} from "../../../repositories";
-import {ICriteria, IPaginator} from "@digichanges/shared-experience";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import IItemRepository from '../../../InterfaceAdapters/IRepositories/IItemRepository';
+import {REPOSITORIES} from '../../../repositories';
+import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class ListItemsUseCase
 {

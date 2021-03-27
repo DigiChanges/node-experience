@@ -1,17 +1,17 @@
-import {Query, Model} from "mongoose";
-import {injectable} from "inversify";
-import {ICriteria, IPaginator} from "@digichanges/shared-experience";
+import {Query, Model} from 'mongoose';
+import {injectable} from 'inversify';
+import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 
-import INotificationRepository from "../../InterfaceAdapters/IRepositories/INotificationRepository";
+import INotificationRepository from '../../InterfaceAdapters/IRepositories/INotificationRepository';
 
-import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
-import INotification from "../../InterfaceAdapters/IEntities/Mongoose/INotificationDocument";
-import {connection} from "../Database/MongooseCreateConnection";
-import INotificationDomain from "../../InterfaceAdapters/IInfrastructure/INotificationDomain";
-import EmailNotification from "../Entities/EmailNotification";
-import PushNotification from "../Entities/PushNotification";
-import NotificationFilter from "../../Presentation/Criterias/Notification/NotificationFilter";
-import NotFoundException from "../Exceptions/NotFoundException";
+import MongoPaginator from '../../Presentation/Shared/MongoPaginator';
+import INotification from '../../InterfaceAdapters/IEntities/Mongoose/INotificationDocument';
+import {connection} from '../Database/MongooseCreateConnection';
+import INotificationDomain from '../../InterfaceAdapters/IInfrastructure/INotificationDomain';
+import EmailNotification from '../Entities/EmailNotification';
+import PushNotification from '../Entities/PushNotification';
+import NotificationFilter from '../../Presentation/Criterias/Notification/NotificationFilter';
+import NotFoundException from '../Exceptions/NotFoundException';
 
 @injectable()
 class NotificationMongoRepository implements INotificationRepository
@@ -27,7 +27,7 @@ class NotificationMongoRepository implements INotificationRepository
         this.pushRepository = this.repository.discriminators.PushNotification;
     }
 
-    async save (notification: INotificationDomain): Promise<INotificationDomain>
+    async save(notification: INotificationDomain): Promise<INotificationDomain>
     {
         const rep = this.getRepository(notification);
         return await rep.create(notification);
@@ -59,7 +59,7 @@ class NotificationMongoRepository implements INotificationRepository
         if (filter.has(NotificationFilter.NAME))
         {
             const name: string = filter.get(NotificationFilter.NAME);
-            const rsearch = new RegExp(name, "g");
+            const rsearch = new RegExp(name, 'g');
 
             queryBuilder.where(NotificationFilter.NAME).regex(rsearch);
         }

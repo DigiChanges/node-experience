@@ -1,16 +1,16 @@
-import {Query, Model} from "mongoose";
-import {injectable} from "inversify";
-import {ICriteria, IPaginator} from "@digichanges/shared-experience";
+import {Query, Model} from 'mongoose';
+import {injectable} from 'inversify';
+import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 
-import IFileRepository from "../../InterfaceAdapters/IRepositories/IFileRepository";
+import IFileRepository from '../../InterfaceAdapters/IRepositories/IFileRepository';
 
-import FileFilter from "../../Presentation/Criterias/File/FileFilter";
-import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
-import IFile from "../../InterfaceAdapters/IEntities/Mongoose/IFileDocument";
-import IFileDomain from "../../InterfaceAdapters/IDomain/IFileDomain";
-import {connection} from "../Database/MongooseCreateConnection";
+import FileFilter from '../../Presentation/Criterias/File/FileFilter';
+import MongoPaginator from '../../Presentation/Shared/MongoPaginator';
+import IFile from '../../InterfaceAdapters/IEntities/Mongoose/IFileDocument';
+import IFileDomain from '../../InterfaceAdapters/IDomain/IFileDomain';
+import {connection} from '../Database/MongooseCreateConnection';
 
-import NotFoundException from "../Exceptions/NotFoundException";
+import NotFoundException from '../Exceptions/NotFoundException';
 
 @injectable()
 class FileMongoRepository implements IFileRepository
@@ -22,7 +22,7 @@ class FileMongoRepository implements IFileRepository
         this.repository = connection.model<IFile>('File');
     }
 
-    async save (file: IFileDomain): Promise<IFileDomain>
+    async save(file: IFileDomain): Promise<IFileDomain>
     {
         return await this.repository.create(file);
     }
@@ -47,7 +47,7 @@ class FileMongoRepository implements IFileRepository
         if (filter.has(FileFilter.NAME))
         {
             const name: string = filter.get(FileFilter.NAME);
-            const rsearch = new RegExp(name, "g");
+            const rsearch = new RegExp(name, 'g');
 
             queryBuilder.where(FileFilter.NAME).regex(rsearch);
         }

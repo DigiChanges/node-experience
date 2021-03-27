@@ -1,5 +1,5 @@
-import {Query} from "mongoose";
-import {ICriteria, IFilter, IPagination, IPaginator, ISort} from "@digichanges/shared-experience";
+import {Query} from 'mongoose';
+import {ICriteria, IFilter, IPagination, IPaginator, ISort} from '@digichanges/shared-experience';
 
 class MongoPaginator implements IPaginator
 {
@@ -54,16 +54,16 @@ class MongoPaginator implements IPaginator
     // TODO: See when multiple sorts
     private addOrderBy()
     {
-        let sorts = this.sort.get();
-        let _objectSort = {};
+        const sorts = this.sort.get();
+        const _objectSort = {};
 
-        sorts.forEach((value: string, key: string ) =>
+        sorts.forEach((value: string, key: string) =>
         {
             let order: any = value.toUpperCase();
             order = (order === 'DESC') ? -1 : 1;
 
             const obj = {[key]: order};
-            Object.assign(_objectSort,obj)
+            Object.assign(_objectSort, obj);
         });
 
         this.documentQuery.sort(_objectSort);

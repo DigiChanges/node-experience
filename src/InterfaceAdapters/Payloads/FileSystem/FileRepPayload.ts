@@ -9,4 +9,4 @@ interface FileRepPayload
     getSize(): number,
 }
 
-export default FileRepPayload
+export default FileRepPayload;

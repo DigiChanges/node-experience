@@ -1,16 +1,16 @@
-import DatabaseFactory from "./Infrastructure/Factories/DatabaseFactory";
-import {validateEnv} from "./Config/validateEnv";
+import DatabaseFactory from './Infrastructure/Factories/DatabaseFactory';
+import {validateEnv} from './Config/validateEnv';
 
-const initCommand = async () =>
+const initCommand = async() =>
 {
-	validateEnv();
+    validateEnv();
 
-	const databaseFactory = new DatabaseFactory();
+    const databaseFactory = new DatabaseFactory();
 
-	const createConnection = databaseFactory.create();
-	createConnection.initConfig();
+    const createConnection = databaseFactory.create();
+    createConnection.initConfig();
 
-	await createConnection.create();
-}
+    await createConnection.create();
+};
 
 export default initCommand;

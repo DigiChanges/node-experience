@@ -1,5 +1,5 @@
-import webPush from "web-push";
-import Notification from "../Entities/Notification";
+import webPush from 'web-push';
+import Notification from '../Entities/Notification';
 
 class PushNotification extends Notification
 {
