@@ -1,4 +1,4 @@
-import {Sort} from "@digichanges/shared-experience";
+import {Sort} from '@digichanges/shared-experience';
 
 class UserSort extends Sort
 {

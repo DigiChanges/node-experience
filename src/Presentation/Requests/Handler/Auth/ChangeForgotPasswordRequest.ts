@@ -1,11 +1,11 @@
-import Config from "config";
-import {IsString, Length} from "class-validator";
-import * as express from "express";
-import {IEncryption} from "@digichanges/shared-experience";
+import Config from 'config';
+import {IsString, Length} from 'class-validator';
+import * as express from 'express';
+import {IEncryption} from '@digichanges/shared-experience';
 
-import ChangeForgotPasswordPayload from "../../../../InterfaceAdapters/Payloads/Auth/ChangeForgotPasswordPayload";
-import EncryptionFactory from "../../../../Infrastructure/Factories/EncryptionFactory";
-import {Match} from "../../../../Infrastructure/Shared/Decorators/match";
+import ChangeForgotPasswordPayload from '../../../../InterfaceAdapters/Payloads/Auth/ChangeForgotPasswordPayload';
+import EncryptionFactory from '../../../../Infrastructure/Factories/EncryptionFactory';
+import {Match} from '../../../../Infrastructure/Shared/Decorators/match';
 
 class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
 {
@@ -15,7 +15,7 @@ class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
 
     @IsString()
     @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
-    @Match('password', {message: "passwordConfirmation don't match"})
+    @Match('password', {message: 'passwordConfirmation don\'t match'})
     passwordConfirmation: string;
 
     @IsString()
@@ -34,7 +34,7 @@ class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
 
     async getPassword(): Promise<string>
     {
-        let encryption: IEncryption = EncryptionFactory.create();
+        const encryption: IEncryption = EncryptionFactory.create();
 
         return await encryption.encrypt(this.password);
     }

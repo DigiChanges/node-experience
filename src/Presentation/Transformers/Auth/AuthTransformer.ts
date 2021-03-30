@@ -1,10 +1,10 @@
-import moment from "moment";
-import {Transformer} from "@digichanges/shared-experience";
+import moment from 'moment';
+import {Transformer} from '@digichanges/shared-experience';
 
-import IToken from "../../../InterfaceAdapters/Shared/IToken";
-import RoleUserTransformer from "../Roles/RoleUserTransformer";
-import IUserDomain from "../../../InterfaceAdapters/IDomain/IUserDomain";
-import AuthService from "../../../Application/Services/AuthService";
+import IToken from '../../../InterfaceAdapters/Shared/IToken';
+import RoleUserTransformer from '../Roles/RoleUserTransformer';
+import IUserDomain from '../../../InterfaceAdapters/IDomain/IUserDomain';
+import AuthService from '../../../Application/Services/AuthService';
 
 class AuthTransformer extends Transformer
 {

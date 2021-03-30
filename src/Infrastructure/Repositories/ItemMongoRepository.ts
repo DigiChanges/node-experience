@@ -1,15 +1,15 @@
-import {Query, Model} from "mongoose";
-import {injectable} from "inversify";
-import {ICriteria, IPaginator} from "@digichanges/shared-experience";
+import {Query, Model} from 'mongoose';
+import {injectable} from 'inversify';
+import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 
-import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemRepository";
-import ItemFilter from "../../Presentation/Criterias/Item/ItemFilter";
-import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
-import IItem from "../../InterfaceAdapters/IEntities/Mongoose/IItemDocument";
-import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
-import {connection} from "../Database/MongooseCreateConnection";
+import IItemRepository from '../../InterfaceAdapters/IRepositories/IItemRepository';
+import ItemFilter from '../../Presentation/Criterias/Item/ItemFilter';
+import MongoPaginator from '../../Presentation/Shared/MongoPaginator';
+import IItem from '../../InterfaceAdapters/IEntities/Mongoose/IItemDocument';
+import IItemDomain from '../../InterfaceAdapters/IDomain/IItemDomain';
+import {connection} from '../Database/MongooseCreateConnection';
 
-import NotFoundException from "../Exceptions/NotFoundException";
+import NotFoundException from '../Exceptions/NotFoundException';
 
 @injectable()
 class ItemMongoRepository implements IItemRepository
@@ -21,7 +21,7 @@ class ItemMongoRepository implements IItemRepository
         this.repository = connection.model<IItem>('Item');
     }
 
-    async save (item: IItemDomain): Promise<IItemDomain>
+    async save(item: IItemDomain): Promise<IItemDomain>
     {
         return await this.repository.create(item);
     }
@@ -52,7 +52,7 @@ class ItemMongoRepository implements IItemRepository
         if (filter.has(ItemFilter.NAME))
         {
             const name: string = filter.get(ItemFilter.NAME);
-            const rsearch = new RegExp(name, "g");
+            const rsearch = new RegExp(name, 'g');
 
             queryBuilder.where(ItemFilter.NAME).regex(rsearch);
         }

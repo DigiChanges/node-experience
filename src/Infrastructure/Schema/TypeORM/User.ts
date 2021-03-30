@@ -1,8 +1,8 @@
-import { EntitySchema } from "typeorm";
-import User from "../../../Domain/Entities/User";
+import {EntitySchema} from 'typeorm';
+import User from '../../../Domain/Entities/User';
 
 const UserSchema = new EntitySchema<User>({
-    name: "User",
+    name: 'User',
     target: User,
     tableName: 'users',
     columns: {

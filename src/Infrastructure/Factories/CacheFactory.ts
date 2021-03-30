@@ -1,5 +1,5 @@
-import RedisCacheRepository from "../Repositories/RedisCacheRepository";
-import {ICacheRepository} from "@digichanges/shared-experience";
+import RedisCacheRepository from '../Repositories/RedisCacheRepository';
+import {ICacheRepository} from '@digichanges/shared-experience';
 
 class CacheFactory
 {

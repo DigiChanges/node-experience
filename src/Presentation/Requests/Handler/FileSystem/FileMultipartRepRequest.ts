@@ -1,6 +1,6 @@
-import * as express from "express";
-import FileMultipartRepPayload from "../../../../InterfaceAdapters/Payloads/FileSystem/FileMultipartRepPayload";
-import {IsDefined} from "class-validator";
+import * as express from 'express';
+import FileMultipartRepPayload from '../../../../InterfaceAdapters/Payloads/FileSystem/FileMultipartRepPayload';
+import {IsDefined} from 'class-validator';
 
 class FileMultipartRepRequest implements FileMultipartRepPayload
 {
@@ -14,7 +14,7 @@ class FileMultipartRepRequest implements FileMultipartRepPayload
 
     getName(): string
     {
-        return this.file.filename.split(".").shift();
+        return this.file.filename.split('.').shift();
     }
 
     getOriginalName(): string
@@ -29,12 +29,12 @@ class FileMultipartRepRequest implements FileMultipartRepPayload
 
     getPath(): string
     {
-        return "/";
+        return '/';
     }
 
     getExtension(): string
     {
-        return this.file.originalname.split(".").pop();
+        return this.file.originalname.split('.').pop();
     }
 
     getSize(): number

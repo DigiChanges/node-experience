@@ -1,9 +1,9 @@
-import faker from "faker";
-import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemRepository";
-import Item from "../../Domain/Entities/Item";
-import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
-import ContainerFactory from "../Factories/ContainerFactory";
-import {REPOSITORIES} from "../../repositories";
+import faker from 'faker';
+import IItemRepository from '../../InterfaceAdapters/IRepositories/IItemRepository';
+import Item from '../../Domain/Entities/Item';
+import IItemDomain from '../../InterfaceAdapters/IDomain/IItemDomain';
+import ContainerFactory from '../Factories/ContainerFactory';
+import {REPOSITORIES} from '../../repositories';
 
 class ItemSeedFactory
 {
@@ -16,7 +16,7 @@ class ItemSeedFactory
 
     public async init()
     {
-        const indexes = Array.from( {length: 10}, (v, i) => i + 1 );
+        const indexes = Array.from({length: 10}, (v, i) => i + 1);
 
         for await (const index of indexes)
         {

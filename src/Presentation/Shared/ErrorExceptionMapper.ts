@@ -1,4 +1,4 @@
-import ExceptionFactory from "./ExceptionFactory";
+import ExceptionFactory from './ExceptionFactory';
 
 export class ErrorExceptionMapper
 {

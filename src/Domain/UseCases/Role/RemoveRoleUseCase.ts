@@ -1,7 +1,7 @@
-import IdPayload from "../../../InterfaceAdapters/Payloads/Defaults/IdPayload";
-import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
-import {REPOSITORIES} from "../../../repositories";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import IdPayload from '../../../InterfaceAdapters/Payloads/Defaults/IdPayload';
+import IRoleRepository from '../../../InterfaceAdapters/IRepositories/IRoleRepository';
+import {REPOSITORIES} from '../../../repositories';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class RemoveRoleUseCase
 {

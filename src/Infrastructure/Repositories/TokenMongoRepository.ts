@@ -1,13 +1,13 @@
-import {Query, Model} from "mongoose";
-import {injectable} from "inversify";
-import {ICriteria, IPaginator, ITokenRepository} from "@digichanges/shared-experience";
+import {Query, Model} from 'mongoose';
+import {injectable} from 'inversify';
+import {ICriteria, IPaginator, ITokenRepository} from '@digichanges/shared-experience';
 
-import MongoPaginator from "../../Presentation/Shared/MongoPaginator";
-import IToken from "../../InterfaceAdapters/IEntities/Mongoose/ITokenDocument";
-import ITokenDomain from "../../InterfaceAdapters/IInfrastructure/ITokenDomain";
-import {connection} from "../Database/MongooseCreateConnection";
+import MongoPaginator from '../../Presentation/Shared/MongoPaginator';
+import IToken from '../../InterfaceAdapters/IEntities/Mongoose/ITokenDocument';
+import ITokenDomain from '../../InterfaceAdapters/IInfrastructure/ITokenDomain';
+import {connection} from '../Database/MongooseCreateConnection';
 
-import NotFoundException from "../Exceptions/NotFoundException";
+import NotFoundException from '../Exceptions/NotFoundException';
 
 @injectable()
 class TokenMongoRepository implements ITokenRepository
@@ -19,7 +19,7 @@ class TokenMongoRepository implements ITokenRepository
         this.repository = connection.model<IToken>('Token');
     }
 
-    async save (token: ITokenDomain): Promise<ITokenDomain>
+    async save(token: ITokenDomain): Promise<ITokenDomain>
     {
         return await this.repository.create(token);
     }

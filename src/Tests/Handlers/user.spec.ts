@@ -1,18 +1,19 @@
-import {InversifyExpressServer} from "inversify-express-utils";
-import supertest from "supertest";
-import {ICreateConnection} from "@digichanges/shared-experience";
-import initServer from "../initServer";
+import {InversifyExpressServer} from 'inversify-express-utils';
+import supertest from 'supertest';
+import {ICreateConnection} from '@digichanges/shared-experience';
+import initServer from '../initServer';
 
-describe("Start User Test", () =>
+describe('Start User Test', () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
     let token: any = null;
-    let userId: string = '';
+    let userId = '';
     let deleteResponse: any = null;
 
-    beforeAll(async (done) => {
+    beforeAll(async(done) => 
+    {
         const configServer = await initServer();
 
         server = configServer.server;
@@ -22,7 +23,8 @@ describe("Start User Test", () =>
         done();
     });
 
-    afterAll((async (done) => {
+    afterAll((async(done) => 
+    {
         await dbConnection.drop();
         await dbConnection.close();
 
@@ -31,14 +33,15 @@ describe("Start User Test", () =>
 
     describe('User Success', () =>
     {
-        beforeAll(async (done) => {
-           const payload = {
-                email: "user@node.com",
-                password: "12345678"
+        beforeAll(async(done) => 
+        {
+            const payload = {
+                email: 'user@node.com',
+                password: '12345678'
             };
 
             const response: any = await request
-                .post("/api/auth/login?provider=local")
+                .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
 
@@ -49,13 +52,14 @@ describe("Start User Test", () =>
             done();
         });
 
-        test('Add User without enable property /users', async done => {
+        test('Add User without enable property /users', async done => 
+        {
             const payload: any = {
-                firstName: "Jhon",
-                lastName: "Doe",
-                email: "user2@node.com",
-                password: "12345678",
-                passwordConfirmation: "12345678",
+                firstName: 'Jhon',
+                lastName: 'Doe',
+                email: 'user2@node.com',
+                password: '12345678',
+                passwordConfirmation: '12345678',
                 permissions: []
             };
 
@@ -80,13 +84,14 @@ describe("Start User Test", () =>
             done();
         });
 
-        test('Add User with enable property /users', async done => {
+        test('Add User with enable property /users', async done => 
+        {
             const payload: any = {
-                firstName: "Jhon",
-                lastName: "Doe",
-                email: "user3@node.com",
-                password: "12345678",
-                passwordConfirmation: "12345678",
+                firstName: 'Jhon',
+                lastName: 'Doe',
+                email: 'user3@node.com',
+                password: '12345678',
+                passwordConfirmation: '12345678',
                 enable: false,
                 permissions: []
             };
@@ -112,14 +117,15 @@ describe("Start User Test", () =>
             done();
         });
 
-        test('Get User /users/:id', async done => {
+        test('Get User /users/:id', async done => 
+        {
 
             const payload: any = {
-                firstName: "Jhon",
-                lastName: "Doe",
-                email: "user3@node.com",
-                password: "12345678",
-                passwordConfirmation: "12345678",
+                firstName: 'Jhon',
+                lastName: 'Doe',
+                email: 'user3@node.com',
+                password: '12345678',
+                passwordConfirmation: '12345678',
                 permissions: []
             };
 
@@ -141,11 +147,12 @@ describe("Start User Test", () =>
             done();
         });
 
-        test('Update User /users/:id', async done => {
+        test('Update User /users/:id', async done => 
+        {
             const payload: any = {
-                firstName: "Jhon Update",
-                lastName: "Doe Update",
-                email: "user2@update.com",
+                firstName: 'Jhon Update',
+                lastName: 'Doe Update',
+                email: 'user2@update.com',
                 enable: false,
                 permissions: []
             };
@@ -169,11 +176,12 @@ describe("Start User Test", () =>
             done();
         });
 
-        test('Change my Password /users/changeMyPassword', async done => {
+        test('Change my Password /users/changeMyPassword', async done => 
+        {
             let payload: any = {
-                currentPassword: "12345678",
-                newPassword: "123456789",
-                newPasswordConfirmation: "123456789"
+                currentPassword: '12345678',
+                newPassword: '123456789',
+                newPasswordConfirmation: '123456789'
             };
 
             let response: any = await request
@@ -182,20 +190,20 @@ describe("Start User Test", () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            let {body: {status, statusCode}} = response;
+            const {body: {status, statusCode}} = response;
 
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_CREATED');
 
-           payload = {
-                email: "user@node.com",
-                password: "123456789"
+            payload = {
+                email: 'user@node.com',
+                password: '123456789'
             };
 
             response = await request
-                .post("/api/auth/login?provider=local")
+                .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
 
@@ -203,22 +211,23 @@ describe("Start User Test", () =>
             expect(response.body.status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_CREATED');
 
-            expect(response.body.data.user.email).toStrictEqual("user@node.com");
-            expect(response.body.data.user.firstName).toStrictEqual("user");
+            expect(response.body.data.user.email).toStrictEqual('user@node.com');
+            expect(response.body.data.user.firstName).toStrictEqual('user');
 
             token = response.body.data.token;
 
             done();
         });
 
-        test('Delete User /users/:id', async done => {
+        test('Delete User /users/:id', async done => 
+        {
             const payload: any = {
-                firstName: "Jhon for delete",
-                lastName: "Doe Update",
-                email: "user2@delete.com",
-                password: "12345678",
+                firstName: 'Jhon for delete',
+                lastName: 'Doe Update',
+                email: 'user2@delete.com',
+                password: '12345678',
                 enable: false,
-                passwordConfirmation: "12345678",
+                passwordConfirmation: '12345678',
                 permissions: []
             };
 
@@ -248,7 +257,8 @@ describe("Start User Test", () =>
             done();
         });
 
-        test('Get Users /users', async done => {
+        test('Get Users /users', async done => 
+        {
 
             const response: any = await request
                 .get('/api/users?pagination[limit]=5&pagination[offset]=0')
@@ -270,7 +280,8 @@ describe("Start User Test", () =>
             done();
         });
 
-        test('Get Users /users without pagination', async done => {
+        test('Get Users /users without pagination', async done => 
+        {
 
             const response: any = await request
                 .get('/api/users')
@@ -290,7 +301,8 @@ describe("Start User Test", () =>
             done();
         });
 
-        test('Get Users /users with Filter Type', async done => {
+        test('Get Users /users with Filter Type', async done => 
+        {
 
             const response: any = await request
                 .get('/api/users?pagination[limit]=20&pagination[offset]=0&filter[email]=user2@node.com')
@@ -311,7 +323,8 @@ describe("Start User Test", () =>
             done();
         });
 
-        test('Get Users /users with Sort Desc Type', async done => {
+        test('Get Users /users with Sort Desc Type', async done => 
+        {
 
             const response: any = await request
                 .get('/api/users?pagination[limit]=20&pagination[offset]=0&sort[email]=desc')
@@ -334,14 +347,15 @@ describe("Start User Test", () =>
 
     describe('User Fails', () =>
     {
-        beforeAll(async (done) => {
-           const payload = {
-                email: "user@node.com",
-                password: "123456789"
+        beforeAll(async(done) => 
+        {
+            const payload = {
+                email: 'user@node.com',
+                password: '123456789'
             };
 
             const response: any = await request
-                .post("/api/auth/login?provider=local")
+                .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
 
@@ -352,8 +366,9 @@ describe("Start User Test", () =>
             done();
         });
 
-        test('Add User /users', async done => {
-           const payload = {
+        test('Add User /users', async done => 
+        {
+            const payload = {
                 name: 'User 2',
                 type: 'User 1'
             };
@@ -378,7 +393,8 @@ describe("Start User Test", () =>
             done();
         });
 
-        test('Get User /users/:id', async done => {
+        test('Get User /users/:id', async done => 
+        {
 
             const response: any = await request
                 .get(`/api/users/${userId}dasdasda123`)
@@ -400,11 +416,12 @@ describe("Start User Test", () =>
             done();
         });
 
-        test('Update User /users/:id', async done => {
+        test('Update User /users/:id', async done => 
+        {
             const payload = {
-                email: "aaaa1@update.com",
+                email: 'aaaa1@update.com',
                 firstName: 150,
-                lastName: "Doe 1",
+                lastName: 'Doe 1',
                 enable: true
             };
 
@@ -428,7 +445,8 @@ describe("Start User Test", () =>
             done();
         });
 
-        test('Delete User error /users/:id', async done => {
+        test('Delete User error /users/:id', async done => 
+        {
 
             const deleteErrorResponse: any = await request
                 .delete(`/api/users/${deleteResponse.body.data.id}`)

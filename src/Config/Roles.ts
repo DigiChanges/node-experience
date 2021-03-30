@@ -1,4 +1,4 @@
-import Permissions from "./Permissions";
+import Permissions from './Permissions';
 
 class Roles
 {

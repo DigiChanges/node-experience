@@ -1,5 +1,5 @@
-import {ErrorException} from "@digichanges/shared-experience";
-import {Locales} from "../../Application/app";
+import {ErrorException} from '@digichanges/shared-experience';
+import {Locales} from '../../Application/app';
 
 class PasswordWrongException extends ErrorException
 {

@@ -1,9 +1,9 @@
-import IFileRepository from "../../../InterfaceAdapters/IRepositories/IFileRepository";
-import { REPOSITORIES } from '../../../repositories';
+import IFileRepository from '../../../InterfaceAdapters/IRepositories/IFileRepository';
+import {REPOSITORIES} from '../../../repositories';
 import FileUpdateBase64Payload from '../../../InterfaceAdapters/Payloads/FileSystem/FileUpdateBase64Payload';
 import IFileDomain from '../../../InterfaceAdapters/IDomain/IFileDomain';
-import FilesystemFactory from "../../../Infrastructure/Factories/FilesystemFactory";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import FilesystemFactory from '../../../Infrastructure/Factories/FilesystemFactory';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class UpdateFileBase64UseCase
 {

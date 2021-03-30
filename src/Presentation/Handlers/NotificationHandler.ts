@@ -1,14 +1,14 @@
-import {inject} from "inversify";
-import { NextFunction, Request, Response } from "express";
-import { httpPost, request, response, next, controller } from "inversify-express-utils";
-import {StatusCode} from "@digichanges/shared-experience";
+import {inject} from 'inversify';
+import {NextFunction, Request, Response} from 'express';
+import {httpPost, request, response, next, controller} from 'inversify-express-utils';
+import {StatusCode} from '@digichanges/shared-experience';
 
-import ValidatorRequest from "../../Application/Shared/ValidatorRequest";
-import CreateSubscriptionUseCase from "../../Domain/UseCases/Notifications/CreateSubscriptionUseCase";
-import SendPushNotificationUseCase from "../../Domain/UseCases/Notifications/SendPushNotificationUseCase";
-import { TYPES } from "../../types";
-import NotificationSubscriptionRequest from "../Requests/Handler/Notification/NotificationCreateSuscriptionRequest";
-import NotificationSendMessageRequest from "../Requests/Handler/Notification/NotificationSendMessageRequest";
+import ValidatorRequest from '../../Application/Shared/ValidatorRequest';
+import CreateSubscriptionUseCase from '../../Domain/UseCases/Notifications/CreateSubscriptionUseCase';
+import SendPushNotificationUseCase from '../../Domain/UseCases/Notifications/SendPushNotificationUseCase';
+import {TYPES} from '../../types';
+import NotificationSubscriptionRequest from '../Requests/Handler/Notification/NotificationCreateSuscriptionRequest';
+import NotificationSendMessageRequest from '../Requests/Handler/Notification/NotificationSendMessageRequest';
 import Responder from '../Shared/Responder';
 
 @controller('/api/notifications')
@@ -18,7 +18,7 @@ class NotificationHandler
     private responder: Responder;
 
     @httpPost('/subscription')
-    public async uploadTestNotificationBase64 (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async uploadTestNotificationBase64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new NotificationSubscriptionRequest(req);
         await ValidatorRequest.handle(_request);
@@ -30,7 +30,7 @@ class NotificationHandler
     }
 
     @httpPost('/message')
-    public async sendPushNotification (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async sendPushNotification(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new NotificationSendMessageRequest(req);
         await ValidatorRequest.handle(_request);

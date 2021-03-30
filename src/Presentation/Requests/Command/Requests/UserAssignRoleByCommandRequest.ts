@@ -1,5 +1,5 @@
-import {IsString} from "class-validator";
-import UserAssignRoleByPayload from "../../../../InterfaceAdapters/Payloads/Users/UserAssignRoleByPayload";
+import {IsString} from 'class-validator';
+import UserAssignRoleByPayload from '../../../../InterfaceAdapters/Payloads/Users/UserAssignRoleByPayload';
 
 class UserAssignRoleByCommandRequest implements UserAssignRoleByPayload
 {

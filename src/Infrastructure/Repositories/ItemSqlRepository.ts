@@ -1,15 +1,15 @@
-import IItemRepository from "../../InterfaceAdapters/IRepositories/IItemRepository";
-import {DeleteResult, getRepository, Repository} from "typeorm";
-import Item from "../../Domain/Entities/Item";
-import {injectable} from "inversify";
-import {ICriteria, IPaginator} from "@digichanges/shared-experience";
+import IItemRepository from '../../InterfaceAdapters/IRepositories/IItemRepository';
+import {DeleteResult, getRepository, Repository} from 'typeorm';
+import Item from '../../Domain/Entities/Item';
+import {injectable} from 'inversify';
+import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 
-import Paginator from "../../Presentation/Shared/Paginator";
-import ItemFilter from "../../Presentation/Criterias/Item/ItemFilter";
-import ItemSchema from "../Schema/TypeORM/Item";
-import IItemDomain from "../../InterfaceAdapters/IDomain/IItemDomain";
+import Paginator from '../../Presentation/Shared/Paginator';
+import ItemFilter from '../../Presentation/Criterias/Item/ItemFilter';
+import ItemSchema from '../Schema/TypeORM/Item';
+import IItemDomain from '../../InterfaceAdapters/IDomain/IItemDomain';
 
-import NotFoundException from "../Exceptions/NotFoundException";
+import NotFoundException from '../Exceptions/NotFoundException';
 
 @injectable()
 class ItemSqlRepository implements IItemRepository
@@ -21,7 +21,7 @@ class ItemSqlRepository implements IItemRepository
         this.repository = getRepository<Item>(ItemSchema);
     }
 
-    async save (item: IItemDomain ): Promise<Item>
+    async save(item: IItemDomain): Promise<Item>
     {
         return await this.repository.save(item);
     }
@@ -40,20 +40,20 @@ class ItemSqlRepository implements IItemRepository
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        let queryBuilder = this.repository.createQueryBuilder("i");
+        const queryBuilder = this.repository.createQueryBuilder('i');
 
         const filter = criteria.getFilter();
 
-        queryBuilder.where("1 = 1");
+        queryBuilder.where('1 = 1');
 
         if (filter.has(ItemFilter.TYPE))
         {
-            queryBuilder.andWhere("i." + ItemFilter.TYPE + " = :" + ItemFilter.TYPE);
+            queryBuilder.andWhere('i.' + ItemFilter.TYPE + ' = :' + ItemFilter.TYPE);
             queryBuilder.setParameter(ItemFilter.TYPE, filter.get(ItemFilter.TYPE));
         }
         if (filter.has(ItemFilter.NAME))
         {
-            queryBuilder.andWhere("i." + ItemFilter.NAME + " like :" + ItemFilter.NAME);
+            queryBuilder.andWhere('i.' + ItemFilter.NAME + ' like :' + ItemFilter.NAME);
             queryBuilder.setParameter(ItemFilter.NAME, '%' + filter.get(ItemFilter.NAME) + '%');
         }
 

@@ -1,12 +1,12 @@
-import Config from "config";
-import {injectable} from "inversify";
-import {ICacheRepository, ITokenRepository} from "@digichanges/shared-experience";
+import Config from 'config';
+import {injectable} from 'inversify';
+import {ICacheRepository, ITokenRepository} from '@digichanges/shared-experience';
 
-import ITokenDomain from "../../InterfaceAdapters/IInfrastructure/ITokenDomain";
+import ITokenDomain from '../../InterfaceAdapters/IInfrastructure/ITokenDomain';
 
-import NotFoundException from "../Exceptions/NotFoundException";
-import CacheFactory from "../Factories/CacheFactory";
-import Token from "../Entities/Token";
+import NotFoundException from '../Exceptions/NotFoundException';
+import CacheFactory from '../Factories/CacheFactory';
+import Token from '../Entities/Token';
 
 @injectable()
 class TokenRedisRepository implements ITokenRepository
@@ -19,7 +19,7 @@ class TokenRedisRepository implements ITokenRepository
         this.repository = CacheFactory.createRedisCache();
     }
 
-    async save (token: Token): Promise<ITokenDomain>
+    async save(token: Token): Promise<ITokenDomain>
     {
         await this.repository.jset(token._id, token, this.expire);
         return token;

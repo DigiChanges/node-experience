@@ -1,7 +1,7 @@
-import Config from "config";
-import TypeORMCreateConnection from "../Database/TypeORMCreateConnection";
-import MongooseCreateConnection from "../Database/MongooseCreateConnection";
-import {ICreateConnection} from "@digichanges/shared-experience";
+import Config from 'config';
+import TypeORMCreateConnection from '../Database/TypeORMCreateConnection';
+import MongooseCreateConnection from '../Database/MongooseCreateConnection';
+import {ICreateConnection} from '@digichanges/shared-experience';
 
 class DatabaseFactory
 {
@@ -9,7 +9,7 @@ class DatabaseFactory
 
     constructor(dbDefault?: string)
     {
-        this.dbDefault = dbDefault
+        this.dbDefault = dbDefault;
     }
 
     create(): ICreateConnection
@@ -18,7 +18,7 @@ class DatabaseFactory
 
         if (!this.dbDefault)
         {
-           this.dbDefault = Config.get('dbConfig.default');
+            this.dbDefault = Config.get('dbConfig.default');
         }
 
         const config = Config.get(`dbConfig.${this.dbDefault}`);

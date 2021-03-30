@@ -1,15 +1,17 @@
 import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
-import {ICreateConnection} from "@digichanges/shared-experience";
+import {ICreateConnection} from '@digichanges/shared-experience';
 import initServer from '../initServer';
 
-describe('Start Permission Test', () => {
+describe('Start Permission Test', () => 
+{
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
     let token: any = null;
 
-    beforeAll(async (done) => {
+    beforeAll(async(done) => 
+    {
         const configServer = await initServer();
 
         server = configServer.server;
@@ -19,7 +21,8 @@ describe('Start Permission Test', () => {
         done();
     });
 
-    afterAll((async (done) => {
+    afterAll((async(done) => 
+    {
         await dbConnection.drop();
         await dbConnection.close();
 
@@ -28,8 +31,9 @@ describe('Start Permission Test', () => {
 
     describe('', () =>
     {
-        beforeAll(async (done) => {
-           const payload = {
+        beforeAll(async(done) => 
+        {
+            const payload = {
                 email: 'user@node.com',
                 password: '12345678'
             };
@@ -46,7 +50,8 @@ describe('Start Permission Test', () => {
             done();
         });
 
-        test('Get Permissions', async (done) => {
+        test('Get Permissions', async(done) => 
+        {
 
             const response: any = await request
                 .get('/api/auth/permissions')
@@ -65,7 +70,8 @@ describe('Start Permission Test', () => {
             done();
         });
 
-        test('Resource Not found', async (done) => {
+        test('Resource Not found', async(done) => 
+        {
 
             const response: any = await request
                 .get('/api/auth/notfound')
@@ -84,7 +90,8 @@ describe('Start Permission Test', () => {
             done();
         });
 
-        test('Not authorized', async (done) => {
+        test('Not authorized', async(done) => 
+        {
 
             const response: any = await request
                 .get('/api/auth/permissions')

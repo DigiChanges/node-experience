@@ -1,4 +1,4 @@
-import IdPayload from "../Defaults/IdPayload";
+import IdPayload from '../Defaults/IdPayload';
 
 interface UserAssignRolePayload extends IdPayload
 {

@@ -1,6 +1,6 @@
-import KeepAliveUseCase from "../../Domain/UseCases/Auth/KeepAliveUseCase";
+import KeepAliveUseCase from '../../Domain/UseCases/Auth/KeepAliveUseCase';
 
-const RefreshTokenMiddleware = async (req: any, response: any, next: any) =>
+const RefreshTokenMiddleware = async(req: any, response: any, next: any) =>
 {
     try
     {
@@ -17,7 +17,7 @@ const RefreshTokenMiddleware = async (req: any, response: any, next: any) =>
 
         next();
     }
-    catch(error)
+    catch (error)
     {
         next(error);
     }

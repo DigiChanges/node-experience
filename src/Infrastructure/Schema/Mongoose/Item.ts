@@ -1,6 +1,6 @@
-import {Schema} from "mongoose";
-import Item from "../../../Domain/Entities/Item";
-import { v4 as uuidv4 } from 'uuid';
+import {Schema} from 'mongoose';
+import Item from '../../../Domain/Entities/Item';
+import {v4 as uuidv4} from 'uuid';
 
 const ItemSchema: any = new Schema({
     _id: {type: String, default: uuidv4},

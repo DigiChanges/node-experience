@@ -1,6 +1,6 @@
-import * as express from "express";
-import Config from "config";
-import {IPagination} from "@digichanges/shared-experience";
+import * as express from 'express';
+import Config from 'config';
+import {IPagination} from '@digichanges/shared-experience';
 // import querystring from "querystring"; // TODO: Encapsulate and separet on an lib to create new functionality
 
 class Pagination implements IPagination
@@ -34,19 +34,19 @@ class Pagination implements IPagination
 
     getCurrentUrl(): string
     {
-        return this.exist ? this.host + this.request.url.replace("/api/", "") : '';
+        return this.exist ? this.host + this.request.url.replace('/api/', '') : '';
     }
 
     // TODO: Refactoring with querystrings to reform query without harcoding URI
     getNextUrl(): string
     {
-        let url = "";
+        let url = '';
 
         if (this.exist)
         {
-            let offset = this.offset + this.limit;
+            const offset = this.offset + this.limit;
 
-            url = this.host + this.request.url.replace("/api/", "");
+            url = this.host + this.request.url.replace('/api/', '');
             const searchValue = 'pagination[offset]=' + this.pagination.offset;
             const newValue = 'pagination[offset]=' + offset;
 

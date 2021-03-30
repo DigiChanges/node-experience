@@ -1,12 +1,12 @@
-import {inject} from "inversify";
-import {controller, httpPost, request, response, next, httpGet, httpPut} from "inversify-express-utils";
-import { NextFunction, Request, Response } from "express";
-import {IPaginator, StatusCode} from "@digichanges/shared-experience";
+import {inject} from 'inversify';
+import {controller, httpPost, request, response, next, httpGet, httpPut} from 'inversify-express-utils';
+import {NextFunction, Request, Response} from 'express';
+import {IPaginator, StatusCode} from '@digichanges/shared-experience';
 
-import AuthorizeMiddleware from "../Middlewares/AuthorizeMiddleware";
-import Permissions from "../../Config/Permissions";
+import AuthorizeMiddleware from '../Middlewares/AuthorizeMiddleware';
+import Permissions from '../../Config/Permissions';
 
-import { TYPES } from '../../types';
+import {TYPES} from '../../types';
 import Responder from '../Shared/Responder';
 import ListObjectsRequest from '../Requests/Handler/FileSystem/ListObjectsRequest';
 import ListFilesUseCase from '../../Domain/UseCases/FileSystem/ListFilesUseCase';
@@ -23,11 +23,11 @@ import PresignedFileRepRequest from '../Requests/Handler/FileSystem/PresignedFil
 import FileRequestCriteria from '../Requests/Handler/FileSystem/FileRequestCriteria';
 import FileTransformer from '../Transformers/Files/FileTransformer';
 import IdRequest from '../Requests/Handler/Defaults/IdRequest';
-import FileUpdateMultipartRequest from "../Requests/Handler/FileSystem/FileUpdateMultipartRequest";
-import UpdateFileMultipartUseCase from "../../Domain/UseCases/FileSystem/UpdateFileMultipartUseCase";
-import FileUpdateBase64Request from "../Requests/Handler/FileSystem/FileUpdateBase64Request";
-import UpdateFileBase64UseCase from "../../Domain/UseCases/FileSystem/UpdateFileBase64UseCase";
-import ObjectTransformer from "../Transformers/Files/ObjectTransformer";
+import FileUpdateMultipartRequest from '../Requests/Handler/FileSystem/FileUpdateMultipartRequest';
+import UpdateFileMultipartUseCase from '../../Domain/UseCases/FileSystem/UpdateFileMultipartUseCase';
+import FileUpdateBase64Request from '../Requests/Handler/FileSystem/FileUpdateBase64Request';
+import UpdateFileBase64UseCase from '../../Domain/UseCases/FileSystem/UpdateFileBase64UseCase';
+import ObjectTransformer from '../Transformers/Files/ObjectTransformer';
 
 @controller('/api/files')
 class FileHandler
@@ -36,7 +36,7 @@ class FileHandler
     private responder: Responder;
 
     @httpGet('/', AuthorizeMiddleware(Permissions.FILES_LIST))
-    public async list (@request() req: Request, @response() res: Response)
+    public async list(@request() req: Request, @response() res: Response)
     {
         const _request = new FileRequestCriteria(req);
         await ValidatorRequest.handle(_request);
@@ -48,7 +48,7 @@ class FileHandler
     }
 
     @httpGet('/objects', AuthorizeMiddleware(Permissions.FILES_LIST))
-    public async listFilesystemObjects (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async listFilesystemObjects(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ListObjectsRequest(req);
         await ValidatorRequest.handle(_request);
@@ -60,7 +60,7 @@ class FileHandler
     }
 
     @httpPost('/base64', AuthorizeMiddleware(Permissions.FILES_UPLOAD))
-    public async uploadBase64 (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async uploadBase64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new FileBase64RepRequest(req);
         await ValidatorRequest.handle(_request);
@@ -68,11 +68,11 @@ class FileHandler
         const uploadBase64UseCase = new UploadBase64UseCase();
         const file = await uploadBase64UseCase.handle(_request);
 
-        this.responder.send(file, req, res, StatusCode.HTTP_CREATED , new FileTransformer());
+        this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
     @httpPost('/', FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPLOAD))
-    public async uploadMultipart (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async uploadMultipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new FileMultipartRepRequest(req);
         await ValidatorRequest.handle(_request);
@@ -80,11 +80,11 @@ class FileHandler
         const uploadMultipartUseCase = new UploadMultipartUseCase();
         const file = await uploadMultipartUseCase.handle(_request);
 
-        this.responder.send(file, req, res, StatusCode.HTTP_CREATED , new FileTransformer());
+        this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
     @httpPost('/presignedGetObject', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))
-    public async getPresignedGetObject (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async getPresignedGetObject(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new PresignedFileRepRequest(req);
         await ValidatorRequest.handle(_request);
@@ -96,7 +96,7 @@ class FileHandler
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))
-    public async downloadStreamFile (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async downloadStreamFile(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req);
         await ValidatorRequest.handle(_request);
@@ -109,7 +109,7 @@ class FileHandler
     }
 
     @httpPut('/base64/:id', AuthorizeMiddleware(Permissions.FILES_UPDATE))
-    public async updateBase64 (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async updateBase64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new FileUpdateBase64Request(req);
         await ValidatorRequest.handle(_request);
@@ -117,11 +117,11 @@ class FileHandler
         const updateFileBase64UseCase = new UpdateFileBase64UseCase();
         const file = await updateFileBase64UseCase.handle(_request);
 
-        this.responder.send(file, req, res, StatusCode.HTTP_CREATED , new FileTransformer());
+        this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
-    @httpPut('/:id',FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPDATE))
-    public async updateMultipart (@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    @httpPut('/:id', FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPDATE))
+    public async updateMultipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new FileUpdateMultipartRequest(req);
         await ValidatorRequest.handle(_request);
@@ -129,7 +129,7 @@ class FileHandler
         const updateFileMultipartUseCase = new UpdateFileMultipartUseCase();
         const file = await updateFileMultipartUseCase.handle(_request);
 
-        this.responder.send(file, req, res, StatusCode.HTTP_CREATED , new FileTransformer());
+        this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 }
 

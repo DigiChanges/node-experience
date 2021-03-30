@@ -1,5 +1,5 @@
-import {SelectQueryBuilder} from "typeorm";
-import {ICriteria, IFilter, IPagination, IPaginator, ISort} from "@digichanges/shared-experience";
+import {SelectQueryBuilder} from 'typeorm';
+import {ICriteria, IFilter, IPagination, IPaginator, ISort} from '@digichanges/shared-experience';
 
 class Paginator implements IPaginator
 {
@@ -63,11 +63,12 @@ class Paginator implements IPaginator
 
     private addOrderBy()
     {
-        let sorts = this.sort.get();
+        const sorts = this.sort.get();
 
-        sorts.forEach((value: string, key: string ) => {
+        sorts.forEach((value: string, key: string) => 
+        {
             let order: string = value.toUpperCase();
-            order = (order === 'DESC') ? "DESC" : "ASC";
+            order = (order === 'DESC') ? 'DESC' : 'ASC';
 
             // @ts-ignore
             this.queryBuilder.addOrderBy(key, order);

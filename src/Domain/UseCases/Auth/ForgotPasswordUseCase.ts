@@ -1,11 +1,11 @@
-import ForgotPasswordPayload from "../../../InterfaceAdapters/Payloads/Auth/ForgotPasswordPayload";
-import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
-import Config from "config";
-import {REPOSITORIES} from "../../../repositories";
-import EmailNotification from "../../../Infrastructure/Entities/EmailNotification";
-import EventHandler from "../../../Infrastructure/Events/EventHandler";
-import ForgotPasswordEvent from "../../../Infrastructure/Events/ForgotPasswordEvent";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import ForgotPasswordPayload from '../../../InterfaceAdapters/Payloads/Auth/ForgotPasswordPayload';
+import IUserRepository from '../../../InterfaceAdapters/IRepositories/IUserRepository';
+import Config from 'config';
+import {REPOSITORIES} from '../../../repositories';
+import EmailNotification from '../../../Infrastructure/Entities/EmailNotification';
+import EventHandler from '../../../Infrastructure/Events/EventHandler';
+import ForgotPasswordEvent from '../../../Infrastructure/Events/ForgotPasswordEvent';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class ForgotPasswordUseCase
 {
@@ -25,17 +25,17 @@ class ForgotPasswordUseCase
 
         const emailNotification = new EmailNotification();
 
-        let urlConfirmationToken: string = Config.get('url.urlWeb') + 'changeForgotPassword/' + user.confirmationToken;
+        const urlConfirmationToken: string = Config.get('url.urlWeb') + 'changeForgotPassword/' + user.confirmationToken;
 
-        emailNotification.name = "Forgot Password";
+        emailNotification.name = 'Forgot Password';
         emailNotification.to = payload.getEmail();
-        emailNotification.subject = "Forgot Password";
+        emailNotification.subject = 'Forgot Password';
 
         const eventHandler = EventHandler.getInstance();
 
         eventHandler.execute(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT, {emailNotification, urlConfirmationToken});
 
-        return {message: "We've sent you an email"};
+        return {message: 'We\'ve sent you an email'};
     }
 }
 

@@ -1,7 +1,7 @@
-import ChangeMyPasswordPayload from "../../../../InterfaceAdapters/Payloads/Users/ChangeMyPasswordPayload";
-import {IsString, IsUUID, Length} from "class-validator";
-import Config from "config";
-import {Match} from "../../../../Infrastructure/Shared/Decorators/match";
+import ChangeMyPasswordPayload from '../../../../InterfaceAdapters/Payloads/Users/ChangeMyPasswordPayload';
+import {IsString, IsUUID, Length} from 'class-validator';
+import Config from 'config';
+import {Match} from '../../../../Infrastructure/Shared/Decorators/match';
 
 class ChangeMyPasswordRequest implements ChangeMyPasswordPayload
 {
@@ -14,10 +14,10 @@ class ChangeMyPasswordRequest implements ChangeMyPasswordPayload
     newPassword: string;
 
     @IsString()
-    @Match('newPassword', {message: "newPassword don't match"})
+    @Match('newPassword', {message: 'newPassword don\'t match'})
     newPasswordConfirmation: string;
 
-    @IsUUID("4")
+    @IsUUID('4')
     userId: boolean;
 
     constructor(request: any)

@@ -1,6 +1,6 @@
-import { Client } from 'minio';
-import internal from "stream";
-import {IFilesystem} from "@digichanges/shared-experience";
+import {Client} from 'minio';
+import internal from 'stream';
+import {IFilesystem} from '@digichanges/shared-experience';
 
 class MinioStrategy implements IFilesystem
 {
@@ -16,12 +16,12 @@ class MinioStrategy implements IFilesystem
         this.pathTemp = '/tmp/';
 
         this.filesystem = new Client({
-              endPoint: _config.endPoint,
-              accessKey: _config.accessKey,
-              secretKey: _config.secretKey,
-              region: _config.region,
-              port: Number(_config.port),
-              useSSL: _config.useSSL === 'true',
+            endPoint: _config.endPoint,
+            accessKey: _config.accessKey,
+            secretKey: _config.secretKey,
+            region: _config.region,
+            port: Number(_config.port),
+            useSSL: _config.useSSL === 'true',
         });
     }
 
@@ -73,21 +73,23 @@ class MinioStrategy implements IFilesystem
 
     async listObjects(prefix?: string, recursive?: boolean)
     {
-        const stream = this.filesystem.listObjectsV2(this.bucketName, prefix, recursive) ;
+        const stream = this.filesystem.listObjectsV2(this.bucketName, prefix, recursive);
 
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => 
+        {
             const files: any = [];
 
-            stream.on('data', (obj: any) => {
+            stream.on('data', (obj: any) => 
+            {
                 files.push(obj);
-            } )
+            });
 
             stream.on('end', () => resolve(files));
 
             stream.on('close', () => resolve(files));
 
             stream.on('error', (error: any) => reject(error));
-        })
+        });
 
     }
 

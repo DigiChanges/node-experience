@@ -1,6 +1,6 @@
-import * as express from "express";
-import RoleRepPayload from "../../../../InterfaceAdapters/Payloads/Roles/RoleRepPayload";
-import {IsArray, IsBoolean, IsOptional, IsString, Length} from "class-validator";
+import * as express from 'express';
+import RoleRepPayload from '../../../../InterfaceAdapters/Payloads/Roles/RoleRepPayload';
+import {IsArray, IsBoolean, IsOptional, IsString, Length} from 'class-validator';
 
 class RoleRepRequest implements RoleRepPayload
 {

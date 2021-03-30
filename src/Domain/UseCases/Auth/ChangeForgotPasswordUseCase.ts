@@ -1,7 +1,7 @@
-import ChangeForgotPasswordPayload from "../../../InterfaceAdapters/Payloads/Auth/ChangeForgotPasswordPayload";
-import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
-import {REPOSITORIES} from "../../../repositories";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import ChangeForgotPasswordPayload from '../../../InterfaceAdapters/Payloads/Auth/ChangeForgotPasswordPayload';
+import IUserRepository from '../../../InterfaceAdapters/IRepositories/IUserRepository';
+import {REPOSITORIES} from '../../../repositories';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class ChangeForgotPasswordUseCase
 {
@@ -23,7 +23,7 @@ class ChangeForgotPasswordUseCase
 
         await this.repository.update(user);
 
-        return {message: "Your password has been changed"};
+        return {message: 'Your password has been changed'};
     }
 }
 

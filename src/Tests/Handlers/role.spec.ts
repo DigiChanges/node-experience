@@ -1,18 +1,19 @@
-import {InversifyExpressServer} from "inversify-express-utils";
-import supertest from "supertest";
-import {ICreateConnection} from "@digichanges/shared-experience";
-import initServer from "../initServer";
+import {InversifyExpressServer} from 'inversify-express-utils';
+import supertest from 'supertest';
+import {ICreateConnection} from '@digichanges/shared-experience';
+import initServer from '../initServer';
 
-describe("Start Role Test", () =>
+describe('Start Role Test', () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
     let token: any = null;
-    let roleId: string = '';
+    let roleId = '';
     let deleteResponse: any = null;
 
-    beforeAll(async (done) => {
+    beforeAll(async(done) => 
+    {
         const configServer = await initServer();
 
         server = configServer.server;
@@ -22,7 +23,8 @@ describe("Start Role Test", () =>
         done();
     });
 
-    afterAll((async (done) => {
+    afterAll((async(done) => 
+    {
         await dbConnection.drop();
         await dbConnection.close();
 
@@ -31,14 +33,15 @@ describe("Start Role Test", () =>
 
     describe('Role Success', () =>
     {
-        beforeAll(async (done) => {
-           const payload = {
-                email: "user@node.com",
-                password: "12345678"
+        beforeAll(async(done) => 
+        {
+            const payload = {
+                email: 'user@node.com',
+                password: '12345678'
             };
 
             const response: any = await request
-                .post("/api/auth/login?provider=local")
+                .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
 
@@ -49,7 +52,8 @@ describe("Start Role Test", () =>
             done();
         });
 
-        test('Add Role without enable property /roles', async done => {
+        test('Add Role without enable property /roles', async done => 
+        {
             const payload: any = {
                 name: 'Role1 Test',
                 slug: 'role1test',
@@ -73,12 +77,13 @@ describe("Start Role Test", () =>
             expect(data.permissions).toStrictEqual(payload.permissions);
             expect(data.enable).toStrictEqual(true);
 
-            roleId = data.id
+            roleId = data.id;
 
             done();
         });
 
-        test('Add Role with enable property /roles', async done => {
+        test('Add Role with enable property /roles', async done => 
+        {
             const payload: any = {
                 name: 'Role2 Test',
                 slug: 'role2test',
@@ -103,12 +108,13 @@ describe("Start Role Test", () =>
             expect(data.permissions).toStrictEqual(payload.permissions);
             expect(data.enable).toStrictEqual(payload.enable);
 
-            roleId = data.id
+            roleId = data.id;
 
             done();
         });
 
-        test('Add Role with permissions property /roles', async done => {
+        test('Add Role with permissions property /roles', async done => 
+        {
             const payload: any = {
                 name: 'Role3 Test',
                 slug: 'role3test',
@@ -133,12 +139,13 @@ describe("Start Role Test", () =>
             expect(data.permissions).toStrictEqual(payload.permissions);
             expect(data.enable).toStrictEqual(payload.enable);
 
-            roleId = data.id
+            roleId = data.id;
 
             done();
         });
 
-        test('Get Role /roles/:id', async done => {
+        test('Get Role /roles/:id', async done => 
+        {
 
             const payload: any = {
                 name: 'Role3 Test',
@@ -167,7 +174,8 @@ describe("Start Role Test", () =>
             done();
         });
 
-        test('Update Role /roles/:id', async done => {
+        test('Update Role /roles/:id', async done => 
+        {
             const payload: any = {
                 name: 'Role3 Test Update',
                 slug: 'role3testupdate',
@@ -195,7 +203,8 @@ describe("Start Role Test", () =>
             done();
         });
 
-        test('Delete Role /roles/:id', async done => {
+        test('Delete Role /roles/:id', async done => 
+        {
             const payload: any = {
                 name: 'Role4 Test',
                 slug: 'role4test',
@@ -231,7 +240,8 @@ describe("Start Role Test", () =>
             done();
         });
 
-        test('Get Roles /roles', async done => {
+        test('Get Roles /roles', async done => 
+        {
 
             const response: any = await request
                 .get('/api/roles?pagination[limit]=5&pagination[offset]=0')
@@ -253,7 +263,8 @@ describe("Start Role Test", () =>
             done();
         });
 
-        test('Get Roles /roles without pagination', async done => {
+        test('Get Roles /roles without pagination', async done => 
+        {
 
             const response: any = await request
                 .get('/api/roles')
@@ -273,7 +284,8 @@ describe("Start Role Test", () =>
             done();
         });
 
-        test('Get Roles /roles with Filter Type', async done => {
+        test('Get Roles /roles with Filter Type', async done => 
+        {
 
             const response: any = await request
                 .get('/api/roles?pagination[limit]=20&pagination[offset]=0&filter[slug]=admin')
@@ -293,7 +305,8 @@ describe("Start Role Test", () =>
             done();
         });
 
-        test('Get Roles /roles with Sort Desc Type', async done => {
+        test('Get Roles /roles with Sort Desc Type', async done => 
+        {
 
             const response: any = await request
                 .get('/api/roles?pagination[limit]=20&pagination[offset]=0&sort[slug]=desc')
@@ -313,7 +326,8 @@ describe("Start Role Test", () =>
             done();
         });
 
-        test('Sync roles permissions /syncRolesPermissions', async done => {
+        test('Sync roles permissions /syncRolesPermissions', async done => 
+        {
 
             const response: any = await request
                 .post('/api/auth/syncRolesPermissions')
@@ -332,14 +346,15 @@ describe("Start Role Test", () =>
 
     describe('Role Fails', () =>
     {
-        beforeAll(async (done) => {
-           const payload = {
-                email: "user@node.com",
-                password: "12345678"
+        beforeAll(async(done) => 
+        {
+            const payload = {
+                email: 'user@node.com',
+                password: '12345678'
             };
 
             const response: any = await request
-                .post("/api/auth/login?provider=local")
+                .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
 
@@ -350,8 +365,9 @@ describe("Start Role Test", () =>
             done();
         });
 
-        test('Add Role /roles', async done => {
-           const payload = {
+        test('Add Role /roles', async done => 
+        {
+            const payload = {
                 name: 'Role 2',
                 type: 'Role 1'
             };
@@ -376,7 +392,8 @@ describe("Start Role Test", () =>
             done();
         });
 
-        test('Get Role /roles/:id', async done => {
+        test('Get Role /roles/:id', async done => 
+        {
 
             const response: any = await request
                 .get(`/api/roles/${roleId}dasdasda123`)
@@ -398,7 +415,8 @@ describe("Start Role Test", () =>
             done();
         });
 
-        test('Update Role /roles/:id', async done => {
+        test('Update Role /roles/:id', async done => 
+        {
             const payload: any = {
                 name: 150,
                 slug: 'role3testupdate',
@@ -429,7 +447,8 @@ describe("Start Role Test", () =>
             done();
         });
 
-        test('Delete Role error /roles/:id', async done => {
+        test('Delete Role error /roles/:id', async done => 
+        {
 
             const deleteErrorResponse: any = await request
                 .delete(`/api/roles/${deleteResponse.body.data.id}`)

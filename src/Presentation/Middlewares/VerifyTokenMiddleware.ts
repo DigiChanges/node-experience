@@ -1,6 +1,6 @@
-import VerifyTokenBlacklistUseCase from "../../Domain/UseCases/Tokens/VerifyTokenBlacklistUseCase";
+import VerifyTokenBlacklistUseCase from '../../Domain/UseCases/Tokens/VerifyTokenBlacklistUseCase';
 
-const VerifyTokenMiddleware = async (req: any, response: any, next: any) =>
+const VerifyTokenMiddleware = async(req: any, response: any, next: any) =>
 {
     try
     {
@@ -14,7 +14,7 @@ const VerifyTokenMiddleware = async (req: any, response: any, next: any) =>
 
         next();
     }
-    catch(error)
+    catch (error)
     {
         next(error);
     }

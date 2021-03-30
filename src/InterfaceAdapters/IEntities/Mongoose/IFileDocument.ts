@@ -1,5 +1,5 @@
-import {Document} from "mongoose";
-import IFileDomain from "../../IDomain/IFileDomain";
+import {Document} from 'mongoose';
+import IFileDomain from '../../IDomain/IFileDomain';
 
 interface IFileDocument extends Document, IFileDomain {}
 

@@ -1,16 +1,16 @@
-import {IEncryption} from "@digichanges/shared-experience";
+import {IEncryption} from '@digichanges/shared-experience';
 
-import AuthPayload from "../../../InterfaceAdapters/Payloads/Auth/AuthPayload";
-import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
-import EncryptionFactory from "../../../Infrastructure/Factories/EncryptionFactory";
-import TokenFactory from "../../../Infrastructure/Factories/TokenFactory";
+import AuthPayload from '../../../InterfaceAdapters/Payloads/Auth/AuthPayload';
+import IUserRepository from '../../../InterfaceAdapters/IRepositories/IUserRepository';
+import EncryptionFactory from '../../../Infrastructure/Factories/EncryptionFactory';
+import TokenFactory from '../../../Infrastructure/Factories/TokenFactory';
 
-import {REPOSITORIES} from "../../../repositories";
+import {REPOSITORIES} from '../../../repositories';
 
-import BadCredentialsException from "../../Exceptions/BadCredentialsException";
-import UserDisabledException from "../../Exceptions/UserDisabledException";
-import RoleDisabledException from "../../Exceptions/RoleDisabledException";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import BadCredentialsException from '../../Exceptions/BadCredentialsException';
+import UserDisabledException from '../../Exceptions/UserDisabledException';
+import RoleDisabledException from '../../Exceptions/RoleDisabledException';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class LoginUseCase
 {
@@ -31,7 +31,7 @@ class LoginUseCase
         const password = payload.getPassword();
         const user =  await this.repository.getOneByEmail(email);
 
-        if(user.enable === false)
+        if (user.enable === false)
         {
             throw new UserDisabledException();
         }

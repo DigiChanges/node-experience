@@ -1,5 +1,5 @@
-import * as winston from "winston";
-import loggerOptions from "../../Config/LoggerOptions";
+import * as winston from 'winston';
+import loggerOptions from '../../Config/LoggerOptions';
 
 const transportsFile = [
     new winston.transports.File(loggerOptions.file)

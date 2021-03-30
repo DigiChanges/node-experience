@@ -1,21 +1,21 @@
-import mongoose from "mongoose";
-import Config from "config";
-import {ICreateConnection} from "@digichanges/shared-experience";
+import mongoose from 'mongoose';
+import Config from 'config';
+import {ICreateConnection} from '@digichanges/shared-experience';
 
-import IUserDocument from "../../InterfaceAdapters/IEntities/Mongoose/IUserDocument";
-import IRoleDocument from "../../InterfaceAdapters/IEntities/Mongoose/IRoleDocument";
-import IItemDocument from "../../InterfaceAdapters/IEntities/Mongoose/IItemDocument";
-import IFileDocument from "../../InterfaceAdapters/IEntities/Mongoose/IFileDocument";
-import INotificationDocument from "../../InterfaceAdapters/IEntities/Mongoose/INotificationDocument";
-import ITokenDocument from "../../InterfaceAdapters/IEntities/Mongoose/ITokenDocument";
+import IUserDocument from '../../InterfaceAdapters/IEntities/Mongoose/IUserDocument';
+import IRoleDocument from '../../InterfaceAdapters/IEntities/Mongoose/IRoleDocument';
+import IItemDocument from '../../InterfaceAdapters/IEntities/Mongoose/IItemDocument';
+import IFileDocument from '../../InterfaceAdapters/IEntities/Mongoose/IFileDocument';
+import INotificationDocument from '../../InterfaceAdapters/IEntities/Mongoose/INotificationDocument';
+import ITokenDocument from '../../InterfaceAdapters/IEntities/Mongoose/ITokenDocument';
 
-import ItemSchema from "../Schema/Mongoose/Item";
+import ItemSchema from '../Schema/Mongoose/Item';
 
-import RoleSchema from "../Schema/Mongoose/Role";
-import UserSchema from "../Schema/Mongoose/User";
-import FileSchema from "../Schema/Mongoose/File";
-import {EmailNotificationSchema, NotificationSchema, PushNotificationSchema} from "../Schema/Mongoose/Notification";
-import TokenSchema from "../Schema/Mongoose/Token";
+import RoleSchema from '../Schema/Mongoose/Role';
+import UserSchema from '../Schema/Mongoose/User';
+import FileSchema from '../Schema/Mongoose/File';
+import {EmailNotificationSchema, NotificationSchema, PushNotificationSchema} from '../Schema/Mongoose/Notification';
+import TokenSchema from '../Schema/Mongoose/Token';
 
 export let connection: mongoose.Connection = null;
 
@@ -27,13 +27,13 @@ class MongooseCreateConnection implements ICreateConnection
     constructor(config: any)
     {
         this.config = config;
-        this.uri = ""
+        this.uri = '';
     }
 
     async initConfig()
     {
         const config: any = Config.get('dbConfig.Mongoose');
-        this.uri = `mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`
+        this.uri = `mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`;
     }
 
     async initConfigTest(uri: string)
@@ -43,7 +43,7 @@ class MongooseCreateConnection implements ICreateConnection
 
     async create(): Promise<any>
     {
-        connection = await mongoose.createConnection(this.uri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true });
+        connection = await mongoose.createConnection(this.uri, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true});
 
         // Domain
         connection.model<IUserDocument>('User', UserSchema);
@@ -67,9 +67,9 @@ class MongooseCreateConnection implements ICreateConnection
 
     async drop(): Promise<any>
     {
-        const collections = await connection.db.collections()
+        const collections = await connection.db.collections();
 
-        for (let collection of collections)
+        for (const collection of collections)
         {
             await collection.drop();
         }

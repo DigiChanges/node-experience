@@ -1,10 +1,10 @@
-import RoleUpdatePayload from "../../../InterfaceAdapters/Payloads/Roles/RoleUpdatePayload";
-import IRoleRepository from "../../../InterfaceAdapters/IRepositories/IRoleRepository";
-import {REPOSITORIES} from "../../../repositories";
-import {SERVICES} from "../../../services";
-import IRoleDomain from "../../../InterfaceAdapters/IDomain/IRoleDomain";
-import IAuthService from "../../../InterfaceAdapters/IServices/IAuthService";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import RoleUpdatePayload from '../../../InterfaceAdapters/Payloads/Roles/RoleUpdatePayload';
+import IRoleRepository from '../../../InterfaceAdapters/IRepositories/IRoleRepository';
+import {REPOSITORIES} from '../../../repositories';
+import {SERVICES} from '../../../services';
+import IRoleDomain from '../../../InterfaceAdapters/IDomain/IRoleDomain';
+import IAuthService from '../../../InterfaceAdapters/IServices/IAuthService';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class UpdateRoleUseCase
 {
@@ -22,7 +22,7 @@ class UpdateRoleUseCase
         this.authService.validatePermissions(payload.getPermissions());
 
         const id = payload.getId();
-        let role: IRoleDomain = await this.repository.getOne(id);
+        const role: IRoleDomain = await this.repository.getOne(id);
 
         role.name = payload.getName();
         role.slug = payload.getSlug();

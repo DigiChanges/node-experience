@@ -1,5 +1,5 @@
-import {IBaseRepository} from "@digichanges/shared-experience";
-import IUserDomain from "../IDomain/IUserDomain";
+import {IBaseRepository} from '@digichanges/shared-experience';
+import IUserDomain from '../IDomain/IUserDomain';
 
 interface IUserRepository extends IBaseRepository
 {

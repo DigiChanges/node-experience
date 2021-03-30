@@ -1,7 +1,7 @@
-import events from "events";
-import UserCreatedEvent from "./UserCreatedEvent";
-import ForgotPasswordEvent from "./ForgotPasswordEvent";
-import SendMessageEvent from "./SendMessageEvent";
+import events from 'events';
+import UserCreatedEvent from './UserCreatedEvent';
+import ForgotPasswordEvent from './ForgotPasswordEvent';
+import SendMessageEvent from './SendMessageEvent';
 
 class EventHandler extends events.EventEmitter
 {
@@ -17,7 +17,7 @@ class EventHandler extends events.EventEmitter
     {
         if (!EventHandler.instance)
         {
-          EventHandler.instance = new EventHandler();
+            EventHandler.instance = new EventHandler();
         }
 
         return EventHandler.instance;

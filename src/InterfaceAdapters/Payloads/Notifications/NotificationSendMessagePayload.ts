@@ -1,4 +1,4 @@
-import NotificationRepPayload from "./NotificationRepPayload";
+import NotificationRepPayload from './NotificationRepPayload';
 
 interface NotificationSendMessagePayload extends NotificationRepPayload
 {
@@ -6,4 +6,4 @@ interface NotificationSendMessagePayload extends NotificationRepPayload
     getMessage(): string;
 }
 
-export default NotificationSendMessagePayload
+export default NotificationSendMessagePayload;

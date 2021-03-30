@@ -1,5 +1,5 @@
-import internal from "stream";
-import IFileDomain from "../../IDomain/IFileDomain";
+import internal from 'stream';
+import IFileDomain from '../../IDomain/IFileDomain';
 
 interface IFileDTO
 {

@@ -23,11 +23,11 @@ import AuthenticationMiddleware from '../Presentation/Middlewares/Authentication
 import {ErrorHandler} from '../Presentation/Shared/ErrorHandler';
 import {loggerCli} from '../Infrastructure/Shared/Logger';
 import RedirectRouteNotFoundMiddleware from '../Presentation/Middlewares/RedirectRouteNotFoundMiddleware';
-import Throttle from "../Presentation/Middlewares/Throttle";
-import VerifyTokenMiddleware from "../Presentation/Middlewares/VerifyTokenMiddleware";
-import container from "../inversify.config";
+import Throttle from '../Presentation/Middlewares/Throttle';
+import VerifyTokenMiddleware from '../Presentation/Middlewares/VerifyTokenMiddleware';
+import container from '../inversify.config';
 
-export let Locales = i18n;
+export const Locales = i18n;
 
 class App
 {
@@ -57,7 +57,7 @@ class App
                 limit: '5mb'
             }));
             app.use(bodyParser.json({
-                 limit: '5mb'
+                limit: '5mb'
             }));
             app.use(compression());
             app.use(cors());
@@ -65,10 +65,10 @@ class App
             const viewRoute = `${Config.get('nodePath')}/dist/Presentation/Views`;
             app.set('views', viewRoute);
             app.engine('.hbs', exphbs({
-                    defaultLayout: 'main',
-                    extname: '.hbs',
-                    layoutsDir: `${viewRoute}/Layouts`,
-                    partialsDir: `${viewRoute}/Partials`
+                defaultLayout: 'main',
+                extname: '.hbs',
+                layoutsDir: `${viewRoute}/Layouts`,
+                partialsDir: `${viewRoute}/Partials`
             }));
             app.set('view engine', '.hbs');
             app.use(LoggerWinston);
@@ -93,7 +93,8 @@ class App
     {
         this.app.use(RedirectRouteNotFoundMiddleware);
 
-        this.app.listen(this.port, () => {
+        this.app.listen(this.port, () => 
+        {
             loggerCli.debug(`App listening on the port ${this.port}`);
         });
     }

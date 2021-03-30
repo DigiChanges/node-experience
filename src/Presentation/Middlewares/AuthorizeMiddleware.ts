@@ -1,38 +1,38 @@
 import {NextFunction, Response} from 'express';
 import Config from 'config';
 
-import AuthService from "../../Application/Services/AuthService";
+import AuthService from '../../Application/Services/AuthService';
 
-import IUserRepository from "../../InterfaceAdapters/IRepositories/IUserRepository";
-import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
-import ForbiddenHttpException from "../Exceptions/ForbiddenHttpException";
-import ContainerFactory from "../../Infrastructure/Factories/ContainerFactory";
-import {REPOSITORIES} from "../../repositories";
+import IUserRepository from '../../InterfaceAdapters/IRepositories/IUserRepository';
+import IUserDomain from '../../InterfaceAdapters/IDomain/IUserDomain';
+import ForbiddenHttpException from '../Exceptions/ForbiddenHttpException';
+import ContainerFactory from '../../Infrastructure/Factories/ContainerFactory';
+import {REPOSITORIES} from '../../repositories';
 
 const AuthorizeMiddleware = (...handlerPermissions: any) =>
 {
-    return async (req: any, response: Response, next: NextFunction) =>
+    return async(req: any, response: Response, next: NextFunction) =>
     {
         try
         {
             const authService = new AuthService();
 
-            let handlerPermission = handlerPermissions[0]; // TODO: Refactor for more permissions for handler
+            const handlerPermission = handlerPermissions[0]; // TODO: Refactor for more permissions for handler
             let isAllowed: boolean = Config.get('auth.authorization') !== 'true';
-            let tokenDecode = req.tokenDecode;
+            const tokenDecode = req.tokenDecode;
 
-            let userRepository: IUserRepository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
+            const userRepository: IUserRepository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
 
-            let user: IUserDomain = await userRepository.getOneByEmail(tokenDecode.email);
+            const user: IUserDomain = await userRepository.getOneByEmail(tokenDecode.email);
 
             if (user.isSuperAdmin)
             {
                 isAllowed = true;
             }
 
-            let totalPermissions = authService.getPermissions(user);
+            const totalPermissions = authService.getPermissions(user);
 
-            totalPermissions.forEach( (permission: string) =>
+            totalPermissions.forEach((permission: string) =>
             {
                 if (permission === handlerPermission)
                 {
@@ -49,11 +49,11 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
                 throw new ForbiddenHttpException();
             }
         }
-        catch(err)
+        catch (err)
         {
             next(err);
         }
-    }
+    };
 };
 
 export default AuthorizeMiddleware;

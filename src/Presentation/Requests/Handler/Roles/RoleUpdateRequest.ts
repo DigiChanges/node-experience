@@ -1,7 +1,7 @@
-import * as express from "express";
-import RoleUpdatePayload from "../../../../InterfaceAdapters/Payloads/Roles/RoleUpdatePayload";
-import {IsArray, IsBoolean, IsOptional, IsString} from "class-validator";
-import IdRequest from "../Defaults/IdRequest";
+import * as express from 'express';
+import RoleUpdatePayload from '../../../../InterfaceAdapters/Payloads/Roles/RoleUpdatePayload';
+import {IsArray, IsBoolean, IsOptional, IsString} from 'class-validator';
+import IdRequest from '../Defaults/IdRequest';
 
 class RoleUpdateRequest extends IdRequest implements RoleUpdatePayload
 {

@@ -1,11 +1,11 @@
-import * as express from "express";
-import Config from "config";
-import {IsEmail} from "class-validator";
-import {IEncryption} from "@digichanges/shared-experience";
+import * as express from 'express';
+import Config from 'config';
+import {IsEmail} from 'class-validator';
+import {IEncryption} from '@digichanges/shared-experience';
 
-import ForgotPasswordPayload from "../../../../InterfaceAdapters/Payloads/Auth/ForgotPasswordPayload";
-import moment from "moment";
-import EncryptionFactory from "../../../../Infrastructure/Factories/EncryptionFactory";
+import ForgotPasswordPayload from '../../../../InterfaceAdapters/Payloads/Auth/ForgotPasswordPayload';
+import moment from 'moment';
+import EncryptionFactory from '../../../../Infrastructure/Factories/EncryptionFactory';
 
 class ForgotPasswordRequest implements ForgotPasswordPayload
 {
@@ -24,9 +24,9 @@ class ForgotPasswordRequest implements ForgotPasswordPayload
 
     async getConfirmationToken(): Promise<string>
     {
-        let encryption: IEncryption = EncryptionFactory.create(Config.get('encryption.md5.type'));
+        const encryption: IEncryption = EncryptionFactory.create(Config.get('encryption.md5.type'));
 
-        let stringToEncrypt = this.email + moment().utc().unix();
+        const stringToEncrypt = this.email + moment().utc().unix();
 
         return await encryption.encrypt(stringToEncrypt);
     }

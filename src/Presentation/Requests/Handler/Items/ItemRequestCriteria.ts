@@ -1,8 +1,8 @@
-import * as express from "express";
-import {IFilter, IPagination, ISort, ICriteria} from "@digichanges/shared-experience";
-import ItemFilter from "../../../Criterias/Item/ItemFilter";
-import ItemSort from "../../../Criterias/Item/ItemSort";
-import Pagination from "../../../Shared/Pagination";
+import * as express from 'express';
+import {IFilter, IPagination, ISort, ICriteria} from '@digichanges/shared-experience';
+import ItemFilter from '../../../Criterias/Item/ItemFilter';
+import ItemSort from '../../../Criterias/Item/ItemSort';
+import Pagination from '../../../Shared/Pagination';
 
 class ItemRequestCriteria implements ICriteria
 {

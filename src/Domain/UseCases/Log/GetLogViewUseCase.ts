@@ -6,17 +6,19 @@ class GetLogViewUseCase
     handle(): any
     {
         const viewRoute = path.join(__dirname, '../../../logs');
-        let rawdata = fs.readFileSync(`${viewRoute}/error.log`, { encoding: 'utf-8'});
+        const rawdata = fs.readFileSync(`${viewRoute}/error.log`, {encoding: 'utf-8'});
 
         // split the contents by new line
         const lines = rawdata.split(/\r?\n/);
 
         const data: any[] = [];
 
-        lines.forEach((line) => {
-            if (line.includes(`{"code":500`)) {
+        lines.forEach((line) => 
+        {
+            if (line.includes('{"code":500')) 
+            {
                 const error = JSON.parse(line);
-                data.unshift(error)
+                data.unshift(error);
             }
         });
 

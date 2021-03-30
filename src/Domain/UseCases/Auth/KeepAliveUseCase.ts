@@ -1,10 +1,10 @@
-import {ITokenRepository} from "@digichanges/shared-experience";
-import KeepAlivePayload from "../../../InterfaceAdapters/Payloads/Auth/KeepAlivePayload";
-import IUserRepository from "../../../InterfaceAdapters/IRepositories/IUserRepository";
-import TokenFactory from "../../../Infrastructure/Factories/TokenFactory";
-import {REPOSITORIES} from "../../../repositories";
-import SetTokenBlacklistUseCase from "../Tokens/SetTokenBlacklistUseCase";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import {ITokenRepository} from '@digichanges/shared-experience';
+import KeepAlivePayload from '../../../InterfaceAdapters/Payloads/Auth/KeepAlivePayload';
+import IUserRepository from '../../../InterfaceAdapters/IRepositories/IUserRepository';
+import TokenFactory from '../../../Infrastructure/Factories/TokenFactory';
+import {REPOSITORIES} from '../../../repositories';
+import SetTokenBlacklistUseCase from '../Tokens/SetTokenBlacklistUseCase';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class KeepAliveUseCase
 {
@@ -22,7 +22,7 @@ class KeepAliveUseCase
     async handle(payload: KeepAlivePayload)
     {
         const email = payload.getEmail();
-        const tokenId = payload.getTokenId()
+        const tokenId = payload.getTokenId();
 
         const user = await this.repository.getOneByEmail(email);
         const token: any = await this.tokenRepository.getOne(tokenId);

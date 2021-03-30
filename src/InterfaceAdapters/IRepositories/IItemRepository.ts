@@ -1,5 +1,5 @@
-import {IBaseRepository} from "@digichanges/shared-experience";
+import {IBaseRepository} from '@digichanges/shared-experience';
 
-interface IItemRepository extends IBaseRepository {}
+type IItemRepository = IBaseRepository
 
 export default IItemRepository;

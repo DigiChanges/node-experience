@@ -1,4 +1,4 @@
-import {IStatusCode} from "@digichanges/shared-experience";
+import {IStatusCode} from '@digichanges/shared-experience';
 
 interface IFormatResponder
 {

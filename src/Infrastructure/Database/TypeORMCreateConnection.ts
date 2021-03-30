@@ -1,5 +1,5 @@
-import {createConnection} from "typeorm";
-import {ICreateConnection} from "@digichanges/shared-experience";
+import {createConnection} from 'typeorm';
+import {ICreateConnection} from '@digichanges/shared-experience';
 
 class TypeORMCreateConnection implements ICreateConnection
 {

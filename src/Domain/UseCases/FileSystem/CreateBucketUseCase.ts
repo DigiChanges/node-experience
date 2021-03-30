@@ -1,8 +1,8 @@
 import CreateBucketPayload from '../../../InterfaceAdapters/Payloads/FileSystem/CreateBucketPayload';
-import {REPOSITORIES} from "../../../repositories";
-import IFileRepository from "../../../InterfaceAdapters/IRepositories/IFileRepository";
-import FilesystemFactory from "../../../Infrastructure/Factories/FilesystemFactory";
-import ContainerFactory from "../../../Infrastructure/Factories/ContainerFactory";
+import {REPOSITORIES} from '../../../repositories';
+import IFileRepository from '../../../InterfaceAdapters/IRepositories/IFileRepository';
+import FilesystemFactory from '../../../Infrastructure/Factories/FilesystemFactory';
+import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 
 class CreateBucketUseCase
 {

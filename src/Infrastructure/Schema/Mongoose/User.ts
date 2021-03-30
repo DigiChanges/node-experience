@@ -1,6 +1,6 @@
-import {Schema} from "mongoose";
-import User from "../../../Domain/Entities/User";
-import { v4 as uuidv4 } from 'uuid';
+import {Schema} from 'mongoose';
+import User from '../../../Domain/Entities/User';
+import {v4 as uuidv4} from 'uuid';
 
 const UserSchema: any = new Schema({
     _id: {type: String, default: uuidv4},
@@ -9,7 +9,7 @@ const UserSchema: any = new Schema({
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     permissions: {type: Array, required: true},
-    roles: [{ type: Schema.Types.String, ref: 'Role' }],
+    roles: [{type: Schema.Types.String, ref: 'Role'}],
     enable: {type: Boolean, required: true},
     isSuperAdmin: {type: Boolean, required: true},
     confirmationToken: {type: String},

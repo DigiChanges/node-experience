@@ -1,8 +1,8 @@
-import moment from "moment";
-import jwt from "jwt-simple";
-import IToken from "../../InterfaceAdapters/Shared/IToken";
-import Config from "config";
-import IUserDomain from "../../InterfaceAdapters/IDomain/IUserDomain";
+import moment from 'moment';
+import jwt from 'jwt-simple';
+import IToken from '../../InterfaceAdapters/Shared/IToken';
+import Config from 'config';
+import IUserDomain from '../../InterfaceAdapters/IDomain/IUserDomain';
 
 class JWTToken implements IToken
 {
@@ -14,7 +14,7 @@ class JWTToken implements IToken
     constructor(id: string, expires: number, user: IUserDomain, secret: string)
     {
         this.user = user;
-        this.expires = moment().utc().add({ minutes: expires }).unix();
+        this.expires = moment().utc().add({minutes: expires}).unix();
         this.payload = {
             id,
             iss: Config.get('jwt.iss'),

@@ -1,14 +1,16 @@
-import {InversifyExpressServer} from "inversify-express-utils";
-import supertest from "supertest";
-import {ICreateConnection} from "@digichanges/shared-experience";
-import initServer from "../initServer";
+import {InversifyExpressServer} from 'inversify-express-utils';
+import supertest from 'supertest';
+import {ICreateConnection} from '@digichanges/shared-experience';
+import initServer from '../initServer';
 
-describe("Start Login Test", () => {
+describe('Start Login Test', () => 
+{
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
 
-    beforeAll(async (done) => {
+    beforeAll(async(done) => 
+    {
         const configServer = await initServer();
 
         server = configServer.server;
@@ -18,21 +20,23 @@ describe("Start Login Test", () => {
         done();
     });
 
-    afterAll((async (done) => {
+    afterAll((async(done) => 
+    {
         await dbConnection.drop();
         await dbConnection.close();
 
         done();
     }));
 
-    test('Login User Success', async (done) => {
+    test('Login User Success', async(done) => 
+    {
         const payload = {
-            email: "user@node.com",
-            password: "12345678"
+            email: 'user@node.com',
+            password: '12345678'
         };
 
         const response: any = await request
-            .post("/api/auth/login?provider=local")
+            .post('/api/auth/login?provider=local')
             .set('Accept', 'application/json')
             .send(payload);
 
@@ -42,20 +46,21 @@ describe("Start Login Test", () => {
         expect(status).toStrictEqual('success');
         expect(statusCode).toStrictEqual('HTTP_CREATED');
 
-        expect(data.user.email).toStrictEqual("user@node.com");
-        expect(data.user.firstName).toStrictEqual("user");
+        expect(data.user.email).toStrictEqual('user@node.com');
+        expect(data.user.firstName).toStrictEqual('user');
 
         done();
     });
 
-    test('Login SuperAdmin Success', async (done) => {
+    test('Login SuperAdmin Success', async(done) => 
+    {
         const payload = {
-            email: "superadmin@node.com",
-            password: "12345678"
+            email: 'superadmin@node.com',
+            password: '12345678'
         };
 
         const response: any = await request
-            .post("/api/auth/login?provider=local")
+            .post('/api/auth/login?provider=local')
             .set('Accept', 'application/json')
             .send(payload);
 
@@ -65,20 +70,21 @@ describe("Start Login Test", () => {
         expect(status).toStrictEqual('success');
         expect(statusCode).toStrictEqual('HTTP_CREATED');
 
-        expect(data.user.email).toStrictEqual("superadmin@node.com");
-        expect(data.user.firstName).toStrictEqual("Super");
+        expect(data.user.email).toStrictEqual('superadmin@node.com');
+        expect(data.user.firstName).toStrictEqual('Super');
 
         done();
     });
 
-    test('Login SuperAdmin Wrong Credentials', async (done) => {
+    test('Login SuperAdmin Wrong Credentials', async(done) => 
+    {
         const payload = {
-            email: "superadmin@node.com",
-            password: "123456789"
+            email: 'superadmin@node.com',
+            password: '123456789'
         };
 
         const response: any = await request
-            .post("/api/auth/login?provider=local")
+            .post('/api/auth/login?provider=local')
             .set('Accept', 'application/json')
             .send(payload);
 
@@ -88,19 +94,20 @@ describe("Start Login Test", () => {
         expect(status).toStrictEqual('error');
         expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
-        expect(message).toStrictEqual("Error credentials.");
+        expect(message).toStrictEqual('Error credentials.');
 
         done();
     });
 
-    test('Login Operator Enable False', async (done) => {
+    test('Login Operator Enable False', async(done) => 
+    {
         const payload = {
-            email: "operator@disabled.com",
-            password: "1234567901"
+            email: 'operator@disabled.com',
+            password: '1234567901'
         };
 
         const response: any = await request
-            .post("/api/auth/login?provider=local")
+            .post('/api/auth/login?provider=local')
             .set('Accept', 'application/json')
             .send(payload);
 
@@ -110,19 +117,20 @@ describe("Start Login Test", () => {
         expect(status).toStrictEqual('error');
         expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
-        expect(message).toStrictEqual("Your user is disable.");
+        expect(message).toStrictEqual('Your user is disable.');
 
         done();
     });
 
-    test('Login Operator with Role Operator Enable False', async (done) => {
+    test('Login Operator with Role Operator Enable False', async(done) => 
+    {
         const payload = {
-            email: "operator@roleDisabled.com",
-            password: "123456790"
+            email: 'operator@roleDisabled.com',
+            password: '123456790'
         };
 
         const response: any = await request
-            .post("/api/auth/login?provider=local")
+            .post('/api/auth/login?provider=local')
             .set('Accept', 'application/json')
             .send(payload);
 
@@ -132,7 +140,7 @@ describe("Start Login Test", () => {
         expect(status).toStrictEqual('error');
         expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
-        expect(message).toStrictEqual("Your role is disable.");
+        expect(message).toStrictEqual('Your role is disable.');
 
         done();
     });

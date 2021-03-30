@@ -1,13 +1,13 @@
-import * as express from "express";
-import {IsArray, IsUUID} from "class-validator";
+import * as express from 'express';
+import {IsArray, IsUUID} from 'class-validator';
 
-import UserAssignRolePayload from "../../../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload";
-import IdRequest from "../Defaults/IdRequest";
+import UserAssignRolePayload from '../../../../InterfaceAdapters/Payloads/Users/UserAssignRolePayload';
+import IdRequest from '../Defaults/IdRequest';
 
 class UserAssignRoleRequest extends IdRequest implements UserAssignRolePayload
 {
     @IsArray()
-    @IsUUID("4", {
+    @IsUUID('4', {
         each: true,
     })
     rolesId: string[]

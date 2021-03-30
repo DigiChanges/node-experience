@@ -1,5 +1,5 @@
-import { Tedis } from "tedis";
-import {ICacheRepository} from "@digichanges/shared-experience";
+import {Tedis} from 'tedis';
+import {ICacheRepository} from '@digichanges/shared-experience';
 
 class RedisCacheRepository implements ICacheRepository
 {
@@ -13,7 +13,8 @@ class RedisCacheRepository implements ICacheRepository
 
     static getInstance(): RedisCacheRepository
     {
-        if (!RedisCacheRepository.instance) {
+        if (!RedisCacheRepository.instance) 
+        {
             RedisCacheRepository.instance = new RedisCacheRepository();
         }
 
@@ -78,7 +79,7 @@ class RedisCacheRepository implements ICacheRepository
 
     async cleanAll(): Promise<any>
     {
-        await this.redis.command("FLUSHALL");
+        await this.redis.command('FLUSHALL');
     }
 }
 

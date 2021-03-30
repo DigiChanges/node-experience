@@ -1,8 +1,8 @@
-import webPush from "web-push";
+import webPush from 'web-push';
 
 interface NotificationRepPayload
 {
     getSubscription(): webPush.PushSubscription,
 }
 
-export default NotificationRepPayload
+export default NotificationRepPayload;
