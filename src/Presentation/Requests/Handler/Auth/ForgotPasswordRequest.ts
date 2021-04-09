@@ -1,5 +1,5 @@
 import * as express from 'express';
-import Config from 'config';
+
 import {IsEmail} from 'class-validator';
 import {IEncryption} from '@digichanges/shared-experience';
 
@@ -24,7 +24,7 @@ class ForgotPasswordRequest implements ForgotPasswordPayload
 
     async getConfirmationToken(): Promise<string>
     {
-        const encryption: IEncryption = EncryptionFactory.create(Config.get('encryption.md5.type'));
+        const encryption: IEncryption = EncryptionFactory.create('md5');
 
         const stringToEncrypt = this.email + moment().utc().unix();
 
