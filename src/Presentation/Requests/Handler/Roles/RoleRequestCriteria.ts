@@ -1,36 +1,17 @@
 import * as express from 'express';
-import {IFilter, IPagination, ISort, ICriteria} from '@digichanges/shared-experience';
+import { ICriteria } from '@digichanges/shared-experience';
+
+import RequestCriteria from "../Defaults/RequestCriteria";
 
 import RoleSort from '../../../Criterias/Role/RoleSort';
 import RoleFilter from '../../../Criterias/Role/RoleFilter';
 import Pagination from '../../../Shared/Pagination';
 
-class RoleRequestCriteria implements ICriteria
+class RoleRequestCriteria extends RequestCriteria implements ICriteria
 {
-    private readonly sort: ISort;
-    private readonly filter: IFilter;
-    private readonly pagination: IPagination;
-
     constructor(request: express.Request)
     {
-        this.pagination = new Pagination(request);
-        this.sort = new RoleSort(request);
-        this.filter = new RoleFilter(request);
-    }
-
-    getPagination(): IPagination
-    {
-        return this.pagination;
-    }
-
-    getFilter(): IFilter
-    {
-        return this.filter;
-    }
-
-    getSort(): ISort
-    {
-        return this.sort;
+				super(new RoleSort(request), new RoleFilter(request), new Pagination(request))
     }
 }
 
