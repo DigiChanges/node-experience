@@ -16,9 +16,9 @@
     "Mongoose": {
       "host": "DB_HOST",
       "port": "DB_PORT",
-      "database": "DB_USER",
-      "username": "DB_PASSWORD",
-      "password": "DB_DATABASE"
+      "username": "DB_USER",
+      "password": "DB_PASSWORD",
+      "database": "DB_DATABASE"
     },
     "default" : "DB_TYPE_DEFAULT"
   },
