@@ -236,4 +236,6 @@ extend.tsconfig.json
 .files_modified.dat
 .files_to_compile.dat
 
+.scannerwork
+
 # End of https://www.gitignore.io/api/node,phpstorm+all

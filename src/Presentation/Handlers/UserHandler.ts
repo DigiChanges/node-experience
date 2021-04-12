@@ -37,7 +37,7 @@ class UserHandler
     private responder: Responder;
 
     @httpPost('/', AuthorizeMiddleware(Permissions.USERS_SAVE))
-    public async save(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async save(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new UserRepRequest(req);
         await ValidatorRequest.handle(_request);
@@ -49,7 +49,7 @@ class UserHandler
     }
 
     @httpGet('/', AuthorizeMiddleware(Permissions.USERS_LIST))
-    public async list(@request() req: Request, @response() res: Response)
+    public async list(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new UserRequestCriteria(req);
         await ValidatorRequest.handle(_request);
@@ -61,7 +61,7 @@ class UserHandler
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.USERS_SHOW))
-    public async getOne(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async getOne(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new IdRequest(req);
         await ValidatorRequest.handle(_request);
@@ -73,7 +73,7 @@ class UserHandler
     }
 
     @httpPut('/:id', AuthorizeMiddleware(Permissions.USERS_UPDATE))
-    public async update(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async update(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new UserUpdateRequest(req);
         await ValidatorRequest.handle(_request);
@@ -85,7 +85,7 @@ class UserHandler
     }
 
     @httpPut('/assignRole/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN_ROLE))
-    public async assignRole(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async assignRole(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new UserAssignRoleRequest(req);
         await ValidatorRequest.handle(_request);
@@ -97,7 +97,7 @@ class UserHandler
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.USERS_DELETE))
-    public async remove(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async remove(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new IdRequest(req);
         await ValidatorRequest.handle(_request);
@@ -109,7 +109,7 @@ class UserHandler
     }
 
     @httpPost('/changeMyPassword', AuthorizeMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD))
-    public async changeMyPassword(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async changeMyPassword(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new ChangeMyPasswordRequest(req);
         await ValidatorRequest.handle(_request);
@@ -121,7 +121,7 @@ class UserHandler
     }
 
     @httpPut('/changeUserPassword/:id', AuthorizeMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD))
-    public async changeUserPassword(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async changeUserPassword(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new ChangeUserPasswordRequest(req);
         await ValidatorRequest.handle(_request);

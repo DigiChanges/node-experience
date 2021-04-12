@@ -9,9 +9,9 @@ class ObjectTransformer extends Transformer
             'name': object.name,
             'lastModified': moment(object.lastModified).utc().unix(),
             'etag': object.etag,
-            'size': object.size,
+            'size': object.size
         };
-    }    
+    }
 }
 
 export default ObjectTransformer;

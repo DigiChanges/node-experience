@@ -12,25 +12,25 @@ const UserSchema = new EntitySchema<User>({
             unique: true
         },
         firstName: {
-            type: String,
+            type: String
         },
         lastName: {
-            type: String,
+            type: String
         },
         email: {
             type: String,
-            unique: true,
+            unique: true
         },
         password: {
-            type: String,
+            type: String
         },
         enable: {
             type: Boolean,
-            default: true,
+            default: true
         },
         isSuperAdmin: {
             type: Boolean,
-            default: false,
+            default: false
         },
         confirmationToken: {
             type: String,
@@ -47,12 +47,12 @@ const UserSchema = new EntitySchema<User>({
         createdAt: {
             name: 'createdAt',
             type: 'timestamp with time zone',
-            createDate: true,
+            createDate: true
         },
         updatedAt: {
             name: 'updatedAt',
             type: 'timestamp with time zone',
-            updateDate: true,
+            updateDate: true
         }
     },
     relations: {
@@ -70,7 +70,7 @@ const UserSchema = new EntitySchema<User>({
                 }
             }
         }
-    },
+    }
 });
 
 export default UserSchema;

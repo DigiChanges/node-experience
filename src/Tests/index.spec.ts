@@ -9,7 +9,7 @@ describe('Start Index Test', () =>
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
 
-    beforeAll(async(done) => 
+    beforeAll(async(done) =>
     {
         const configServer = await initServer();
 
@@ -20,7 +20,7 @@ describe('Start Index Test', () =>
         done();
     });
 
-    afterAll((async(done) => 
+    afterAll((async(done) =>
     {
         await dbConnection.drop();
         await dbConnection.close();
@@ -28,9 +28,9 @@ describe('Start Index Test', () =>
         done();
     }));
 
-    describe('#get', () => 
+    describe('#get', () =>
     {
-        test('should have a status code of 200', async(done) => 
+        test('should have a status code of 200', async(done) =>
         {
             const response: any = await request.get('/');
             expect(response.statusCode).toStrictEqual(200);

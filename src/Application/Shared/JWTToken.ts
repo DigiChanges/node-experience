@@ -9,7 +9,7 @@ class JWTToken implements IToken
     private readonly expires: number;
     private readonly hash: string;
     private readonly user: IUserDomain;
-    private readonly payload: {};
+    private readonly payload: any;
 
     constructor(id: string, expires: number, user: IUserDomain, secret: string)
     {

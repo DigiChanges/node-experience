@@ -24,7 +24,7 @@ class UserSeedFactory
         this.encryption = EncryptionFactory.create();
     }
 
-    public async authInit()
+    public async authInit(): Promise<void>
     {
         const roleSuperAdmin: IRoleDomain = new Role();
         roleSuperAdmin.name = 'SuperAdmin';
@@ -62,6 +62,12 @@ class UserSeedFactory
         userSuperAdmin.firstName = 'Super';
         userSuperAdmin.lastName = 'Admin';
         userSuperAdmin.email = 'superadmin@node.com';
+        userSuperAdmin.birthday = '04/07/1990';
+        userSuperAdmin.documentType = 'dni';
+        userSuperAdmin.documentNumber = '35319158';
+        userSuperAdmin.gender = 'male';
+        userSuperAdmin.phone = '2234456999';
+        userSuperAdmin.country = 'Argentina';
         userSuperAdmin.password = await this.encryption.encrypt('12345678');
         userSuperAdmin.enable = true;
         userSuperAdmin.confirmationToken = null;
@@ -76,6 +82,12 @@ class UserSeedFactory
         userAdmin.firstName = 'user';
         userAdmin.lastName = 'node';
         userAdmin.email = 'user@node.com';
+        userAdmin.birthday = '04/07/1991';
+        userAdmin.documentType = 'dni';
+        userAdmin.documentNumber = '35319156';
+        userAdmin.gender = 'male';
+        userAdmin.phone = '2234456999';
+        userAdmin.country = 'Argentina';
         userAdmin.password = await this.encryption.encrypt('12345678');
         userAdmin.enable = true;
         userAdmin.confirmationToken = null;
@@ -90,6 +102,12 @@ class UserSeedFactory
         userOperator.firstName = 'operator';
         userOperator.lastName = 'enable';
         userOperator.email = 'operator@enable.com';
+        userOperator.birthday = '04/07/1992';
+        userOperator.documentType = 'dni';
+        userOperator.documentNumber = '35319157';
+        userOperator.gender = 'male';
+        userOperator.phone = '2234456999';
+        userOperator.country = 'Argentina';
         userOperator.password = await this.encryption.encrypt('123456789');
         userOperator.enable = true;
         userOperator.confirmationToken = null;
@@ -104,6 +122,12 @@ class UserSeedFactory
         userOperatorDisabled.firstName = 'operator';
         userOperatorDisabled.lastName = 'disabled';
         userOperatorDisabled.email = 'operator@disabled.com';
+        userOperatorDisabled.birthday = '04/07/1994';
+        userOperatorDisabled.documentType = 'dni';
+        userOperatorDisabled.documentNumber = '35319151';
+        userOperatorDisabled.gender = 'female';
+        userOperatorDisabled.phone = '2234456999';
+        userOperatorDisabled.country = 'Argentina';
         userOperatorDisabled.password = await this.encryption.encrypt('1234567901');
         userOperatorDisabled.enable = false;
         userOperatorDisabled.confirmationToken = null;
@@ -118,6 +142,12 @@ class UserSeedFactory
         userOperatorRoleDisabled.firstName = 'operator';
         userOperatorRoleDisabled.lastName = 'roleDisabled';
         userOperatorRoleDisabled.email = 'operator@roleDisabled.com';
+        userOperatorRoleDisabled.birthday = '04/07/1995';
+        userOperatorRoleDisabled.documentType = 'dni';
+        userOperatorRoleDisabled.documentNumber = '35319150';
+        userOperatorRoleDisabled.gender = 'female';
+        userOperatorRoleDisabled.phone = '2234456999';
+        userOperatorRoleDisabled.country = 'Argentina';
         userOperatorRoleDisabled.password = await this.encryption.encrypt('123456790');
         userOperatorRoleDisabled.enable = true;
         userOperatorRoleDisabled.confirmationToken = null;

@@ -5,6 +5,12 @@ interface IUserDomain
     firstName: string;
     lastName: string;
     email: string;
+    birthday: string;
+		documentType: string;
+		documentNumber: string;
+		gender: string;
+		phone: string;
+		country: string;
     password: string;
     roles: IRoleDomain[];
     permissions: string[];

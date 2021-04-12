@@ -31,7 +31,7 @@ class UpdateFileMultipartUseCase
         const filesystem = FilesystemFactory.create();
         await filesystem.uploadFile(file.name, payload.getFile().path);
 
-        return file;        
+        return file;
     }
 }
 

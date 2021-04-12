@@ -1,6 +1,6 @@
 import UserRepPayload from '../../../../InterfaceAdapters/Payloads/Users/UserRepPayload';
 import IRoleDomain from '../../../../InterfaceAdapters/IDomain/IRoleDomain';
-import {IsArray, IsBoolean, IsString} from 'class-validator';
+import {IsArray, IsBoolean, IsString, Length} from 'class-validator';
 
 class UserCommandRepRequest implements UserRepPayload
 {
@@ -13,6 +13,30 @@ class UserCommandRepRequest implements UserRepPayload
     @IsString()
     email: string;
 
+		@Length(3, 10)
+    @IsString()
+    birthday: string;
+
+		@Length(3, 3)
+    @IsString()
+    documentType: string;
+
+		@Length(3, 16)
+    @IsString()
+    documentNumber: string;
+
+		@Length(3, 20)
+    @IsString()
+    gender: string;
+
+		@Length(3, 20)
+    @IsString()
+    phone: string;
+
+		@Length(3, 20)
+    @IsString()
+    country: string;
+
     @IsString()
     password: string;
 
@@ -24,7 +48,7 @@ class UserCommandRepRequest implements UserRepPayload
 
     @IsArray()
     @IsString({
-        each: true,
+        each: true
     })
     permissions: string[];
 
@@ -40,6 +64,12 @@ class UserCommandRepRequest implements UserRepPayload
         this.firstName = env.firstName;
         this.lastName = env.lastName;
         this.password = env.password;
+        this.birthday = env.birthday;
+        this.documentType = env.documentType;
+        this.documentNumber = env.documentNumber;
+        this.gender = env.gender;
+        this.phone = env.phone;
+        this.country = env.country;
         this.enable = true;
         this.roles = role ? [role] : [];
         this.isSuperAdmin = env.isSuperAdmin === 'true';
@@ -58,6 +88,36 @@ class UserCommandRepRequest implements UserRepPayload
     getEmail(): string
     {
         return this.email;
+    }
+
+    getBirthday(): string
+    {
+        return this.birthday;
+    }
+
+    getDocumentNumber(): string
+    {
+        return this.documentNumber;
+    }
+
+    getDocumentType(): string
+    {
+        return this.documentType;
+    }
+
+    getGender(): string
+    {
+        return this.gender;
+    }
+
+    getPhone(): string
+    {
+        return this.phone;
+    }
+
+    getCountry(): string
+    {
+        return this.country;
     }
 
     getPassword(): string

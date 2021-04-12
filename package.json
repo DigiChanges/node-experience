@@ -1,19 +1,19 @@
 {
   "name": "node-experience",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
-  "main": "src/index.ts",
+  "main": "dist/src/index.js",
   "scripts": {
     "clean": "rimraf dist/*",
-    "lint-fix": "tslint -c tslint.json -p tsconfig.json --fix",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "lint-fix": "eslint -c .eslintrc.js ./src --fix",
+    "lint": "eslint -c .eslintrc.js ./src",
     "tsc": "tsc",
     "tsc-e": "yarn tsc --project extend.tsconfig.json",
     "build": "npm-run-all clean lint pre-build tsc",
     "pre-build": "cpy --cwd=src --parents '**/*' '!**/*.ts' ../dist/",
     "dev:start": "npm-run-all build start",
     "dev": "nodemon --watch src -e ts --exec yarn dev:start",
-    "start": "node dist/index.js",
+    "start": "node dist/src/index.js",
     "dev:experimental": "nodemon --delay 8 --watch src -e ts --exec bash compile.sh",
     "test": "jest --runInBand --coverage"
   },
@@ -35,6 +35,8 @@
     "cpy-cli": "^3.1.1",
     "dotenv": "^8.2.0",
     "envalid": "^6.0.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
     "express": "^4.17.1",
     "express-handlebars": "^5.2.0",
     "express-rate-limit": "^5.2.3",
@@ -97,9 +99,9 @@
     "@types/supertest": "^2.0.10",
     "@types/uuid": "^8.3.0",
     "@types/web-push": "^3.3.0",
-    "@typescript-eslint/eslint-plugin": "^4.17.0",
-    "@typescript-eslint/parser": "^4.17.0",
-    "eslint": "^7.22.0",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "eslint": "^7.24.0",
     "fs-extra": "^8.1.0",
     "jest": "^26.6.3",
     "nodemon": "^2.0.2",
@@ -108,8 +110,7 @@
     "shelljs": "^0.8.3",
     "supertest": "^6.0.1",
     "ts-node": "^8.9.1",
-    "tslint": "^6.0.0",
-    "typescript": "^4.0.5"
+    "typescript": "^4.2.4"
   },
   "husky": {
     "hooks": {

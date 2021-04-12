@@ -12,7 +12,7 @@ describe('Start Role Test', () =>
     let roleId = '';
     let deleteResponse: any = null;
 
-    beforeAll(async(done) => 
+    beforeAll(async(done) =>
     {
         const configServer = await initServer();
 
@@ -23,7 +23,7 @@ describe('Start Role Test', () =>
         done();
     });
 
-    afterAll((async(done) => 
+    afterAll((async(done) =>
     {
         await dbConnection.drop();
         await dbConnection.close();
@@ -33,7 +33,7 @@ describe('Start Role Test', () =>
 
     describe('Role Success', () =>
     {
-        beforeAll(async(done) => 
+        beforeAll(async(done) =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -52,7 +52,7 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Add Role without enable property /roles', async done => 
+        test('Add Role without enable property /roles', async done =>
         {
             const payload: any = {
                 name: 'Role1 Test',
@@ -82,13 +82,13 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Add Role with enable property /roles', async done => 
+        test('Add Role with enable property /roles', async done =>
         {
             const payload: any = {
                 name: 'Role2 Test',
                 slug: 'role2test',
                 permissions: [],
-                enable: false,
+                enable: false
             };
 
             const response: any = await request
@@ -113,13 +113,13 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Add Role with permissions property /roles', async done => 
+        test('Add Role with permissions property /roles', async done =>
         {
             const payload: any = {
                 name: 'Role3 Test',
                 slug: 'role3test',
                 permissions: ['itemsSave'],
-                enable: true,
+                enable: true
             };
 
             const response: any = await request
@@ -144,14 +144,14 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Get Role /roles/:id', async done => 
+        test('Get Role /roles/:id', async done =>
         {
 
             const payload: any = {
                 name: 'Role3 Test',
                 slug: 'role3test',
                 permissions: ['itemsSave'],
-                enable: true,
+                enable: true
             };
 
             const response: any = await request
@@ -174,13 +174,13 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Update Role /roles/:id', async done => 
+        test('Update Role /roles/:id', async done =>
         {
             const payload: any = {
                 name: 'Role3 Test Update',
                 slug: 'role3testupdate',
                 permissions: ['itemsDelete'],
-                enable: false,
+                enable: false
             };
 
             const response: any = await request
@@ -203,13 +203,13 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Delete Role /roles/:id', async done => 
+        test('Delete Role /roles/:id', async done =>
         {
             const payload: any = {
                 name: 'Role4 Test',
                 slug: 'role4test',
                 permissions: ['itemsSave'],
-                enable: true,
+                enable: true
             };
 
             const createResponse: any = await request
@@ -240,7 +240,7 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Get Roles /roles', async done => 
+        test('Get Roles /roles', async done =>
         {
 
             const response: any = await request
@@ -263,7 +263,7 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Get Roles /roles without pagination', async done => 
+        test('Get Roles /roles without pagination', async done =>
         {
 
             const response: any = await request
@@ -284,7 +284,7 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Get Roles /roles with Filter Type', async done => 
+        test('Get Roles /roles with Filter Type', async done =>
         {
 
             const response: any = await request
@@ -305,7 +305,7 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Get Roles /roles with Sort Desc Type', async done => 
+        test('Get Roles /roles with Sort Desc Type', async done =>
         {
 
             const response: any = await request
@@ -326,7 +326,7 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Sync roles permissions /syncRolesPermissions', async done => 
+        test('Sync roles permissions /syncRolesPermissions', async done =>
         {
 
             const response: any = await request
@@ -346,7 +346,7 @@ describe('Start Role Test', () =>
 
     describe('Role Fails', () =>
     {
-        beforeAll(async(done) => 
+        beforeAll(async(done) =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -365,7 +365,7 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Add Role /roles', async done => 
+        test('Add Role /roles', async done =>
         {
             const payload = {
                 name: 'Role 2',
@@ -392,7 +392,7 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Get Role /roles/:id', async done => 
+        test('Get Role /roles/:id', async done =>
         {
 
             const response: any = await request
@@ -415,12 +415,12 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Update Role /roles/:id', async done => 
+        test('Update Role /roles/:id', async done =>
         {
             const payload: any = {
                 name: 150,
                 slug: 'role3testupdate',
-                enable: 'false',
+                enable: 'false'
             };
 
             const response: any = await request
@@ -447,7 +447,7 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Delete Role error /roles/:id', async done => 
+        test('Delete Role error /roles/:id', async done =>
         {
 
             const deleteErrorResponse: any = await request

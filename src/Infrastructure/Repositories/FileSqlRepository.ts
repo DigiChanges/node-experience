@@ -49,7 +49,7 @@ class FileSqlRepository implements IFileRepository
         if (filter.has(FileFilter.NAME))
         {
             queryBuilder.andWhere('i.' + FileFilter.NAME + ' like :' + FileFilter.NAME);
-            queryBuilder.setParameter(FileFilter.NAME, '%' + filter.get(FileFilter.NAME) + '%');
+            queryBuilder.setParameter(FileFilter.NAME, `%${filter.get(FileFilter.NAME)}%`);
         }
 
         return new Paginator(queryBuilder, criteria);

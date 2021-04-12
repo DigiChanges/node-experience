@@ -55,12 +55,12 @@ const TypeNotificationSchema = new EntitySchema<TypeNotification>({
         createdAt: {
             name: 'createdAt',
             type: 'timestamp with time zone',
-            createDate: true,
+            createDate: true
         },
         updatedAt: {
             name: 'updatedAt',
             type: 'timestamp with time zone',
-            updateDate: true,
+            updateDate: true
         }
     }
 });

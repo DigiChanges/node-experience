@@ -11,7 +11,7 @@ CreateBucketCommand
     .description('Add bucket to the system')
     .option('-b, --bucketName <bucketName>', 'Name of the bucket')
     .option('-r, --region <region>', 'Region of the bucket')
-    .action(async(env: any) => 
+    .action(async(env: any) =>
     {
         const useCase = new CreateBucketUseCase();
         const request: CreateBucketPayload = new CreateBucketCommandRequest(env);

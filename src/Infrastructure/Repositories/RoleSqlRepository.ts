@@ -53,7 +53,7 @@ class RoleSqlRepository implements IRoleRepository
         if (filter.has(RoleFilter.NAME))
         {
             queryBuilder.andWhere('i.' + RoleFilter.NAME + ' like :' + RoleFilter.NAME);
-            queryBuilder.setParameter(RoleFilter.NAME, '%' + filter.get(RoleFilter.NAME) + '%');
+            queryBuilder.setParameter(RoleFilter.NAME, `%${filter.get(RoleFilter.NAME)}%`);
         }
 
         return new Paginator(queryBuilder, criteria);

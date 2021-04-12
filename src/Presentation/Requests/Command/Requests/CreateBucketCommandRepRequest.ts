@@ -25,9 +25,9 @@ class CreateBucketCommandRequest implements CreateBucketPayload
                     Action: [
                         's3:GetBucketLocation',
                         's3:ListBucket',
-                        's3:ListBucketMultipartUploads',
+                        's3:ListBucketMultipartUploads'
                     ],
-                    Resource: `arn:aws:s3:::${this.bucketName}`,
+                    Resource: `arn:aws:s3:::${this.bucketName}`
                 },
                 {
                     Effect: 'Allow',
@@ -37,11 +37,11 @@ class CreateBucketCommandRequest implements CreateBucketPayload
                         's3:PutObject',
                         's3:DeleteObject',
                         's3:ListMultipartUploadParts',
-                        's3:AbortMultipartUpload',
+                        's3:AbortMultipartUpload'
                     ],
-                    Resource: `arn:aws:s3:::${this.bucketName}/*`,
-                },
-            ],
+                    Resource: `arn:aws:s3:::${this.bucketName}/*`
+                }
+            ]
         };
     }
 

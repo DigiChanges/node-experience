@@ -17,7 +17,7 @@ class SyncRolesPermissionUseCase
         this.repository = ContainerFactory.create<IRoleRepository>(REPOSITORIES.IRoleRepository);
     }
 
-    async handle()
+    handle()
     {
         const roles = Roles.getRoles();
 

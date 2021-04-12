@@ -15,8 +15,8 @@ const loggerOptions = {
         level: 'debug',
         handleExceptions: true,
         json: false,
-        colorize: true,
-    },
+        colorize: true
+    }
 };
 
 export default loggerOptions;

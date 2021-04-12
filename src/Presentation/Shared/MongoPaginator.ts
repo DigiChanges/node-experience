@@ -66,16 +66,18 @@ class MongoPaginator implements IPaginator
             Object.assign(_objectSort, obj);
         });
 
-        this.documentQuery.sort(_objectSort);
+        void this.documentQuery.sort(_objectSort);
     }
 
     private addPagination()
     {
         const exist = this.pagination.getExist();
 
+        console.log('addPagination', exist);
+
         if (exist)
         {
-            this.documentQuery
+            void this.documentQuery
                 .skip(this.pagination.getOffset())
                 .limit(this.pagination.getLimit());
         }

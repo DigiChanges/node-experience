@@ -13,9 +13,9 @@ class GetLogViewUseCase
 
         const data: any[] = [];
 
-        lines.forEach((line) => 
+        lines.forEach((line) =>
         {
-            if (line.includes('{"code":500')) 
+            if (line.includes('{"code":500'))
             {
                 const error = JSON.parse(line);
                 data.unshift(error);

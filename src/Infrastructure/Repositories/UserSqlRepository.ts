@@ -78,7 +78,7 @@ class UserSqlRepository implements IUserRepository
         if (filter.has(UserFilter.EMAIL))
         {
             queryBuilder.andWhere(`i.${UserFilter.EMAIL} like :${UserFilter.EMAIL}`);
-            queryBuilder.setParameter(UserFilter.EMAIL, '%' + filter.get(UserFilter.EMAIL) + '%');
+            queryBuilder.setParameter(UserFilter.EMAIL, `%${filter.get(UserFilter.EMAIL)}%`);
         }
 
         queryBuilder.leftJoinAndSelect('i.roles', 'role');

@@ -33,6 +33,7 @@
   },
   "include": [
     "src/**/*.ts",
-    "./typings/*"
+    "./typings/*",
+    ".eslintrc.js",
   ]
 }

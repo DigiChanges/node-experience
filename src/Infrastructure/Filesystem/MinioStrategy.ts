@@ -21,7 +21,7 @@ class MinioStrategy implements IFilesystem
             secretKey: _config.secretKey,
             region: _config.region,
             port: Number(_config.port),
-            useSSL: _config.useSSL === 'true',
+            useSSL: _config.useSSL === 'true'
         });
     }
 
@@ -75,11 +75,11 @@ class MinioStrategy implements IFilesystem
     {
         const stream = this.filesystem.listObjectsV2(this.bucketName, prefix, recursive);
 
-        return new Promise((resolve, reject) => 
+        return new Promise((resolve, reject) =>
         {
             const files: any = [];
 
-            stream.on('data', (obj: any) => 
+            stream.on('data', (obj: any) =>
             {
                 files.push(obj);
             });

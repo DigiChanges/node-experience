@@ -12,7 +12,7 @@ class ItemTransformer extends Transformer
             'name': item.name,
             'type': item.type,
             'createdAt': moment(item.createdAt).utc().unix(),
-            'updatedAt': moment(item.updatedAt).utc().unix(),
+            'updatedAt': moment(item.updatedAt).utc().unix()
         };
     }
 }

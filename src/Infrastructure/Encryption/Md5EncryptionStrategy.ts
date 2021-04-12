@@ -6,7 +6,7 @@ class Md5EncryptionStrategy implements IEncryption
 {
     async compare(chain: string, chainHashed: string): Promise<boolean>
     {
-        return await md5(chain) === chainHashed;
+        return md5(chain) === chainHashed;
     }
 
     async decrypt(chain: string): Promise<string>

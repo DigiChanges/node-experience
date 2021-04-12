@@ -12,15 +12,15 @@ const RoleSchema = new EntitySchema<Role>({
             unique: true
         },
         name: {
-            type: String,
+            type: String
         },
         slug: {
             type: String,
-            unique: true,
+            unique: true
         },
         enable: {
             type: Boolean,
-            default: true,
+            default: true
         },
         permissions: {
             type: 'simple-array',
@@ -29,12 +29,12 @@ const RoleSchema = new EntitySchema<Role>({
         createdAt: {
             name: 'createdAt',
             type: 'timestamp with time zone',
-            createDate: true,
+            createDate: true
         },
         updatedAt: {
             name: 'updatedAt',
             type: 'timestamp with time zone',
-            updateDate: true,
+            updateDate: true
         }
     }
 });

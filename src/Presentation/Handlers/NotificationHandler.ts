@@ -24,7 +24,7 @@ class NotificationHandler
         await ValidatorRequest.handle(_request);
 
         const createSubscriptionUseCase = new CreateSubscriptionUseCase();
-        const notification = await createSubscriptionUseCase.handle(_request);
+        const notification = createSubscriptionUseCase.handle(_request);
 
         this.responder.send(notification, req, res, StatusCode.HTTP_CREATED, null);
     }
@@ -36,7 +36,7 @@ class NotificationHandler
         await ValidatorRequest.handle(_request);
 
         const sendPushNotificationUseCase = new SendPushNotificationUseCase();
-        const notification = await sendPushNotificationUseCase.handle(_request);
+        const notification = sendPushNotificationUseCase.handle(_request);
 
         this.responder.send(notification, req, res, StatusCode.HTTP_CREATED, null);
     }

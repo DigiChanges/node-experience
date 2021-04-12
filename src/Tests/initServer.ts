@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import path from 'path';
 import '../Presentation/Handlers/IndexHandler';
 import '../Presentation/Handlers/AuthHandler';
 import '../Presentation/Handlers/ItemHandler';
@@ -10,6 +9,7 @@ import '../Presentation/Handlers/RoleHandler';
 
 import {Locales} from '../Application/app';
 
+import express from 'express';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
@@ -32,17 +32,12 @@ import TokenMongoRepository from '../Infrastructure/Repositories/TokenMongoRepos
 import {validateEnv} from '../Config/validateEnv';
 import container from '../inversify.config';
 
-const initServer = async() =>
+const initServer = async(): Promise<any> =>
 {
-    let server: InversifyExpressServer;
-    let request: supertest.SuperTest<supertest.Test>;
-    let dbConnection: ICreateConnection;
-
     validateEnv();
 
-    const databaseFactory = new DatabaseFactory();
-
-    dbConnection = databaseFactory.create();
+    const databaseFactory: DatabaseFactory = new DatabaseFactory();
+    const dbConnection: ICreateConnection = databaseFactory.create();
 
     dbConnection.initConfigTest(process.env.MONGO_URL);
     await dbConnection.create();
@@ -57,9 +52,9 @@ const initServer = async() =>
         objectNotation: true
     });
 
-    server = new InversifyExpressServer(container);
+    const server = new InversifyExpressServer(container);
 
-    server.setConfig((app: any) =>
+    server.setConfig((app: express.Application) =>
     {
         app.use(bodyParser.urlencoded({
             extended: true,
@@ -77,14 +72,14 @@ const initServer = async() =>
         app.use(Locales.init);
     });
 
-    server.setErrorConfig((app: any) =>
+    server.setErrorConfig((app: express.Application) =>
     {
         app.use(ErrorHandler.handle);
     });
 
-    const application = await server.build();
+    const application = server.build();
     application.use(RedirectRouteNotFoundMiddleware);
-    request = supertest(application);
+    const request: supertest.SuperTest<supertest.Test> = supertest(application);
 
     const seed = new SeedFactory();
     await seed.init();
@@ -92,9 +87,9 @@ const initServer = async() =>
     // TODO: Add filesystem mock
     // filesystem = FilesystemFactory.create();
 
-    const eventHandler = EventHandler.getInstance();
+    EventHandler.getInstance();
 
-    return {server, request, dbConnection};
+    return {request, dbConnection};
 };
 
 export default initServer;

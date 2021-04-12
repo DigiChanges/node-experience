@@ -5,7 +5,7 @@ import NotificationRepPayload from '../../../InterfaceAdapters/Payloads/Notifica
 
 class CreateSubscriptionUseCase
 {
-    async handle(payload: NotificationRepPayload): Promise<any>
+    handle(payload: NotificationRepPayload)
     {
         const pushNotification = new PushNotification();
 

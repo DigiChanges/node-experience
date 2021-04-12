@@ -15,7 +15,7 @@ class ListObjectsRequest implements ListObjectsPayload
     constructor(request: express.Request)
     {
         this.recursive = request.query.recursive ? String(request.query.recursive) : undefined;
-        this.prefix = request.query.hasOwnProperty('prefix') ? String(request.query.prefix) : undefined;
+        this.prefix = request.query?.prefix ? String(request.query.prefix) : undefined;
     }
 
     getRecursive(): boolean

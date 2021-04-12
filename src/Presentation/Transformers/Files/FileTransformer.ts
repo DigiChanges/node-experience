@@ -17,9 +17,9 @@ class FileTransformer extends Transformer
             'size': file.size,
             'version': file.version,
             'createdAt': moment(file.createdAt).utc().unix(),
-            'updatedAt': moment(file.updatedAt).utc().unix(),
+            'updatedAt': moment(file.updatedAt).utc().unix()
         };
-    }    
+    }
 }
 
 export default FileTransformer;

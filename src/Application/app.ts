@@ -48,9 +48,9 @@ class App
         });
     }
 
-    public async initConfig()
+    public initConfig()
     {
-        this.server.setConfig((app: any) =>
+        this.server.setConfig((app: express.Application) =>
         {
             app.use(bodyParser.urlencoded({
                 extended: true,
@@ -78,22 +78,22 @@ class App
             app.use(Locales.init);
         });
 
-        this.server.setErrorConfig((app: any) =>
+        this.server.setErrorConfig((app: express.Application) =>
         {
             app.use(ErrorHandler.handle);
         });
     }
 
-    public async build()
+    public build()
     {
-        this.app = await this.server.build();
+        this.app = this.server.build();
     }
 
-    public async listen()
+    public listen()
     {
         this.app.use(RedirectRouteNotFoundMiddleware);
 
-        this.app.listen(this.port, () => 
+        this.app.listen(this.port, () =>
         {
             loggerCli.debug(`App listening on the port ${this.port}`);
         });

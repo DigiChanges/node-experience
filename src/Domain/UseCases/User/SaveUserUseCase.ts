@@ -33,6 +33,12 @@ class SaveUserUseCase
         user.firstName = payload.getFirstName();
         user.lastName = payload.getLastName();
         user.email = payload.getEmail();
+        user.birthday = payload.getBirthday();
+        user.documentType = payload.getDocumentType();
+        user.documentNumber = payload.getDocumentNumber();
+        user.gender = payload.getGender();
+        user.phone = payload.getPhone();
+        user.country = payload.getCountry();
         user.password = await this.encryption.encrypt(payload.getPassword());
         user.enable = payload.getEnable();
         user.confirmationToken = payload.getConfirmationToken();

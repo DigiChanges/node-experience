@@ -11,7 +11,7 @@ class RoleCommandRepRequest implements RoleRepPayload
 
     @IsArray()
     @IsString({
-        each: true,
+        each: true
     })
     permissions: string[];
 

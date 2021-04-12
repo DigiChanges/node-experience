@@ -6,14 +6,14 @@ class RedisCacheRepository implements ICacheRepository
     private redis: Tedis;
     private static instance: RedisCacheRepository;
 
-    async createConnection(config: {})
+    async createConnection(config: any)
     {
         this.redis = new Tedis(config);
     }
 
     static getInstance(): RedisCacheRepository
     {
-        if (!RedisCacheRepository.instance) 
+        if (!RedisCacheRepository.instance)
         {
             RedisCacheRepository.instance = new RedisCacheRepository();
         }
@@ -56,14 +56,14 @@ class RedisCacheRepository implements ICacheRepository
         return await this.redis.get(key);
     }
 
-    async hset(key: string, value: {}): Promise<any>
+    async hset(key: string, value: any): Promise<any>
     {
         await this.redis.hmset(key, value);
     }
 
-    async hget(key: string, field: string | null = null): Promise<{}>
+    async hget(key: string, field: string | null = null): Promise<any>
     {
-        let value: {};
+        let value: any;
 
         if (field)
         {

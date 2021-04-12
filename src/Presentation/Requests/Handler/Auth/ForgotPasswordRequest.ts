@@ -26,7 +26,7 @@ class ForgotPasswordRequest implements ForgotPasswordPayload
     {
         const encryption: IEncryption = EncryptionFactory.create('md5');
 
-        const stringToEncrypt = this.email + moment().utc().unix();
+        const stringToEncrypt = `${this.email}${moment().utc().unix()}`;
 
         return await encryption.encrypt(stringToEncrypt);
     }

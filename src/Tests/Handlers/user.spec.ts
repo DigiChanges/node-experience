@@ -1,7 +1,7 @@
-import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
 import {ICreateConnection} from '@digichanges/shared-experience';
 import initServer from '../initServer';
+import {InversifyExpressServer} from 'inversify-express-utils';
 
 describe('Start User Test', () =>
 {
@@ -12,7 +12,7 @@ describe('Start User Test', () =>
     let userId = '';
     let deleteResponse: any = null;
 
-    beforeAll(async(done) => 
+    beforeAll(async(done) =>
     {
         const configServer = await initServer();
 
@@ -23,7 +23,7 @@ describe('Start User Test', () =>
         done();
     });
 
-    afterAll((async(done) => 
+    afterAll((async(done) =>
     {
         await dbConnection.drop();
         await dbConnection.close();
@@ -33,7 +33,7 @@ describe('Start User Test', () =>
 
     describe('User Success', () =>
     {
-        beforeAll(async(done) => 
+        beforeAll(async(done) =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -52,12 +52,18 @@ describe('Start User Test', () =>
             done();
         });
 
-        test('Add User without enable property /users', async done => 
+        test('Add User without enable property /users', async done =>
         {
             const payload: any = {
                 firstName: 'Jhon',
                 lastName: 'Doe',
                 email: 'user2@node.com',
+                birthday: '04/08/1991',
+                documentType: 'dni',
+                documentNumber: '35319112',
+                gender: 'male',
+                phone: '2234456999',
+                country: 'Argentina',
                 password: '12345678',
                 passwordConfirmation: '12345678',
                 permissions: []
@@ -84,12 +90,18 @@ describe('Start User Test', () =>
             done();
         });
 
-        test('Add User with enable property /users', async done => 
+        test('Add User with enable property /users', async done =>
         {
             const payload: any = {
                 firstName: 'Jhon',
                 lastName: 'Doe',
                 email: 'user3@node.com',
+                birthday: '04/08/1992',
+                documentType: 'dni',
+                documentNumber: '35319321',
+                gender: 'male',
+                phone: '2234456999',
+                country: 'Argentina',
                 password: '12345678',
                 passwordConfirmation: '12345678',
                 enable: false,
@@ -117,7 +129,7 @@ describe('Start User Test', () =>
             done();
         });
 
-        test('Get User /users/:id', async done => 
+        test('Get User /users/:id', async done =>
         {
 
             const payload: any = {
@@ -147,12 +159,18 @@ describe('Start User Test', () =>
             done();
         });
 
-        test('Update User /users/:id', async done => 
+        test('Update User /users/:id', async done =>
         {
             const payload: any = {
                 firstName: 'Jhon Update',
                 lastName: 'Doe Update',
                 email: 'user2@update.com',
+                birthday: '04/08/1991',
+                documentType: 'dni',
+                documentNumber: '35319131',
+                gender: 'female',
+                phone: '22344569121',
+                country: 'Uruguay',
                 enable: false,
                 permissions: []
             };
@@ -169,14 +187,21 @@ describe('Start User Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_CREATED');
 
-            expect(data.firstName).toStrictEqual(payload.firstName);
             expect(data.email).toStrictEqual(payload.email);
+            expect(data.firstName).toStrictEqual(payload.firstName);
+            expect(data.lastName).toStrictEqual(payload.lastName);
             expect(data.enable).toStrictEqual(payload.enable);
+            expect(data.birthday).toStrictEqual(payload.birthday);
+            expect(data.documentType).toStrictEqual(payload.documentType);
+            expect(data.documentNumber).toStrictEqual(payload.documentNumber);
+            expect(data.gender).toStrictEqual(payload.gender);
+            expect(data.phone).toStrictEqual(payload.phone);
+            expect(data.country).toStrictEqual(payload.country);
 
             done();
         });
 
-        test('Change my Password /users/changeMyPassword', async done => 
+        test('Change my Password /users/changeMyPassword', async done =>
         {
             let payload: any = {
                 currentPassword: '12345678',
@@ -219,11 +244,17 @@ describe('Start User Test', () =>
             done();
         });
 
-        test('Delete User /users/:id', async done => 
+        test('Delete User /users/:id', async done =>
         {
             const payload: any = {
                 firstName: 'Jhon for delete',
                 lastName: 'Doe Update',
+                birthday: '04/08/1992',
+                documentType: 'dni',
+                documentNumber: '25319112',
+                gender: 'male',
+                phone: '2234456999',
+                country: 'Argentina',
                 email: 'user2@delete.com',
                 password: '12345678',
                 enable: false,
@@ -257,7 +288,7 @@ describe('Start User Test', () =>
             done();
         });
 
-        test('Get Users /users', async done => 
+        test('Get Users /users', async done =>
         {
 
             const response: any = await request
@@ -280,7 +311,7 @@ describe('Start User Test', () =>
             done();
         });
 
-        test('Get Users /users without pagination', async done => 
+        test('Get Users /users without pagination', async done =>
         {
 
             const response: any = await request
@@ -301,7 +332,7 @@ describe('Start User Test', () =>
             done();
         });
 
-        test('Get Users /users with Filter Type', async done => 
+        test('Get Users /users with Filter Type', async done =>
         {
 
             const response: any = await request
@@ -323,7 +354,7 @@ describe('Start User Test', () =>
             done();
         });
 
-        test('Get Users /users with Sort Desc Type', async done => 
+        test('Get Users /users with Sort Desc Type', async done =>
         {
 
             const response: any = await request
@@ -347,7 +378,7 @@ describe('Start User Test', () =>
 
     describe('User Fails', () =>
     {
-        beforeAll(async(done) => 
+        beforeAll(async(done) =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -366,7 +397,7 @@ describe('Start User Test', () =>
             done();
         });
 
-        test('Add User /users', async done => 
+        test('Add User /users', async done =>
         {
             const payload = {
                 name: 'User 2',
@@ -393,7 +424,7 @@ describe('Start User Test', () =>
             done();
         });
 
-        test('Get User /users/:id', async done => 
+        test('Get User /users/:id', async done =>
         {
 
             const response: any = await request
@@ -416,12 +447,18 @@ describe('Start User Test', () =>
             done();
         });
 
-        test('Update User /users/:id', async done => 
+        test('Update User /users/:id', async done =>
         {
             const payload = {
                 email: 'aaaa1@update.com',
                 firstName: 150,
                 lastName: 'Doe 1',
+                birthday: '04/07/1990',
+                documentType: 'dni',
+                documentNumber: '35319132',
+                gender: 'male',
+                phone: '22344569123',
+                country: 'Argentina',
                 enable: true
             };
 
@@ -445,7 +482,7 @@ describe('Start User Test', () =>
             done();
         });
 
-        test('Delete User error /users/:id', async done => 
+        test('Delete User error /users/:id', async done =>
         {
 
             const deleteErrorResponse: any = await request

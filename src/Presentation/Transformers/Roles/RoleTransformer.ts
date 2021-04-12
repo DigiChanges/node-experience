@@ -14,7 +14,7 @@ class RoleTransformer extends Transformer
             'permissions': role.permissions ? role.permissions : null,
             'enable': role.enable,
             'createdAt': moment(role.createdAt).utc().unix(),
-            'updatedAt': moment(role.updatedAt).utc().unix(),
+            'updatedAt': moment(role.updatedAt).utc().unix()
         };
     }
 }

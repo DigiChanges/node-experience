@@ -52,6 +52,12 @@ class UpdateUserUseCase
         user.lastName = payload.getLastName();
         user.enable = payload.getEnable();
         user.email = payload.getEmail();
+        user.birthday = payload.getBirthday();
+        user.documentType = payload.getDocumentType();
+        user.documentNumber = payload.getDocumentNumber();
+        user.gender = payload.getGender();
+        user.phone = payload.getPhone();
+        user.country = payload.getCountry();
         user.permissions = payload.getPermissions();
 
         await this.repository.save(user);

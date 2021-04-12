@@ -13,11 +13,11 @@ import PushNotification from '../Entities/PushNotification';
 class Notificator
 {
     // TODO: This need more abstraction
-    public static async sendEmail(emailNotification: EmailNotification, templatePathNameFile: string, data: object = {}, save = true)
+    public static async sendEmail(emailNotification: EmailNotification, templatePathNameFile: string, data: any = {}, save = true)
     {
         const repository = new NotificationMongoRepository();
 
-        try 
+        try
         {
             const host: string = Config.get('mail.host');
             const port: number = Config.get('mail.port');
@@ -44,7 +44,7 @@ class Notificator
 
             const transporter = nodemailer.createTransport(smtpConfig);
 
-            const source = await Fs.readFileSync(templateDir).toString();
+            const source = Fs.readFileSync(templateDir).toString();
 
             const template = Handlebars.compile(source);
 
@@ -63,34 +63,34 @@ class Notificator
             }
 
             return await transporter.sendMail(mailData)
-                .then((info: any) =>
+                .then(() =>
                 {
-                    if (save) 
+                    if (save)
                     {
-                        repository.save(emailNotification);
+                        void repository.save(emailNotification);
                     }
 
                     return true;
                 })
-                .catch((err: any) => 
+                .catch((err: any) =>
                 {
-                    if (save) 
+                    if (save)
                     {
                         emailNotification.description = err;
-                        repository.save(emailNotification);
+                        void repository.save(emailNotification);
                     }
                     throw new ErrorException('Something is wrong. Please try again later.', 'NotificatorException');
                 });
         }
-        catch (e) 
+        catch (e)
         {
             throw Error('Error to send Email');
         }
     }
 
-    public static async sendPushNotification(pushNotification: PushNotification, message: string, save = true)
+    public static async sendPushNotification(pushNotification: PushNotification, message: string)
     {
-        try 
+        try
         {
             const publicKey: string = Config.get('push.publicKey');
             const privateKey: string = Config.get('push.privateKey');
@@ -107,15 +107,13 @@ class Notificator
                 vapidDetails: {
                     subject,
                     publicKey,
-                    privateKey,
-                },
+                    privateKey
+                }
             };
 
-            const result = await webPush.sendNotification(pushSubscription, payload, options);
-
-            return result;
+            return await webPush.sendNotification(pushSubscription, payload, options);
         }
-        catch (e) 
+        catch (e)
         {
             throw Error('Error to send Push Notification');
         }

@@ -64,7 +64,7 @@ class Responder
             Object.assign(result, pagination);
         }
 
-        await response.status(status.code).send(result);
+        response.status(status.code).send(result);
     }
 
     public sendStream(fileDto: IFileDTO, request: Request | any, response: Response, status: IHttpStatusCode)
@@ -76,12 +76,14 @@ class Responder
 
     public render(data: any, view: any, response: Response, resolve: any, reject: any)
     {
-        response.render('log', {data}, (err: any, compiled: any) => 
+        response.render('log', {data}, (err: any, compiled: any) =>
         {
-            if (err) 
+            if (err)
             {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                 reject('500 when rendering the template');
             }
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call
             resolve(compiled);
         });
     }

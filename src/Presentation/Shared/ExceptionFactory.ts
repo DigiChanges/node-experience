@@ -25,7 +25,7 @@ class ExceptionFactory
         'WrongPermissionsException': new WrongPermissionsHttpException(),
         'Error': new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, 'Internal Error', []),
         'TypeError': new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, 'Internal Error', []),
-        'ErrorHttpException': new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, 'Internal Error', []),
+        'ErrorHttpException': new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, 'Internal Error', [])
     };
 
     public getException(err: any): ErrorHttpException

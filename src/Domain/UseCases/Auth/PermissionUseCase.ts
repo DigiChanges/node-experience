@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 class PermissionUseCase
 {
-    async handle()
+    handle()
     {
         return _.flatMap(Permissions.permissions());
     }

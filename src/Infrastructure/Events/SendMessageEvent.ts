@@ -11,9 +11,9 @@ class SendMessageEvent
         Notificator
             .sendPushNotification(pushNotification, message)
             .then((success) => success)
-            .catch((error: any) => 
+            .catch((error: any) =>
             {
-                throw Error('Error To send Web Push Notification'); 
+                throw Error('Error To send Web Push Notification');
             });
     }
 }

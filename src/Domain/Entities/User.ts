@@ -8,20 +8,25 @@ class User implements IUserDomain
     firstName: string;
     lastName: string;
     email: string;
+		birthday: string;
+		documentType: string;
+		documentNumber: string;
+		gender: string;
+		phone: string;
+		country: string;
     password: string;
     roles: IRoleDomain[];
     permissions: string[];
     enable: boolean;
     isSuperAdmin: boolean;
-    confirmationToken: string ;
-    passwordRequestedAt: Date ;
+    confirmationToken: string;
+    passwordRequestedAt: Date;
     createdAt: Date;
     updatedAt: Date;
 
     constructor()
     {
         this._id = uuidv4();
-        this.getId = this.getId.bind(this);
     }
 
     getFullName(): string

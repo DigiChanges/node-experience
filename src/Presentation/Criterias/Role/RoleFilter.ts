@@ -11,7 +11,7 @@ class RoleFilter extends Filter
         return [
             RoleFilter.NAME,
             RoleFilter.SLUG,
-            RoleFilter.ENABLE,
+            RoleFilter.ENABLE
         ];
     }
 

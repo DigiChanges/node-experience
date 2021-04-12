@@ -1,4 +1,4 @@
 
 export const SERVICES = {
-    IAuthService: 'IAuthService',
+    IAuthService: 'IAuthService'
 };

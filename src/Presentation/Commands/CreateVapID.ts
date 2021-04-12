@@ -7,9 +7,8 @@ const CreateVapID = new commander.Command('createVapID');
 CreateVapID
     .version('0.0.1')
     .description('Generate VapID Keys')
-    .action(async(env: any) => 
+    .action((env: any) =>
     {
-
         const vapidKeys = webpush.generateVAPIDKeys();
 
         if (vapidKeys)

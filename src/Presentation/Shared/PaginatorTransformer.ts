@@ -7,7 +7,7 @@ class PaginatorTransformer extends Transformer
         return {
             'total': paginator.getTotal(),
             'currentUrl': paginator.getCurrentUrl(),
-            'nextUrl': paginator.getNextUrl(),
+            'nextUrl': paginator.getNextUrl()
         };
     }
 }

@@ -49,7 +49,7 @@ class FileMongoRepository implements IFileRepository
             const name: string = filter.get(FileFilter.NAME);
             const rsearch = new RegExp(name, 'g');
 
-            queryBuilder.where(FileFilter.NAME).regex(rsearch);
+            void queryBuilder.where(FileFilter.NAME).regex(rsearch);
         }
 
         return new MongoPaginator(queryBuilder, criteria);

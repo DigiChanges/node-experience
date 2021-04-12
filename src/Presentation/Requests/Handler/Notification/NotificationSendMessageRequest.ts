@@ -13,12 +13,12 @@ class NotificationSendMessageRequest extends NotificationSubscriptionRequest imp
         this.name = request.body.name;
         this.message = request.body.message;
     }
-    
+
     getName(): string
     {
         return this.name;
     }
-    
+
     getMessage(): string
     {
         return this.message;

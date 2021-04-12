@@ -9,7 +9,7 @@ export function Match(property: string, validationOptions?: ValidationOptions)
             propertyName,
             options: validationOptions,
             constraints: [property],
-            validator: MatchConstraint,
+            validator: MatchConstraint
         });
     };
 }

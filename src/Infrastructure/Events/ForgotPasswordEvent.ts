@@ -11,9 +11,9 @@ class ForgotPasswordEvent
         Notificator
             .sendEmail(emailNotification, 'auth/forgot_password.hbs', {urlConfirmationToken})
             .then((success) => success)
-            .catch((error: any) => 
+            .catch((error: any) =>
             {
-                throw Error('Error To send Notification Forgot Password'); 
+                throw Error('Error To send Notification Forgot Password');
             });
     }
 }

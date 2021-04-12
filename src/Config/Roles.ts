@@ -23,7 +23,7 @@ class Roles
                 Permissions.ITEMS_LIST,
                 Permissions.FILES_UPLOAD,
                 Permissions.FILES_DOWNLOAD,
-                Permissions.FILES_LIST,
+                Permissions.FILES_LIST
             ]
         };
     }

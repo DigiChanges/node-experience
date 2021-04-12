@@ -1,7 +1,7 @@
 import * as express from 'express';
 import Config from 'config';
 import {IPagination} from '@digichanges/shared-experience';
-// import querystring from "querystring"; // TODO: Encapsulate and separet on an lib to create new functionality
+// import querystring from "querystring"; // TODO: Encapsulate and split it on an lib to create new functionality
 
 class Pagination implements IPagination
 {
@@ -16,9 +16,9 @@ class Pagination implements IPagination
     {
         this.request = request;
         this.pagination = request.query.pagination;
-        this.limit = request.query.hasOwnProperty('pagination') ? Number(this.pagination.limit) : 10;
-        this.offset = request.query.hasOwnProperty('pagination') ? Number(this.pagination.offset) : 0;
-        this.exist = request.query.hasOwnProperty('pagination');
+        this.limit = request.query?.pagination ? Number(this.pagination.limit) : 10;
+        this.offset = request.query?.pagination ? Number(this.pagination.offset) : 0;
+        this.exist = request.query?.pagination !== undefined;
         this.host = Config.get('url.urlApi');
     }
 
@@ -47,8 +47,8 @@ class Pagination implements IPagination
             const offset = this.offset + this.limit;
 
             url = this.host + this.request.url.replace('/api/', '');
-            const searchValue = 'pagination[offset]=' + this.pagination.offset;
-            const newValue = 'pagination[offset]=' + offset;
+            const searchValue = `pagination[offset]=${this.pagination.offset}`;
+            const newValue = `pagination[offset]=${offset}`;
 
             url = url.replace(searchValue, newValue);
         }

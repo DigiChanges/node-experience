@@ -1,3 +1,4 @@
+import {loggerCli} from '../Shared/Logger';
 
 class UserCreatedEvent
 {
@@ -7,7 +8,7 @@ class UserCreatedEvent
     {
         const {email} = props;
 
-        console.log(`User ${email} Created!`);
+        loggerCli.debug(`User ${email} Created!`);
     }
 }
 

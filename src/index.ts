@@ -11,9 +11,9 @@ import CacheFactory from './Infrastructure/Factories/CacheFactory';
 import Config from 'config';
 import {ICacheRepository, ICreateConnection} from '@digichanges/shared-experience';
 
-(async() => 
+void (async() =>
 {
-    try 
+    try
     {
         // Initialize configuration
         validateEnv();
@@ -32,9 +32,9 @@ import {ICacheRepository, ICreateConnection} from '@digichanges/shared-experienc
         const eventHandler = EventHandler.getInstance();
 
         const app = new App();
-        await app.initConfig();
-        await app.build();
-        await app.listen();
+        app.initConfig();
+        app.build();
+        app.listen();
     }
     catch (error) // TODO: Change this error catch
     {

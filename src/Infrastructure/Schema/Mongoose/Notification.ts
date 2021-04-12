@@ -8,7 +8,7 @@ const options = {discriminatorKey: 'kind', timestamps: true};
 
 export const NotificationSchema: any = new Schema({
     _id: {type: String, default: uuidv4},
-    name: {type:String, required: true},
+    name: {type:String, required: true}
 }, options).loadClass(Notification);
 
 export const EmailNotificationSchema: any = new Schema({

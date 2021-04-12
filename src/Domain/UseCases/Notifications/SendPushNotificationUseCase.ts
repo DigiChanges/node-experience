@@ -5,9 +5,8 @@ import NotificationSendMessageRequest from '../../../Presentation/Requests/Handl
 
 class SendPushNotificationUseCase
 {
-    async handle(payload: NotificationSendMessageRequest): Promise<any>
+    handle(payload: NotificationSendMessageRequest)
     {
-
         const pushNotification = new PushNotification();
         pushNotification.subscription = payload.getSubscription();
 

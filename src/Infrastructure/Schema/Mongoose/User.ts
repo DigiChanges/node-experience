@@ -7,13 +7,19 @@ const UserSchema: any = new Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     email: {type: String, required: true, unique: true},
+    birthday: {type: String},
+    documentType: {type: String, required: true},
+    documentNumber: {type: String, required: true, unique: true},
+    gender: {type: String, required: true},
+    phone: {type: String, required: true},
+    country: {type: String, required: true},
     password: {type: String, required: true},
     permissions: {type: Array, required: true},
     roles: [{type: Schema.Types.String, ref: 'Role'}],
     enable: {type: Boolean, required: true},
     isSuperAdmin: {type: Boolean, required: true},
     confirmationToken: {type: String},
-    passwordRequestedAt: {type: Date},
+    passwordRequestedAt: {type: Date}
 }, {timestamps: true});
 
 UserSchema.loadClass(User);

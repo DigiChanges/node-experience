@@ -25,7 +25,7 @@ class ForgotPasswordUseCase
 
         const emailNotification = new EmailNotification();
 
-        const urlConfirmationToken: string = Config.get('url.urlWeb') + 'changeForgotPassword/' + user.confirmationToken;
+        const urlConfirmationToken = `${Config.get('url.urlWeb')}'changeForgotPassword/${user.confirmationToken}`;
 
         emailNotification.name = 'Forgot Password';
         emailNotification.to = payload.getEmail();

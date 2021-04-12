@@ -3,7 +3,7 @@ import {ValidationError} from 'class-validator';
 class ValidationModel
 {
     property: string;
-    constraints: object;
+    constraints: any;
 
     constructor(errors: ValidationError)
     {

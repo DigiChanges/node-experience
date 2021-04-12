@@ -54,24 +54,24 @@ class RoleMongoRepository implements IRoleRepository
              const _enable = filter.get(RoleFilter.ENABLE);
              const enable: boolean = _enable !== 'false';
 
-             queryBuilder.where(RoleFilter.ENABLE).equals(enable);
+             void queryBuilder.where(RoleFilter.ENABLE).equals(enable);
          }
          if (filter.has(RoleFilter.NAME))
          {
              const name = filter.get(RoleFilter.NAME);
              const rsearch = new RegExp(name, 'g');
 
-             queryBuilder.where(RoleFilter.NAME).regex(rsearch);
+             void queryBuilder.where(RoleFilter.NAME).regex(rsearch);
          }
          if (filter.has(RoleFilter.SLUG))
          {
              const slug = filter.get(RoleFilter.SLUG);
              const rsearch = new RegExp(slug, 'g');
 
-             queryBuilder.where(RoleFilter.SLUG).regex(rsearch);
+             void queryBuilder.where(RoleFilter.SLUG).regex(rsearch);
          }
 
-         queryBuilder.where(RoleFilter.SLUG).ne(Roles.SUPER_ADMIN.toLowerCase());
+         void queryBuilder.where(RoleFilter.SLUG).ne(Roles.SUPER_ADMIN.toLowerCase());
 
          return new MongoPaginator(queryBuilder, criteria);
      }

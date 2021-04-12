@@ -47,14 +47,14 @@ class ItemMongoRepository implements IItemRepository
         {
             const type = filter.get(ItemFilter.TYPE);
 
-            queryBuilder.where(ItemFilter.TYPE).equals(type);
+            void queryBuilder.where(ItemFilter.TYPE).equals(type);
         }
         if (filter.has(ItemFilter.NAME))
         {
             const name: string = filter.get(ItemFilter.NAME);
             const rsearch = new RegExp(name, 'g');
 
-            queryBuilder.where(ItemFilter.NAME).regex(rsearch);
+            void queryBuilder.where(ItemFilter.NAME).regex(rsearch);
         }
 
         return new MongoPaginator(queryBuilder, criteria);

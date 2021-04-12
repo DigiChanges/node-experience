@@ -72,23 +72,23 @@ class UserMongoRepository implements IUserRepository
             const _enable = filter.get(UserFilter.ENABLE);
             const enable: boolean = _enable !== 'false';
 
-            queryBuilder.where(UserFilter.ENABLE).equals(enable);
+            void queryBuilder.where(UserFilter.ENABLE).equals(enable);
         }
         if (filter.has(UserFilter.EMAIL))
         {
             const email = filter.get(UserFilter.EMAIL);
             const rsearch = new RegExp(email, 'g');
 
-            queryBuilder.where(UserFilter.EMAIL).regex(rsearch);
+            void queryBuilder.where(UserFilter.EMAIL).regex(rsearch);
         }
         if (filter.has(UserFilter.IS_SUPER_ADMIN))
         {
             const isSuperAdmin: boolean = filter.get(UserFilter.IS_SUPER_ADMIN);
-            
-            queryBuilder.where(UserFilter.IS_SUPER_ADMIN).equals(isSuperAdmin);
+
+            void queryBuilder.where(UserFilter.IS_SUPER_ADMIN).equals(isSuperAdmin);
         }
 
-        queryBuilder.populate('roles');
+        void queryBuilder.populate('roles');
 
         return new MongoPaginator(queryBuilder, criteria);
     }

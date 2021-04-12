@@ -1,6 +1,6 @@
 import {cleanEnv, str, port, bool, num, url} from 'envalid';
 
-export function validateEnv() 
+export function validateEnv()
 {
     cleanEnv(process.env, {
         NODE_ENV: str(),
@@ -27,6 +27,6 @@ export function validateEnv()
         PRODUCT_NAME: str(),
         ENCRYPTION_DEFAULT: str(),
         PUSH_PRIVATE_KEY: str(),
-        PUSH_PUBLIC_KEY: str(),
+        PUSH_PUBLIC_KEY: str()
     });
 }

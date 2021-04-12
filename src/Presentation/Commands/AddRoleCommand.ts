@@ -11,7 +11,7 @@ AddRoleCommand
     .description('Add role to the system')
     .option('-n, --name <name>', 'Name of the role')
     .option('-s, --slug <slug>', 'Slug of the role')
-    .action(async(env: any) => 
+    .action(async(env: any) =>
     {
         const saveRoleUseCase = new SaveRoleUseCase();
 

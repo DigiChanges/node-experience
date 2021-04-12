@@ -7,7 +7,7 @@ const TokenSchema: any = new Schema({
     hash: {type:Schema.Types.String, required: true},
     expires: {type:Schema.Types.Number, required: true},
     payload: {type:Schema.Types.Mixed, required: true},
-    blackListed: {type:Schema.Types.Boolean},
+    blackListed: {type:Schema.Types.Boolean}
 }, {timestamps: true});
 
 TokenSchema.loadClass(Token);

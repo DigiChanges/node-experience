@@ -13,7 +13,7 @@ class RoleUserTransformer extends Transformer
             'slug': role.slug,
             'enable': role.enable,
             'createdAt': moment(role.createdAt).utc().unix(),
-            'updatedAt': moment(role.updatedAt).utc().unix(),
+            'updatedAt': moment(role.updatedAt).utc().unix()
         };
     }
 }

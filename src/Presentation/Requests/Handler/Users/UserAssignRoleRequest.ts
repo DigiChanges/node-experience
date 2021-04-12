@@ -8,7 +8,7 @@ class UserAssignRoleRequest extends IdRequest implements UserAssignRolePayload
 {
     @IsArray()
     @IsUUID('4', {
-        each: true,
+        each: true
     })
     rolesId: string[]
 

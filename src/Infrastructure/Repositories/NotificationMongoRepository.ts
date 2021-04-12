@@ -54,14 +54,14 @@ class NotificationMongoRepository implements INotificationRepository
         {
             const type = filter.get(NotificationFilter.KIND);
 
-            queryBuilder.where(NotificationFilter.KIND).equals(type);
+            void queryBuilder.where(NotificationFilter.KIND).equals(type);
         }
         if (filter.has(NotificationFilter.NAME))
         {
             const name: string = filter.get(NotificationFilter.NAME);
             const rsearch = new RegExp(name, 'g');
 
-            queryBuilder.where(NotificationFilter.NAME).regex(rsearch);
+            void queryBuilder.where(NotificationFilter.NAME).regex(rsearch);
         }
 
         return new MongoPaginator(queryBuilder, criteria);

@@ -54,7 +54,7 @@ class ItemSqlRepository implements IItemRepository
         if (filter.has(ItemFilter.NAME))
         {
             queryBuilder.andWhere('i.' + ItemFilter.NAME + ' like :' + ItemFilter.NAME);
-            queryBuilder.setParameter(ItemFilter.NAME, '%' + filter.get(ItemFilter.NAME) + '%');
+            queryBuilder.setParameter(ItemFilter.NAME, `%${filter.get(ItemFilter.NAME)}%`);
         }
 
         return new Paginator(queryBuilder, criteria);

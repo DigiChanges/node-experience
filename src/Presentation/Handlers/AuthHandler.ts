@@ -1,5 +1,5 @@
 import {controller, httpPost, request, response, next, httpGet} from 'inversify-express-utils';
-import {NextFunction, Request, Response} from 'express';
+import {Request, Response} from 'express';
 import {StatusCode} from '@digichanges/shared-experience';
 
 import {inject} from 'inversify';
@@ -38,7 +38,7 @@ class AuthHandler
     private responder: Responder;
 
     @httpPost('/login')
-    public async login(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async login(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new AuthRequest(req);
         await ValidatorRequest.handle(_request);
@@ -50,7 +50,7 @@ class AuthHandler
     }
 
     @httpPost('/keepAlive', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE))
-    public async keepAlive(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async keepAlive(@request() req: Request, @response() res: Response)
     {
         const _request = new KeepAliveRequest(req);
         await ValidatorRequest.handle(_request);
@@ -62,7 +62,7 @@ class AuthHandler
     }
 
     @httpPost('/forgotPassword')
-    public async forgotPassword(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async forgotPassword(@request() req: Request, @response() res: Response)
     {
         const _request = new ForgotPasswordRequest(req);
         await ValidatorRequest.handle(_request);
@@ -74,7 +74,7 @@ class AuthHandler
     }
 
     @httpPost('/changeForgotPassword')
-    public async changeForgotPassword(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async changeForgotPassword(@request() req: Request, @response() res: Response)
     {
         const _request = new ChangeForgotPasswordRequest(req);
         await ValidatorRequest.handle(_request);
@@ -86,19 +86,19 @@ class AuthHandler
     }
 
     @httpGet('/permissions', AuthorizeMiddleware(Permissions.GET_PERMISSIONS))
-    public async permissions(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public permissions(@request() req: Request, @response() res: Response)
     {
         const permissionUseCase = new PermissionUseCase();
-        const payload = await permissionUseCase.handle();
+        const payload = permissionUseCase.handle();
 
         this.responder.send(payload, req, res, StatusCode.HTTP_OK, new PermissionsTransformer());
     }
 
     @httpPost('/syncRolesPermissions', AuthorizeMiddleware(Permissions.AUTH_SYNC_PERMISSIONS))
-    public async syncRolesPermissions(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public syncRolesPermissions(@request() req: Request, @response() res: Response)
     {
         const syncRolesPermissionUseCase = new SyncRolesPermissionUseCase();
-        await syncRolesPermissionUseCase.handle();
+        syncRolesPermissionUseCase.handle();
 
         this.responder.send({message: 'Sync Successfully'}, req, res, StatusCode.HTTP_CREATED, null);
     }

@@ -5,7 +5,7 @@ const meta: any = {
     status: StatusCode.HTTP_TOO_MANY_REQUESTS.status,
     code: StatusCode.HTTP_TOO_MANY_REQUESTS.code,
     statusCode: StatusCode.HTTP_TOO_MANY_REQUESTS.statusCode,
-    message: 'Exceed 1 request per second',
+    message: 'Exceed 15 request per second',
     errors: null
 };
 

@@ -65,9 +65,9 @@ class Paginator implements IPaginator
     {
         const sorts = this.sort.get();
 
-        sorts.forEach((value: string, key: string) => 
+        sorts.forEach((value: string, key: string) =>
         {
-            let order: string = value.toUpperCase();
+            let order = value.toUpperCase();
             order = (order === 'DESC') ? 'DESC' : 'ASC';
 
             // @ts-ignore

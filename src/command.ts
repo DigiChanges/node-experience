@@ -17,9 +17,9 @@ import SyncRolesPermissionCommand from './Presentation/Commands/SyncRolesPermiss
 import CreateBucketCommand from './Presentation/Commands/CreateBucketCommand';
 import initCommand from './initCommand';
 
-(async() => 
+void (async() =>
 {
-    try 
+    try
     {
         await initCommand();
 

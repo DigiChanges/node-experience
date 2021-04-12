@@ -14,7 +14,7 @@ class RoleRepRequest implements RoleRepPayload
 
     @IsArray()
     @IsString({
-        each: true,
+        each: true
     })
     permissions: string[];
 
@@ -27,7 +27,7 @@ class RoleRepRequest implements RoleRepPayload
         this.name = request.body.name;
         this.slug = request.body.slug;
         this.permissions = request.body.permissions;
-        this.enable = request.body.hasOwnProperty('enable') ? request.body.enable : true;
+        this.enable = request.body?.enable ?? true;
     }
 
     getName(): string

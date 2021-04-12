@@ -3,13 +3,13 @@ import supertest from 'supertest';
 import {ICreateConnection} from '@digichanges/shared-experience';
 import initServer from '../initServer';
 
-describe('Start Login Test', () => 
+describe('Start Login Test', () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
 
-    beforeAll(async(done) => 
+    beforeAll(async(done) =>
     {
         const configServer = await initServer();
 
@@ -20,7 +20,7 @@ describe('Start Login Test', () =>
         done();
     });
 
-    afterAll((async(done) => 
+    afterAll((async(done) =>
     {
         await dbConnection.drop();
         await dbConnection.close();
@@ -28,7 +28,7 @@ describe('Start Login Test', () =>
         done();
     }));
 
-    test('Login User Success', async(done) => 
+    test('Login User Success', async(done) =>
     {
         const payload = {
             email: 'user@node.com',
@@ -52,7 +52,7 @@ describe('Start Login Test', () =>
         done();
     });
 
-    test('Login SuperAdmin Success', async(done) => 
+    test('Login SuperAdmin Success', async(done) =>
     {
         const payload = {
             email: 'superadmin@node.com',
@@ -76,7 +76,7 @@ describe('Start Login Test', () =>
         done();
     });
 
-    test('Login SuperAdmin Wrong Credentials', async(done) => 
+    test('Login SuperAdmin Wrong Credentials', async(done) =>
     {
         const payload = {
             email: 'superadmin@node.com',
@@ -99,7 +99,7 @@ describe('Start Login Test', () =>
         done();
     });
 
-    test('Login Operator Enable False', async(done) => 
+    test('Login Operator Enable False', async(done) =>
     {
         const payload = {
             email: 'operator@disabled.com',
@@ -122,7 +122,7 @@ describe('Start Login Test', () =>
         done();
     });
 
-    test('Login Operator with Role Operator Enable False', async(done) => 
+    test('Login Operator with Role Operator Enable False', async(done) =>
     {
         const payload = {
             email: 'operator@roleDisabled.com',

@@ -31,7 +31,7 @@ class AuthTransformer extends Transformer
                 'permissions': authService.getPermissions(user),
                 'roles': this.roleUserTransformer.handle(token.getUser().roles),
                 'createdAt': moment(token.getUser().createdAt).utc().unix(),
-                'updatedAt': moment(token.getUser().updatedAt).utc().unix(),
+                'updatedAt': moment(token.getUser().updatedAt).utc().unix()
             },
             'expires': token.getExpires(),
             'token': token.getHash()

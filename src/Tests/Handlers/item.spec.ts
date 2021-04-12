@@ -12,7 +12,7 @@ describe('Start Item Test', () =>
     let itemId = '';
     let deleteResponse: any = null;
 
-    beforeAll(async(done) => 
+    beforeAll(async(done) =>
     {
         const configServer = await initServer();
 
@@ -23,7 +23,7 @@ describe('Start Item Test', () =>
         done();
     });
 
-    afterAll((async(done) => 
+    afterAll((async(done) =>
     {
         await dbConnection.drop();
         await dbConnection.close();
@@ -33,7 +33,7 @@ describe('Start Item Test', () =>
 
     describe('Item Success', () =>
     {
-        beforeAll(async(done) => 
+        beforeAll(async(done) =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -52,7 +52,7 @@ describe('Start Item Test', () =>
             done();
         });
 
-        test('Add Item /items', async done => 
+        test('Add Item /items', async done =>
         {
             const payload = {
                 name: 'Item 1',
@@ -78,7 +78,7 @@ describe('Start Item Test', () =>
             done();
         });
 
-        test('Get Item /items/:id', async done => 
+        test('Get Item /items/:id', async done =>
         {
 
             const payload = {
@@ -104,7 +104,7 @@ describe('Start Item Test', () =>
             done();
         });
 
-        test('Update Item /items/:id', async done => 
+        test('Update Item /items/:id', async done =>
         {
             const payload = {
                 name: 'Item 1 update',
@@ -129,7 +129,7 @@ describe('Start Item Test', () =>
             done();
         });
 
-        test('Delete Item /items/:id', async done => 
+        test('Delete Item /items/:id', async done =>
         {
             const payload = {
                 name: 'Item 13 for delete',
@@ -160,7 +160,7 @@ describe('Start Item Test', () =>
             done();
         });
 
-        test('Get Items /items', async done => 
+        test('Get Items /items', async done =>
         {
 
             const response: any = await request
@@ -183,7 +183,7 @@ describe('Start Item Test', () =>
             done();
         });
 
-        test('Get Items /items without pagination', async done => 
+        test('Get Items /items without pagination', async done =>
         {
 
             const response: any = await request
@@ -204,7 +204,7 @@ describe('Start Item Test', () =>
             done();
         });
 
-        test('Get Items /items with Filter Type', async done => 
+        test('Get Items /items with Filter Type', async done =>
         {
 
             const response: any = await request
@@ -227,7 +227,7 @@ describe('Start Item Test', () =>
             done();
         });
 
-        test('Get Items /items with Sort Desc Type', async done => 
+        test('Get Items /items with Sort Desc Type', async done =>
         {
 
             const response: any = await request
@@ -250,7 +250,7 @@ describe('Start Item Test', () =>
 
     describe('Item Fails', () =>
     {
-        beforeAll(async(done) => 
+        beforeAll(async(done) =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -269,7 +269,7 @@ describe('Start Item Test', () =>
             done();
         });
 
-        test('Add Item /items', async done => 
+        test('Add Item /items', async done =>
         {
             const payload = {
                 name: 'Item 2',
@@ -295,7 +295,7 @@ describe('Start Item Test', () =>
             done();
         });
 
-        test('Get Item /items/:id', async done => 
+        test('Get Item /items/:id', async done =>
         {
 
             const response: any = await request
@@ -318,7 +318,7 @@ describe('Start Item Test', () =>
             done();
         });
 
-        test('Update Item /items/:id', async done => 
+        test('Update Item /items/:id', async done =>
         {
             const payload = {
                 name: 11,
@@ -349,7 +349,7 @@ describe('Start Item Test', () =>
             done();
         });
 
-        test('Delete Item error /items/:id', async done => 
+        test('Delete Item error /items/:id', async done =>
         {
 
             const deleteErrorResponse: any = await request
