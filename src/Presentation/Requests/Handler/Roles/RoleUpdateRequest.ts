@@ -27,7 +27,7 @@ class RoleUpdateRequest extends IdRequest implements RoleUpdatePayload
         this.name = request.body.name;
         this.slug = request.body.slug;
         this.permissions = request.body.permissions;
-        this.enable = request.body?.enable ?? true;
+        this.enable = request.body.enable ?? true;
     }
 
     getName(): string

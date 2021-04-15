@@ -1,9 +1,9 @@
 import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 
-interface INotificationRepository
+interface INotificationRepository<T>
 {
-    save(element: any): Promise<any>;
-    getOne(id: string): Promise<any>;
+    save(element: T): Promise<T>;
+    getOne(id: string): Promise<T>;
     list(criteria: ICriteria): Promise<IPaginator>;
 }
 

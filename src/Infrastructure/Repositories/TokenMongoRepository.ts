@@ -10,7 +10,7 @@ import {connection} from '../Database/MongooseCreateConnection';
 import NotFoundException from '../Exceptions/NotFoundException';
 
 @injectable()
-class TokenMongoRepository implements ITokenRepository
+class TokenMongoRepository implements ITokenRepository<ITokenDomain>
 {
     private readonly repository: Model<IToken>;
 

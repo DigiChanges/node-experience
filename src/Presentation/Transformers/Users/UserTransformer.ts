@@ -27,6 +27,7 @@ class UserTransformer extends Transformer
             'gender': user.gender,
             'phone': user.phone,
             'country': user.country,
+            'address': user.address,
             'enable': user.enable,
             'roles': this.roleTransformer.handle(user.getRoles()),
             'permissions': user.permissions,

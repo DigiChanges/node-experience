@@ -52,7 +52,7 @@ class RoleSqlRepository implements IRoleRepository
 
         if (filter.has(RoleFilter.NAME))
         {
-            queryBuilder.andWhere('i.' + RoleFilter.NAME + ' like :' + RoleFilter.NAME);
+            queryBuilder.andWhere(`i.${  RoleFilter.NAME  } like :${  RoleFilter.NAME}`);
             queryBuilder.setParameter(RoleFilter.NAME, `%${filter.get(RoleFilter.NAME)}%`);
         }
 
@@ -64,7 +64,7 @@ class RoleSqlRepository implements IRoleRepository
         await this.repository.save(role);
     }
 
-    async delete(id: any): Promise<DeleteResult>
+    async delete(id: any): Promise<any>
     {
         return await this.repository.delete(id);
     }

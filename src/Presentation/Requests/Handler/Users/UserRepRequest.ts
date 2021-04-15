@@ -23,7 +23,7 @@ class UserRepRequest implements UserRepPayload
     @IsString()
     birthday: string;
 
-		@Length(3, 3)
+		@Length(3, 20)
     @IsString()
     documentType: string;
 
@@ -42,6 +42,10 @@ class UserRepRequest implements UserRepPayload
 		@Length(3, 20)
     @IsString()
     country: string;
+
+		@Length(10, 60)
+    @IsString()
+    address: string;
 
     @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
     @IsString()
@@ -75,9 +79,10 @@ class UserRepRequest implements UserRepPayload
         this.gender = request.body.gender;
         this.phone = request.body.phone;
         this.country = request.body.country;
+        this.address = request.body.address;
         this.permissions = request.body.permissions;
         this.passwordConfirmation = request.body.passwordConfirmation;
-        this.enable = request.body?.enable ?? true;
+        this.enable = request.body.enable ?? true;
     }
 
     getFirstName(): string
@@ -123,6 +128,11 @@ class UserRepRequest implements UserRepPayload
     getCountry(): string
     {
         return this.country;
+    }
+
+    getAddress(): string
+    {
+        return this.address;
     }
 
     getPassword(): string

@@ -73,8 +73,6 @@ class MongoPaginator implements IPaginator
     {
         const exist = this.pagination.getExist();
 
-        console.log('addPagination', exist);
-
         if (exist)
         {
             void this.documentQuery

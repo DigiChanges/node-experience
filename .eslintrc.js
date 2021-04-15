@@ -52,6 +52,7 @@ module.exports = {
             'functions': 'never'
         }],
         'no-console': 1,
+        'prefer-template': 'error',
         '@typescript-eslint/no-unused-vars': 0,
         '@typescript-eslint/no-empty-interface': 0,
         '@typescript-eslint/no-explicit-any': 0,

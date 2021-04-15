@@ -1,5 +1,5 @@
 import IFileRepository from '../../InterfaceAdapters/IRepositories/IFileRepository';
-import {DeleteResult, getRepository, Repository} from 'typeorm';
+import {getRepository, Repository} from 'typeorm';
 import {injectable} from 'inversify';
 import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 
@@ -48,7 +48,7 @@ class FileSqlRepository implements IFileRepository
 
         if (filter.has(FileFilter.NAME))
         {
-            queryBuilder.andWhere('i.' + FileFilter.NAME + ' like :' + FileFilter.NAME);
+            queryBuilder.andWhere(`i.${  FileFilter.NAME  } like :${  FileFilter.NAME}`);
             queryBuilder.setParameter(FileFilter.NAME, `%${filter.get(FileFilter.NAME)}%`);
         }
 
@@ -60,7 +60,7 @@ class FileSqlRepository implements IFileRepository
         await this.repository.save(file);
     }
 
-    async delete(id: any): Promise<DeleteResult>
+    async delete(id: any): Promise<any>
     {
         return await this.repository.delete(id);
     }

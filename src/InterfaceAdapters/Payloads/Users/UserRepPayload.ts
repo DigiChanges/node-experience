@@ -11,6 +11,7 @@ interface UserRepPayload
 		getGender(): string;
 		getPhone(): string;
 		getCountry(): string;
+		getAddress(): string;
     getPassword(): string;
     getPasswordConfirmation(): string;
     getEnable(): boolean;

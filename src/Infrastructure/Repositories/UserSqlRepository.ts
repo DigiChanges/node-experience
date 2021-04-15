@@ -91,7 +91,7 @@ class UserSqlRepository implements IUserRepository
         await this.repository.save(user);
     }
 
-    async delete(id: string): Promise<DeleteResult>
+    async delete(id: string): Promise<any>
     {
         return await this.repository.delete(id);
     }

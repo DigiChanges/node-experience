@@ -13,11 +13,11 @@ import ContainerFactory from './ContainerFactory';
 // TODO: Change logic with payload to extend and add new payload
 class TokenFactory
 {
-    private repository: ITokenRepository;
+    private repository: ITokenRepository<ITokenDomain>;
 
     constructor()
     {
-        this.repository = ContainerFactory.create<ITokenRepository>(REPOSITORIES.ITokenRepository);
+        this.repository = ContainerFactory.create<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository);
     }
 
     public async createToken(user: IUserDomain): Promise<IToken>

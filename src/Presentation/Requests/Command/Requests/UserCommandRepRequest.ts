@@ -37,6 +37,10 @@ class UserCommandRepRequest implements UserRepPayload
     @IsString()
     country: string;
 
+		@Length(3, 60)
+    @IsString()
+    address: string;
+
     @IsString()
     password: string;
 
@@ -70,6 +74,7 @@ class UserCommandRepRequest implements UserRepPayload
         this.gender = env.gender;
         this.phone = env.phone;
         this.country = env.country;
+        this.address = env.address;
         this.enable = true;
         this.roles = role ? [role] : [];
         this.isSuperAdmin = env.isSuperAdmin === 'true';
@@ -118,6 +123,11 @@ class UserCommandRepRequest implements UserRepPayload
     getCountry(): string
     {
         return this.country;
+    }
+
+    getAddress(): string
+    {
+        return this.address;
     }
 
     getPassword(): string

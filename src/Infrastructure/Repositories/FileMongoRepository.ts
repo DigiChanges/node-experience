@@ -1,6 +1,6 @@
 import {Query, Model} from 'mongoose';
 import {injectable} from 'inversify';
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import {IBaseRepository, ICriteria, IPaginator} from '@digichanges/shared-experience';
 
 import IFileRepository from '../../InterfaceAdapters/IRepositories/IFileRepository';
 

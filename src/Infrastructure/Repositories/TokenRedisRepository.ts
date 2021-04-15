@@ -9,7 +9,7 @@ import CacheFactory from '../Factories/CacheFactory';
 import Token from '../Entities/Token';
 
 @injectable()
-class TokenRedisRepository implements ITokenRepository
+class TokenRedisRepository implements ITokenRepository<ITokenDomain>
 {
     private readonly repository: ICacheRepository;
     private readonly expire: number = Math.floor((+Config.get('jwt.expires') + 10) * 60);

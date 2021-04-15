@@ -23,7 +23,7 @@ class Notificator
             const port: number = Config.get('mail.port');
             const secure: boolean = Config.get('mail.secure');
             const templateRoot: string = Config.get('mail.templateDir');
-            const templateDir = path.dirname(require.main.filename || process.mainModule.filename) + `/${templateRoot}/${templatePathNameFile}`;
+            const templateDir = `${path.dirname(require.main.filename || process.mainModule.filename)  }/${templateRoot}/${templatePathNameFile}`;
 
             const smtpConfig = {host, port, secure};
 
@@ -51,7 +51,7 @@ class Notificator
             const html = template(data);
 
             const mailData = {
-                from: '"' + emailNotification.senderName + '" <' + emailNotification.from + '>',
+                from: `"${  emailNotification.senderName  }" <${  emailNotification.from  }>`,
                 to:  emailNotification.to,
                 subject: emailNotification.subject,
                 html

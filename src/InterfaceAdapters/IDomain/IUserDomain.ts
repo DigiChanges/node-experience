@@ -11,6 +11,7 @@ interface IUserDomain
 		gender: string;
 		phone: string;
 		country: string;
+		address: string;
     password: string;
     roles: IRoleDomain[];
     permissions: string[];

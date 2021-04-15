@@ -1,5 +1,5 @@
 import IItemRepository from '../../InterfaceAdapters/IRepositories/IItemRepository';
-import {DeleteResult, getRepository, Repository} from 'typeorm';
+import {getRepository, Repository} from 'typeorm';
 import Item from '../../Domain/Entities/Item';
 import {injectable} from 'inversify';
 import {ICriteria, IPaginator} from '@digichanges/shared-experience';
@@ -48,12 +48,12 @@ class ItemSqlRepository implements IItemRepository
 
         if (filter.has(ItemFilter.TYPE))
         {
-            queryBuilder.andWhere('i.' + ItemFilter.TYPE + ' = :' + ItemFilter.TYPE);
+            queryBuilder.andWhere(`i.${  ItemFilter.TYPE  } = :${  ItemFilter.TYPE}`);
             queryBuilder.setParameter(ItemFilter.TYPE, filter.get(ItemFilter.TYPE));
         }
         if (filter.has(ItemFilter.NAME))
         {
-            queryBuilder.andWhere('i.' + ItemFilter.NAME + ' like :' + ItemFilter.NAME);
+            queryBuilder.andWhere(`i.${  ItemFilter.NAME  } like :${  ItemFilter.NAME}`);
             queryBuilder.setParameter(ItemFilter.NAME, `%${filter.get(ItemFilter.NAME)}%`);
         }
 
@@ -65,7 +65,7 @@ class ItemSqlRepository implements IItemRepository
         await this.repository.save(item);
     }
 
-    async delete(id: any): Promise<DeleteResult>
+    async delete(id: any): Promise<any>
     {
         return await this.repository.delete(id);
     }

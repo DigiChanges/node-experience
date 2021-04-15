@@ -3,13 +3,13 @@ import IUserRepository from '../../../InterfaceAdapters/IRepositories/IUserRepos
 import CheckUserRolePayload from '../../../InterfaceAdapters/Payloads/Auxiliars/CheckUserRolePayload';
 import Roles from '../../../Config/Roles';
 import IRoleRepository from '../../../InterfaceAdapters/IRepositories/IRoleRepository';
-import Role from '../../Entities/Role';
 import {REPOSITORIES} from '../../../repositories';
 import {SERVICES} from '../../../services';
 import IUserDomain from '../../../InterfaceAdapters/IDomain/IUserDomain';
 import CantDisabledException from '../../Exceptions/CantDisabledException';
 import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
 import IAuthService from '../../../InterfaceAdapters/IServices/IAuthService';
+import IRoleDomain from '../../../InterfaceAdapters/IDomain/IRoleDomain';
 
 class UpdateUserUseCase
 {
@@ -58,6 +58,7 @@ class UpdateUserUseCase
         user.gender = payload.getGender();
         user.phone = payload.getPhone();
         user.country = payload.getCountry();
+        user.address = payload.getAddress();
         user.permissions = payload.getPermissions();
 
         await this.repository.save(user);
@@ -72,7 +73,7 @@ class UpdateUserUseCase
 
         for (let i = 0; i < count; i++)
         {
-            const role: Role = await roleRepository.getOne(payload.user.roles[i].getId());
+            const role: IRoleDomain = await roleRepository.getOne(payload.user.roles[i].getId());
 
             if (role.slug === payload.roleToCheck)
             {

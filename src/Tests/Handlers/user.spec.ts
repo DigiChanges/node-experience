@@ -64,6 +64,7 @@ describe('Start User Test', () =>
                 gender: 'male',
                 phone: '2234456999',
                 country: 'Argentina',
+                address: 'Norway 123',
                 password: '12345678',
                 passwordConfirmation: '12345678',
                 permissions: []
@@ -102,6 +103,7 @@ describe('Start User Test', () =>
                 gender: 'male',
                 phone: '2234456999',
                 country: 'Argentina',
+                address: 'Norway 123',
                 password: '12345678',
                 passwordConfirmation: '12345678',
                 enable: false,
@@ -171,6 +173,7 @@ describe('Start User Test', () =>
                 gender: 'female',
                 phone: '22344569121',
                 country: 'Uruguay',
+                address: 'Norway 124',
                 enable: false,
                 permissions: []
             };
@@ -247,6 +250,7 @@ describe('Start User Test', () =>
         test('Delete User /users/:id', async done =>
         {
             const payload: any = {
+                email: 'user2@delete.com',
                 firstName: 'Jhon for delete',
                 lastName: 'Doe Update',
                 birthday: '04/08/1992',
@@ -255,7 +259,7 @@ describe('Start User Test', () =>
                 gender: 'male',
                 phone: '2234456999',
                 country: 'Argentina',
-                email: 'user2@delete.com',
+                address: 'Norway 126',
                 password: '12345678',
                 enable: false,
                 passwordConfirmation: '12345678',
@@ -459,6 +463,7 @@ describe('Start User Test', () =>
                 gender: 'male',
                 phone: '22344569123',
                 country: 'Argentina',
+                address: 'Norway 120',
                 enable: true
             };
 

@@ -14,7 +14,7 @@ import NotificationFilter from '../../Presentation/Criterias/Notification/Notifi
 import NotFoundException from '../Exceptions/NotFoundException';
 
 @injectable()
-class NotificationMongoRepository implements INotificationRepository
+class NotificationMongoRepository implements INotificationRepository<INotificationDomain>
 {
     private readonly repository: Model<INotification>;
     private readonly emailRepository: Model<INotification>;

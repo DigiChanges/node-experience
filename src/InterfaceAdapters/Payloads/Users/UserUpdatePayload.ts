@@ -11,6 +11,7 @@ interface UserUpdatePayload extends IdPayload
 		getGender(): string;
 		getPhone(): string;
 		getCountry(): string;
+		getAddress(): string;
     getEnable(): boolean;
     getTokenUserId(): string;
     getPermissions(): string[];

@@ -6,11 +6,11 @@ import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory
 
 class SetTokenBlacklistUseCase
 {
-    private repository: ITokenRepository;
+    private repository: ITokenRepository<ITokenDomain>;
 
     constructor()
     {
-        this.repository = ContainerFactory.create<ITokenRepository>(REPOSITORIES.ITokenRepository);
+        this.repository = ContainerFactory.create<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository);
     }
 
     async handle(token: ITokenDomain)

@@ -29,6 +29,7 @@ import FileSqlRepository from './Infrastructure/Repositories/FileSqlRepository';
 import RoleSqlRepository from './Infrastructure/Repositories/RoleSqlRepository';
 import TokenRedisRepository from './Infrastructure/Repositories/TokenRedisRepository';
 import {ITokenRepository} from '@digichanges/shared-experience';
+import ITokenDomain from './InterfaceAdapters/IInfrastructure/ITokenDomain';
 
 const container = new Container();
 
@@ -55,6 +56,6 @@ else if (Config.get('dbConfig.default') === 'Mongoose')
     container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository);
 }
 
-container.bind<ITokenRepository>(REPOSITORIES.ITokenRepository).to(TokenRedisRepository);
+container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(TokenRedisRepository);
 
 export default container;

@@ -36,6 +36,10 @@ class UserUpdateRequest extends IdRequest implements UserUpdatePayload
     @IsString()
     country: string;
 
+		@Length(10, 60)
+    @IsString()
+    address: string;
+
     @IsEmail()
     email: string
 
@@ -65,6 +69,7 @@ class UserUpdateRequest extends IdRequest implements UserUpdatePayload
         this.gender = request.body.gender;
         this.phone = request.body.phone;
         this.country = request.body.country;
+        this.address = request.body.address;
         this.enable = request.body.enable;
         this.permissions = request.body.permissions;
         this.userId = request.tokenDecode.userId;
@@ -113,6 +118,11 @@ class UserUpdateRequest extends IdRequest implements UserUpdatePayload
     getCountry(): string
     {
         return this.country;
+    }
+
+    getAddress(): string
+    {
+        return this.address;
     }
 
     getEnable(): boolean

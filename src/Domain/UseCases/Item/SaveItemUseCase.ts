@@ -16,7 +16,7 @@ class SaveItemUseCase
 
     async handle(payload: ItemRepPayload): Promise<IItemDomain>
     {
-        let item = new Item();
+        let item: IItemDomain = new Item();
         item.name = payload.getName();
         item.type = payload.getType();
 

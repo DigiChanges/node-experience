@@ -39,6 +39,7 @@ class SaveUserUseCase
         user.gender = payload.getGender();
         user.phone = payload.getPhone();
         user.country = payload.getCountry();
+        user.address = payload.getAddress();
         user.password = await this.encryption.encrypt(payload.getPassword());
         user.enable = payload.getEnable();
         user.confirmationToken = payload.getConfirmationToken();

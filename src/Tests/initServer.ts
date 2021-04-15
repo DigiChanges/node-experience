@@ -31,6 +31,7 @@ import {REPOSITORIES} from '../repositories';
 import TokenMongoRepository from '../Infrastructure/Repositories/TokenMongoRepository';
 import {validateEnv} from '../Config/validateEnv';
 import container from '../inversify.config';
+import ITokenDomain from '../InterfaceAdapters/IInfrastructure/ITokenDomain';
 
 const initServer = async(): Promise<any> =>
 {
@@ -43,7 +44,7 @@ const initServer = async(): Promise<any> =>
     await dbConnection.create();
 
     container.unbind(REPOSITORIES.ITokenRepository);
-    container.bind<ITokenRepository>(REPOSITORIES.ITokenRepository).to(TokenMongoRepository);
+    container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(TokenMongoRepository);
 
     Locales.configure({
         locales: ['en', 'es'],

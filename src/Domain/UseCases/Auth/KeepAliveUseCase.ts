@@ -5,18 +5,19 @@ import TokenFactory from '../../../Infrastructure/Factories/TokenFactory';
 import {REPOSITORIES} from '../../../repositories';
 import SetTokenBlacklistUseCase from '../Tokens/SetTokenBlacklistUseCase';
 import ContainerFactory from '../../../Infrastructure/Factories/ContainerFactory';
+import ITokenDomain from '../../../InterfaceAdapters/IInfrastructure/ITokenDomain';
 
 class KeepAliveUseCase
 {
     private repository: IUserRepository;
-    private tokenRepository: ITokenRepository;
+    private tokenRepository: ITokenRepository<ITokenDomain>;
     private tokenFactory: TokenFactory;
 
     constructor()
     {
         this.tokenFactory = new TokenFactory();
         this.repository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
-        this.tokenRepository = ContainerFactory.create<ITokenRepository>(REPOSITORIES.ITokenRepository);
+        this.tokenRepository = ContainerFactory.create<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository);
     }
 
     async handle(payload: KeepAlivePayload)
