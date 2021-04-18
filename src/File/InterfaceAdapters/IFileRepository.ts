@@ -1,6 +1,6 @@
 import {IBaseRepository} from '@digichanges/shared-experience';
 import IFileDomain from './IFileDomain';
 
-type IFileRepository = IBaseRepository<IFileDomain>
+interface IFileRepository extends IBaseRepository<IFileDomain> {}
 
 export default IFileRepository;
