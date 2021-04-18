@@ -1,13 +1,13 @@
 import 'reflect-metadata';
-import '../Presentation/Handlers/IndexHandler';
-import '../Presentation/Handlers/AuthHandler';
-import '../Presentation/Handlers/ItemHandler';
-import '../Presentation/Handlers/UserHandler';
-import '../Presentation/Handlers/RoleHandler';
+import '../App/Presentation/Handlers/IndexHandler';
+import '../Auth/Presentation/Handlers/AuthHandler';
+import '../Item/Presentation/Handlers/ItemHandler';
+import '../User/Presentation/Handlers/UserHandler';
+import '../Role/Presentation/Handlers/RoleHandler';
 // import "../Presentation/Handlers/FileHandler";
 // import "../Presentation/Handlers/NotificationHandler";
 
-import {Locales} from '../Application/app';
+import {Locales} from '../app';
 
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -16,22 +16,22 @@ import cors from 'cors';
 import helmet from 'helmet';
 import {ICreateConnection, ITokenRepository} from '@digichanges/shared-experience';
 
-import LoggerWinston from '../Presentation/Middlewares/LoggerWinston';
-import AuthenticationMiddleware from '../Presentation/Middlewares/AuthenticationMiddleware';
-import RefreshTokenMiddleware from '../Presentation/Middlewares/RefreshTokenMiddleware';
+import LoggerWinston from '../App/Presentation/Middlewares/LoggerWinston';
+import AuthenticationMiddleware from '../Auth/Presentation/Middlewares/AuthenticationMiddleware';
+import RefreshTokenMiddleware from '../App/Presentation/Middlewares/RefreshTokenMiddleware';
 
 import {InversifyExpressServer} from 'inversify-express-utils';
-import {ErrorHandler} from '../Presentation/Shared/ErrorHandler';
+import {ErrorHandler} from '../App/Presentation/Shared/ErrorHandler';
 import supertest from 'supertest';
-import DatabaseFactory from '../Infrastructure/Factories/DatabaseFactory';
-import SeedFactory from '../Infrastructure/Seeds/SeedFactory';
-import EventHandler from '../Infrastructure/Events/EventHandler';
-import RedirectRouteNotFoundMiddleware from '../Presentation/Middlewares/RedirectRouteNotFoundMiddleware';
+import DatabaseFactory from '../App/Infrastructure/Factories/DatabaseFactory';
+import SeedFactory from '../App/Infrastructure/Seeds/SeedFactory';
+import EventHandler from '../App/Infrastructure/Events/EventHandler';
+import RedirectRouteNotFoundMiddleware from '../App/Presentation/Middlewares/RedirectRouteNotFoundMiddleware';
 import {REPOSITORIES} from '../repositories';
-import TokenMongoRepository from '../Infrastructure/Repositories/TokenMongoRepository';
+import TokenMongoRepository from '../Auth/Infrastructure/Repositories/TokenMongoRepository';
 import {validateEnv} from '../Config/validateEnv';
 import container from '../inversify.config';
-import ITokenDomain from '../InterfaceAdapters/IInfrastructure/ITokenDomain';
+import ITokenDomain from '../App/InterfaceAdapters/ITokenDomain';
 
 const initServer = async(): Promise<any> =>
 {

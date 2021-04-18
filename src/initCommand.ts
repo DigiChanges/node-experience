@@ -1,4 +1,4 @@
-import DatabaseFactory from './Infrastructure/Factories/DatabaseFactory';
+import DatabaseFactory from './App/Infrastructure/Factories/DatabaseFactory';
 import {validateEnv} from './Config/validateEnv';
 
 const initCommand = async() =>
