@@ -1,13 +1,13 @@
 import dotenv from 'dotenv';
 dotenv.config(); // Need before get config
 
-import App from './Application/app';
+import App from './app';
 import {validateEnv} from './Config/validateEnv';
-import {loggerCli} from './Infrastructure/Shared/Logger';
-import DatabaseFactory from './Infrastructure/Factories/DatabaseFactory';
+import {loggerCli} from './App/Infrastructure/Shared/Logger';
+import DatabaseFactory from './App/Infrastructure/Factories/DatabaseFactory';
 
-import EventHandler from './Infrastructure/Events/EventHandler';
-import CacheFactory from './Infrastructure/Factories/CacheFactory';
+import EventHandler from './App/Infrastructure/Events/EventHandler';
+import CacheFactory from './App/Infrastructure/Factories/CacheFactory';
 import Config from 'config';
 import {ICacheRepository, ICreateConnection} from '@digichanges/shared-experience';
 

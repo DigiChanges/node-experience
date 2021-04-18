@@ -5,16 +5,16 @@ dotenv.config(); // Need before get config
 
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
 
-import {loggerCli} from './Infrastructure/Shared/Logger';
+import {loggerCli} from './App/Infrastructure/Shared/Logger';
 
-import AddUserRoleCommand from './Presentation/Commands/AddUserRoleCommand';
-import AddUserCommand from './Presentation/Commands/AddUserCommand';
-import AddRoleCommand from './Presentation/Commands/AddRoleCommand';
-import CreateVapID from './Presentation/Commands/CreateVapID';
+import AddUserRoleCommand from './User/Presentation/Commands/AddUserRoleCommand';
+import AddUserCommand from './User/Presentation/Commands/AddUserCommand';
+import AddRoleCommand from './Role/Presentation/Commands/AddRoleCommand';
+import CreateVapID from './File/Presentation/Commands/CreateVapID';
 
-import AssignRoleToUserCommand from './Presentation/Commands/AssingRoleToUserCommand';
-import SyncRolesPermissionCommand from './Presentation/Commands/SyncRolesPermissionCommand';
-import CreateBucketCommand from './Presentation/Commands/CreateBucketCommand';
+import AssignRoleToUserCommand from './User/Presentation/Commands/AssingRoleToUserCommand';
+import SyncRolesPermissionCommand from './Auth/Presentation/Commands/SyncRolesPermissionCommand';
+import CreateBucketCommand from './File/Presentation/Commands/CreateBucketCommand';
 import initCommand from './initCommand';
 
 void (async() =>
