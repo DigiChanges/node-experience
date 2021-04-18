@@ -1,20 +1,20 @@
 import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
+import initTestServer from '../../initTestServer';
 import {ICreateConnection} from '@digichanges/shared-experience';
-import initServer from '../initServer';
 
-describe('Start Role Test', () =>
+describe('Start Item Test', () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
     let token: any = null;
-    let roleId = '';
+    let itemId = '';
     let deleteResponse: any = null;
 
     beforeAll(async(done) =>
     {
-        const configServer = await initServer();
+        const configServer = await initTestServer();
 
         server = configServer.server;
         request = configServer.request;
@@ -31,7 +31,7 @@ describe('Start Role Test', () =>
         done();
     }));
 
-    describe('Role Success', () =>
+    describe('Item Success', () =>
     {
         beforeAll(async(done) =>
         {
@@ -52,16 +52,15 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Add Role without enable property /roles', async done =>
+        test('Add Item /items', async done =>
         {
-            const payload: any = {
-                name: 'Role1 Test',
-                slug: 'role1test',
-                permissions: []
+            const payload = {
+                name: 'Item 1',
+                type: 10
             };
 
             const response: any = await request
-                .post('/api/roles')
+                .post('/api/items')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
@@ -73,89 +72,22 @@ describe('Start Role Test', () =>
             expect(statusCode).toStrictEqual('HTTP_CREATED');
 
             expect(data.name).toStrictEqual(payload.name);
-            expect(data.slug).toStrictEqual(payload.slug);
-            expect(data.permissions).toStrictEqual(payload.permissions);
-            expect(data.enable).toStrictEqual(true);
-
-            roleId = data.id;
+            expect(data.type).toStrictEqual(payload.type);
+            itemId = data.id;
 
             done();
         });
 
-        test('Add Role with enable property /roles', async done =>
+        test('Get Item /items/:id', async done =>
         {
-            const payload: any = {
-                name: 'Role2 Test',
-                slug: 'role2test',
-                permissions: [],
-                enable: false
+
+            const payload = {
+                name: 'Item 1',
+                type: 10
             };
 
             const response: any = await request
-                .post('/api/roles')
-                .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
-                .send(payload);
-
-            const {body: {status, statusCode, data}} = response;
-
-            expect(response.statusCode).toStrictEqual(201);
-            expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_CREATED');
-
-            expect(data.name).toStrictEqual(payload.name);
-            expect(data.slug).toStrictEqual(payload.slug);
-            expect(data.permissions).toStrictEqual(payload.permissions);
-            expect(data.enable).toStrictEqual(payload.enable);
-
-            roleId = data.id;
-
-            done();
-        });
-
-        test('Add Role with permissions property /roles', async done =>
-        {
-            const payload: any = {
-                name: 'Role3 Test',
-                slug: 'role3test',
-                permissions: ['itemsSave'],
-                enable: true
-            };
-
-            const response: any = await request
-                .post('/api/roles')
-                .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
-                .send(payload);
-
-            const {body: {status, statusCode, data}} = response;
-
-            expect(response.statusCode).toStrictEqual(201);
-            expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_CREATED');
-
-            expect(data.name).toStrictEqual(payload.name);
-            expect(data.slug).toStrictEqual(payload.slug);
-            expect(data.permissions).toStrictEqual(payload.permissions);
-            expect(data.enable).toStrictEqual(payload.enable);
-
-            roleId = data.id;
-
-            done();
-        });
-
-        test('Get Role /roles/:id', async done =>
-        {
-
-            const payload: any = {
-                name: 'Role3 Test',
-                slug: 'role3test',
-                permissions: ['itemsSave'],
-                enable: true
-            };
-
-            const response: any = await request
-                .get(`/api/roles/${roleId}`)
+                .get(`/api/items/${itemId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -167,24 +99,20 @@ describe('Start Role Test', () =>
             expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(data.name).toStrictEqual(payload.name);
-            expect(data.slug).toStrictEqual(payload.slug);
-            expect(data.permissions).toStrictEqual(payload.permissions);
-            expect(data.enable).toStrictEqual(payload.enable);
+            expect(data.type).toStrictEqual(payload.type);
 
             done();
         });
 
-        test('Update Role /roles/:id', async done =>
+        test('Update Item /items/:id', async done =>
         {
-            const payload: any = {
-                name: 'Role3 Test Update',
-                slug: 'role3testupdate',
-                permissions: ['itemsDelete'],
-                enable: false
+            const payload = {
+                name: 'Item 1 update',
+                type: 11
             };
 
             const response: any = await request
-                .put(`/api/roles/${roleId}`)
+                .put(`/api/items/${itemId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
@@ -196,55 +124,47 @@ describe('Start Role Test', () =>
             expect(statusCode).toStrictEqual('HTTP_CREATED');
 
             expect(data.name).toStrictEqual(payload.name);
-            expect(data.slug).toStrictEqual(payload.slug);
-            expect(data.permissions).toStrictEqual(payload.permissions);
-            expect(data.enable).toStrictEqual(payload.enable);
+            expect(data.type).toStrictEqual(payload.type);
 
             done();
         });
 
-        test('Delete Role /roles/:id', async done =>
+        test('Delete Item /items/:id', async done =>
         {
-            const payload: any = {
-                name: 'Role4 Test',
-                slug: 'role4test',
-                permissions: ['itemsSave'],
-                enable: true
+            const payload = {
+                name: 'Item 13 for delete',
+                type: 13
             };
 
             const createResponse: any = await request
-                .post('/api/roles')
+                .post('/api/items')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            token = createResponse.body.metadata.refreshToken;
-
             deleteResponse = await request
-                .delete(`/api/roles/${createResponse.body.data.id}`)
+                .delete(`/api/items/${createResponse.body.data.id}`)
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Authorization', `Bearer ${createResponse.body.metadata.refreshToken}`)
                 .send();
 
             const {body: {status, statusCode, data}} = deleteResponse;
 
-            expect(deleteResponse.statusCode).toStrictEqual(201);
+            expect(deleteResponse.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_CREATED');
+            expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(data.name).toStrictEqual(payload.name);
-            expect(data.slug).toStrictEqual(payload.slug);
-            expect(data.permissions).toStrictEqual(payload.permissions);
-            expect(data.enable).toStrictEqual(payload.enable);
+            expect(data.type).toStrictEqual(payload.type);
 
             done();
         });
 
-        test('Get Roles /roles', async done =>
+        test('Get Items /items', async done =>
         {
 
             const response: any = await request
-                .get('/api/roles?pagination[limit]=5&pagination[offset]=0')
+                .get('/api/items?pagination[limit]=5&pagination[offset]=0')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -255,19 +175,19 @@ describe('Start Role Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(data.length).toEqual(5);
-            expect(pagination.total).toEqual(5);
-            expect(pagination.currentUrl).toContain('/api/roles?pagination[limit]=5&pagination[offset]=0');
-            expect(pagination.nextUrl).toContain('/api/roles?pagination[limit]=5&pagination[offset]=5');
+            expect(data.length).toStrictEqual(5);
+            expect(pagination.total).toStrictEqual(5);
+            expect(pagination.currentUrl).toContain('/api/items?pagination[limit]=5&pagination[offset]=0');
+            expect(pagination.nextUrl).toContain('/api/items?pagination[limit]=5&pagination[offset]=5');
 
             done();
         });
 
-        test('Get Roles /roles without pagination', async done =>
+        test('Get Items /items without pagination', async done =>
         {
 
             const response: any = await request
-                .get('/api/roles')
+                .get('/api/items')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -278,17 +198,17 @@ describe('Start Role Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(data.length).toStrictEqual(6);
+            expect(data.length).toStrictEqual(11);
             expect(pagination).not.toBeDefined();
 
             done();
         });
 
-        test('Get Roles /roles with Filter Type', async done =>
+        test('Get Items /items with Filter Type', async done =>
         {
 
             const response: any = await request
-                .get('/api/roles?pagination[limit]=20&pagination[offset]=0&filter[slug]=admin')
+                .get('/api/items?pagination[limit]=20&pagination[offset]=0&filter[type]=11')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -302,49 +222,33 @@ describe('Start Role Test', () =>
             expect(data.length).toStrictEqual(1);
             expect(pagination.total).toStrictEqual(1);
 
+            expect(data[0].type).toStrictEqual(11);
+
             done();
         });
 
-        test('Get Roles /roles with Sort Desc Type', async done =>
+        test('Get Items /items with Sort Desc Type', async done =>
         {
 
             const response: any = await request
-                .get('/api/roles?pagination[limit]=20&pagination[offset]=0&sort[slug]=desc')
+                .get('/api/items?pagination[limit]=20&pagination[offset]=0&sort[type]=desc')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data: [role1, role2]}} = response;
+            const {body: {status, statusCode, data: [item1, item2]}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(role1.slug).toStrictEqual('role3testupdate');
-            expect(role2.slug).toStrictEqual('role2test');
-
-            done();
-        });
-
-        test('Sync roles permissions /syncRolesPermissions', async done =>
-        {
-
-            const response: any = await request
-                .post('/api/auth/syncRolesPermissions')
-                .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
-                .send();
-
-            const {body: {message}} = response;
-
-            expect(response.statusCode).toStrictEqual(201);
-            expect(message).toStrictEqual('Sync Successfully');
+            expect(item1.type).toBeGreaterThanOrEqual(item2.type);
 
             done();
         });
     });
 
-    describe('Role Fails', () =>
+    describe('Item Fails', () =>
     {
         beforeAll(async(done) =>
         {
@@ -365,15 +269,15 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Add Role /roles', async done =>
+        test('Add Item /items', async done =>
         {
             const payload = {
-                name: 'Role 2',
-                type: 'Role 1'
+                name: 'Item 2',
+                type: 'Item 1'
             };
 
             const response: any = await request
-                .post('/api/roles')
+                .post('/api/items')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
@@ -385,18 +289,17 @@ describe('Start Role Test', () =>
             expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
-            expect(error.property).toStrictEqual('slug');
-            expect(error.constraints.isString).toBeDefined();
-            expect(error.constraints.isString).toStrictEqual('slug must be a string');
+            expect(error.property).toStrictEqual('type');
+            expect(error.constraints.isInt).toStrictEqual('type must be an integer number');
 
             done();
         });
 
-        test('Get Role /roles/:id', async done =>
+        test('Get Item /items/:id', async done =>
         {
 
             const response: any = await request
-                .get(`/api/roles/${roleId}dasdasda123`)
+                .get(`/api/items/${itemId}dasdasda123`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -415,43 +318,42 @@ describe('Start Role Test', () =>
             done();
         });
 
-        test('Update Role /roles/:id', async done =>
+        test('Update Item /items/:id', async done =>
         {
-            const payload: any = {
-                name: 150,
-                slug: 'role3testupdate',
-                enable: 'false'
+            const payload = {
+                name: 11,
+                type: 'asdasd'
             };
 
             const response: any = await request
-                .put(`/api/roles/${roleId}`)
+                .put(`/api/items/${itemId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, message, errors: [error1, error2]}} = response;
+            const {body: {status, statusCode, message, errors: [errorName, errorType]}} = response;
 
             expect(response.statusCode).toStrictEqual(422);
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
-            expect(error1.property).toStrictEqual('name');
-            expect(error1.constraints.isString).toBeDefined();
-            expect(error1.constraints.isString).toStrictEqual('name must be a string');
+            expect(errorName.property).toStrictEqual('name');
+            expect(errorName.constraints.isString).toBeDefined();
+            expect(errorName.constraints.isString).toStrictEqual('name must be a string');
 
-            expect(error2.property).toStrictEqual('permissions');
-            expect(error2.constraints.isArray).toBeDefined();
-            expect(error2.constraints.isArray).toStrictEqual('permissions must be an array');
+            expect(errorType.property).toStrictEqual('type');
+            expect(errorType.constraints.isInt).toBeDefined();
+            expect(errorType.constraints.isInt).toStrictEqual('type must be an integer number');
 
             done();
         });
 
-        test('Delete Role error /roles/:id', async done =>
+        test('Delete Item error /items/:id', async done =>
         {
 
             const deleteErrorResponse: any = await request
-                .delete(`/api/roles/${deleteResponse.body.data.id}`)
+                .delete(`/api/items/${deleteResponse.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -461,7 +363,7 @@ describe('Start Role Test', () =>
             expect(deleteErrorResponse.statusCode).toStrictEqual(400);
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
-            expect(message).toStrictEqual('Role not found.');
+            expect(message).toStrictEqual('Item not found.');
 
             done();
         });

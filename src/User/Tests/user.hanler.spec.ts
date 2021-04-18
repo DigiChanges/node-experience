@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 import {ICreateConnection} from '@digichanges/shared-experience';
-import initServer from '../initServer';
+import initTestServer from '../../initTestServer';
 import {InversifyExpressServer} from 'inversify-express-utils';
 
 describe('Start User Test', () =>
@@ -14,7 +14,7 @@ describe('Start User Test', () =>
 
     beforeAll(async(done) =>
     {
-        const configServer = await initServer();
+        const configServer = await initTestServer();
 
         server = configServer.server;
         request = configServer.request;

@@ -1,7 +1,7 @@
 import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
 import {ICreateConnection} from '@digichanges/shared-experience';
-import initServer from '../initServer';
+import initTestServer from '../../initTestServer';
 
 describe('Start Permission Test', () =>
 {
@@ -12,7 +12,7 @@ describe('Start Permission Test', () =>
 
     beforeAll(async(done) =>
     {
-        const configServer = await initServer();
+        const configServer = await initTestServer();
 
         server = configServer.server;
         request = configServer.request;
