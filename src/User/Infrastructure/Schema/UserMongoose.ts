@@ -13,6 +13,7 @@ const UserSchema: any = new Schema({
     gender: {type: String, required: true},
     phone: {type: String, required: true},
     country: {type: String, required: true},
+    address: {type: String, required: true},
     password: {type: String, required: true},
     permissions: {type: Array, required: true},
     roles: [{type: Schema.Types.String, ref: 'Role'}],
