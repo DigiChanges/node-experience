@@ -17,7 +17,7 @@ class UserCommandRepRequest implements UserRepPayload
     @IsString()
     birthday: string;
 
-		@Length(3, 3)
+		@Length(2, 3)
     @IsString()
     documentType: string;
 
@@ -33,7 +33,7 @@ class UserCommandRepRequest implements UserRepPayload
     @IsString()
     phone: string;
 
-		@Length(3, 20)
+		@Length(2, 20)
     @IsString()
     country: string;
 

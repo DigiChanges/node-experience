@@ -16,7 +16,7 @@ class UserUpdateRequest extends IdRequest implements UserUpdatePayload
     @IsString()
     birthday: string;
 
-		@Length(3, 3)
+		@Length(2, 3)
     @IsString()
     documentType: string;
 
@@ -32,7 +32,7 @@ class UserUpdateRequest extends IdRequest implements UserUpdatePayload
     @IsString()
     phone: string;
 
-		@Length(3, 20)
+		@Length(2, 20)
     @IsString()
     country: string;
 
