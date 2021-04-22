@@ -42,7 +42,7 @@ class App
 
         Locales.configure({
             locales: ['en', 'es'],
-            directory: `${Config.get('nodePath')}/dist/Config/Locales`,
+            directory: `${Config.get('nodePath')}/dist/src/Config/Locales`,
             defaultLocale: 'en',
             objectNotation: true
         });
@@ -62,7 +62,7 @@ class App
             app.use(compression());
             app.use(cors());
             app.use(helmet());
-            const viewRoute = `${Config.get('nodePath')}/dist/Presentation/Views`;
+            const viewRoute = `${Config.get('nodePath')}/dist/src/App/Presentation/Views`;
             app.set('views', viewRoute);
             app.engine('.hbs', exphbs({
                 defaultLayout: 'main',

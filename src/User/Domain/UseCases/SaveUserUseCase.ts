@@ -11,6 +11,7 @@ import EventHandler from '../../../App/Infrastructure/Events/EventHandler';
 import UserCreatedEvent from '../../../App/Infrastructure/Events/UserCreatedEvent';
 import IAuthService from '../../../App/InterfaceAdapters/IAuthService';
 import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
 
 class SaveUserUseCase
 {
@@ -27,6 +28,8 @@ class SaveUserUseCase
 
     async handle(payload: UserRepPayload): Promise<IUserDomain>
     {
+        await ValidatorRequest.handle(payload);
+
         this.authService.validatePermissions(payload.getPermissions());
 
         let user: IUserDomain = new User();

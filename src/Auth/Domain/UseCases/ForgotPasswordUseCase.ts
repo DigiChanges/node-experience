@@ -1,6 +1,6 @@
+import Config from 'config';
 import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
-import Config from 'config';
 import {REPOSITORIES} from '../../../repositories';
 import EmailNotification from '../../../App/Infrastructure/Entities/EmailNotification';
 import EventHandler from '../../../App/Infrastructure/Events/EventHandler';
@@ -23,9 +23,11 @@ class ForgotPasswordUseCase
         user.confirmationToken = String(await payload.getConfirmationToken());
         user.passwordRequestedAt = payload.getPasswordRequestedAT();
 
+        await this.repository.save(user);
+
         const emailNotification = new EmailNotification();
 
-        const urlConfirmationToken = `${Config.get('url.urlWeb')}'changeForgotPassword/${user.confirmationToken}`;
+        const urlConfirmationToken = `${Config.get('url.urlWeb')}changeForgotPassword/${user.confirmationToken}`;
 
         emailNotification.name = 'Forgot Password';
         emailNotification.to = payload.getEmail();

@@ -24,6 +24,7 @@ class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
     constructor(request: express.Request)
     {
         this.password = request.body.password;
+        this.passwordConfirmation = request.body.passwordConfirmation;
         this.confirmationToken = request.body.confirmationToken;
     }
 
