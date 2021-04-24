@@ -52,11 +52,11 @@ class App
     {
         this.server.setConfig((app: express.Application) =>
         {
-            app.use(bodyParser.urlencoded({
+            app.use(express.urlencoded({
                 extended: true,
                 limit: '5mb'
             }));
-            app.use(bodyParser.json({
+            app.use(express.json({
                 limit: '5mb'
             }));
             app.use(compression());
