@@ -2,13 +2,15 @@ import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
 import initTestServer from '../../initTestServer';
 import {ICreateConnection} from '@digichanges/shared-experience';
+import {ILoginResponse} from '../../App/InterfaceAdapters/Tests/ILogin';
+import {IItemResponse, IListItemsResponse} from './types';
 
 describe('Start Item Test', () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
-    let token: any = null;
+    let token: string = null;
     let itemId = '';
     let deleteResponse: any = null;
 
@@ -40,7 +42,7 @@ describe('Start Item Test', () =>
                 password: '12345678'
             };
 
-            const response: any = await request
+            const response: ILoginResponse = await request
                 .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
@@ -59,7 +61,7 @@ describe('Start Item Test', () =>
                 type: 10
             };
 
-            const response: any = await request
+            const response: IItemResponse = await request
                 .post('/api/items')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -86,7 +88,7 @@ describe('Start Item Test', () =>
                 type: 10
             };
 
-            const response: any = await request
+            const response: IItemResponse = await request
                 .get(`/api/items/${itemId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -111,7 +113,7 @@ describe('Start Item Test', () =>
                 type: 11
             };
 
-            const response: any = await request
+            const response: IItemResponse = await request
                 .put(`/api/items/${itemId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -136,7 +138,7 @@ describe('Start Item Test', () =>
                 type: 13
             };
 
-            const createResponse: any = await request
+            const createResponse: IItemResponse = await request
                 .post('/api/items')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -163,7 +165,7 @@ describe('Start Item Test', () =>
         test('Get Items /items', async done =>
         {
 
-            const response: any = await request
+            const response: IListItemsResponse = await request
                 .get('/api/items?pagination[limit]=5&pagination[offset]=0')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -186,7 +188,7 @@ describe('Start Item Test', () =>
         test('Get Items /items without pagination', async done =>
         {
 
-            const response: any = await request
+            const response: IListItemsResponse = await request
                 .get('/api/items')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -207,7 +209,7 @@ describe('Start Item Test', () =>
         test('Get Items /items with Filter Type', async done =>
         {
 
-            const response: any = await request
+            const response: IListItemsResponse = await request
                 .get('/api/items?pagination[limit]=20&pagination[offset]=0&filter[type]=11')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -230,7 +232,7 @@ describe('Start Item Test', () =>
         test('Get Items /items with Sort Desc Type', async done =>
         {
 
-            const response: any = await request
+            const response: IListItemsResponse = await request
                 .get('/api/items?pagination[limit]=20&pagination[offset]=0&sort[type]=desc')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -257,7 +259,7 @@ describe('Start Item Test', () =>
                 password: '12345678'
             };
 
-            const response: any = await request
+            const response: ILoginResponse = await request
                 .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
@@ -276,7 +278,7 @@ describe('Start Item Test', () =>
                 type: 'Item 1'
             };
 
-            const response: any = await request
+            const response: IItemResponse = await request
                 .post('/api/items')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -298,7 +300,7 @@ describe('Start Item Test', () =>
         test('Get Item /items/:id', async done =>
         {
 
-            const response: any = await request
+            const response: IItemResponse = await request
                 .get(`/api/items/${itemId}dasdasda123`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -325,7 +327,7 @@ describe('Start Item Test', () =>
                 type: 'asdasd'
             };
 
-            const response: any = await request
+            const response: IItemResponse = await request
                 .put(`/api/items/${itemId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -352,7 +354,7 @@ describe('Start Item Test', () =>
         test('Delete Item error /items/:id', async done =>
         {
 
-            const deleteErrorResponse: any = await request
+            const deleteErrorResponse: IItemResponse = await request
                 .delete(`/api/items/${deleteResponse.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
