@@ -68,6 +68,7 @@ class UserSeedFactory
         userSuperAdmin.gender = 'male';
         userSuperAdmin.phone = '2234456999';
         userSuperAdmin.country = 'Argentina';
+        userSuperAdmin.address = 'New America 123';
         userSuperAdmin.password = await this.encryption.encrypt('12345678');
         userSuperAdmin.enable = true;
         userSuperAdmin.confirmationToken = null;
@@ -88,6 +89,7 @@ class UserSeedFactory
         userAdmin.gender = 'male';
         userAdmin.phone = '2234456999';
         userAdmin.country = 'Argentina';
+        userAdmin.address = 'New America 123';
         userAdmin.password = await this.encryption.encrypt('12345678');
         userAdmin.enable = true;
         userAdmin.confirmationToken = null;
@@ -108,6 +110,7 @@ class UserSeedFactory
         userOperator.gender = 'male';
         userOperator.phone = '2234456999';
         userOperator.country = 'Argentina';
+        userOperator.address = 'New America 123';
         userOperator.password = await this.encryption.encrypt('123456789');
         userOperator.enable = true;
         userOperator.confirmationToken = null;
@@ -128,6 +131,7 @@ class UserSeedFactory
         userOperatorDisabled.gender = 'female';
         userOperatorDisabled.phone = '2234456999';
         userOperatorDisabled.country = 'Argentina';
+        userOperatorDisabled.address = 'New America 123';
         userOperatorDisabled.password = await this.encryption.encrypt('1234567901');
         userOperatorDisabled.enable = false;
         userOperatorDisabled.confirmationToken = null;
@@ -148,6 +152,7 @@ class UserSeedFactory
         userOperatorRoleDisabled.gender = 'female';
         userOperatorRoleDisabled.phone = '2234456999';
         userOperatorRoleDisabled.country = 'Argentina';
+        userOperatorRoleDisabled.address = 'New America 123';
         userOperatorRoleDisabled.password = await this.encryption.encrypt('123456790');
         userOperatorRoleDisabled.enable = true;
         userOperatorRoleDisabled.confirmationToken = null;

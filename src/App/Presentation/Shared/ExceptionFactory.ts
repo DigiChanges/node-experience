@@ -15,17 +15,17 @@ import {StatusCode} from '@digichanges/shared-experience';
 class ExceptionFactory
 {
     private exceptionsMapper: any = {
-        'DecryptForbiddenException': new DecryptForbiddenHttpException(),
-        'BadCredentialsException': new BadCredentialsHttpException(),
-        'UserDisabledException': new UserDisabledHttpException(),
-        'RoleDisabledException': new RoleDisabledHttpException(),
-        'CantDisabledException': new CantDisabledHttpException(),
-        'PasswordWrongException': new PasswordWrongHttpException(),
-        'NotFoundException': new NotFoundHttpException(),
-        'WrongPermissionsException': new WrongPermissionsHttpException(),
-        'Error': new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, 'Internal Error', []),
-        'TypeError': new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, 'Internal Error', []),
-        'ErrorHttpException': new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, 'Internal Error', [])
+        DecryptForbiddenException: new DecryptForbiddenHttpException(),
+        BadCredentialsException: new BadCredentialsHttpException(),
+        UserDisabledException: new UserDisabledHttpException(),
+        RoleDisabledException: new RoleDisabledHttpException(),
+        CantDisabledException: new CantDisabledHttpException(),
+        PasswordWrongException: new PasswordWrongHttpException(),
+        NotFoundException: new NotFoundHttpException(),
+        WrongPermissionsException: new WrongPermissionsHttpException(),
+        Error: new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, 'Internal Error', []),
+        TypeError: new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, 'Internal Error', []),
+        ErrorHttpException: new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, 'Internal Error', [])
     };
 
     public getException(err: any): ErrorHttpException

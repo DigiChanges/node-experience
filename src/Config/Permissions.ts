@@ -30,6 +30,7 @@ class Permissions
     static readonly FILES_UPDATE: string = 'filesUpdate';
     static readonly FILES_DOWNLOAD: string = 'filesDownload';
     static readonly FILES_LIST: string = 'filesList';
+    static readonly FILES_SHOW_METADATA: string = 'filesShowMetadata';
 
     // ROLES
     static readonly ROLES_SAVE: string = 'rolesSave';

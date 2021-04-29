@@ -17,22 +17,22 @@ class UserTransformer extends Transformer
     public transform(user: IUserDomain): any
     {
         return {
-            'id': user.getId(),
-            'firstName': user.firstName,
-            'lastName': user.lastName,
-            'email': user.email,
-            'birthday': user.birthday,
-            'documentType': user.documentType,
-            'documentNumber': user.documentNumber,
-            'gender': user.gender,
-            'phone': user.phone,
-            'country': user.country,
-            'address': user.address,
-            'enable': user.enable,
-            'roles': this.roleTransformer.handle(user.getRoles()),
-            'permissions': user.permissions,
-            'createdAt': moment(user.createdAt).utc().unix(),
-            'updatedAt': moment(user.updatedAt).utc().unix()
+            id: user.getId(),
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            birthday: user.birthday,
+            documentType: user.documentType,
+            documentNumber: user.documentNumber,
+            gender: user.gender,
+            phone: user.phone,
+            country: user.country,
+            address: user.address,
+            enable: user.enable,
+            roles: this.roleTransformer.handle(user.getRoles()),
+            permissions: user.permissions,
+            createdAt: moment(user.createdAt).utc().unix(),
+            updatedAt: moment(user.updatedAt).utc().unix()
         };
     }
 }

@@ -40,7 +40,7 @@ class UserSqlRepository implements IUserRepository
 
     async getOneByEmail(email: string): Promise<IUserDomain>
     {
-        const user = await this.repository.findOne({'email': email});
+        const user = await this.repository.findOne({email});
 
         if (!user)
         {
@@ -52,7 +52,7 @@ class UserSqlRepository implements IUserRepository
 
     async getOneByConfirmationToken(confirmationToken: string): Promise<User>
     {
-        const user = await this.repository.findOne({'confirmationToken': confirmationToken});
+        const user = await this.repository.findOne({confirmationToken});
 
         if (!user)
         {

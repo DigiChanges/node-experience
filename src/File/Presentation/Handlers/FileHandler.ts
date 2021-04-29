@@ -11,7 +11,7 @@ import Responder from '../../../App/Presentation/Shared/Responder';
 import ListObjectsRequest from '../Requests/ListObjectsRequest';
 import ListFilesUseCase from '../../Domain/UseCases/ListFilesUseCase';
 import ListObjectsUseCase from '../../Domain/UseCases/ListObjectsUseCase';
-import UploadBase64UseCase from '../../Domain/UseCases/UploadBse64UseCase';
+import UploadBase64UseCase from '../../Domain/UseCases/UploadBase64UseCase';
 import DownloadUseCase from '../../Domain/UseCases/DownloadUseCase';
 import GetPresignedGetObjectUseCase from '../../Domain/UseCases/GetPresignedGetObjectUseCase';
 import UploadMultipartUseCase from '../../Domain/UseCases/UploadMultipartUseCase';
@@ -28,6 +28,7 @@ import UpdateFileMultipartUseCase from '../../Domain/UseCases/UpdateFileMultipar
 import FileUpdateBase64Request from '../Requests/FileUpdateBase64Request';
 import UpdateFileBase64UseCase from '../../Domain/UseCases/UpdateFileBase64UseCase';
 import ObjectTransformer from '../Transformers/ObjectTransformer';
+import GetFileMetadataUserCase from '../../Domain/UseCases/GetFileMetadataUseCase';
 
 @controller('/api/files')
 class FileHandler
@@ -57,6 +58,19 @@ class FileHandler
         const objects = await listObjectsUseCase.handle(_request);
 
         this.responder.send(objects, req, res, StatusCode.HTTP_OK, new ObjectTransformer());
+    }
+
+    @httpGet('/metadata/:id', AuthorizeMiddleware(Permissions.FILES_SHOW_METADATA))
+    public async getFileMetadata(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const _request = new IdRequest(req);
+        await ValidatorRequest.handle(_request);
+
+        const getFileMetadataUserCase = new GetFileMetadataUserCase();
+
+        const file = await getFileMetadataUserCase.handle(_request);
+
+        this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileTransformer());
     }
 
     @httpPost('/base64', AuthorizeMiddleware(Permissions.FILES_UPLOAD))

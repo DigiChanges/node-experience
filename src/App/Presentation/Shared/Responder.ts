@@ -59,7 +59,7 @@ class Responder
             const paginatorTransformer = new PaginatorTransformer();
             paginator = paginatorTransformer.handle(paginator);
 
-            const pagination = {'pagination': paginator};
+            const pagination = {pagination: paginator};
 
             Object.assign(result, pagination);
         }

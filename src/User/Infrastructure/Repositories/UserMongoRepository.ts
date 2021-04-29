@@ -33,7 +33,7 @@ class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implem
 
     async getOneByEmail(email: string): Promise<IUserDomain>
     {
-        const user = await this.repository.findOne({'email': email}).populate('roles');
+        const user = await this.repository.findOne({email}).populate('roles');
 
         if (!user)
         {
@@ -45,7 +45,7 @@ class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implem
 
     async getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>
     {
-        const user = await this.repository.findOne({'confirmationToken': confirmationToken}).populate('roles');
+        const user = await this.repository.findOne({confirmationToken}).populate('roles');
 
         if (!user)
         {

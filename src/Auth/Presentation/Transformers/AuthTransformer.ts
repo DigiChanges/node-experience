@@ -22,19 +22,19 @@ class AuthTransformer extends Transformer
         const authService: AuthService = new AuthService();
 
         return {
-            'user': {
-                'id': token.getUser().getId(),
-                'firstName': token.getUser().firstName,
-                'lastName': token.getUser().lastName,
-                'email': token.getUser().email,
-                'enable': token.getUser().enable,
-                'permissions': authService.getPermissions(user),
-                'roles': this.roleUserTransformer.handle(token.getUser().roles),
-                'createdAt': moment(token.getUser().createdAt).utc().unix(),
-                'updatedAt': moment(token.getUser().updatedAt).utc().unix()
+            user: {
+                id: token.getUser().getId(),
+                firstName: token.getUser().firstName,
+                lastName: token.getUser().lastName,
+                email: token.getUser().email,
+                enable: token.getUser().enable,
+                permissions: authService.getPermissions(user),
+                roles: this.roleUserTransformer.handle(token.getUser().roles),
+                createdAt: moment(token.getUser().createdAt).utc().unix(),
+                updatedAt: moment(token.getUser().updatedAt).utc().unix()
             },
-            'expires': token.getExpires(),
-            'token': token.getHash()
+            expires: token.getExpires(),
+            token: token.getHash()
         };
     }
 }

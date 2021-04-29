@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import * as bodyParser from 'body-parser';
 import express from 'express';
 import {InversifyExpressServer} from 'inversify-express-utils';
 import compression from 'compression';

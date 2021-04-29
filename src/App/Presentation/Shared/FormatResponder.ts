@@ -9,11 +9,11 @@ class FormatResponder implements IFormatResponder
     getFormatData = (data: any, statusCode: IStatusCode, metadata: any = null): any =>
     {
         return {
-            'status': statusCode.status,
-            'code': statusCode.code,
-            'statusCode': statusCode.statusCode,
-            'data': data,
-            'metadata': metadata ? metadata : undefined
+            status: statusCode.status,
+            code: statusCode.code,
+            statusCode: statusCode.statusCode,
+            data,
+            metadata: metadata ? metadata : undefined
         };
     };
 }

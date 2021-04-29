@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 
 import express from 'express';
-import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -11,10 +10,9 @@ import supertest from 'supertest';
 
 import './App/Presentation/Handlers/IndexHandler';
 import './Auth/Presentation/Handlers/AuthHandler';
-import './Item/Presentation/Handlers/ItemHandler';
 import './User/Presentation/Handlers/UserHandler';
 import './Role/Presentation/Handlers/RoleHandler';
-// import "../Presentation/Handlers/FileHandler";
+import './File/Presentation/Handlers/FileHandler';
 // import "../Presentation/Handlers/NotificationHandler";
 
 import {Locales} from './app';
@@ -51,7 +49,7 @@ const initTestServer = async(): Promise<any> =>
 
     Locales.configure({
         locales: ['en', 'es'],
-        directory: `${process.cwd()}/dist/Config/Locales`,
+        directory: `${process.cwd()}/dist/src/Config/Locales`,
         defaultLocale: 'en',
         objectNotation: true
     });
@@ -60,11 +58,11 @@ const initTestServer = async(): Promise<any> =>
 
     server.setConfig((app: express.Application) =>
     {
-        app.use(bodyParser.urlencoded({
+        app.use(express.urlencoded({
             extended: true,
             limit: '5mb'
         }));
-        app.use(bodyParser.json({
+        app.use(express.json({
             limit: '5mb'
         }));
         app.use(compression());
@@ -87,9 +85,6 @@ const initTestServer = async(): Promise<any> =>
 
     const seed = new SeedFactory();
     await seed.init();
-
-    // TODO: Add filesystem mock
-    // filesystem = FilesystemFactory.create();
 
     EventHandler.getInstance();
 
