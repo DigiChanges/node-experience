@@ -3,8 +3,8 @@ import jwt, {TAlgorithm} from 'jwt-simple';
 import _ from 'lodash/fp';
 import Config from 'config';
 
-import EncryptionFactory from '../../App/Infrastructure/Factories/EncryptionFactory';
-import IAuthService from '../../App/InterfaceAdapters/IAuthService';
+import EncryptionFactory from '../../Shared/Factories/EncryptionFactory';
+import IAuthService from '../InterfaceAdapters/IAuthService';
 import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
 import IRoleDomain from '../../Role/InterfaceAdapters/IRoleDomain';
 import Permissions from '../../Config/Permissions';

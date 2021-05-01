@@ -1,7 +1,7 @@
 import {Model} from 'mongoose';
 import {Document} from 'mongoose';
 import {injectable, unmanaged} from 'inversify';
-import {connection} from '../Database/MongooseCreateConnection';
+import {connection} from '../../../Shared/Database/MongooseCreateConnection';
 
 @injectable()
 abstract class BaseMongoRepository<T, D extends Document & T>

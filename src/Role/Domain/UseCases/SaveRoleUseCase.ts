@@ -4,8 +4,8 @@ import Role from '../Entities/Role';
 import {REPOSITORIES} from '../../../repositories';
 import {SERVICES} from '../../../services';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
-import IAuthService from '../../../App/InterfaceAdapters/IAuthService';
-import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
+import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 
 class SaveRoleUseCase
 {

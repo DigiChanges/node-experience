@@ -2,11 +2,11 @@ import {IEncryption} from '@digichanges/shared-experience';
 
 import ChangeMyPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeMyPasswordPayload';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
-import EncryptionFactory from '../../../App/Infrastructure/Factories/EncryptionFactory';
+import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import {REPOSITORIES} from '../../../repositories';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import PasswordWrongException from '../../../Auth/Domain/Exceptions/PasswordWrongException';
-import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 
 class ChangeMyPasswordUseCase
 {

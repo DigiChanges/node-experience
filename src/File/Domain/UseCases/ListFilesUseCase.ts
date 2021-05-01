@@ -2,7 +2,7 @@ import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 
 import IFileRepository from '../../InterfaceAdapters/IFileRepository';
 import {REPOSITORIES} from '../../../repositories';
-import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 
 class ListFilesUseCase
 {

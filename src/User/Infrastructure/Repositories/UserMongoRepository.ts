@@ -8,7 +8,7 @@ import IUser from '../../InterfaceAdapters/IUserDocument';
 import {Query, Model} from 'mongoose';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 
-import NotFoundException from '../../../App/Infrastructure/Exceptions/NotFoundException';
+import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
 
 @injectable()

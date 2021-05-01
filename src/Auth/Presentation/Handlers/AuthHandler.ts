@@ -18,7 +18,7 @@ import KeepAliveRequest from '../Requests/KeepAliveRequest';
 import AuthTransformer from '../Transformers/AuthTransformer';
 import PermissionsTransformer from '../Transformers/PermissionsTransformer';
 
-import IAuthService from '../../../App/InterfaceAdapters/IAuthService';
+import IAuthService from '../../InterfaceAdapters/IAuthService';
 
 import LoginUseCase from '../../Domain/UseCases/LoginUseCase';
 import ChangeForgotPasswordUseCase from '../../Domain/UseCases/ChangeForgotPasswordUseCase';

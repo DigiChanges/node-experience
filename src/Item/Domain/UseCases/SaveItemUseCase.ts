@@ -3,7 +3,7 @@ import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 import Item from '../Entities/Item';
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import {REPOSITORIES} from '../../../repositories';
-import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 
 class SaveItemUseCase
 {

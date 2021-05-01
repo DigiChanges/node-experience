@@ -1,8 +1,8 @@
 import {ITokenRepository} from '@digichanges/shared-experience';
 
 import {REPOSITORIES} from '../../../repositories';
-import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
-import ITokenDomain from '../../../App/InterfaceAdapters/ITokenDomain';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import ITokenDomain from '../../../Auth/InterfaceAdapters/ITokenDomain';
 
 class GetTokenUseCase
 {

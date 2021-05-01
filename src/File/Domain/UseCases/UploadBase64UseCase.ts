@@ -3,8 +3,8 @@ import IFileRepository from '../../InterfaceAdapters/IFileRepository';
 import FileBase64RepPayload from '../../InterfaceAdapters/Payloads/FileBase64RepPayload';
 import {REPOSITORIES} from '../../../repositories';
 import File from '../Entities/File';
-import FilesystemFactory from '../../../App/Infrastructure/Factories/FilesystemFactory';
-import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 
 class UploadBase64UseCase
 {

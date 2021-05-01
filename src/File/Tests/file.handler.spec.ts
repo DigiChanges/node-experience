@@ -3,7 +3,7 @@ import supertest from 'supertest';
 import initTestServer from '../../initTestServer';
 import {ICreateConnection} from '@digichanges/shared-experience';
 import { UploadFileBase64 } from './fixture';
-import FilesystemFactory from '../../App/Infrastructure/Factories/FilesystemFactory';
+import FilesystemFactory from '../../Shared/Factories/FilesystemFactory';
 import MockMinioStrategy from './MockMinioStrategy';
 
 describe('Start File Test', () =>

@@ -8,7 +8,7 @@ import RoleFilter from '../../Presentation/Criterias/RoleFilter';
 import RoleSchema from '../Schema/RoleTypeORM';
 import Role from '../../Domain/Entities/Role';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
-import NotFoundException from '../../../App/Infrastructure/Exceptions/NotFoundException';
+import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 
 @injectable()
 class RoleSqlRepository implements IRoleRepository

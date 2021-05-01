@@ -4,7 +4,7 @@ import {REPOSITORIES} from '../../../repositories';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
-import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 
 class AssignRoleBySlugUseCase
 {

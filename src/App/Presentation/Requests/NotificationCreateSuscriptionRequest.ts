@@ -1,6 +1,6 @@
 import * as express from 'express';
 import webPush from 'web-push';
-import NotificationRepPayload from '../../InterfaceAdapters/Payloads/NotificationRepPayload';
+import NotificationRepPayload from '../../../Notification/InterfaceAdapters/Payloads/NotificationRepPayload';
 
 class NotificationSubscriptionRequest implements NotificationRepPayload
 {

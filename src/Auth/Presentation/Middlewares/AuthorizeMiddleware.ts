@@ -6,7 +6,7 @@ import AuthService from '../../Services/AuthService';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import ForbiddenHttpException from '../Exceptions/ForbiddenHttpException';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import ContainerFactory from '../../../Shared/Decorators/ContainerFactory';
 import {REPOSITORIES} from '../../../repositories';
 
 const AuthorizeMiddleware = (...handlerPermissions: any) =>

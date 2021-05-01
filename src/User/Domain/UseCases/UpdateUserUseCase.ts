@@ -7,9 +7,9 @@ import {REPOSITORIES} from '../../../repositories';
 import {SERVICES} from '../../../services';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import CantDisabledException from '../../../Auth/Domain/Exceptions/CantDisabledException';
-import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
-import IAuthService from '../../../App/InterfaceAdapters/IAuthService';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
+import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
 
 class UpdateUserUseCase
 {

@@ -2,7 +2,7 @@ import ItemUpdatePayload from '../../InterfaceAdapters/Payloads/ItemUpdatePayloa
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import {REPOSITORIES} from '../../../repositories';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
-import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 
 class UpdateItemUseCase
 {

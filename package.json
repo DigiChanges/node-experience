@@ -64,6 +64,7 @@
     "nodemailer": "6.4.6",
     "pg": "^7.18.2",
     "pg-promise": "^10.4.4",
+    "promise-events": "^0.2.4",
     "reflect-metadata": "^0.1.13",
     "tedis": "^0.1.12",
     "ts-jest": "^26.4.4",

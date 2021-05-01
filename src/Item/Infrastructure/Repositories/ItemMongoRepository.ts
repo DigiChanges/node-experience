@@ -8,7 +8,7 @@ import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
 import IItem from '../../InterfaceAdapters/IItemDocument';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 
-import NotFoundException from '../../../App/Infrastructure/Exceptions/NotFoundException';
+import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
 
 @injectable()

@@ -9,7 +9,7 @@ import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
 import IFile from '../../InterfaceAdapters/IFileDocument';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 
-import NotFoundException from '../../../App/Infrastructure/Exceptions/NotFoundException';
+import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
 
 @injectable()

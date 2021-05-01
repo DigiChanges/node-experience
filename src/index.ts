@@ -3,11 +3,11 @@ dotenv.config(); // Need before get config
 
 import App from './app';
 import {validateEnv} from './Config/validateEnv';
-import {loggerCli} from './App/Infrastructure/Shared/Logger';
-import DatabaseFactory from './App/Infrastructure/Factories/DatabaseFactory';
+import {loggerCli} from './Shared/Logger';
+import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 
-import EventHandler from './App/Infrastructure/Events/EventHandler';
-import CacheFactory from './App/Infrastructure/Factories/CacheFactory';
+import EventHandler from './Shared/Events/EventHandler';
+import CacheFactory from './Shared/Factories/CacheFactory';
 import Config from 'config';
 import {ICacheRepository, ICreateConnection} from '@digichanges/shared-experience';
 
@@ -30,6 +30,7 @@ void (async() =>
         await cache.cleanAll();
 
         const eventHandler = EventHandler.getInstance();
+        await eventHandler.setListeners();
 
         const app = new App();
         app.initConfig();

@@ -1,8 +1,8 @@
-import IdPayload from '../../../App/InterfaceAdapters/Payloads/IdPayload';
+import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import {REPOSITORIES} from '../../../repositories';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
-import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 
 class GetItemUseCase
 {

@@ -2,7 +2,7 @@ import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
 import {ICreateConnection} from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
-import Notificator from '../../App/Infrastructure/Notifications/Notificator';
+import Notificator from '../../Notification/Services/Notificator';
 
 describe('Start ForgotPassword Test', () =>
 {
