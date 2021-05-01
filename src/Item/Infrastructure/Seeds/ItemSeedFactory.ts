@@ -21,7 +21,7 @@ class ItemSeedFactory
         for await (const index of indexes)
         {
             const title = faker.name.title();
-            const type = faker.random.number();
+            const type = faker.datatype.number();
 
             const item: IItemDomain = new Item();
 
