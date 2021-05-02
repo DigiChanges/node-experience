@@ -2,16 +2,12 @@ import {ITokenRepository} from '@digichanges/shared-experience';
 
 import {REPOSITORIES} from '../../../repositories';
 import ITokenDomain from '../../../App/InterfaceAdapters/ITokenDomain';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class SetTokenBlacklistUseCase
 {
+    @containerFactory(REPOSITORIES.ITokenRepository)
     private repository: ITokenRepository<ITokenDomain>;
-
-    constructor()
-    {
-        this.repository = ContainerFactory.create<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository);
-    }
 
     async handle(token: ITokenDomain)
     {

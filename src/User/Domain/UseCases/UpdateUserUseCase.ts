@@ -7,20 +7,20 @@ import {REPOSITORIES} from '../../../repositories';
 import {SERVICES} from '../../../services';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import CantDisabledException from '../../../Auth/Domain/Exceptions/CantDisabledException';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 import IAuthService from '../../../App/InterfaceAdapters/IAuthService';
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
 
 class UpdateUserUseCase
 {
+    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-    private authService: IAuthService;
 
-    constructor()
-    {
-        this.repository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
-        this.authService = ContainerFactory.create<IAuthService>(SERVICES.IAuthService);
-    }
+    @containerFactory(REPOSITORIES.IRoleRepository)
+    private roleRepository: IRoleRepository;
+
+    @containerFactory(SERVICES.IAuthService)
+    private authService: IAuthService;
 
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {
@@ -68,12 +68,11 @@ class UpdateUserUseCase
 
     public async checkIfUserHasRole(payload: CheckUserRolePayload): Promise<boolean> // TODO: Create a user service
     {
-        const roleRepository: IRoleRepository = ContainerFactory.create<IRoleRepository>(REPOSITORIES.IRoleRepository);
         const count = payload.user.roles.length;
 
         for (let i = 0; i < count; i++)
         {
-            const role: IRoleDomain = await roleRepository.getOne(payload.user.roles[i].getId());
+            const role: IRoleDomain = await this.roleRepository.getOne(payload.user.roles[i].getId());
 
             if (role.slug === payload.roleToCheck)
             {

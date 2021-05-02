@@ -6,16 +6,12 @@ import IFileDTO from '../../InterfaceAdapters/Payloads/IFileDTO';
 import FileDTO from '../../InterfaceAdapters/Payloads/FileDTO';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 import FilesystemFactory from '../../../App/Infrastructure/Factories/FilesystemFactory';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class DownloadUseCase
 {
+    @containerFactory(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;
-
-    constructor()
-    {
-        this.repository = ContainerFactory.create<IFileRepository>(REPOSITORIES.IFileRepository);
-    }
 
     async handle(payload: IdPayload): Promise<IFileDTO>
     {

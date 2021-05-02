@@ -6,16 +6,12 @@ import {REPOSITORIES} from '../../../repositories';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
 import Role from '../../../Role/Domain/Entities/Role';
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class SyncRolesPermissionUseCase
 {
+    @containerFactory(REPOSITORIES.IRoleRepository)
     private repository: IRoleRepository;
-
-    constructor()
-    {
-        this.repository = ContainerFactory.create<IRoleRepository>(REPOSITORIES.IRoleRepository);
-    }
 
     handle()
     {

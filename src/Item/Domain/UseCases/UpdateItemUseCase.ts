@@ -2,16 +2,12 @@ import ItemUpdatePayload from '../../InterfaceAdapters/Payloads/ItemUpdatePayloa
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import {REPOSITORIES} from '../../../repositories';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class UpdateItemUseCase
 {
+    @containerFactory(REPOSITORIES.IItemRepository)
     private repository: IItemRepository;
-
-    constructor()
-    {
-        this.repository = ContainerFactory.create<IItemRepository>(REPOSITORIES.IItemRepository);
-    }
 
     async handle(payload: ItemUpdatePayload): Promise<IItemDomain>
     {

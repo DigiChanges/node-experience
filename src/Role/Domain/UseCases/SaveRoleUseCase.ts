@@ -5,18 +5,15 @@ import {REPOSITORIES} from '../../../repositories';
 import {SERVICES} from '../../../services';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
 import IAuthService from '../../../App/InterfaceAdapters/IAuthService';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class SaveRoleUseCase
 {
+    @containerFactory(REPOSITORIES.IRoleRepository)
     private repository: IRoleRepository;
-    private authService: IAuthService;
 
-    constructor()
-    {
-        this.repository = ContainerFactory.create<IRoleRepository>(REPOSITORIES.IRoleRepository);
-        this.authService = ContainerFactory.create<IAuthService>(SERVICES.IAuthService);
-    }
+    @containerFactory(SERVICES.IAuthService)
+    private authService: IAuthService;
 
     async handle(payload: RoleRepPayload): Promise<IRoleDomain>
     {

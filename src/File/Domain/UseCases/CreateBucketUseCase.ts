@@ -2,16 +2,12 @@ import CreateBucketPayload from '../../InterfaceAdapters/Payloads/CreateBucketPa
 import {REPOSITORIES} from '../../../repositories';
 import IFileRepository from '../../InterfaceAdapters/IFileRepository';
 import FilesystemFactory from '../../../App/Infrastructure/Factories/FilesystemFactory';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class CreateBucketUseCase
 {
+    @containerFactory(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;
-
-    constructor()
-    {
-        this.repository = ContainerFactory.create<IFileRepository>(REPOSITORIES.IFileRepository);
-    }
 
     async handle(payload: CreateBucketPayload): Promise<void>
     {

@@ -3,16 +3,12 @@ import {REPOSITORIES} from '../../../repositories';
 import IFileRepository from '../../InterfaceAdapters/IFileRepository';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 import FilesystemFactory from '../../../App/Infrastructure/Factories/FilesystemFactory';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class GetPresignedGetObjectUseCase
 {
+    @containerFactory(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;
-
-    constructor()
-    {
-        this.repository = ContainerFactory.create<IFileRepository>(REPOSITORIES.IFileRepository);
-    }
 
     async handle(payload: PresignedFileRepPayload): Promise<string>
     {

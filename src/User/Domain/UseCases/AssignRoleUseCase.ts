@@ -3,18 +3,15 @@ import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import {REPOSITORIES} from '../../../repositories';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class AssignRoleUseCase
 {
+    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-    private roleRepository: IRoleRepository;
 
-    constructor()
-    {
-        this.repository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
-        this.roleRepository = ContainerFactory.create<IRoleRepository>(REPOSITORIES.IRoleRepository);
-    }
+    @containerFactory(REPOSITORIES.IRoleRepository)
+    private roleRepository: IRoleRepository;
 
     async handle(payload: UserAssignRolePayload): Promise<IUserDomain>
     {

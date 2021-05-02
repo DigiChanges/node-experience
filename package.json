@@ -15,7 +15,9 @@
     "dev": "nodemon --watch src -e ts --exec yarn dev:start",
     "start": "node dist/src/index.js",
     "dev:experimental": "nodemon --delay 8 --watch src -e ts --exec bash compile.sh",
-    "test": "jest --runInBand --coverage"
+    "test": "jest --runInBand --coverage",
+    "command": "npx ts-node src/command.ts",
+    "docker:command": "docker-compose exec node yarn command"
   },
   "keywords": [],
   "author": "Digichanges",

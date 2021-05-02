@@ -1,6 +1,6 @@
 
-export const TYPES = {
-    IFormatResponder: 'IFormatResponder',
-    Responder: 'Responder',
-    IErrorHandler: 'IErrorHandler'
-};
+export enum TYPES  {
+    IFormatResponder = 'IFormatResponder',
+    Responder = 'Responder',
+    IErrorHandler = 'IErrorHandler'
+}

@@ -10,10 +10,11 @@ import {REPOSITORIES} from '../../../repositories';
 import BadCredentialsException from '../Exceptions/BadCredentialsException';
 import UserDisabledException from '../../../User/Domain/Exceptions/UserDisabledException';
 import RoleDisabledException from '../../../Role/Domain/Exceptions/RoleDisabledException';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class LoginUseCase
 {
+    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
     private encryption: IEncryption;
     private tokenFactory: TokenFactory;
@@ -22,7 +23,6 @@ class LoginUseCase
     {
         this.tokenFactory = new TokenFactory();
         this.encryption = EncryptionFactory.create();
-        this.repository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
     }
 
     async handle(payload: AuthPayload)

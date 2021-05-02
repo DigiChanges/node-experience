@@ -3,16 +3,12 @@ import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 import Item from '../Entities/Item';
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import {REPOSITORIES} from '../../../repositories';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class SaveItemUseCase
 {
+    @containerFactory(REPOSITORIES.IItemRepository)
     private repository: IItemRepository;
-
-    constructor()
-    {
-        this.repository = ContainerFactory.create<IItemRepository>(REPOSITORIES.IItemRepository);
-    }
 
     async handle(payload: ItemRepPayload): Promise<IItemDomain>
     {
