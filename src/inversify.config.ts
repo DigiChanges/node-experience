@@ -3,13 +3,13 @@ import {Container} from 'inversify';
 import Config from 'config';
 
 import FormatResponder from './App/Presentation/Shared/FormatResponder';
-import IFormatResponder from './App/InterfaceAdapters/IFormatResponder';
+import IFormatResponder from './Shared/InterfaceAdapters/IFormatResponder';
 import Responder from './App/Presentation/Shared/Responder';
 
 import IItemRepository from './Item/InterfaceAdapters/IItemRepository';
 import IUserRepository from './User/InterfaceAdapters/IUserRepository';
 import IRoleRepository from './Role/InterfaceAdapters/IRoleRepository';
-import IAuthService from './App/InterfaceAdapters/IAuthService';
+import IAuthService from './Auth/InterfaceAdapters/IAuthService';
 import IFileRepository from './File/InterfaceAdapters/IFileRepository';
 
 import AuthService from './Auth/Services/AuthService';
@@ -29,7 +29,7 @@ import FileSqlRepository from './File/Infrastructure/Repositories/FileSqlReposit
 import RoleSqlRepository from './Role/Infrastructure/Repositories/RoleSqlRepository';
 import TokenRedisRepository from './Auth/Infrastructure/Repositories/TokenRedisRepository';
 import {ITokenRepository} from '@digichanges/shared-experience';
-import ITokenDomain from './App/InterfaceAdapters/ITokenDomain';
+import ITokenDomain from './Auth/InterfaceAdapters/ITokenDomain';
 
 const container = new Container();
 

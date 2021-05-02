@@ -1,5 +1,5 @@
 import ListObjectsPayload from '../../InterfaceAdapters/Payloads/ListObjectsPayload';
-import FilesystemFactory from '../../../App/Infrastructure/Factories/FilesystemFactory';
+import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 
 class ListObjectsUseCase
 {

@@ -3,7 +3,7 @@ import {StatusCode} from '@digichanges/shared-experience';
 
 import Responder from './Responder';
 import FormatError from './FormatError';
-import {loggerCli, loggerFile} from '../../Infrastructure/Shared/Logger';
+import {loggerCli, loggerFile} from '../../../Shared/Logger';
 import {ErrorExceptionMapper} from './ErrorExceptionMapper';
 import ErrorHttpException from './ErrorHttpException';
 

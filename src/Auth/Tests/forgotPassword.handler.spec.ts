@@ -2,7 +2,7 @@ import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
 import {ICreateConnection} from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
-import Notificator from '../../App/Infrastructure/Notifications/Notificator';
+import Notificator from '../../Notification/Services/Notificator';
 
 describe('Start ForgotPassword Test', () =>
 {
@@ -66,7 +66,7 @@ describe('Start ForgotPassword Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const { body: { message } } = response;
+            const {body: {message}} = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(message).toStrictEqual('We\'ve sent you an email');

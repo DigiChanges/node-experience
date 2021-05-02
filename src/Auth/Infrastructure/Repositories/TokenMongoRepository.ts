@@ -3,10 +3,10 @@ import {injectable} from 'inversify';
 import {ICriteria, IPaginator, ITokenRepository} from '@digichanges/shared-experience';
 
 import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
-import IToken from '../../../App/InterfaceAdapters/ITokenDocument';
-import ITokenDomain from '../../../App/InterfaceAdapters/ITokenDomain';
+import IToken from '../../InterfaceAdapters/ITokenDocument';
+import ITokenDomain from '../../InterfaceAdapters/ITokenDomain';
 
-import NotFoundException from '../../../App/Infrastructure/Exceptions/NotFoundException';
+import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
 
 @injectable()

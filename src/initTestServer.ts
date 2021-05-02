@@ -21,18 +21,18 @@ import {ICreateConnection, ITokenRepository} from '@digichanges/shared-experienc
 
 import LoggerWinston from './App/Presentation/Middlewares/LoggerWinston';
 import AuthenticationMiddleware from './Auth/Presentation/Middlewares/AuthenticationMiddleware';
-import RefreshTokenMiddleware from './App/Presentation/Middlewares/RefreshTokenMiddleware';
+import RefreshTokenMiddleware from './Auth/Presentation/Middlewares/RefreshTokenMiddleware';
 
 import {ErrorHandler} from './App/Presentation/Shared/ErrorHandler';
-import DatabaseFactory from './App/Infrastructure/Factories/DatabaseFactory';
-import SeedFactory from './App/Infrastructure/Seeds/SeedFactory';
-import EventHandler from './App/Infrastructure/Events/EventHandler';
+import DatabaseFactory from './Shared/Factories/DatabaseFactory';
+import SeedFactory from './Shared/Seeds/SeedFactory';
+import EventHandler from './Shared/Events/EventHandler';
 import RedirectRouteNotFoundMiddleware from './App/Presentation/Middlewares/RedirectRouteNotFoundMiddleware';
 import {REPOSITORIES} from './repositories';
 import TokenMongoRepository from './Auth/Infrastructure/Repositories/TokenMongoRepository';
 import {validateEnv} from './Config/validateEnv';
 import container from './inversify.config';
-import ITokenDomain from './App/InterfaceAdapters/ITokenDomain';
+import ITokenDomain from './Auth/InterfaceAdapters/ITokenDomain';
 
 const initTestServer = async(): Promise<any> =>
 {

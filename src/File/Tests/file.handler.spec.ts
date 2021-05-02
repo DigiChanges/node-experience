@@ -2,8 +2,8 @@ import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
 import initTestServer from '../../initTestServer';
 import {ICreateConnection} from '@digichanges/shared-experience';
-import { UploadFileBase64 } from './fixture';
-import FilesystemFactory from '../../App/Infrastructure/Factories/FilesystemFactory';
+import {UploadFileBase64} from './fixture';
+import FilesystemFactory from '../../Shared/Factories/FilesystemFactory';
 import MockMinioStrategy from './MockMinioStrategy';
 
 describe('Start File Test', () =>
@@ -326,7 +326,7 @@ describe('Start File Test', () =>
     //
     //         expect(error.property).toStrictEqual('id');
     //         expect(error.constraints.isUuid).toBeDefined();
-    //         expect(error.constraints.isUuid).toStrictEqual('id must be a UUID');
+    //         expect(error.constraints.isUuid).toStrictEqual('id must be an UUID');
     //
     //         done();
     //     });

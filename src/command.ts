@@ -5,7 +5,7 @@ dotenv.config(); // Need before get config
 
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
 
-import {loggerCli} from './App/Infrastructure/Shared/Logger';
+import {loggerCli} from './Shared/Logger';
 
 import AddUserRoleCommand from './User/Presentation/Commands/AddUserRoleCommand';
 import AddUserCommand from './User/Presentation/Commands/AddUserCommand';

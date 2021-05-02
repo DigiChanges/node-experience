@@ -1,12 +1,12 @@
 import IFileRepository from '../../InterfaceAdapters/IFileRepository';
 import {REPOSITORIES} from '../../../repositories';
 
-import IdPayload from '../../../App/InterfaceAdapters/Payloads/IdPayload';
 import IFileDTO from '../../InterfaceAdapters/Payloads/IFileDTO';
 import FileDTO from '../../InterfaceAdapters/Payloads/FileDTO';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
-import FilesystemFactory from '../../../App/Infrastructure/Factories/FilesystemFactory';
-import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
+import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 
 class DownloadUseCase
 {

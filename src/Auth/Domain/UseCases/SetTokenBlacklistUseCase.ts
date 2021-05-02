@@ -1,8 +1,8 @@
 import {ITokenRepository} from '@digichanges/shared-experience';
 
 import {REPOSITORIES} from '../../../repositories';
-import ITokenDomain from '../../../App/InterfaceAdapters/ITokenDomain';
-import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
+import ITokenDomain from '../../../Auth/InterfaceAdapters/ITokenDomain';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 
 class SetTokenBlacklistUseCase
 {

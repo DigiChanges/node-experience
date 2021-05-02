@@ -2,7 +2,7 @@ import faker from 'faker';
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import Item from '../../Domain/Entities/Item';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import ContainerFactory from '../../../Shared/Decorators/ContainerFactory';
 import {REPOSITORIES} from '../../../repositories';
 
 class ItemSeedFactory
@@ -21,7 +21,7 @@ class ItemSeedFactory
         for await (const index of indexes)
         {
             const title = faker.name.title();
-            const type = faker.random.number();
+            const type = faker.datatype.number();
 
             const item: IItemDomain = new Item();
 

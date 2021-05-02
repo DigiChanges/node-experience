@@ -9,7 +9,7 @@ import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import ItemSchema from '../Schema/ItemTypeORM';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 
-import NotFoundException from '../../../App/Infrastructure/Exceptions/NotFoundException';
+import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 
 @injectable()
 class ItemSqlRepository implements IItemRepository

@@ -15,7 +15,7 @@ import UploadBase64UseCase from '../../Domain/UseCases/UploadBase64UseCase';
 import DownloadUseCase from '../../Domain/UseCases/DownloadUseCase';
 import GetPresignedGetObjectUseCase from '../../Domain/UseCases/GetPresignedGetObjectUseCase';
 import UploadMultipartUseCase from '../../Domain/UseCases/UploadMultipartUseCase';
-import FileReqMulter from '../../../App/Presentation/Middlewares/FileReqMulter';
+import FileReqMulter from '../Middlewares/FileReqMulter';
 import FileBase64RepRequest from '../Requests/FileBase64RepRequest';
 import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
 import FileMultipartRepRequest from '../Requests/FileMultipartRepRequest';

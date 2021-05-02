@@ -9,7 +9,7 @@ import FileSchema from '../Schema/FileTypeORM';
 import File from '../../Domain/Entities/File';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 
-import NotFoundException from '../../../App/Infrastructure/Exceptions/NotFoundException';
+import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 
 @injectable()
 class FileSqlRepository implements IFileRepository

@@ -8,7 +8,7 @@ import {Query} from 'mongoose';
 import IRole from '../../InterfaceAdapters/IRoleDocument';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
 
-import NotFoundException from '../../../App/Infrastructure/Exceptions/NotFoundException';
+import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import Roles from '../../../Config/Roles';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
 

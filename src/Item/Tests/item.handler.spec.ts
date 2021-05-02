@@ -2,7 +2,7 @@ import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
 import initTestServer from '../../initTestServer';
 import {ICreateConnection} from '@digichanges/shared-experience';
-import {ILoginResponse} from '../../App/InterfaceAdapters/Tests/ILogin';
+import {ILoginResponse} from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import {IItemResponse, IListItemsResponse} from './types';
 
 describe('Start Item Test', () =>

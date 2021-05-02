@@ -2,7 +2,7 @@ import {Response, Request} from 'express';
 import {inject, injectable} from 'inversify';
 import {IHttpStatusCode, IPaginator, Transformer} from '@digichanges/shared-experience';
 
-import IFormatResponder from '../../InterfaceAdapters/IFormatResponder';
+import IFormatResponder from '../../../Shared/InterfaceAdapters/IFormatResponder';
 import {TYPES} from '../../../types';
 import PaginatorTransformer from './PaginatorTransformer';
 import IFileDTO from '../../../File/InterfaceAdapters/Payloads/IFileDTO';

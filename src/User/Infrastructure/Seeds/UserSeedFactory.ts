@@ -5,11 +5,11 @@ import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
 import Role from '../../../Role/Domain/Entities/Role';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import User from '../../Domain/Entities/User';
-import EncryptionFactory from '../../../App/Infrastructure/Factories/EncryptionFactory';
+import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
 import {REPOSITORIES} from '../../../repositories';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import ContainerFactory from '../../../Shared/Decorators/ContainerFactory';
 
 class UserSeedFactory
 {

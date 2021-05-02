@@ -14,16 +14,16 @@ import './User/Presentation/Handlers/UserHandler';
 import './Auth/Presentation/Handlers/AuthHandler';
 import './Role/Presentation/Handlers/RoleHandler';
 import './File/Presentation/Handlers/FileHandler';
-import './App/Presentation/Handlers/NotificationHandler';
+import './Notification/Presentation/Handlers/NotificationHandler';
 import './App/Presentation/Handlers/LogHandler';
 
 import LoggerWinston from './App/Presentation/Middlewares/LoggerWinston';
 import AuthenticationMiddleware from './Auth/Presentation/Middlewares/AuthenticationMiddleware';
 import {ErrorHandler} from './App/Presentation/Shared/ErrorHandler';
-import {loggerCli} from './App/Infrastructure/Shared/Logger';
+import {loggerCli} from './Shared/Logger';
 import RedirectRouteNotFoundMiddleware from './App/Presentation/Middlewares/RedirectRouteNotFoundMiddleware';
 import Throttle from './App/Presentation/Middlewares/Throttle';
-import VerifyTokenMiddleware from './App/Presentation/Middlewares/VerifyTokenMiddleware';
+import VerifyTokenMiddleware from './Auth/Presentation/Middlewares/VerifyTokenMiddleware';
 import container from './inversify.config';
 
 export const Locales = i18n;

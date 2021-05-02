@@ -2,16 +2,16 @@ import {IEncryption} from '@digichanges/shared-experience';
 
 import UserRepPayload from '../../InterfaceAdapters/Payloads/UserRepPayload';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
-import EncryptionFactory from '../../../App/Infrastructure/Factories/EncryptionFactory';
+import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import {REPOSITORIES} from '../../../repositories';
 import {SERVICES} from '../../../services';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import User from '../Entities/User';
-import EventHandler from '../../../App/Infrastructure/Events/EventHandler';
-import UserCreatedEvent from '../../../App/Infrastructure/Events/UserCreatedEvent';
-import IAuthService from '../../../App/InterfaceAdapters/IAuthService';
-import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
+import EventHandler from '../../../Shared/Events/EventHandler';
+import UserCreatedEvent from '../../../Shared/Events/UserCreatedEvent';
 
 class SaveUserUseCase
 {
@@ -56,7 +56,7 @@ class SaveUserUseCase
 
         const eventHandler = EventHandler.getInstance();
 
-        eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, {email: user.email});
+        await eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, {email: user.email});
 
         return user;
     }

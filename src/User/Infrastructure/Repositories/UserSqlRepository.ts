@@ -9,7 +9,7 @@ import UserFilter from '../../Presentation/Criterias/UserFilter';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import UserSchema from '../Schema/UserTypeORM';
 
-import NotFoundException from '../../../App/Infrastructure/Exceptions/NotFoundException';
+import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 
 @injectable()
 class UserSqlRepository implements IUserRepository

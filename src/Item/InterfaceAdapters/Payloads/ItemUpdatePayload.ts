@@ -1,4 +1,4 @@
-import IdPayload from '../../../App/InterfaceAdapters/Payloads/IdPayload';
+import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import ItemRepPayload from './ItemRepPayload';
 
 interface ItemUpdatePayload extends IdPayload, ItemRepPayload {}
