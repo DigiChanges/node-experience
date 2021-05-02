@@ -3,16 +3,13 @@ import {REPOSITORIES} from '../../../repositories';
 
 import IdPayload from '../../../App/InterfaceAdapters/Payloads/IdPayload';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class GetFileMetadataUserCase
 {
+    @containerFactory(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;
 
-    constructor()
-    {
-        this.repository = ContainerFactory.create<IFileRepository>(REPOSITORIES.IFileRepository);
-    }
     async handle(payload: IdPayload): Promise<IFileDomain>
     {
         const id = payload.getId();

@@ -4,16 +4,12 @@ import FileBase64RepPayload from '../../InterfaceAdapters/Payloads/FileBase64Rep
 import {REPOSITORIES} from '../../../repositories';
 import File from '../Entities/File';
 import FilesystemFactory from '../../../App/Infrastructure/Factories/FilesystemFactory';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class UploadBase64UseCase
 {
+    @containerFactory(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;
-
-    constructor()
-    {
-        this.repository = ContainerFactory.create<IFileRepository>(REPOSITORIES.IFileRepository);
-    }
 
     async handle(payload: FileBase64RepPayload): Promise<any>
     {
