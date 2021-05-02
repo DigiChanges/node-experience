@@ -2,19 +2,14 @@ import {ITokenRepository} from '@digichanges/shared-experience';
 
 import TokenBlackListedHttpException from '../../Presentation/Exceptions/TokenBlackListedHttpException';
 import GetTokenUseCase from './GetTokenUseCase';
-import Token from '../../../App/Infrastructure/Entities/Token';
 import {REPOSITORIES} from '../../../repositories';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 import ITokenDomain from '../../../App/InterfaceAdapters/ITokenDomain';
 
 class VerifyTokenBlacklistUseCase
 {
+    @containerFactory(REPOSITORIES.ITokenRepository)
     private repository: ITokenRepository<ITokenDomain>;
-
-    constructor()
-    {
-        this.repository = ContainerFactory.create<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository);
-    }
 
     async handle(tokenId: string)
     {

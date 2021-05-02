@@ -5,16 +5,12 @@ import {REPOSITORIES} from '../../../repositories';
 import EmailNotification from '../../../App/Infrastructure/Entities/EmailNotification';
 import EventHandler from '../../../App/Infrastructure/Events/EventHandler';
 import ForgotPasswordEvent from '../../../App/Infrastructure/Events/ForgotPasswordEvent';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class ForgotPasswordUseCase
 {
+    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-
-    constructor()
-    {
-        this.repository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
-    }
 
     async handle(payload: ForgotPasswordPayload)
     {
