@@ -1,17 +1,12 @@
 import {ICriteria, IPaginator} from '@digichanges/shared-experience';
-
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import {REPOSITORIES} from '../../../repositories';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class ListUsersUseCase
 {
+    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-
-    constructor()
-    {
-        this.repository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
-    }
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {

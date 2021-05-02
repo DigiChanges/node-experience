@@ -6,16 +6,16 @@ import EncryptionFactory from '../../../App/Infrastructure/Factories/EncryptionF
 import {REPOSITORIES} from '../../../repositories';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import PasswordWrongException from '../../../Auth/Domain/Exceptions/PasswordWrongException';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class ChangeMyPasswordUseCase
 {
+    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
     private encryption: IEncryption;
 
     constructor()
     {
-        this.repository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
         this.encryption = EncryptionFactory.create();
     }
 

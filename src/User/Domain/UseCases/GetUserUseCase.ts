@@ -2,16 +2,12 @@ import IdPayload from '../../../App/InterfaceAdapters/Payloads/IdPayload';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import {REPOSITORIES} from '../../../repositories';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
-import ContainerFactory from '../../../App/Infrastructure/Factories/ContainerFactory';
+import {containerFactory} from '../../../App/Infrastructure/Factories/ContainerFactory';
 
 class GetUserUseCase
 {
+    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-
-    constructor()
-    {
-        this.repository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
-    }
 
     async handle(payload: IdPayload): Promise<IUserDomain>
     {
