@@ -66,7 +66,7 @@ describe('Start ForgotPassword Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const { body: { message } } = response;
+            const {body: {message}} = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(message).toStrictEqual('We\'ve sent you an email');

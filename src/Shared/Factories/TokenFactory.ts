@@ -7,7 +7,7 @@ import IToken from '../../Auth/InterfaceAdapters/IToken';
 import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
 import {REPOSITORIES} from '../../repositories';
 import ITokenDomain from '../../Auth/InterfaceAdapters/ITokenDomain';
-import Token from '../../Notification/Domain/Entities/Token';
+import Token from '../../Auth/Domain/Entities/Token';
 import ContainerFactory from '../Decorators/ContainerFactory';
 
 // TODO: Change logic with payload to extend and add new payload

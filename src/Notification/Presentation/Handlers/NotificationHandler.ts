@@ -7,8 +7,8 @@ import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest'
 import CreateSubscriptionUseCase from '../../Domain/UseCases/CreateSubscriptionUseCase';
 import SendPushNotificationUseCase from '../../Domain/UseCases/SendPushNotificationUseCase';
 import {TYPES} from '../../../types';
-import NotificationSubscriptionRequest from '../../../App/Presentation/Requests/NotificationCreateSuscriptionRequest';
-import NotificationSendMessageRequest from '../../../App/Presentation/Requests/NotificationSendMessageRequest';
+import NotificationSubscriptionRequest from '../Requests/NotificationCreateSuscriptionRequest';
+import NotificationSendMessageRequest from '../Requests/NotificationSendMessageRequest';
 import Responder from '../../../App/Presentation/Shared/Responder';
 
 @controller('/api/notifications')

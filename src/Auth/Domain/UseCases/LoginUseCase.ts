@@ -10,7 +10,7 @@ import {REPOSITORIES} from '../../../repositories';
 import BadCredentialsException from '../Exceptions/BadCredentialsException';
 import UserDisabledException from '../../../User/Domain/Exceptions/UserDisabledException';
 import RoleDisabledException from '../../../Role/Domain/Exceptions/RoleDisabledException';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 
 class LoginUseCase
 {

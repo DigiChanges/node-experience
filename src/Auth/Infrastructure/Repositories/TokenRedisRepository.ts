@@ -6,7 +6,7 @@ import ITokenDomain from '../../InterfaceAdapters/ITokenDomain';
 
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import CacheFactory from '../../../Shared/Factories/CacheFactory';
-import Token from '../../../Notification/Domain/Entities/Token';
+import Token from '../../Domain/Entities/Token';
 
 @injectable()
 class TokenRedisRepository implements ITokenRepository<ITokenDomain>

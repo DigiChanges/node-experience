@@ -1,7 +1,7 @@
 import PushNotification from '../Entities/PushNotification';
 import EventHandler from '../../../Shared/Events/EventHandler';
 import SendMessageEvent from '../../../Shared/Events/SendMessageEvent';
-import NotificationSendMessageRequest from '../../../App/Presentation/Requests/NotificationSendMessageRequest';
+import NotificationSendMessageRequest from '../../Presentation/Requests/NotificationSendMessageRequest';
 
 class SendPushNotificationUseCase
 {

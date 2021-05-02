@@ -35,7 +35,7 @@ module.exports = {
         'space-infix-ops': 2,
         'space-in-parens': [1, 'never'],
         'array-bracket-spacing': ['warn', 'never'],
-        'object-curly-spacing': 0,
+        'object-curly-spacing': ['warn', 'never'],
         'block-spacing': 'warn',
         'arrow-spacing': 'warn',
         'space-before-function-paren': ['warn', 'never'],

@@ -1,5 +1,5 @@
 import {IsString} from 'class-validator';
-import CreateBucketPayload from '../../../File/InterfaceAdapters/Payloads/CreateBucketPayload';
+import CreateBucketPayload from '../../InterfaceAdapters/Payloads/CreateBucketPayload';
 
 // TODO: Refactor set policy
 class CreateBucketCommandRequest implements CreateBucketPayload

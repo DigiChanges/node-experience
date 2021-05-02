@@ -1,7 +1,7 @@
 import ChangeForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import {REPOSITORIES} from '../../../repositories';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 
 class ChangeForgotPasswordUseCase
 {

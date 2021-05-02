@@ -8,7 +8,7 @@ import {SERVICES} from '../../../services';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import User from '../Entities/User';
 import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
 import EventHandler from '../../../Shared/Events/EventHandler';
 import UserCreatedEvent from '../../../Shared/Events/UserCreatedEvent';
@@ -56,7 +56,7 @@ class SaveUserUseCase
 
         const eventHandler = EventHandler.getInstance();
 
-        await eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, { email: user.email });
+        await eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, {email: user.email});
 
         return user;
     }

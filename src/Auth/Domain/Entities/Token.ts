@@ -1,4 +1,4 @@
-import ITokenDomain from '../../../Auth/InterfaceAdapters/ITokenDomain';
+import ITokenDomain from '../../InterfaceAdapters/ITokenDomain';
 
 class Token implements ITokenDomain
 {
