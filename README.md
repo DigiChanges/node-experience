@@ -47,6 +47,9 @@ Execute PROD Environment
 Execute TEST Environment
 - **yarn test**
 
+Test and watch one file
+- **yarn test-watch dist/src/[Module]/Tests/[test-name].spec.js**
+
 TODO: Started
 
 TODO: Handlers

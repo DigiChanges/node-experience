@@ -2,13 +2,15 @@ import supertest from 'supertest';
 import {ICreateConnection} from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 import {InversifyExpressServer} from 'inversify-express-utils';
+import {ILoginResponse} from '../../Shared/InterfaceAdapters/Tests/ILogin';
+import {IUserResponse, IListUsersResponse} from './types';
 
 describe('Start User Test', () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
-    let token: any = null;
+    let token: string = null;
     let userId = '';
     let deleteResponse: any = null;
 
@@ -40,7 +42,7 @@ describe('Start User Test', () =>
                 password: '12345678'
             };
 
-            const response: any = await request
+            const response: ILoginResponse = await request
                 .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
@@ -70,7 +72,7 @@ describe('Start User Test', () =>
                 permissions: []
             };
 
-            const response: any = await request
+            const response: IUserResponse = await request
                 .post('/api/users')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -110,7 +112,7 @@ describe('Start User Test', () =>
                 permissions: []
             };
 
-            const response: any = await request
+            const response: IUserResponse = await request
                 .post('/api/users')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -143,7 +145,7 @@ describe('Start User Test', () =>
                 permissions: []
             };
 
-            const response: any = await request
+            const response: IUserResponse = await request
                 .get(`/api/users/${userId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -178,7 +180,7 @@ describe('Start User Test', () =>
                 permissions: []
             };
 
-            const response: any = await request
+            const response: IUserResponse = await request
                 .put(`/api/users/${userId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -266,7 +268,7 @@ describe('Start User Test', () =>
                 permissions: []
             };
 
-            const createResponse: any = await request
+            const createResponse: IUserResponse = await request
                 .post('/api/users')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -295,7 +297,7 @@ describe('Start User Test', () =>
         test('Get Users /users', async done =>
         {
 
-            const response: any = await request
+            const response: IListUsersResponse = await request
                 .get('/api/users?pagination[limit]=5&pagination[offset]=0')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -318,7 +320,7 @@ describe('Start User Test', () =>
         test('Get Users /users without pagination', async done =>
         {
 
-            const response: any = await request
+            const response: IListUsersResponse = await request
                 .get('/api/users')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -339,7 +341,7 @@ describe('Start User Test', () =>
         test('Get Users /users with Filter Type', async done =>
         {
 
-            const response: any = await request
+            const response: IListUsersResponse = await request
                 .get('/api/users?pagination[limit]=20&pagination[offset]=0&filter[email]=user2@node.com')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -361,7 +363,7 @@ describe('Start User Test', () =>
         test('Get Users /users with Sort Desc Type', async done =>
         {
 
-            const response: any = await request
+            const response: IListUsersResponse = await request
                 .get('/api/users?pagination[limit]=20&pagination[offset]=0&sort[email]=desc')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -389,7 +391,7 @@ describe('Start User Test', () =>
                 password: '123456789'
             };
 
-            const response: any = await request
+            const response: ILoginResponse = await request
                 .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
@@ -408,7 +410,7 @@ describe('Start User Test', () =>
                 type: 'User 1'
             };
 
-            const response: any = await request
+            const response: IUserResponse = await request
                 .post('/api/users')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -431,7 +433,7 @@ describe('Start User Test', () =>
         test('Get User /users/:id', async done =>
         {
 
-            const response: any = await request
+            const response: IUserResponse = await request
                 .get(`/api/users/${userId}dasdasda123`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -446,7 +448,7 @@ describe('Start User Test', () =>
 
             expect(error.property).toStrictEqual('id');
             expect(error.constraints.isUuid).toBeDefined();
-            expect(error.constraints.isUuid).toStrictEqual('id must be an UUID');
+            expect(error.constraints.isUuid).toStrictEqual('id must be a UUID');
 
             done();
         });
@@ -467,7 +469,7 @@ describe('Start User Test', () =>
                 enable: true
             };
 
-            const response: any = await request
+            const response: IUserResponse = await request
                 .put(`/api/users/${userId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -490,7 +492,7 @@ describe('Start User Test', () =>
         test('Delete User error /users/:id', async done =>
         {
 
-            const deleteErrorResponse: any = await request
+            const deleteErrorResponse: IUserResponse = await request
                 .delete(`/api/users/${deleteResponse.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)

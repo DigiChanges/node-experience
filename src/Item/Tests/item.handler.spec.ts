@@ -315,7 +315,7 @@ describe('Start Item Test', () =>
 
             expect(error.property).toStrictEqual('id');
             expect(error.constraints.isUuid).toBeDefined();
-            expect(error.constraints.isUuid).toStrictEqual('id must be an UUID');
+            expect(error.constraints.isUuid).toStrictEqual('id must be a UUID');
 
             done();
         });
