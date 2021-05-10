@@ -2,13 +2,15 @@ import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
 import {ICreateConnection} from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
+import {ILoginResponse} from '../../Shared/InterfaceAdapters/Tests/ILogin';
+import {IListRolesResponse, IRoleResponse} from './types';
 
 describe('Start Role Test', () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
-    let token: any = null;
+    let token: string = null;
     let roleId = '';
     let deleteResponse: any = null;
 
@@ -40,7 +42,7 @@ describe('Start Role Test', () =>
                 password: '12345678'
             };
 
-            const response: any = await request
+            const response: ILoginResponse = await request
                 .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
@@ -60,7 +62,7 @@ describe('Start Role Test', () =>
                 permissions: []
             };
 
-            const response: any = await request
+            const response: IRoleResponse = await request
                 .post('/api/roles')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -91,7 +93,7 @@ describe('Start Role Test', () =>
                 enable: false
             };
 
-            const response: any = await request
+            const response: IRoleResponse = await request
                 .post('/api/roles')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -122,7 +124,7 @@ describe('Start Role Test', () =>
                 enable: true
             };
 
-            const response: any = await request
+            const response: IRoleResponse = await request
                 .post('/api/roles')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -154,7 +156,7 @@ describe('Start Role Test', () =>
                 enable: true
             };
 
-            const response: any = await request
+            const response: IRoleResponse = await request
                 .get(`/api/roles/${roleId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -183,7 +185,7 @@ describe('Start Role Test', () =>
                 enable: false
             };
 
-            const response: any = await request
+            const response: IRoleResponse = await request
                 .put(`/api/roles/${roleId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -212,7 +214,7 @@ describe('Start Role Test', () =>
                 enable: true
             };
 
-            const createResponse: any = await request
+            const createResponse: IRoleResponse = await request
                 .post('/api/roles')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -243,7 +245,7 @@ describe('Start Role Test', () =>
         test('Get Roles /roles', async done =>
         {
 
-            const response: any = await request
+            const response: IListRolesResponse = await request
                 .get('/api/roles?pagination[limit]=5&pagination[offset]=0')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -266,7 +268,7 @@ describe('Start Role Test', () =>
         test('Get Roles /roles without pagination', async done =>
         {
 
-            const response: any = await request
+            const response: IListRolesResponse = await request
                 .get('/api/roles')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -287,7 +289,7 @@ describe('Start Role Test', () =>
         test('Get Roles /roles with Filter Type', async done =>
         {
 
-            const response: any = await request
+            const response: IListRolesResponse = await request
                 .get('/api/roles?pagination[limit]=20&pagination[offset]=0&filter[slug]=admin')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -308,7 +310,7 @@ describe('Start Role Test', () =>
         test('Get Roles /roles with Sort Desc Type', async done =>
         {
 
-            const response: any = await request
+            const response: IListRolesResponse = await request
                 .get('/api/roles?pagination[limit]=20&pagination[offset]=0&sort[slug]=desc')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -353,7 +355,7 @@ describe('Start Role Test', () =>
                 password: '12345678'
             };
 
-            const response: any = await request
+            const response: ILoginResponse = await request
                 .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
@@ -372,7 +374,7 @@ describe('Start Role Test', () =>
                 type: 'Role 1'
             };
 
-            const response: any = await request
+            const response: IRoleResponse = await request
                 .post('/api/roles')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -395,7 +397,7 @@ describe('Start Role Test', () =>
         test('Get Role /roles/:id', async done =>
         {
 
-            const response: any = await request
+            const response: IRoleResponse = await request
                 .get(`/api/roles/${roleId}dasdasda123`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -423,7 +425,7 @@ describe('Start Role Test', () =>
                 enable: 'false'
             };
 
-            const response: any = await request
+            const response: IRoleResponse = await request
                 .put(`/api/roles/${roleId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -450,7 +452,7 @@ describe('Start Role Test', () =>
         test('Delete Role error /roles/:id', async done =>
         {
 
-            const deleteErrorResponse: any = await request
+            const deleteErrorResponse: IRoleResponse = await request
                 .delete(`/api/roles/${deleteResponse.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
