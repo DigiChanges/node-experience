@@ -12,31 +12,31 @@ class UserUpdateRequest extends IdRequest implements UserUpdatePayload
     @IsString()
     lastName: string
 
-		@Length(3, 10)
+    @Length(3, 10)
     @IsString()
     birthday: string;
 
-		@Length(2, 3)
+    @Length(2, 3)
     @IsString()
     documentType: string;
 
-		@Length(3, 16)
+    @Length(3, 16)
     @IsString()
     documentNumber: string;
 
-		@Length(3, 20)
+    @Length(3, 20)
     @IsString()
     gender: string;
 
-		@Length(3, 20)
+    @Length(3, 20)
     @IsString()
     phone: string;
 
-		@Length(2, 20)
+    @Length(2, 20)
     @IsString()
     country: string;
 
-		@Length(10, 60)
+    @Length(10, 60)
     @IsString()
     address: string;
 

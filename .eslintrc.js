@@ -27,13 +27,15 @@ module.exports = {
         '@typescript-eslint'
     ],
     'rules': {
-        'indent': ['error', 4],
+        indent: 'off',
+        '@typescript-eslint/indent': ['error', 4],
         'quotes': ['warn', 'single'],
         'semi': ['warn', 'always'],
         'semi-spacing': ['warn', {'before': false, 'after': true}],
         'comma-spacing': ['warn', {'before': false, 'after': true}],
         'space-infix-ops': 2,
         'space-in-parens': [1, 'never'],
+        'spaced-comment': ['error', 'always'],
         'array-bracket-spacing': ['warn', 'never'],
         'object-curly-spacing': ['warn', 'never'],
         'block-spacing': 'warn',

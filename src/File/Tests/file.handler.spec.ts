@@ -1,17 +1,19 @@
+import {ICreateConnection} from '@digichanges/shared-experience';
 import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
 import initTestServer from '../../initTestServer';
-import {ICreateConnection} from '@digichanges/shared-experience';
-import {UploadFileBase64} from './fixture';
 import FilesystemFactory from '../../Shared/Factories/FilesystemFactory';
+import {ILoginResponse} from '../../Shared/InterfaceAdapters/Tests/ILogin';
+import {UploadFileBase64} from './fixture';
 import MockMinioStrategy from './MockMinioStrategy';
+import {IFileResponse} from './types';
 
 describe('Start File Test', () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
-    let token: any = null;
+    let token: string = null;
     let fileId = '';
 
     beforeAll(async(done) =>
@@ -44,7 +46,7 @@ describe('Start File Test', () =>
                 password: '12345678'
             };
 
-            const response: any = await request
+            const response: ILoginResponse = await request
                 .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
                 .send(payload);
@@ -58,7 +60,7 @@ describe('Start File Test', () =>
 
         test('Add File /files/base64', async done =>
         {
-            const response: any = await request
+            const response: IFileResponse = await request
                 .post('/api/files/base64')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -86,7 +88,7 @@ describe('Start File Test', () =>
                 mimeType: 'image/jpeg'
             };
 
-            const response: any = await request
+            const response: IFileResponse = await request
                 .get(`/api/files/metadata/${fileId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)

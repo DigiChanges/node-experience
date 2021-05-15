@@ -6,12 +6,12 @@ interface UserRepPayload
     getLastName(): string;
     getEmail(): string;
     getBirthday(): string;
-		getDocumentType(): string;
-		getDocumentNumber(): string;
-		getGender(): string;
-		getPhone(): string;
-		getCountry(): string;
-		getAddress(): string;
+    getDocumentType(): string;
+    getDocumentNumber(): string;
+    getGender(): string;
+    getPhone(): string;
+    getCountry(): string;
+    getAddress(): string;
     getPassword(): string;
     getPasswordConfirmation(): string;
     getEnable(): boolean;

@@ -1,11 +1,6 @@
 import {IBodyResponse} from '../../Shared/InterfaceAdapters/Tests/IBodyResponse';
 import {IFetchResponse} from '../../Shared/InterfaceAdapters/Tests/IFetchResponse';
-import IUserDomain from '../InterfaceAdapters/IUserDomain';
-
-interface IUserTransformer extends IUserDomain // TODO: make interface IUserTransformer and import here and use to UserTransformer return type
-{
-    id: string;
-}
+import IUserTransformer from '../InterfaceAdapters/IUserTransformer';
 
 interface IUserBody extends IBodyResponse
 {

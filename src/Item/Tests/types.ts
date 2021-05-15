@@ -1,11 +1,6 @@
 import {IBodyResponse} from '../../Shared/InterfaceAdapters/Tests/IBodyResponse';
 import {IFetchResponse} from '../../Shared/InterfaceAdapters/Tests/IFetchResponse';
-import IItemDomain from '../InterfaceAdapters/IItemDomain';
-
-interface IItemTransformer extends IItemDomain // TODO: make interface IItemTransformer and import here and use to ItemTransformer return type
-{
-    id: string;
-}
+import IItemTransformer from '../InterfaceAdapters/IItemTransformer';
 
 interface IItemBody extends IBodyResponse
 {
