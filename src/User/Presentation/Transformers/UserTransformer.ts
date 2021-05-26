@@ -3,6 +3,7 @@ import {Transformer} from '@digichanges/shared-experience';
 
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import RoleTransformer from '../../../Role/Presentation/Transformers/RoleTransformer';
+import IUserTransformer from '../../InterfaceAdapters/IUserTransformer';
 
 class UserTransformer extends Transformer
 {
@@ -14,7 +15,7 @@ class UserTransformer extends Transformer
         this.roleTransformer = new RoleTransformer();
     }
 
-    public transform(user: IUserDomain): any
+    public transform(user: IUserDomain): IUserTransformer
     {
         return {
             id: user.getId(),

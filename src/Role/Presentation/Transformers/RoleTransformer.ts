@@ -2,10 +2,11 @@ import moment from 'moment';
 import {Transformer} from '@digichanges/shared-experience';
 
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
+import IRoleTransformer from '../../InterfaceAdapters/IRoleTransformer';
 
 class RoleTransformer extends Transformer
 {
-    public transform(role: IRoleDomain)
+    public transform(role: IRoleDomain): IRoleTransformer
     {
         return {
             id: role.getId(),

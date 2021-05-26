@@ -2,10 +2,11 @@ import moment from 'moment';
 import {Transformer} from '@digichanges/shared-experience';
 
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
+import IFileTransformer from '../../InterfaceAdapters/IFileTransformer';
 
 class FileTransformer extends Transformer
 {
-    transform(file: IFileDomain)
+    transform(file: IFileDomain): IFileTransformer
     {
         return {
             id: file.getId(),

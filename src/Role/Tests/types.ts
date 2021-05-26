@@ -1,11 +1,6 @@
 import {IBodyResponse} from '../../Shared/InterfaceAdapters/Tests/IBodyResponse';
 import {IFetchResponse} from '../../Shared/InterfaceAdapters/Tests/IFetchResponse';
-import IRoleDomain from '../InterfaceAdapters/IRoleDomain';
-
-interface IRoleTransformer extends IRoleDomain // TODO: make interface IRoleTransformer and import here and use to RoleTransformer return type
-{
-    id: string;
-}
+import IRoleTransformer from '../InterfaceAdapters/IRoleTransformer';
 
 interface IRoleBody extends IBodyResponse
 {

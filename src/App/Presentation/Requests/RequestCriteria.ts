@@ -2,7 +2,7 @@ import {ICriteria, IFilter, IPagination, ISort} from '@digichanges/shared-experi
 
 abstract class RequestCriteria implements ICriteria
 {
-		private readonly sort: ISort;
+    private readonly sort: ISort;
     private readonly filter: IFilter;
     private readonly pagination: IPagination;
 
