@@ -1,4 +1,4 @@
-FROM keymetrics/pm2:12-stretch
+FROM keymetrics/pm2:15-stretch
 
 WORKDIR /usr/app
 

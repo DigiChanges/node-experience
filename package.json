@@ -126,8 +126,5 @@
       "post-commit": "bash tools/hooks/post-commit.sh",
       "commit-msg": "bash tools/hooks/commit-msg.sh"
     }
-  },
-  "engines": {
-    "node": "12.*"
   }
 }
