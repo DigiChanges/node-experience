@@ -16,6 +16,12 @@ dev:
 	@echo '************                               ************'
 	docker-compose up --build -d
 
+prod:
+	@echo '************                               ************'
+	@echo '************           PROD INIT    	      ************'
+	@echo '************                               ************'
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
+
 dev_sql:
 	@echo '************                               ************'
 	@echo '************           DEV INIT    	      ************'
@@ -27,6 +33,12 @@ exec:
 	@echo '************           Exec NODE    	      ************'
 	@echo '************                               ************'
 	docker-compose exec node bash
+
+test:
+	@echo '************                               ************'
+	@echo '************           Exec NODE TEST      ************'
+	@echo '************                               ************'
+	docker-compose exec node yarn test
 
 init:
 	@echo '************                               ************'

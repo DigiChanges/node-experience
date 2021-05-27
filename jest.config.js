@@ -221,7 +221,7 @@ module.exports = {
   // Indicates whether each individual test should be reported during the run
   verbose: true,
 
-  testTimeout: 10000,
+  testTimeout: 16000,
 
   // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
   // watchPathIgnorePatterns: [],
