@@ -13,29 +13,32 @@ const AuthenticationMiddleware = (req: any, res: any, next: any) =>
 
         apiWhitelist.forEach((conf) =>
         {
-            if (conf.method.includes(req.method) && (conf.url.includes('**') || conf.url.includes('*')))
+            if (conf.method.includes(req.method) || conf.method.includes('*'))
             {
-                const exist: boolean = conf.url.split('**')
-                    .every(_extract =>
-                    {
-                        if (_extract.includes('*'))
+                if (conf.url.includes('**') || conf.url.includes('*'))
+                {
+                    const exist: boolean = conf.url.split('**')
+                        .every(_extract =>
                         {
-                            _extract = _extract.replace('*', '');
-                        }
-                        return req.path.includes(_extract);
-                    });
+                            if (_extract.includes('*'))
+                            {
+                                _extract = _extract.replace('*', '');
+                            }
+                            return req.path.includes(_extract);
+                        });
 
-                if (exist)
+                    if (exist)
+                    {
+                        existMethodAndUrl = true;
+                        return;
+                    }
+                }
+
+                if (conf.url === req.path)
                 {
                     existMethodAndUrl = true;
                     return;
                 }
-            }
-
-            if (conf.method.includes(req.method) && conf.url === req.path)
-            {
-                existMethodAndUrl = true;
-                return;
             }
         });
 
