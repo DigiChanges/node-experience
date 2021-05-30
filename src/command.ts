@@ -15,6 +15,7 @@ import CreateVapID from './File/Presentation/Commands/CreateVapID';
 import AssignRoleToUserCommand from './User/Presentation/Commands/AssingRoleToUserCommand';
 import SyncRolesPermissionCommand from './Auth/Presentation/Commands/SyncRolesPermissionCommand';
 import CreateBucketCommand from './File/Presentation/Commands/CreateBucketCommand';
+import Seed from './App/Presentation/Commands/SeedCommand';
 import initCommand from './initCommand';
 
 void (async() =>
@@ -32,6 +33,7 @@ void (async() =>
         program.addCommand(CreateVapID);
         program.addCommand(SyncRolesPermissionCommand);
         program.addCommand(CreateBucketCommand);
+        program.addCommand(Seed);
 
         await program.parseAsync(process.argv);
         exit();
@@ -39,7 +41,7 @@ void (async() =>
     catch (error)
     {
         // TODO: Add exception mapping to handle errors like server express
-        loggerCli.info('Error while connecting to the database', error);
+        loggerCli.info('Error:', error);
         loggerCli.info(error.message);
         exit();
     }
