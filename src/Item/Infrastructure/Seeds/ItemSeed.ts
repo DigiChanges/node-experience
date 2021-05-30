@@ -2,17 +2,14 @@ import faker from 'faker';
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import Item from '../../Domain/Entities/Item';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
-import ContainerFactory from '../../../Shared/Decorators/ContainerFactory';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 import {REPOSITORIES} from '../../../repositories';
+import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 
-class ItemSeedFactory
+class ItemSeed implements ISeed
 {
-    private itemRepo: IItemRepository;
-
-    constructor()
-    {
-        this.itemRepo = ContainerFactory.create<IItemRepository>(REPOSITORIES.IItemRepository);
-    }
+    @containerFactory(REPOSITORIES.IItemRepository)
+    private itemRepository: IItemRepository;
 
     public async init()
     {
@@ -28,9 +25,9 @@ class ItemSeedFactory
             item.name = title;
             item.type = type;
 
-            await this.itemRepo.save(item);
+            await this.itemRepository.save(item);
         }
     }
 }
 
-export default ItemSeedFactory;
+export default ItemSeed;
