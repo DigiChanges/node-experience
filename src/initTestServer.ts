@@ -26,7 +26,6 @@ import RefreshTokenMiddleware from './Auth/Presentation/Middlewares/RefreshToken
 
 import {ErrorHandler} from './App/Presentation/Shared/ErrorHandler';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
-import SeedFactory from './Shared/Seeds/SeedFactory';
 import EventHandler from './Shared/Events/EventHandler';
 import RedirectRouteNotFoundMiddleware from './App/Presentation/Middlewares/RedirectRouteNotFoundMiddleware';
 import {REPOSITORIES} from './repositories';
@@ -34,6 +33,7 @@ import TokenMongoRepository from './Auth/Infrastructure/Repositories/TokenMongoR
 import {validateEnv} from './Config/validateEnv';
 import container from './inversify.config';
 import ITokenDomain from './Auth/InterfaceAdapters/ITokenDomain';
+import SeedFactory from './Shared/Factories/SeedFactory';
 
 const initTestServer = async(): Promise<any> =>
 {

@@ -24,6 +24,11 @@ class SeedFactory
         }
     }
 
+    public async init(): Promise<void>
+    {
+        await this.all();
+    }
+
     private async one(name: string): Promise<void>
     {
         this.validateSeedName(name);
