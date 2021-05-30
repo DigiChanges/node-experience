@@ -9,33 +9,40 @@ const AuthenticationMiddleware = (req: any, res: any, next: any) =>
     try
     {
         let existMethodAndUrl = false;
-        const apiWhitelist: {method: string[], url: string}[] = Config.get('apiWhitelist');
+        const apiWhitelist: { method: string[], url: string }[] = Config.get('apiWhitelist');
 
         apiWhitelist.forEach((conf) =>
         {
-            if (conf.method.includes(req.method) && (conf.url.includes('**') || conf.url.includes('*')))
-            {
-                const exist: boolean = conf.url.split('**')
-                    .every(_extract =>
-                    {
-                        if (_extract.includes('*'))
-                        {
-                            _extract = _extract.replace('*', '');
-                        }
-                        return req.path.includes(_extract);
-                    });
-
-                if (exist)
-                {
-                    existMethodAndUrl = true;
-                    return;
-                }
-            }
-
-            if (conf.method.includes(req.method) && conf.url === req.path)
+            if (conf.url === req.path)
             {
                 existMethodAndUrl = true;
                 return;
+            }
+
+            if (conf.method.includes(req.method) || conf.method.includes('*'))
+            {
+                if (conf.url.includes('**') || conf.url.includes('*'))
+                {
+                    const isAllowed = (path: string[], url: string[]): boolean =>
+                    {
+                        return url.every((_urlExtract, order): boolean =>
+                        {
+                            return (
+                                (
+                                    (_urlExtract === path[order] && order + 1 !== url.length)
+                                    || (_urlExtract === '**')
+                                    || (_urlExtract === '*' && url.length === order + 1)
+                                )
+                            );
+                        });
+                    };
+
+                    if (_.isEqualWith(req.path.split('/'), conf.url.split('/'), isAllowed))
+                    {
+                        existMethodAndUrl = true;
+                        return;
+                    }
+                }
             }
         });
 

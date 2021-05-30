@@ -13,6 +13,7 @@ import './Auth/Presentation/Handlers/AuthHandler';
 import './User/Presentation/Handlers/UserHandler';
 import './Role/Presentation/Handlers/RoleHandler';
 import './File/Presentation/Handlers/FileHandler';
+import './App/Tests/WhiteListHandler';
 // import "../Presentation/Handlers/NotificationHandler";
 
 import {Locales} from './app';
