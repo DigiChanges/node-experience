@@ -1,40 +1,20 @@
 import IRoleRepository from '../../InterfaceAdapters/IRoleRepository';
-import {DeleteResult, getRepository, Repository} from 'typeorm';
 import {injectable} from 'inversify';
 import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 
 import Paginator from '../../../App/Presentation/Shared/Paginator';
 import RoleFilter from '../../Presentation/Criterias/RoleFilter';
-import RoleSchema from '../Schema/RoleTypeORM';
-import Role from '../../Domain/Entities/Role';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
-import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
+import BaseSqlRepository from '../../../App/Infrastructure/Repositories/BaseSqlRepository';
+import Role from '../../Domain/Entities/Role';
+import RoleSchema from '../Schema/RoleTypeORM';
 
 @injectable()
-class RoleSqlRepository implements IRoleRepository
+class RoleSqlRepository extends BaseSqlRepository<IRoleDomain> implements IRoleRepository
 {
-    private repository: Repository<Role>;
-
     constructor()
     {
-        this.repository = getRepository<Role>(RoleSchema);
-    }
-
-    async save(role: IRoleDomain): Promise<Role>
-    {
-        return await this.repository.save(role);
-    }
-
-    async getOne(id: string): Promise<Role>
-    {
-        const role = await this.repository.findOne(id);
-
-        if (!role)
-        {
-            throw new NotFoundException('Role');
-        }
-
-        return role;
+        super(Role.name, RoleSchema);
     }
 
     async getBySlug(slug: string): Promise<IRoleDomain>
@@ -58,17 +38,6 @@ class RoleSqlRepository implements IRoleRepository
 
         return new Paginator(queryBuilder, criteria);
     }
-
-    async update(role: IRoleDomain): Promise<any>
-    {
-        await this.repository.save(role);
-    }
-
-    async delete(id: any): Promise<any>
-    {
-        return await this.repository.delete(id);
-    }
-
 }
 
 export default RoleSqlRepository;
