@@ -1,4 +1,4 @@
-import {Query, Model} from 'mongoose';
+import {Query} from 'mongoose';
 import {injectable} from 'inversify';
 import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 
@@ -8,27 +8,15 @@ import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
 import IItem from '../../InterfaceAdapters/IItemDocument';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 
-import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
+import Item from '../../Domain/Entities/Item';
 
 @injectable()
 class ItemMongoRepository extends BaseMongoRepository<IItemDomain, IItem> implements IItemRepository
 {
     constructor()
     {
-        super('Item');
-    }
-
-    async getOne(id: string): Promise<IItemDomain>
-    {
-        const item = await this.repository.findOne({_id: id});
-
-        if (!item)
-        {
-            throw new NotFoundException('Item');
-        }
-
-        return item;
+        super(Item.name);
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -52,24 +40,6 @@ class ItemMongoRepository extends BaseMongoRepository<IItemDomain, IItem> implem
 
         return new MongoPaginator(queryBuilder, criteria);
     }
-
-    async update(item: IItemDomain): Promise<IItemDomain>
-    {
-        return this.repository.findByIdAndUpdate({_id: item.getId()}, item);
-    }
-
-    async delete(id: string): Promise<IItemDomain>
-    {
-        const item = await this.repository.findByIdAndDelete({_id: id});
-
-        if (!item)
-        {
-            throw new NotFoundException('Item');
-        }
-
-        return item;
-    }
-
 }
 
 export default ItemMongoRepository;

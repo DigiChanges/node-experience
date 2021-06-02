@@ -1,5 +1,4 @@
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
-import {getRepository, Repository} from 'typeorm';
 import Item from '../../Domain/Entities/Item';
 import {injectable} from 'inversify';
 import {ICriteria, IPaginator} from '@digichanges/shared-experience';
@@ -9,33 +8,14 @@ import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import ItemSchema from '../Schema/ItemTypeORM';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 
-import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
+import BaseSqlRepository from '../../../App/Infrastructure/Repositories/BaseSqlRepository';
 
 @injectable()
-class ItemSqlRepository implements IItemRepository
+class ItemSqlRepository extends BaseSqlRepository<IItemDomain> implements IItemRepository
 {
-    private repository: Repository<Item>;
-
     constructor()
     {
-        this.repository = getRepository<Item>(ItemSchema);
-    }
-
-    async save(item: IItemDomain): Promise<Item>
-    {
-        return await this.repository.save(item);
-    }
-
-    async getOne(id: string): Promise<Item>
-    {
-        const item = await this.repository.findOne(id);
-
-        if (!item)
-        {
-            throw new NotFoundException('Item');
-        }
-
-        return item;
+        super(Item.name, ItemSchema);
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -48,26 +28,17 @@ class ItemSqlRepository implements IItemRepository
 
         if (filter.has(ItemFilter.TYPE))
         {
-            queryBuilder.andWhere(`i.${  ItemFilter.TYPE  } = :${  ItemFilter.TYPE}`);
+            queryBuilder.andWhere(`i.${  ItemFilter.TYPE  } = :${  ItemFilter.TYPE }`);
             queryBuilder.setParameter(ItemFilter.TYPE, filter.get(ItemFilter.TYPE));
         }
+
         if (filter.has(ItemFilter.NAME))
         {
-            queryBuilder.andWhere(`i.${  ItemFilter.NAME  } like :${  ItemFilter.NAME}`);
+            queryBuilder.andWhere(`i.${  ItemFilter.NAME  } like :${  ItemFilter.NAME }`);
             queryBuilder.setParameter(ItemFilter.NAME, `%${filter.get(ItemFilter.NAME)}%`);
         }
 
         return new Paginator(queryBuilder, criteria);
-    }
-
-    async update(item: IItemDomain): Promise<any>
-    {
-        await this.repository.save(item);
-    }
-
-    async delete(id: any): Promise<any>
-    {
-        return await this.repository.delete(id);
     }
 }
 
