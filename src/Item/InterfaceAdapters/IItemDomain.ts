@@ -1,12 +1,9 @@
+import IBaseDomain from '../../App/InterfaceAcapters/IBaseDomain';
 
-interface IItemDomain
+interface IItemDomain extends IBaseDomain
 {
     name: string;
     type: number;
-    createdAt: Date;
-    updatedAt: Date;
-
-    getId(): string;
 }
 
 export default IItemDomain;

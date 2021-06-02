@@ -1,23 +1,10 @@
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
-import {v4 as uuidv4} from 'uuid';
+import Base from '../../../App/Domain/Entities/Base';
 
-class Item implements IItemDomain
+class Item extends Base implements IItemDomain
 {
-    _id: string;
     name: string;
     type: number;
-    createdAt: Date;
-    updatedAt: Date;
-
-    constructor()
-    {
-        this._id = uuidv4();
-    }
-
-    getId(): string
-    {
-        return this._id;
-    }
 }
 
 export default Item;
