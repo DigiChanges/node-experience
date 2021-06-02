@@ -1,22 +1,9 @@
 import INotificationDomain from '../../InterfaceAdapters/INotificationDomain';
-import {v4 as uuidv4} from 'uuid';
+import Base from '../../../App/Domain/Entities/Base';
 
-class Notification implements INotificationDomain
+class Notification extends Base implements INotificationDomain
 {
-    _id: string;
     name: string;
-    createdAt: Date;
-    updatedAt: Date;
-
-    constructor()
-    {
-        this._id = uuidv4();
-    }
-
-    getId(): string
-    {
-        return this._id;
-    }
 }
 
 export default Notification;
