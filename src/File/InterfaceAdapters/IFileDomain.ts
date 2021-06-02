@@ -1,5 +1,6 @@
+import IBaseDomain from '../../App/InterfaceAcapters/IBaseDomain';
 
-interface IFileDomain
+interface IFileDomain extends IBaseDomain
 {
     name: string;
     originalName: string;
@@ -8,10 +9,6 @@ interface IFileDomain
     extension: string;
     size: number;
     version: number;
-    createdAt: Date;
-    updatedAt: Date;
-
-    getId(): string;
 }
 
 export default IFileDomain;

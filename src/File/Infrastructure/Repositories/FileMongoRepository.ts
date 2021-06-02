@@ -9,27 +9,15 @@ import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
 import IFile from '../../InterfaceAdapters/IFileDocument';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 
-import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
+import File from '../../Domain/Entities/File';
 
 @injectable()
 class FileMongoRepository extends BaseMongoRepository<IFileDomain, IFile> implements IFileRepository
 {
     constructor()
     {
-        super('File');
-    }
-
-    async getOne(id: string): Promise<IFileDomain>
-    {
-        const file = await this.repository.findOne({_id: id});
-
-        if (!file)
-        {
-            throw new NotFoundException('File');
-        }
-
-        return file;
+        super(File.name);
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -46,23 +34,6 @@ class FileMongoRepository extends BaseMongoRepository<IFileDomain, IFile> implem
         }
 
         return new MongoPaginator(queryBuilder, criteria);
-    }
-
-    async update(file: IFileDomain): Promise<IFileDomain>
-    {
-        return this.repository.findByIdAndUpdate({_id: file.getId()}, file);
-    }
-
-    async delete(id: string): Promise<IFileDomain>
-    {
-        const file = await this.repository.findByIdAndDelete({_id: id});
-
-        if (!file)
-        {
-            throw new NotFoundException('File');
-        }
-
-        return file;
     }
 }
 

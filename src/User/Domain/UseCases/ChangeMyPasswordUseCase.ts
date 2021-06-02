@@ -31,7 +31,7 @@ class ChangeMyPasswordUseCase
 
         user.password = await this.encryption.encrypt(payload.getNewPassword());
 
-        return await this.repository.save(user);
+        return await this.repository.update(user);
     }
 }
 

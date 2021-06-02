@@ -8,28 +8,16 @@ import {Query} from 'mongoose';
 import IRole from '../../InterfaceAdapters/IRoleDocument';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
 
-import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import Roles from '../../../Config/Roles';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
+import Role from '../../Domain/Entities/Role';
 
 @injectable()
 class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implements IRoleRepository
 {
     constructor()
     {
-        super('Role');
-    }
-
-    async getOne(id: string): Promise<IRoleDomain>
-    {
-        const role = await this.repository.findOne({_id: id});
-
-        if (!role)
-        {
-            throw new NotFoundException('Role');
-        }
-
-        return role;
+        super(Role.name);
     }
 
     async getBySlug(slug: string): Promise<IRoleDomain>
@@ -67,23 +55,6 @@ class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implem
         void queryBuilder.where(RoleFilter.SLUG).ne(Roles.SUPER_ADMIN.toLowerCase());
 
         return new MongoPaginator(queryBuilder, criteria);
-    }
-
-    async update(role: IRoleDomain): Promise<IRoleDomain>
-    {
-        return this.repository.findByIdAndUpdate({_id: role.getId()}, role);
-    }
-
-    async delete(id: string): Promise<IRoleDomain>
-    {
-        const item = await this.repository.findByIdAndDelete({_id: id});
-
-        if (!item)
-        {
-            throw new NotFoundException('Role');
-        }
-
-        return item;
     }
 }
 

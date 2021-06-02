@@ -6,27 +6,15 @@ import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
 import IToken from '../../InterfaceAdapters/ITokenDocument';
 import ITokenDomain from '../../InterfaceAdapters/ITokenDomain';
 
-import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
+import Token from '../../Domain/Entities/Token';
 
 @injectable()
 class TokenMongoRepository extends BaseMongoRepository<ITokenDomain, IToken> implements ITokenRepository<ITokenDomain>
 {
     constructor()
     {
-        super('Token');
-    }
-
-    async getOne(id: string): Promise<ITokenDomain>
-    {
-        const token = await this.repository.findOne({_id: id});
-
-        if (!token)
-        {
-            throw new NotFoundException('Token');
-        }
-
-        return token;
+        super(Token.name);
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -34,23 +22,6 @@ class TokenMongoRepository extends BaseMongoRepository<ITokenDomain, IToken> imp
         const queryBuilder: Query<IToken[], IToken> = this.repository.find();
 
         return new MongoPaginator(queryBuilder, criteria);
-    }
-
-    async update(token: ITokenDomain): Promise<ITokenDomain>
-    {
-        return this.repository.findByIdAndUpdate({_id: token.getId()}, token);
-    }
-
-    async delete(id: string): Promise<ITokenDomain>
-    {
-        const token = await this.repository.findByIdAndDelete({_id: id});
-
-        if (!token)
-        {
-            throw new NotFoundException('Token');
-        }
-
-        return token;
     }
 }
 

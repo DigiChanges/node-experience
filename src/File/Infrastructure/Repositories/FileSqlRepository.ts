@@ -1,5 +1,4 @@
 import IFileRepository from '../../InterfaceAdapters/IFileRepository';
-import {getRepository, Repository} from 'typeorm';
 import {injectable} from 'inversify';
 import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 
@@ -9,33 +8,14 @@ import FileSchema from '../Schema/FileTypeORM';
 import File from '../../Domain/Entities/File';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 
-import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
+import BaseSqlRepository from '../../../App/Infrastructure/Repositories/BaseSqlRepository';
 
 @injectable()
-class FileSqlRepository implements IFileRepository
+class FileSqlRepository extends BaseSqlRepository<IFileDomain> implements IFileRepository
 {
-    private repository: Repository<File>;
-
     constructor()
     {
-        this.repository = getRepository<File>(FileSchema);
-    }
-
-    async save(file: IFileDomain): Promise<File>
-    {
-        return await this.repository.save(file);
-    }
-
-    async getOne(id: string): Promise<File>
-    {
-        const file = await this.repository.findOne(id);
-
-        if (!file)
-        {
-            throw new NotFoundException('File');
-        }
-
-        return file;
+        super(File.name, FileSchema);
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -54,17 +34,6 @@ class FileSqlRepository implements IFileRepository
 
         return new Paginator(queryBuilder, criteria);
     }
-
-    async update(file: IFileDomain): Promise<any>
-    {
-        await this.repository.save(file);
-    }
-
-    async delete(id: any): Promise<any>
-    {
-        return await this.repository.delete(id);
-    }
-
 }
 
 export default FileSqlRepository;

@@ -1,5 +1,4 @@
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
-import {getRepository, Repository} from 'typeorm';
 import User from '../../Domain/Entities/User';
 import {injectable} from 'inversify';
 import {ICriteria, IPaginator} from '@digichanges/shared-experience';
@@ -10,32 +9,14 @@ import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import UserSchema from '../Schema/UserTypeORM';
 
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
+import BaseSqlRepository from '../../../App/Infrastructure/Repositories/BaseSqlRepository';
 
 @injectable()
-class UserSqlRepository implements IUserRepository
+class UserSqlRepository extends BaseSqlRepository<IUserDomain> implements IUserRepository
 {
-    private repository: Repository<User>;
-
     constructor()
     {
-        this.repository = getRepository<User>(UserSchema);
-    }
-
-    async save(user: IUserDomain): Promise<IUserDomain>
-    {
-        return await this.repository.save(user);
-    }
-
-    async getOne(id: string): Promise<IUserDomain>
-    {
-        const user = await this.repository.findOne(id);
-
-        if (!user)
-        {
-            throw new NotFoundException('User');
-        }
-
-        return user;
+        super(User.name, UserSchema);
     }
 
     async getOneByEmail(email: string): Promise<IUserDomain>
@@ -44,19 +25,19 @@ class UserSqlRepository implements IUserRepository
 
         if (!user)
         {
-            throw new NotFoundException('User');
+            throw new NotFoundException(User.name);
         }
 
         return user;
     }
 
-    async getOneByConfirmationToken(confirmationToken: string): Promise<User>
+    async getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>
     {
         const user = await this.repository.findOne({confirmationToken});
 
         if (!user)
         {
-            throw new NotFoundException('User');
+            throw new NotFoundException(User.name);
         }
 
         return user;
@@ -75,6 +56,7 @@ class UserSqlRepository implements IUserRepository
             queryBuilder.andWhere(`i.${UserFilter.ENABLE} = :${UserFilter.ENABLE}`);
             queryBuilder.setParameter(UserFilter.ENABLE, filter.get(UserFilter.ENABLE));
         }
+
         if (filter.has(UserFilter.EMAIL))
         {
             queryBuilder.andWhere(`i.${UserFilter.EMAIL} like :${UserFilter.EMAIL}`);
@@ -85,17 +67,6 @@ class UserSqlRepository implements IUserRepository
 
         return new Paginator(queryBuilder, criteria);
     }
-
-    async update(user: IUserDomain): Promise<any>
-    {
-        await this.repository.save(user);
-    }
-
-    async delete(id: string): Promise<any>
-    {
-        return await this.repository.delete(id);
-    }
-
 }
 
 export default UserSqlRepository;

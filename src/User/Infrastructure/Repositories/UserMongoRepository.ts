@@ -5,30 +5,19 @@ import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
 import UserFilter from '../../Presentation/Criterias/UserFilter';
 import IUser from '../../InterfaceAdapters/IUserDocument';
-import {Query, Model} from 'mongoose';
+import {Query} from 'mongoose';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
+import User from '../../Domain/Entities/User';
 
 @injectable()
 class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implements IUserRepository
 {
     constructor()
     {
-        super('User');
-    }
-
-    async getOne(id: string): Promise<IUserDomain>
-    {
-        const user = await this.repository.findOne({_id: id}).populate('roles');
-
-        if (!user)
-        {
-            throw new NotFoundException('User');
-        }
-
-        return user;
+        super(User.name);
     }
 
     async getOneByEmail(email: string): Promise<IUserDomain>
@@ -67,6 +56,7 @@ class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implem
 
             void queryBuilder.where(UserFilter.ENABLE).equals(enable);
         }
+
         if (filter.has(UserFilter.EMAIL))
         {
             const email = filter.get(UserFilter.EMAIL);
@@ -74,6 +64,7 @@ class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implem
 
             void queryBuilder.where(UserFilter.EMAIL).regex(rsearch);
         }
+
         if (filter.has(UserFilter.IS_SUPER_ADMIN))
         {
             const isSuperAdmin: boolean = filter.get(UserFilter.IS_SUPER_ADMIN);

@@ -1,14 +1,11 @@
+import IBaseDomain from '../../App/InterfaceAcapters/IBaseDomain';
 
-interface IRoleDomain
+interface IRoleDomain extends IBaseDomain
 {
     name: string;
     slug: string;
     enable: boolean;
     permissions: string[];
-    createdAt: Date;
-    updatedAt: Date;
-
-    getId(): string;
 }
 
 export default IRoleDomain;

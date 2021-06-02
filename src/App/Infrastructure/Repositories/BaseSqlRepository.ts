@@ -1,32 +1,29 @@
-import {Model} from 'mongoose';
-import {Document} from 'mongoose';
 import {injectable, unmanaged} from 'inversify';
-import {connection} from '../../../Shared/Database/MongooseCreateConnection';
+import {EntitySchema, FindOneOptions, getRepository, Repository} from 'typeorm';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IByOptions from '../../InterfaceAcapters/IByOptions';
 import IBaseRepository from '../../InterfaceAcapters/IBaseRepository';
-import IBaseDomain from '../../InterfaceAcapters/IBaseDomain';
 
 @injectable()
-abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T> implements IBaseRepository<T>
+abstract class BaseSqlRepository<T> implements IBaseRepository<T>
 {
     private readonly entityName: string;
-    protected repository: Model<D>;
+    protected repository: Repository<T>;
 
-    protected constructor(@unmanaged() entityName: string)
+    protected constructor(@unmanaged() entityName: string, @unmanaged() schema: EntitySchema)
     {
         this.entityName = entityName;
-        this.repository = connection.model<D>(entityName);
+        this.repository = getRepository<T>(schema);
     }
 
     async save(entity: T): Promise<T>
     {
-        return await this.repository.create(entity);
+        return await this.repository.save(entity);
     }
 
     async getOne(id: string): Promise<T>
     {
-        const entity = await this.repository.findOne({_id: id} as any);
+        const entity = await this.repository.findOne(id);
 
         if (!entity)
         {
@@ -38,36 +35,33 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
 
     async update(entity: T): Promise<T>
     {
-        return this.repository.findByIdAndUpdate({_id: entity.getId()}, entity as any);
+        return await this.repository.save(entity);
     }
 
     async delete(id: string): Promise<T>
     {
-        const entity = await this.repository.findByIdAndDelete({_id: id} as any);
+        const entity = await this.repository.findOne(id);
 
         if (!entity)
         {
             throw new NotFoundException(this.entityName);
         }
 
+        await this.repository.delete(id);
+
         return entity;
     }
 
-    async getOneBy(conditions: {}, options: IByOptions = {initThrow: true, populate: null}): Promise<T>
+    async getOneBy(condition: {}, options: IByOptions = {initThrow: true}): Promise<T>
     {
-        let {initThrow, populate} = options;
+        let {initThrow} = options;
 
         if (typeof initThrow === undefined)
         {
             initThrow = true;
         }
 
-        if (typeof populate === undefined)
-        {
-            populate = null;
-        }
-
-        const entity = await this.repository.findOne(conditions).populate(populate).exec();
+        const entity = await this.repository.findOne(condition);
 
         if (initThrow && !entity)
         {
@@ -77,21 +71,16 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
         return entity;
     }
 
-    async getBy(conditions: {}, options: IByOptions = {initThrow: false, populate: null}): Promise<T[]>
+    async getBy(condition: {}, options: IByOptions = {initThrow: false}): Promise<T[]>
     {
-        let {initThrow, populate} = options;
+        let {initThrow} = options;
 
         if (typeof initThrow === undefined)
         {
             initThrow = false;
         }
 
-        if (typeof populate === undefined)
-        {
-            populate = null;
-        }
-
-        const entities = await this.repository.find(conditions).populate(populate).exec();
+        const entities = await this.repository.find(condition);
 
         if (initThrow && entities.length === 0)
         {
@@ -103,7 +92,13 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
 
     async exist(condition: {}, select: string[], initThrow = false): Promise<any>
     {
-        const exist = await this.repository.findOne(condition, select.join(' '));
+        const conditionMap: FindOneOptions = {
+            select,
+            where: condition,
+            loadEagerRelations: false
+        };
+
+        const exist = await this.repository.findOne(conditionMap);
 
         if (initThrow && !exist)
         {
@@ -114,4 +109,4 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
     }
 }
 
-export default BaseMongoRepository;
+export default BaseSqlRepository;

@@ -1,9 +1,8 @@
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
-import {v4 as uuidv4} from 'uuid';
+import Base from '../../../App/Domain/Entities/Base';
 
-class File implements IFileDomain
+class File extends Base implements IFileDomain
 {
-    _id: string;
     name: string;
     originalName: string;
     mimeType: string;
@@ -11,19 +10,12 @@ class File implements IFileDomain
     extension: string;
     size: number;
     version: number;
-    createdAt: Date;
-    updatedAt: Date;
 
     constructor()
     {
-        this._id = uuidv4();
+        super();
         this.name = this._id;
         this.version = 1;
-    }
-
-    getId(): string
-    {
-        return this._id;
     }
 }
 

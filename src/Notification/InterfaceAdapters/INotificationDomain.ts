@@ -1,5 +1,6 @@
+import IBaseDomain from '../../App/InterfaceAcapters/IBaseDomain';
 
-interface INotificationDomain
+interface INotificationDomain extends IBaseDomain
 {
     name?: string;
 
@@ -12,11 +13,6 @@ interface INotificationDomain
     cc?: string;
     subject?: string;
     description?: string;
-
-    createdAt: Date;
-    updatedAt: Date;
-
-    getId(): string;
 }
 
 export default INotificationDomain;
