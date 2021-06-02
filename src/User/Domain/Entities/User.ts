@@ -1,10 +1,9 @@
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
-import {v4 as uuidv4} from 'uuid';
+import Base from '../../../App/Domain/Entities/Base';
 
-class User implements IUserDomain
+class User extends Base implements IUserDomain
 {
-    _id: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -22,13 +21,6 @@ class User implements IUserDomain
     isSuperAdmin: boolean;
     confirmationToken: string;
     passwordRequestedAt: Date;
-    createdAt: Date;
-    updatedAt: Date;
-
-    constructor()
-    {
-        this._id = uuidv4();
-    }
 
     getFullName(): string
     {
@@ -53,11 +45,6 @@ class User implements IUserDomain
     getRoles(): IRoleDomain[]
     {
         return this.roles;
-    }
-
-    getId(): string
-    {
-        return this._id;
     }
 }
 

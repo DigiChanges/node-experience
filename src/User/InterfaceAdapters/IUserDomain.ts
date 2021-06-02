@@ -1,6 +1,7 @@
 import IRoleDomain from '../../Role/InterfaceAdapters/IRoleDomain';
+import IBaseDomain from '../../App/InterfaceAcapters/IBaseDomain';
 
-interface IUserDomain
+interface IUserDomain extends IBaseDomain
 {
     firstName: string;
     lastName: string;
@@ -19,14 +20,11 @@ interface IUserDomain
     isSuperAdmin: boolean;
     confirmationToken: string;
     passwordRequestedAt: Date;
-    createdAt: Date;
-    updatedAt: Date;
 
     getFullName(): string;
     setRole(role: IRoleDomain): void;
     getRoles(): IRoleDomain[];
     clearRoles(): void;
-    getId(): string;
 }
 
 export default IUserDomain;
