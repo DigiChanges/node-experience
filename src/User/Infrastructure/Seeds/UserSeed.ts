@@ -9,22 +9,25 @@ import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
 import {REPOSITORIES} from '../../../repositories';
-import ContainerFactory from '../../../Shared/Decorators/ContainerFactory';
+import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 
-class UserSeedFactory
+class UserSeed implements ISeed
 {
-    private userRepo: IUserRepository;
-    private roleRepo: IRoleRepository;
+    @containerFactory(REPOSITORIES.IUserRepository)
+    private userRepository: IUserRepository;
+
+    @containerFactory(REPOSITORIES.IRoleRepository)
+    private roleRepository: IRoleRepository;
+
     private encryption: IEncryption;
 
     constructor()
     {
-        this.userRepo = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
-        this.roleRepo = ContainerFactory.create<IRoleRepository>(REPOSITORIES.IRoleRepository);
         this.encryption = EncryptionFactory.create();
     }
 
-    public async authInit(): Promise<void>
+    public async init(): Promise<void>
     {
         const roleSuperAdmin: IRoleDomain = new Role();
         roleSuperAdmin.name = 'SuperAdmin';
@@ -32,7 +35,7 @@ class UserSeedFactory
         roleSuperAdmin.permissions = [];
         roleSuperAdmin.enable = true;
 
-        await this.roleRepo.save(roleSuperAdmin);
+        await this.roleRepository.save(roleSuperAdmin);
 
         const roleAdmin: IRoleDomain = new Role();
         roleAdmin.name = 'Admin';
@@ -40,7 +43,7 @@ class UserSeedFactory
         roleAdmin.permissions = [];
         roleAdmin.enable = true;
 
-        await this.roleRepo.save(roleAdmin);
+        await this.roleRepository.save(roleAdmin);
 
         const roleOperator: IRoleDomain = new Role();
         roleOperator.name = 'Operator';
@@ -48,7 +51,7 @@ class UserSeedFactory
         roleOperator.permissions = [];
         roleOperator.enable = true;
 
-        await this.roleRepo.save(roleOperator);
+        await this.roleRepository.save(roleOperator);
 
         const roleOperatorDisabled: IRoleDomain = new Role();
         roleOperatorDisabled.name = 'OperatorDisabled';
@@ -56,7 +59,7 @@ class UserSeedFactory
         roleOperatorDisabled.permissions = [];
         roleOperatorDisabled.enable = false;
 
-        await this.roleRepo.save(roleOperatorDisabled);
+        await this.roleRepository.save(roleOperatorDisabled);
 
         const userSuperAdmin: IUserDomain = new User();
         userSuperAdmin.firstName = 'Super';
@@ -77,7 +80,7 @@ class UserSeedFactory
         userSuperAdmin.roles = [roleSuperAdmin];
         userSuperAdmin.isSuperAdmin = true;
 
-        await this.userRepo.save(userSuperAdmin);
+        await this.userRepository.save(userSuperAdmin);
 
         const userAdmin: IUserDomain = new User();
         userAdmin.firstName = 'user';
@@ -98,7 +101,7 @@ class UserSeedFactory
         userAdmin.roles = [roleAdmin];
         userAdmin.isSuperAdmin = false;
 
-        await this.userRepo.save(userAdmin);
+        await this.userRepository.save(userAdmin);
 
         const userOperator: IUserDomain = new User();
         userOperator.firstName = 'operator';
@@ -119,7 +122,7 @@ class UserSeedFactory
         userOperator.roles = [roleOperator];
         userOperator.isSuperAdmin = false;
 
-        await this.userRepo.save(userOperator);
+        await this.userRepository.save(userOperator);
 
         const userOperatorDisabled: IUserDomain = new User();
         userOperatorDisabled.firstName = 'operator';
@@ -140,7 +143,7 @@ class UserSeedFactory
         userOperatorDisabled.roles = [roleOperator];
         userOperatorDisabled.isSuperAdmin = false;
 
-        await this.userRepo.save(userOperatorDisabled);
+        await this.userRepository.save(userOperatorDisabled);
 
         const userOperatorRoleDisabled: IUserDomain = new User();
         userOperatorRoleDisabled.firstName = 'operator';
@@ -161,8 +164,8 @@ class UserSeedFactory
         userOperatorRoleDisabled.roles = [roleOperatorDisabled];
         userOperatorRoleDisabled.isSuperAdmin = false;
 
-        await this.userRepo.save(userOperatorRoleDisabled);
+        await this.userRepository.save(userOperatorRoleDisabled);
     }
 }
 
-export default UserSeedFactory;
+export default UserSeed;
