@@ -1,33 +1,21 @@
 import ITokenDomain from '../../InterfaceAdapters/ITokenDomain';
+import Base from '../../../App/Domain/Entities/Base';
 
-class Token implements ITokenDomain
+class Token extends Base implements ITokenDomain
 {
-    _id: string;
     hash : string;
     expires: number;
     payload: any;
     blackListed: boolean;
-    createdAt: Date;
-    updatedAt: Date;
 
     constructor()
     {
+        super();
         this.hash = '';
         this.payload = {};
         this.expires = 0;
         this.blackListed = false;
     }
-
-    getId(): string
-    {
-        return this._id;
-    }
-
-    setId(id: string): void
-    {
-        this._id = id;
-    }
-
 }
 
 export default Token;
