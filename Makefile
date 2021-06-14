@@ -16,6 +16,12 @@ dev:
 	@echo '************                               ************'
 	docker-compose up --build -d
 
+debug:
+	@echo '************                               ************'
+	@echo '************           DEV DEBUG INIT 	  ************'
+	@echo '************                               ************'
+	docker-compose -f docker-compose.yml -f docker-compose.debug.yml up --build -d
+
 prod:
 	@echo '************                               ************'
 	@echo '************           PROD INIT    	      ************'

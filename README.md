@@ -35,6 +35,11 @@ Execute DEV Environment
 - docker-compose exec node bash dev.init.sh
 - Also, you could use **make init**
 
+Execute Debug DEV Environment
+```bash
+make debug
+```
+
 Create Push Notifications Keys
 - docker-compose exec node npx ts-node src/command.ts createVapID
 
