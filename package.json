@@ -13,12 +13,18 @@
     "pre-build": "cpy --cwd=src --parents '**/*' '!**/*.ts' ../dist/src",
     "dev:start": "npm-run-all build start",
     "dev": "nodemon --watch src -e ts --exec yarn dev:start",
+    "debug": "nodemon --inspect=0.0.0.0:9229 src/index.ts",
     "start": "node dist/src/index.js",
     "dev:experimental": "nodemon --delay 8 --watch src -e ts --exec bash compile.sh",
     "test": "jest --runInBand --coverage",
     "test-watch": "npx jest --watch --coverage=false",
     "command": "npx ts-node src/command.ts",
     "docker:command": "docker-compose exec node yarn command"
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "ts": "node --require ts-node/register/transpile-only"
+    }
   },
   "keywords": [],
   "author": "Digichanges",
