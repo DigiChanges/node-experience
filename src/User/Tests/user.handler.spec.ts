@@ -4,6 +4,7 @@ import initTestServer from '../../initTestServer';
 import {InversifyExpressServer} from 'inversify-express-utils';
 import {ILoginResponse} from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import {IUserResponse, IListUsersResponse} from './types';
+import Config from 'config';
 
 describe('Start User Test', () =>
 {
@@ -298,7 +299,7 @@ describe('Start User Test', () =>
         {
 
             const response: IListUsersResponse = await request
-                .get('/api/users?pagination[limit]=5&pagination[offset]=0')
+                .get('/api/users?pagination[offset]=0&pagination[limit]=5')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -310,9 +311,18 @@ describe('Start User Test', () =>
             expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(data.length).toStrictEqual(5);
-            expect(pagination.total).toStrictEqual(5);
-            expect(pagination.currentUrl).toContain('/api/users?pagination[limit]=5&pagination[offset]=0');
-            expect(pagination.nextUrl).toContain('/api/users?pagination[limit]=5&pagination[offset]=5');
+            expect(pagination.total).toStrictEqual(6);
+            expect(pagination.perPage).toStrictEqual(5);
+            expect(pagination.currentPage).toStrictEqual(1);
+            expect(pagination.lastPage).toStrictEqual(2);
+            expect(pagination.from).toStrictEqual(0);
+            expect(pagination.to).toStrictEqual(5);
+            expect(pagination.path).toContain(Config.get('url.urlApi'));
+            expect(pagination.firstUrl).toContain('/api/users?pagination[offset]=0&pagination[limit]=5');
+            expect(pagination.lastUrl).toContain('/api/users?pagination[offset]=5&pagination[limit]=5');
+            expect(pagination.nextUrl).toContain('/api/users?pagination[offset]=5&pagination[limit]=5');
+            expect(pagination.prevUrl).toStrictEqual(null);
+            expect(pagination.currentUrl).toContain('/api/users?pagination[offset]=0&pagination[limit]=5');
 
             done();
         });

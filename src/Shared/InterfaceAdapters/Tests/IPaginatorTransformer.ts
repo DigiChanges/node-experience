@@ -1,6 +1,15 @@
 export interface IPaginatorTransformer
 {
     total: number;
-    currentUrl: string;
+    perPage: number;
+    currentPage: number;
+    lastPage: number;
+    from: number;
+    to: number;
+    path: string;
+    firstUrl: string;
+    lastUrl: string;
     nextUrl: string;
+    prevUrl: string;
+    currentUrl: string;
 }

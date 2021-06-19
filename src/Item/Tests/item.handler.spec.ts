@@ -4,6 +4,7 @@ import initTestServer from '../../initTestServer';
 import {ICreateConnection} from '@digichanges/shared-experience';
 import {ILoginResponse} from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import {IItemResponse, IListItemsResponse} from './types';
+import Config from 'config';
 
 describe('Start Item Test', () =>
 {
@@ -166,7 +167,7 @@ describe('Start Item Test', () =>
         {
 
             const response: IListItemsResponse = await request
-                .get('/api/items?pagination[limit]=5&pagination[offset]=0')
+                .get('/api/items?pagination[offset]=0&pagination[limit]=5')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -178,9 +179,18 @@ describe('Start Item Test', () =>
             expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(data.length).toStrictEqual(5);
-            expect(pagination.total).toStrictEqual(5);
-            expect(pagination.currentUrl).toContain('/api/items?pagination[limit]=5&pagination[offset]=0');
-            expect(pagination.nextUrl).toContain('/api/items?pagination[limit]=5&pagination[offset]=5');
+            expect(pagination.total).toStrictEqual(11);
+            expect(pagination.perPage).toStrictEqual(5);
+            expect(pagination.currentPage).toStrictEqual(1);
+            expect(pagination.lastPage).toStrictEqual(3);
+            expect(pagination.from).toStrictEqual(0);
+            expect(pagination.to).toStrictEqual(5);
+            expect(pagination.path).toContain(Config.get('url.urlApi'));
+            expect(pagination.firstUrl).toContain('/api/items?pagination[offset]=0&pagination[limit]=5');
+            expect(pagination.lastUrl).toContain('/api/items?pagination[offset]=10&pagination[limit]=5');
+            expect(pagination.nextUrl).toContain('/api/items?pagination[offset]=5&pagination[limit]=5');
+            expect(pagination.prevUrl).toStrictEqual(null);
+            expect(pagination.currentUrl).toContain('/api/items?pagination[offset]=0&pagination[limit]=5');
 
             done();
         });
