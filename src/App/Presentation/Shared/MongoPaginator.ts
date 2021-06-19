@@ -7,50 +7,49 @@ class MongoPaginator implements IPaginator
     private filter: IFilter;
     private sort: ISort;
     private pagination: IPagination;
-    private total: number;
 
-    constructor(documentQuery: Query<any[], any>, criteria: ICriteria)
+    private readonly limit: number;
+    private readonly offset: number;
+
+    private total: number;
+    private _perPage: number;
+    private perPage: number;
+
+    private currentPage: number;
+    private lastPage: number;
+    private from: number;
+    private to: number;
+
+    private readonly metadata: {[key: string]: any};
+
+    constructor(documentQuery: Query<any[], any>, criteria: ICriteria, metadata: {[key: string]: any} = null)
     {
         this.documentQuery = documentQuery;
         this.filter = criteria.getFilter();
         this.sort = criteria.getSort();
         this.pagination = criteria.getPagination();
-    }
-
-    public getTotal(): number
-    {
-        return this.total;
-    }
-
-    public getCurrentUrl(): string
-    {
-        return this.pagination.getCurrentUrl();
-    }
-
-    // TODO: Dont show next url when it doesnt exist more data
-    public getNextUrl(): string
-    {
-        return this.pagination.getNextUrl();
+        this.offset = this.pagination.getOffset();
+        this.limit = this.pagination.getLimit();
+        this.metadata = metadata;
     }
 
     public async paginate(): Promise<any>
     {
-        // TODO: Add filter logic
+        this.total = await this.documentQuery.count().exec();
 
         this.addOrderBy();
         this.addPagination();
 
-        const data = await this.documentQuery.exec();
+        this._perPage = await this.documentQuery.count().exec();
+        this.setPerPage(this._perPage);
+        this.setCurrentPage();
+        this.setLasPage();
+        this.setFrom();
+        this.setTo();
 
-        this.total = data.length;
-
-        return data;
+        return await this.documentQuery.find().exec();
     }
 
-    public getExist(): boolean
-    {
-        return this.pagination.getExist();
-    }
     // TODO: See when multiple sorts
     private addOrderBy()
     {
@@ -79,6 +78,132 @@ class MongoPaginator implements IPaginator
                 .skip(this.pagination.getOffset())
                 .limit(this.pagination.getLimit());
         }
+    }
+
+    private setPerPage(perPage: number)
+    {
+        this.perPage = perPage <= this.limit ? perPage : this.limit;
+    }
+
+    private setCurrentPage()
+    {
+        this.currentPage = Math.ceil(Math.abs(((this.offset - 1) / this.limit) + 1));
+    }
+
+    private setLasPage()
+    {
+        this.lastPage = Math.ceil((this.total / this.limit));
+    }
+
+    private setFrom()
+    {
+        this.from = (this.currentPage * this.limit) - this.limit;
+    }
+
+    private setTo()
+    {
+        const to = this.currentPage * this.limit;
+        this.to =  to >= this.total ? this.total : to;
+    }
+
+    public getExist(): boolean
+    {
+        return this.pagination.getExist();
+    }
+
+    public getTotal(): number
+    {
+        return this.total;
+    }
+
+    public getPerPage(): number
+    {
+        if (this.getCurrentPage() > this.lastPage)
+        {
+            return 0;
+        }
+
+        return this.perPage;
+    }
+
+    public getCurrentPage(): number
+    {
+        return this.limit === 1 ? this.currentPage + 1 : this.currentPage;
+    }
+
+    public getLasPage(): number
+    {
+        return this.lastPage;
+    }
+
+    public getFrom(): number
+    {
+        if (this.getCurrentPage() > this.lastPage)
+        {
+            return 0;
+        }
+
+        return this.limit === 1 ? this.from + 1 : this.from;
+    }
+
+    public getTo(): number
+    {
+        if (this.getCurrentPage() > this.lastPage)
+        {
+            return 0;
+        }
+
+        return this.limit === 1 ? this.to + 1 : this.to;
+    }
+
+    public getPath(): string
+    {
+        return this.pagination.getPath();
+    }
+
+    public getFirstUrl(): string
+    {
+        const searchValue = `pagination[offset]=${this.offset}`;
+        const newValue = 'pagination[offset]=0';
+
+        return this.getCurrentUrl().replace(searchValue, newValue);
+    }
+
+    public getLastUrl(): string
+    {
+        const offset = this.limit * this.lastPage;
+        const searchValue = `pagination[offset]=${this.offset}`;
+        const newValue = `pagination[offset]=${(this.limit === 1 ? offset - 1 : offset - this.limit)}`;
+
+        return this.getCurrentUrl().replace(searchValue, newValue);
+    }
+
+    public getNextUrl(): string
+    {
+        return this.getCurrentPage() < this.lastPage ? this.pagination.getNextUrl() : null;
+    }
+
+    public getPrevUrl(): string
+    {
+        if (this.getCurrentPage() > 1)
+        {
+            const searchValue = `pagination[offset]=${this.offset}`;
+            const newValue = `pagination[offset]=${(this.offset - this.limit)}`;
+
+            return this.getCurrentUrl().replace(searchValue, newValue);
+        }
+
+        return null;
+    }
+
+    public getCurrentUrl(): string
+    {
+        return this.pagination.getCurrentUrl();
+    }
+
+    public getMetadata(): {[key: string]: any}
+    {
+        return this.metadata;
     }
 }
 

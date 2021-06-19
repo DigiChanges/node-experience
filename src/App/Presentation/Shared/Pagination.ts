@@ -22,6 +22,11 @@ class Pagination implements IPagination
         this.host = Config.get('url.urlApi');
     }
 
+    getPath(): string
+    {
+        return this.host;
+    }
+
     getLimit(): number
     {
         return this.limit;
