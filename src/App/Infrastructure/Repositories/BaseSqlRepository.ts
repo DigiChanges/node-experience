@@ -3,6 +3,7 @@ import {EntitySchema, FindOneOptions, getRepository, Repository} from 'typeorm';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IByOptions from '../../InterfaceAcapters/IByOptions';
 import IBaseRepository from '../../InterfaceAcapters/IBaseRepository';
+import IByConditions from '../../InterfaceAcapters/IByConditions';
 
 @injectable()
 abstract class BaseSqlRepository<T> implements IBaseRepository<T>
@@ -52,7 +53,7 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
         return entity;
     }
 
-    async getOneBy(condition: {}, options: IByOptions = {initThrow: true}): Promise<T>
+    async getOneBy(condition: IByConditions, options: IByOptions = {initThrow: true}): Promise<T>
     {
         let {initThrow} = options;
 
@@ -71,7 +72,7 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
         return entity;
     }
 
-    async getBy(condition: {}, options: IByOptions = {initThrow: false}): Promise<T[]>
+    async getBy(condition: IByConditions, options: IByOptions = {initThrow: false}): Promise<T[]>
     {
         let {initThrow} = options;
 
@@ -90,7 +91,7 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
         return entities;
     }
 
-    async exist(condition: {}, select: string[], initThrow = false): Promise<any>
+    async exist(condition: IByConditions, select: string[], initThrow = false): Promise<any>
     {
         const conditionMap: FindOneOptions = {
             select,

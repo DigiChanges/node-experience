@@ -6,6 +6,7 @@ import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IByOptions from '../../InterfaceAcapters/IByOptions';
 import IBaseRepository from '../../InterfaceAcapters/IBaseRepository';
 import IBaseDomain from '../../InterfaceAcapters/IBaseDomain';
+import IByConditions from '../../InterfaceAcapters/IByConditions';
 
 @injectable()
 abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T> implements IBaseRepository<T>
@@ -53,7 +54,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
         return entity;
     }
 
-    async getOneBy(conditions: {}, options: IByOptions = {initThrow: true, populate: null}): Promise<T>
+    async getOneBy(conditions: IByConditions, options: IByOptions = {initThrow: true, populate: null}): Promise<T>
     {
         let {initThrow, populate} = options;
 
@@ -67,7 +68,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
             populate = null;
         }
 
-        const entity = await this.repository.findOne(conditions).populate(populate).exec();
+        const entity = await this.repository.findOne(conditions as any).populate(populate).exec();
 
         if (initThrow && !entity)
         {
@@ -77,7 +78,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
         return entity;
     }
 
-    async getBy(conditions: {}, options: IByOptions = {initThrow: false, populate: null}): Promise<T[]>
+    async getBy(conditions: IByConditions, options: IByOptions = {initThrow: false, populate: null}): Promise<T[]>
     {
         let {initThrow, populate} = options;
 
@@ -91,7 +92,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
             populate = null;
         }
 
-        const entities = await this.repository.find(conditions).populate(populate).exec();
+        const entities = await this.repository.find(conditions as any).populate(populate).exec();
 
         if (initThrow && entities.length === 0)
         {
@@ -101,9 +102,9 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
         return entities;
     }
 
-    async exist(condition: {}, select: string[], initThrow = false): Promise<any>
+    async exist(condition: IByConditions, select: string[], initThrow = false): Promise<any>
     {
-        const exist = await this.repository.findOne(condition, select.join(' '));
+        const exist = await this.repository.findOne(condition as any, select.join(' '));
 
         if (initThrow && !exist)
         {
