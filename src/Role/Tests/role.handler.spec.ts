@@ -4,6 +4,7 @@ import {ICreateConnection} from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 import {ILoginResponse} from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import {IListRolesResponse, IRoleResponse} from './types';
+import Config from 'config';
 
 describe('Start Role Test', () =>
 {
@@ -246,7 +247,7 @@ describe('Start Role Test', () =>
         {
 
             const response: IListRolesResponse = await request
-                .get('/api/roles?pagination[limit]=5&pagination[offset]=0')
+                .get('/api/roles?pagination[offset]=0&pagination[limit]=5')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -257,10 +258,19 @@ describe('Start Role Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(data.length).toEqual(5);
-            expect(pagination.total).toEqual(5);
-            expect(pagination.currentUrl).toContain('/api/roles?pagination[limit]=5&pagination[offset]=0');
-            expect(pagination.nextUrl).toContain('/api/roles?pagination[limit]=5&pagination[offset]=5');
+            expect(data.length).toStrictEqual(5);
+            expect(pagination.total).toStrictEqual(6);
+            expect(pagination.perPage).toStrictEqual(5);
+            expect(pagination.currentPage).toStrictEqual(1);
+            expect(pagination.lastPage).toStrictEqual(2);
+            expect(pagination.from).toStrictEqual(0);
+            expect(pagination.to).toStrictEqual(5);
+            expect(pagination.path).toContain(Config.get('url.urlApi'));
+            expect(pagination.firstUrl).toContain('/api/roles?pagination[offset]=0&pagination[limit]=5');
+            expect(pagination.lastUrl).toContain('/api/roles?pagination[offset]=5&pagination[limit]=5');
+            expect(pagination.nextUrl).toContain('/api/roles?pagination[offset]=5&pagination[limit]=5');
+            expect(pagination.prevUrl).toStrictEqual(null);
+            expect(pagination.currentUrl).toContain('/api/roles?pagination[offset]=0&pagination[limit]=5');
 
             done();
         });

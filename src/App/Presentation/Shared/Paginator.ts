@@ -7,58 +7,47 @@ class Paginator implements IPaginator
     private filter: IFilter;
     private sort: ISort;
     private pagination: IPagination;
-    private count: number;
 
-    constructor(queryBuilder: SelectQueryBuilder<any>, criteria: ICriteria)
+    private readonly limit: number;
+    private readonly offset: number;
+
+    private total: number;
+    private _perPage: number;
+    private perPage: number;
+
+    private currentPage: number;
+    private lastPage: number;
+    private from: number;
+    private to: number;
+
+    private readonly metadata: {[key: string]: any};
+
+    constructor(queryBuilder: SelectQueryBuilder<any>, criteria: ICriteria, metadata: {[key: string]: any} = null)
     {
         this.queryBuilder = queryBuilder;
         this.filter = criteria.getFilter();
         this.sort = criteria.getSort();
         this.pagination = criteria.getPagination();
-    }
-
-    public getTotal(): number
-    {
-        const offset = this.pagination.getOffset();
-        const limit = this.pagination.getLimit();
-
-        const total = this.count - offset;
-
-        return total <= limit ? total : limit;
-    }
-
-    public getCount(): number
-    {
-        return this.count;
-    }
-
-    public getCurrentUrl(): string
-    {
-        return this.pagination.getCurrentUrl();
-    }
-
-    // TODO: Dont show next url when it doesnt exist more data
-    public getNextUrl(): string
-    {
-        return this.pagination.getNextUrl();
+        this.offset = this.pagination.getOffset();
+        this.limit = this.pagination.getLimit();
+        this.metadata = metadata;
     }
 
     public async paginate(): Promise<any>
     {
-        // TODO: Add filter logic
+        this.total = await this.queryBuilder.getCount();
 
         this.addOrderBy();
         this.addPagination();
 
-        const data = await this.queryBuilder.getMany();
-        this.count = await this.queryBuilder.getCount();
+        this._perPage = await this.queryBuilder.getCount();
+        this.setPerPage(this._perPage);
+        this.setCurrentPage();
+        this.setLasPage();
+        this.setFrom();
+        this.setTo();
 
-        return data;
-    }
-
-    public getExist(): boolean
-    {
-        return this.pagination.getExist();
+        return await this.queryBuilder.getMany();
     }
 
     private addOrderBy()
@@ -70,8 +59,7 @@ class Paginator implements IPaginator
             let order = value.toUpperCase();
             order = (order === 'DESC') ? 'DESC' : 'ASC';
 
-            // @ts-ignore
-            this.queryBuilder.addOrderBy(key, order);
+            this.queryBuilder.addOrderBy(key, order as any);
         });
     }
 
@@ -85,6 +73,134 @@ class Paginator implements IPaginator
                 .skip(this.pagination.getOffset())
                 .take(this.pagination.getLimit());
         }
+    }
+
+    private setPerPage(perPage: number)
+    {
+        perPage = perPage - this.offset;
+
+        this.perPage = perPage <= this.limit ? perPage : this.limit;
+    }
+
+    private setCurrentPage()
+    {
+        this.currentPage = Math.ceil(Math.abs(((this.offset - 1) / this.limit) + 1));
+    }
+
+    private setLasPage()
+    {
+        this.lastPage = Math.ceil((this.total / this.limit));
+    }
+
+    private setFrom()
+    {
+        this.from = (this.currentPage * this.limit) - this.limit;
+    }
+
+    private setTo()
+    {
+        const to = this.currentPage * this.limit;
+        this.to =  to >= this.total ? this.total : to;
+    }
+
+    public getExist(): boolean
+    {
+        return this.pagination.getExist();
+    }
+
+    public getTotal(): number
+    {
+        return this.total;
+    }
+
+    public getPerPage(): number
+    {
+        if (this.getCurrentPage() > this.lastPage)
+        {
+            return 0;
+        }
+
+        return this.perPage;
+    }
+
+    public getCurrentPage(): number
+    {
+        return this.limit === 1 ? this.currentPage + 1 : this.currentPage;
+    }
+
+    public getLasPage(): number
+    {
+        return this.lastPage;
+    }
+
+    public getFrom(): number
+    {
+        if (this.getCurrentPage() > this.lastPage)
+        {
+            return 0;
+        }
+
+        return this.limit === 1 ? this.from + 1 : this.from;
+    }
+
+    public getTo(): number
+    {
+        if (this.getCurrentPage() > this.lastPage)
+        {
+            return 0;
+        }
+
+        return this.limit === 1 ? this.to + 1 : this.to;
+    }
+
+    public getPath(): string
+    {
+        return this.pagination.getPath();
+    }
+
+    public getFirstUrl(): string
+    {
+        const searchValue = `pagination[offset]=${this.offset}`;
+        const newValue = 'pagination[offset]=0';
+
+        return this.getCurrentUrl().replace(searchValue, newValue);
+    }
+
+    public getLastUrl(): string
+    {
+        const offset = this.limit * this.lastPage;
+        const searchValue = `pagination[offset]=${this.offset}`;
+        const newValue = `pagination[offset]=${(this.limit === 1 ? offset - 1 : offset - this.limit)}`;
+
+        return this.getCurrentUrl().replace(searchValue, newValue);
+    }
+
+    public getNextUrl(): string
+    {
+        return this.getCurrentPage() < this.lastPage ? this.pagination.getNextUrl() : null;
+    }
+
+    public getPrevUrl(): string
+    {
+        if (this.currentPage > 1)
+        {
+            const searchValue = `pagination[offset]=${this.offset}`;
+            const newValue = `pagination[offset]=${(this.offset - this.limit)}`;
+
+            return this.getCurrentUrl().replace(searchValue, newValue);
+        }
+
+        return null;
+    }
+
+    public getCurrentUrl(): string
+    {
+        return this.pagination.getCurrentUrl();
+    }
+
+    public getMetadata(): {[key: string]: any}
+    {
+        return this.metadata;
     }
 }
 

@@ -42,7 +42,9 @@ class Responder
 
         if (request)
         {
-            metadata = {};
+            metadata = {
+                ...paginator.getMetadata()
+            };
         }
 
         const result = this.formatResponder.getFormatData(data, status, metadata);
