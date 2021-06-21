@@ -3,32 +3,32 @@ import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, n
 import {IPaginator, StatusCode} from '@digichanges/shared-experience';
 
 import {inject} from 'inversify';
-import {TYPES} from '../../../types';
-import Responder from '../../../App/Presentation/Shared/Responder';
+import {TYPES} from '../../../../types';
+import Responder from '../../../../App/Presentation/Shared/Responder';
 
-import AuthorizeMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';
-import Permissions from '../../../Config/Permissions';
+import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';
+import Permissions from '../../../../Config/Permissions';
 
-import UserTransformer from '../Transformers/UserTransformer';
+import UserTransformer from '../../Transformers/UserTransformer';
 
-import UserRepRequest from '../Requests/UserRepRequest';
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
-import UserRequestCriteria from '../Requests/UserRequestCriteria';
-import UserUpdateRequest from '../Requests/UserUpdateRequest';
-import UserAssignRoleRequest from '../Requests/UserAssignRoleRequest';
-import ChangeUserPasswordRequest from '../Requests/ChangeUserPasswordRequest';
-import ChangeMyPasswordRequest from '../Requests/ChangeMyPasswordRequest';
+import UserRepRequest from '../../Requests/Express/UserRepRequest';
+import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
+import UserRequestCriteria from '../../Requests/Express/UserRequestCriteria';
+import UserUpdateRequest from '../../Requests/Express/UserUpdateRequest';
+import UserAssignRoleRequest from '../../Requests/Express/UserAssignRoleRequest';
+import ChangeUserPasswordRequest from '../../Requests/Express/ChangeUserPasswordRequest';
+import ChangeMyPasswordRequest from '../../Requests/Express/ChangeMyPasswordRequest';
 
-import GetUserUseCase from '../../Domain/UseCases/GetUserUseCase';
-import ListUsersUseCase from '../../Domain/UseCases/ListUsersUseCase';
-import SaveUserUseCase from '../../Domain/UseCases/SaveUserUseCase';
-import AssignRoleUseCase from '../../Domain/UseCases/AssignRoleUseCase';
-import RemoveUserUseCase from '../../Domain/UseCases/RemoveUserUseCase';
-import ChangeMyPasswordUseCase from '../../Domain/UseCases/ChangeMyPasswordUseCase';
-import ChangeUserPasswordUseCase from '../../Domain/UseCases/ChangeUserPasswordUseCase';
-import UpdateUserUseCase from '../../Domain/UseCases/UpdateUserUseCase';
-import ValidatorRequest from '../../../App/Presentation/Shared/Express/ValidatorRequest';
-import IUserDomain from '../../InterfaceAdapters/IUserDomain';
+import GetUserUseCase from '../../../Domain/UseCases/GetUserUseCase';
+import ListUsersUseCase from '../../../Domain/UseCases/ListUsersUseCase';
+import SaveUserUseCase from '../../../Domain/UseCases/SaveUserUseCase';
+import AssignRoleUseCase from '../../../Domain/UseCases/AssignRoleUseCase';
+import RemoveUserUseCase from '../../../Domain/UseCases/RemoveUserUseCase';
+import ChangeMyPasswordUseCase from '../../../Domain/UseCases/ChangeMyPasswordUseCase';
+import ChangeUserPasswordUseCase from '../../../Domain/UseCases/ChangeUserPasswordUseCase';
+import UpdateUserUseCase from '../../../Domain/UseCases/UpdateUserUseCase';
+import ValidatorRequest from '../../../../App/Presentation/Shared/Express/ValidatorRequest';
+import IUserDomain from '../../../InterfaceAdapters/IUserDomain';
 
 @controller('/api/users')
 class UserHandler

@@ -1,5 +1,5 @@
-import UserUpdatePayload from '../../InterfaceAdapters/Payloads/UserUpdatePayload';
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import UserUpdatePayload from '../../../InterfaceAdapters/Payloads/UserUpdatePayload';
+import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 import {ArrayMinSize, IsArray, IsBoolean, IsEmail, IsString, Length} from 'class-validator';
 
 class UserUpdateRequest extends IdRequest implements UserUpdatePayload

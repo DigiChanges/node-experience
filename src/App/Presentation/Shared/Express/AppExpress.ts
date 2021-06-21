@@ -8,14 +8,14 @@ import exphbs from 'express-handlebars';
 import Config from 'config';
 import i18n from 'i18n';
 
-import '../../Handlers/IndexHandler';
+import '../../Handlers/Express/IndexHandler';
 import '../../../../Item/Presentation/Handlers/Express/ItemHandler';
-import '../../../../User/Presentation/Handlers/UserHandler';
+import '../../../../User/Presentation/Handlers/Express/UserHandler';
 import '../../../../Auth/Presentation/Handlers/Express/AuthHandler';
-import '../../../../Role/Presentation/Handlers/RoleHandler';
+import '../../../../Role/Presentation/Handlers/Express/RoleHandler';
 import '../../../../File/Presentation/Handlers/Express/FileHandler';
 import '../../../../Notification/Presentation/Handlers/Express/NotificationHandler';
-import '../../Handlers/LogHandler';
+import '../../Handlers/Express/LogHandler';
 
 import LoggerWinston from '../../Middlewares/LoggerWinston';
 import AuthenticationMiddleware from '../../../../Auth/Presentation/Middlewares/AuthenticationMiddleware';

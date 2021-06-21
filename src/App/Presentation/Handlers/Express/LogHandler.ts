@@ -2,10 +2,10 @@ import {controller, request, response, next, httpGet} from 'inversify-express-ut
 import {NextFunction, Request, Response} from 'express';
 
 import {inject} from 'inversify';
-import {TYPES} from '../../../types';
-import Responder from '../Shared/Responder';
+import {TYPES} from '../../../../types';
+import Responder from '../../Shared/Responder';
 
-import GetLogViewUseCase from '../../Domain/UseCases/GetLogViewUseCase';
+import GetLogViewUseCase from '../../../Domain/UseCases/GetLogViewUseCase';
 
 @controller('/log')
 class LogHandler

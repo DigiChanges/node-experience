@@ -1,5 +1,5 @@
 import * as express from 'express';
-import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 import FileUpdateMultipartPayload from '../../../InterfaceAdapters/Payloads/FileUpdateMultipartPayload';
 import {IsDefined} from 'class-validator';
 

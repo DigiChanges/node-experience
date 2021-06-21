@@ -1,8 +1,8 @@
 import * as express from 'express';
 import {IsString} from 'class-validator';
 
-import ChangeUserPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeUserPasswordPayload';
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import ChangeUserPasswordPayload from '../../../InterfaceAdapters/Payloads/ChangeUserPasswordPayload';
+import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 
 class ChangeUserPasswordRequest extends IdRequest implements ChangeUserPasswordPayload
 {

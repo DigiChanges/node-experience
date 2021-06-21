@@ -15,7 +15,7 @@ import FileMultipartRepRequest from '../../Requests/Express/FileMultipartRepRequ
 import PresignedFileRepRequest from '../../Requests/Express/PresignedFileRepRequest';
 import FileRequestCriteria from '../../Requests/Express/FileRequestCriteria';
 import FileTransformer from '../../Transformers/FileTransformer';
-import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 import FileUpdateMultipartRequest from '../../Requests/Express/FileUpdateMultipartRequest';
 import FileUpdateBase64Request from '../../Requests/Express/FileUpdateBase64Request';
 import ObjectTransformer from '../../Transformers/ObjectTransformer';

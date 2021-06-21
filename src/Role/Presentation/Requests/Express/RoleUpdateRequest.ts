@@ -1,14 +1,13 @@
 import * as express from 'express';
-import RoleRepPayload from '../../InterfaceAdapters/Payloads/RoleRepPayload';
-import {IsArray, IsBoolean, IsOptional, IsString, Length} from 'class-validator';
+import RoleUpdatePayload from '../../../InterfaceAdapters/Payloads/RoleUpdatePayload';
+import {IsArray, IsBoolean, IsOptional, IsString} from 'class-validator';
+import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 
-class RoleRepRequest implements RoleRepPayload
+class RoleUpdateRequest extends IdRequest implements RoleUpdatePayload
 {
-    @Length(3, 30)
     @IsString()
     name: string;
 
-    @Length(3, 30)
     @IsString()
     slug: string;
 
@@ -24,6 +23,7 @@ class RoleRepRequest implements RoleRepPayload
 
     constructor(request: express.Request)
     {
+        super(request);
         this.name = request.body.name;
         this.slug = request.body.slug;
         this.permissions = request.body.permissions;
@@ -49,6 +49,11 @@ class RoleRepRequest implements RoleRepPayload
     {
         return this.enable;
     }
+
+    getId(): string
+    {
+        return this.id;
+    }
 }
 
-export default RoleRepRequest;
+export default RoleUpdateRequest;

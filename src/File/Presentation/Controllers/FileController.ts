@@ -7,7 +7,7 @@ import DownloadUseCase from '../../Domain/UseCases/DownloadUseCase';
 import GetPresignedGetObjectUseCase from '../../Domain/UseCases/GetPresignedGetObjectUseCase';
 import UploadMultipartUseCase from '../../Domain/UseCases/UploadMultipartUseCase';
 import ValidatorRequest from '../../../App/Presentation/Shared/Express/ValidatorRequest';
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import IdRequest from '../../../App/Presentation/Requests/Express/IdRequest';
 import UpdateFileMultipartUseCase from '../../Domain/UseCases/UpdateFileMultipartUseCase';
 import UpdateFileBase64UseCase from '../../Domain/UseCases/UpdateFileBase64UseCase';
 import GetFileMetadataUserCase from '../../Domain/UseCases/GetFileMetadataUseCase';

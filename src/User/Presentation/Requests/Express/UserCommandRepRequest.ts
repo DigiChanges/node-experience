@@ -1,5 +1,5 @@
-import UserRepPayload from '../../InterfaceAdapters/Payloads/UserRepPayload';
-import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
+import UserRepPayload from '../../../InterfaceAdapters/Payloads/UserRepPayload';
+import IRoleDomain from '../../../../Role/InterfaceAdapters/IRoleDomain';
 import {IsArray, IsBoolean, IsString, Length} from 'class-validator';
 
 class UserCommandRepRequest implements UserRepPayload

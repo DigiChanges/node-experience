@@ -10,7 +10,7 @@ import Permissions from '../../../../Config/Permissions';
 
 import ItemTransformer from '../../Transformers/ItemTransformer';
 import ItemRepRequest from '../../Requests/Express/ItemRepRequest';
-import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 import ItemRequestCriteria from '../../Requests/Express/ItemRequestCriteria';
 import ItemUpdateRequest from '../../Requests/Express/ItemUpdateRequest';
 import IItemDomain from '../../../InterfaceAdapters/IItemDomain';

@@ -1,7 +1,7 @@
-import ChangeMyPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeMyPasswordPayload';
+import ChangeMyPasswordPayload from '../../../InterfaceAdapters/Payloads/ChangeMyPasswordPayload';
 import {IsString, IsUUID, Length} from 'class-validator';
 import Config from 'config';
-import {Match} from '../../../Shared/Decorators/match';
+import {Match} from '../../../../Shared/Decorators/match';
 
 class ChangeMyPasswordRequest implements ChangeMyPasswordPayload
 {

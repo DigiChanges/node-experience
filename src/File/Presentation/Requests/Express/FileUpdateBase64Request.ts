@@ -1,5 +1,5 @@
 import * as express from 'express';
-import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 import FileUpdateBase64Payload from '../../../InterfaceAdapters/Payloads/FileUpdateBase64Payload';
 import {IsBase64, IsMimeType, IsString} from 'class-validator';
 

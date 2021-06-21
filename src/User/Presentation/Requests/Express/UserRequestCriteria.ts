@@ -1,10 +1,10 @@
 import * as express from 'express';
 import {ICriteria} from '@digichanges/shared-experience';
 
-import UserSort from '../Criterias/UserSort';
-import UserFilter from '../Criterias/UserFilter';
-import Pagination from '../../../App/Presentation/Shared/Pagination';
-import RequestCriteria from '../../../App/Presentation/Requests/RequestCriteria';
+import UserSort from '../../Criterias/UserSort';
+import UserFilter from '../../Criterias/UserFilter';
+import Pagination from '../../../../App/Presentation/Shared/Pagination';
+import RequestCriteria from '../../../../App/Presentation/Requests/RequestCriteria';
 
 class UserRequestCriteria extends RequestCriteria implements ICriteria
 {

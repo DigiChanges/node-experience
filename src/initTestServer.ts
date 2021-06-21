@@ -8,10 +8,10 @@ import helmet from 'helmet';
 import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
 
-import './App/Presentation/Handlers/IndexHandler';
+import './App/Presentation/Handlers/Express/IndexHandler';
 import './Auth/Presentation/Handlers/Express/AuthHandler';
-import './User/Presentation/Handlers/UserHandler';
-import './Role/Presentation/Handlers/RoleHandler';
+import './User/Presentation/Handlers/Express/UserHandler';
+import './Role/Presentation/Handlers/Express/RoleHandler';
 import './File/Presentation/Handlers/Express/FileHandler';
 import './App/Tests/WhiteListHandler';
 // import "../Presentation/Handlers/NotificationHandler";
