@@ -1,4 +1,4 @@
-import {NextFunction, Request, Response} from 'express';
+import {Request, Response} from 'express';
 import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
 import {IPaginator, StatusCode} from '@digichanges/shared-experience';
 
@@ -19,31 +19,27 @@ import UserAssignRoleRequest from '../../Requests/Express/UserAssignRoleRequest'
 import ChangeUserPasswordRequest from '../../Requests/Express/ChangeUserPasswordRequest';
 import ChangeMyPasswordRequest from '../../Requests/Express/ChangeMyPasswordRequest';
 
-import GetUserUseCase from '../../../Domain/UseCases/GetUserUseCase';
-import ListUsersUseCase from '../../../Domain/UseCases/ListUsersUseCase';
-import SaveUserUseCase from '../../../Domain/UseCases/SaveUserUseCase';
-import AssignRoleUseCase from '../../../Domain/UseCases/AssignRoleUseCase';
-import RemoveUserUseCase from '../../../Domain/UseCases/RemoveUserUseCase';
-import ChangeMyPasswordUseCase from '../../../Domain/UseCases/ChangeMyPasswordUseCase';
-import ChangeUserPasswordUseCase from '../../../Domain/UseCases/ChangeUserPasswordUseCase';
-import UpdateUserUseCase from '../../../Domain/UseCases/UpdateUserUseCase';
-import ValidatorRequest from '../../../../App/Presentation/Shared/Express/ValidatorRequest';
 import IUserDomain from '../../../InterfaceAdapters/IUserDomain';
+import UserController from '../../Controllers/UserControllers';
 
 @controller('/api/users')
 class UserHandler
 {
     @inject(TYPES.Responder)
     private responder: Responder;
+    private readonly controller: UserController;
+
+    constructor()
+    {
+        this.controller = new UserController();
+    }
 
     @httpPost('/', AuthorizeMiddleware(Permissions.USERS_SAVE))
     public async save(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new UserRepRequest(req);
-        await ValidatorRequest.handle(_request);
 
-        const saveUserUseCase = new SaveUserUseCase();
-        const user: IUserDomain = await saveUserUseCase.handle(_request);
+        const user: IUserDomain = await this.controller.save(_request);
 
         this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
@@ -52,10 +48,8 @@ class UserHandler
     public async list(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new UserRequestCriteria(req);
-        await ValidatorRequest.handle(_request);
 
-        const listUsersUseCase = new ListUsersUseCase();
-        const paginator: IPaginator = await listUsersUseCase.handle(_request);
+        const paginator: IPaginator = await this.controller.list(_request);
 
         await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -64,10 +58,8 @@ class UserHandler
     public async getOne(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new IdRequest(req);
-        await ValidatorRequest.handle(_request);
 
-        const getUserUseCase = new GetUserUseCase();
-        const user: IUserDomain = await getUserUseCase.handle(_request);
+        const user: IUserDomain = await this.controller.getOne(_request);
 
         this.responder.send(user, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -76,10 +68,8 @@ class UserHandler
     public async update(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new UserUpdateRequest(req);
-        await ValidatorRequest.handle(_request);
 
-        const getUserUseCase = new UpdateUserUseCase();
-        const user: IUserDomain = await getUserUseCase.handle(_request);
+        const user: IUserDomain = await this.controller.update(_request);
 
         this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
@@ -88,10 +78,8 @@ class UserHandler
     public async assignRole(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new UserAssignRoleRequest(req);
-        await ValidatorRequest.handle(_request);
 
-        const assignRoleUseCase = new AssignRoleUseCase();
-        const _response: IUserDomain = await assignRoleUseCase.handle(_request);
+        const _response: IUserDomain = await this.controller.assignRole(_request);
 
         this.responder.send(_response, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
@@ -100,10 +88,8 @@ class UserHandler
     public async remove(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new IdRequest(req);
-        await ValidatorRequest.handle(_request);
 
-        const removeUserUseCase = new RemoveUserUseCase();
-        const data = await removeUserUseCase.handle(_request);
+        const data = await this.controller.remove(_request);
 
         this.responder.send(data, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -112,10 +98,8 @@ class UserHandler
     public async changeMyPassword(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new ChangeMyPasswordRequest(req);
-        await ValidatorRequest.handle(_request);
 
-        const changeMyPasswordUseCase = new ChangeMyPasswordUseCase();
-        const user: IUserDomain = await changeMyPasswordUseCase.handle(_request);
+        const user: IUserDomain = await this.controller.changeMyPassword(_request);
 
         this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
@@ -124,10 +108,8 @@ class UserHandler
     public async changeUserPassword(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new ChangeUserPasswordRequest(req);
-        await ValidatorRequest.handle(_request);
 
-        const changeUserPasswordUseCase = new ChangeUserPasswordUseCase();
-        const user: IUserDomain = await changeUserPasswordUseCase.handle(_request);
+        const user: IUserDomain = await this.controller.changeUserPassword(_request);
 
         this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }

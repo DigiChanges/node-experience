@@ -19,7 +19,7 @@ import UserAssignRolePayload from '../../InterfaceAdapters/Payloads/UserAssignRo
 import ChangeMyPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeMyPasswordPayload';
 import ChangeUserPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeUserPasswordPayload';
 
-class UserHandler
+class UserController
 {
     public async save(request: UserRepPayload): Promise<IUserDomain>
     {
@@ -86,4 +86,4 @@ class UserHandler
     }
 }
 
-export default UserHandler;
+export default UserController;
