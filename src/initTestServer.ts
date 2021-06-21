@@ -8,15 +8,15 @@ import helmet from 'helmet';
 import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
 
-import './App/Presentation/Handlers/IndexHandler';
-import './Auth/Presentation/Handlers/AuthHandler';
-import './User/Presentation/Handlers/UserHandler';
-import './Role/Presentation/Handlers/RoleHandler';
-import './File/Presentation/Handlers/FileHandler';
+import './App/Presentation/Handlers/Express/IndexHandler';
+import './Auth/Presentation/Handlers/Express/AuthHandler';
+import './User/Presentation/Handlers/Express/UserHandler';
+import './Role/Presentation/Handlers/Express/RoleHandler';
+import './File/Presentation/Handlers/Express/FileHandler';
 import './App/Tests/WhiteListHandler';
 // import "../Presentation/Handlers/NotificationHandler";
 
-import {Locales} from './app';
+import {Locales} from './App/Presentation/Shared/Express/AppExpress';
 
 import {ICreateConnection, ITokenRepository} from '@digichanges/shared-experience';
 
@@ -24,7 +24,7 @@ import LoggerWinston from './App/Presentation/Middlewares/LoggerWinston';
 import AuthenticationMiddleware from './Auth/Presentation/Middlewares/AuthenticationMiddleware';
 import RefreshTokenMiddleware from './Auth/Presentation/Middlewares/RefreshTokenMiddleware';
 
-import {ErrorHandler} from './App/Presentation/Shared/ErrorHandler';
+import {ErrorHandler} from './App/Presentation/Shared/Express/ErrorHandler';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 import EventHandler from './Shared/Events/EventHandler';
 import RedirectRouteNotFoundMiddleware from './App/Presentation/Middlewares/RedirectRouteNotFoundMiddleware';

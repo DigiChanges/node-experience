@@ -1,11 +1,11 @@
 import PushNotification from '../Entities/PushNotification';
 import EventHandler from '../../../Shared/Events/EventHandler';
 import SendMessageEvent from '../../../Shared/Events/SendMessageEvent';
-import NotificationSendMessageRequest from '../../Presentation/Requests/NotificationSendMessageRequest';
+import NotificationSendMessagePayload from '../../InterfaceAdapters/Payloads/NotificationSendMessagePayload';
 
 class SendPushNotificationUseCase
 {
-    async handle(payload: NotificationSendMessageRequest)
+    async handle(payload: NotificationSendMessagePayload)
     {
         const pushNotification = new PushNotification();
         pushNotification.subscription = payload.getSubscription();

@@ -1,6 +1,6 @@
 import {StatusCode} from '@digichanges/shared-experience';
 import ErrorHttpException from '../../../App/Presentation/Shared/ErrorHttpException';
-import {Locales} from '../../../app';
+import {Locales} from '../../../App/Presentation/Shared/Express/AppExpress';
 
 class CantDisabledHttpException extends ErrorHttpException
 {

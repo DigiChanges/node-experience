@@ -7,7 +7,7 @@ class EncryptionFactory
 {
     static create(encryptionConfig: string = Config.get('encryption.encryptionDefault')): IEncryption
     {
-        const encryptions: any = {
+        const encryptions: Record<string, IEncryption> = {
             bcrypt : new BcryptEncryptionStrategy(),
             md5: new Md5EncryptionStrategy()
         };

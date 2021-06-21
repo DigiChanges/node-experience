@@ -238,4 +238,6 @@ extend.tsconfig.json
 
 .scannerwork
 
+.vscode
+
 # End of https://www.gitignore.io/api/node,phpstorm+all
