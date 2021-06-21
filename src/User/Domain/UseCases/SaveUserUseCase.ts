@@ -7,7 +7,7 @@ import {REPOSITORIES} from '../../../repositories';
 import {SERVICES} from '../../../services';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import User from '../Entities/User';
-import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
+import ValidatorRequest from '../../../App/Presentation/Shared/Express/ValidatorRequest';
 import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
 import EventHandler from '../../../Shared/Events/EventHandler';

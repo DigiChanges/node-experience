@@ -4,7 +4,7 @@ import {StatusCode} from '@digichanges/shared-experience';
 
 import Responder from '../Shared/Responder';
 import {TYPES} from '../../../types';
-import {Locales} from '../../../app';
+import {Locales} from '../Shared/Express/AppExpress';
 
 @controller('/')
 class IndexHandler extends BaseHttpController

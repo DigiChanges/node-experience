@@ -19,7 +19,7 @@ import GetRoleUseCase from '../../Domain/UseCases/GetRoleUseCase';
 import RemoveRoleUseCase from '../../Domain/UseCases/RemoveRoleUseCase';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
 import UpdateRoleUseCase from '../../Domain/UseCases/UpdateRoleUseCase';
-import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
+import ValidatorRequest from '../../../App/Presentation/Shared/Express/ValidatorRequest';
 
 @controller('/api/roles')
 class RoleHandler

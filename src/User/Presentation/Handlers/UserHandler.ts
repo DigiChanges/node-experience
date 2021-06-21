@@ -27,7 +27,7 @@ import RemoveUserUseCase from '../../Domain/UseCases/RemoveUserUseCase';
 import ChangeMyPasswordUseCase from '../../Domain/UseCases/ChangeMyPasswordUseCase';
 import ChangeUserPasswordUseCase from '../../Domain/UseCases/ChangeUserPasswordUseCase';
 import UpdateUserUseCase from '../../Domain/UseCases/UpdateUserUseCase';
-import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
+import ValidatorRequest from '../../../App/Presentation/Shared/Express/ValidatorRequest';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 
 @controller('/api/users')

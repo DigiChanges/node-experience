@@ -1,15 +1,16 @@
 import dotenv from 'dotenv';
 dotenv.config(); // Need before get config
+import Config from 'config';
 
-import App from './app';
 import {validateEnv} from './Config/validateEnv';
 import {loggerCli} from './Shared/Logger';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 
 import EventHandler from './Shared/Events/EventHandler';
 import CacheFactory from './Shared/Factories/CacheFactory';
-import Config from 'config';
 import {ICacheRepository, ICreateConnection} from '@digichanges/shared-experience';
+
+import AppFactory from './App/Presentation/Factories/AppFactory';
 
 void (async() =>
 {
@@ -32,7 +33,8 @@ void (async() =>
         const eventHandler = EventHandler.getInstance();
         await eventHandler.setListeners();
 
-        const app = new App();
+        const appFactory = new AppFactory();
+        const app = appFactory.create();
         app.initConfig();
         app.build();
         app.listen();

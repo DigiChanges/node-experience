@@ -1,5 +1,5 @@
 import {ErrorException} from '@digichanges/shared-experience';
-import {Locales} from '../../app';
+import {Locales} from '../../App/Presentation/Shared/Express/AppExpress';
 
 class NotFoundException extends ErrorException
 {

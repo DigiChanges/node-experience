@@ -14,8 +14,6 @@ class DatabaseFactory
 
     create(): ICreateConnection
     {
-        let createConnection = null;
-
         if (!this.dbDefault)
         {
             this.dbDefault = Config.get('dbConfig.default');
@@ -23,16 +21,12 @@ class DatabaseFactory
 
         const config = Config.get(`dbConfig.${this.dbDefault}`);
 
-        if (this.dbDefault === 'TypeORM')
-        {
-            createConnection = new TypeORMCreateConnection(config);
-        }
-        else if (this.dbDefault === 'Mongoose')
-        {
-            createConnection = new MongooseCreateConnection(config);
-        }
+        const createConnections: Record<string, ICreateConnection> = {
+            TypeORM: new TypeORMCreateConnection(config),
+            Mongoose: new MongooseCreateConnection(config)
+        };
 
-        return createConnection;
+        return createConnections[this.dbDefault];
     }
 }
 
