@@ -47,7 +47,7 @@ class AuthController
         return await changeForgotPasswordUseCase.handle(request);
     }
 
-    public permissions(): string[]
+    public permissions(): {[key: string]: string[]}
     {
         const permissionUseCase = new PermissionUseCase();
         return permissionUseCase.handle();
