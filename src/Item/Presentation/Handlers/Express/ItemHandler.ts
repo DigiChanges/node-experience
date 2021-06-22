@@ -4,7 +4,7 @@ import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, n
 import {IPaginator, StatusCode} from '@digichanges/shared-experience';
 
 import {TYPES} from '../../../../types';
-import Responder from '../../../../App/Presentation/Shared/Responder';
+import Responder from '../../../../App/Presentation/Shared/Express/Responder';
 import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
 
