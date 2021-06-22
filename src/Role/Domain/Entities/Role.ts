@@ -6,6 +6,7 @@ class Role extends Base implements IRoleDomain
     name: string;
     slug: string;
     enable: boolean;
+    ofSystem: boolean;
     permissions: string[];
 }
 
