@@ -8,6 +8,7 @@ import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import ForbiddenHttpException from '../Exceptions/ForbiddenHttpException';
 import ContainerFactory from '../../../Shared/Decorators/ContainerFactory';
 import {REPOSITORIES} from '../../../repositories';
+import Permissions from '../../../Config/Permissions';
 
 const AuthorizeMiddleware = (...handlerPermissions: any) =>
 {
@@ -34,7 +35,7 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
 
             totalPermissions.forEach((permission: string) =>
             {
-                if (permission === handlerPermission)
+                if (permission === handlerPermission || permission === Permissions.ALL)
                 {
                     isAllowed = true;
                 }
