@@ -10,7 +10,12 @@ import EventHandler from './Shared/Events/EventHandler';
 import CacheFactory from './Shared/Factories/CacheFactory';
 import { ICacheRepository, ICreateConnection } from '@digichanges/shared-experience';
 
+import Koa from 'koa';
+import bodyParser from 'koa-bodyparser';
+import * as HttpStatus from 'http-status-codes';
 import AppFactory from './App/Presentation/Factories/AppFactory';
+import IndexHandler from './App/Presentation/Handlers/Koa/IndexHandler';
+import ItemHandler from './Item/Presentation/Handlers/Koa/ItemHandler';
 
 void (async() =>
 {
@@ -33,11 +38,44 @@ void (async() =>
         const eventHandler = EventHandler.getInstance();
         await eventHandler.setListeners();
 
-        const appFactory = new AppFactory();
-        const app = appFactory.create();
-        app.initConfig();
-        app.build();
-        app.listen();
+        const app: Koa = new Koa();
+
+        // Generic error handling middleware.
+        app.use(async(ctx: Koa.Context, next: () => Promise<any>) =>
+        {
+            try
+            {
+                await next();
+            }
+            catch (error)
+            {
+                ctx.status = error.statusCode || error.status || 500;
+                error.status = ctx.status;
+                ctx.body = {error};
+                ctx.app.emit('error', error, ctx);
+            }
+        });
+
+        app.use(bodyParser());
+
+        // Route middleware.
+        app.use(IndexHandler.routes());
+        app.use(IndexHandler.allowedMethods());
+        app.use(ItemHandler.routes());
+        app.use(ItemHandler.allowedMethods());
+
+        // Application error logging.
+        app.on('error', console.error);
+
+        const server = app.listen(8089, () =>
+        {
+            loggerCli.debug('Koa is listening to http://localhost:8089');
+        });
+        // const appFactory = new AppFactory();
+        // const app = appFactory.create();
+        // app.initConfig();
+        // app.build();
+        // app.listen();
     }
     catch (error) // TODO: Change this error catch
     {
