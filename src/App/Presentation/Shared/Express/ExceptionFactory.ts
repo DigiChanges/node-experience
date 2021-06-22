@@ -11,6 +11,8 @@ import DuplicateEntityHttpException from '../../Exceptions/DuplicateEntityHttpEx
 import RoleDisabledHttpException from '../../../../Role/Presentation/Exceptions/RoleDisabledHttpException';
 import WrongPermissionsHttpException from '../../../../Auth/Presentation/Exceptions/WrongPermissionsHttpException';
 import {StatusCode} from '@digichanges/shared-experience';
+import RoleOfSystemNotDeletedHttpException
+    from '../../../../Role/Presentation/Exceptions/RoleOfSystemNotDeletedHttpException';
 
 class ExceptionFactory
 {
@@ -19,6 +21,7 @@ class ExceptionFactory
         BadCredentialsException: new BadCredentialsHttpException(),
         UserDisabledException: new UserDisabledHttpException(),
         RoleDisabledException: new RoleDisabledHttpException(),
+        RoleOfSystemNotDeletedException: new RoleOfSystemNotDeletedHttpException(),
         CantDisabledException: new CantDisabledHttpException(),
         PasswordWrongException: new PasswordWrongHttpException(),
         NotFoundException: new NotFoundHttpException(),
