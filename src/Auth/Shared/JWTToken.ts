@@ -3,13 +3,14 @@ import jwt from 'jwt-simple';
 import IToken from '../InterfaceAdapters/IToken';
 import Config from 'config';
 import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
+import ITokenDecode from '../../Shared/InterfaceAdapters/ITokenDecode';
 
 class JWTToken implements IToken
 {
     private readonly expires: number;
     private readonly hash: string;
     private readonly user: IUserDomain;
-    private readonly payload: any;
+    private readonly payload: ITokenDecode;
 
     constructor(id: string, expires: number, user: IUserDomain, secret: string)
     {

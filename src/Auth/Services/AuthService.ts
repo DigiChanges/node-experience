@@ -9,6 +9,7 @@ import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
 import Permissions from '../../Config/Permissions';
 import WrongPermissionsException from '../Domain/Exceptions/WrongPermissionsException';
 import {IEncryption} from '@digichanges/shared-experience';
+import ITokenDecode from '../../Shared/InterfaceAdapters/ITokenDecode';
 
 @injectable()
 class AuthService implements IAuthService
@@ -20,7 +21,7 @@ class AuthService implements IAuthService
         this.encryption = EncryptionFactory.create();
     }
 
-    public decodeToken(token: string): any // TODO: Add type
+    public decodeToken(token: string): ITokenDecode
     {
         const TokenArray = token.split(' ');
 
