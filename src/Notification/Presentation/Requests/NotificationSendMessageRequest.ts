@@ -3,7 +3,6 @@ import NotificationSendMessagePayload from '../../InterfaceAdapters/Payloads/Not
 import NotificationSubscriptionRequest from './NotificationCreateSuscriptionRequest';
 import NotificationRepPayload from '../../InterfaceAdapters/Payloads/NotificationRepPayload';
 
-
 class NotificationSendMessageRequest implements NotificationSendMessagePayload
 {
     private readonly name: string;
