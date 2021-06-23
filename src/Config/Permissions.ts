@@ -105,14 +105,7 @@ class Permissions
 
     static permissions(): string[]
     {
-        const permissions: string[] = [];
-
-        Permissions.groupPermissions().forEach(group =>
-        {
-            permissions.push(...group.permissions);
-        });
-
-        return permissions;
+        return Permissions.groupPermissions().reduce((accum, group) => accum.concat(group.permissions), []);
     }
 }
 
