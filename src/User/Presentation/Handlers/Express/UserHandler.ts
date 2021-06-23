@@ -47,7 +47,7 @@ class UserHandler
     @httpGet('/', AuthorizeMiddleware(Permissions.USERS_LIST))
     public async list(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const _request = new UserRequestCriteria(req);
+        const _request = new UserRequestCriteria(req.query, req.url);
 
         const paginator: IPaginator = await this.controller.list(_request);
 

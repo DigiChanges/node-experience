@@ -1,4 +1,4 @@
-import * as express from 'express';
+import QueryString from 'qs';
 import {ICriteria} from '@digichanges/shared-experience';
 
 import RequestCriteria from '../../../../App/Presentation/Requests/RequestCriteria';
@@ -9,9 +9,9 @@ import Pagination from '../../../../App/Presentation/Shared/Pagination';
 
 class ItemRequestCriteria extends RequestCriteria implements ICriteria
 {
-    constructor(request: express.Request)
+    constructor(query: QueryString.ParsedQs, url: string)
     {
-        super(new ItemSort(request), new ItemFilter(request), new Pagination(request));
+        super(new ItemSort(query), new ItemFilter(query), new Pagination(query, url));
     }
 }
 

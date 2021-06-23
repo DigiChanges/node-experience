@@ -36,7 +36,7 @@ class FileHandler
     @httpGet('/', AuthorizeMiddleware(Permissions.FILES_LIST))
     public async list(@request() req: Request, @response() res: Response)
     {
-        const _request = new FileRequestCriteria(req.body);
+        const _request = new FileRequestCriteria(req.query, req.url);
 
         const paginator: IPaginator = await this.controller.list(_request);
 

@@ -1,4 +1,4 @@
-import * as express from 'express';
+import QueryString from 'qs';
 import {ICriteria} from '@digichanges/shared-experience';
 
 import RequestCriteria from '../../../../App/Presentation/Requests/RequestCriteria';
@@ -9,9 +9,9 @@ import Pagination from '../../../../App/Presentation/Shared/Pagination';
 
 class RoleRequestCriteria extends RequestCriteria implements ICriteria
 {
-    constructor(request: express.Request)
+    constructor(query: QueryString.ParsedQs, url: string)
     {
-        super(new RoleSort(request), new RoleFilter(request), new Pagination(request));
+        super(new RoleSort(query), new RoleFilter(query), new Pagination(query, url));
     }
 }
 

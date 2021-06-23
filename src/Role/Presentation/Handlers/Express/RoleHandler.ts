@@ -41,7 +41,7 @@ class RoleHandler
     @httpGet('/', AuthorizeMiddleware(Permissions.ROLES_LIST))
     public async list(@request() req: Request, @response() res: Response)
     {
-        const _request = new RoleRequestCriteria(req);
+        const _request = new RoleRequestCriteria(req.query, req.url);
 
         const paginator: IPaginator = await this.controller.list(_request);
 

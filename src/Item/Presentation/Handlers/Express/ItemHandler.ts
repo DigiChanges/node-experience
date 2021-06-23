@@ -42,7 +42,7 @@ class ItemHandler
     @httpGet('/', AuthorizeMiddleware(Permissions.ITEMS_LIST))
     public async list(@request() req: Request, @response() res: Response)
     {
-        const _request = new ItemRequestCriteria(req);
+        const _request = new ItemRequestCriteria(req.query, req.url);
 
         const paginator: IPaginator = await this.controller.list(_request);
 

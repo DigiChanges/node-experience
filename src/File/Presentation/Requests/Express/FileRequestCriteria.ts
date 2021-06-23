@@ -1,4 +1,4 @@
-import * as express from 'express';
+import QueryString from 'qs';
 import FileFilter from '../../Criterias/FileFilter';
 import FileSort from '../../Criterias/FileSort';
 import Pagination from '../../../../App/Presentation/Shared/Pagination';
@@ -8,9 +8,9 @@ import RequestCriteria from '../../../../App/Presentation/Requests/RequestCriter
 
 class FileRequestCriteria extends RequestCriteria implements ICriteria
 {
-    constructor(request: express.Request)
+    constructor(query: QueryString.ParsedQs, url: string)
     {
-        super(new FileSort(request), new FileFilter(request), new Pagination(request));
+        super(new FileSort(query), new FileFilter(query), new Pagination(query, url));
     }
 }
 
