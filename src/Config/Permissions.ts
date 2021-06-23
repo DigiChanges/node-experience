@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import IGroupPermission from '../Shared/InterfaceAdapters/IGroupPermission';
 
 class Permissions
 {
@@ -40,55 +40,79 @@ class Permissions
     static readonly ROLES_LIST: string = 'rolesList';
     static readonly ROLES_DELETE: string = 'rolesDelete';
 
-    static groupPermissions(): {[key: string]: string[]}
+    static groupPermissions(): IGroupPermission[]
     {
-        return {
-            AUTH: [
-                `${Permissions.AUTH_KEEP_ALIVE}`,
-                `${Permissions.AUTH_SYNC_PERMISSIONS}`,
-                `${Permissions.GET_PERMISSIONS}`
-            ],
-            ITEMS:[
-                `${Permissions.ITEMS_SAVE}`,
-                `${Permissions.ITEMS_UPDATE}`,
-                `${Permissions.ITEMS_SHOW}`,
-                `${Permissions.ITEMS_LIST}`,
-                `${Permissions.ITEMS_DELETE}`
-            ],
-            USERS: [
-                `${Permissions.USERS_SAVE}`,
-                `${Permissions.USERS_UPDATE}`,
-                `${Permissions.USERS_SHOW}`,
-                `${Permissions.USERS_LIST}`,
-                `${Permissions.USERS_DELETE}`,
-                `${Permissions.USERS_ASSIGN_ROLE}`,
-                `${Permissions.USERS_CHANGE_MY_PASSWORD}`,
-                `${Permissions.USERS_CHANGE_USER_PASSWORD}`
-            ],
-            FILES: [
-                `${Permissions.FILES_UPLOAD}`,
-                `${Permissions.FILES_UPDATE}`,
-                `${Permissions.FILES_DOWNLOAD}`,
-                `${Permissions.FILES_LIST}`,
-                `${Permissions.FILES_SHOW_METADATA}`
-            ],
-            ROLES: [
-                `${Permissions.ROLES_SAVE}`,
-                `${Permissions.ROLES_UPDATE}`,
-                `${Permissions.ROLES_SHOW}`,
-                `${Permissions.ROLES_LIST}`,
-                `${Permissions.ROLES_DELETE}`
-            ]
-        };
+        return [
+            {
+                group: 'AUTH',
+                permissions: [
+                    Permissions.AUTH_KEEP_ALIVE,
+                    Permissions.AUTH_SYNC_PERMISSIONS,
+                    Permissions.GET_PERMISSIONS
+                ]
+            },
+            {
+                group: 'ITEMS',
+                permissions: [
+                    Permissions.ITEMS_SAVE,
+                    Permissions.ITEMS_UPDATE,
+                    Permissions.ITEMS_SHOW,
+                    Permissions.ITEMS_LIST,
+                    Permissions.ITEMS_DELETE
+                ]
+            },
+            {
+                group: 'USERS',
+                permissions: [
+                    Permissions.USERS_SAVE,
+                    Permissions.USERS_UPDATE,
+                    Permissions.USERS_SHOW,
+                    Permissions.USERS_LIST,
+                    Permissions.USERS_DELETE,
+                    Permissions.USERS_ASSIGN_ROLE,
+                    Permissions.USERS_CHANGE_MY_PASSWORD,
+                    Permissions.USERS_CHANGE_USER_PASSWORD
+                ]
+            },
+            {
+                group: 'FILES',
+                permissions: [
+                    Permissions.FILES_UPLOAD,
+                    Permissions.FILES_UPDATE,
+                    Permissions.FILES_DOWNLOAD,
+                    Permissions.FILES_LIST,
+                    Permissions.FILES_SHOW_METADATA
+                ]
+            },
+            {
+                group: 'ROLES',
+                permissions: [
+                    Permissions.ROLES_SAVE,
+                    Permissions.ROLES_UPDATE,
+                    Permissions.ROLES_SHOW,
+                    Permissions.ROLES_LIST,
+                    Permissions.ROLES_DELETE
+                ]
+            },
+            {
+                group: 'OTTERS',
+                permissions: [
+                    Permissions.ALL
+                ]
+            }
+        ];
     }
 
     static permissions(): string[]
     {
-        const permissions: any[] = [];
+        const permissions: string[] = [];
 
-        _.forEach(Permissions.groupPermissions(), (group) => permissions.push(group));
+        Permissions.groupPermissions().forEach(group =>
+        {
+            permissions.push(...group.permissions);
+        });
 
-        return _.flatMap(permissions);
+        return permissions;
     }
 }
 
