@@ -1,8 +1,9 @@
 import Permissions from '../../../Config/Permissions';
+import IGroupPermission from '../../InterfaceAdapters/IGroupPermission';
 
 class PermissionUseCase
 {
-    handle(): {[key: string]: string[]}
+    handle(): IGroupPermission[]
     {
         return Permissions.groupPermissions();
     }

@@ -2,6 +2,7 @@ import {InversifyExpressServer} from 'inversify-express-utils';
 import supertest from 'supertest';
 import {ICreateConnection} from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
+import {IPermissionsResponse} from './types';
 
 describe('Start Permission Test', () =>
 {
@@ -53,7 +54,7 @@ describe('Start Permission Test', () =>
         test('Get Permissions', async(done) =>
         {
 
-            const response: any = await request
+            const response: IPermissionsResponse = await request
                 .get('/api/auth/permissions')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -65,7 +66,9 @@ describe('Start Permission Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(data[0]).toStrictEqual('authKeepAlive');
+            const keepAlive = data.some(({group, permissions}) => group === 'AUTH' && permissions.some((permission) => permission === 'authKeepAlive'));
+
+            expect(keepAlive).toStrictEqual(true);
 
             done();
         });
