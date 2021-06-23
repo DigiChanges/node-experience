@@ -1,4 +1,3 @@
-import * as express from 'express';
 import {IsString} from 'class-validator';
 
 import ChangeUserPasswordPayload from '../../../InterfaceAdapters/Payloads/ChangeUserPasswordPayload';
@@ -12,11 +11,11 @@ class ChangeUserPasswordRequest extends IdRequest implements ChangeUserPasswordP
     @IsString()
     newPasswordConfirmation: string;
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>, id: string)
     {
-        super(request);
-        this.newPassword = request.body.newPassword;
-        this.newPasswordConfirmation = request.body.newPasswordConfirmation;
+        super(id);
+        this.newPassword = data.newPassword;
+        this.newPasswordConfirmation = data.newPasswordConfirmation;
     }
 
     getNewPassword(): string

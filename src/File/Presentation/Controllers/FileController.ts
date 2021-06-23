@@ -7,7 +7,6 @@ import DownloadUseCase from '../../Domain/UseCases/DownloadUseCase';
 import GetPresignedGetObjectUseCase from '../../Domain/UseCases/GetPresignedGetObjectUseCase';
 import UploadMultipartUseCase from '../../Domain/UseCases/UploadMultipartUseCase';
 import ValidatorRequest from '../../../App/Presentation/Shared/Express/ValidatorRequest';
-import IdRequest from '../../../App/Presentation/Requests/Express/IdRequest';
 import UpdateFileMultipartUseCase from '../../Domain/UseCases/UpdateFileMultipartUseCase';
 import UpdateFileBase64UseCase from '../../Domain/UseCases/UpdateFileBase64UseCase';
 import GetFileMetadataUserCase from '../../Domain/UseCases/GetFileMetadataUseCase';
@@ -72,7 +71,7 @@ class FileController
         return await getPresignedGetObjectUseCase.handle(request);
     }
 
-    public async downloadStreamFile(request: IdRequest): Promise<IFileDTO>
+    public async downloadStreamFile(request: IdPayload): Promise<IFileDTO>
     {
         await ValidatorRequest.handle(request);
 

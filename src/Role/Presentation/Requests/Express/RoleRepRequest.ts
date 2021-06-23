@@ -1,4 +1,3 @@
-import * as express from 'express';
 import RoleRepPayload from '../../../InterfaceAdapters/Payloads/RoleRepPayload';
 import {IsArray, IsBoolean, IsOptional, IsString, Length} from 'class-validator';
 
@@ -22,12 +21,12 @@ class RoleRepRequest implements RoleRepPayload
     @IsBoolean()
     enable: boolean;
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>)
     {
-        this.name = request.body.name;
-        this.slug = request.body.slug;
-        this.permissions = request.body.permissions;
-        this.enable = request.body.enable ?? true;
+        this.name = data.name;
+        this.slug = data.slug;
+        this.permissions = data.permissions;
+        this.enable = data.enable ?? true;
     }
 
     getName(): string

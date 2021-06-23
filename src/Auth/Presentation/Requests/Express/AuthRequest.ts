@@ -1,4 +1,3 @@
-import * as express from 'express';
 import AuthPayload from '../../../InterfaceAdapters/Payloads/AuthPayload';
 import Config from 'config';
 import {IsString, IsEmail, Length} from 'class-validator';
@@ -12,10 +11,10 @@ class AuthRequest implements AuthPayload
     @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
     password: string;
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>)
     {
-        this.email = request.body.email;
-        this.password = request.body.password;
+        this.email = data.email;
+        this.password = data.password;
     }
 
     getEmail(): string

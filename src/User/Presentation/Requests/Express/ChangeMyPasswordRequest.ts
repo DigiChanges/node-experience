@@ -18,14 +18,14 @@ class ChangeMyPasswordRequest implements ChangeMyPasswordPayload
     newPasswordConfirmation: string;
 
     @IsUUID('4')
-    userId: boolean;
+    userId: string;
 
-    constructor(request: any)
+    constructor(data: Record<string, any>, userId: string)
     {
-        this.currentPassword = request.body.currentPassword;
-        this.newPassword = request.body.newPassword;
-        this.newPasswordConfirmation = request.body.newPasswordConfirmation;
-        this.userId = request.tokenDecode.userId;
+        this.currentPassword = data.currentPassword;
+        this.newPassword = data.newPassword;
+        this.newPasswordConfirmation = data.newPasswordConfirmation;
+        this.userId = userId;
     }
 
     getCurrentPassword(): string

@@ -1,4 +1,3 @@
-import * as express from 'express';
 import webPush from 'web-push';
 import NotificationSendMessagePayload from '../../InterfaceAdapters/Payloads/NotificationSendMessagePayload';
 import NotificationSubscriptionRequest from './NotificationCreateSuscriptionRequest';
@@ -11,11 +10,11 @@ class NotificationSendMessageRequest implements NotificationSendMessagePayload
     private readonly message: string;
     private readonly notificationSubscriptionRequest: NotificationRepPayload;
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>)
     {
-        this.notificationSubscriptionRequest = new NotificationSubscriptionRequest(request);
-        this.name = request.body.name;
-        this.message = request.body.message;
+        this.notificationSubscriptionRequest = new NotificationSubscriptionRequest(data);
+        this.name = data.name;
+        this.message = data.message;
     }
 
     getName(): string

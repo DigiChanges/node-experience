@@ -34,7 +34,7 @@ class AuthHandler
     @httpPost('/login')
     public async login(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const _request = new AuthRequest(req);
+        const _request = new AuthRequest(req.body);
 
         const payload = await this.controller.login(_request);
 
@@ -42,9 +42,9 @@ class AuthHandler
     }
 
     @httpPost('/keepAlive', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE))
-    public async keepAlive(@request() req: Request, @response() res: Response)
+    public async keepAlive(@request() req: any, @response() res: Response)
     {
-        const _request = new KeepAliveRequest(req);
+        const _request = new KeepAliveRequest(req.tokenDecode);
 
         const payload = await this.controller.keepAlive(_request);
 
@@ -54,7 +54,7 @@ class AuthHandler
     @httpPost('/forgotPassword')
     public async forgotPassword(@request() req: Request, @response() res: Response)
     {
-        const _request = new ForgotPasswordRequest(req);
+        const _request = new ForgotPasswordRequest(req.body);
 
         const payload = await this.controller.forgotPassword(_request);
 
@@ -64,7 +64,7 @@ class AuthHandler
     @httpPost('/changeForgotPassword')
     public async changeForgotPassword(@request() req: Request, @response() res: Response)
     {
-        const _request = new ChangeForgotPasswordRequest(req);
+        const _request = new ChangeForgotPasswordRequest(req.body);
 
         const payload = await this.controller.changeForgotPassword(_request);
 

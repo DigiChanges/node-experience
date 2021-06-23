@@ -1,4 +1,3 @@
-import * as express from 'express';
 import Config from 'config';
 
 import UserRepPayload from '../../../InterfaceAdapters/Payloads/UserRepPayload';
@@ -66,23 +65,22 @@ class UserRepRequest implements UserRepPayload
     })
     permissions: string[];
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>)
     {
-        this.firstName = request.body.firstName;
-        this.lastName = request.body.lastName;
-        this.email = request.body.email;
-        this.password = request.body.password;
-        this.passwordConfirmation = request.body.passwordConfirmation;
-        this.birthday = request.body.birthday;
-        this.documentType = request.body.documentType;
-        this.documentNumber = request.body.documentNumber;
-        this.gender = request.body.gender;
-        this.phone = request.body.phone;
-        this.country = request.body.country;
-        this.address = request.body.address;
-        this.permissions = request.body.permissions;
-        this.passwordConfirmation = request.body.passwordConfirmation;
-        this.enable = request.body.enable ?? true;
+        this.firstName = data.firstName;
+        this.lastName = data.lastName;
+        this.email = data.email;
+        this.password = data.password;
+        this.passwordConfirmation = data.passwordConfirmation;
+        this.birthday = data.birthday;
+        this.documentType = data.documentType;
+        this.documentNumber = data.documentNumber;
+        this.gender = data.gender;
+        this.phone = data.phone;
+        this.country = data.country;
+        this.address = data.address;
+        this.permissions = data.permissions;
+        this.enable = data.enable ?? true;
     }
 
     getFirstName(): string

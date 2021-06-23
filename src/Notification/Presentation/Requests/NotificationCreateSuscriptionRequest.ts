@@ -1,4 +1,3 @@
-import * as express from 'express';
 import webPush from 'web-push';
 import NotificationRepPayload from '../../InterfaceAdapters/Payloads/NotificationRepPayload';
 
@@ -6,9 +5,9 @@ class NotificationSubscriptionRequest implements NotificationRepPayload
 {
     private readonly subscription: webPush.PushSubscription;
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>)
     {
-        this.subscription = request.body.subscription;
+        this.subscription = data.subscription;
     }
 
     getSubscription(): webPush.PushSubscription

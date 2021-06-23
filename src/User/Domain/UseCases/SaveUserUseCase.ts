@@ -22,9 +22,12 @@ class SaveUserUseCase
     private authService: IAuthService;
     private encryption: IEncryption;
 
+    private eventHandler: EventHandler;
+
     constructor()
     {
         this.encryption = EncryptionFactory.create();
+        this.eventHandler = EventHandler.getInstance();
     }
 
     async handle(payload: UserRepPayload): Promise<IUserDomain>
@@ -54,9 +57,7 @@ class SaveUserUseCase
 
         user = await this.repository.save(user);
 
-        const eventHandler = EventHandler.getInstance();
-
-        await eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, {email: user.email});
+        await this.eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, {email: user.email});
 
         return user;
     }

@@ -24,7 +24,7 @@ class NotificationHandler
     @httpPost('/subscription')
     public async uploadTestNotificationBase64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new NotificationSubscriptionRequest(req);
+        const _request = new NotificationSubscriptionRequest(req.body);
 
         const notification = this.controller.uploadTestNotificationBase64(_request);
 
@@ -34,7 +34,7 @@ class NotificationHandler
     @httpPost('/message')
     public async sendPushNotification(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new NotificationSendMessageRequest(req);
+        const _request = new NotificationSendMessageRequest(req.body);
 
         const notification = this.controller.sendPushNotification(_request);
 

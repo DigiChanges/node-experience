@@ -1,4 +1,3 @@
-import * as express from 'express';
 import ListObjectsPayload from '../../../InterfaceAdapters/Payloads/ListObjectsPayload';
 import {IsBoolean, IsOptional} from 'class-validator';
 
@@ -12,10 +11,10 @@ class ListObjectsRequest implements ListObjectsPayload
     @IsBoolean()
     prefix: string;
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>)
     {
-        this.recursive = request.query.recursive ? String(request.query.recursive) : undefined;
-        this.prefix = request.query?.prefix ? String(request.query.prefix) : undefined;
+        this.recursive = data.recursive ? String(data.recursive) : undefined;
+        this.prefix = data.prefix ? String(data.prefix) : undefined;
     }
 
     getRecursive(): boolean

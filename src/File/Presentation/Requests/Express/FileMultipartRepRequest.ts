@@ -1,15 +1,15 @@
-import * as express from 'express';
 import FileMultipartRepPayload from '../../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
 import {IsDefined} from 'class-validator';
 
+// TODO: Refactor express multer file dependency
 class FileMultipartRepRequest implements FileMultipartRepPayload
 {
     @IsDefined()
     file: Express.Multer.File;
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>)
     {
-        this.file = request.file;
+        this.file = data.file;
     }
 
     getName(): string

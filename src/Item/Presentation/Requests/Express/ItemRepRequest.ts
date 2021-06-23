@@ -1,4 +1,3 @@
-import * as express from 'express';
 import ItemRepPayload from '../../../InterfaceAdapters/Payloads/ItemRepPayload';
 import {IsInt, IsString} from 'class-validator';
 
@@ -10,10 +9,10 @@ class ItemRepRequest implements ItemRepPayload
     @IsInt()
     type: number;
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>)
     {
-        this.name = request.body.name;
-        this.type = request.body.type;
+        this.name = data.name;
+        this.type = data.type;
     }
 
     getName(): string

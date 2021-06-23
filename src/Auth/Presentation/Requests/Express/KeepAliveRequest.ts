@@ -10,10 +10,10 @@ class KeepAliveRequest implements KeepAlivePayload
     @IsUUID('4')
     id: string;
 
-    constructor(request: any)
+    constructor(data: Record<string, any>)
     {
-        this.email = request.tokenDecode.email;
-        this.id = request.tokenDecode.id;
+        this.email = data.email;
+        this.id = data.id;
     }
 
     getEmail(): string

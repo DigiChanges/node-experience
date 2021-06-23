@@ -57,22 +57,22 @@ class UserUpdateRequest extends IdRequest implements UserUpdatePayload
     })
     permissions: string[]
 
-    constructor(request: any)
+    constructor(data: Record<string, any>, id: string, userId: string)
     {
-        super(request);
-        this.firstName = request.body.firstName;
-        this.lastName = request.body.lastName;
-        this.email = request.body.email;
-        this.birthday = request.body.birthday;
-        this.documentType = request.body.documentType;
-        this.documentNumber = request.body.documentNumber;
-        this.gender = request.body.gender;
-        this.phone = request.body.phone;
-        this.country = request.body.country;
-        this.address = request.body.address;
-        this.enable = request.body.enable;
-        this.permissions = request.body.permissions;
-        this.userId = request.tokenDecode.userId;
+        super(id);
+        this.firstName = data.firstName;
+        this.lastName = data.lastName;
+        this.email = data.email;
+        this.birthday = data.birthday;
+        this.documentType = data.documentType;
+        this.documentNumber = data.documentNumber;
+        this.gender = data.gender;
+        this.phone = data.phone;
+        this.country = data.country;
+        this.address = data.address;
+        this.enable = data.enable;
+        this.permissions = data.permissions;
+        this.userId = userId;
     }
 
     getFirstName(): string

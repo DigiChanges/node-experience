@@ -37,7 +37,7 @@ class UserHandler
     @httpPost('/', AuthorizeMiddleware(Permissions.USERS_SAVE))
     public async save(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const _request = new UserRepRequest(req);
+        const _request = new UserRepRequest(req.body);
 
         const user: IUserDomain = await this.controller.save(_request);
 
@@ -57,7 +57,7 @@ class UserHandler
     @httpGet('/:id', AuthorizeMiddleware(Permissions.USERS_SHOW))
     public async getOne(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const _request = new IdRequest(req);
+        const _request = new IdRequest(req.params.id);
 
         const user: IUserDomain = await this.controller.getOne(_request);
 
@@ -65,9 +65,9 @@ class UserHandler
     }
 
     @httpPut('/:id', AuthorizeMiddleware(Permissions.USERS_UPDATE))
-    public async update(@request() req: Request, @response() res: Response): Promise<void>
+    public async update(@request() req: any, @response() res: Response): Promise<void>
     {
-        const _request = new UserUpdateRequest(req);
+        const _request = new UserUpdateRequest(req.body, req.params.id, req.tokenDecode.userId);
 
         const user: IUserDomain = await this.controller.update(_request);
 
@@ -77,7 +77,7 @@ class UserHandler
     @httpPut('/assignRole/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN_ROLE))
     public async assignRole(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const _request = new UserAssignRoleRequest(req);
+        const _request = new UserAssignRoleRequest(req.body, req.params.id);
 
         const _response: IUserDomain = await this.controller.assignRole(_request);
 
@@ -87,7 +87,7 @@ class UserHandler
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.USERS_DELETE))
     public async remove(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const _request = new IdRequest(req);
+        const _request = new IdRequest(req.params.id);
 
         const data = await this.controller.remove(_request);
 
@@ -95,9 +95,9 @@ class UserHandler
     }
 
     @httpPost('/changeMyPassword', AuthorizeMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD))
-    public async changeMyPassword(@request() req: Request, @response() res: Response): Promise<void>
+    public async changeMyPassword(@request() req: any, @response() res: Response): Promise<void>
     {
-        const _request = new ChangeMyPasswordRequest(req);
+        const _request = new ChangeMyPasswordRequest(req.body, req.tokenDecode.userId);
 
         const user: IUserDomain = await this.controller.changeMyPassword(_request);
 
@@ -107,7 +107,7 @@ class UserHandler
     @httpPut('/changeUserPassword/:id', AuthorizeMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD))
     public async changeUserPassword(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const _request = new ChangeUserPasswordRequest(req);
+        const _request = new ChangeUserPasswordRequest(req.body, req.params.id);
 
         const user: IUserDomain = await this.controller.changeUserPassword(_request);
 

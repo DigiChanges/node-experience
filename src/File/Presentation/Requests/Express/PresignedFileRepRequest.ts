@@ -1,4 +1,3 @@
-import * as express from 'express';
 import PresignedFileRepPayload from '../../../InterfaceAdapters/Payloads/PresignedFileRepPayload';
 import {IsOptional, IsString} from 'class-validator';
 
@@ -11,10 +10,10 @@ class PresignedFileRepRequest implements PresignedFileRepPayload
     @IsString()
     expiry: number;
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>)
     {
-        this.filename = request.body.filename;
-        this.expiry = request.body.expiry;
+        this.filename = data.filename;
+        this.expiry = data.expiry;
     }
 
     getName(): string

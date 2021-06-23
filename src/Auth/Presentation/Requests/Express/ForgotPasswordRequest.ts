@@ -1,5 +1,3 @@
-import * as express from 'express';
-
 import {IsEmail} from 'class-validator';
 import {IEncryption} from '@digichanges/shared-experience';
 
@@ -12,9 +10,9 @@ class ForgotPasswordRequest implements ForgotPasswordPayload
     @IsEmail()
     email: string;
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>)
     {
-        this.email = request.body.email;
+        this.email = data.email;
     }
 
     getEmail(): string

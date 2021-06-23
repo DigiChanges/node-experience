@@ -1,6 +1,5 @@
 import Config from 'config';
 import {IsString, Length} from 'class-validator';
-import * as express from 'express';
 import {IEncryption} from '@digichanges/shared-experience';
 
 import ChangeForgotPasswordPayload from '../../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
@@ -21,11 +20,11 @@ class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
     @IsString()
     confirmationToken: string;
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>)
     {
-        this.password = request.body.password;
-        this.passwordConfirmation = request.body.passwordConfirmation;
-        this.confirmationToken = request.body.confirmationToken;
+        this.password = data.password;
+        this.passwordConfirmation = data.passwordConfirmation;
+        this.confirmationToken = data.confirmationToken;
     }
 
     getConfirmationToken(): string

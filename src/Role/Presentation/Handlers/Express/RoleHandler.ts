@@ -31,7 +31,7 @@ class RoleHandler
     @httpPost('/', AuthorizeMiddleware(Permissions.ROLES_SAVE))
     public async save(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new RoleRepRequest(req);
+        const _request = new RoleRepRequest(req.body);
 
         const role: IRoleDomain = await this.controller.save(_request);
 
@@ -51,7 +51,7 @@ class RoleHandler
     @httpGet('/:id', AuthorizeMiddleware(Permissions.ROLES_SHOW))
     public async getOne(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest(req);
+        const _request = new IdRequest(req.params.id);
 
         const role: IRoleDomain = await this.controller.getOne(_request);
 
@@ -61,7 +61,7 @@ class RoleHandler
     @httpPut('/:id', AuthorizeMiddleware(Permissions.ROLES_UPDATE))
     public async update(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new RoleUpdateRequest(req);
+        const _request = new RoleUpdateRequest(req.body, req.params.id);
 
         const role: IRoleDomain = await this.controller.update(_request);
 
@@ -71,7 +71,7 @@ class RoleHandler
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.ROLES_DELETE))
     public async remove(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest(req);
+        const _request = new IdRequest(req.params.id);
 
         const data = await this.controller.remove(_request);
 

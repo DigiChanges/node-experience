@@ -36,7 +36,7 @@ class FileHandler
     @httpGet('/', AuthorizeMiddleware(Permissions.FILES_LIST))
     public async list(@request() req: Request, @response() res: Response)
     {
-        const _request = new FileRequestCriteria(req);
+        const _request = new FileRequestCriteria(req.body);
 
         const paginator: IPaginator = await this.controller.list(_request);
 
@@ -46,7 +46,7 @@ class FileHandler
     @httpGet('/objects', AuthorizeMiddleware(Permissions.FILES_LIST))
     public async listFilesystemObjects(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new ListObjectsRequest(req);
+        const _request = new ListObjectsRequest(req.query);
 
         const objects = await this.controller.listFilesystemObjects(_request);
 
@@ -56,7 +56,7 @@ class FileHandler
     @httpGet('/metadata/:id', AuthorizeMiddleware(Permissions.FILES_SHOW_METADATA))
     public async getFileMetadata(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest(req);
+        const _request = new IdRequest(req.params.id);
 
         const file = await this.controller.getFileMetadata(_request);
 
@@ -66,7 +66,7 @@ class FileHandler
     @httpPost('/base64', AuthorizeMiddleware(Permissions.FILES_UPLOAD))
     public async uploadBase64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new FileBase64RepRequest(req);
+        const _request = new FileBase64RepRequest(req.body);
 
         const file = await this.controller.uploadBase64(_request);
 
@@ -76,7 +76,7 @@ class FileHandler
     @httpPost('/', FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPLOAD))
     public async uploadMultipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new FileMultipartRepRequest(req);
+        const _request = new FileMultipartRepRequest(req.body);
 
         const file = await this.controller.uploadMultipart(_request);
 
@@ -86,7 +86,7 @@ class FileHandler
     @httpPost('/presignedGetObject', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))
     public async getPresignedGetObject(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new PresignedFileRepRequest(req);
+        const _request = new PresignedFileRepRequest(req.body);
 
         const presignedGetObject = await this.controller.getPresignedGetObject(_request);
 
@@ -96,7 +96,7 @@ class FileHandler
     @httpGet('/:id', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))
     public async downloadStreamFile(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest(req);
+        const _request = new IdRequest(req.params.id);
 
         const fileDto = await this.controller.downloadStreamFile(_request);
 
@@ -106,7 +106,7 @@ class FileHandler
     @httpPut('/base64/:id', AuthorizeMiddleware(Permissions.FILES_UPDATE))
     public async updateBase64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new FileUpdateBase64Request(req);
+        const _request = new FileUpdateBase64Request(req.body, req.params.id);
 
         const file = await this.controller.updateBase64(_request);
 
@@ -116,7 +116,7 @@ class FileHandler
     @httpPut('/:id', FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPDATE))
     public async updateMultipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new FileUpdateMultipartRequest(req);
+        const _request = new FileUpdateMultipartRequest(req.body, req.params.id);
 
         const file = await this.controller.updateMultipart(_request);
 

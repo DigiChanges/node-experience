@@ -1,4 +1,3 @@
-import * as express from 'express';
 import IdPayload from '../../../../Shared/InterfaceAdapters/IdPayload';
 import {IsUUID} from 'class-validator';
 
@@ -7,9 +6,9 @@ class IdRequest implements IdPayload
     @IsUUID('4')
     id: string;
 
-    constructor(request: express.Request)
+    constructor(id: string)
     {
-        this.id = request.params.id;
+        this.id = id;
     }
 
     getId(): string

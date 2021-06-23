@@ -1,4 +1,3 @@
-import * as express from 'express';
 import {IsArray, IsUUID} from 'class-validator';
 
 import UserAssignRolePayload from '../../../InterfaceAdapters/Payloads/UserAssignRolePayload';
@@ -12,10 +11,10 @@ class UserAssignRoleRequest extends IdRequest implements UserAssignRolePayload
     })
     rolesId: string[]
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>, id: string)
     {
-        super(request);
-        this.rolesId = request.body.rolesId;
+        super(id);
+        this.rolesId = data.rolesId;
     }
 
     getRolesId(): string[]

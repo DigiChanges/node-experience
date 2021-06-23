@@ -1,4 +1,3 @@
-import * as express from 'express';
 import ItemUpdatePayload from '../../../InterfaceAdapters/Payloads/ItemUpdatePayload';
 import {IsInt, IsString} from 'class-validator';
 import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
@@ -11,11 +10,11 @@ class ItemUpdateRequest extends IdRequest implements ItemUpdatePayload
     @IsInt()
     type: number;
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>, id: string)
     {
-        super(request);
-        this.name = request.body.name;
-        this.type = request.body.type;
+        super(id);
+        this.name = data.name;
+        this.type = data.type;
     }
 
     getName(): string

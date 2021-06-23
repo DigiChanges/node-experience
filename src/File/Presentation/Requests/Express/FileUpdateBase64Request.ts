@@ -1,4 +1,3 @@
-import * as express from 'express';
 import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 import FileUpdateBase64Payload from '../../../InterfaceAdapters/Payloads/FileUpdateBase64Payload';
 import {IsBase64, IsMimeType, IsString} from 'class-validator';
@@ -14,12 +13,12 @@ class FileUpdateBase64Request extends IdRequest implements FileUpdateBase64Paylo
     @IsBase64()
     base64: string;
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>, id: string)
     {
-        super(request);
-        this.filename = request.body.filename;
-        this.base64 = request.body.base64.split(';base64,').pop();
-        this.mimeType = request.body.base64.split(';base64').shift().split('data:').pop();
+        super(id);
+        this.filename = data.filename;
+        this.base64 = data.base64.split(';base64,').pop();
+        this.mimeType = data.base64.split(';base64').shift().split('data:').pop();
     }
 
     getName(): string

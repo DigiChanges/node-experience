@@ -1,4 +1,3 @@
-import * as express from 'express';
 import FileBase64RepPayload from '../../../InterfaceAdapters/Payloads/FileBase64RepPayload';
 import {IsBase64, IsMimeType, IsString} from 'class-validator';
 
@@ -13,11 +12,11 @@ class FileBase64RepRequest implements FileBase64RepPayload
     @IsBase64()
     base64: string;
 
-    constructor(request: express.Request)
+    constructor(data: Record<string, any>)
     {
-        this.filename = request.body.filename;
-        this.base64 = request.body.base64.split(';base64,').pop();
-        this.mimeType = request.body.base64.split(';base64').shift().split('data:').pop();
+        this.filename = data.filename;
+        this.base64 = data.base64.split(';base64,').pop();
+        this.mimeType = data.base64.split(';base64').shift().split('data:').pop();
     }
 
     getName(): string
