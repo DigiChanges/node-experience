@@ -29,9 +29,10 @@ const AuthenticationMiddleware = (req: any, res: any, next: any) =>
                         {
                             return (
                                 (
-                                    (_urlExtract === path[order] && order + 1 !== url.length)
-                                    || (_urlExtract === '**')
-                                    || (_urlExtract === '*' && url.length === order + 1)
+                                    (order + 1 === url.length && _urlExtract === '*')
+                                    || (_urlExtract === path[order])
+                                    || (order + 1 === url.length && path.length === url.length && _urlExtract === '**')
+                                    || (order + 1 < path.length && _urlExtract === '**')
                                 )
                             );
                         });

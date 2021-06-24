@@ -92,6 +92,15 @@ describe('White list routes Test', () =>
 
     describe('dynamic', () =>
     {
+
+        test('equal', async(done) =>
+        {
+            const response: any = await request.get('/test/countries/12345678');
+            expect(response.statusCode).toStrictEqual(200);
+
+            done();
+        });
+
         test('one', async(done) =>
         {
             const response: any = await request.get('/test/countries/12345678/states');
