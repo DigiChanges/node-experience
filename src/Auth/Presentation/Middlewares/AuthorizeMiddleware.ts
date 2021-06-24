@@ -33,13 +33,12 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
 
             const totalPermissions = authService.getPermissions(user);
 
-            totalPermissions.forEach((permission: string) =>
+            const existPermission = totalPermissions.some((permission) => permission === handlerPermission || permission === Permissions.ALL);
+
+            if (existPermission)
             {
-                if (permission === handlerPermission || permission === Permissions.ALL)
-                {
-                    isAllowed = true;
-                }
-            });
+                isAllowed = true;
+            }
 
             if (isAllowed)
             {
