@@ -131,6 +131,18 @@
     {
       "method": ["GET"],
       "url": "/test/countries/**"
+    },
+    {
+      "method": ["GET"],
+      "url": "/test/countries/**/states"
+    },
+    {
+      "method": ["GET"],
+      "url": "/test/countries/**/states/**/cities"
+    },
+    {
+      "method": ["GET"],
+      "url": "/test/countries/**/states/*"
     }
   ]
 }
