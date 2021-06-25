@@ -11,55 +11,61 @@ const AuthenticationMiddleware = (req: any, res: any, next: any) =>
         let existMethodAndUrl = false;
         const apiWhitelist: { method: string[], url: string, urlRegExp: RegExp}[] = Config.get('apiWhitelist');
 
-        apiWhitelist.forEach((conf) =>
+        const samePath = (_url: string, _path: string): boolean => (_url === _path);
+
+        const matchUrlRegExp = (_urlRegExp: RegExp, _path: string): boolean =>
+        {
+            if (_urlRegExp)
+            {
+                const regex = new RegExp(_urlRegExp);
+
+                return regex.test(_path);
+            }
+
+            return false;
+        };
+
+        const matchUrlPathWithParams = (_url: string, _path: string): boolean =>
+        {
+            if (_url.includes('**') || _url.includes('*'))
+            {
+                const isAllowed = (path: string[], url: string[]): boolean =>
+                {
+                    return url.every((_urlExtract, order): boolean =>
+                    {
+                        return (
+                            (
+                                (_urlExtract === path[order])
+                                || (order + 1 === url.length && _urlExtract === '*')
+                                || (order + 1 < url.length && _urlExtract === '**')
+                                || (order + 1 === url.length && path.length === url.length && _urlExtract === '**')
+                            )
+                        );
+                    });
+                };
+
+                return isAllowed(_path.split('/'), _url.split('/'));
+            }
+
+            return false;
+        };
+
+        for (const conf of apiWhitelist)
         {
             if (conf.method.includes(req.method) || conf.method.includes('*'))
             {
+                existMethodAndUrl = existMethodAndUrl || samePath(conf.url, req.path);
 
-                if (conf.url === req.path)
+                existMethodAndUrl = existMethodAndUrl || matchUrlRegExp(conf?.urlRegExp, req.path);
+
+                existMethodAndUrl = existMethodAndUrl || matchUrlPathWithParams(conf.url, req.path);
+
+                if (existMethodAndUrl)
                 {
-                    existMethodAndUrl = true;
-                    return;
-                }
-
-                if (conf?.urlRegExp !== undefined && conf.urlRegExp !== null)
-                {
-                    const regex = new RegExp(conf.urlRegExp);
-
-                    const isValid = regex.test(req.path);
-
-                    if (isValid)
-                    {
-                        existMethodAndUrl = true;
-                        return;
-                    }
-                }
-
-                if (conf.url.includes('**') || conf.url.includes('*'))
-                {
-                    const isAllowed = (path: string[], url: string[]): boolean =>
-                    {
-                        return url.every((_urlExtract, order): boolean =>
-                        {
-                            return (
-                                (
-                                    (_urlExtract === path[order])
-                                    || (order + 1 === url.length && _urlExtract === '*')
-                                    || (order + 1 < url.length && _urlExtract === '**')
-                                    || (order + 1 === url.length && path.length === url.length && _urlExtract === '**')
-                                )
-                            );
-                        });
-                    };
-
-                    if (isAllowed(req.path.split('/'), conf.url.split('/')))
-                    {
-                        existMethodAndUrl = true;
-                        return;
-                    }
+                    break;
                 }
             }
-        });
+        }
 
         if (existMethodAndUrl)
         {
