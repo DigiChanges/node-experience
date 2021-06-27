@@ -1,3 +1,4 @@
+import IGroupPermission from '../Auth/InterfaceAdapters/IGroupPermission';
 
 class Permissions
 {
@@ -39,37 +40,72 @@ class Permissions
     static readonly ROLES_LIST: string = 'rolesList';
     static readonly ROLES_DELETE: string = 'rolesDelete';
 
-    static permissions(): string[]
+    static groupPermissions(): IGroupPermission[]
     {
         return [
-            `${Permissions.AUTH_KEEP_ALIVE}`,
-            `${Permissions.AUTH_SYNC_PERMISSIONS}`,
-            `${Permissions.GET_PERMISSIONS}`,
-
-            `${Permissions.ITEMS_SAVE}`,
-            `${Permissions.ITEMS_UPDATE}`,
-            `${Permissions.ITEMS_SHOW}`,
-            `${Permissions.ITEMS_LIST}`,
-            `${Permissions.ITEMS_DELETE}`,
-
-            `${Permissions.USERS_SAVE}`,
-            `${Permissions.USERS_UPDATE}`,
-            `${Permissions.USERS_SHOW}`,
-            `${Permissions.USERS_LIST}`,
-            `${Permissions.USERS_DELETE}`,
-            `${Permissions.USERS_CHANGE_MY_PASSWORD}`,
-            `${Permissions.USERS_CHANGE_USER_PASSWORD}`,
-
-            `${Permissions.ROLES_SAVE}`,
-            `${Permissions.ROLES_UPDATE}`,
-            `${Permissions.ROLES_SHOW}`,
-            `${Permissions.ROLES_LIST}`,
-            `${Permissions.ROLES_DELETE}`,
-
-            `${Permissions.FILES_UPLOAD}`,
-            `${Permissions.FILES_UPDATE}`,
-            `${Permissions.FILES_DOWNLOAD}`
+            {
+                group: 'AUTH',
+                permissions: [
+                    Permissions.AUTH_KEEP_ALIVE,
+                    Permissions.AUTH_SYNC_PERMISSIONS,
+                    Permissions.GET_PERMISSIONS
+                ]
+            },
+            {
+                group: 'ITEMS',
+                permissions: [
+                    Permissions.ITEMS_SAVE,
+                    Permissions.ITEMS_UPDATE,
+                    Permissions.ITEMS_SHOW,
+                    Permissions.ITEMS_LIST,
+                    Permissions.ITEMS_DELETE
+                ]
+            },
+            {
+                group: 'USERS',
+                permissions: [
+                    Permissions.USERS_SAVE,
+                    Permissions.USERS_UPDATE,
+                    Permissions.USERS_SHOW,
+                    Permissions.USERS_LIST,
+                    Permissions.USERS_DELETE,
+                    Permissions.USERS_ASSIGN_ROLE,
+                    Permissions.USERS_CHANGE_MY_PASSWORD,
+                    Permissions.USERS_CHANGE_USER_PASSWORD
+                ]
+            },
+            {
+                group: 'FILES',
+                permissions: [
+                    Permissions.FILES_UPLOAD,
+                    Permissions.FILES_UPDATE,
+                    Permissions.FILES_DOWNLOAD,
+                    Permissions.FILES_LIST,
+                    Permissions.FILES_SHOW_METADATA
+                ]
+            },
+            {
+                group: 'ROLES',
+                permissions: [
+                    Permissions.ROLES_SAVE,
+                    Permissions.ROLES_UPDATE,
+                    Permissions.ROLES_SHOW,
+                    Permissions.ROLES_LIST,
+                    Permissions.ROLES_DELETE
+                ]
+            },
+            {
+                group: 'OTTERS',
+                permissions: [
+                    Permissions.ALL
+                ]
+            }
         ];
+    }
+
+    static permissions(): string[]
+    {
+        return Permissions.groupPermissions().reduce((accum, group) => accum.concat(group.permissions), []);
     }
 }
 

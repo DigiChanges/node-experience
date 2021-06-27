@@ -8,6 +8,7 @@ import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import ForbiddenHttpException from '../Exceptions/ForbiddenHttpException';
 import ContainerFactory from '../../../Shared/Decorators/ContainerFactory';
 import {REPOSITORIES} from '../../../repositories';
+import Permissions from '../../../Config/Permissions';
 
 const AuthorizeMiddleware = (...handlerPermissions: any) =>
 {
@@ -32,13 +33,12 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
 
             const totalPermissions = authService.getPermissions(user);
 
-            totalPermissions.forEach((permission: string) =>
+            const existPermission = totalPermissions.some((permission) => permission === handlerPermission || permission === Permissions.ALL);
+
+            if (existPermission)
             {
-                if (permission === handlerPermission)
-                {
-                    isAllowed = true;
-                }
-            });
+                isAllowed = true;
+            }
 
             if (isAllowed)
             {

@@ -6,10 +6,10 @@ import Config from 'config';
 import EncryptionFactory from '../../Shared/Factories/EncryptionFactory';
 import IAuthService from '../InterfaceAdapters/IAuthService';
 import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
-import IRoleDomain from '../../Role/InterfaceAdapters/IRoleDomain';
 import Permissions from '../../Config/Permissions';
 import WrongPermissionsException from '../Domain/Exceptions/WrongPermissionsException';
 import {IEncryption} from '@digichanges/shared-experience';
+import ITokenDecode from '../../Shared/InterfaceAdapters/ITokenDecode';
 
 @injectable()
 class AuthService implements IAuthService
@@ -21,7 +21,7 @@ class AuthService implements IAuthService
         this.encryption = EncryptionFactory.create();
     }
 
-    public decodeToken(token: string): any // TODO: Add type
+    public decodeToken(token: string): ITokenDecode
     {
         const TokenArray = token.split(' ');
 
@@ -33,18 +33,12 @@ class AuthService implements IAuthService
 
     public getPermissions(user: IUserDomain): string[]
     {
-        const permissions: string[] = user.permissions;
-        const roles: IRoleDomain[] = user.getRoles();
-
-        for (const role of roles)
+        const rolePermissions = user.getRoles().filter(role => role.enable).reduce((accum, role) =>
         {
-            if (role.permissions)
-            {
-                role.permissions.map((rolePermission: string) => permissions.push(rolePermission));
-            }
-        }
+            return [...accum, ...role.permissions];
+        }, []);
 
-        return [...new Set(permissions)];
+        return [...new Set([...user.permissions, ...rolePermissions])];
     }
 
     public validatePermissions(permissions: string[]): void

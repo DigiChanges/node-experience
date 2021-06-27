@@ -11,6 +11,7 @@ import AuthPayload from '../../InterfaceAdapters/Payloads/AuthPayload';
 import IToken from '../../InterfaceAdapters/IToken';
 import KeepAlivePayload from '../../InterfaceAdapters/Payloads/KeepAlivePayload';
 import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
+import IGroupPermission from '../../InterfaceAdapters/IGroupPermission';
 
 
 class AuthController
@@ -47,7 +48,7 @@ class AuthController
         return await changeForgotPasswordUseCase.handle(request);
     }
 
-    public permissions(): string[]
+    public permissions(): IGroupPermission[]
     {
         const permissionUseCase = new PermissionUseCase();
         return permissionUseCase.handle();

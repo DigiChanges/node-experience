@@ -1,11 +1,11 @@
 import Permissions from '../../../Config/Permissions';
-import _ from 'lodash';
+import IGroupPermission from '../../InterfaceAdapters/IGroupPermission';
 
 class PermissionUseCase
 {
-    handle(): string[]
+    handle(): IGroupPermission[]
     {
-        return _.flatMap(Permissions.permissions());
+        return Permissions.groupPermissions();
     }
 }
 

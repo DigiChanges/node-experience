@@ -1,4 +1,4 @@
-import QueryString from 'qs';
+import {ParsedQs} from 'qs';
 import {ICriteria} from '@digichanges/shared-experience';
 
 import UserSort from '../../Criterias/UserSort';
@@ -8,7 +8,7 @@ import RequestCriteria from '../../../../App/Presentation/Requests/RequestCriter
 
 class UserRequestCriteria extends RequestCriteria implements ICriteria
 {
-    constructor(query: QueryString.ParsedQs, url: string)
+    constructor(query: ParsedQs, url: string)
     {
         super(new UserSort(query), new UserFilter(query), new Pagination(query, url));
     }

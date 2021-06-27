@@ -8,6 +8,8 @@ import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
 import BaseSqlRepository from '../../../App/Infrastructure/Repositories/BaseSqlRepository';
 import Role from '../../Domain/Entities/Role';
 import RoleSchema from '../Schema/RoleTypeORM';
+import RoleOfSystemNotDeletedException from '../../Domain/Exceptions/RoleOfSystemNotDeletedException';
+import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 
 @injectable()
 class RoleSqlRepository extends BaseSqlRepository<IRoleDomain> implements IRoleRepository
@@ -37,6 +39,27 @@ class RoleSqlRepository extends BaseSqlRepository<IRoleDomain> implements IRoleR
         }
 
         return new Paginator(queryBuilder, criteria);
+    }
+
+    async delete(id: string): Promise<IRoleDomain>
+    {
+        const isOfSystem = !!(await this.exist({_id: id, ofSystem: true}, ['_id']));
+
+        if (isOfSystem)
+        {
+            throw new RoleOfSystemNotDeletedException();
+        }
+
+        const entity = await this.repository.findOne(id);
+
+        if (!entity)
+        {
+            throw new NotFoundException(Role.name);
+        }
+
+        await this.repository.delete(id);
+
+        return entity;
     }
 }
 

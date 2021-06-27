@@ -11,6 +11,8 @@ import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
 import Roles from '../../../Config/Roles';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
 import Role from '../../Domain/Entities/Role';
+import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
+import RoleOfSystemNotDeletedException from '../../Domain/Exceptions/RoleOfSystemNotDeletedException';
 
 @injectable()
 class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implements IRoleRepository
@@ -55,6 +57,25 @@ class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implem
         void queryBuilder.where(RoleFilter.SLUG).ne(Roles.SUPER_ADMIN.toLowerCase());
 
         return new MongoPaginator(queryBuilder, criteria);
+    }
+
+    async delete(id: string): Promise<IRoleDomain>
+    {
+        const isOfSystem = !!(await this.exist({_id: id, ofSystem: true}, ['_id']));
+
+        if (isOfSystem)
+        {
+            throw new RoleOfSystemNotDeletedException();
+        }
+
+        const entity = await this.repository.findByIdAndDelete({_id: id} as any);
+
+        if (!entity)
+        {
+            throw new NotFoundException(Role.name);
+        }
+
+        return entity;
     }
 }
 
