@@ -130,6 +130,10 @@
     },
     {
       "method": ["GET"],
+      "url": "/test/countries/**"
+    },
+    {
+      "method": ["GET"],
       "url": "/test/countries/**/states"
     },
     {

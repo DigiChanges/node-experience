@@ -17,7 +17,6 @@ class WhiteListHandler
     {
         this.responder.send({message: 'hello world'}, null, res, StatusCode.HTTP_OK);
     }
-
     @httpGet('/all/:id')
     public async testAllGet(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
@@ -38,6 +37,12 @@ class WhiteListHandler
 
     @httpDelete('/all/:id/delete')
     public async testAllDelete(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        this.responder.send({message: 'hello world'}, null, res, StatusCode.HTTP_OK);
+    }
+
+    @httpGet('/countries/:id')
+    public async testDynamicEqual(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         this.responder.send({message: 'hello world'}, null, res, StatusCode.HTTP_OK);
     }
