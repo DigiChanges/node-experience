@@ -16,6 +16,7 @@ import ItemUpdateRequest from '../../Requests/Express/ItemUpdateRequest';
 import IItemDomain from '../../../InterfaceAdapters/IItemDomain';
 
 import ItemController from '../../Controllers/ItemController';
+import ReqExpressDTO from '../../../../Shared/DTO/ReqExpressDTO';
 
 @controller('/api/items')
 class ItemHandler
@@ -32,7 +33,7 @@ class ItemHandler
     @httpPost('/', AuthorizeMiddleware(Permissions.ITEMS_SAVE))
     public async save(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new ItemRepRequest(req.body);
+        const _request = new ItemRepRequest(new ReqExpressDTO(req));
 
         const item: IItemDomain = await this.controller.save(_request);
 
@@ -42,7 +43,7 @@ class ItemHandler
     @httpGet('/', AuthorizeMiddleware(Permissions.ITEMS_LIST))
     public async list(@request() req: Request, @response() res: Response)
     {
-        const _request = new ItemRequestCriteria(req.query, req.url);
+        const _request = new ItemRequestCriteria(new ReqExpressDTO(req));
 
         const paginator: IPaginator = await this.controller.list(_request);
 
@@ -62,7 +63,7 @@ class ItemHandler
     @httpPut('/:id', AuthorizeMiddleware(Permissions.ITEMS_UPDATE))
     public async update(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new ItemUpdateRequest(req.body, req.params.id);
+        const _request = new ItemUpdateRequest(new ReqExpressDTO(req));
 
         const item: IItemDomain = await this.controller.update(_request);
 

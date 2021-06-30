@@ -1,5 +1,6 @@
 import ItemRepPayload from '../../../InterfaceAdapters/Payloads/ItemRepPayload';
 import {IsInt, IsString} from 'class-validator';
+import IReqDTO from '../../../../Shared/InterfaceAdapters/IReqDTO';
 
 class ItemRepRequest implements ItemRepPayload
 {
@@ -9,10 +10,10 @@ class ItemRepRequest implements ItemRepPayload
     @IsInt()
     type: number;
 
-    constructor(data: Record<string, any>)
+    constructor({body}: IReqDTO)
     {
-        this.name = data.name;
-        this.type = data.type;
+        this.name = body.name;
+        this.type = body.type;
     }
 
     getName(): string

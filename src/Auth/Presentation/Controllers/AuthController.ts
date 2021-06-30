@@ -13,7 +13,6 @@ import KeepAlivePayload from '../../InterfaceAdapters/Payloads/KeepAlivePayload'
 import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
 import IGroupPermission from '../../InterfaceAdapters/IGroupPermission';
 
-
 class AuthController
 {
     public async login(request: AuthPayload): Promise<IToken>

@@ -1,6 +1,6 @@
 import Config from 'config';
 import {IPagination} from '@digichanges/shared-experience';
-import QueryString from 'qs';
+import {ParsedQs} from 'qs';
 
 class Pagination implements IPagination
 {
@@ -11,7 +11,7 @@ class Pagination implements IPagination
     private readonly host: string;
     private readonly url: string;
 
-    constructor(query: QueryString.ParsedQs, url: string)
+    constructor(query: ParsedQs, url: string)
     {
         this.url = url;
         this.pagination = query.pagination;

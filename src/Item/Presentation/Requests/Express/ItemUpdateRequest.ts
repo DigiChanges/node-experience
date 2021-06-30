@@ -1,6 +1,7 @@
 import ItemUpdatePayload from '../../../InterfaceAdapters/Payloads/ItemUpdatePayload';
 import {IsInt, IsString} from 'class-validator';
 import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
+import IReqDTO from '../../../../Shared/InterfaceAdapters/IReqDTO';
 
 class ItemUpdateRequest extends IdRequest implements ItemUpdatePayload
 {
@@ -10,11 +11,11 @@ class ItemUpdateRequest extends IdRequest implements ItemUpdatePayload
     @IsInt()
     type: number;
 
-    constructor(data: Record<string, any>, id: string)
+    constructor({params: {id}, body}: IReqDTO)
     {
         super(id);
-        this.name = data.name;
-        this.type = data.type;
+        this.name = body.name;
+        this.type = body.type;
     }
 
     getName(): string
