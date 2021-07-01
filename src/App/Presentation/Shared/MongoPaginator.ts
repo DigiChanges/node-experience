@@ -20,9 +20,9 @@ class MongoPaginator implements IPaginator
     private from: number;
     private to: number;
 
-    private readonly metadata: {[key: string]: any};
+    private readonly metadata: Record<string, any>;
 
-    constructor(documentQuery: Query<any[], any>, criteria: ICriteria, metadata: {[key: string]: any} = null)
+    constructor(documentQuery: Query<any[], any>, criteria: ICriteria, metadata: Record<string, any> = {})
     {
         this.documentQuery = documentQuery;
         this.filter = criteria.getFilter();
@@ -201,7 +201,7 @@ class MongoPaginator implements IPaginator
         return this.pagination.getCurrentUrl();
     }
 
-    public getMetadata(): {[key: string]: any}
+    public getMetadata(): Record<string, any>
     {
         return this.metadata;
     }
