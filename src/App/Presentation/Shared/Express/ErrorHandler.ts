@@ -31,6 +31,6 @@ export class ErrorHandler
 
         loggerCli.debug(err.stack);
 
-        responder.error(formatError.getFormat(exception), req, res, exception.statusCode);
+        responder.error(formatError.getFormat(exception), req, res, exception.statusCode, exception.metadata);
     }
 }

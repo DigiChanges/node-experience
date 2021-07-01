@@ -90,13 +90,12 @@ class Responder
         });
     }
 
-    public error(data: any, request: Request | any, response: Response, status: any)
+    public error(data: any, request: Request | any, response: Response, status: any, metadata: Record<string, any>)
     {
-        let metadata;
-
         if (request)
         {
             metadata = {
+                ...metadata,
                 refreshToken: request.refreshToken
             };
         }

@@ -5,13 +5,15 @@ class ErrorHttpException extends Error
 {
     private _statusCode: IStatusCode;
     private _errors: ValidationError[];
+    private _metadata: Record<string, any>;
 
-    constructor(statusCode: IStatusCode, message: string, errors: ValidationError[])
+    constructor(statusCode: IStatusCode, message: string, errors: ValidationError[], metadata: Record<string, any> = {})
     {
         super();
         this._statusCode = statusCode;
         this._errors = errors;
         this.message = message;
+        this._metadata = metadata;
     }
 
     public get statusCode() : IStatusCode
@@ -32,6 +34,16 @@ class ErrorHttpException extends Error
     public set errors(err: ValidationError[])
     {
         this._errors = err;
+    }
+
+    public get metadata() : Record<string, any>
+    {
+        return this._metadata;
+    }
+
+    public set metadata(metadata: Record<string, any>)
+    {
+        this._metadata = metadata;
     }
 }
 
