@@ -20,9 +20,9 @@ class Paginator implements IPaginator
     private from: number;
     private to: number;
 
-    private readonly metadata: {[key: string]: any};
+    private readonly metadata: Record<string, any>;
 
-    constructor(queryBuilder: SelectQueryBuilder<any>, criteria: ICriteria, metadata: {[key: string]: any} = null)
+    constructor(queryBuilder: SelectQueryBuilder<any>, criteria: ICriteria, metadata: Record<string, any> = {})
     {
         this.queryBuilder = queryBuilder;
         this.filter = criteria.getFilter();
@@ -198,7 +198,7 @@ class Paginator implements IPaginator
         return this.pagination.getCurrentUrl();
     }
 
-    public getMetadata(): {[key: string]: any}
+    public getMetadata(): Record<string, any>
     {
         return this.metadata;
     }

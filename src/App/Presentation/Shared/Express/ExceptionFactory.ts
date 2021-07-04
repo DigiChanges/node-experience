@@ -33,9 +33,10 @@ class ExceptionFactory
 
     public getException(err: any): ErrorHttpException
     {
-        let exception = this.exceptionsMapper[err?.name || 'Error'];
+        let exception = this.exceptionsMapper[err?.name || 'Error'] as ErrorHttpException;
 
         const message = err?.message || exception?.message;
+        const metadata = err?.metadata || exception?.metadata;
 
         if (err instanceof Error && err.message === 'Token expired')
         {
@@ -60,6 +61,7 @@ class ExceptionFactory
         }
 
         exception.message = message;
+        exception.metadata = metadata;
 
         return exception;
     }
