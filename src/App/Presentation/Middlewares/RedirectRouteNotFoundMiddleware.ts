@@ -8,7 +8,7 @@ const RedirectRouteNotFoundMiddleware = (req: any, res: any, next: any) =>
     const responder = new Responder();
     const formatError = new FormatError();
 
-    responder.error(formatError.getFormat(new RouteNotFoundHttpException()), req, res, StatusCode.HTTP_NOT_FOUND);
+    responder.error(formatError.getFormat(new RouteNotFoundHttpException()), req, res, StatusCode.HTTP_NOT_FOUND, null);
 };
 
 export default RedirectRouteNotFoundMiddleware;
