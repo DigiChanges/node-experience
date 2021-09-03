@@ -43,12 +43,7 @@ class MongooseCreateConnection implements ICreateConnection
 
     async create(): Promise<any>
     {
-        connection = await mongoose.createConnection(this.uri, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex:true,
-            useFindAndModify:true
-        });
+        connection = mongoose.createConnection(this.uri);
 
         // Domain
         connection.model<IUserDocument>('User', UserSchema);
