@@ -35,12 +35,12 @@ class MongoPaginator implements IPaginator
 
     public async paginate(): Promise<any>
     {
-        this.total = await this.documentQuery.count().exec();
+        this.total = await ((this.documentQuery as any).clone()).count();
 
         this.addOrderBy();
         this.addPagination();
 
-        this._perPage = await this.documentQuery.count().exec();
+        this._perPage = await ((this.documentQuery as any).clone()).count();
         this.setPerPage(this._perPage);
         this.setCurrentPage();
         this.setLasPage();
