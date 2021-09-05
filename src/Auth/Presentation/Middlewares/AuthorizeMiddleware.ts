@@ -1,14 +1,12 @@
 import {NextFunction, Response} from 'express';
 import Config from 'config';
 
-import AuthService from '../../Services/AuthService';
 
-import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import ForbiddenHttpException from '../Exceptions/ForbiddenHttpException';
-import ContainerFactory from '../../../Shared/Decorators/ContainerFactory';
-import {REPOSITORIES} from '../../../repositories';
-import Permissions from '../../../Config/Permissions';
+import IAuthService from '../../InterfaceAdapters/IAuthService';
+import {SERVICES} from '../../../services';
+import ContainerFactory from '../../../Shared/Factories/ContainerFactory';
 
 const AuthorizeMiddleware = (...handlerPermissions: any) =>
 {
@@ -16,26 +14,15 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
     {
         try
         {
-            const authService = new AuthService();
+            const authService =  ContainerFactory.create<IAuthService>(SERVICES.IAuthService);
 
             const handlerPermission = handlerPermissions[0]; // TODO: Refactor for more permissions for handler
             let isAllowed: boolean = Config.get('auth.authorization') !== 'true';
-            const tokenDecode = req.tokenDecode;
+            const authUser = req.authUser as IUserDomain;
 
-            const userRepository: IUserRepository = ContainerFactory.create<IUserRepository>(REPOSITORIES.IUserRepository);
+            const authorize = await authService.authorize(authUser, handlerPermission);
 
-            const user: IUserDomain = await userRepository.getOneByEmail(tokenDecode.email);
-
-            if (user.isSuperAdmin)
-            {
-                isAllowed = true;
-            }
-
-            const totalPermissions = authService.getPermissions(user);
-
-            const existPermission = totalPermissions.some((permission) => permission === handlerPermission || permission === Permissions.ALL);
-
-            if (existPermission)
+            if (authorize)
             {
                 isAllowed = true;
             }
