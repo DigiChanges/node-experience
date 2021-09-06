@@ -30,11 +30,14 @@ import RoleSqlRepository from './Role/Infrastructure/Repositories/RoleSqlReposit
 import TokenRedisRepository from './Auth/Infrastructure/Repositories/TokenRedisRepository';
 import {ITokenRepository} from '@digichanges/shared-experience';
 import ITokenDomain from './Auth/InterfaceAdapters/ITokenDomain';
+import IFileService from './File/InterfaceAdapters/IFileService';
+import FileService from './File/Domain/Services/FileService';
 
 const container = new Container();
 
 /* IServices */
 container.bind<IAuthService>(SERVICES.IAuthService).to(AuthService);
+container.bind<IFileService>(SERVICES.IFileService).to(FileService);
 
 /* Libs */
 container.bind<Responder>(TYPES.Responder).to(Responder);

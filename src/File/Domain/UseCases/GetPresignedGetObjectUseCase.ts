@@ -3,12 +3,16 @@ import {REPOSITORIES} from '../../../repositories';
 import IFileRepository from '../../InterfaceAdapters/IFileRepository';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
-import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
+import {SERVICES} from '../../../services';
+import IFileService from '../../InterfaceAdapters/IFileService';
 
 class GetPresignedGetObjectUseCase
 {
     @containerFactory(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;
+
+    @containerFactory(SERVICES.IFileService)
+    private service: IFileService;
 
     async handle(payload: PresignedFileRepPayload): Promise<string>
     {
@@ -17,13 +21,7 @@ class GetPresignedGetObjectUseCase
 
         const file: IFileDomain = await this.repository.getOne(filename);
 
-        const metadata = {
-            'Content-Type': file.mimeType,
-            'Content-Length': file.size
-        };
-
-        const filesystem = FilesystemFactory.create();
-        return await filesystem.presignedGetObject(filename, expiry, metadata);
+        return await this.service.getFileUrl(file, expiry);
     }
 }
 
