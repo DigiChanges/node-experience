@@ -3,12 +3,11 @@ import {EntitySchema, FindOneOptions, getRepository, Repository} from 'typeorm';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IByOptions from '../../InterfaceAcapters/IByOptions';
 import IBaseRepository from '../../InterfaceAcapters/IBaseRepository';
-import IByConditions from '../../InterfaceAcapters/IByConditions';
 
 @injectable()
 abstract class BaseSqlRepository<T> implements IBaseRepository<T>
 {
-    private readonly entityName: string;
+    protected readonly entityName: string;
     protected repository: Repository<T>;
 
     protected constructor(@unmanaged() entityName: string, @unmanaged() schema: EntitySchema)
@@ -53,14 +52,11 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
         return entity;
     }
 
-    async getOneBy(condition: IByConditions, options: IByOptions = {initThrow: true}): Promise<T>
+    async getOneBy(condition: Record<string, any>, options: IByOptions = {initThrow: true}): Promise<T>
     {
         let {initThrow} = options;
 
-        if (typeof initThrow === undefined)
-        {
-            initThrow = true;
-        }
+        initThrow = initThrow ?? false;
 
         const entity = await this.repository.findOne(condition);
 
@@ -72,14 +68,11 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
         return entity;
     }
 
-    async getBy(condition: IByConditions, options: IByOptions = {initThrow: false}): Promise<T[]>
+    async getBy(condition: Record<string, any>, options: IByOptions = {initThrow: false}): Promise<T[]>
     {
         let {initThrow} = options;
 
-        if (typeof initThrow === undefined)
-        {
-            initThrow = false;
-        }
+        initThrow = initThrow ?? false;
 
         const entities = await this.repository.find(condition);
 
@@ -91,7 +84,7 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
         return entities;
     }
 
-    async exist(condition: IByConditions, select: string[], initThrow = false): Promise<any>
+    async exist(condition: Record<string, any> | Record<string, any>[], select: string[], initThrow = false): Promise<any>
     {
         const conditionMap: FindOneOptions = {
             select,
