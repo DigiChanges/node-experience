@@ -95,7 +95,7 @@ class Permissions
                 ]
             },
             {
-                group: 'OTTERS',
+                group: 'OTHERS',
                 permissions: [
                     Permissions.ALL
                 ]
