@@ -11,6 +11,7 @@ class ItemRequestCriteria extends RequestCriteria implements ICriteria
 {
     constructor(query: ParsedQs, url: string)
     {
+        // @ts-ignore
         super(new ItemSort(query), new ItemFilter(query), new Pagination(query, url));
     }
 }
