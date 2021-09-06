@@ -5,15 +5,15 @@ import IByOptions from '../../InterfaceAcapters/IByOptions';
 import IBaseRepository from '../../InterfaceAcapters/IBaseRepository';
 
 @injectable()
-abstract class BaseSqlRepository<T, D = any> implements IBaseRepository<T>
+abstract class BaseSqlRepository<T> implements IBaseRepository<T>
 {
     protected readonly entityName: string;
-    protected repository: Repository<T & D>;
+    protected repository: Repository<T>;
 
     protected constructor(@unmanaged() entityName: string, @unmanaged() schema: EntitySchema)
     {
         this.entityName = entityName;
-        this.repository = getRepository<T & D>(schema);
+        this.repository = getRepository<T>(schema);
     }
 
     async save(entity: T): Promise<T>
