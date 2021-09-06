@@ -1,5 +1,6 @@
 import {SelectQueryBuilder} from 'typeorm';
 import {ICriteria, IFilter, IPagination, IPaginator, ISort} from '@digichanges/shared-experience';
+import IPaginatorConfig from '../../../Shared/InterfaceAdapters/IPaginatorConfig';
 
 class Paginator implements IPaginator
 {
@@ -21,8 +22,9 @@ class Paginator implements IPaginator
     private to: number;
 
     private readonly metadata: Record<string, any>;
+    private readonly helper: (data: any) => Promise<any>;
 
-    constructor(queryBuilder: SelectQueryBuilder<any>, criteria: ICriteria, metadata: Record<string, any> = {})
+    constructor(queryBuilder: SelectQueryBuilder<any>, criteria: ICriteria, config: IPaginatorConfig = {metadata: {}, helper: null})
     {
         this.queryBuilder = queryBuilder;
         this.filter = criteria.getFilter();
@@ -30,7 +32,8 @@ class Paginator implements IPaginator
         this.pagination = criteria.getPagination();
         this.offset = this.pagination.getOffset();
         this.limit = this.pagination.getLimit();
-        this.metadata = metadata;
+        this.metadata = config?.metadata ?? {};
+        this.helper = config?.helper ?? null;
     }
 
     public async paginate(): Promise<any>
@@ -47,7 +50,14 @@ class Paginator implements IPaginator
         this.setFrom();
         this.setTo();
 
-        return await this.queryBuilder.getMany();
+        let data = await this.queryBuilder.getMany();
+
+        if (this.helper)
+        {
+            data = await this.helper(data);
+        }
+
+        return data;
     }
 
     private addOrderBy()
@@ -201,6 +211,16 @@ class Paginator implements IPaginator
     public getMetadata(): Record<string, any>
     {
         return this.metadata;
+    }
+
+    public getOffset(): number
+    {
+        return this.offset;
+    }
+
+    public getLimit(): number
+    {
+        return this.limit;
     }
 }
 

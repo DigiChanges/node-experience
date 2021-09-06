@@ -7,6 +7,8 @@ class PaginatorTransformer extends Transformer
     {
         return {
             total: paginator.getTotal(),
+            offset: paginator.getOffset(),
+            limit: paginator.getLimit(),
             perPage: paginator.getPerPage(),
             currentPage: paginator.getCurrentPage(),
             lastPage: paginator.getLasPage(),
