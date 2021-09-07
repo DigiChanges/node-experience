@@ -1,3 +1,5 @@
+import IItemDomain from '../../InterfaceAdapters/IItemDomain';
+
 import SaveItemUseCase from '../../Domain/UseCases/SaveItemUseCase';
 import ListItemsUseCase from '../../Domain/UseCases/ListItemsUseCase';
 import GetItemUseCase from '../../Domain/UseCases/GetItemUseCase';
@@ -9,11 +11,10 @@ import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import ItemUpdatePayload from '../../InterfaceAdapters/Payloads/ItemUpdatePayload';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
-import Item from '../../Domain/Entities/Item';
 
 class ItemController
 {
-    public async save(request: ItemRepPayload, authUser: IUserDomain): Promise<Item>
+    public async save(request: ItemRepPayload, authUser: IUserDomain): Promise<IItemDomain>
     {
         await ValidatorRequest.handle(request);
 
@@ -29,7 +30,7 @@ class ItemController
         return await listItemsUseCase.handle(request);
     }
 
-    public async getOne(request: IdPayload): Promise<Item>
+    public async getOne(request: IdPayload): Promise<IItemDomain>
     {
         await ValidatorRequest.handle(request);
 
@@ -37,7 +38,7 @@ class ItemController
         return await getItemUseCase.handle(request);
     }
 
-    public async update(request: ItemUpdatePayload, authUser: IUserDomain): Promise<Item>
+    public async update(request: ItemUpdatePayload, authUser: IUserDomain)
     {
         await ValidatorRequest.handle(request);
 
@@ -45,7 +46,7 @@ class ItemController
         return await updateItemUseCase.handle(request, authUser);
     }
 
-    public async remove(request: IdPayload): Promise<Item>
+    public async remove(request: IdPayload)
     {
         await ValidatorRequest.handle(request);
 

@@ -3,10 +3,9 @@ import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
 
 interface IItemDomain extends IBaseDomain
 {
-    getName(): string;
-    setName(name: string): void;
-    getType(): number;
-    setType(type: number): void;
+    name: string;
+    type: number;
+
     getCreatedBy(): IUserDomain;
     setCreatedBy(createdBy: IUserDomain): void;
     getLastModifiedBy(): IUserDomain;
