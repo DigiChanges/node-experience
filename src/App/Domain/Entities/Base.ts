@@ -1,9 +1,10 @@
 import IBaseDomain from '../../InterfaceAcapters/IBaseDomain';
 import {v4 as uuidv4} from 'uuid';
 
-class Base implements IBaseDomain
+abstract class Base implements IBaseDomain
 {
-    _id: string;
+    protected _id: string;
+
     createdAt: Date;
     updatedAt: Date;
 

@@ -5,10 +5,10 @@ import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 class ItemUpdateRequest extends IdRequest implements ItemUpdatePayload
 {
     @IsString()
-    name: string;
+    private readonly name: string;
 
     @IsInt()
-    type: number;
+    private readonly type: number;
 
     constructor(data: Record<string, any>, id: string)
     {

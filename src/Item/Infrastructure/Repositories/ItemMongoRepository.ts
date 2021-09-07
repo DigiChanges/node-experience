@@ -16,7 +16,7 @@ class ItemMongoRepository extends BaseMongoRepository<IItemDomain, IItem> implem
 {
     constructor()
     {
-        super(Item.name);
+        super(Item.name, ['createdBy', 'lastModifiedBy']);
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -30,6 +30,7 @@ class ItemMongoRepository extends BaseMongoRepository<IItemDomain, IItem> implem
 
             void queryBuilder.where(ItemFilter.TYPE).equals(type);
         }
+
         if (filter.has(ItemFilter.NAME))
         {
             const name: string = filter.get(ItemFilter.NAME);
@@ -37,6 +38,8 @@ class ItemMongoRepository extends BaseMongoRepository<IItemDomain, IItem> implem
 
             void queryBuilder.where(ItemFilter.NAME).regex(rsearch);
         }
+
+        void queryBuilder.populate(this.populate);
 
         return new MongoPaginator(queryBuilder, criteria);
     }
