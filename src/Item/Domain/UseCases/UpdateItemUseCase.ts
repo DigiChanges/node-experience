@@ -16,8 +16,8 @@ class UpdateItemUseCase
 
         const item = await this.repository.getOne(id);
 
-        item.name = payload.getName();
-        item.type = payload.getType();
+        item.setName(payload.getName());
+        item.setType(payload.getType());
         item.setLastModifiedBy(authUser);
 
         return await this.repository.update(item);

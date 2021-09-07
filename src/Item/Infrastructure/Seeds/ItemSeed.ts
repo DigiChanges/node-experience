@@ -38,8 +38,8 @@ class ItemSeed implements ISeed
 
             const item = new Item();
 
-            item.name = title;
-            item.type = type;
+            item.setName(title);
+            item.setType(type);
             item.setCreatedBy(user);
             item.setLastModifiedBy(user);
 

@@ -15,8 +15,8 @@ class SaveItemUseCase
     {
         const item = new Item();
 
-        item.name = payload.getName();
-        item.type = payload.getType();
+        item.setName(payload.getName());
+        item.setType(payload.getType());
         item.setCreatedBy(authUser);
         item.setLastModifiedBy(authUser);
 
