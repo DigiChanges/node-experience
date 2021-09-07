@@ -1,10 +1,11 @@
 import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
 import IBaseAttributes from '../../App/InterfaceAcapters/IBaseAttributes';
+import IItemDomain from './IItemDomain';
 
-interface IItemRelationships extends IBaseAttributes
+interface IItemSchema extends IBaseAttributes, IItemDomain
 {
     createdBy: IUserDomain;
     lastModifiedBy: IUserDomain;
 }
 
-export default IItemRelationships;
+export default IItemSchema;

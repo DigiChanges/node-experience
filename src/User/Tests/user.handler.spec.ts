@@ -3,7 +3,7 @@ import {ICreateConnection} from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 import {InversifyExpressServer} from 'inversify-express-utils';
 import {ILoginResponse} from '../../Shared/InterfaceAdapters/Tests/ILogin';
-import {IUserResponse, IListUsersResponse} from './types';
+import {IListUsersResponse, IUserResponse} from './types';
 import Config from 'config';
 
 describe('Start User Test', () =>
@@ -304,14 +304,14 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data, pagination}} = response;
+            const {body: {status, statusCode, pagination}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(data.length).toStrictEqual(5);
-            expect(pagination.total).toStrictEqual(6);
+            expect(pagination.offset).toStrictEqual(0);
+            expect(pagination.limit).toStrictEqual(5);
             expect(pagination.perPage).toStrictEqual(5);
             expect(pagination.currentPage).toStrictEqual(1);
             expect(pagination.lastPage).toStrictEqual(2);
@@ -336,13 +336,12 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data, pagination}} = response;
+            const {body: {status, statusCode, pagination}} = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(data.length).toStrictEqual(6);
             expect(pagination).not.toBeDefined();
 
             done();

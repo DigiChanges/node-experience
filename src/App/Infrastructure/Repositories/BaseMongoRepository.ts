@@ -16,7 +16,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
     protected constructor(@unmanaged() entityName: string, @unmanaged() populate: string | string[] = null)
     {
         this.entityName = entityName;
-        this.repository = connection.model<D>(entityName);
+        this.repository = connection.model<D & T>(entityName);
         this.populate = populate;
     }
 
@@ -39,7 +39,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
 
     async update(entity: T): Promise<T>
     {
-        return this.repository.findByIdAndUpdate({_id: entity.getId()}, entity as any).populate(this.populate);
+        return this.repository.findOneAndUpdate({_id: entity.getId()} as any, {$set: entity} as any, {new: true}).populate(this.populate);
     }
 
     async delete(id: string): Promise<T>

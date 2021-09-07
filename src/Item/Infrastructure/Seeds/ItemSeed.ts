@@ -56,7 +56,7 @@ class ItemSeed implements ISeed
         user.email = 'testitem@node.com';
         user.birthday = '05/07/1992';
         user.documentType = 'dni';
-        user.documentNumber = '35319157';
+        user.documentNumber = '7898521';
         user.gender = 'male';
         user.phone = '2234456999';
         user.country = 'Argentina';

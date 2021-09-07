@@ -7,8 +7,8 @@ class Item extends Base implements IItemDomain
     name: string;
     type: number;
 
-    protected createdBy: IUserDomain;
-    protected lastModifiedBy: IUserDomain;
+    private createdBy: IUserDomain;
+    private lastModifiedBy: IUserDomain;
 
     getCreatedBy(): IUserDomain
     {
