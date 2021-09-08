@@ -13,11 +13,11 @@ import ItemRepRequest from '../../Requests/Express/ItemRepRequest';
 import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 import ItemRequestCriteria from '../../Requests/Express/ItemRequestCriteria';
 import ItemUpdateRequest from '../../Requests/Express/ItemUpdateRequest';
-import IItemDomain from '../../../InterfaceAdapters/IItemDomain';
 
 import ItemController from '../../Controllers/ItemController';
 import {AuthUser} from '../../../../Auth/Presentation/Helpers/AuthUser';
 import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
+import Item from '../../../Domain/Entities/Item';
 
 @controller('/api/items')
 class ItemHandler
@@ -36,7 +36,7 @@ class ItemHandler
     {
         const _request = new ItemRepRequest(req.body);
 
-        const item: IItemDomain = await this.controller.save(_request, AuthUser(req) as IUserDomain);
+        const item: Item = await this.controller.save(_request, AuthUser(req) as IUserDomain);
 
         this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
@@ -56,7 +56,7 @@ class ItemHandler
     {
         const _request = new IdRequest(req.params.id);
 
-        const item: IItemDomain = await this.controller.getOne(_request);
+        const item: Item = await this.controller.getOne(_request);
 
         this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
@@ -66,7 +66,7 @@ class ItemHandler
     {
         const _request = new ItemUpdateRequest(req.body, req.params.id);
 
-        const item: IItemDomain = await this.controller.update(_request, AuthUser(req) as IUserDomain);
+        const item: Item = await this.controller.update(_request, AuthUser(req) as IUserDomain);
 
         this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
@@ -76,7 +76,7 @@ class ItemHandler
     {
         const _request = new IdRequest(req.params.id);
 
-        const item: IItemDomain = await this.controller.remove(_request);
+        const item: Item = await this.controller.remove(_request);
 
         this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }

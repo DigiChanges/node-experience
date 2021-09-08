@@ -1,8 +1,8 @@
 import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
-import IBaseAttributes from '../../App/InterfaceAcapters/IBaseAttributes';
-import IItemDomain from './IItemDomain';
+import IId from '../../App/InterfaceAcapters/IId';
+import ITimestamps from '../../App/InterfaceAcapters/ITimestamps';
 
-interface IItemSchema extends IBaseAttributes, IItemDomain
+interface IItemSchema extends IId, ITimestamps
 {
     name: string;
     type: number;

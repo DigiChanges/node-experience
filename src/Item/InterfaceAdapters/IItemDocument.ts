@@ -1,6 +1,7 @@
 import {Document} from 'mongoose';
-import IItemDomain from './IItemDomain';
+import IItemSchema from './IItemSchema';
+import Item from '../Domain/Entities/Item';
 
-interface IItemDocument extends Document, IItemDomain {}
+interface IItemDocument extends Document<IItemSchema, never, Item> {}
 
 export default IItemDocument;

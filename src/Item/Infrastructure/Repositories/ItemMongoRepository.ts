@@ -6,13 +6,12 @@ import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
 import IItem from '../../InterfaceAdapters/IItemDocument';
-import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
 import Item from '../../Domain/Entities/Item';
 
 @injectable()
-class ItemMongoRepository extends BaseMongoRepository<IItemDomain, IItem> implements IItemRepository
+class ItemMongoRepository extends BaseMongoRepository<Item, IItem> implements IItemRepository
 {
     constructor()
     {

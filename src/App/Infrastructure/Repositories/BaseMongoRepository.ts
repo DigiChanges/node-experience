@@ -4,19 +4,18 @@ import {connection} from '../../../Shared/Database/MongooseCreateConnection';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IByOptions from '../../InterfaceAcapters/IByOptions';
 import IBaseRepository from '../../InterfaceAcapters/IBaseRepository';
-import IBaseDomain from '../../InterfaceAcapters/IBaseDomain';
 
 @injectable()
-abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T> implements IBaseRepository<T>
+abstract class BaseMongoRepository<T, D extends Document> implements IBaseRepository<T>
 {
     protected readonly entityName: string;
-    protected repository: Model<D>;
+    protected repository: Model<T>;
     protected populate: string | string[];
 
     protected constructor(@unmanaged() entityName: string, @unmanaged() populate: string | string[] = null)
     {
         this.entityName = entityName;
-        this.repository = connection.model<D & T>(entityName);
+        this.repository = connection.model<D, Model<T>>(entityName);
         this.populate = populate;
     }
 
@@ -39,7 +38,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
 
     async update(entity: T): Promise<T>
     {
-        return this.repository.findOneAndUpdate({_id: entity.getId()} as any, {$set: entity} as any, {new: true}).populate(this.populate);
+        return this.repository.findOneAndUpdate({_id: (entity as any)._id} as any, {$set: entity} as any, {new: true}).populate(this.populate);
     }
 
     async delete(id: string): Promise<T>

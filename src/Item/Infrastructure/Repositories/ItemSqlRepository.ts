@@ -6,12 +6,12 @@ import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 import Paginator from '../../../App/Presentation/Shared/Paginator';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import ItemSchema from '../Schema/ItemTypeORM';
-import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 
 import BaseSqlRepository from '../../../App/Infrastructure/Repositories/BaseSqlRepository';
+import IItemSchema from '../../InterfaceAdapters/IItemSchema';
 
 @injectable()
-class ItemSqlRepository extends BaseSqlRepository<IItemDomain> implements IItemRepository
+class ItemSqlRepository extends BaseSqlRepository<Item, IItemSchema> implements IItemRepository
 {
     constructor()
     {

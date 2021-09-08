@@ -1,52 +1,85 @@
-import IItemDomain from '../../InterfaceAdapters/IItemDomain';
-import Base from '../../../App/Domain/Entities/Base';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 
-class Item extends Base implements IItemDomain
+class Item
 {
+    private _id: string
     private name: string;
     private type: number;
     private createdBy: IUserDomain;
     private lastModifiedBy: IUserDomain;
 
-    getName(): string
+    private createdAt: Date;
+    private updatedAt: Date;
+
+    public get Id(): string | any
+    {
+        return this._id;
+    }
+
+    public set Id(value: string)
+    {
+        this._id = value;
+    }
+
+    public get Name(): string
     {
         return this.name;
     }
 
-    setName(name: string): void
+    public set Name(value: string)
     {
-        this.name = name;
+        this.name = value;
     }
 
-    getType(): number
+    public get Type(): number
     {
         return this.type;
     }
 
-    setType(type: number): void
+    public set Type(value: number)
     {
-        this.type = type;
+        this.type = value;
     }
 
-    getCreatedBy(): IUserDomain
+    public get CreatedBy(): IUserDomain
     {
         return this.createdBy;
     }
 
-    setCreatedBy(createdBy: IUserDomain): void
+    public set CreatedBy(value: IUserDomain)
     {
-        this.createdBy = createdBy;
+        this.createdBy = value;
+        this.lastModifiedBy = value;
     }
 
-    getLastModifiedBy(): IUserDomain
+    public get LastModifiedBy(): IUserDomain
     {
         return this.lastModifiedBy;
     }
 
-    setLastModifiedBy(lastModifiedBy: IUserDomain): void
+    public set LastModifiedBy(value: IUserDomain)
     {
-        this.lastModifiedBy = lastModifiedBy;
+        this.lastModifiedBy = value;
+    }
+
+    public get CreatedAt(): Date
+    {
+        return this.createdAt;
+    }
+
+    public set CreatedAt(value: Date)
+    {
+        this.createdAt = value;
+    }
+
+    public get UpdatedAt(): Date
+    {
+        return this.updatedAt;
+    }
+
+    public set UpdatedAt(value: Date)
+    {
+        this.updatedAt = value;
     }
 }
 

@@ -38,10 +38,10 @@ class ItemSeed implements ISeed
 
             const item = new Item();
 
-            item.setName(title);
-            item.setType(type);
-            item.setCreatedBy(user);
-            item.setLastModifiedBy(user);
+            item.Name = title;
+            item.Type = type;
+            item.CreatedBy = user;
+            item.LastModifiedBy = user;
 
             await this.repository.save(item);
         }
