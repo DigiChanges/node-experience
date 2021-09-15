@@ -3,9 +3,11 @@ import Router from 'koa-router';
 import {StatusCode} from '@digichanges/shared-experience';
 import Responder from '../../../../App/Presentation/Shared/Koa/Responder';
 import ItemController from '../../Controllers/ItemController';
-import IItemDomain from '../../../InterfaceAdapters/IItemDomain';
 import ItemTransformer from '../../Transformers/ItemTransformer';
-import ItemRepRequest from '../../Requests/Koa/ItemRepRequest';
+import ItemRepRequest from '../../Requests/ItemRepRequest';
+import Item from '../../../Domain/Entities/Item';
+import { AuthUser } from '../../../../Auth/Presentation/Helpers/AuthUser';
+import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/items'
@@ -19,7 +21,7 @@ ItemHandler.post('/', async(ctx: Koa.Context) =>
 {
     const request = new ItemRepRequest(ctx.request.body);
 
-    const item: IItemDomain = await controller.save(request);
+    const item: Item = await controller.save(request, AuthUser(ctx.request.req) as IUserDomain);
 
     responder.send(item, ctx, StatusCode.HTTP_CREATED, new ItemTransformer());
 });

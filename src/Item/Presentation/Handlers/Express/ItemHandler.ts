@@ -9,7 +9,7 @@ import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Autho
 import Permissions from '../../../../Config/Permissions';
 
 import ItemTransformer from '../../Transformers/ItemTransformer';
-import ItemRepRequest from '../../Requests/Express/ItemRepRequest';
+import ItemRepRequest from '../../Requests/ItemRepRequest';
 import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 import ItemRequestCriteria from '../../Requests/Express/ItemRequestCriteria';
 import ItemUpdateRequest from '../../Requests/Express/ItemUpdateRequest';

@@ -1,4 +1,4 @@
-import ItemRepPayload from '../../../InterfaceAdapters/Payloads/ItemRepPayload';
+import ItemRepPayload from '../../InterfaceAdapters/Payloads/ItemRepPayload';
 import {IsInt, IsString} from 'class-validator';
 
 class ItemRepRequest implements ItemRepPayload
