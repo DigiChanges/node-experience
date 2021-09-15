@@ -1,6 +1,6 @@
 import UserRepPayload from '../../../InterfaceAdapters/Payloads/UserRepPayload';
 import IRoleDomain from '../../../../Role/InterfaceAdapters/IRoleDomain';
-import {IsArray, IsBoolean, IsString, Length} from 'class-validator';
+import {ArrayMinSize, IsArray, IsBoolean, IsString, Length} from 'class-validator';
 
 class UserCommandRepRequest implements UserRepPayload
 {
@@ -25,7 +25,7 @@ class UserCommandRepRequest implements UserRepPayload
     @IsString()
     documentNumber: string;
 
-    @Length(3, 20)
+    @Length(1, 20)
     @IsString()
     gender: string;
 
@@ -51,6 +51,7 @@ class UserCommandRepRequest implements UserRepPayload
     enable: boolean;
 
     @IsArray()
+    @ArrayMinSize(0)
     @IsString({
         each: true
     })
@@ -71,12 +72,15 @@ class UserCommandRepRequest implements UserRepPayload
         this.birthday = env.birthday;
         this.documentType = env.documentType;
         this.documentNumber = env.documentNumber;
+        this.password = env.password;
+        this.passwordConfirmation = env.password;
         this.gender = env.gender;
         this.phone = env.phone;
         this.country = env.country;
         this.address = env.address;
         this.enable = true;
         this.roles = role ? [role] : [];
+        this.permissions = [];
         this.isSuperAdmin = env.isSuperAdmin === 'true';
     }
 
@@ -162,7 +166,7 @@ class UserCommandRepRequest implements UserRepPayload
 
     getPermissions(): string[]
     {
-        return [];
+        return this.permissions;
     }
 
     getIsSuperAdmin(): boolean

@@ -23,6 +23,7 @@ AddUserRoleCommand
     .option('-ph, --phone <phone>', 'Phone of the user')
     .option('-c, --country <country>', 'Country of the user')
     .option('-a, --address <address>', 'Address of the user')
+    .option('-bir, --birthday <birthday>', 'Birthday of the user')
     .option('-isa, --isSuperAdmin <isSuperAdmin>', 'Set if User is Super Admin')
     .action(async(env: any) =>
     {
