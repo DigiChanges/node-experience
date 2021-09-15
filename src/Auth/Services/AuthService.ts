@@ -70,7 +70,7 @@ class AuthService implements IAuthService
 
         let authorize = false;
 
-        if (authUser?.isSuperAdmin)
+        if ((authUser as IUserDomain)?.isSuperAdmin)
         {
             return true;
         }

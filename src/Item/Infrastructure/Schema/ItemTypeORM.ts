@@ -1,7 +1,8 @@
 import {EntitySchema} from 'typeorm';
 import Item from '../../Domain/Entities/Item';
+import IItemSchema from '../../InterfaceAdapters/IItemSchema';
 
-const ItemSchema = new EntitySchema<Item>({
+const ItemSchema = new EntitySchema<IItemSchema>({
     name: 'Item',
     target: Item,
     tableName: 'items',
@@ -26,6 +27,20 @@ const ItemSchema = new EntitySchema<Item>({
             name: 'updatedAt',
             type: 'timestamp with time zone',
             updateDate: true
+        }
+    },
+    relations: {
+        createdBy: {
+            type: 'many-to-one',
+            target: 'User',
+            joinColumn: true,
+            eager: true
+        },
+        lastModifiedBy: {
+            type: 'many-to-one',
+            target: 'User',
+            joinColumn: true,
+            eager: true
         }
     }
 });

@@ -6,17 +6,16 @@ import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
 import IItem from '../../InterfaceAdapters/IItemDocument';
-import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
 import Item from '../../Domain/Entities/Item';
 
 @injectable()
-class ItemMongoRepository extends BaseMongoRepository<IItemDomain, IItem> implements IItemRepository
+class ItemMongoRepository extends BaseMongoRepository<Item, IItem> implements IItemRepository
 {
     constructor()
     {
-        super(Item.name);
+        super(Item.name, ['createdBy', 'lastModifiedBy']);
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -30,6 +29,7 @@ class ItemMongoRepository extends BaseMongoRepository<IItemDomain, IItem> implem
 
             void queryBuilder.where(ItemFilter.TYPE).equals(type);
         }
+
         if (filter.has(ItemFilter.NAME))
         {
             const name: string = filter.get(ItemFilter.NAME);
@@ -37,6 +37,8 @@ class ItemMongoRepository extends BaseMongoRepository<IItemDomain, IItem> implem
 
             void queryBuilder.where(ItemFilter.NAME).regex(rsearch);
         }
+
+        void queryBuilder.populate(this.populate);
 
         return new MongoPaginator(queryBuilder, criteria);
     }

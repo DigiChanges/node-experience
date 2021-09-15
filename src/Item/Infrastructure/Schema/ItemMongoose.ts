@@ -1,11 +1,14 @@
 import {Schema} from 'mongoose';
 import Item from '../../Domain/Entities/Item';
 import {v4 as uuidv4} from 'uuid';
+import IItemSchema from '../../InterfaceAdapters/IItemSchema';
 
-const ItemSchema: any = new Schema({
+const ItemSchema: any = new Schema<IItemSchema>({
     _id: {type: String, default: uuidv4},
     name: {type:String, required: true},
-    type: {type:Number, required: true}
+    type: {type:Number, required: true},
+    createdBy: {type: Schema.Types.String, ref: 'User'},
+    lastModifiedBy: {type: Schema.Types.String, ref: 'User'}
 }, {timestamps: true});
 
 ItemSchema.loadClass(Item);

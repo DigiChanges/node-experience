@@ -1,24 +1,25 @@
 import ItemRepPayload from '../../InterfaceAdapters/Payloads/ItemRepPayload';
-import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 import Item from '../Entities/Item';
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import {REPOSITORIES} from '../../../repositories';
 import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 
 class SaveItemUseCase
 {
     @containerFactory(REPOSITORIES.IItemRepository)
     private repository: IItemRepository;
 
-    async handle(payload: ItemRepPayload): Promise<IItemDomain>
+    async handle(payload: ItemRepPayload, authUser: IUserDomain): Promise<Item>
     {
-        let item: IItemDomain = new Item();
-        item.name = payload.getName();
-        item.type = payload.getType();
+        const item = new Item();
 
-        item = await this.repository.save(item);
+        item.Name = payload.getName();
+        item.Type = payload.getType();
+        item.CreatedBy = authUser;
+        item.LastModifiedBy = authUser;
 
-        return item;
+        return await this.repository.save(item);
     }
 }
 

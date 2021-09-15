@@ -1,4 +1,5 @@
 
 export enum SERVICES {
-    IAuthService = 'IAuthService'
+    IAuthService = 'IAuthService',
+    IFileService = 'IFileService'
 }

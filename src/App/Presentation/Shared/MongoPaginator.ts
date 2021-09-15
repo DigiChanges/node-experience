@@ -1,5 +1,6 @@
 import {Query} from 'mongoose';
 import {ICriteria, IFilter, IPagination, IPaginator, ISort} from '@digichanges/shared-experience';
+import IPaginatorConfig from '../../../Shared/InterfaceAdapters/IPaginatorConfig';
 
 class MongoPaginator implements IPaginator
 {
@@ -21,8 +22,9 @@ class MongoPaginator implements IPaginator
     private to: number;
 
     private readonly metadata: Record<string, any>;
+    private readonly helper: (data: any) => Promise<any>;
 
-    constructor(documentQuery: Query<any[], any>, criteria: ICriteria, metadata: Record<string, any> = {})
+    constructor(documentQuery: Query<any[], any>, criteria: ICriteria, config: IPaginatorConfig = {metadata: {}, helper: null})
     {
         this.documentQuery = documentQuery;
         this.filter = criteria.getFilter();
@@ -30,7 +32,8 @@ class MongoPaginator implements IPaginator
         this.pagination = criteria.getPagination();
         this.offset = this.pagination.getOffset();
         this.limit = this.pagination.getLimit();
-        this.metadata = metadata;
+        this.metadata = config?.metadata ?? {};
+        this.helper = config?.helper ?? null;
     }
 
     public async paginate(): Promise<any>
@@ -47,7 +50,14 @@ class MongoPaginator implements IPaginator
         this.setFrom();
         this.setTo();
 
-        return await this.documentQuery.find().exec();
+        let data = await this.documentQuery.find().exec();
+
+        if (this.helper)
+        {
+            data = await this.helper(data);
+        }
+
+        return data;
     }
 
     // TODO: See when multiple sorts
@@ -204,6 +214,16 @@ class MongoPaginator implements IPaginator
     public getMetadata(): Record<string, any>
     {
         return this.metadata;
+    }
+
+    public getOffset(): number
+    {
+        return this.offset;
+    }
+
+    public getLimit(): number
+    {
+        return this.limit;
     }
 }
 

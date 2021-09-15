@@ -62,7 +62,8 @@
     "local": {
       "type": "local"
     },
-    "default": "minio"
+    "default": "minio",
+    "expiry": 241920
   },
   "encryption": {
     "bcrypt": {

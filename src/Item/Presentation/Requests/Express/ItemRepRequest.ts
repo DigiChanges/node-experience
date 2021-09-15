@@ -4,10 +4,10 @@ import {IsInt, IsString} from 'class-validator';
 class ItemRepRequest implements ItemRepPayload
 {
     @IsString()
-    name: string;
+    private readonly name: string;
 
     @IsInt()
-    type: number;
+    private readonly type: number;
 
     constructor(data: Record<string, any>)
     {

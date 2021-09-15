@@ -1,6 +1,8 @@
 export interface IPaginatorTransformer
 {
     total: number;
+    offset: number;
+    limit: number;
     perPage: number;
     currentPage: number;
     lastPage: number;
