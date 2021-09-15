@@ -11,7 +11,6 @@ class RoleRequestCriteria extends RequestCriteria implements ICriteria
 {
     constructor(query: ParsedQs, url: string)
     {
-        // @ts-ignore
         super(new RoleSort(query), new RoleFilter(query), new Pagination(query, url));
     }
 }

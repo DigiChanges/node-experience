@@ -10,7 +10,6 @@ class UserRequestCriteria extends RequestCriteria implements ICriteria
 {
     constructor(query: ParsedQs, url: string)
     {
-        // @ts-ignore
         super(new UserSort(query), new UserFilter(query), new Pagination(query, url));
     }
 }

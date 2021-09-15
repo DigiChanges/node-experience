@@ -10,7 +10,6 @@ class FileRequestCriteria extends RequestCriteria implements ICriteria
 {
     constructor(query: ParsedQs, url: string)
     {
-        // @ts-ignore
         super(new FileSort(query), new FileFilter(query), new Pagination(query, url));
     }
 }
