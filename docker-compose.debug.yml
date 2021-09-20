@@ -4,15 +4,13 @@ services:
   node:
     container_name: experience_node_1
     restart: always
-    build:
-      context: ./
-      dockerfile: DebugerDockerfile
+    image: digichanges/nexp:1.0
     working_dir: /app
     entrypoint: bash debug.build.sh
     volumes:
       - .:/app:cached
     ports:
-      - 8089:8089
-      - 9229:9229
+      - "8089:8089"
+      - "9229:9229"
     networks:
       - experiencenet

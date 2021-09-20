@@ -8,7 +8,7 @@ COPY package.json /usr/app
 COPY ecosystem.config.js /usr/app
 
 RUN apt update && apt install jq original-awk -y
-RUN npm install pm2 -g && npm install --global yarn cross-env --force
+RUN npm install -g pm2
 RUN chown -R node:node /usr/app
 
 ENV NPM_CONFIG_LOGLEVEL warn

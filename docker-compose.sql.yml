@@ -4,11 +4,9 @@ services:
   db:
     container_name: experience_db_1
     restart: always
-    build:
-      context: docker/postgres/
-      dockerfile: Dockerfile
+    image: digichanges/nexp:1.0
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       - POSTGRES_USER=experience
       - POSTGRES_DB=experience

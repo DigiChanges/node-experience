@@ -4,15 +4,13 @@ services:
   node:
     container_name: experience_node_1
     restart: always
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    image: digichanges/nexp:1.0
     working_dir: /usr/app
     entrypoint: bash dev.build.sh
     volumes:
      - .:/usr/app:cached
     ports:
-      - 8089:8089
+      - "8089:8089"
     networks:
      - experiencenet
 
@@ -23,7 +21,7 @@ services:
       context: docker/mongo/
       dockerfile: Dockerfile
     ports:
-      - 27017:27017
+      - "27017:27017"
     networks:
      - experiencenet
     environment:
@@ -39,7 +37,7 @@ services:
     restart: always
     image: mailhog/mailhog:latest
     ports:
-      - 8025:8025
+      - "8025:8025"
     networks:
      - experiencenet
 
@@ -48,7 +46,7 @@ services:
     restart: always
     image: minio/minio
     ports:
-      - 9000:9000
+      - "9000:9000"
     networks:
      - experiencenet
     environment:
@@ -67,7 +65,7 @@ services:
       - REDIS_PASSWORD=ewsua132435 # Security reasons
       - DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG # Security reasons
     ports:
-      - 6379:6379
+      - "6379:6379"
     networks:
      - experiencenet
     volumes:
@@ -82,4 +80,4 @@ volumes:
     driver: "local"
   minio:
     driver: "local"
-             
+
