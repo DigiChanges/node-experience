@@ -18,7 +18,7 @@ class UpdateItemUseCase
 
         item.name = payload.getName();
         item.type = payload.getType();
-        item.setLastModifiedBy(authUser);
+        item.lastModifiedBy = authUser;
 
         return await this.repository.update(item);
     }

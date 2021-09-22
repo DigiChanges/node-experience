@@ -1,8 +1,7 @@
 import {EntitySchema} from 'typeorm';
 import Item from '../../Domain/Entities/Item';
-import IItemRelationships from '../../InterfaceAdapters/IItemRelationships';
 
-const ItemSchema = new EntitySchema<Item & IItemRelationships>({
+const ItemSchema = new EntitySchema<Item>({
     name: 'Item',
     target: Item,
     tableName: 'items',

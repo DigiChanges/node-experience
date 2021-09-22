@@ -3,7 +3,7 @@ import {v4 as uuidv4} from 'uuid';
 
 abstract class Base implements IBaseDomain
 {
-    protected _id: string;
+    _id: string;
 
     createdAt: Date;
     updatedAt: Date;

@@ -17,8 +17,8 @@ class SaveItemUseCase
 
         item.name = payload.getName();
         item.type = payload.getType();
-        item.setCreatedBy(authUser);
-        item.setLastModifiedBy(authUser);
+        item.createdBy = authUser;
+        item.lastModifiedBy = authUser;
 
         return await this.repository.save(item);
     }
