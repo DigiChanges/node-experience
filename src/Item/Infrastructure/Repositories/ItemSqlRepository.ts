@@ -8,10 +8,9 @@ import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import ItemSchema from '../Schema/ItemTypeORM';
 
 import BaseSqlRepository from '../../../App/Infrastructure/Repositories/BaseSqlRepository';
-import IItemSchema from '../../InterfaceAdapters/IItemSchema';
 
 @injectable()
-class ItemSqlRepository extends BaseSqlRepository<Item, IItemSchema> implements IItemRepository
+class ItemSqlRepository extends BaseSqlRepository<Item> implements IItemRepository
 {
     constructor()
     {

@@ -1,8 +1,8 @@
 import IBaseRepository from '../../App/InterfaceAcapters/IBaseRepository';
 import {ICriteria, IPaginator} from '@digichanges/shared-experience';
-import Item from '../Domain/Entities/Item';
+import IItemDomain from './IItemDomain';
 
-interface IItemRepository extends IBaseRepository<Item>
+interface IItemRepository extends IBaseRepository<IItemDomain>
 {
     list(criteria: ICriteria): Promise<IPaginator>
 }

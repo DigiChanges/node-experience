@@ -38,10 +38,10 @@ class ItemSeed implements ISeed
 
             const item = new Item();
 
-            item.Name = title;
-            item.Type = type;
-            item.CreatedBy = user;
-            item.LastModifiedBy = user;
+            item.name = title;
+            item.type = type;
+            item.createdBy = user;
+            item.lastModifiedBy = user;
 
             await this.repository.save(item);
         }
@@ -56,7 +56,7 @@ class ItemSeed implements ISeed
         user.email = 'testitem@node.com';
         user.birthday = '05/07/1992';
         user.documentType = 'dni';
-        user.documentNumber = '7898521';
+        user.documentNumber = '3531915736';
         user.gender = 'male';
         user.phone = '2234456999';
         user.country = 'Argentina';

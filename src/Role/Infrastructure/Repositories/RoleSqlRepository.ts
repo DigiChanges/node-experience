@@ -12,7 +12,7 @@ import RoleOfSystemNotDeletedException from '../../Domain/Exceptions/RoleOfSyste
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 
 @injectable()
-class RoleSqlRepository extends BaseSqlRepository<IRoleDomain, Role> implements IRoleRepository
+class RoleSqlRepository extends BaseSqlRepository<IRoleDomain> implements IRoleRepository
 {
     constructor()
     {

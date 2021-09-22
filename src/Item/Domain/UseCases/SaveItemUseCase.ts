@@ -1,4 +1,5 @@
 import ItemRepPayload from '../../InterfaceAdapters/Payloads/ItemRepPayload';
+import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 import Item from '../Entities/Item';
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import {REPOSITORIES} from '../../../repositories';
@@ -10,14 +11,14 @@ class SaveItemUseCase
     @containerFactory(REPOSITORIES.IItemRepository)
     private repository: IItemRepository;
 
-    async handle(payload: ItemRepPayload, authUser: IUserDomain): Promise<Item>
+    async handle(payload: ItemRepPayload, authUser: IUserDomain): Promise<IItemDomain>
     {
         const item = new Item();
 
-        item.Name = payload.getName();
-        item.Type = payload.getType();
-        item.CreatedBy = authUser;
-        item.LastModifiedBy = authUser;
+        item.name = payload.getName();
+        item.type = payload.getType();
+        item.createdBy = authUser;
+        item.lastModifiedBy = authUser;
 
         return await this.repository.save(item);
     }

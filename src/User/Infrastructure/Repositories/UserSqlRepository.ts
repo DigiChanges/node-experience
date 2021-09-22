@@ -12,7 +12,7 @@ import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import BaseSqlRepository from '../../../App/Infrastructure/Repositories/BaseSqlRepository';
 
 @injectable()
-class UserSqlRepository extends BaseSqlRepository<IUserDomain, User> implements IUserRepository
+class UserSqlRepository extends BaseSqlRepository<IUserDomain> implements IUserRepository
 {
     constructor()
     {

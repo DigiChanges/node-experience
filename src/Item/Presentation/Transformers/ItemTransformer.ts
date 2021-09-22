@@ -1,8 +1,9 @@
 import moment from 'moment';
 import {Transformer} from '@digichanges/shared-experience';
+
+import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 import IItemTransformer from '../../InterfaceAdapters/IItemTransformer';
 import UserMinimalDataTransformer from '../../../User/Presentation/Transformers/UserMinimalDataTransformer';
-import Item from '../../Domain/Entities/Item';
 
 class ItemTransformer extends Transformer
 {
@@ -14,16 +15,16 @@ class ItemTransformer extends Transformer
         this.userTransformer = new UserMinimalDataTransformer();
     }
 
-    public transform(item: Item): IItemTransformer
+    public transform(item: IItemDomain): IItemTransformer
     {
         return {
-            id: item.Id,
-            name: item.Name,
-            type: item.Type,
-            createdBy: this.userTransformer.handle(item.CreatedBy),
-            lastModifiedBy: this.userTransformer.handle(item.LastModifiedBy),
-            createdAt: moment(item.CreatedAt).utc().unix(),
-            updatedAt: moment(item.UpdatedAt).utc().unix()
+            id: item.getId(),
+            name: item.name,
+            type: item.type,
+            createdBy: this.userTransformer.handle(item.getCreatedBy()),
+            lastModifiedBy: this.userTransformer.handle(item.getCreatedBy()),
+            createdAt: moment(item.createdAt).utc().unix(),
+            updatedAt: moment(item.updatedAt).utc().unix()
         };
     }
 }
