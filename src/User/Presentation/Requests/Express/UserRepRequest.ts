@@ -3,7 +3,7 @@ import Config from 'config';
 import UserRepPayload from '../../../InterfaceAdapters/Payloads/UserRepPayload';
 import IRoleDomain from '../../../../Role/InterfaceAdapters/IRoleDomain';
 import {ArrayMinSize, IsArray, IsBoolean, IsEmail, IsString, Length} from 'class-validator';
-import {Match} from '../../../../Shared/Decorators/match';
+import {Match} from '../../../../Shared/Decorators/Match';
 
 class UserRepRequest implements UserRepPayload
 {

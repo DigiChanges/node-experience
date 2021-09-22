@@ -4,7 +4,7 @@ import {IEncryption} from '@digichanges/shared-experience';
 
 import ChangeForgotPasswordPayload from '../../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
 import EncryptionFactory from '../../../../Shared/Factories/EncryptionFactory';
-import {Match} from '../../../../Shared/Decorators/match';
+import {Match} from '../../../../Shared/Decorators/Match';
 
 class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
 {

@@ -7,12 +7,11 @@ import RoleFilter from '../../Presentation/Criterias/RoleFilter';
 import {Query} from 'mongoose';
 import IRole from '../../InterfaceAdapters/IRoleDocument';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
-
-import Roles from '../../../Config/Roles';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
 import Role from '../../Domain/Entities/Role';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import RoleOfSystemNotDeletedException from '../../Domain/Exceptions/RoleOfSystemNotDeletedException';
+import SuperAdminRole from '../../../App/Domain/Shared/SuperAdminRole';
 
 @injectable()
 class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implements IRoleRepository
@@ -54,7 +53,7 @@ class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implem
             void queryBuilder.where(RoleFilter.SLUG).regex(rsearch);
         }
 
-        void queryBuilder.where(RoleFilter.SLUG).ne(Roles.SUPER_ADMIN.toLowerCase());
+        void queryBuilder.where(RoleFilter.SLUG).ne(SuperAdminRole.I.NAME.toLowerCase());
 
         return new MongoPaginator(queryBuilder, criteria);
     }

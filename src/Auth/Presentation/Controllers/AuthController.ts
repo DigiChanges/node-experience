@@ -11,7 +11,7 @@ import AuthPayload from '../../InterfaceAdapters/Payloads/AuthPayload';
 import IToken from '../../InterfaceAdapters/IToken';
 import KeepAlivePayload from '../../InterfaceAdapters/Payloads/KeepAlivePayload';
 import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
-import IGroupPermission from '../../InterfaceAdapters/IGroupPermission';
+import IGroupPermission from '../../../Shared/InterfaceAdapters/IGroupPermission';
 
 
 class AuthController

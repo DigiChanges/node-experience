@@ -1,7 +1,6 @@
 import UserUpdatePayload from '../../InterfaceAdapters/Payloads/UserUpdatePayload';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import CheckUserRolePayload from '../../InterfaceAdapters/Payloads/CheckUserRolePayload';
-import Roles from '../../../Config/Roles';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
 import {REPOSITORIES} from '../../../repositories';
 import {SERVICES} from '../../../services';
@@ -10,6 +9,7 @@ import CantDisabledException from '../../../Auth/Domain/Exceptions/CantDisabledE
 import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
 import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
+import SuperAdminRole from '../../../App/Domain/Shared/SuperAdminRole';
 
 class UpdateUserUseCase
 {
@@ -36,7 +36,7 @@ class UpdateUserUseCase
         if (typeof user.roles !== 'undefined' && enable !== null) // TODO: Refactoring
         {
             const checkRole: CheckUserRolePayload = {
-                roleToCheck: Roles.SUPER_ADMIN.toLocaleLowerCase(),
+                roleToCheck: SuperAdminRole.I.NAME.toLocaleLowerCase(),
                 user
             };
 

@@ -16,6 +16,7 @@ import IUserRepository from '../../User/InterfaceAdapters/IUserRepository';
 import TokenExpiredHttpException from '../Presentation/Exceptions/TokenExpiredHttpException';
 import TokenNotFoundHttpException from '../Presentation/Exceptions/TokenNotFoundHttpException';
 import Auth from '../Domain/Types/Auth';
+import AppPermissions from '../../App/Domain/Shared/AppPermissions';
 
 @injectable()
 class AuthService implements IAuthService
@@ -68,24 +69,12 @@ class AuthService implements IAuthService
     {
         const totalPermissions = this.getPermissions(authUser as IUserDomain);
 
-        let authorize = false;
-
         if ((authUser as IUserDomain)?.isSuperAdmin)
         {
             return true;
         }
 
-        totalPermissions.forEach((permission: string) =>
-        {
-            if (permission === handlerPermission)
-            {
-                authorize = true;
-
-                return;
-            }
-        });
-
-        return authorize;
+        return totalPermissions.some(permission => permission === handlerPermission || permission === AppPermissions.I.ALL);
     }
 
     public validateToken(token: string): ITokenDecode

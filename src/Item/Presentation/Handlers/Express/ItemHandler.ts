@@ -6,7 +6,6 @@ import {IPaginator, StatusCode} from '@digichanges/shared-experience';
 import {TYPES} from '../../../../types';
 import Responder from '../../../../App/Presentation/Shared/Responder';
 import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';
-import Permissions from '../../../../Config/Permissions';
 
 import ItemTransformer from '../../Transformers/ItemTransformer';
 import ItemRepRequest from '../../Requests/Express/ItemRepRequest';
@@ -18,6 +17,7 @@ import ItemController from '../../Controllers/ItemController';
 import {AuthUser} from '../../../../Auth/Presentation/Helpers/AuthUser';
 import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
 import Item from '../../../Domain/Entities/Item';
+import ItemPermissions from '../../../Domain/Shared/ItemPermissions';
 
 @controller('/api/items')
 class ItemHandler
@@ -31,7 +31,7 @@ class ItemHandler
         this.controller = new ItemController();
     }
 
-    @httpPost('/', AuthorizeMiddleware(Permissions.ITEMS_SAVE))
+    @httpPost('/', AuthorizeMiddleware(ItemPermissions.I.SAVE))
     public async save(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ItemRepRequest(req.body);
@@ -41,7 +41,7 @@ class ItemHandler
         this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
 
-    @httpGet('/', AuthorizeMiddleware(Permissions.ITEMS_LIST))
+    @httpGet('/', AuthorizeMiddleware(ItemPermissions.I.LIST))
     public async list(@request() req: Request, @response() res: Response)
     {
         const _request = new ItemRequestCriteria(req.query, req.url);
@@ -51,7 +51,7 @@ class ItemHandler
         await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpGet('/:id', AuthorizeMiddleware(Permissions.ITEMS_SHOW))
+    @httpGet('/:id', AuthorizeMiddleware(ItemPermissions.I.SHOW))
     public async getOne(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req.params.id);
@@ -61,7 +61,7 @@ class ItemHandler
         this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpPut('/:id', AuthorizeMiddleware(Permissions.ITEMS_UPDATE))
+    @httpPut('/:id', AuthorizeMiddleware(ItemPermissions.I.UPDATE))
     public async update(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ItemUpdateRequest(req.body, req.params.id);
@@ -71,7 +71,7 @@ class ItemHandler
         this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
 
-    @httpDelete('/:id', AuthorizeMiddleware(Permissions.ITEMS_DELETE))
+    @httpDelete('/:id', AuthorizeMiddleware(ItemPermissions.I.DELETE))
     public async remove(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req.params.id);

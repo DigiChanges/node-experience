@@ -1,4 +1,4 @@
-import {controller, httpPost, request, response, httpGet} from 'inversify-express-utils';
+import {controller, httpGet, httpPost, request, response} from 'inversify-express-utils';
 import {Request, Response} from 'express';
 import {StatusCode} from '@digichanges/shared-experience';
 
@@ -7,7 +7,6 @@ import {TYPES} from '../../../../types';
 import Responder from '../../../../App/Presentation/Shared/Responder';
 
 import AuthorizeMiddleware from '../../Middlewares/AuthorizeMiddleware';
-import Permissions from '../../../../Config/Permissions';
 
 import AuthRequest from '../../Requests/Express/AuthRequest';
 import ForgotPasswordRequest from '../../Requests/Express/ForgotPasswordRequest';
@@ -18,6 +17,8 @@ import AuthTransformer from '../../Transformers/AuthTransformer';
 import PermissionsTransformer from '../../Transformers/PermissionsTransformer';
 
 import AuthController from '../../Controllers/AuthController';
+import AuthPermissions from '../../../Domain/Shared/AuthPermissions';
+import AppPermissions from '../../../../App/Domain/Shared/AppPermissions';
 
 @controller('/api/auth')
 class AuthHandler
@@ -41,7 +42,7 @@ class AuthHandler
         this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
 
-    @httpPost('/keepAlive', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE))
+    @httpPost('/keepAlive', AuthorizeMiddleware(AuthPermissions.I.KEEP_ALIVE))
     public async keepAlive(@request() req: any, @response() res: Response)
     {
         const _request = new KeepAliveRequest(req.tokenDecode);
@@ -71,7 +72,7 @@ class AuthHandler
         this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, null);
     }
 
-    @httpGet('/permissions', AuthorizeMiddleware(Permissions.GET_PERMISSIONS))
+    @httpGet('/permissions', AuthorizeMiddleware(AppPermissions.I.GET_PERMISSIONS))
     public permissions(@request() req: Request, @response() res: Response)
     {
         const payload = this.controller.permissions();
@@ -79,7 +80,7 @@ class AuthHandler
         this.responder.send(payload, req, res, StatusCode.HTTP_OK, new PermissionsTransformer());
     }
 
-    @httpPost('/syncRolesPermissions', AuthorizeMiddleware(Permissions.AUTH_SYNC_PERMISSIONS))
+    @httpPost('/syncRolesPermissions', AuthorizeMiddleware(AuthPermissions.I.SYNC_PERMISSIONS))
     public syncRolesPermissions(@request() req: Request, @response() res: Response)
     {
         this.controller.syncRolesPermissions();

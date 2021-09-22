@@ -1,6 +1,6 @@
 import {inject} from 'inversify';
 import {NextFunction, Request, Response} from 'express';
-import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
+import {controller, httpDelete, httpGet, httpPost, httpPut, next, request, response} from 'inversify-express-utils';
 import {IPaginator, StatusCode} from '@digichanges/shared-experience';
 
 import {TYPES} from '../../../../types';
@@ -11,10 +11,10 @@ import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 import RoleRequestCriteria from '../../Requests/Express/RoleRequestCriteria';
 import RoleUpdateRequest from '../../Requests/Express/RoleUpdateRequest';
 import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';
-import Permissions from '../../../../Config/Permissions';
 
 import IRoleDomain from '../../../InterfaceAdapters/IRoleDomain';
 import RoleController from '../../Controllers/RoleController';
+import RolePermissions from '../../../Domain/Shared/RolePermissions';
 
 @controller('/api/roles')
 class RoleHandler
@@ -28,7 +28,7 @@ class RoleHandler
         this.controller = new RoleController();
     }
 
-    @httpPost('/', AuthorizeMiddleware(Permissions.ROLES_SAVE))
+    @httpPost('/', AuthorizeMiddleware(RolePermissions.I.SAVE))
     public async save(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new RoleRepRequest(req.body);
@@ -38,7 +38,7 @@ class RoleHandler
         this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
     }
 
-    @httpGet('/', AuthorizeMiddleware(Permissions.ROLES_LIST))
+    @httpGet('/', AuthorizeMiddleware(RolePermissions.I.LIST))
     public async list(@request() req: Request, @response() res: Response)
     {
         const _request = new RoleRequestCriteria(req.query, req.url);
@@ -48,7 +48,7 @@ class RoleHandler
         await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
 
-    @httpGet('/:id', AuthorizeMiddleware(Permissions.ROLES_SHOW))
+    @httpGet('/:id', AuthorizeMiddleware(RolePermissions.I.SHOW))
     public async getOne(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req.params.id);
@@ -58,7 +58,7 @@ class RoleHandler
         this.responder.send(role, req, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
 
-    @httpPut('/:id', AuthorizeMiddleware(Permissions.ROLES_UPDATE))
+    @httpPut('/:id', AuthorizeMiddleware(RolePermissions.I.UPDATE))
     public async update(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new RoleUpdateRequest(req.body, req.params.id);
@@ -68,7 +68,7 @@ class RoleHandler
         this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
     }
 
-    @httpDelete('/:id', AuthorizeMiddleware(Permissions.ROLES_DELETE))
+    @httpDelete('/:id', AuthorizeMiddleware(RolePermissions.I.DELETE))
     public async remove(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req.params.id);
