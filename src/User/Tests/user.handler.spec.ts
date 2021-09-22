@@ -207,16 +207,16 @@ describe('Start User Test', () =>
             done();
         });
 
-        test('Change my Password /users/changeMyPassword', async done =>
+        test('Change my Password /users/change-my-password', async done =>
         {
             let payload: any = {
                 currentPassword: '12345678',
-                newPassword: '123456789',
-                newPasswordConfirmation: '123456789'
+                password: '123456789',
+                passwordConfirmation: '123456789'
             };
 
             let response: any = await request
-                .post('/api/users/changeMyPassword')
+                .post('/api/users/change-my-password')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);

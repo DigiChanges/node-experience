@@ -1,24 +1,25 @@
 import RoleRepPayload from '../../../InterfaceAdapters/Payloads/RoleRepPayload';
 import {IsArray, IsBoolean, IsOptional, IsString, Length} from 'class-validator';
+import {decorate} from 'ts-mixer';
 
 class RoleRepRequest implements RoleRepPayload
 {
-    @Length(3, 30)
-    @IsString()
+    @decorate(Length(3, 30))
+    @decorate(IsString())
     name: string;
 
-    @Length(3, 30)
-    @IsString()
+    @decorate(Length(3, 30))
+    @decorate(IsString())
     slug: string;
 
-    @IsArray()
-    @IsString({
+    @decorate(IsArray())
+    @decorate(IsString({
         each: true
-    })
+    }))
     permissions: string[];
 
-    @IsOptional()
-    @IsBoolean()
+    @decorate(IsOptional())
+    @decorate(IsBoolean())
     enable: boolean;
 
     constructor(data: Record<string, any>)

@@ -13,15 +13,15 @@ import ValidatorRequest from '../../../App/Presentation/Shared/Express/Validator
 
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import UserRepPayload from '../../InterfaceAdapters/Payloads/UserRepPayload';
 import UserUpdatePayload from '../../InterfaceAdapters/Payloads/UserUpdatePayload';
 import UserAssignRolePayload from '../../InterfaceAdapters/Payloads/UserAssignRolePayload';
 import ChangeMyPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeMyPasswordPayload';
 import ChangeUserPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeUserPasswordPayload';
+import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
 
 class UserController
 {
-    public async save(request: UserRepPayload): Promise<IUserDomain>
+    public async save(request: UserSavePayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(request);
 

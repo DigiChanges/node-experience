@@ -1,10 +1,9 @@
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
+import UserPasswordRepPayload from './UserPasswordPayload';
 
-interface ChangeMyPasswordPayload extends IdPayload
+interface ChangeMyPasswordPayload extends IdPayload, UserPasswordRepPayload
 {
     getCurrentPassword(): string;
-    getNewPassword(): string;
-    getNewPasswordConfirmation(): string;
 }
 
 export default ChangeMyPasswordPayload;

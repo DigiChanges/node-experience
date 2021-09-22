@@ -12,8 +12,6 @@ interface UserRepPayload
     getPhone(): string;
     getCountry(): string;
     getAddress(): string;
-    getPassword(): string;
-    getPasswordConfirmation(): string;
     getEnable(): boolean;
     getRoles(): IRoleDomain[];
     getPermissions(): string[];

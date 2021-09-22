@@ -29,7 +29,7 @@ class ChangeMyPasswordUseCase
             throw new PasswordWrongException();
         }
 
-        user.password = await this.encryption.encrypt(payload.getNewPassword());
+        user.password = await this.encryption.encrypt(payload.getPassword());
 
         return await this.repository.update(user);
     }

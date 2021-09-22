@@ -1,11 +1,11 @@
 import RoleRepPayload from '../../../Role/InterfaceAdapters/Payloads/RoleRepPayload';
 import RoleCommandRepRequest from '../../../Role/Presentation/Requests/Express/RoleUserCommandRepRequest';
-import UserRepPayload from '../../InterfaceAdapters/Payloads/UserRepPayload';
-import UserCommandRepRequest from '../Requests/Express/UserCommandRepRequest';
+import UserCommandSaveRequest from '../Requests/Express/UserCommandSaveRequest';
 import {loggerCli} from '../../../Shared/Logger';
 import commander from 'commander';
 import SaveUserUseCase from '../../Domain/UseCases/SaveUserUseCase';
 import SaveRoleUseCase from '../../../Role/Domain/UseCases/SaveRoleUseCase';
+import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
 
 const AddUserRoleCommand = new commander.Command('addUserRole');
 
@@ -33,7 +33,7 @@ AddUserRoleCommand
         const roleCommandRepRequest: RoleRepPayload = new RoleCommandRepRequest(env);
         const role = await saveRoleUseCase.handle(roleCommandRepRequest);
 
-        const userCommandRepRequest: UserRepPayload = new UserCommandRepRequest(env, role);
+        const userCommandRepRequest: UserSavePayload = new UserCommandSaveRequest(env, role);
         const user = await saveUserUseCase.handle(userCommandRepRequest);
 
         if (user && role)

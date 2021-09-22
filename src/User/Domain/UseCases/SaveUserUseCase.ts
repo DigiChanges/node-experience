@@ -1,6 +1,5 @@
 import {IEncryption} from '@digichanges/shared-experience';
 
-import UserRepPayload from '../../InterfaceAdapters/Payloads/UserRepPayload';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import {REPOSITORIES} from '../../../repositories';
@@ -12,6 +11,7 @@ import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
 import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
 import EventHandler from '../../../Shared/Events/EventHandler';
 import UserCreatedEvent from '../../../Shared/Events/UserCreatedEvent';
+import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
 
 class SaveUserUseCase
 {
@@ -30,7 +30,7 @@ class SaveUserUseCase
         this.eventHandler = EventHandler.getInstance();
     }
 
-    async handle(payload: UserRepPayload): Promise<IUserDomain>
+    async handle(payload: UserSavePayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(payload);
 

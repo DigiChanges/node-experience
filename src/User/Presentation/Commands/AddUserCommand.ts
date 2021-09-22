@@ -1,8 +1,8 @@
-import UserRepPayload from '../../InterfaceAdapters/Payloads/UserRepPayload';
-import UserCommandRepRequest from '../Requests/Express/UserCommandRepRequest';
+import UserCommandSaveRequest from '../Requests/Express/UserCommandSaveRequest';
 import {loggerCli} from '../../../Shared/Logger';
 import commander from 'commander';
 import SaveUserUseCase from '../../Domain/UseCases/SaveUserUseCase';
+import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
 
 const AddUserCommand = new commander.Command('addUser');
 
@@ -24,7 +24,7 @@ AddUserCommand
     {
         const saveUserUseCase = new SaveUserUseCase();
 
-        const userCommandRepRequest: UserRepPayload = new UserCommandRepRequest(env);
+        const userCommandRepRequest: UserSavePayload = new UserCommandSaveRequest(env);
         const user = await saveUserUseCase.handle(userCommandRepRequest);
 
         if (user)

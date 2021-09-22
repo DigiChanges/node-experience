@@ -1,20 +1,10 @@
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
+import UserRepPayload from './UserRepPayload';
 
-interface UserUpdatePayload extends IdPayload
+interface UserUpdatePayload extends IdPayload, UserRepPayload
 {
-    getFirstName(): string;
-    getLastName(): string;
-    getEmail(): string;
-    getBirthday(): string;
-    getDocumentType(): string;
-    getDocumentNumber(): string;
-    getGender(): string;
-    getPhone(): string;
-    getCountry(): string;
-    getAddress(): string;
-    getEnable(): boolean;
     getTokenUserId(): string;
-    getPermissions(): string[];
 }
 
 export default UserUpdatePayload;
+

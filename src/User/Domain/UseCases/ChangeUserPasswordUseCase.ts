@@ -23,7 +23,7 @@ class ChangeUserPasswordUseCase
         const id = payload.getId();
         const user: IUserDomain = await this.repository.getOne(id);
 
-        user.password = await this.encryption.encrypt(payload.getNewPassword());
+        user.password = await this.encryption.encrypt(payload.getPassword());
 
         await this.repository.save(user);
 

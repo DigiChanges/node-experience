@@ -1,8 +1,8 @@
-import UserRepPayload from '../../../InterfaceAdapters/Payloads/UserRepPayload';
 import IRoleDomain from '../../../../Role/InterfaceAdapters/IRoleDomain';
 import {ArrayMinSize, IsArray, IsBoolean, IsString, Length} from 'class-validator';
+import UserSavePayload from '../../../InterfaceAdapters/Payloads/UserSavePayload';
 
-class UserCommandRepRequest implements UserRepPayload
+class UserCommandSaveRequest implements UserSavePayload
 {
     @IsString()
     firstName: string;
@@ -175,4 +175,4 @@ class UserCommandRepRequest implements UserRepPayload
     }
 }
 
-export default UserCommandRepRequest;
+export default UserCommandSaveRequest;

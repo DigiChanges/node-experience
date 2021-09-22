@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
+import {controller, httpDelete, httpGet, httpPost, httpPut, request, response} from 'inversify-express-utils';
 import {IPaginator, StatusCode} from '@digichanges/shared-experience';
 
 import {inject} from 'inversify';
@@ -11,7 +11,6 @@ import Permissions from '../../../../Config/Permissions';
 
 import UserTransformer from '../../Transformers/UserTransformer';
 
-import UserRepRequest from '../../Requests/Express/UserRepRequest';
 import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 import UserRequestCriteria from '../../Requests/Express/UserRequestCriteria';
 import UserUpdateRequest from '../../Requests/Express/UserUpdateRequest';
@@ -21,6 +20,7 @@ import ChangeMyPasswordRequest from '../../Requests/Express/ChangeMyPasswordRequ
 
 import IUserDomain from '../../../InterfaceAdapters/IUserDomain';
 import UserController from '../../Controllers/UserControllers';
+import UserSaveRequest from '../../Requests/Express/UserSaveRequest';
 
 @controller('/api/users')
 class UserHandler
@@ -37,7 +37,7 @@ class UserHandler
     @httpPost('/', AuthorizeMiddleware(Permissions.USERS_SAVE))
     public async save(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const _request = new UserRepRequest(req.body);
+        const _request = new UserSaveRequest(req.body);
 
         const user: IUserDomain = await this.controller.save(_request);
 
@@ -74,7 +74,7 @@ class UserHandler
         this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
-    @httpPut('/assignRole/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN_ROLE))
+    @httpPut('/assign-role/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN_ROLE))
     public async assignRole(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new UserAssignRoleRequest(req.body, req.params.id);
@@ -94,7 +94,7 @@ class UserHandler
         this.responder.send(data, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
-    @httpPost('/changeMyPassword', AuthorizeMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD))
+    @httpPost('/change-my-password', AuthorizeMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD))
     public async changeMyPassword(@request() req: any, @response() res: Response): Promise<void>
     {
         const _request = new ChangeMyPasswordRequest(req.body, req.tokenDecode.userId);
@@ -104,7 +104,7 @@ class UserHandler
         this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
-    @httpPut('/changeUserPassword/:id', AuthorizeMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD))
+    @httpPut('/change-user-password/:id', AuthorizeMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD))
     public async changeUserPassword(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new ChangeUserPasswordRequest(req.body, req.params.id);

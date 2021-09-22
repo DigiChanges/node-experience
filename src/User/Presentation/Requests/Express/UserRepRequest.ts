@@ -1,68 +1,57 @@
-import Config from 'config';
-
 import UserRepPayload from '../../../InterfaceAdapters/Payloads/UserRepPayload';
 import IRoleDomain from '../../../../Role/InterfaceAdapters/IRoleDomain';
 import {ArrayMinSize, IsArray, IsBoolean, IsEmail, IsString, Length} from 'class-validator';
-import {Match} from '../../../../Shared/Decorators/match';
+import {decorate} from 'ts-mixer';
 
 class UserRepRequest implements UserRepPayload
 {
-    @Length(3, 50)
-    @IsString()
+    @decorate(Length(3, 50))
+    @decorate(IsString())
     firstName: string;
 
-    @Length(3, 50)
-    @IsString()
+    @decorate(Length(3, 50))
+    @decorate(IsString())
     lastName: string;
 
-    @IsEmail()
+    @decorate(IsEmail())
     email: string;
 
-    @Length(3, 10)
-    @IsString()
+    @decorate(Length(3, 10))
+    @decorate(IsString())
     birthday: string;
 
-    @Length(2, 20)
-    @IsString()
+    @decorate(Length(2, 20))
+    @decorate(IsString())
     documentType: string;
 
-    @Length(3, 16)
-    @IsString()
+    @decorate(Length(3, 16))
+    @decorate(IsString())
     documentNumber: string;
 
-    @Length(3, 20)
-    @IsString()
+    @decorate(Length(3, 20))
+    @decorate(IsString())
     gender: string;
 
-    @Length(3, 20)
-    @IsString()
+    @decorate(Length(3, 20))
+    @decorate(IsString())
     phone: string;
 
-    @Length(2, 2)
-    @IsString()
+    @decorate(Length(2, 2))
+    @decorate(IsString())
     country: string;
 
-    @Length(10, 60)
-    @IsString()
+    @decorate(Length(10, 60))
+    @decorate(IsString())
     address: string;
 
-    @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
-    @IsString()
-    password: string;
-
-    @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
-    @IsString()
-    @Match('password')
-    passwordConfirmation: string;
-
-    @IsBoolean()
+    @decorate(IsBoolean())
     enable: boolean;
 
-    @IsArray()
-    @ArrayMinSize(0)
-    @IsString({
+    @decorate(IsArray())
+    @decorate(ArrayMinSize(0))
+    @decorate(IsString({
         each: true
-    })
+    }))
     permissions: string[];
 
     constructor(data: Record<string, any>)
@@ -70,8 +59,6 @@ class UserRepRequest implements UserRepPayload
         this.firstName = data.firstName;
         this.lastName = data.lastName;
         this.email = data.email;
-        this.password = data.password;
-        this.passwordConfirmation = data.passwordConfirmation;
         this.birthday = data.birthday;
         this.documentType = data.documentType;
         this.documentNumber = data.documentNumber;
@@ -131,16 +118,6 @@ class UserRepRequest implements UserRepPayload
     getAddress(): string
     {
         return this.address;
-    }
-
-    getPassword(): string
-    {
-        return this.password;
-    }
-
-    getPasswordConfirmation(): string
-    {
-        return this.passwordConfirmation;
     }
 
     getEnable(): boolean
