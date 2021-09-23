@@ -1,10 +1,10 @@
 import Config from 'config';
-import {IsString, Length} from 'class-validator';
-import {IEncryption} from '@digichanges/shared-experience';
+import { IsString, Length } from 'class-validator';
+import { IEncryption } from '@digichanges/shared-experience';
 
 import ChangeForgotPasswordPayload from '../../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
 import EncryptionFactory from '../../../../Shared/Factories/EncryptionFactory';
-import {Match} from '../../../../Shared/Decorators/match';
+import { Match } from '../../../../Shared/Decorators/match';
 
 class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
 {
@@ -14,7 +14,7 @@ class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
 
     @IsString()
     @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
-    @Match('password', {message: 'passwordConfirmation don\'t match'})
+    @Match('password', { message: 'passwordConfirmation don\'t match' })
     passwordConfirmation: string;
 
     @IsString()

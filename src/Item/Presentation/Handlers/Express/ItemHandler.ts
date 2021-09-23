@@ -1,9 +1,9 @@
-import {NextFunction, Request, Response} from 'express';
-import {inject} from 'inversify';
-import {controller, httpDelete, httpGet, httpPost, httpPut, next, request, response} from 'inversify-express-utils';
-import {IPaginator, StatusCode} from '@digichanges/shared-experience';
+import { NextFunction, Request, Response } from 'express';
+import { inject } from 'inversify';
+import { controller, httpDelete, httpGet, httpPost, httpPut, next, request, response } from 'inversify-express-utils';
+import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 
-import {TYPES} from '../../../../types';
+import { TYPES } from '../../../../types';
 import Responder from '../../../../App/Presentation/Shared/Responder';
 import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
@@ -16,7 +16,7 @@ import ItemUpdateRequest from '../../Requests/Express/ItemUpdateRequest';
 import IItemDomain from '../../../InterfaceAdapters/IItemDomain';
 
 import ItemController from '../../Controllers/ItemController';
-import {AuthUser} from '../../../../Auth/Presentation/Helpers/AuthUser';
+import { AuthUser } from '../../../../Auth/Presentation/Helpers/AuthUser';
 import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
 
 @controller('/api/items')

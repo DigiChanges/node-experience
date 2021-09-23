@@ -1,4 +1,4 @@
-import {loggerCli} from '../../../Shared/Logger';
+import { loggerCli } from '../../../Shared/Logger';
 import commander from 'commander';
 import webpush from 'web-push';
 
@@ -7,7 +7,7 @@ const CreateVapID = new commander.Command('createVapID');
 CreateVapID
     .version('0.0.1')
     .description('Generate VapID Keys')
-    .action((env: any) =>
+    .action(() =>
     {
         const vapidKeys = webpush.generateVAPIDKeys();
 

@@ -1,9 +1,9 @@
 import supertest from 'supertest';
-import {ICreateConnection} from '@digichanges/shared-experience';
+import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
-import {InversifyExpressServer} from 'inversify-express-utils';
-import {ILoginResponse} from '../../Shared/InterfaceAdapters/Tests/ILogin';
-import {IListUsersResponse, IUserResponse} from './types';
+import { InversifyExpressServer } from 'inversify-express-utils';
+import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
+import { IListUsersResponse, IUserResponse } from './types';
 import Config from 'config';
 
 describe('Start User Test', () =>
@@ -48,7 +48,7 @@ describe('Start User Test', () =>
                 .set('Accept', 'application/json')
                 .send(payload);
 
-            const {body: {data}} = response;
+            const { body: { data } } = response;
 
             token = data.token;
 
@@ -79,7 +79,7 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, data}} = response;
+            const { body: { status, statusCode, data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
@@ -119,7 +119,7 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, data}} = response;
+            const { body: { status, statusCode, data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
@@ -152,7 +152,7 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data}} = response;
+            const { body: { status, statusCode, data } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -187,7 +187,7 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, data}} = response;
+            const { body: { status, statusCode, data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
@@ -221,7 +221,7 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode}} = response;
+            const { body: { status, statusCode } } = response;
 
 
             expect(response.statusCode).toStrictEqual(201);
@@ -283,7 +283,7 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data}} = deleteResponse;
+            const { body: { status, statusCode, data } } = deleteResponse;
 
             expect(deleteResponse.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -304,7 +304,7 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, pagination}} = response;
+            const { body: { status, statusCode, pagination } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -336,7 +336,7 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, pagination}} = response;
+            const { body: { status, statusCode, pagination } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -356,7 +356,7 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data, pagination}} = response;
+            const { body: { status, statusCode, data, pagination } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -378,7 +378,7 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data: [user1, user2]}} = response;
+            const { body: { status, statusCode, data: [user1, user2] } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -405,7 +405,7 @@ describe('Start User Test', () =>
                 .set('Accept', 'application/json')
                 .send(payload);
 
-            const {body: {data}} = response;
+            const { body: { data } } = response;
 
             token = data.token;
 
@@ -425,7 +425,7 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, message, errors: [error]}} = response;
+            const { body: { status, statusCode, message, errors: [error] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
             expect(status).toStrictEqual('error');
@@ -448,7 +448,7 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, message, errors: [error]}} = response;
+            const { body: { status, statusCode, message, errors: [error] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
             expect(status).toStrictEqual('error');
@@ -484,7 +484,7 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, message, errors: [error]}} = response;
+            const { body: { status, statusCode, message, errors: [error] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
             expect(status).toStrictEqual('error');
@@ -507,7 +507,7 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, message}} = deleteErrorResponse;
+            const { body: { status, statusCode, message } } = deleteErrorResponse;
 
             expect(deleteErrorResponse.statusCode).toStrictEqual(400);
             expect(status).toStrictEqual('error');

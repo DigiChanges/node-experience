@@ -1,8 +1,8 @@
-import {injectable, unmanaged} from 'inversify';
-import {EntitySchema, FindOneOptions, getRepository, Repository} from 'typeorm';
+import { injectable, unmanaged } from 'inversify';
+import { EntitySchema, FindOneOptions, getRepository, Repository } from 'typeorm';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
-import IByOptions from '../../InterfaceAcapters/IByOptions';
-import IBaseRepository from '../../InterfaceAcapters/IBaseRepository';
+import IByOptions from '../../InterfaceAdapters/IByOptions';
+import IBaseRepository from '../../InterfaceAdapters/IBaseRepository';
 
 @injectable()
 abstract class BaseSqlRepository<T> implements IBaseRepository<T>
@@ -52,9 +52,9 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
         return entity;
     }
 
-    async getOneBy(condition: Record<string, any>, options: IByOptions = {initThrow: true}): Promise<T>
+    async getOneBy(condition: Record<string, any>, options: IByOptions = { initThrow: true }): Promise<T>
     {
-        let {initThrow} = options;
+        let { initThrow } = options;
 
         initThrow = initThrow ?? false;
 
@@ -68,9 +68,9 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
         return entity;
     }
 
-    async getBy(condition: Record<string, any>, options: IByOptions = {initThrow: false}): Promise<T[]>
+    async getBy(condition: Record<string, any>, options: IByOptions = { initThrow: false }): Promise<T[]>
     {
-        let {initThrow} = options;
+        let { initThrow } = options;
 
         initThrow = initThrow ?? false;
 

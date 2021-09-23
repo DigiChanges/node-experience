@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "target": "ES2019",
     "lib": [
       "ES2019",
@@ -24,15 +24,10 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "paths": {
-      "*": [
-        "node_modules/*"
-      ]
-    }
+    "moduleResolution": "node"
   },
   "include": [
-    "src/**/*.ts",
+    "./src",
     "./typings/*",
     ".eslintrc.js",
   ]

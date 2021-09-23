@@ -1,4 +1,4 @@
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import SaveRoleUseCase from '../../Domain/UseCases/SaveRoleUseCase';
 import ListRolesUseCase from '../../Domain/UseCases/ListRolesUseCase';

@@ -1,6 +1,6 @@
-import {Client} from 'minio';
+import { Client } from 'minio';
 import internal from 'stream';
-import {IFilesystem} from '@digichanges/shared-experience';
+import { IFilesystem } from '@digichanges/shared-experience';
 
 class MinioStrategy implements IFilesystem
 {

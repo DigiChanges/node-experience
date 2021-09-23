@@ -1,6 +1,6 @@
 import IRoleRepository from '../../InterfaceAdapters/IRoleRepository';
-import {injectable} from 'inversify';
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import { injectable } from 'inversify';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import Paginator from '../../../App/Presentation/Shared/Paginator';
 import RoleFilter from '../../Presentation/Criterias/RoleFilter';
@@ -21,7 +21,7 @@ class RoleSqlRepository extends BaseSqlRepository<IRoleDomain> implements IRoleR
 
     async getBySlug(slug: string): Promise<IRoleDomain>
     {
-        return await this.repository.findOne({slug});
+        return await this.repository.findOne({ slug });
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -43,7 +43,7 @@ class RoleSqlRepository extends BaseSqlRepository<IRoleDomain> implements IRoleR
 
     async delete(id: string): Promise<IRoleDomain>
     {
-        const isOfSystem = !!(await this.exist({_id: id, ofSystem: true}, ['_id']));
+        const isOfSystem = !!(await this.exist({ _id: id, ofSystem: true }, ['_id']));
 
         if (isOfSystem)
         {

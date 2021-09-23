@@ -1,4 +1,4 @@
-import {loggerCli} from '../../../Shared/Logger';
+import { loggerCli } from '../../../Shared/Logger';
 import commander from 'commander';
 import UserAssignRoleByCommandRequest from '../Requests/Express/UserAssignRoleByCommandRequest';
 import UserAssignRoleByPayload from '../../InterfaceAdapters/Payloads/UserAssignRoleByPayload';

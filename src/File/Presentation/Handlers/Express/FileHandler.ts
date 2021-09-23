@@ -1,12 +1,12 @@
-import {inject} from 'inversify';
-import {controller, httpPost, request, response, next, httpGet, httpPut} from 'inversify-express-utils';
-import {NextFunction, Request, Response} from 'express';
-import {IPaginator, StatusCode} from '@digichanges/shared-experience';
+import { inject } from 'inversify';
+import { controller, httpPost, request, response, next, httpGet, httpPut } from 'inversify-express-utils';
+import { NextFunction, Request, Response } from 'express';
+import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 
 import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
 
-import {TYPES} from '../../../../types';
+import { TYPES } from '../../../../types';
 import Responder from '../../../../App/Presentation/Shared/Responder';
 import ListObjectsRequest from '../../Requests/Express/ListObjectsRequest';
 import FileReqMulter from '../../Middlewares/FileReqMulter';
@@ -90,7 +90,7 @@ class FileHandler
 
         const presignedGetObject = await this.controller.getPresignedGetObject(_request);
 
-        this.responder.send({presignedGetObject}, req, res, StatusCode.HTTP_OK, null);
+        this.responder.send({ presignedGetObject }, req, res, StatusCode.HTTP_OK, null);
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))

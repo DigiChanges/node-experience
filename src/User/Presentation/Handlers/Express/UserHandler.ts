@@ -1,9 +1,9 @@
-import {Request, Response} from 'express';
-import {controller, httpDelete, httpGet, httpPost, httpPut, request, response} from 'inversify-express-utils';
-import {IPaginator, StatusCode} from '@digichanges/shared-experience';
+import { Request, Response } from 'express';
+import { controller, httpDelete, httpGet, httpPost, httpPut, request, response } from 'inversify-express-utils';
+import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 
-import {inject} from 'inversify';
-import {TYPES} from '../../../../types';
+import { inject } from 'inversify';
+import { TYPES } from '../../../../types';
 import Responder from '../../../../App/Presentation/Shared/Responder';
 
 import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';

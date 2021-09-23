@@ -3,11 +3,11 @@ import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import CheckUserRolePayload from '../../InterfaceAdapters/Payloads/CheckUserRolePayload';
 import Roles from '../../../Config/Roles';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
-import {REPOSITORIES} from '../../../repositories';
-import {SERVICES} from '../../../services';
+import { REPOSITORIES } from '../../../Config/repositories';
+import { SERVICES } from '../../../services';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import CantDisabledException from '../../../Auth/Domain/Exceptions/CantDisabledException';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
 import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
 

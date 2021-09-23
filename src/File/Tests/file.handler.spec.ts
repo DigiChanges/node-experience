@@ -1,12 +1,12 @@
-import {ICreateConnection} from '@digichanges/shared-experience';
-import {InversifyExpressServer} from 'inversify-express-utils';
+import { ICreateConnection } from '@digichanges/shared-experience';
+import { InversifyExpressServer } from 'inversify-express-utils';
 import supertest from 'supertest';
 import initTestServer from '../../initTestServer';
 import FilesystemFactory from '../../Shared/Factories/FilesystemFactory';
-import {ILoginResponse} from '../../Shared/InterfaceAdapters/Tests/ILogin';
-import {UploadFileBase64} from './fixture';
+import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
+import { UploadFileBase64 } from './fixture';
 import MockMinioStrategy from './MockMinioStrategy';
-import {IFileResponse} from './types';
+import { IFileResponse } from './types';
 
 describe('Start File Test', () =>
 {
@@ -51,7 +51,7 @@ describe('Start File Test', () =>
                 .set('Accept', 'application/json')
                 .send(payload);
 
-            const {body: {data}} = response;
+            const { body: { data } } = response;
 
             token = data.token;
 
@@ -66,7 +66,7 @@ describe('Start File Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(UploadFileBase64);
 
-            const {body: {status, statusCode, data}} = response;
+            const { body: { status, statusCode, data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
@@ -94,7 +94,7 @@ describe('Start File Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data}} = response;
+            const { body: { status, statusCode, data } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');

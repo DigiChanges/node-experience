@@ -1,4 +1,4 @@
-import axios, {AxiosInstance} from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import Config from 'config';
 
 const port = Config.get('serverPort');
@@ -18,12 +18,12 @@ export class AxiosFactory
 {
     static getAxiosInstance(isPrivate = true): AxiosInstance
     {
-        let config = {baseURL, timeout, headers: headersPrivate};
+        let config = { baseURL, timeout, headers: headersPrivate };
 
         if (!isPrivate)
         {
             // @ts-ignore
-            config = {baseURL, timeout, headers: headersPublic};
+            config = { baseURL, timeout, headers: headersPublic };
         }
 
         return axios.create(config);

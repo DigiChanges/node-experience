@@ -1,6 +1,6 @@
-import {IBodyResponse} from '../../Shared/InterfaceAdapters/Tests/IBodyResponse';
+import { IBodyResponse } from '../../Shared/InterfaceAdapters/Tests/IBodyResponse';
 import IGroupPermission from '../InterfaceAdapters/IGroupPermission';
-import {IFetchResponse} from '../../Shared/InterfaceAdapters/Tests/IFetchResponse';
+import { IFetchResponse } from '../../Shared/InterfaceAdapters/Tests/IFetchResponse';
 
 interface IPermissionsBody extends IBodyResponse
 {

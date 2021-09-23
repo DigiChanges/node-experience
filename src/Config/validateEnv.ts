@@ -1,4 +1,4 @@
-import {cleanEnv, str, port, bool, num, url} from 'envalid';
+import { cleanEnv, str, port, bool, num, url } from 'envalid';
 
 export function validateEnv()
 {

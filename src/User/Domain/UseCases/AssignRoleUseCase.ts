@@ -1,9 +1,9 @@
 import UserAssignRolePayload from '../../InterfaceAdapters/Payloads/UserAssignRolePayload';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
-import {REPOSITORIES} from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/repositories';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 
 class AssignRoleUseCase
 {

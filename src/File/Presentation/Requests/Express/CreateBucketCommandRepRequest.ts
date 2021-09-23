@@ -1,4 +1,4 @@
-import {IsString} from 'class-validator';
+import { IsString } from 'class-validator';
 import CreateBucketPayload from '../../../InterfaceAdapters/Payloads/CreateBucketPayload';
 
 // TODO: Refactor set policy
@@ -21,7 +21,7 @@ class CreateBucketCommandRequest implements CreateBucketPayload
             Statement: [
                 {
                     Effect: 'Allow',
-                    Principal: {AWS: '*'},
+                    Principal: { AWS: '*' },
                     Action: [
                         's3:GetBucketLocation',
                         's3:ListBucket',
@@ -31,7 +31,7 @@ class CreateBucketCommandRequest implements CreateBucketPayload
                 },
                 {
                     Effect: 'Allow',
-                    Principal: {AWS: '*'},
+                    Principal: { AWS: '*' },
                     Action: [
                         's3:GetObject',
                         's3:PutObject',

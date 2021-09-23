@@ -1,16 +1,16 @@
-import {IEncryption} from '@digichanges/shared-experience';
+import { IEncryption } from '@digichanges/shared-experience';
 
 import AuthPayload from '../../InterfaceAdapters/Payloads/AuthPayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import TokenFactory from '../../../Shared/Factories/TokenFactory';
 
-import {REPOSITORIES} from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/repositories';
 
 import BadCredentialsException from '../Exceptions/BadCredentialsException';
 import UserDisabledException from '../../../User/Domain/Exceptions/UserDisabledException';
 import RoleDisabledException from '../../../Role/Domain/Exceptions/RoleDisabledException';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 
 class LoginUseCase
 {

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import Config from 'config';
-import {ICreateConnection} from '@digichanges/shared-experience';
+import { ICreateConnection } from '@digichanges/shared-experience';
 
 import IUserDocument from '../../User/InterfaceAdapters/IUserDocument';
 import IRoleDocument from '../../Role/InterfaceAdapters/IRoleDocument';
@@ -14,7 +14,7 @@ import ItemSchema from '../../Item/Infrastructure/Schema/ItemMongoose';
 import RoleSchema from '../../Role/Infrastructure/Schema/RoleMongoose';
 import UserSchema from '../../User/Infrastructure/Schema/UserMongoose';
 import FileSchema from '../../File/Infrastructure/Schema/FileMongoose';
-import {EmailNotificationSchema, NotificationSchema, PushNotificationSchema} from '../../Notification/Infrastructure/Schema/NotificationMongoose';
+import { EmailNotificationSchema, NotificationSchema, PushNotificationSchema } from '../../Notification/Infrastructure/Schema/NotificationMongoose';
 import TokenSchema from '../../Auth/Infrastructure/Schema/TokenMongoose';
 
 export let connection: mongoose.Connection = null;

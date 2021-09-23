@@ -1,5 +1,5 @@
 import ChangeMyPasswordPayload from '../../../InterfaceAdapters/Payloads/ChangeMyPasswordPayload';
-import {IsString, IsUUID, Length} from 'class-validator';
+import { IsString, IsUUID, Length } from 'class-validator';
 import Config from 'config';
 import UserRepPasswordRequest from './UserRepPasswordRequest';
 

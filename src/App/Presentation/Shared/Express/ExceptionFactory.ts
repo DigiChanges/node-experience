@@ -10,7 +10,7 @@ import TokenExpiredHttpException from '../../../../Auth/Presentation/Exceptions/
 import DuplicateEntityHttpException from '../../Exceptions/DuplicateEntityHttpException';
 import RoleDisabledHttpException from '../../../../Role/Presentation/Exceptions/RoleDisabledHttpException';
 import WrongPermissionsHttpException from '../../../../Auth/Presentation/Exceptions/WrongPermissionsHttpException';
-import {StatusCode} from '@digichanges/shared-experience';
+import { StatusCode } from '@digichanges/shared-experience';
 import RoleOfSystemNotDeletedHttpException
     from '../../../../Role/Presentation/Exceptions/RoleOfSystemNotDeletedHttpException';
 

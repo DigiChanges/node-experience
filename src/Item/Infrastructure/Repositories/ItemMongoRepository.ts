@@ -1,6 +1,6 @@
-import {Query} from 'mongoose';
-import {injectable} from 'inversify';
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import { Query } from 'mongoose';
+import { injectable } from 'inversify';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';

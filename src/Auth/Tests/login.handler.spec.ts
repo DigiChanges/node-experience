@@ -1,6 +1,6 @@
-import {InversifyExpressServer} from 'inversify-express-utils';
+import { InversifyExpressServer } from 'inversify-express-utils';
 import supertest from 'supertest';
-import {ICreateConnection} from '@digichanges/shared-experience';
+import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 
 describe('Start Login Test', () =>
@@ -40,7 +40,7 @@ describe('Start Login Test', () =>
             .set('Accept', 'application/json')
             .send(payload);
 
-        const {body: {status, statusCode, data}} = response;
+        const { body: { status, statusCode, data } } = response;
 
         expect(response.statusCode).toStrictEqual(201);
         expect(status).toStrictEqual('success');
@@ -64,7 +64,7 @@ describe('Start Login Test', () =>
             .set('Accept', 'application/json')
             .send(payload);
 
-        const {body: {status, statusCode, data}} = response;
+        const { body: { status, statusCode, data } } = response;
 
         expect(response.statusCode).toStrictEqual(201);
         expect(status).toStrictEqual('success');
@@ -88,7 +88,7 @@ describe('Start Login Test', () =>
             .set('Accept', 'application/json')
             .send(payload);
 
-        const {body: {status, statusCode, message}} = response;
+        const { body: { status, statusCode, message } } = response;
 
         expect(response.statusCode).toStrictEqual(403);
         expect(status).toStrictEqual('error');
@@ -111,7 +111,7 @@ describe('Start Login Test', () =>
             .set('Accept', 'application/json')
             .send(payload);
 
-        const {body: {status, statusCode, message}} = response;
+        const { body: { status, statusCode, message } } = response;
 
         expect(response.statusCode).toStrictEqual(403);
         expect(status).toStrictEqual('error');
@@ -134,7 +134,7 @@ describe('Start Login Test', () =>
             .set('Accept', 'application/json')
             .send(payload);
 
-        const {body: {status, statusCode, message}} = response;
+        const { body: { status, statusCode, message } } = response;
 
         expect(response.statusCode).toStrictEqual(403);
         expect(status).toStrictEqual('error');

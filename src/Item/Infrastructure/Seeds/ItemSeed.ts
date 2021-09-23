@@ -1,13 +1,13 @@
 import faker from 'faker';
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import Item from '../../Domain/Entities/Item';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
-import {REPOSITORIES} from '../../../repositories';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/repositories';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import User from '../../../User/Domain/Entities/User';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
-import {IEncryption} from '@digichanges/shared-experience';
+import { IEncryption } from '@digichanges/shared-experience';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 
 class ItemSeed implements ISeed
@@ -27,7 +27,7 @@ class ItemSeed implements ISeed
 
     public async init()
     {
-        const indexes = Array.from({length: 10}, (v, i) => i + 1);
+        const indexes = Array.from({ length: 10 }, (v, i) => i + 1);
 
         const user = await this.createUser();
 

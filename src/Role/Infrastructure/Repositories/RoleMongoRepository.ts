@@ -1,10 +1,10 @@
 import IRoleRepository from '../../InterfaceAdapters/IRoleRepository';
-import {injectable} from 'inversify';
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import { injectable } from 'inversify';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
 import RoleFilter from '../../Presentation/Criterias/RoleFilter';
-import {Query} from 'mongoose';
+import { Query } from 'mongoose';
 import IRole from '../../InterfaceAdapters/IRoleDocument';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
 
@@ -24,7 +24,7 @@ class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implem
 
     async getBySlug(slug: string): Promise<IRoleDomain>
     {
-        return this.repository.findOne({slug});
+        return this.repository.findOne({ slug });
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -61,14 +61,14 @@ class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implem
 
     async delete(id: string): Promise<IRoleDomain>
     {
-        const isOfSystem = !!(await this.exist({_id: id, ofSystem: true}, ['_id']));
+        const isOfSystem = !!(await this.exist({ _id: id, ofSystem: true }, ['_id']));
 
         if (isOfSystem)
         {
             throw new RoleOfSystemNotDeletedException();
         }
 
-        const entity = await this.repository.findByIdAndDelete({_id: id} as any);
+        const entity = await this.repository.findByIdAndDelete({ _id: id } as any);
 
         if (!entity)
         {

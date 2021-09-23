@@ -1,6 +1,6 @@
-import {InversifyExpressServer} from 'inversify-express-utils';
+import { InversifyExpressServer } from 'inversify-express-utils';
 import supertest from 'supertest';
-import {ICreateConnection} from '@digichanges/shared-experience';
+import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 
 describe('Start Keep Alive Test', () =>
@@ -43,7 +43,7 @@ describe('Start Keep Alive Test', () =>
                 .set('Accept', 'application/json')
                 .send(payload);
 
-            const {body: {data}} = response;
+            const { body: { data } } = response;
 
             token = data.token;
 
@@ -59,7 +59,7 @@ describe('Start Keep Alive Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, metadata: {refreshToken}}} = response;
+            const { body: { status, statusCode, metadata: { refreshToken } } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');

@@ -37,7 +37,7 @@ module.exports = {
         'space-in-parens': [1, 'never'],
         'spaced-comment': ['error', 'always'],
         'array-bracket-spacing': ['warn', 'never'],
-        'object-curly-spacing': ['warn', 'never'],
+        'object-curly-spacing': ['warn', 'always'],
         'block-spacing': 'warn',
         'arrow-spacing': 'warn',
         'space-before-function-paren': ['warn', 'never'],

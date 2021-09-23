@@ -1,4 +1,4 @@
-import {injectable} from 'inversify';
+import { injectable } from 'inversify';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 import IFileService from '../../InterfaceAdapters/IFileService';

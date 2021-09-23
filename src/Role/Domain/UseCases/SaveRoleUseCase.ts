@@ -1,11 +1,11 @@
 import RoleRepPayload from '../../InterfaceAdapters/Payloads/RoleRepPayload';
 import IRoleRepository from '../../InterfaceAdapters/IRoleRepository';
 import Role from '../Entities/Role';
-import {REPOSITORIES} from '../../../repositories';
-import {SERVICES} from '../../../services';
+import { REPOSITORIES } from '../../../Config/repositories';
+import { SERVICES } from '../../../services';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
 import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 
 class SaveRoleUseCase
 {

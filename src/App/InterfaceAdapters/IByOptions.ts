@@ -1,4 +1,4 @@
-import {PopulateOptions} from 'mongoose';
+import { PopulateOptions } from 'mongoose';
 
 interface IByOptions
 {

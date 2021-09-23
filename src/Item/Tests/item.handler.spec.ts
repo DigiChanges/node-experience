@@ -1,9 +1,9 @@
-import {InversifyExpressServer} from 'inversify-express-utils';
+import { InversifyExpressServer } from 'inversify-express-utils';
 import supertest from 'supertest';
 import initTestServer from '../../initTestServer';
-import {ICreateConnection} from '@digichanges/shared-experience';
-import {ILoginResponse} from '../../Shared/InterfaceAdapters/Tests/ILogin';
-import {IItemResponse, IListItemsResponse} from './types';
+import { ICreateConnection } from '@digichanges/shared-experience';
+import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
+import { IItemResponse, IListItemsResponse } from './types';
 import Config from 'config';
 
 describe('Start Item Test', () =>
@@ -48,7 +48,7 @@ describe('Start Item Test', () =>
                 .set('Accept', 'application/json')
                 .send(payload);
 
-            const {body: {data}} = response;
+            const { body: { data } } = response;
 
             token = data.token;
 
@@ -68,7 +68,7 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, data}} = response;
+            const { body: { status, statusCode, data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
@@ -95,7 +95,7 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data}} = response;
+            const { body: { status, statusCode, data } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -120,7 +120,7 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, data}} = response;
+            const { body: { status, statusCode, data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
@@ -151,7 +151,7 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${createResponse.body.metadata.refreshToken}`)
                 .send();
 
-            const {body: {status, statusCode, data}} = deleteResponse;
+            const { body: { status, statusCode, data } } = deleteResponse;
 
             expect(deleteResponse.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -172,7 +172,7 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data, pagination}} = response;
+            const { body: { status, statusCode, data, pagination } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -204,7 +204,7 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data, pagination}} = response;
+            const { body: { status, statusCode, data, pagination } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -225,7 +225,7 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data, pagination}} = response;
+            const { body: { status, statusCode, data, pagination } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -248,7 +248,7 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, data: [item1, item2]}} = response;
+            const { body: { status, statusCode, data: [item1, item2] } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
@@ -274,7 +274,7 @@ describe('Start Item Test', () =>
                 .set('Accept', 'application/json')
                 .send(payload);
 
-            const {body: {data}} = response;
+            const { body: { data } } = response;
 
             token = data.token;
 
@@ -294,7 +294,7 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, message, errors: [error]}} = response;
+            const { body: { status, statusCode, message, errors: [error] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
             expect(status).toStrictEqual('error');
@@ -316,7 +316,7 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, message, errors: [error]}} = response;
+            const { body: { status, statusCode, message, errors: [error] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
             expect(status).toStrictEqual('error');
@@ -343,7 +343,7 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {status, statusCode, message, errors: [errorName, errorType]}} = response;
+            const { body: { status, statusCode, message, errors: [errorName, errorType] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
             expect(status).toStrictEqual('error');
@@ -370,7 +370,7 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const {body: {status, statusCode, message}} = deleteErrorResponse;
+            const { body: { status, statusCode, message } } = deleteErrorResponse;
 
             expect(deleteErrorResponse.statusCode).toStrictEqual(400);
             expect(status).toStrictEqual('error');

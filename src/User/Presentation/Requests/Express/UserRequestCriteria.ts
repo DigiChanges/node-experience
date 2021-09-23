@@ -1,5 +1,5 @@
-import {ParsedQs} from 'qs';
-import {ICriteria} from '@digichanges/shared-experience';
+import { ParsedQs } from 'qs';
+import { ICriteria } from '@digichanges/shared-experience';
 
 import UserSort from '../../Criterias/UserSort';
 import UserFilter from '../../Criterias/UserFilter';

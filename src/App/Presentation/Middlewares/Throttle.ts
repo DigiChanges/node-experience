@@ -1,5 +1,5 @@
 import throttle from 'express-rate-limit';
-import {StatusCode} from '@digichanges/shared-experience';
+import { StatusCode } from '@digichanges/shared-experience';
 
 const meta: any = {
     status: StatusCode.HTTP_TOO_MANY_REQUESTS.status,

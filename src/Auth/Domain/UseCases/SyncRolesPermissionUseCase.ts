@@ -2,11 +2,11 @@ import _ from 'lodash';
 
 import Permissions from '../../../Config/Permissions';
 import Roles from '../../../Config/Roles';
-import {REPOSITORIES} from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/repositories';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
 import Role from '../../../Role/Domain/Entities/Role';
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 
 class SyncRolesPermissionUseCase
 {

@@ -1,7 +1,7 @@
 import UserRepPayload from '../../../InterfaceAdapters/Payloads/UserRepPayload';
 import IRoleDomain from '../../../../Role/InterfaceAdapters/IRoleDomain';
-import {ArrayMinSize, IsArray, IsBoolean, IsEmail, IsString, Length} from 'class-validator';
-import {decorate} from 'ts-mixer';
+import { ArrayMinSize, IsArray, IsBoolean, IsEmail, IsString, Length } from 'class-validator';
+import { decorate } from 'ts-mixer';
 
 class UserRepRequest implements UserRepPayload
 {

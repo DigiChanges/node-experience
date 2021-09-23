@@ -6,7 +6,7 @@ class SendMessageEvent
 
     public static sendMessageListener = async(props: any) =>
     {
-        const {pushNotification, message} = props;
+        const { pushNotification, message } = props;
 
         setTimeout(() =>
         {

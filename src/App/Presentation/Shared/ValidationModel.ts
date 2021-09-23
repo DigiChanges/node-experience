@@ -1,4 +1,4 @@
-import {ValidationError} from 'class-validator';
+import { ValidationError } from 'class-validator';
 import _ from 'lodash';
 
 class ValidationModel

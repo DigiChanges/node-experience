@@ -7,7 +7,7 @@ import RemoveItemUseCase from '../../Domain/UseCases/RemoveItemUseCase';
 import UpdateItemUseCase from '../../Domain/UseCases/UpdateItemUseCase';
 import ValidatorRequest from '../../../App/Presentation/Shared/Express/ValidatorRequest';
 import ItemRepPayload from '../../InterfaceAdapters/Payloads/ItemRepPayload';
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import ItemUpdatePayload from '../../InterfaceAdapters/Payloads/ItemUpdatePayload';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';

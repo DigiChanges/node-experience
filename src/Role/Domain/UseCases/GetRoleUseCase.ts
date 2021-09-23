@@ -1,8 +1,8 @@
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import IRoleRepository from '../../InterfaceAdapters/IRoleRepository';
-import {REPOSITORIES} from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/repositories';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 
 class GetRoleUseCase
 {

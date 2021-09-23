@@ -1,13 +1,13 @@
-import {IEncryption} from '@digichanges/shared-experience';
+import { IEncryption } from '@digichanges/shared-experience';
 
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
-import {REPOSITORIES} from '../../../repositories';
-import {SERVICES} from '../../../services';
+import { REPOSITORIES } from '../../../Config/repositories';
+import { SERVICES } from '../../../services';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import User from '../Entities/User';
 import ValidatorRequest from '../../../App/Presentation/Shared/Express/ValidatorRequest';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
 import EventHandler from '../../../Shared/Events/EventHandler';
 import UserCreatedEvent from '../../../Shared/Events/UserCreatedEvent';
@@ -57,7 +57,7 @@ class SaveUserUseCase
 
         user = await this.repository.save(user);
 
-        await this.eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, {email: user.email});
+        await this.eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, { email: user.email });
 
         return user;
     }

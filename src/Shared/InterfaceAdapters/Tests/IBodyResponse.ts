@@ -1,5 +1,5 @@
-import {IClassValidatorErrorResponse} from './IClassValidatorErrorResponse';
-import {IPaginatorTransformer} from './IPaginatorTransformer';
+import { IClassValidatorErrorResponse } from './IClassValidatorErrorResponse';
+import { IPaginatorTransformer } from './IPaginatorTransformer';
 
 export interface IBodyResponse
 {

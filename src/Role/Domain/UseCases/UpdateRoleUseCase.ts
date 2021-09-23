@@ -1,10 +1,10 @@
 import RoleUpdatePayload from '../../InterfaceAdapters/Payloads/RoleUpdatePayload';
 import IRoleRepository from '../../InterfaceAdapters/IRoleRepository';
-import {REPOSITORIES} from '../../../repositories';
-import {SERVICES} from '../../../services';
+import { REPOSITORIES } from '../../../Config/repositories';
+import { SERVICES } from '../../../services';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
 import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 
 class UpdateRoleUseCase
 {

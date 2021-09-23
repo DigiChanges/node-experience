@@ -1,6 +1,6 @@
-import {InversifyExpressServer} from 'inversify-express-utils';
+import { InversifyExpressServer } from 'inversify-express-utils';
 import supertest from 'supertest';
-import {ICreateConnection} from '@digichanges/shared-experience';
+import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 import Notificator from '../../Notification/Services/Notificator';
 
@@ -46,7 +46,7 @@ describe('Start ForgotPassword Test', () =>
                 .set('Accept', 'application/json')
                 .send(payload);
 
-            const {body: {data}} = response;
+            const { body: { data } } = response;
 
             token = data.token;
 
@@ -66,7 +66,7 @@ describe('Start ForgotPassword Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const {body: {message}} = response;
+            const { body: { message } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
             expect(message).toStrictEqual('We\'ve sent you an email');

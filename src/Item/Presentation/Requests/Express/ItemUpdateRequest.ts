@@ -1,7 +1,7 @@
 import ItemUpdatePayload from '../../../InterfaceAdapters/Payloads/ItemUpdatePayload';
 import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 import ItemRepRequest from './ItemRepRequest';
-import {Mixin} from 'ts-mixer';
+import { Mixin } from 'ts-mixer';
 
 
 class ItemUpdateRequest extends Mixin(ItemRepRequest, IdRequest) implements ItemUpdatePayload

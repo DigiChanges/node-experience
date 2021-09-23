@@ -1,6 +1,6 @@
 import AuthPayload from '../../../InterfaceAdapters/Payloads/AuthPayload';
 import Config from 'config';
-import {IsString, IsEmail, Length} from 'class-validator';
+import { IsString, IsEmail, Length } from 'class-validator';
 
 class AuthRequest implements AuthPayload
 {

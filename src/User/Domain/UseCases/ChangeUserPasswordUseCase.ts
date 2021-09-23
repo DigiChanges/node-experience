@@ -1,11 +1,11 @@
-import {IEncryption} from '@digichanges/shared-experience';
+import { IEncryption } from '@digichanges/shared-experience';
 
 import ChangeUserPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeUserPasswordPayload';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
-import {REPOSITORIES} from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/repositories';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 
 class ChangeUserPasswordUseCase
 {

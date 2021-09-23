@@ -1,4 +1,4 @@
-import IBaseDomain from '../../App/InterfaceAcapters/IBaseDomain';
+import IBaseDomain from '../../App/InterfaceAdapters/IBaseDomain';
 import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
 
 interface IItemDomain extends IBaseDomain

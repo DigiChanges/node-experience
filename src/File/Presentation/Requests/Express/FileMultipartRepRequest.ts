@@ -1,5 +1,5 @@
 import FileMultipartRepPayload from '../../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
-import {IsDefined} from 'class-validator';
+import { IsDefined } from 'class-validator';
 
 // TODO: Refactor express multer file dependency
 class FileMultipartRepRequest implements FileMultipartRepPayload

@@ -1,6 +1,6 @@
 import Config from 'config';
-import {injectable} from 'inversify';
-import {ICacheRepository, ITokenRepository} from '@digichanges/shared-experience';
+import { injectable } from 'inversify';
+import { ICacheRepository, ITokenRepository } from '@digichanges/shared-experience';
 
 import ITokenDomain from '../../InterfaceAdapters/ITokenDomain';
 

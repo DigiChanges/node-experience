@@ -1,4 +1,4 @@
-import {Sort} from '@digichanges/shared-experience';
+import { Sort } from '@digichanges/shared-experience';
 
 class NotificationSort extends Sort
 {
@@ -16,7 +16,7 @@ class NotificationSort extends Sort
     getDefaultSorts(): any
     {
         return [
-            {[NotificationSort.NAME]: 'asc'}
+            { [NotificationSort.NAME]: 'asc' }
         ];
     }
 }

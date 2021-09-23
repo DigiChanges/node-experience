@@ -1,8 +1,8 @@
 import IFileRepository from '../../InterfaceAdapters/IFileRepository';
-import {REPOSITORIES} from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/repositories';
 import FileUpdateBase64Payload from '../../InterfaceAdapters/Payloads/FileUpdateBase64Payload';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 
 

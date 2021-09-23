@@ -1,14 +1,14 @@
 import Config from 'config';
-import {v4 as uuidv4} from 'uuid';
-import {ITokenRepository} from '@digichanges/shared-experience';
+import { v4 as uuidv4 } from 'uuid';
+import { ITokenRepository } from '@digichanges/shared-experience';
 
 import JWTToken from '../../Auth/Shared/JWTToken';
 import IToken from '../../Auth/InterfaceAdapters/IToken';
 import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
-import {REPOSITORIES} from '../../repositories';
+import { REPOSITORIES } from '../../Config/repositories';
 import ITokenDomain from '../../Auth/InterfaceAdapters/ITokenDomain';
 import Token from '../../Auth/Domain/Entities/Token';
-import {containerFactory} from '../Decorators/ContainerFactory';
+import { containerFactory } from '../Decorators/ContainerFactory';
 
 // TODO: Change logic with payload to extend and add new payload
 class TokenFactory

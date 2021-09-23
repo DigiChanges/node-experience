@@ -1,12 +1,12 @@
-import {Query, Model} from 'mongoose';
-import {injectable} from 'inversify';
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import { Query, Model } from 'mongoose';
+import { injectable } from 'inversify';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import INotificationRepository from '../../InterfaceAdapters/INotificationRepository';
 
 import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
 import INotification from '../../InterfaceAdapters/INotificationDocument';
-import {connection} from '../../../Shared/Database/MongooseCreateConnection';
+import { connection } from '../../../Shared/Database/MongooseCreateConnection';
 import INotificationDomain from '../../InterfaceAdapters/INotificationDomain';
 import EmailNotification from '../../Domain/Entities/EmailNotification';
 import PushNotification from '../../Domain/Entities/PushNotification';
@@ -35,7 +35,7 @@ class NotificationMongoRepository implements INotificationRepository<INotificati
 
     async getOne(id: string): Promise<INotificationDomain>
     {
-        const notification = await this.repository.findOne({_id: id});
+        const notification = await this.repository.findOne({ _id: id });
 
         if (!notification)
         {

@@ -1,5 +1,5 @@
 import PresignedFileRepPayload from '../../../InterfaceAdapters/Payloads/PresignedFileRepPayload';
-import {IsOptional, IsString} from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 class PresignedFileRepRequest implements PresignedFileRepPayload
 {

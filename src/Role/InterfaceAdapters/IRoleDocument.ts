@@ -1,4 +1,4 @@
-import {Document} from 'mongoose';
+import { Document } from 'mongoose';
 import IRoleDomain from './IRoleDomain';
 
 interface IRoleDocument extends Document, IRoleDomain {}

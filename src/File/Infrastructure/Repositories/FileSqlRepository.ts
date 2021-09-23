@@ -1,6 +1,6 @@
 import IFileRepository from '../../InterfaceAdapters/IFileRepository';
-import {injectable} from 'inversify';
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import { injectable } from 'inversify';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import Paginator from '../../../App/Presentation/Shared/Paginator';
 import FileFilter from '../../Presentation/Criterias/FileFilter';

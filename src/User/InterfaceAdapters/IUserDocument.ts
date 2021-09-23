@@ -1,4 +1,4 @@
-import {Document} from 'mongoose';
+import { Document } from 'mongoose';
 import IUserDomain from './IUserDomain';
 
 interface IUserDocument extends Document, IUserDomain {}

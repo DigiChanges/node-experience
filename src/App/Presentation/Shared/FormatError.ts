@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import ValidationModel from './ValidationModel';
 import ErrorHttpException from './ErrorHttpException';
-import {StatusCode} from '@digichanges/shared-experience';
+import { StatusCode } from '@digichanges/shared-experience';
 
 class FormatError
 {
     getFormat = (errorHttpException: ErrorHttpException): any =>
     {
-        const {statusCode, message, errors, metadata} = errorHttpException;
+        const { statusCode, message, errors, metadata } = errorHttpException;
         const validationModels: ValidationModel[] = [];
 
         if (!_.isEmpty(errors))

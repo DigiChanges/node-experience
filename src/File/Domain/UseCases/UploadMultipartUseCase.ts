@@ -1,9 +1,9 @@
 import FileMultipartRepPayload from '../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
 import IFileRepository from '../../InterfaceAdapters/IFileRepository';
-import {REPOSITORIES} from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/repositories';
 import File from '../Entities/File';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 
 class UploadMultipartUseCase

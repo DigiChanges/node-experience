@@ -1,9 +1,9 @@
-import {inject} from 'inversify';
-import {NextFunction, Request, Response} from 'express';
-import {controller, httpDelete, httpGet, httpPost, httpPut, request, response, next} from 'inversify-express-utils';
-import {IPaginator, StatusCode} from '@digichanges/shared-experience';
+import { inject } from 'inversify';
+import { NextFunction, Request, Response } from 'express';
+import { controller, httpDelete, httpGet, httpPost, httpPut, request, response, next } from 'inversify-express-utils';
+import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 
-import {TYPES} from '../../../../types';
+import { TYPES } from '../../../../types';
 import Responder from '../../../../App/Presentation/Shared/Responder';
 import RoleTransformer from '../../Transformers/RoleTransformer';
 import RoleRepRequest from '../../Requests/Express/RoleRepRequest';

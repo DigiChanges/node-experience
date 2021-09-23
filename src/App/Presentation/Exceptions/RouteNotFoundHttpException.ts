@@ -1,6 +1,6 @@
-import {StatusCode} from '@digichanges/shared-experience';
+import { StatusCode } from '@digichanges/shared-experience';
 import ErrorHttpException from '../Shared/ErrorHttpException';
-import {Locales} from '../Shared/Express/AppExpress';
+import { Locales } from '../Shared/Express/AppExpress';
 
 class RouteNotFoundHttpException extends ErrorHttpException
 {

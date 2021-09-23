@@ -6,11 +6,11 @@ class ForgotPasswordEvent
 
     public static forgotPasswordListener = async(props: any) =>
     {
-        const {emailNotification, urlConfirmationToken} = props;
+        const { emailNotification, urlConfirmationToken } = props;
 
         setTimeout(() =>
         {
-            void Notificator.sendEmail(emailNotification, 'auth/forgot_password.hbs', {urlConfirmationToken});
+            void Notificator.sendEmail(emailNotification, 'auth/forgot_password.hbs', { urlConfirmationToken });
         }, 1000);
     }
 }

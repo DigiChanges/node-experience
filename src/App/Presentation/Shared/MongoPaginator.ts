@@ -1,5 +1,5 @@
-import {Query} from 'mongoose';
-import {ICriteria, IFilter, IPagination, IPaginator, ISort} from '@digichanges/shared-experience';
+import { Query } from 'mongoose';
+import { ICriteria, IFilter, IPagination, IPaginator, ISort } from '@digichanges/shared-experience';
 import IPaginatorConfig from '../../../Shared/InterfaceAdapters/IPaginatorConfig';
 
 class MongoPaginator implements IPaginator
@@ -24,7 +24,7 @@ class MongoPaginator implements IPaginator
     private readonly metadata: Record<string, any>;
     private readonly helper: (data: any) => Promise<any>;
 
-    constructor(documentQuery: Query<any[], any>, criteria: ICriteria, config: IPaginatorConfig = {metadata: {}, helper: null})
+    constructor(documentQuery: Query<any[], any>, criteria: ICriteria, config: IPaginatorConfig = { metadata: {}, helper: null })
     {
         this.documentQuery = documentQuery;
         this.filter = criteria.getFilter();
@@ -71,7 +71,7 @@ class MongoPaginator implements IPaginator
             let order: any = value.toUpperCase();
             order = (order === 'DESC') ? -1 : 1;
 
-            const obj = {[key]: order};
+            const obj = { [key]: order };
             Object.assign(_objectSort, obj);
         });
 

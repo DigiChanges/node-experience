@@ -1,4 +1,4 @@
-import IBaseDomain from '../../App/InterfaceAcapters/IBaseDomain';
+import IBaseDomain from '../../App/InterfaceAdapters/IBaseDomain';
 
 interface ITokenDomain extends IBaseDomain
 {

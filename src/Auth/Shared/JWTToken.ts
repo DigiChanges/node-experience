@@ -15,7 +15,7 @@ class JWTToken implements IToken
     constructor(id: string, expires: number, user: IUserDomain, secret: string)
     {
         this.user = user;
-        this.expires = moment().utc().add({minutes: expires}).unix();
+        this.expires = moment().utc().add({ minutes: expires }).unix();
         this.payload = {
             id,
             iss: Config.get('jwt.iss'),

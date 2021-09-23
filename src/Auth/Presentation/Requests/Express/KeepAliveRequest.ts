@@ -1,6 +1,6 @@
 import KeepAlivePayload from '../../../InterfaceAdapters/Payloads/KeepAlivePayload';
-import {IsEmail} from 'class-validator';
-import {IsUUID} from 'class-validator';
+import { IsEmail } from 'class-validator';
+import { IsUUID } from 'class-validator';
 
 class KeepAliveRequest implements KeepAlivePayload
 {

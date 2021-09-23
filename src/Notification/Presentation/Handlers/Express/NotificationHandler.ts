@@ -1,9 +1,9 @@
-import {inject} from 'inversify';
-import {NextFunction, Request, Response} from 'express';
-import {httpPost, request, response, next, controller} from 'inversify-express-utils';
-import {StatusCode} from '@digichanges/shared-experience';
+import { inject } from 'inversify';
+import { NextFunction, Request, Response } from 'express';
+import { httpPost, request, response, next, controller } from 'inversify-express-utils';
+import { StatusCode } from '@digichanges/shared-experience';
 
-import {TYPES} from '../../../../types';
+import { TYPES } from '../../../../types';
 import NotificationSubscriptionRequest from '../../Requests/NotificationCreateSuscriptionRequest';
 import NotificationSendMessageRequest from '../../Requests/NotificationSendMessageRequest';
 import Responder from '../../../../App/Presentation/Shared/Responder';

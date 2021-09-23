@@ -1,8 +1,8 @@
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
-import {REPOSITORIES} from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/repositories';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 
 class GetUserUseCase
 {

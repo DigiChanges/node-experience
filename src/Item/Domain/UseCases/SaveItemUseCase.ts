@@ -2,8 +2,8 @@ import ItemRepPayload from '../../InterfaceAdapters/Payloads/ItemRepPayload';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 import Item from '../Entities/Item';
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
-import {REPOSITORIES} from '../../../repositories';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/repositories';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 
 class SaveItemUseCase

@@ -1,4 +1,4 @@
-import IApp from '../../InterfaceAcapters/IApp';
+import IApp from '../../InterfaceAdapters/IApp';
 import AppExpress from '../Shared/Express/AppExpress';
 
 

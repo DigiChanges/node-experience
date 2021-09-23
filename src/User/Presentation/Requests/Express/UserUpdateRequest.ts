@@ -1,8 +1,8 @@
 import UserUpdatePayload from '../../../InterfaceAdapters/Payloads/UserUpdatePayload';
 import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
-import {Mixin} from 'ts-mixer';
+import { Mixin } from 'ts-mixer';
 import UserRepRequest from './UserRepRequest';
-import {IsString} from 'class-validator';
+import { IsString } from 'class-validator';
 
 class UserUpdateRequest extends Mixin(UserRepRequest, IdRequest) implements UserUpdatePayload
 {

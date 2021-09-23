@@ -1,4 +1,4 @@
-import {loggerCli} from '../../../Shared/Logger';
+import { loggerCli } from '../../../Shared/Logger';
 import commander from 'commander';
 import CreateBucketCommandRequest from '../Requests/Express/CreateBucketCommandRepRequest';
 import CreateBucketPayload from '../../InterfaceAdapters/Payloads/CreateBucketPayload';

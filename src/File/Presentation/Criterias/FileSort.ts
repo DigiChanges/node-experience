@@ -1,4 +1,4 @@
-import {Sort} from '@digichanges/shared-experience';
+import { Sort } from '@digichanges/shared-experience';
 
 class FileSort extends Sort
 {
@@ -14,7 +14,7 @@ class FileSort extends Sort
     getDefaultSorts(): any
     {
         return [
-            {[FileSort.NAME]: 'asc'}
+            { [FileSort.NAME]: 'asc' }
         ];
     }
 }

@@ -1,6 +1,6 @@
-import {InversifyExpressServer} from 'inversify-express-utils';
+import { InversifyExpressServer } from 'inversify-express-utils';
 import supertest from 'supertest';
-import {ICreateConnection} from '@digichanges/shared-experience';
+import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 
 describe('White list routes Test', () =>

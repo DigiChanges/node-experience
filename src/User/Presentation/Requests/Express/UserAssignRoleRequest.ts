@@ -1,4 +1,4 @@
-import {IsArray, IsUUID} from 'class-validator';
+import { IsArray, IsUUID } from 'class-validator';
 
 import UserAssignRolePayload from '../../../InterfaceAdapters/Payloads/UserAssignRolePayload';
 import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';

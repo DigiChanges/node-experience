@@ -1,8 +1,8 @@
-import {ParsedQs} from 'qs';
+import { ParsedQs } from 'qs';
 import FileFilter from '../../Criterias/FileFilter';
 import FileSort from '../../Criterias/FileSort';
 import Pagination from '../../../../App/Presentation/Shared/Pagination';
-import {ICriteria} from '@digichanges/shared-experience';
+import { ICriteria } from '@digichanges/shared-experience';
 
 import RequestCriteria from '../../../../App/Presentation/Requests/RequestCriteria';
 

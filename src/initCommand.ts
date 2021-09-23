@@ -1,5 +1,5 @@
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
-import {validateEnv} from './Config/validateEnv';
+import { validateEnv } from './Config/validateEnv';
 
 const initCommand = async() =>
 {

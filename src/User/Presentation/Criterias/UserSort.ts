@@ -1,4 +1,4 @@
-import {Sort} from '@digichanges/shared-experience';
+import { Sort } from '@digichanges/shared-experience';
 
 class UserSort extends Sort
 {
@@ -16,7 +16,7 @@ class UserSort extends Sort
     getDefaultSorts(): any
     {
         return [
-            {[UserSort.CREATED_AT]: 'DESC'}
+            { [UserSort.CREATED_AT]: 'DESC' }
         ];
     }
 }

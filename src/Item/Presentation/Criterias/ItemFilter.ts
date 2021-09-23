@@ -1,4 +1,4 @@
-import {Filter} from '@digichanges/shared-experience';
+import { Filter } from '@digichanges/shared-experience';
 
 class ItemFilter extends Filter
 {

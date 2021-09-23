@@ -1,6 +1,6 @@
 import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
 import FileUpdateMultipartPayload from '../../../InterfaceAdapters/Payloads/FileUpdateMultipartPayload';
-import {IsDefined} from 'class-validator';
+import { IsDefined } from 'class-validator';
 
 class FileUpdateMultipartRequest extends IdRequest implements FileUpdateMultipartPayload
 {

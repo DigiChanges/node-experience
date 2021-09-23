@@ -1,7 +1,7 @@
 import Config from 'config';
 import TypeORMCreateConnection from '../Database/TypeORMCreateConnection';
 import MongooseCreateConnection from '../Database/MongooseCreateConnection';
-import {ICreateConnection} from '@digichanges/shared-experience';
+import { ICreateConnection } from '@digichanges/shared-experience';
 
 class DatabaseFactory
 {

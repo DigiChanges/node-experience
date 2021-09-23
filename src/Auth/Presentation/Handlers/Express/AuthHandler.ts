@@ -1,9 +1,9 @@
-import {controller, httpPost, request, response, httpGet} from 'inversify-express-utils';
-import {Request, Response} from 'express';
-import {StatusCode} from '@digichanges/shared-experience';
+import { controller, httpPost, request, response, httpGet } from 'inversify-express-utils';
+import { Request, Response } from 'express';
+import { StatusCode } from '@digichanges/shared-experience';
 
-import {inject} from 'inversify';
-import {TYPES} from '../../../../types';
+import { inject } from 'inversify';
+import { TYPES } from '../../../../types';
 import Responder from '../../../../App/Presentation/Shared/Responder';
 
 import AuthorizeMiddleware from '../../Middlewares/AuthorizeMiddleware';
@@ -84,6 +84,6 @@ class AuthHandler
     {
         this.controller.syncRolesPermissions();
 
-        this.responder.send({message: 'Sync Successfully'}, req, res, StatusCode.HTTP_CREATED, null);
+        this.responder.send({ message: 'Sync Successfully' }, req, res, StatusCode.HTTP_CREATED, null);
     }
 }

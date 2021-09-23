@@ -1,5 +1,5 @@
-import IBaseRepository from '../../App/InterfaceAcapters/IBaseRepository';
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import IBaseRepository from '../../App/InterfaceAdapters/IBaseRepository';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 import IItemDomain from './IItemDomain';
 
 interface IItemRepository extends IBaseRepository<IItemDomain>

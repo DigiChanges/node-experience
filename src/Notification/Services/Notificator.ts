@@ -4,7 +4,7 @@ import Handlebars from 'handlebars';
 import nodemailer from 'nodemailer';
 import webPush from 'web-push';
 import path from 'path';
-import {ErrorException} from '@digichanges/shared-experience';
+import { ErrorException } from '@digichanges/shared-experience';
 
 import EmailNotification from '../Domain/Entities/EmailNotification';
 import NotificationMongoRepository from '../Infrastructure/Repositories/NotificationMongoRepository';
@@ -25,7 +25,7 @@ class Notificator
             const templateRoot: string = Config.get('mail.templateDir');
             const templateDir = `${path.dirname(require.main.filename || process.mainModule.filename)  }/${templateRoot}/${templatePathNameFile}`;
 
-            const smtpConfig = {host, port, secure};
+            const smtpConfig = { host, port, secure };
 
             if (smtpConfig.secure)
             {
@@ -59,7 +59,7 @@ class Notificator
 
             if (emailNotification.cc)
             {
-                Object.assign(mailData, {cc: emailNotification.cc});
+                Object.assign(mailData, { cc: emailNotification.cc });
             }
 
             return await transporter.sendMail(mailData)

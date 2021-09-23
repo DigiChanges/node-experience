@@ -1,4 +1,4 @@
-import {Filter} from '@digichanges/shared-experience';
+import { Filter } from '@digichanges/shared-experience';
 
 class UserFilter extends Filter
 {
@@ -18,7 +18,7 @@ class UserFilter extends Filter
     getDefaultFilters(): any
     {
         return [
-            {[UserFilter.IS_SUPER_ADMIN]: false}
+            { [UserFilter.IS_SUPER_ADMIN]: false }
         ];
     }
 }

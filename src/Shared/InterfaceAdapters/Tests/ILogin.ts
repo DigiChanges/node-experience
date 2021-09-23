@@ -1,5 +1,5 @@
-import {IBodyResponse} from './IBodyResponse';
-import {IFetchResponse} from './IFetchResponse';
+import { IBodyResponse } from './IBodyResponse';
+import { IFetchResponse } from './IFetchResponse';
 
 interface ILoginBody extends IBodyResponse
 {

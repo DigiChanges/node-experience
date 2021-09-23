@@ -1,5 +1,5 @@
-import {SelectQueryBuilder} from 'typeorm';
-import {ICriteria, IFilter, IPagination, IPaginator, ISort} from '@digichanges/shared-experience';
+import { SelectQueryBuilder } from 'typeorm';
+import { ICriteria, IFilter, IPagination, IPaginator, ISort } from '@digichanges/shared-experience';
 import IPaginatorConfig from '../../../Shared/InterfaceAdapters/IPaginatorConfig';
 
 class Paginator implements IPaginator
@@ -24,7 +24,7 @@ class Paginator implements IPaginator
     private readonly metadata: Record<string, any>;
     private readonly helper: (data: any) => Promise<any>;
 
-    constructor(queryBuilder: SelectQueryBuilder<any>, criteria: ICriteria, config: IPaginatorConfig = {metadata: {}, helper: null})
+    constructor(queryBuilder: SelectQueryBuilder<any>, criteria: ICriteria, config: IPaginatorConfig = { metadata: {}, helper: null })
     {
         this.queryBuilder = queryBuilder;
         this.filter = criteria.getFilter();

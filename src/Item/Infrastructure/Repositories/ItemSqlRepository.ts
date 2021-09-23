@@ -1,7 +1,7 @@
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import Item from '../../Domain/Entities/Item';
-import {injectable} from 'inversify';
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import { injectable } from 'inversify';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import Paginator from '../../../App/Presentation/Shared/Paginator';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';

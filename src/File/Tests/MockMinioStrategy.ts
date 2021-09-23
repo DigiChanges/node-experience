@@ -1,5 +1,5 @@
 import internal from 'stream';
-import {IFilesystem} from '@digichanges/shared-experience';
+import { IFilesystem } from '@digichanges/shared-experience';
 
 class MockMinioStrategy implements IFilesystem
 {

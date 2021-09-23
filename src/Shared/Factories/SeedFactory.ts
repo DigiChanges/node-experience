@@ -1,5 +1,5 @@
 import ISeed from '../InterfaceAdapters/ISeed';
-import {loggerCli} from '../Logger';
+import { loggerCli } from '../Logger';
 import _ from 'lodash';
 
 import seeds from '../../seed';
@@ -10,9 +10,9 @@ class SeedFactory
         ...seeds
     }
 
-    public async execute(name: string): Promise<void>
+    public async execute(name: string): Promise<any>
     {
-        const res = !_.isUndefined(name) ? await this.one(name) : await this.all();
+        return !_.isUndefined(name) ? await this.one(name) : await this.all();
     }
 
     public list(): void

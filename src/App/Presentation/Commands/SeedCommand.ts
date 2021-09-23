@@ -1,4 +1,4 @@
-import {Command} from 'commander';
+import { Command } from 'commander';
 import SeedFactory from '../../../Shared/Factories/SeedFactory';
 
 const Seed = new Command('seed');

@@ -1,5 +1,5 @@
 import webPush from 'web-push';
-import {TypeNotificationEnum} from '@digichanges/shared-experience';
+import { TypeNotificationEnum } from '@digichanges/shared-experience';
 import Base from '../../../App/Domain/Entities/Base';
 
 class TypeNotification extends Base

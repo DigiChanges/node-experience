@@ -1,10 +1,10 @@
-import {ITokenRepository} from '@digichanges/shared-experience';
+import { ITokenRepository } from '@digichanges/shared-experience';
 import KeepAlivePayload from '../../InterfaceAdapters/Payloads/KeepAlivePayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import TokenFactory from '../../../Shared/Factories/TokenFactory';
-import {REPOSITORIES} from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/repositories';
 import SetTokenBlacklistUseCase from './SetTokenBlacklistUseCase';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ITokenDomain from '../../../Auth/InterfaceAdapters/ITokenDomain';
 
 class KeepAliveUseCase

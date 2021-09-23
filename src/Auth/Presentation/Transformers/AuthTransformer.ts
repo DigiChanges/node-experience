@@ -1,5 +1,5 @@
 import moment from 'moment';
-import {Transformer} from '@digichanges/shared-experience';
+import { Transformer } from '@digichanges/shared-experience';
 
 import IToken from '../../InterfaceAdapters/IToken';
 import RoleUserTransformer from '../../../Role/Presentation/Transformers/RoleUserTransformer';

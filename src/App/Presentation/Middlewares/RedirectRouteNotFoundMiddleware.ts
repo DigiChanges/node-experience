@@ -1,9 +1,9 @@
 import Responder from '../Shared/Responder';
 import FormatError from '../Shared/FormatError';
-import {StatusCode} from '@digichanges/shared-experience';
+import { StatusCode } from '@digichanges/shared-experience';
 import RouteNotFoundHttpException from '../Exceptions/RouteNotFoundHttpException';
 
-const RedirectRouteNotFoundMiddleware = (req: any, res: any, next: any) =>
+const RedirectRouteNotFoundMiddleware = (req: any, res: any) =>
 {
     const responder = new Responder();
     const formatError = new FormatError();

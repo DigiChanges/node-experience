@@ -1,9 +1,9 @@
-import {Response, Request} from 'express';
-import {inject, injectable} from 'inversify';
-import {IHttpStatusCode, IPaginator, Transformer} from '@digichanges/shared-experience';
+import { Response, Request } from 'express';
+import { inject, injectable } from 'inversify';
+import { IHttpStatusCode, IPaginator, Transformer } from '@digichanges/shared-experience';
 
 import IFormatResponder from '../../../Shared/InterfaceAdapters/IFormatResponder';
-import {TYPES} from '../../../types';
+import { TYPES } from '../../../types';
 import PaginatorTransformer from './PaginatorTransformer';
 import IFileDTO from '../../../File/InterfaceAdapters/Payloads/IFileDTO';
 
@@ -26,7 +26,7 @@ class Responder
 
         if (!transformer)
         {
-            return response.status(status.code).send({...data, metadata});
+            return response.status(status.code).send({ ...data, metadata });
         }
 
         data = transformer.handle(data);
@@ -51,7 +51,7 @@ class Responder
 
         if (!transformer)
         {
-            return response.status(status.code).send({...data, metadata});
+            return response.status(status.code).send({ ...data, metadata });
         }
 
         result.data = transformer.handle(data);
@@ -61,7 +61,7 @@ class Responder
             const paginatorTransformer = new PaginatorTransformer();
             paginator = paginatorTransformer.handle(paginator);
 
-            const pagination = {pagination: paginator};
+            const pagination = { pagination: paginator };
 
             Object.assign(result, pagination);
         }
@@ -71,14 +71,14 @@ class Responder
 
     public sendStream(fileDto: IFileDTO, request: Request | any, response: Response, status: IHttpStatusCode)
     {
-        response.writeHead(status.code, {'Content-Type': fileDto.metadata.mimeType});
+        response.writeHead(status.code, { 'Content-Type': fileDto.metadata.mimeType });
 
         fileDto.stream.pipe(response);
     }
 
     public render(data: any, view: any, response: Response, resolve: any, reject: any)
     {
-        response.render('log', {data}, (err: any, compiled: any) =>
+        response.render('log', { data }, (err: any, compiled: any) =>
         {
             if (err)
             {
@@ -100,7 +100,7 @@ class Responder
             };
         }
 
-        response.status(status.code).send({...data, metadata});
+        response.status(status.code).send({ ...data, metadata });
     }
 }
 

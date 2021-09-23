@@ -1,4 +1,4 @@
-import {registerDecorator, ValidationArguments, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface} from 'class-validator';
+import { registerDecorator, ValidationArguments, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
 
 export function Match(property: string, validationOptions?: ValidationOptions)
 {
@@ -14,7 +14,7 @@ export function Match(property: string, validationOptions?: ValidationOptions)
     };
 }
 
-@ValidatorConstraint({name: 'Match'})
+@ValidatorConstraint({ name: 'Match' })
 export class MatchConstraint implements ValidatorConstraintInterface
 {
     validate(value: any, args: ValidationArguments)

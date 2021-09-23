@@ -1,11 +1,11 @@
-import {NextFunction, Response} from 'express';
+import { NextFunction, Response } from 'express';
 import Config from 'config';
 
 
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import ForbiddenHttpException from '../Exceptions/ForbiddenHttpException';
 import IAuthService from '../../InterfaceAdapters/IAuthService';
-import {SERVICES} from '../../../services';
+import { SERVICES } from '../../../services';
 import ContainerFactory from '../../../Shared/Factories/ContainerFactory';
 
 const AuthorizeMiddleware = (...handlerPermissions: any) =>

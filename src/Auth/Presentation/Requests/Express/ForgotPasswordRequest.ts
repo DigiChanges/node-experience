@@ -1,5 +1,5 @@
-import {IsEmail} from 'class-validator';
-import {IEncryption} from '@digichanges/shared-experience';
+import { IsEmail } from 'class-validator';
+import { IEncryption } from '@digichanges/shared-experience';
 
 import ForgotPasswordPayload from '../../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
 import moment from 'moment';

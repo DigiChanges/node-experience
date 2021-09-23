@@ -1,10 +1,10 @@
 import UserAssignRoleByPayload from '../../InterfaceAdapters/Payloads/UserAssignRoleByPayload';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
-import {REPOSITORIES} from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/repositories';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 
 class AssignRoleBySlugUseCase
 {

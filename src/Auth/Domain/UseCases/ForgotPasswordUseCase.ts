@@ -1,8 +1,8 @@
 import Config from 'config';
 import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
-import {REPOSITORIES} from '../../../repositories';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/repositories';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import EmailNotification from '../../../Notification/Domain/Entities/EmailNotification';
 import ForgotPasswordEvent from '../../../Shared/Events/ForgotPasswordEvent';
 import EventHandler from '../../../Shared/Events/EventHandler';
@@ -31,9 +31,9 @@ class ForgotPasswordUseCase
 
         const eventHandler = EventHandler.getInstance();
 
-        await eventHandler.execute(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT, {emailNotification, urlConfirmationToken});
+        await eventHandler.execute(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT, { emailNotification, urlConfirmationToken });
 
-        return {message: 'We\'ve sent you an email'};
+        return { message: 'We\'ve sent you an email' };
     }
 }
 

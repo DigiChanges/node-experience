@@ -1,4 +1,4 @@
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import ListFilesUseCase from '../../Domain/UseCases/ListFilesUseCase';
 import ListObjectsUseCase from '../../Domain/UseCases/ListObjectsUseCase';

@@ -1,15 +1,15 @@
 import moment from 'moment';
-import {StatusCode} from '@digichanges/shared-experience';
+import { StatusCode } from '@digichanges/shared-experience';
 
 import Responder from '../Responder';
 import FormatError from '../FormatError';
-import {loggerCli, loggerFile} from '../../../../Shared/Logger';
-import {ErrorExceptionMapper} from './ErrorExceptionMapper';
+import { loggerCli, loggerFile } from '../../../../Shared/Logger';
+import { ErrorExceptionMapper } from './ErrorExceptionMapper';
 import ErrorHttpException from '../ErrorHttpException';
 
 export class ErrorHandler
 {
-    static handle(err: any, req: any, res: any, next: any)
+    static handle(err: any, req: any, res: any)
     {
         const responder = new Responder();
         const formatError = new FormatError();

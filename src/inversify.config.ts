@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import {Container} from 'inversify';
+import { Container } from 'inversify';
 import Config from 'config';
 
 import FormatResponder from './App/Presentation/Shared/FormatResponder';
@@ -14,9 +14,9 @@ import IFileRepository from './File/InterfaceAdapters/IFileRepository';
 
 import AuthService from './Auth/Services/AuthService';
 
-import {REPOSITORIES} from './repositories';
-import {TYPES} from './types';
-import {SERVICES} from './services';
+import { REPOSITORIES } from './Config/repositories';
+import { TYPES } from './types';
+import { SERVICES } from './services';
 
 import ItemMongoRepository from './Item/Infrastructure/Repositories/ItemMongoRepository';
 import UserMongoRepository from './User/Infrastructure/Repositories/UserMongoRepository';
@@ -28,7 +28,7 @@ import UserSqlRepository from './User/Infrastructure/Repositories/UserSqlReposit
 import FileSqlRepository from './File/Infrastructure/Repositories/FileSqlRepository';
 import RoleSqlRepository from './Role/Infrastructure/Repositories/RoleSqlRepository';
 import TokenRedisRepository from './Auth/Infrastructure/Repositories/TokenRedisRepository';
-import {ITokenRepository} from '@digichanges/shared-experience';
+import { ITokenRepository } from '@digichanges/shared-experience';
 import ITokenDomain from './Auth/InterfaceAdapters/ITokenDomain';
 import IFileService from './File/InterfaceAdapters/IFileService';
 import FileService from './File/Domain/Services/FileService';

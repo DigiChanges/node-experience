@@ -1,5 +1,5 @@
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
-import {REPOSITORIES} from '../../../repositories';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/repositories';
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';

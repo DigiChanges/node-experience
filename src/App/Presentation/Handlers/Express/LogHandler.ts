@@ -1,8 +1,8 @@
-import {controller, request, response, next, httpGet} from 'inversify-express-utils';
-import {NextFunction, Request, Response} from 'express';
+import { controller, request, response, next, httpGet } from 'inversify-express-utils';
+import { NextFunction, Request, Response } from 'express';
 
-import {inject} from 'inversify';
-import {TYPES} from '../../../../types';
+import { inject } from 'inversify';
+import { TYPES } from '../../../../types';
 import Responder from '../../Shared/Responder';
 
 import GetLogViewUseCase from '../../../Domain/UseCases/GetLogViewUseCase';

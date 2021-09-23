@@ -1,7 +1,7 @@
 import BcryptEncryptionStrategy from '../Encryption/BcryptEncryptionStrategy';
 import Md5EncryptionStrategy from '../Encryption/Md5EncryptionStrategy';
 import Config from 'config';
-import {IEncryption} from '@digichanges/shared-experience';
+import { IEncryption } from '@digichanges/shared-experience';
 
 class EncryptionFactory
 {

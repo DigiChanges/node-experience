@@ -7,6 +7,6 @@ const storage = multer.diskStorage(
     }
 );
 
-const FileReqMulter = multer({storage});
+const FileReqMulter = multer({ storage });
 
 export default FileReqMulter;

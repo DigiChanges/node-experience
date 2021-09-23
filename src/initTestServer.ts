@@ -5,7 +5,7 @@ import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 
-import {InversifyExpressServer} from 'inversify-express-utils';
+import { InversifyExpressServer } from 'inversify-express-utils';
 import supertest from 'supertest';
 
 import './App/Presentation/Handlers/Express/IndexHandler';
@@ -16,21 +16,21 @@ import './File/Presentation/Handlers/Express/FileHandler';
 import './App/Tests/WhiteListHandler';
 // import "../Presentation/Handlers/NotificationHandler";
 
-import {Locales} from './App/Presentation/Shared/Express/AppExpress';
+import { Locales } from './App/Presentation/Shared/Express/AppExpress';
 
-import {ICreateConnection, ITokenRepository} from '@digichanges/shared-experience';
+import { ICreateConnection, ITokenRepository } from '@digichanges/shared-experience';
 
 import LoggerWinston from './App/Presentation/Middlewares/LoggerWinston';
 import AuthenticationMiddleware from './Auth/Presentation/Middlewares/AuthenticationMiddleware';
 import RefreshTokenMiddleware from './Auth/Presentation/Middlewares/RefreshTokenMiddleware';
 
-import {ErrorHandler} from './App/Presentation/Shared/Express/ErrorHandler';
+import { ErrorHandler } from './App/Presentation/Shared/Express/ErrorHandler';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 import EventHandler from './Shared/Events/EventHandler';
 import RedirectRouteNotFoundMiddleware from './App/Presentation/Middlewares/RedirectRouteNotFoundMiddleware';
-import {REPOSITORIES} from './repositories';
+import { REPOSITORIES } from './Config/repositories';
 import TokenMongoRepository from './Auth/Infrastructure/Repositories/TokenMongoRepository';
-import {validateEnv} from './Config/validateEnv';
+import { validateEnv } from './Config/validateEnv';
 import container from './inversify.config';
 import ITokenDomain from './Auth/InterfaceAdapters/ITokenDomain';
 import SeedFactory from './Shared/Factories/SeedFactory';
@@ -89,7 +89,7 @@ const initTestServer = async(): Promise<any> =>
 
     EventHandler.getInstance();
 
-    return {request, dbConnection};
+    return { request, dbConnection };
 };
 
 export default initTestServer;

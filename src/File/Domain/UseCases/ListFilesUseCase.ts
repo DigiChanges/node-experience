@@ -1,8 +1,8 @@
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import IFileRepository from '../../InterfaceAdapters/IFileRepository';
-import {REPOSITORIES} from '../../../repositories';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/repositories';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 
 class ListFilesUseCase
 {

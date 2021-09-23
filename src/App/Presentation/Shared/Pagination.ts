@@ -1,5 +1,5 @@
 import Config from 'config';
-import {IPagination} from '@digichanges/shared-experience';
+import { IPagination } from '@digichanges/shared-experience';
 import QueryString from 'qs';
 
 class Pagination implements IPagination

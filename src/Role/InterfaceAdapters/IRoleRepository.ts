@@ -1,6 +1,6 @@
-import IBaseRepository from '../../App/InterfaceAcapters/IBaseRepository';
+import IBaseRepository from '../../App/InterfaceAdapters/IBaseRepository';
 import IRoleDomain from './IRoleDomain';
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 interface IRoleRepository extends IBaseRepository<IRoleDomain>
 {

@@ -1,5 +1,5 @@
 import IRoleDomain from '../../Role/InterfaceAdapters/IRoleDomain';
-import IBaseDomain from '../../App/InterfaceAcapters/IBaseDomain';
+import IBaseDomain from '../../App/InterfaceAdapters/IBaseDomain';
 
 interface IUserDomain extends IBaseDomain
 {

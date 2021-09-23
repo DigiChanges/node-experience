@@ -1,5 +1,5 @@
 import UserCommandSaveRequest from '../Requests/Express/UserCommandSaveRequest';
-import {loggerCli} from '../../../Shared/Logger';
+import { loggerCli } from '../../../Shared/Logger';
 import commander from 'commander';
 import SaveUserUseCase from '../../Domain/UseCases/SaveUserUseCase';
 import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';

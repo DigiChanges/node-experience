@@ -1,11 +1,11 @@
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
-import {injectable} from 'inversify';
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import { injectable } from 'inversify';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
 import UserFilter from '../../Presentation/Criterias/UserFilter';
 import IUser from '../../InterfaceAdapters/IUserDocument';
-import {Query} from 'mongoose';
+import { Query } from 'mongoose';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
@@ -22,7 +22,7 @@ class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implem
 
     async getOneByEmail(email: string): Promise<IUserDomain>
     {
-        const user = await this.repository.findOne({email}).populate('roles');
+        const user = await this.repository.findOne({ email }).populate('roles');
 
         if (!user)
         {
@@ -34,7 +34,7 @@ class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implem
 
     async getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>
     {
-        const user = await this.repository.findOne({confirmationToken}).populate('roles');
+        const user = await this.repository.findOne({ confirmationToken }).populate('roles');
 
         if (!user)
         {
@@ -79,7 +79,7 @@ class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implem
 
     async update(user: IUserDomain): Promise<IUserDomain>
     {
-        return this.repository.findByIdAndUpdate({_id: user.getId()}, user).populate('roles');
+        return this.repository.findByIdAndUpdate({ _id: user.getId() }, user).populate('roles');
     }
 
     async delete(id: string): Promise<IUserDomain>

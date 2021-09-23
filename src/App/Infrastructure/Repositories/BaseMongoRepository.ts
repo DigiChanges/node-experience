@@ -1,10 +1,10 @@
-import {Document, Model} from 'mongoose';
-import {injectable, unmanaged} from 'inversify';
-import {connection} from '../../../Shared/Database/MongooseCreateConnection';
+import { Document, Model } from 'mongoose';
+import { injectable, unmanaged } from 'inversify';
+import { connection } from '../../../Shared/Database/MongooseCreateConnection';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
-import IByOptions from '../../InterfaceAcapters/IByOptions';
-import IBaseRepository from '../../InterfaceAcapters/IBaseRepository';
-import IBaseDomain from '../../InterfaceAcapters/IBaseDomain';
+import IByOptions from '../../InterfaceAdapters/IByOptions';
+import IBaseRepository from '../../InterfaceAdapters/IBaseRepository';
+import IBaseDomain from '../../InterfaceAdapters/IBaseDomain';
 
 @injectable()
 abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T> implements IBaseRepository<T>
@@ -27,7 +27,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
 
     async getOne(id: string): Promise<T>
     {
-        const entity = await this.repository.findOne({_id: id} as any).populate(this.populate);
+        const entity = await this.repository.findOne({ _id: id } as any).populate(this.populate);
 
         if (!entity)
         {
@@ -39,12 +39,12 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
 
     async update(entity: T): Promise<T>
     {
-        return this.repository.findOneAndUpdate({_id: entity.getId()} as any, {$set: entity} as any, {new: true}).populate(this.populate);
+        return this.repository.findOneAndUpdate({ _id: entity.getId() } as any, { $set: entity } as any, { new: true }).populate(this.populate);
     }
 
     async delete(id: string): Promise<T>
     {
-        const entity = await this.repository.findByIdAndDelete({_id: id} as any).populate(this.populate);
+        const entity = await this.repository.findByIdAndDelete({ _id: id } as any).populate(this.populate);
 
         if (!entity)
         {
@@ -54,9 +54,9 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
         return entity;
     }
 
-    async getOneBy(condition: Record<string, any>, options: IByOptions = {initThrow: true, populate: null}): Promise<T>
+    async getOneBy(condition: Record<string, any>, options: IByOptions = { initThrow: true, populate: null }): Promise<T>
     {
-        let {initThrow, populate} = options;
+        let { initThrow, populate } = options;
 
         initThrow = initThrow ?? false;
         populate = populate ?? null;
@@ -71,9 +71,9 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
         return entity;
     }
 
-    async getBy(condition: Record<string, any>, options: IByOptions = {initThrow: false, populate: null}): Promise<T[]>
+    async getBy(condition: Record<string, any>, options: IByOptions = { initThrow: false, populate: null }): Promise<T[]>
     {
-        let {initThrow, populate} = options;
+        let { initThrow, populate } = options;
 
         initThrow = initThrow ?? false;
         populate = populate ?? null;

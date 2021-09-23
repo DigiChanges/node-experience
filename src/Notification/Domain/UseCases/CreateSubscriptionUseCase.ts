@@ -14,9 +14,9 @@ class CreateSubscriptionUseCase
 
         const eventHandler = EventHandler.getInstance();
         const message = 'successful subscription';
-        await eventHandler.execute(SendMessageEvent.SEND_MESSAGE_EVENT, {pushNotification, message});
+        await eventHandler.execute(SendMessageEvent.SEND_MESSAGE_EVENT, { pushNotification, message });
 
-        return {message: 'We\'ve sent you a notification'};
+        return { message: 'We\'ve sent you a notification' };
     }
 }
 

@@ -1,4 +1,4 @@
-import {Sort} from '@digichanges/shared-experience';
+import { Sort } from '@digichanges/shared-experience';
 
 class ItemSort extends Sort
 {
@@ -16,7 +16,7 @@ class ItemSort extends Sort
     getDefaultSorts(): any
     {
         return [
-            {[ItemSort.NAME]: 'asc'}
+            { [ItemSort.NAME]: 'asc' }
         ];
     }
 }

@@ -1,4 +1,4 @@
-import {ICriteria, IFilter, IPagination, ISort} from '@digichanges/shared-experience';
+import { ICriteria, IFilter, IPagination, ISort } from '@digichanges/shared-experience';
 
 abstract class RequestCriteria implements ICriteria
 {

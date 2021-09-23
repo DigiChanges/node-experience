@@ -1,8 +1,8 @@
 import ItemUpdatePayload from '../../InterfaceAdapters/Payloads/ItemUpdatePayload';
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
-import {REPOSITORIES} from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/repositories';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 
 class UpdateItemUseCase

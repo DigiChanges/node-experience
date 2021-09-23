@@ -1,4 +1,4 @@
-import {loggerCli} from '../../../Shared/Logger';
+import { loggerCli } from '../../../Shared/Logger';
 import commander from 'commander';
 import SyncRolesPermissionUseCase from '../../Domain/UseCases/SyncRolesPermissionUseCase';
 

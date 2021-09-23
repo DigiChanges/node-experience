@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import express from 'express';
-import {InversifyExpressServer} from 'inversify-express-utils';
+import { InversifyExpressServer } from 'inversify-express-utils';
 import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -19,13 +19,13 @@ import '../../Handlers/Express/LogHandler';
 
 import LoggerWinston from '../../Middlewares/LoggerWinston';
 import AuthenticationMiddleware from '../../../../Auth/Presentation/Middlewares/AuthenticationMiddleware';
-import {ErrorHandler} from './ErrorHandler';
-import {loggerCli} from '../../../../Shared/Logger';
+import { ErrorHandler } from './ErrorHandler';
+import { loggerCli } from '../../../../Shared/Logger';
 import RedirectRouteNotFoundMiddleware from '../../Middlewares/RedirectRouteNotFoundMiddleware';
 import Throttle from '../../Middlewares/Throttle';
 import VerifyTokenMiddleware from '../../../../Auth/Presentation/Middlewares/VerifyTokenMiddleware';
 import container from '../../../../inversify.config';
-import IApp from '../../../InterfaceAcapters/IApp';
+import IApp from '../../../InterfaceAdapters/IApp';
 
 export const Locales = i18n;
 

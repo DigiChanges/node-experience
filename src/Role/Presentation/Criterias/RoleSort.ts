@@ -1,4 +1,4 @@
-import {Sort} from '@digichanges/shared-experience';
+import { Sort } from '@digichanges/shared-experience';
 
 class RoleSort extends Sort
 {
@@ -14,7 +14,7 @@ class RoleSort extends Sort
     getDefaultSorts(): any
     {
         return [
-            {[RoleSort.SLUG]: 'asc'}
+            { [RoleSort.SLUG]: 'asc' }
         ];
     }
 }

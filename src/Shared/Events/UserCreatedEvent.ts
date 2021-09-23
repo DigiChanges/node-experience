@@ -1,4 +1,4 @@
-import {loggerCli} from '../Logger';
+import { loggerCli } from '../Logger';
 
 class UserCreatedEvent
 {
@@ -6,7 +6,7 @@ class UserCreatedEvent
 
     public static userCreatedListener = async(props: any) =>
     {
-        const {email} = props;
+        const { email } = props;
 
         loggerCli.debug(`User ${email} Created!`);
     }

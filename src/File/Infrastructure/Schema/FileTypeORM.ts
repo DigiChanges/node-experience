@@ -1,4 +1,4 @@
-import {EntitySchema} from 'typeorm';
+import { EntitySchema } from 'typeorm';
 import File from '../../Domain/Entities/File';
 
 const FileSchema = new EntitySchema<File>({

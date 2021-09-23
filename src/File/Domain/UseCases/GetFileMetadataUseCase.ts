@@ -1,9 +1,9 @@
 import IFileRepository from '../../InterfaceAdapters/IFileRepository';
-import {REPOSITORIES} from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/repositories';
 
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
-import {containerFactory} from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 
 class GetFileMetadataUserCase
 {

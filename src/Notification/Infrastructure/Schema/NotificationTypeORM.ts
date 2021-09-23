@@ -1,5 +1,5 @@
-import {EntitySchema} from 'typeorm';
-import {TypeNotificationEnum} from '@digichanges/shared-experience';
+import { EntitySchema } from 'typeorm';
+import { TypeNotificationEnum } from '@digichanges/shared-experience';
 import TypeNotification from '../../Domain/Entities/TypeNotification';
 
 const TypeNotificationSchema = new EntitySchema<TypeNotification>({
