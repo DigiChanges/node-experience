@@ -7,7 +7,6 @@ COPY src /usr/app
 COPY package.json /usr/app
 COPY ecosystem.config.js /usr/app
 
-RUN apt update && apt install jq original-awk -y
 RUN npm install -g pm2
 RUN chown -R node:node /usr/app
 

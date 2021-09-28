@@ -21,7 +21,7 @@ class Notificator
         {
             const host: string = Config.get('mail.host');
             const port: number = Config.get('mail.port');
-            const secure: boolean = Config.get('mail.secure');
+            const secure: boolean = Config.get('mail.secure') === 'true';
             const templateRoot: string = Config.get('mail.templateDir');
             const templateDir = `${path.dirname(require.main.filename || process.mainModule.filename)  }/${templateRoot}/${templatePathNameFile}`;
 

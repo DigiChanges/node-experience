@@ -7,12 +7,12 @@ import UserMinimalDataTransformer from '../../../User/Presentation/Transformers/
 
 class ItemTransformer extends Transformer
 {
-    private userTransformer: UserMinimalDataTransformer;
+    private user_transformer: UserMinimalDataTransformer;
 
     constructor()
     {
         super();
-        this.userTransformer = new UserMinimalDataTransformer();
+        this.user_transformer = new UserMinimalDataTransformer();
     }
 
     public transform(item: IItemDomain): IItemTransformer
@@ -21,8 +21,8 @@ class ItemTransformer extends Transformer
             id: item.getId(),
             name: item.name,
             type: item.type,
-            createdBy: this.userTransformer.handle(item.getCreatedBy()),
-            lastModifiedBy: this.userTransformer.handle(item.getCreatedBy()),
+            createdBy: this.user_transformer.handle(item.getCreatedBy()),
+            lastModifiedBy: this.user_transformer.handle(item.getCreatedBy()),
             createdAt: moment(item.createdAt).utc().unix(),
             updatedAt: moment(item.updatedAt).utc().unix()
         };
