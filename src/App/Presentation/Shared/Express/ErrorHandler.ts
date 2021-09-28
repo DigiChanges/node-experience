@@ -9,7 +9,7 @@ import ErrorHttpException from '../ErrorHttpException';
 
 export class ErrorHandler
 {
-    static handle(err: any, req: any, res: any)
+    static handle(err: any, req: any, res: any, next: any)
     {
         const responder = new Responder();
         const formatError = new FormatError();
