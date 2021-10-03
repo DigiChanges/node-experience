@@ -1,11 +1,5 @@
 import 'reflect-metadata';
 
-import express from 'express';
-import compression from 'compression';
-import cors from 'cors';
-import helmet from 'helmet';
-
-import { InversifyExpressServer } from 'inversify-express-utils';
 import supertest from 'supertest';
 
 import './App/Presentation/Handlers/Express/IndexHandler';
@@ -19,11 +13,6 @@ import './App/Tests/WhiteListHandler';
 
 import { ICreateConnection, ITokenRepository } from '@digichanges/shared-experience';
 
-import LoggerWinston from './App/Presentation/Middlewares/Express/LoggerWinston';
-import AuthenticationMiddleware from './Auth/Presentation/Middlewares/Express/AuthenticationMiddleware';
-import RefreshTokenMiddleware from './Auth/Presentation/Middlewares/Express/RefreshTokenMiddleware';
-
-import { ErrorHandler } from './App/Presentation/Shared/Express/ErrorHandler';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 import EventHandler from './Shared/Events/EventHandler';
 import RedirectRouteNotFoundMiddleware from './App/Presentation/Middlewares/Express/RedirectRouteNotFoundMiddleware';
@@ -33,8 +22,8 @@ import { validateEnv } from './Config/validateEnv';
 import container from './inversify.config';
 import ITokenDomain from './Auth/InterfaceAdapters/ITokenDomain';
 import SeedFactory from './Shared/Factories/SeedFactory';
+import AppFactory from './App/Presentation/Factories/AppFactory';
 import Locales from './App/Presentation/Shared/Locales';
-
 
 const initTestServer = async(): Promise<any> =>
 {
@@ -46,45 +35,31 @@ const initTestServer = async(): Promise<any> =>
     dbConnection.initConfigTest(process.env.MONGO_URL);
     await dbConnection.create();
 
-    container.unbind(REPOSITORIES.ITokenRepository);
-    container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(TokenMongoRepository);
+    const eventHandler = EventHandler.getInstance();
+    await eventHandler.setListeners();
 
     void Locales.getInstance();
 
-    const server = new InversifyExpressServer(container);
+    container.unbind(REPOSITORIES.ITokenRepository);
+    container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(TokenMongoRepository);
 
-    server.setConfig((app: express.Application) =>
-    {
-        app.use(express.urlencoded({
-            extended: true,
-            limit: '5mb'
-        }));
-        app.use(express.json({
-            limit: '5mb'
-        }));
-        app.use(compression());
-        app.use(cors());
-        app.use(helmet());
-        app.use(LoggerWinston);
-        app.use(AuthenticationMiddleware);
-        app.use(RefreshTokenMiddleware);
+    const app = AppFactory.create('AppExpress', {
+        viewRouteEngine: `${process.cwd()}/dist/src/App/Presentation/Views`,
+        localesDirectory: `${process.cwd()}/dist/src/Config/Locales`,
+        serverPort: 8089
     });
 
-    server.setErrorConfig((app: express.Application) =>
-    {
-        app.use(ErrorHandler.handle);
-    });
+    app.initConfig();
 
-    const application = server.build();
+    const application = app.build();
     application.use(RedirectRouteNotFoundMiddleware);
     const request: supertest.SuperTest<supertest.Test> = supertest(application);
 
     const seed = new SeedFactory();
     await seed.init();
 
-    EventHandler.getInstance();
-
     return { request, dbConnection };
 };
 
 export default initTestServer;
+

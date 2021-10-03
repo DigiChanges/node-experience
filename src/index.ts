@@ -21,7 +21,6 @@ void (async() =>
         validateEnv();
 
         const databaseFactory = new DatabaseFactory();
-
         const createConnection: ICreateConnection = databaseFactory.create();
 
         createConnection.initConfig();
@@ -34,7 +33,11 @@ void (async() =>
         const eventHandler = EventHandler.getInstance();
         await eventHandler.setListeners();
 
-        const app = AppFactory.create('AppExpress');
+        const app = AppFactory.create('AppExpress', {
+            viewRouteEngine: `${Config.get('nodePath')}/dist/src/App/Presentation/Views`,
+            localesDirectory: `${Config.get('nodePath')}/dist/src/Config/Locales`,
+            serverPort: Config.get('serverPort')
+        });
         app.initConfig();
         app.build();
         app.listen();

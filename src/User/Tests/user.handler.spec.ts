@@ -186,7 +186,6 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-
             const { body: { status, statusCode, data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
@@ -274,8 +273,6 @@ describe('Start User Test', () =>
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
-
-            token = createResponse.body.metadata.refreshToken;
 
             deleteResponse = await request
                 .delete(`/api/users/${createResponse.body.data.id}`)

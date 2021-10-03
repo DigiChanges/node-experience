@@ -26,6 +26,7 @@ import VerifyTokenMiddleware from '../../../../Auth/Presentation/Middlewares/Exp
 import container from '../../../../inversify.config';
 import IApp from '../../../InterfaceAdapters/IApp';
 import Locales from '../Locales';
+import IAppConfig from '../../../InterfaceAdapters/IAppConfig';
 
 
 class AppExpress implements IApp
@@ -34,8 +35,9 @@ class AppExpress implements IApp
     private server: InversifyExpressServer;
     private app: express.Application;
     private locales: Locales;
+    private config: IAppConfig;
 
-    constructor()
+    constructor(config: IAppConfig)
     {
         this.port = (Config.get('serverPort') || 8090); // default port to listen;
         this.server = new InversifyExpressServer(container);
@@ -56,13 +58,13 @@ class AppExpress implements IApp
             app.use(compression());
             app.use(cors());
             app.use(helmet());
-            const viewRoute = `${Config.get('nodePath')}/dist/src/App/Presentation/Views`;
-            app.set('views', viewRoute);
+
+            app.set('views', this.config.viewRouteEngine);
             app.engine('.hbs', exphbs({
                 defaultLayout: 'main',
                 extname: '.hbs',
-                layoutsDir: `${viewRoute}/Layouts`,
-                partialsDir: `${viewRoute}/Partials`
+                layoutsDir: `${this.config.viewRouteEngine}/Layouts`,
+                partialsDir: `${this.config.viewRouteEngine}/Partials`
             }));
             app.set('view engine', '.hbs');
             app.use(LoggerWinston);
@@ -77,9 +79,10 @@ class AppExpress implements IApp
         });
     }
 
-    public build()
+    public build(): any
     {
         this.app = this.server.build();
+        return this.app;
     }
 
     public listen()

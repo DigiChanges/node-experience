@@ -2,7 +2,7 @@
 interface IApp
 {
     initConfig(): any;
-    build(): void;
+    build(): any;
     listen(): void;
 }
 
