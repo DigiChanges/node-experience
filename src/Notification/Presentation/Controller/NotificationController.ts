@@ -11,16 +11,16 @@ class NotificationController
     {
         await ValidatorRequest.handle(request);
 
-        const createSubscriptionUseCase = new CreateSubscriptionUseCase();
-        return createSubscriptionUseCase.handle(request);
+        const use_case = new CreateSubscriptionUseCase();
+        return use_case.handle(request);
     }
 
     public async sendPushNotification(request: NotificationSendMessagePayload)
     {
         await ValidatorRequest.handle(request);
 
-        const sendPushNotificationUseCase = new SendPushNotificationUseCase();
-        return sendPushNotificationUseCase.handle(request);
+        const use_case = new SendPushNotificationUseCase();
+        return use_case.handle(request);
     }
 }
 

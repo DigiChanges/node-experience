@@ -26,74 +26,74 @@ class FileController
     {
         await ValidatorRequest.handle(request);
 
-        const listFilesUseCase = new ListFilesUseCase();
-        return await listFilesUseCase.handle(request);
+        const use_case = new ListFilesUseCase();
+        return await use_case.handle(request);
     }
 
     public async listFilesystemObjects(request: ListObjectsPayload)
     {
         await ValidatorRequest.handle(request);
 
-        const listObjectsUseCase = new ListObjectsUseCase();
-        return await listObjectsUseCase.handle(request);
+        const use_case = new ListObjectsUseCase();
+        return await use_case.handle(request);
     }
 
     public async getFileMetadata(request: IdPayload)
     {
         await ValidatorRequest.handle(request);
 
-        const getFileMetadataUserCase = new GetFileMetadataUserCase();
+        const use_case = new GetFileMetadataUserCase();
 
-        return await getFileMetadataUserCase.handle(request);
+        return await use_case.handle(request);
     }
 
     public async uploadBase64(request: FileBase64RepPayload)
     {
         await ValidatorRequest.handle(request);
 
-        const uploadBase64UseCase = new UploadBase64UseCase();
-        return await uploadBase64UseCase.handle(request);
+        const use_case = new UploadBase64UseCase();
+        return await use_case.handle(request);
     }
 
     public async uploadMultipart(request: FileMultipartRepPayload)
     {
         await ValidatorRequest.handle(request);
 
-        const uploadMultipartUseCase = new UploadMultipartUseCase();
-        return await uploadMultipartUseCase.handle(request);
+        const use_case = new UploadMultipartUseCase();
+        return await use_case.handle(request);
     }
 
     public async getPresignedGetObject(request: PresignedFileRepPayload)
     {
         await ValidatorRequest.handle(request);
 
-        const getPresignedGetObjectUseCase = new GetPresignedGetObjectUseCase();
-        return await getPresignedGetObjectUseCase.handle(request);
+        const use_case = new GetPresignedGetObjectUseCase();
+        return await use_case.handle(request);
     }
 
     public async downloadStreamFile(request: IdPayload): Promise<IFileDTO>
     {
         await ValidatorRequest.handle(request);
 
-        const downloadUseCase = new DownloadUseCase();
+        const use_case = new DownloadUseCase();
 
-        return await downloadUseCase.handle(request);
+        return await use_case.handle(request);
     }
 
     public async updateBase64(request: FileUpdateBase64Payload): Promise<any>
     {
         await ValidatorRequest.handle(request);
 
-        const updateFileBase64UseCase = new UpdateFileBase64UseCase();
-        return await updateFileBase64UseCase.handle(request);
+        const use_case = new UpdateFileBase64UseCase();
+        return await use_case.handle(request);
     }
 
     public async updateMultipart(request: FileUpdateMultipartPayload): Promise<any>
     {
         await ValidatorRequest.handle(request);
 
-        const updateFileMultipartUseCase = new UpdateFileMultipartUseCase();
-        return await updateFileMultipartUseCase.handle(request);
+        const use_case = new UpdateFileMultipartUseCase();
+        return await use_case.handle(request);
     }
 }
 
