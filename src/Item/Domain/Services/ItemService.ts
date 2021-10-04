@@ -6,6 +6,7 @@ import { REPOSITORIES } from '../../../Config/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import ItemUpdatePayload from '../../InterfaceAdapters/Payloads/ItemUpdatePayload';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 
 class ItemService
@@ -41,6 +42,16 @@ class ItemService
     async getOne(id: string): Promise<IItemDomain>
     {
         return await this.repository.getOne(id);
+    }
+
+    async remove(id: string): Promise<IItemDomain>
+    {
+        return await this.repository.delete(id);
+    }
+
+    async list(payload: ICriteria): Promise<IPaginator>
+    {
+        return await this.repository.list(payload);
     }
 }
 
