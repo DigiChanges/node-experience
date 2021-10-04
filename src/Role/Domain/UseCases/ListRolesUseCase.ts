@@ -1,17 +1,13 @@
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
-
-import IRoleRepository from '../../InterfaceAdapters/IRoleRepository';
-import { REPOSITORIES } from '../../../Config/repositories';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import RoleService from '../Services/RoleService';
 
 class ListRolesUseCase
 {
-    @containerFactory(REPOSITORIES.IRoleRepository)
-    private repository: IRoleRepository;
+    private roleService = new RoleService();
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {
-        return await this.repository.list(payload);
+        return await this.roleService.list(payload);
     }
 }
 
