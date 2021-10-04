@@ -1,17 +1,14 @@
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
-import IFileRepository from '../../InterfaceAdapters/IFileRepository';
-import { REPOSITORIES } from '../../../Config/repositories';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import FileService from '../Services/FileService';
 
 class ListFilesUseCase
 {
-    @containerFactory(REPOSITORIES.IFileRepository)
-    private repository: IFileRepository;
+    private fileService = new FileService();
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {
-        return await this.repository.list(payload);
+        return await this.fileService.list(payload);
     }
 }
 
