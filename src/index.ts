@@ -38,7 +38,8 @@ void (async() =>
         const eventHandler = EventHandler.getInstance();
         await eventHandler.setListeners();
 
-        const app: Koa = new Koa();
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const app: Koa = require('koa-qs')(new Koa());
 
         // Generic error handling middleware.
         app.use(async(ctx: Koa.Context, next: () => Promise<any>) =>
@@ -51,7 +52,7 @@ void (async() =>
             {
                 ctx.status = error.statusCode || error.status || 500;
                 error.status = ctx.status;
-                ctx.body = {error};
+                ctx.body = { error };
                 ctx.app.emit('error', error, ctx);
             }
         });
@@ -65,6 +66,7 @@ void (async() =>
         app.use(ItemHandler.allowedMethods());
 
         // Application error logging.
+        // eslint-disable-next-line no-console
         app.on('error', console.error);
 
         const server = app.listen(8089, () =>

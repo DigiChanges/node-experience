@@ -15,14 +15,14 @@ class ItemTransformer extends Transformer
         this.user_transformer = new UserMinimalDataTransformer();
     }
 
-    public transform(item: IItemDomain): IItemTransformer
+    public transform(item: IItemDomain)// : IItemTransformer
     {
         return {
             id: item.get_id(),
             name: item.name,
             type: item.type,
-            created_by: this.user_transformer.handle(item.get_created_by()),
-            last_modified_by: this.user_transformer.handle(item.get_created_by()),
+            // created_by: this.user_transformer.handle(item.get_created_by()),
+            // last_modified_by: this.user_transformer.handle(item.get_created_by()),
             createdAt: moment(item.createdAt).utc().unix(),
             updatedAt: moment(item.updatedAt).utc().unix()
         };

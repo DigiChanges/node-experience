@@ -1,18 +1,19 @@
 import ItemRepPayload from '../../InterfaceAdapters/Payloads/ItemRepPayload';
-import {IsInt, IsString} from 'class-validator';
+import { IsInt, IsString } from 'class-validator';
+import { decorate } from 'ts-mixer';
 
 class ItemRepRequest implements ItemRepPayload
 {
-    @IsString()
-    name: string;
+    @decorate(IsString())
+    protected name: string;
 
-    @IsInt()
-    type: number;
+    @decorate(IsInt())
+    protected type: number;
 
-    constructor({name, type}: any)
+    constructor(data: Record<string, any>)
     {
-        this.name = name;
-        this.type = type;
+        this.name = data.name;
+        this.type = data.type;
     }
 
     getName(): string

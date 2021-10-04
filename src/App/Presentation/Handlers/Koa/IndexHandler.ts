@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import Responder from '../../Shared/Koa/Responder';
-import {StatusCode} from '@digichanges/shared-experience';
+import { StatusCode } from '@digichanges/shared-experience';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/'

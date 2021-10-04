@@ -4,15 +4,15 @@ import { controller, httpDelete, httpGet, httpPost, httpPut, next, request, resp
 import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 
 import { TYPES } from '../../../../types';
-import Responder from '../../../../App/Presentation/Shared/Responder';
+import Responder from '../../../../App/Presentation/Shared/Express/Responder';
 import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
 
 import ItemTransformer from '../../Transformers/ItemTransformer';
 import ItemRepRequest from '../../Requests/ItemRepRequest';
 import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
-import ItemRequestCriteria from '../../Requests/Express/ItemRequestCriteria';
-import ItemUpdateRequest from '../../Requests/Express/ItemUpdateRequest';
+import ItemRequestCriteria from '../../Requests/ItemRequestCriteria';
+import ItemUpdateRequest from '../../Requests/ItemUpdateRequest';
 import IItemDomain from '../../../InterfaceAdapters/IItemDomain';
 
 import ItemController from '../../Controllers/ItemController';

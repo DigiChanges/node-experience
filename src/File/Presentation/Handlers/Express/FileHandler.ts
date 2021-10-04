@@ -7,7 +7,7 @@ import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Autho
 import Permissions from '../../../../Config/Permissions';
 
 import { TYPES } from '../../../../types';
-import Responder from '../../../../App/Presentation/Shared/Responder';
+import Responder from '../../../../App/Presentation/Shared/Express/Responder';
 import ListObjectsRequest from '../../Requests/Express/ListObjectsRequest';
 import FileReqMulter from '../../Middlewares/FileReqMulter';
 import FileBase64RepRequest from '../../Requests/Express/FileBase64RepRequest';

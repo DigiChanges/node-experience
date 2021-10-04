@@ -1,8 +1,7 @@
 import Koa from 'koa';
-import {IHttpStatusCode, IPaginator, Transformer} from '@digichanges/shared-experience';
+import { IHttpStatusCode, IPaginator, PaginatorTransformer, Transformer } from '@digichanges/shared-experience';
 
 import IFormatResponder from '../../../../Shared/InterfaceAdapters/IFormatResponder';
-import PaginatorTransformer from '../PaginatorTransformer';
 import IFileDTO from '../../../../File/InterfaceAdapters/Payloads/IFileDTO';
 import FormatResponder from '../FormatResponder';
 
@@ -29,15 +28,12 @@ class Responder
         data = transformer.handle(data);
 
         ctx.status = status.code;
-        return ctx.body = {
-            data: this.formatResponder.getFormatData(data, status, null)
-        };
+        return ctx.body = this.formatResponder.getFormatData(data, status, null);
     }
 
     public async paginate(paginator: IPaginator, ctx: Koa.Context, status: IHttpStatusCode, transformer: Transformer = null)
     {
         const data = await paginator.paginate();
-
         const result = this.formatResponder.getFormatData(data, status, null);
 
         if (!transformer)
@@ -55,15 +51,13 @@ class Responder
             const paginatorTransformer = new PaginatorTransformer();
             paginator = paginatorTransformer.handle(paginator);
 
-            const pagination = {pagination: paginator};
+            const pagination = { pagination: paginator };
 
             Object.assign(result, pagination);
         }
 
         ctx.status = status.code;
-        return ctx.body = {
-            data
-        };
+        return ctx.body = result;
     }
 
     // public sendStream(fileDto: IFileDTO, request: Request | any, response: Response, status: IHttpStatusCode)
@@ -89,15 +83,6 @@ class Responder
 
     // public error(data: any, request: Request | any, response: Response, status: any)
     // {
-    //     let metadata;
-    //
-    //     if (request)
-    //     {
-    //         metadata = {
-    //             refreshToken: request.refreshToken
-    //         };
-    //     }
-    //
     //     response.status(status.code).send({...data, metadata});
     // }
 }
