@@ -1,37 +1,14 @@
-import { IEncryption } from '@digichanges/shared-experience';
-
 import ChangeMyPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeMyPasswordPayload';
-import IUserRepository from '../../InterfaceAdapters/IUserRepository';
-import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
-import { REPOSITORIES } from '../../../Config/repositories';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
-import PasswordWrongException from '../../../Auth/Domain/Exceptions/PasswordWrongException';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import UserService from '../Services/UserService';
 
 class ChangeMyPasswordUseCase
 {
-    @containerFactory(REPOSITORIES.IUserRepository)
-    private repository: IUserRepository;
-    private encryption: IEncryption;
-
-    constructor()
-    {
-        this.encryption = EncryptionFactory.create();
-    }
+    private userService = new UserService();
 
     async handle(payload: ChangeMyPasswordPayload): Promise<IUserDomain>
     {
-        const id = payload.getId();
-        const user = await this.repository.getOne(id);
-
-        if (! await this.encryption.compare(payload.getCurrentPassword(), user.password))
-        {
-            throw new PasswordWrongException();
-        }
-
-        user.password = await this.encryption.encrypt(payload.getPassword());
-
-        return await this.repository.update(user);
+        return await this.userService.changeMyPassword(payload);
     }
 }
 

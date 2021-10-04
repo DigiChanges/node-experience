@@ -104,7 +104,7 @@ class UserService
 
     async getOne(id: string): Promise<IUserDomain>
     {
-        return await this.repository.getOne(id);
+        return await this.repository.getOneBy({ _id : id }, { populate: 'roles' });
     }
 
     async remove(id: string): Promise<IUserDomain>
@@ -151,11 +151,9 @@ class UserService
 
         user.clearRoles();
 
-        for await (const roleId of payload.getRolesId())
-        {
-            const role = await this.roleRepository.getOne(roleId);
-            user.setRole(role);
-        }
+        const roles = await this.roleRepository.getInBy({ _id: payload.getRolesId() });
+
+        roles.forEach(role => user.setRole(role));
 
         return await this.repository.save(user);
     }

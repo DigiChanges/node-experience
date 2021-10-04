@@ -1,17 +1,13 @@
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import IUserRepository from '../../InterfaceAdapters/IUserRepository';
-import { REPOSITORIES } from '../../../Config/repositories';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import UserService from '../Services/UserService';
 
 class RemoveUserUseCase
 {
-    @containerFactory(REPOSITORIES.IUserRepository)
-    private repository: IUserRepository;
-
+    private userService = new UserService();
     async handle(payload: IdPayload): Promise<any>
     {
         const id = payload.getId();
-        return await this.repository.delete(id);
+        return await this.userService.remove(id);
     }
 }
 
