@@ -5,7 +5,7 @@ import ItemService from '../Services/ItemService';
 
 class SaveItemUseCase
 {
-    private itemService: ItemService = new ItemService();
+    private itemService = new ItemService();
 
     async handle(payload: ItemRepPayload, auth_user: IUserDomain): Promise<IItemDomain>
     {
