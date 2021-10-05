@@ -9,11 +9,8 @@ import PresignedFileRepPayload from 'File/InterfaceAdapters/Payloads/PresignedFi
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 import ListObjectsPayload from 'File/InterfaceAdapters/Payloads/ListObjectsPayload';
 import FileBase64RepPayload from '../../InterfaceAdapters/Payloads/FileBase64RepPayload';
-import File from '../Entities/File';
 import FileMultipartRepPayload from '../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
 import FileRepPayload from '../../InterfaceAdapters/Payloads/FileRepPayload';
-import FileUpdateMultipartPayload from '../../InterfaceAdapters/Payloads/FileUpdateMultipartPayload';
-import FileUpdateBase64Payload from 'File/InterfaceAdapters/Payloads/FileUpdateBase64Payload';
 import CreateBucketPayload from '../../InterfaceAdapters/Payloads/CreateBucketPayload';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import FileDTO from '../../InterfaceAdapters/Payloads/FileDTO';
@@ -24,6 +21,8 @@ class FileService implements IFileService
 {
     @containerFactory(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;
+
+    private filesystem = FilesystemFactory.create();
 
     async getPresignedGetObject(payload: PresignedFileRepPayload): Promise<string>
     {
@@ -45,48 +44,16 @@ class FileService implements IFileService
         return await this.repository.save(file);
     }
 
-    async uploadFileBase64(payload: FileBase64RepPayload): Promise<any>
+    async uploadFileBase64(file: IFileDomain, payload: FileBase64RepPayload): Promise<any>
     {
-        let file: IFileDomain = new File();
-        file = await this.persist(file, payload);
-
-        const filesystem = FilesystemFactory.create();
-        await filesystem.uploadFileByBuffer(file.name, payload.getBase64());
+        await this.filesystem.uploadFileByBuffer(file.name, payload.getBase64());
 
         return file;
     }
 
-    async uploadFileMultipart(payload: FileMultipartRepPayload): Promise<any>
+    async uploadFileMultipart(file: IFileDomain, payload: FileMultipartRepPayload): Promise<any>
     {
-        let file: IFileDomain = new File();
-        file = await this.persist(file, payload);
-
-        const filesystem = FilesystemFactory.create();
-        await filesystem.uploadFile(file.name, payload.getFile().path);
-
-        return file;
-    }
-
-    async updateFileMultipart(payload: FileUpdateMultipartPayload): Promise<any>
-    {
-        const id = payload.getId();
-        let file: IFileDomain = await this.getOne(id);
-        file = await this.persist(file, payload);
-
-        const filesystem = FilesystemFactory.create();
-        await filesystem.uploadFile(file.name, payload.getFile().path);
-
-        return file;
-    }
-
-    async updateFileBase64(payload: FileUpdateBase64Payload): Promise<any>
-    {
-        const id = payload.getId();
-        let file: IFileDomain = await this.getOne(id);
-        file = await this.persist(file, payload);
-
-        const filesystem = FilesystemFactory.create();
-        await filesystem.uploadFile(file.name, payload.getBase64());
+        await this.filesystem.uploadFile(file.name, payload.getFile().path);
 
         return file;
     }
@@ -98,8 +65,7 @@ class FileService implements IFileService
 
     async listObjects(payload: ListObjectsPayload): Promise<any>
     {
-        const filesystem = FilesystemFactory.create();
-        return await filesystem.listObjects(payload.getPrefix(), payload.getRecursive());
+        return await this.filesystem.listObjects(payload.getPrefix(), payload.getRecursive());
     }
 
     async getOne(id: string): Promise<IFileDomain>
@@ -113,9 +79,8 @@ class FileService implements IFileService
         const region = payload.getRegion();
         const bucketPolicy = payload.getBucketPolicy();
 
-        const filesystem = FilesystemFactory.create();
-        await filesystem.createBucket(bucketName, region);
-        await filesystem.setBucketPolicy(bucketPolicy, bucketName);
+        await this.filesystem.createBucket(bucketName, region);
+        await this.filesystem.setBucketPolicy(bucketPolicy, bucketName);
     }
 
     async download(payload: IdPayload): Promise<IFileDTO>
@@ -123,22 +88,19 @@ class FileService implements IFileService
         const id = payload.getId();
         const metadata: IFileDomain = await this.getOne(id);
 
-        const filesystem = FilesystemFactory.create();
-        const stream = await filesystem.downloadStreamFile(id);
+        const stream = await this.filesystem.downloadStreamFile(id);
 
         return new FileDTO(metadata, stream);
     }
 
     public async getFileUrl(file: IFileDomain, expiry: number): Promise<string>
     {
-        const  filesystem = FilesystemFactory.create();
-
         const metadata = {
             'Content-Type': file.mimeType,
             'Content-Length': file.size
         };
 
-        return await filesystem.presignedGetObject(file.getId(), expiry, metadata);
+        return await this.filesystem.presignedGetObject(file.getId(), expiry, metadata);
     }
 }
 
