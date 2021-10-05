@@ -2,12 +2,13 @@ import ChangeMyPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeMyPa
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import UserService from '../Services/UserService';
 import PasswordWrongException from '../../../Auth/Domain/Exceptions/PasswordWrongException';
+import Password from '../../../App/Domain/ValueObjects/Password';
 import { IEncryption } from '@digichanges/shared-experience';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 
 class ChangeMyPasswordUseCase
 {
-    private user_service = new UserService();
+    private userService = new UserService();
     private encryption: IEncryption;
 
     constructor()
@@ -17,15 +18,19 @@ class ChangeMyPasswordUseCase
 
     async handle(payload: ChangeMyPasswordPayload): Promise<IUserDomain>
     {
-        const id = payload.get_id();
-        const user: IUserDomain = await this.user_service.get_one(id);
+        const id = payload.getId();
+        const user: IUserDomain = await this.userService.get_one(id);
 
-        if (! await this.encryption.compare(payload.get_current_password(), user.password))
+        if (! await this.encryption.compare(payload.getCurrentPassword(), user.password.toString()))
         {
             throw new PasswordWrongException();
         }
 
-        return await this.user_service.persist_password(user, payload);
+        const password = new Password(payload.getPassword());
+        await password.ready();
+        user.password = password;
+
+        return await this.userService.persist_password(user, payload);
     }
 }
 

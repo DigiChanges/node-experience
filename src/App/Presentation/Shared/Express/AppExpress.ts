@@ -6,7 +6,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 import exphbs from 'express-handlebars';
 import Config from 'config';
-import i18n from 'i18n';
 
 import '../../Handlers/Express/IndexHandler';
 import '../../../../Item/Presentation/Handlers/Express/ItemHandler';
@@ -26,26 +25,21 @@ import Throttle from '../../Middlewares/Throttle';
 import VerifyTokenMiddleware from '../../../../Auth/Presentation/Middlewares/VerifyTokenMiddleware';
 import container from '../../../../inversify.config';
 import IApp from '../../../InterfaceAdapters/IApp';
+import Locales from '../Locales';
 
-export const Locales = i18n;
 
 class AppExpress implements IApp
 {
     public port?: number;
     private server: InversifyExpressServer;
     private app: express.Application;
+    private locales: Locales;
 
     constructor()
     {
         this.port = (Config.get('serverPort') || 8090); // default port to listen;
         this.server = new InversifyExpressServer(container);
-
-        Locales.configure({
-            locales: ['en', 'es'],
-            directory: `${Config.get('nodePath')}/dist/src/Config/Locales`,
-            defaultLocale: 'en',
-            objectNotation: true
-        });
+        this.locales = Locales.getInstance();
     }
 
     public initConfig()
@@ -75,7 +69,6 @@ class AppExpress implements IApp
             app.use('/api/', Throttle);
             app.use(AuthenticationMiddleware);
             app.use(VerifyTokenMiddleware);
-            app.use(Locales.init);
         });
 
         this.server.setErrorConfig((app: express.Application) =>

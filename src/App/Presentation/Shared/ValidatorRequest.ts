@@ -1,6 +1,6 @@
 import { validate } from 'class-validator';
 import _ from 'lodash';
-import ErrorHttpException from '../ErrorHttpException';
+import ErrorHttpException from './ErrorHttpException';
 import { StatusCode } from '@digichanges/shared-experience';
 
 class ValidatorRequest

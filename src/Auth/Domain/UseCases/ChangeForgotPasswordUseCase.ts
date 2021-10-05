@@ -3,6 +3,7 @@ import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/repositories';
+import Password from '../../../App/Domain/ValueObjects/Password';
 
 class ChangeForgotPasswordUseCase
 {
@@ -11,15 +12,19 @@ class ChangeForgotPasswordUseCase
 
     async handle(payload: ChangeForgotPasswordPayload)
     {
-        const confirmation_token = payload.get_confirmation_token();
+        const confirmationToken = payload.getConfirmationToken();
 
-        const user = await this.repository.get_one_by_confirmation_token(confirmation_token);
-        user.confirmation_token = null;
-        user.password_requested_at = null;
-        user.password = await payload.get_password();
+        const user = await this.repository.getOneByConfirmationToken(confirmationToken);
+        user.confirmationToken = null;
+        user.passwordRequestedAt = null;
+
+        const password = new Password(payload.getPassword());
+        await password.ready();
+        user.password = password;
 
         await this.repository.update(user);
 
+        // TODO: Add message and code message
         return { message: 'Your password has been changed' };
     }
 }

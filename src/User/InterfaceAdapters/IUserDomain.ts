@@ -1,5 +1,6 @@
 import IRoleDomain from '../../Role/InterfaceAdapters/IRoleDomain';
 import IBaseDomain from '../../App/InterfaceAdapters/IBaseDomain';
+import Password from '../../App/Domain/ValueObjects/Password';
 
 interface IUserDomain extends IBaseDomain
 {
@@ -13,7 +14,7 @@ interface IUserDomain extends IBaseDomain
     phone: string;
     country: string;
     address: string;
-    password: string;
+    password: Password;
     roles: IRoleDomain[];
     permissions: string[];
     enable: boolean;

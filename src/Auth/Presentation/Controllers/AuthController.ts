@@ -5,7 +5,7 @@ import KeepAliveUseCase from '../../Domain/UseCases/KeepAliveUseCase';
 import PermissionUseCase from '../../Domain/UseCases/PermissionUseCase';
 import SyncRolesPermissionUseCase from '../../Domain/UseCases/SyncRolesPermissionUseCase';
 
-import ValidatorRequest from '../../../App/Presentation/Shared/Express/ValidatorRequest';
+import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
 import ChangeForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
 import AuthPayload from '../../InterfaceAdapters/Payloads/AuthPayload';
 import IToken from '../../InterfaceAdapters/IToken';

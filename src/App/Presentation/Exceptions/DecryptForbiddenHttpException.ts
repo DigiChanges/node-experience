@@ -1,12 +1,13 @@
 import { StatusCode } from '@digichanges/shared-experience';
 import ErrorHttpException from '../Shared/ErrorHttpException';
-import { Locales } from '../Shared/Express/AppExpress';
+import Locales from '../Shared/Locales';
 
 class DecryptForbiddenHttpException extends ErrorHttpException
 {
     constructor()
     {
-        super(StatusCode.HTTP_FORBIDDEN, Locales.__('general.exceptions.decryptForbidden'), []);
+        const locales = Locales.getInstance().getLocales();
+        super(StatusCode.HTTP_FORBIDDEN, locales.__('general.exceptions.decryptForbidden'), []);
     }
 }
 

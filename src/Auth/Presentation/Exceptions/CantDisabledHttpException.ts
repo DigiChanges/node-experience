@@ -1,12 +1,13 @@
 import { StatusCode } from '@digichanges/shared-experience';
 import ErrorHttpException from '../../../App/Presentation/Shared/ErrorHttpException';
-import { Locales } from '../../../App/Presentation/Shared/Express/AppExpress';
+import Locales from '../../../App/Presentation/Shared/Locales';
 
 class CantDisabledHttpException extends ErrorHttpException
 {
     constructor()
     {
-        super(StatusCode.HTTP_FORBIDDEN, Locales.__('general.exceptions.cantDisabled'), []);
+        const locales = Locales.getInstance().getLocales();
+        super(StatusCode.HTTP_FORBIDDEN, locales.__('general.exceptions.cantDisabled'), []);
     }
 }
 

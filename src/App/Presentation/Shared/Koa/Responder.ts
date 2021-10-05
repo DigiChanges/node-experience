@@ -4,18 +4,22 @@ import { IHttpStatusCode, IPaginator, PaginatorTransformer, Transformer } from '
 import IFormatResponder from '../../../../Shared/InterfaceAdapters/IFormatResponder';
 import IFileDTO from '../../../../File/InterfaceAdapters/Payloads/IFileDTO';
 import FormatResponder from '../FormatResponder';
+import FormatError from '../FormatError';
+import ErrorHttpException from '../ErrorHttpException';
 
 
 class Responder
 {
-    private formatResponder: IFormatResponder = new FormatResponder();
+    private formatResponder: IFormatResponder;
+    private formatError: FormatError;
 
     constructor()
     {
         this.formatResponder = new FormatResponder();
+        this.formatError = new FormatError();
     }
 
-    public send(data: any, ctx: Koa.Context, status: IHttpStatusCode, transformer: Transformer = null)
+    public send(data: any, ctx: Koa.ParameterizedContext, status: IHttpStatusCode, transformer: Transformer = null)
     {
         if (!transformer)
         {
@@ -31,7 +35,7 @@ class Responder
         return ctx.body = this.formatResponder.getFormatData(data, status, null);
     }
 
-    public async paginate(paginator: IPaginator, ctx: Koa.Context, status: IHttpStatusCode, transformer: Transformer = null)
+    public async paginate(paginator: IPaginator, ctx: Koa.ParameterizedContext, status: IHttpStatusCode, transformer: Transformer = null)
     {
         const data = await paginator.paginate();
         const result = this.formatResponder.getFormatData(data, status, null);
@@ -81,10 +85,11 @@ class Responder
     //     });
     // }
 
-    // public error(data: any, request: Request | any, response: Response, status: any)
-    // {
-    //     response.status(status.code).send({...data, metadata});
-    // }
+    public error(error: ErrorHttpException, ctx: Koa.ParameterizedContext, status: IHttpStatusCode)
+    {
+        ctx.status = status.code;
+        return ctx.body = this.formatError.getFormat(error);
+    }
 }
 
 export default Responder;

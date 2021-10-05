@@ -1,18 +1,18 @@
-import ErrorHttpException from '../ErrorHttpException';
+import ErrorHttpException from './ErrorHttpException';
 
-import DecryptForbiddenHttpException from '../../Exceptions/DecryptForbiddenHttpException';
-import BadCredentialsHttpException from '../../../../Auth/Presentation/Exceptions/BadCredentialsHttpException';
-import UserDisabledHttpException from '../../../../User/Presentation/Exceptions/UserDisabledHttpException';
-import CantDisabledHttpException from '../../../../Auth/Presentation/Exceptions/CantDisabledHttpException';
-import PasswordWrongHttpException from '../../../../Auth/Presentation/Exceptions/PasswordWrongHttpException';
-import NotFoundHttpException from '../../Exceptions/NotFoundHttpException';
-import TokenExpiredHttpException from '../../../../Auth/Presentation/Exceptions/TokenExpiredHttpException';
-import DuplicateEntityHttpException from '../../Exceptions/DuplicateEntityHttpException';
-import RoleDisabledHttpException from '../../../../Role/Presentation/Exceptions/RoleDisabledHttpException';
-import WrongPermissionsHttpException from '../../../../Auth/Presentation/Exceptions/WrongPermissionsHttpException';
+import DecryptForbiddenHttpException from '../Exceptions/DecryptForbiddenHttpException';
+import BadCredentialsHttpException from '../../../Auth/Presentation/Exceptions/BadCredentialsHttpException';
+import UserDisabledHttpException from '../../../User/Presentation/Exceptions/UserDisabledHttpException';
+import CantDisabledHttpException from '../../../Auth/Presentation/Exceptions/CantDisabledHttpException';
+import PasswordWrongHttpException from '../../../Auth/Presentation/Exceptions/PasswordWrongHttpException';
+import NotFoundHttpException from '../Exceptions/NotFoundHttpException';
+import TokenExpiredHttpException from '../../../Auth/Presentation/Exceptions/TokenExpiredHttpException';
+import DuplicateEntityHttpException from '../Exceptions/DuplicateEntityHttpException';
+import RoleDisabledHttpException from '../../../Role/Presentation/Exceptions/RoleDisabledHttpException';
+import WrongPermissionsHttpException from '../../../Auth/Presentation/Exceptions/WrongPermissionsHttpException';
 import { StatusCode } from '@digichanges/shared-experience';
 import RoleOfSystemNotDeletedHttpException
-    from '../../../../Role/Presentation/Exceptions/RoleOfSystemNotDeletedHttpException';
+    from '../../../Role/Presentation/Exceptions/RoleOfSystemNotDeletedHttpException';
 
 class ExceptionFactory
 {

@@ -1,6 +1,8 @@
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import Base from '../../../App/Domain/Entities/Base';
+import Password from '../../../App/Domain/ValueObjects/Password';
+
 
 class User extends Base implements IUserDomain
 {
@@ -14,7 +16,7 @@ class User extends Base implements IUserDomain
     phone: string;
     country: string;
     address: string;
-    password: string;
+    password: Password;
     roles: IRoleDomain[];
     permissions: string[];
     enable: boolean;

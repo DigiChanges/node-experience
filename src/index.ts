@@ -8,7 +8,7 @@ import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 
 import EventHandler from './Shared/Events/EventHandler';
 import CacheFactory from './Shared/Factories/CacheFactory';
-import { ICacheRepository, ICreateConnection } from '@digichanges/shared-experience';
+import { ICacheRepository, ICreateConnection, StatusCode } from '@digichanges/shared-experience';
 
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
@@ -16,6 +16,11 @@ import * as HttpStatus from 'http-status-codes';
 import AppFactory from './App/Presentation/Factories/AppFactory';
 import IndexHandler from './App/Presentation/Handlers/Koa/IndexHandler';
 import ItemHandler from './Item/Presentation/Handlers/Koa/ItemHandler';
+import Responder from './App/Presentation/Shared/Koa/Responder';
+import ErrorHttpException from './App/Presentation/Shared/ErrorHttpException';
+import { ErrorExceptionMapper } from './App/Presentation/Shared/ErrorExceptionMapper';
+import FormatError from './App/Presentation/Shared/FormatError';
+import Locales from './App/Presentation/Shared/Locales';
 
 void (async() =>
 {
@@ -38,46 +43,10 @@ void (async() =>
         const eventHandler = EventHandler.getInstance();
         await eventHandler.setListeners();
 
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const app: Koa = require('koa-qs')(new Koa());
-
-        // Generic error handling middleware.
-        app.use(async(ctx: Koa.Context, next: () => Promise<any>) =>
-        {
-            try
-            {
-                await next();
-            }
-            catch (error)
-            {
-                ctx.status = error.statusCode || error.status || 500;
-                error.status = ctx.status;
-                ctx.body = { error };
-                ctx.app.emit('error', error, ctx);
-            }
-        });
-
-        app.use(bodyParser());
-
-        // Route middleware.
-        app.use(IndexHandler.routes());
-        app.use(IndexHandler.allowedMethods());
-        app.use(ItemHandler.routes());
-        app.use(ItemHandler.allowedMethods());
-
-        // Application error logging.
-        // eslint-disable-next-line no-console
-        app.on('error', console.error);
-
-        const server = app.listen(8089, () =>
-        {
-            loggerCli.debug('Koa is listening to http://localhost:8089');
-        });
-        // const appFactory = new AppFactory();
-        // const app = appFactory.create();
-        // app.initConfig();
-        // app.build();
-        // app.listen();
+        const app = AppFactory.create('AppKoa');
+        app.initConfig();
+        app.build();
+        app.listen();
     }
     catch (error) // TODO: Change this error catch
     {

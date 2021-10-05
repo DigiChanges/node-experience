@@ -9,7 +9,7 @@ import ChangeMyPasswordUseCase from '../../Domain/UseCases/ChangeMyPasswordUseCa
 import ChangeUserPasswordUseCase from '../../Domain/UseCases/ChangeUserPasswordUseCase';
 import UpdateUserUseCase from '../../Domain/UseCases/UpdateUserUseCase';
 
-import ValidatorRequest from '../../../App/Presentation/Shared/Express/ValidatorRequest';
+import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
 
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';

@@ -43,7 +43,7 @@ class LoginUseCase
             throw new RoleDisabledException();
         }
 
-        if (! await this.encryption.compare(password, user.password))
+        if (! await this.encryption.compare(password, user.password.toString()))
         {
             throw new BadCredentialsException();
         }

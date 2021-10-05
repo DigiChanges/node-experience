@@ -9,6 +9,7 @@ import User from '../../../User/Domain/Entities/User';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import { IEncryption } from '@digichanges/shared-experience';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
+import Password from '../../../App/Domain/ValueObjects/Password';
 
 class ItemSeed implements ISeed
 {
@@ -61,7 +62,11 @@ class ItemSeed implements ISeed
         user.phone = '2234456999';
         user.country = 'Argentina';
         user.address = 'New America 123';
-        user.password = await this.encryption.encrypt('123456789');
+
+        const password = new Password('123456789');
+        await password.ready();
+        user.password = password;
+
         user.enable = true;
         user.confirmation_token = null;
         user.password_requested_at = null;

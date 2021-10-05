@@ -1,3 +1,4 @@
+import faker from 'faker';
 import { IEncryption } from '@digichanges/shared-experience';
 
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
@@ -10,14 +11,15 @@ import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
 import { REPOSITORIES } from '../../../Config/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
+import Password from '../../../App/Domain/ValueObjects/Password';
 
 class UserSeed implements ISeed
 {
     @containerFactory(REPOSITORIES.IUserRepository)
-    private user_repository: IUserRepository;
+    private userRepository: IUserRepository;
 
     @containerFactory(REPOSITORIES.IRoleRepository)
-    private role_repository: IRoleRepository;
+    private roleRepository: IRoleRepository;
 
     private encryption: IEncryption;
 
@@ -28,142 +30,162 @@ class UserSeed implements ISeed
 
     public async init(): Promise<void>
     {
-        const role_super_admin: IRoleDomain = new Role();
-        role_super_admin.name = 'SuperAdmin';
-        role_super_admin.slug = 'superadmin';
-        role_super_admin.permissions = [];
-        role_super_admin.enable = true;
+        const roleSuperAdmin: IRoleDomain = new Role();
+        roleSuperAdmin.name = 'SuperAdmin';
+        roleSuperAdmin.slug = 'superadmin';
+        roleSuperAdmin.permissions = [];
+        roleSuperAdmin.enable = true;
 
-        await this.role_repository.save(role_super_admin);
+        await this.roleRepository.save(roleSuperAdmin);
 
-        const role_admin: IRoleDomain = new Role();
-        role_admin.name = 'Admin';
-        role_admin.slug = 'admin';
-        role_admin.permissions = [];
-        role_admin.enable = true;
+        const roleAdmin: IRoleDomain = new Role();
+        roleAdmin.name = 'Admin';
+        roleAdmin.slug = 'admin';
+        roleAdmin.permissions = [];
+        roleAdmin.enable = true;
 
-        await this.role_repository.save(role_admin);
+        await this.roleRepository.save(roleAdmin);
 
-        const role_operator: IRoleDomain = new Role();
-        role_operator.name = 'Operator';
-        role_operator.slug = 'operator';
-        role_operator.permissions = [];
-        role_operator.enable = true;
+        const roleOperator: IRoleDomain = new Role();
+        roleOperator.name = 'Operator';
+        roleOperator.slug = 'operator';
+        roleOperator.permissions = [];
+        roleOperator.enable = true;
 
-        await this.role_repository.save(role_operator);
+        await this.roleRepository.save(roleOperator);
 
-        const role_operator_disabled: IRoleDomain = new Role();
-        role_operator_disabled.name = 'OperatorDisabled';
-        role_operator_disabled.slug = 'operatordisabled';
-        role_operator_disabled.permissions = [];
-        role_operator_disabled.enable = false;
+        const roleOperatorDisabled: IRoleDomain = new Role();
+        roleOperatorDisabled.name = 'OperatorDisabled';
+        roleOperatorDisabled.slug = 'operatordisabled';
+        roleOperatorDisabled.permissions = [];
+        roleOperatorDisabled.enable = false;
 
-        await this.role_repository.save(role_operator_disabled);
+        await this.roleRepository.save(roleOperatorDisabled);
 
-        const user_super_admin: IUserDomain = new User();
-        user_super_admin.first_name = 'Super';
-        user_super_admin.last_name = 'Admin';
-        user_super_admin.email = 'superadmin@node.com';
-        user_super_admin.birthday = '04/07/1990';
-        user_super_admin.document_type = 'dni';
-        user_super_admin.document_number = '35319158';
-        user_super_admin.gender = 'male';
-        user_super_admin.phone = '2234456999';
-        user_super_admin.country = 'Argentina';
-        user_super_admin.address = 'New America 123';
-        user_super_admin.password = await this.encryption.encrypt('12345678');
-        user_super_admin.enable = true;
-        user_super_admin.confirmation_token = null;
-        user_super_admin.password_requested_at = null;
-        user_super_admin.permissions = [];
-        user_super_admin.roles = [role_super_admin];
-        user_super_admin.is_super_admin = true;
+        const userSuperAdmin: IUserDomain = new User();
+        userSuperAdmin.firstName = 'Super';
+        userSuperAdmin.lastName = 'Admin';
+        userSuperAdmin.email = 'superadmin@node.com';
+        userSuperAdmin.birthday = '04/07/1990';
+        userSuperAdmin.documentType = 'dni';
+        userSuperAdmin.documentNumber = '35319158';
+        userSuperAdmin.gender = 'male';
+        userSuperAdmin.phone = '2234456999';
+        userSuperAdmin.country = 'Argentina';
+        userSuperAdmin.address = 'New America 123';
 
-        await this.user_repository.save(user_super_admin);
+        const password = new Password('12345678');
+        await password.ready();
+        userSuperAdmin.password = password;
 
-        const user_admin: IUserDomain = new User();
-        user_admin.first_name = 'user';
-        user_admin.last_name = 'node';
-        user_admin.email = 'user@node.com';
-        user_admin.birthday = '04/07/1991';
-        user_admin.document_type = 'dni';
-        user_admin.document_number = '35319156';
-        user_admin.gender = 'male';
-        user_admin.phone = '2234456999';
-        user_admin.country = 'Argentina';
-        user_admin.address = 'New America 123';
-        user_admin.password = await this.encryption.encrypt('12345678');
-        user_admin.enable = true;
-        user_admin.confirmation_token = null;
-        user_admin.password_requested_at = null;
-        user_admin.permissions = [];
-        user_admin.roles = [role_admin];
-        user_admin.is_super_admin = false;
+        userSuperAdmin.enable = true;
+        userSuperAdmin.confirmationToken = null;
+        userSuperAdmin.passwordRequestedAt = null;
+        userSuperAdmin.permissions = [];
+        userSuperAdmin.roles = [roleSuperAdmin];
+        userSuperAdmin.isSuperAdmin = true;
 
-        await this.user_repository.save(user_admin);
+        await this.userRepository.save(userSuperAdmin);
 
-        const user_operator: IUserDomain = new User();
-        user_operator.first_name = 'operator';
-        user_operator.last_name = 'enable';
-        user_operator.email = 'operator@enable.com';
-        user_operator.birthday = '04/07/1992';
-        user_operator.document_type = 'dni';
-        user_operator.document_number = '35319157';
-        user_operator.gender = 'male';
-        user_operator.phone = '2234456999';
-        user_operator.country = 'Argentina';
-        user_operator.address = 'New America 123';
-        user_operator.password = await this.encryption.encrypt('123456789');
-        user_operator.enable = true;
-        user_operator.confirmation_token = null;
-        user_operator.password_requested_at = null;
-        user_operator.permissions = [];
-        user_operator.roles = [role_operator];
-        user_operator.is_super_admin = false;
+        const userAdmin: IUserDomain = new User();
+        userAdmin.firstName = 'user';
+        userAdmin.lastName = 'node';
+        userAdmin.email = 'user@node.com';
+        userAdmin.birthday = '04/07/1991';
+        userAdmin.documentType = 'dni';
+        userAdmin.documentNumber = '35319156';
+        userAdmin.gender = 'male';
+        userAdmin.phone = '2234456999';
+        userAdmin.country = 'Argentina';
+        userAdmin.address = 'New America 123';
 
-        await this.user_repository.save(user_operator);
+        const userAdminPassword = new Password('12345678');
+        await userAdminPassword.ready();
+        userAdmin.password = userAdminPassword;
 
-        const user_operator_disabled: IUserDomain = new User();
-        user_operator_disabled.first_name = 'operator';
-        user_operator_disabled.last_name = 'disabled';
-        user_operator_disabled.email = 'operator@disabled.com';
-        user_operator_disabled.birthday = '04/07/1994';
-        user_operator_disabled.document_type = 'dni';
-        user_operator_disabled.document_number = '35319151';
-        user_operator_disabled.gender = 'female';
-        user_operator_disabled.phone = '2234456999';
-        user_operator_disabled.country = 'Argentina';
-        user_operator_disabled.address = 'New America 123';
-        user_operator_disabled.password = await this.encryption.encrypt('1234567901');
-        user_operator_disabled.enable = false;
-        user_operator_disabled.confirmation_token = null;
-        user_operator_disabled.password_requested_at = null;
-        user_operator_disabled.permissions = [];
-        user_operator_disabled.roles = [role_operator];
-        user_operator_disabled.is_super_admin = false;
+        userAdmin.enable = true;
+        userAdmin.confirmationToken = null;
+        userAdmin.passwordRequestedAt = null;
+        userAdmin.permissions = [];
+        userAdmin.roles = [roleAdmin];
+        userAdmin.isSuperAdmin = false;
 
-        await this.user_repository.save(user_operator_disabled);
+        await this.userRepository.save(userAdmin);
 
-        const user_operator_role_disabled: IUserDomain = new User();
-        user_operator_role_disabled.first_name = 'operator';
-        user_operator_role_disabled.last_name = 'roleDisabled';
-        user_operator_role_disabled.email = 'operator@roleDisabled.com';
-        user_operator_role_disabled.birthday = '04/07/1995';
-        user_operator_role_disabled.document_type = 'dni';
-        user_operator_role_disabled.document_number = '35319150';
-        user_operator_role_disabled.gender = 'female';
-        user_operator_role_disabled.phone = '2234456999';
-        user_operator_role_disabled.country = 'Argentina';
-        user_operator_role_disabled.address = 'New America 123';
-        user_operator_role_disabled.password = await this.encryption.encrypt('123456790');
-        user_operator_role_disabled.enable = true;
-        user_operator_role_disabled.confirmation_token = null;
-        user_operator_role_disabled.password_requested_at = null;
-        user_operator_role_disabled.permissions = [];
-        user_operator_role_disabled.roles = [role_operator_disabled];
-        user_operator_role_disabled.is_super_admin = false;
+        const userOperator: IUserDomain = new User();
+        userOperator.firstName = 'operator';
+        userOperator.lastName = 'enable';
+        userOperator.email = 'operator@enable.com';
+        userOperator.birthday = '04/07/1992';
+        userOperator.documentType = 'dni';
+        userOperator.documentNumber = '35319157';
+        userOperator.gender = 'male';
+        userOperator.phone = '2234456999';
+        userOperator.country = 'Argentina';
+        userOperator.address = 'New America 123';
 
-        await this.user_repository.save(user_operator_role_disabled);
+        const userOperatorPassword = new Password('123456789');
+        await userOperatorPassword.ready();
+        userOperator.password = userOperatorPassword;
+
+        userOperator.enable = true;
+        userOperator.confirmationToken = null;
+        userOperator.passwordRequestedAt = null;
+        userOperator.permissions = [];
+        userOperator.roles = [roleOperator];
+        userOperator.isSuperAdmin = false;
+
+        await this.userRepository.save(userOperator);
+
+        const userOperatorDisabled: IUserDomain = new User();
+        userOperatorDisabled.firstName = 'operator';
+        userOperatorDisabled.lastName = 'disabled';
+        userOperatorDisabled.email = 'operator@disabled.com';
+        userOperatorDisabled.birthday = '04/07/1994';
+        userOperatorDisabled.documentType = 'dni';
+        userOperatorDisabled.documentNumber = '35319151';
+        userOperatorDisabled.gender = 'female';
+        userOperatorDisabled.phone = '2234456999';
+        userOperatorDisabled.country = 'Argentina';
+        userOperatorDisabled.address = 'New America 123';
+
+        const userOperatorDisabledPassword = new Password('1234567901');
+        await userOperatorDisabledPassword.ready();
+        userOperatorDisabled.password = userOperatorDisabledPassword;
+
+        userOperatorDisabled.enable = false;
+        userOperatorDisabled.confirmationToken = null;
+        userOperatorDisabled.passwordRequestedAt = null;
+        userOperatorDisabled.permissions = [];
+        userOperatorDisabled.roles = [roleOperator];
+        userOperatorDisabled.isSuperAdmin = false;
+
+        await this.userRepository.save(userOperatorDisabled);
+
+        const userOperatorRoleDisabled: IUserDomain = new User();
+        userOperatorRoleDisabled.firstName = 'operator';
+        userOperatorRoleDisabled.lastName = 'roleDisabled';
+        userOperatorRoleDisabled.email = 'operator@roleDisabled.com';
+        userOperatorRoleDisabled.birthday = '04/07/1995';
+        userOperatorRoleDisabled.documentType = 'dni';
+        userOperatorRoleDisabled.documentNumber = '35319150';
+        userOperatorRoleDisabled.gender = 'female';
+        userOperatorRoleDisabled.phone = '2234456999';
+        userOperatorRoleDisabled.country = 'Argentina';
+        userOperatorRoleDisabled.address = 'New America 123';
+
+        const userOperatorRoleDisabledPassword = new Password('1234567901');
+        await userOperatorRoleDisabledPassword.ready();
+        userOperatorRoleDisabled.password = userOperatorRoleDisabledPassword;
+
+        userOperatorRoleDisabled.enable = true;
+        userOperatorRoleDisabled.confirmationToken = null;
+        userOperatorRoleDisabled.passwordRequestedAt = null;
+        userOperatorRoleDisabled.permissions = [];
+        userOperatorRoleDisabled.roles = [roleOperatorDisabled];
+        userOperatorRoleDisabled.isSuperAdmin = false;
+
+        await this.userRepository.save(userOperatorRoleDisabled);
     }
 }
 
