@@ -7,11 +7,13 @@ import NotificationSendMessagePayload from '../../InterfaceAdapters/Payloads/Not
 
 class NotificationService
 {
+    private eventHandler = EventHandler.getInstance();
 
-    async execute(pushNotification: PushNotification, message: string)
+    async execute(pushNotification: PushNotification, payload: NotificationRepPayload, message: string, name: string)
     {
-        const eventHandler = EventHandler.getInstance();
-        await eventHandler.execute(SendMessageEvent.SEND_MESSAGE_EVENT, { pushNotification, message });
+        pushNotification.subscription = payload.getSubscription();
+        pushNotification.name = name;
+        await this.eventHandler.execute(SendMessageEvent.SEND_MESSAGE_EVENT, { pushNotification, message });
 
         return { message: 'We\'ve sent you a notification' };
     }
@@ -20,22 +22,18 @@ class NotificationService
     {
         const pushNotification = new PushNotification();
         const message = 'successful subscription';
+        const name = 'Node Experience';
 
-        pushNotification.subscription = payload.getSubscription();
-        pushNotification.name = 'Node Experience';
-
-        return await this.execute(pushNotification, message);
+        return await this.execute(pushNotification, payload, message, name);
     }
 
     async sendPushNotification(payload: NotificationSendMessagePayload)
     {
         const pushNotification = new PushNotification();
         const message = payload.getMessage();
+        const name = payload.getName();
 
-        pushNotification.subscription = payload.getSubscription();
-        pushNotification.name = payload.getName();
-
-        return await this.execute(pushNotification, message);
+        return await this.execute(pushNotification, payload, message, name);
     }
 
 }
