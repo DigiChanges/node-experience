@@ -16,12 +16,12 @@ import '../../../../File/Presentation/Handlers/Express/FileHandler';
 import '../../../../Notification/Presentation/Handlers/Express/NotificationHandler';
 import '../../Handlers/Express/LogHandler';
 
-import LoggerWinston from '../../Middlewares/LoggerWinston';
+import LoggerWinston from '../../Middlewares/Express/LoggerWinston';
 import AuthenticationMiddleware from '../../../../Auth/Presentation/Middlewares/AuthenticationMiddleware';
 import { ErrorHandler } from './ErrorHandler';
 import { loggerCli } from '../../../../Shared/Logger';
-import RedirectRouteNotFoundMiddleware from '../../Middlewares/RedirectRouteNotFoundMiddleware';
-import Throttle from '../../Middlewares/Throttle';
+import RedirectRouteNotFoundMiddleware from '../../Middlewares/Express/RedirectRouteNotFoundMiddleware';
+import Throttle from '../../Middlewares/Express/Throttle';
 import VerifyTokenMiddleware from '../../../../Auth/Presentation/Middlewares/VerifyTokenMiddleware';
 import container from '../../../../inversify.config';
 import IApp from '../../../InterfaceAdapters/IApp';

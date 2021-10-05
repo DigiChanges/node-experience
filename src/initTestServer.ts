@@ -18,14 +18,14 @@ import './App/Tests/WhiteListHandler';
 
 import { ICreateConnection, ITokenRepository } from '@digichanges/shared-experience';
 
-import LoggerWinston from './App/Presentation/Middlewares/LoggerWinston';
+import LoggerWinston from './App/Presentation/Middlewares/Express/LoggerWinston';
 import AuthenticationMiddleware from './Auth/Presentation/Middlewares/AuthenticationMiddleware';
 import RefreshTokenMiddleware from './Auth/Presentation/Middlewares/RefreshTokenMiddleware';
 
 import { ErrorHandler } from './App/Presentation/Shared/Express/ErrorHandler';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 import EventHandler from './Shared/Events/EventHandler';
-import RedirectRouteNotFoundMiddleware from './App/Presentation/Middlewares/RedirectRouteNotFoundMiddleware';
+import RedirectRouteNotFoundMiddleware from './App/Presentation/Middlewares/Express/RedirectRouteNotFoundMiddleware';
 import { REPOSITORIES } from './Config/repositories';
 import TokenMongoRepository from './Auth/Infrastructure/Repositories/TokenMongoRepository';
 import { validateEnv } from './Config/validateEnv';

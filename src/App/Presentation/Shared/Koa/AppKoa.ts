@@ -3,11 +3,11 @@ import helmet from 'koa-helmet';
 import hbshbs from 'koa-hbs';
 import Config from 'config';
 
-import LoggerWinston from '../../Middlewares/LoggerWinston';
+import LoggerWinston from '../../Middlewares/Express/LoggerWinston';
 import AuthenticationMiddleware from '../../../../Auth/Presentation/Middlewares/AuthenticationMiddleware';
 import { loggerCli, loggerFile } from '../../../../Shared/Logger';
-import RedirectRouteNotFoundMiddleware from '../../Middlewares/RedirectRouteNotFoundMiddleware';
-import Throttle from '../../Middlewares/Throttle';
+import RedirectRouteNotFoundMiddleware from '../../Middlewares/Koa/RedirectRouteNotFoundMiddleware';
+import Throttle from '../../Middlewares/Koa/Throttle';
 import VerifyTokenMiddleware from '../../../../Auth/Presentation/Middlewares/VerifyTokenMiddleware';
 import IApp from '../../../InterfaceAdapters/IApp';
 import Locales from '../Locales';
@@ -20,8 +20,6 @@ import ErrorHttpException from '../ErrorHttpException';
 import { ErrorExceptionMapper } from '../ErrorExceptionMapper';
 import { StatusCode } from '@digichanges/shared-experience';
 import moment from 'moment';
-import FormatError from '../FormatError';
-import RouteNotFoundHttpException from '../../Exceptions/RouteNotFoundHttpException';
 
 
 class AppKoa implements IApp
@@ -40,8 +38,10 @@ class AppKoa implements IApp
 
     public initConfig()
     {
-        this.app.use(helmet());
         this.app.use(cors());
+        this.app.use(helmet());
+        const viewRoute = `${Config.get('nodePath')}/dist/src/App/Presentation/Views`;
+
         // Generic error handling middleware.
         this.app.use(async(ctx: Koa.Context, next: () => Promise<any>) =>
         {
@@ -73,8 +73,9 @@ class AppKoa implements IApp
                 ctx.app.emit('error', error, ctx);
             }
         });
-        this.app.use(bodyParser());
 
+        this.app.use(bodyParser());
+        this.app.use(Throttle);
         // Application error logging
         // eslint-disable-next-line no-console
         this.app.on('error', console.error);
@@ -91,14 +92,7 @@ class AppKoa implements IApp
 
     public listen()
     {
-
-        this.app.use((ctx) =>
-        {
-            const responder = new Responder();
-            const formatError = new FormatError();
-
-            responder.error(formatError.getFormat(new RouteNotFoundHttpException()), ctx, StatusCode.HTTP_NOT_FOUND);
-        });
+        this.app.use(RedirectRouteNotFoundMiddleware);
 
         const server = this.app.listen(this.port, () =>
         {
