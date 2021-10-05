@@ -1,5 +1,7 @@
 import FileBase64RepPayload from '../../InterfaceAdapters/Payloads/FileBase64RepPayload';
 import FileService from '../Services/FileService';
+import IFileDomain from '../../InterfaceAdapters/IFileDomain';
+import File from '../Entities/File';
 
 class UploadBase64UseCase
 {
@@ -7,7 +9,9 @@ class UploadBase64UseCase
 
     async handle(payload: FileBase64RepPayload): Promise<any>
     {
-        return await this.fileService.uploadFileBase64(payload);
+        let file: IFileDomain = new File();
+        file = await this.fileService.persist(file, payload);
+        return await this.fileService.uploadFileBase64(file, payload);
     }
 }
 

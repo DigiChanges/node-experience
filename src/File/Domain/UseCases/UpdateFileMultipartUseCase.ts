@@ -1,5 +1,6 @@
 import FileUpdateMultipartPayload from '../../InterfaceAdapters/Payloads/FileUpdateMultipartPayload';
 import FileService from '../Services/FileService';
+import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 
 class UpdateFileMultipartUseCase
 {
@@ -7,7 +8,10 @@ class UpdateFileMultipartUseCase
 
     async handle(payload: FileUpdateMultipartPayload): Promise<any>
     {
-        return await this.fileService.updateFileMultipart(payload);
+        const id = payload.getId();
+        let file: IFileDomain = await this.fileService.getOne(id);
+        file = await this.fileService.persist(file, payload);
+        return await this.fileService.uploadFileMultipart(file, payload);
     }
 }
 
