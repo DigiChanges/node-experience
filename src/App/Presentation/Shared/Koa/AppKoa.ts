@@ -21,6 +21,8 @@ import { StatusCode } from '@digichanges/shared-experience';
 import moment from 'moment';
 import RoleHandler from '../../../../Role/Presentation/Handlers/Koa/RoleHandler';
 import UserHandler from '../../../../User/Presentation/Handlers/Koa/UserHandler';
+import NotificationHandler from '../../../../Notification/Presentation/Handlers/Koa/NotificationHandler';
+import FileHandler from '../../../../File/Presentation/Handlers/Koa/FileHandler';
 
 
 class AppKoa implements IApp
@@ -78,7 +80,9 @@ class AppKoa implements IApp
             }
         });
 
-        this.app.use(bodyParser());
+        this.app.use(bodyParser({
+            jsonLimit: '5mb'
+        }));
         this.app.use(Throttle);
         // Application error logging
         // eslint-disable-next-line no-console
@@ -99,6 +103,12 @@ class AppKoa implements IApp
 
         this.app.use(UserHandler.routes());
         this.app.use(UserHandler.allowedMethods());
+
+        this.app.use(NotificationHandler.routes());
+        this.app.use(NotificationHandler.allowedMethods());
+
+        this.app.use(FileHandler.routes());
+        this.app.use(FileHandler.allowedMethods());
     }
 
     public listen()

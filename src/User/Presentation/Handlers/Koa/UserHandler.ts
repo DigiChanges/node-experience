@@ -22,7 +22,7 @@ const UserHandler: Router = new Router(routerOpts);
 const responder: Responder = new Responder();
 const controller = new UserController();
 
-UserHandler.post('/', async(ctx) =>
+UserHandler.post('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new UserSaveRequest(ctx.request.body);
 
@@ -31,7 +31,7 @@ UserHandler.post('/', async(ctx) =>
     responder.send(user, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
 });
 
-UserHandler.get('/', async(ctx: Koa.ParameterizedContext) =>
+UserHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new UserRequestCriteria(ctx.request.query, ctx.request.url);
 
@@ -40,7 +40,7 @@ UserHandler.get('/', async(ctx: Koa.ParameterizedContext) =>
     await responder.paginate(paginator, ctx, StatusCode.HTTP_OK, new UserTransformer());
 });
 
-UserHandler.get('/:id', async(ctx: Koa.ParameterizedContext) =>
+UserHandler.get('/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new IdRequest(ctx.params.id);
 
@@ -49,7 +49,7 @@ UserHandler.get('/:id', async(ctx: Koa.ParameterizedContext) =>
     responder.send(user, ctx, StatusCode.HTTP_OK, new UserTransformer());
 });
 
-UserHandler.put('/:id', async(ctx: Koa.ParameterizedContext) =>
+UserHandler.put('/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new UserUpdateRequest(ctx.request.body, ctx.params.id, ctx.tokenDecode.userId);
 
@@ -58,7 +58,7 @@ UserHandler.put('/:id', async(ctx: Koa.ParameterizedContext) =>
     responder.send(user, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
 });
 
-UserHandler.put('/assign-role/:id', async(ctx: Koa.ParameterizedContext) =>
+UserHandler.put('/assign-role/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new UserAssignRoleRequest(ctx.request.body, ctx.params.id);
 
@@ -67,7 +67,7 @@ UserHandler.put('/assign-role/:id', async(ctx: Koa.ParameterizedContext) =>
     responder.send(user, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
 });
 
-UserHandler.delete('/:id', async(ctx: Koa.ParameterizedContext) =>
+UserHandler.delete('/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new IdRequest(ctx.params.id);
 
@@ -76,7 +76,7 @@ UserHandler.delete('/:id', async(ctx: Koa.ParameterizedContext) =>
     responder.send(user, ctx, StatusCode.HTTP_OK, new UserTransformer());
 });
 
-UserHandler.post('/change-my-password', async(ctx: Koa.ParameterizedContext) =>
+UserHandler.post('/change-my-password', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new ChangeMyPasswordRequest(ctx.request.body, ctx.tokenDecode.userId);
 
@@ -85,7 +85,7 @@ UserHandler.post('/change-my-password', async(ctx: Koa.ParameterizedContext) =>
     responder.send(user, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
 });
 
-UserHandler.put('/change-user-password/:id', async(ctx: Koa.ParameterizedContext) =>
+UserHandler.put('/change-user-password/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new ChangeUserPasswordRequest(ctx.request.body, ctx.params.id);
 

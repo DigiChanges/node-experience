@@ -2,7 +2,7 @@ import FileRepPayload from './FileRepPayload';
 
 interface FileMultipartRepPayload extends FileRepPayload
 {
-    get_file(): Express.Multer.File
+    getFile(): any
 }
 
 export default FileMultipartRepPayload;

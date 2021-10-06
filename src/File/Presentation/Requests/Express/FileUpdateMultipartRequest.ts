@@ -5,7 +5,7 @@ import { IsDefined } from 'class-validator';
 class FileUpdateMultipartRequest extends IdRequest implements FileUpdateMultipartPayload
 {
     @IsDefined()
-    file: Express.Multer.File;
+    file: any;
 
     constructor(data: Record<string, any>, id: string)
     {
@@ -13,37 +13,32 @@ class FileUpdateMultipartRequest extends IdRequest implements FileUpdateMultipar
         this.file = data.file;
     }
 
-    get_name(): string
-    {
-        return this.file.filename.split('.').shift();
-    }
-
-    get_original_name(): string
+    getOriginalName(): string
     {
         return this.file.originalname;
     }
 
-    get_mime_type(): string
+    getMimeType(): string
     {
         return this.file.mimetype;
     }
 
-    get_path(): string
+    getPath(): string
     {
         return '/';
     }
 
-    get_extension(): string
+    getExtension(): string
     {
         return this.file.originalname.split('.').pop();
     }
 
-    get_file(): Express.Multer.File
+    getFile(): any
     {
         return this.file;
     }
 
-    get_size(): number
+    getSize(): number
     {
         return this.file.size;
     }

@@ -20,7 +20,7 @@ const ItemHandler: Router = new Router(routerOpts);
 const responder: Responder = new Responder();
 const controller: ItemController = new ItemController();
 
-ItemHandler.post('/', async(ctx) =>
+ItemHandler.post('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const request = new ItemRepRequest(ctx.request.body);
 
@@ -29,7 +29,7 @@ ItemHandler.post('/', async(ctx) =>
     responder.send(item, ctx, StatusCode.HTTP_CREATED, new ItemTransformer());
 });
 
-ItemHandler.get('/', async(ctx: Koa.ParameterizedContext) =>
+ItemHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new ItemRequestCriteria(ctx.request.query, ctx.request.url);
 
@@ -38,7 +38,7 @@ ItemHandler.get('/', async(ctx: Koa.ParameterizedContext) =>
     await responder.paginate(paginator, ctx, StatusCode.HTTP_OK, new ItemTransformer());
 });
 
-ItemHandler.get('/:id', async(ctx: Koa.ParameterizedContext) =>
+ItemHandler.get('/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new IdRequest(ctx.params.id);
 
@@ -47,7 +47,7 @@ ItemHandler.get('/:id', async(ctx: Koa.ParameterizedContext) =>
     responder.send(item, ctx, StatusCode.HTTP_OK, new ItemTransformer());
 });
 
-ItemHandler.put('/:id', async(ctx: Koa.ParameterizedContext) =>
+ItemHandler.put('/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new ItemUpdateRequest(ctx.request.body, ctx.params.id);
 
@@ -56,7 +56,7 @@ ItemHandler.put('/:id', async(ctx: Koa.ParameterizedContext) =>
     responder.send(item, ctx, StatusCode.HTTP_OK, new ItemTransformer());
 });
 
-ItemHandler.delete('/:id', async(ctx: Koa.ParameterizedContext) =>
+ItemHandler.delete('/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new IdRequest(ctx.params.id);
 

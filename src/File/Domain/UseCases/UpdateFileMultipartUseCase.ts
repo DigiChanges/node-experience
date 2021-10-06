@@ -2,9 +2,10 @@ import FileUpdateMultipartPayload from '../../InterfaceAdapters/Payloads/FileUpd
 import FileService from '../Services/FileService';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 
+
 class UpdateFileMultipartUseCase
 {
-    private file_service = new FileService();
+    private fileService = new FileService();
 
     async handle(payload: FileUpdateMultipartPayload): Promise<any>
     {

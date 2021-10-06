@@ -19,7 +19,7 @@ const RoleHandler: Router = new Router(routerOpts);
 const responder: Responder = new Responder();
 const controller = new RoleController();
 
-RoleHandler.post('/', async(ctx) =>
+RoleHandler.post('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new RoleRepRequest(ctx.request.body);
 
@@ -28,7 +28,7 @@ RoleHandler.post('/', async(ctx) =>
     responder.send(role, ctx, StatusCode.HTTP_CREATED, new RoleTransformer());
 });
 
-RoleHandler.get('/', async(ctx: Koa.ParameterizedContext) =>
+RoleHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new RoleRequestCriteria(ctx.request.query, ctx.request.url);
 
@@ -37,7 +37,7 @@ RoleHandler.get('/', async(ctx: Koa.ParameterizedContext) =>
     await responder.paginate(paginator, ctx, StatusCode.HTTP_OK, new RoleTransformer());
 });
 
-RoleHandler.get('/:id', async(ctx: Koa.ParameterizedContext) =>
+RoleHandler.get('/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new IdRequest(ctx.params.id);
 
@@ -46,7 +46,7 @@ RoleHandler.get('/:id', async(ctx: Koa.ParameterizedContext) =>
     responder.send(role, ctx, StatusCode.HTTP_OK, new RoleTransformer());
 });
 
-RoleHandler.put('/:id', async(ctx: Koa.ParameterizedContext) =>
+RoleHandler.put('/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new RoleUpdateRequest(ctx.request.body, ctx.params.id);
 
@@ -55,7 +55,7 @@ RoleHandler.put('/:id', async(ctx: Koa.ParameterizedContext) =>
     responder.send(role, ctx, StatusCode.HTTP_CREATED, new RoleTransformer());
 });
 
-RoleHandler.delete('/:id', async(ctx: Koa.ParameterizedContext) =>
+RoleHandler.delete('/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new IdRequest(ctx.params.id);
 

@@ -64,12 +64,13 @@ class Responder
         return ctx.body = result;
     }
 
-    // public sendStream(fileDto: IFileDTO, request: Request | any, response: Response, status: IHttpStatusCode)
-    // {
-    // response.writeHead(status.code, {'Content-Type': fileDto.metadata.mimeType});
-    //
-    // fileDto.stream.pipe(response);
-    // }
+    public sendStream(fileDto: IFileDTO, ctx: Koa.Context & any, status: IHttpStatusCode)
+    {
+        ctx.status = status.code;
+        ctx.response.set('Content-Type', fileDto.metadata.mimeType);
+
+        return ctx.body = fileDto.stream;
+    }
 
     // public render(data: any, view: any, response: Response, resolve: any, reject: any)
     // {

@@ -10,7 +10,7 @@ const routerOpts: Router.IRouterOptions = {
 const IndexHandler: Router = new Router(routerOpts);
 const responder: Responder = new Responder();
 
-IndexHandler.get('/', async(ctx: Koa.ParameterizedContext) =>
+IndexHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
     responder.send('Welcome to Node Experience', ctx, StatusCode.HTTP_OK);
 });
