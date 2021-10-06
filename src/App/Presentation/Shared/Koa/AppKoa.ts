@@ -3,12 +3,11 @@ import helmet from 'koa-helmet';
 import hbshbs from 'koa-hbs';
 import Config from 'config';
 
-import LoggerWinston from '../../Middlewares/Express/LoggerWinston';
-import AuthenticationMiddleware from '../../../../Auth/Presentation/Middlewares/AuthenticationMiddleware';
+import AuthenticationMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/AuthenticationMiddleware';
 import { loggerCli, loggerFile } from '../../../../Shared/Logger';
 import RedirectRouteNotFoundMiddleware from '../../Middlewares/Koa/RedirectRouteNotFoundMiddleware';
 import Throttle from '../../Middlewares/Koa/Throttle';
-import VerifyTokenMiddleware from '../../../../Auth/Presentation/Middlewares/VerifyTokenMiddleware';
+import VerifyTokenMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/VerifyTokenMiddleware';
 import IApp from '../../../InterfaceAdapters/IApp';
 import Locales from '../Locales';
 import Koa from 'koa';
@@ -20,6 +19,8 @@ import ErrorHttpException from '../ErrorHttpException';
 import { ErrorExceptionMapper } from '../ErrorExceptionMapper';
 import { StatusCode } from '@digichanges/shared-experience';
 import moment from 'moment';
+import RoleHandler from '../../../../Role/Presentation/Handlers/Koa/RoleHandler';
+import UserHandler from '../../../../User/Presentation/Handlers/Koa/UserHandler';
 
 
 class AppKoa implements IApp
@@ -40,7 +41,10 @@ class AppKoa implements IApp
     {
         this.app.use(cors());
         this.app.use(helmet());
-        const viewRoute = `${Config.get('nodePath')}/dist/src/App/Presentation/Views`;
+        const view_route = `${Config.get('nodePath')}/dist/src/App/Presentation/Views`;
+        this.app.use(hbshbs.middleware({
+            viewPath: view_route
+        }));
 
         // Generic error handling middleware.
         this.app.use(async(ctx: Koa.Context, next: () => Promise<any>) =>
@@ -86,8 +90,15 @@ class AppKoa implements IApp
         // Route middleware.
         this.app.use(IndexHandler.routes());
         this.app.use(IndexHandler.allowedMethods());
+
         this.app.use(ItemHandler.routes());
         this.app.use(ItemHandler.allowedMethods());
+
+        this.app.use(RoleHandler.routes());
+        this.app.use(RoleHandler.allowedMethods());
+
+        this.app.use(UserHandler.routes());
+        this.app.use(UserHandler.allowedMethods());
     }
 
     public listen()

@@ -1,6 +1,7 @@
-import IAuthService from '../../InterfaceAdapters/IAuthService';
-import { SERVICES } from '../../../services';
-import ContainerFactory from '../../../Shared/Factories/ContainerFactory';
+import IAuthService from '../../../InterfaceAdapters/IAuthService';
+import { SERVICES } from '../../../../services';
+import ContainerFactory from '../../../../Shared/Factories/ContainerFactory';
+
 
 const AuthenticationMiddleware = async(req: any, res: any, next: any) =>
 {

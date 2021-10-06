@@ -1,4 +1,5 @@
-import KeepAliveUseCase from '../../Domain/UseCases/KeepAliveUseCase';
+import KeepAliveUseCase from '../../../Domain/UseCases/KeepAliveUseCase';
+
 
 const RefreshTokenMiddleware = async(req: any, response: any, next: any) =>
 {

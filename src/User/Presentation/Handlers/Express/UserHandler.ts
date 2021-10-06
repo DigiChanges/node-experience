@@ -6,12 +6,12 @@ import { inject } from 'inversify';
 import { TYPES } from '../../../../types';
 import Responder from '../../../../App/Presentation/Shared/Express/Responder';
 
-import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';
+import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Express/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
 
 import UserTransformer from '../../Transformers/UserTransformer';
 
-import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import UserRequestCriteria from '../../Requests/Express/UserRequestCriteria';
 import UserUpdateRequest from '../../Requests/Express/UserUpdateRequest';
 import UserAssignRoleRequest from '../../Requests/Express/UserAssignRoleRequest';

@@ -8,19 +8,10 @@ import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 
 import EventHandler from './Shared/Events/EventHandler';
 import CacheFactory from './Shared/Factories/CacheFactory';
-import { ICacheRepository, ICreateConnection, StatusCode } from '@digichanges/shared-experience';
+import { ICacheRepository, ICreateConnection } from '@digichanges/shared-experience';
 
-import Koa from 'koa';
-import bodyParser from 'koa-bodyparser';
-import * as HttpStatus from 'http-status-codes';
 import AppFactory from './App/Presentation/Factories/AppFactory';
-import IndexHandler from './App/Presentation/Handlers/Koa/IndexHandler';
-import ItemHandler from './Item/Presentation/Handlers/Koa/ItemHandler';
-import Responder from './App/Presentation/Shared/Koa/Responder';
-import ErrorHttpException from './App/Presentation/Shared/ErrorHttpException';
-import { ErrorExceptionMapper } from './App/Presentation/Shared/ErrorExceptionMapper';
-import FormatError from './App/Presentation/Shared/FormatError';
-import Locales from './App/Presentation/Shared/Locales';
+
 
 void (async() =>
 {

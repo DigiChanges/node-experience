@@ -5,12 +5,12 @@ import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 
 import { TYPES } from '../../../../types';
 import Responder from '../../../../App/Presentation/Shared/Express/Responder';
-import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';
+import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Express/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
 
 import ItemTransformer from '../../Transformers/ItemTransformer';
 import ItemRepRequest from '../../Requests/ItemRepRequest';
-import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import ItemRequestCriteria from '../../Requests/ItemRequestCriteria';
 import ItemUpdateRequest from '../../Requests/ItemUpdateRequest';
 import IItemDomain from '../../../InterfaceAdapters/IItemDomain';

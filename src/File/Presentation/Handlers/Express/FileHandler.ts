@@ -3,7 +3,7 @@ import { controller, httpPost, request, response, next, httpGet, httpPut } from 
 import { NextFunction, Request, Response } from 'express';
 import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 
-import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';
+import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Express/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
 
 import { TYPES } from '../../../../types';
@@ -15,7 +15,7 @@ import FileMultipartRepRequest from '../../Requests/Express/FileMultipartRepRequ
 import PresignedFileRepRequest from '../../Requests/Express/PresignedFileRepRequest';
 import FileRequestCriteria from '../../Requests/Express/FileRequestCriteria';
 import FileTransformer from '../../Transformers/FileTransformer';
-import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import FileUpdateMultipartRequest from '../../Requests/Express/FileUpdateMultipartRequest';
 import FileUpdateBase64Request from '../../Requests/Express/FileUpdateBase64Request';
 import ObjectTransformer from '../../Transformers/ObjectTransformer';

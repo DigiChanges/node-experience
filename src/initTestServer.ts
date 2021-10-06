@@ -19,8 +19,8 @@ import './App/Tests/WhiteListHandler';
 import { ICreateConnection, ITokenRepository } from '@digichanges/shared-experience';
 
 import LoggerWinston from './App/Presentation/Middlewares/Express/LoggerWinston';
-import AuthenticationMiddleware from './Auth/Presentation/Middlewares/AuthenticationMiddleware';
-import RefreshTokenMiddleware from './Auth/Presentation/Middlewares/RefreshTokenMiddleware';
+import AuthenticationMiddleware from './Auth/Presentation/Middlewares/Express/AuthenticationMiddleware';
+import RefreshTokenMiddleware from './Auth/Presentation/Middlewares/Express/RefreshTokenMiddleware';
 
 import { ErrorHandler } from './App/Presentation/Shared/Express/ErrorHandler';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';

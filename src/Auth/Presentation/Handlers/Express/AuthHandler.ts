@@ -6,7 +6,7 @@ import { inject } from 'inversify';
 import { TYPES } from '../../../../types';
 import Responder from '../../../../App/Presentation/Shared/Express/Responder';
 
-import AuthorizeMiddleware from '../../Middlewares/AuthorizeMiddleware';
+import AuthorizeMiddleware from '../../Middlewares/Express/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
 
 import AuthRequest from '../../Requests/Express/AuthRequest';

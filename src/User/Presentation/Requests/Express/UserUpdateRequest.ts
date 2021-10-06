@@ -1,5 +1,5 @@
 import UserUpdatePayload from '../../../InterfaceAdapters/Payloads/UserUpdatePayload';
-import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import { Mixin } from 'ts-mixer';
 import UserRepRequest from './UserRepRequest';
 import { IsString } from 'class-validator';

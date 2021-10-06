@@ -8,7 +8,7 @@ import ItemRepRequest from '../../Requests/ItemRepRequest';
 import { AuthUser } from '../../../../Auth/Presentation/Helpers/AuthUser';
 import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
 import IItemDomain from '../../../InterfaceAdapters/IItemDomain';
-import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import ItemRequestCriteria from '../../Requests/ItemRequestCriteria';
 import ItemUpdateRequest from '../../Requests/ItemUpdateRequest';
 

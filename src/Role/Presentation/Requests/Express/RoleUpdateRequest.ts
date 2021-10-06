@@ -1,6 +1,6 @@
 import { Mixin } from 'ts-mixer';
 import RoleUpdatePayload from '../../../InterfaceAdapters/Payloads/RoleUpdatePayload';
-import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import RoleRepRequest from './RoleRepRequest';
 
 class RoleUpdateRequest extends Mixin(RoleRepRequest, IdRequest) implements RoleUpdatePayload
