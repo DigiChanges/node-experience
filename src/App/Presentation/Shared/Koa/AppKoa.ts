@@ -1,6 +1,7 @@
 import cors from 'koa-cors';
 import helmet from 'koa-helmet';
 import hbshbs from 'koa-hbs';
+import pino from 'koa-pino-logger';
 import Config from 'config';
 
 import AuthenticationMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/AuthenticationMiddleware';
@@ -17,18 +18,17 @@ import ItemHandler from '../../../../Item/Presentation/Handlers/Koa/ItemHandler'
 import Responder from './Responder';
 import ErrorHttpException from '../ErrorHttpException';
 import { ErrorExceptionMapper } from '../ErrorExceptionMapper';
-import { StatusCode } from '@digichanges/shared-experience';
-import moment from 'moment';
 import RoleHandler from '../../../../Role/Presentation/Handlers/Koa/RoleHandler';
 import UserHandler from '../../../../User/Presentation/Handlers/Koa/UserHandler';
 import NotificationHandler from '../../../../Notification/Presentation/Handlers/Koa/NotificationHandler';
 import FileHandler from '../../../../File/Presentation/Handlers/Koa/FileHandler';
+import AuthHandler from '../../../../Auth/Presentation/Handlers/Koa/AuthHandler';
 
 
 class AppKoa implements IApp
 {
     public port?: number;
-    private app: Koa;
+    private readonly app: Koa;
     private locales: Locales;
 
     constructor()
@@ -60,21 +60,6 @@ class AppKoa implements IApp
                 const responder = new Responder();
                 const exception: ErrorHttpException = ErrorExceptionMapper.handle(error);
 
-                if (exception.statusCode.code === StatusCode.HTTP_INTERNAL_SERVER_ERROR.code)
-                {
-                    const meta = {
-                        code: StatusCode.HTTP_INTERNAL_SERVER_ERROR.code,
-                        method: ctx.method,
-                        path: ctx.path,
-                        payload: ctx.body,
-                        date: moment().toISOString()
-                    };
-
-                    loggerFile.error(error.stack, meta);
-                }
-
-                loggerCli.debug(error.stack);
-
                 responder.error(exception, ctx, exception.statusCode);
                 ctx.app.emit('error', error, ctx);
             }
@@ -83,7 +68,14 @@ class AppKoa implements IApp
         this.app.use(bodyParser({
             jsonLimit: '5mb'
         }));
+
+        this.app.use(pino({
+            prettyPrint: { colorize: true }
+        }));
         this.app.use(Throttle);
+        this.app.use(AuthenticationMiddleware);
+        this.app.use(VerifyTokenMiddleware);
+
         // Application error logging
         // eslint-disable-next-line no-console
         this.app.on('error', console.error);
@@ -109,6 +101,11 @@ class AppKoa implements IApp
 
         this.app.use(FileHandler.routes());
         this.app.use(FileHandler.allowedMethods());
+
+        this.app.use(AuthHandler.routes());
+        this.app.use(AuthHandler.allowedMethods());
+
+        return this.app;
     }
 
     public listen()

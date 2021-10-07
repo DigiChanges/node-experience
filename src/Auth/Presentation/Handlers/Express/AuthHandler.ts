@@ -41,32 +41,32 @@ class AuthHandler
         this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
 
-    @httpPost('/keepAlive', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE))
-    public async keep_alive(@request() req: any, @response() res: Response)
+    @httpPost('/keep-alive', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE))
+    public async keepAlive(@request() req: any, @response() res: Response)
     {
         const _request = new KeepAliveRequest(req.tokenDecode);
 
-        const payload = await this.controller.keep_alive(_request);
+        const payload = await this.controller.keepAlive(_request);
 
         this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
 
-    @httpPost('/forgotPassword')
-    public async forgot_password(@request() req: Request, @response() res: Response)
+    @httpPost('/forgot-password')
+    public async forgotPassword(@request() req: Request, @response() res: Response)
     {
         const _request = new ForgotPasswordRequest(req.body);
 
-        const payload = await this.controller.forgot_password(_request);
+        const payload = await this.controller.forgotPassword(_request);
 
         this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, null);
     }
 
-    @httpPost('/changeForgotPassword')
-    public async change_forgot_password(@request() req: Request, @response() res: Response)
+    @httpPost('/change-forgot-password')
+    public async changeForgotPassword(@request() req: Request, @response() res: Response)
     {
         const _request = new ChangeForgotPasswordRequest(req.body);
 
-        const payload = await this.controller.change_forgot_password(_request);
+        const payload = await this.controller.changeForgotPassword(_request);
 
         this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, null);
     }
@@ -79,10 +79,10 @@ class AuthHandler
         this.responder.send(payload, req, res, StatusCode.HTTP_OK, new PermissionsTransformer());
     }
 
-    @httpPost('/syncRolesPermissions', AuthorizeMiddleware(Permissions.AUTH_SYNC_PERMISSIONS))
-    public sync_roles_permissions(@request() req: Request, @response() res: Response)
+    @httpPost('/sync-roles-permissions', AuthorizeMiddleware(Permissions.AUTH_SYNC_PERMISSIONS))
+    public syncRolesPermissions(@request() req: Request, @response() res: Response)
     {
-        this.controller.sync_roles_permissions();
+        this.controller.syncRolesPermissions();
 
         this.responder.send({ message: 'Sync Successfully' }, req, res, StatusCode.HTTP_CREATED, null);
     }

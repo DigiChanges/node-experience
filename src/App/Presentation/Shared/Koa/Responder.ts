@@ -72,20 +72,6 @@ class Responder
         return ctx.body = fileDto.stream;
     }
 
-    // public render(data: any, view: any, response: Response, resolve: any, reject: any)
-    // {
-    //     response.render('log', {data}, (err: any, compiled: any) =>
-    //     {
-    //         if (err)
-    //         {
-    //             // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    //             reject('500 when rendering the template');
-    //         }
-    //         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    //         resolve(compiled);
-    //     });
-    // }
-
     public error(error: ErrorHttpException, ctx: Koa.ParameterizedContext, status: IHttpStatusCode)
     {
         ctx.status = status.code;

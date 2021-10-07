@@ -11,7 +11,8 @@
 			"notFound": "not found.",
 			"wrongPermissions": "Wrong permissions.",
 			"routeNotFound": "Route not found.",
-			"tokenExpired": "You must be authenticated."
+			"tokenExpired": "You must be authenticated.",
+			"forbidden": "Forbidden."
 		}
 	}
 }
