@@ -4,8 +4,8 @@ import Base from '../../../App/Domain/Entities/Base';
 class File extends Base implements IFileDomain
 {
     name: string;
-    originalName: string;
-    mimeType: string;
+    original_name: string;
+    mime_type: string;
     path: string;
     extension: string;
     size: number;

@@ -45,17 +45,17 @@ class CreateBucketCommandRequest implements CreateBucketPayload
         };
     }
 
-    getBucketName(): string
+    get_bucket_name(): string
     {
         return this.bucketName;
     }
 
-    getBucketPolicy(): string
+    get_bucket_policy(): string
     {
         return JSON.stringify(this.bucketPolicy);
     }
 
-    getRegion(): string
+    get_region(): string
     {
         return this.region;
     }

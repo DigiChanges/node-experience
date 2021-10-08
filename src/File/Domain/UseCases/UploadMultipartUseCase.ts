@@ -11,7 +11,7 @@ class UploadMultipartUseCase
     {
         let file: IFileDomain = new File();
         file = await this.fileService.persist(file, payload);
-        return await this.fileService.uploadFileMultipart(file, payload);
+        return await this.fileService.upload_file_multipart(file, payload);
     }
 }
 

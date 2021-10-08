@@ -4,12 +4,12 @@ import FileService from '../Services/FileService';
 
 class GetFileMetadataUserCase
 {
-    private fileService = new FileService();
+    private file_service = new FileService();
 
     async handle(payload: IdPayload): Promise<IFileDomain>
     {
         const id = payload.getId();
-        return await this.fileService.getOne(id);
+        return await this.file_service.get_one(id);
     }
 }
 

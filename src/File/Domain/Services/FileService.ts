@@ -24,36 +24,36 @@ class FileService implements IFileService
 
     private filesystem = FilesystemFactory.create();
 
-    async getPresignedGetObject(payload: PresignedFileRepPayload): Promise<string>
+    async get_presigned_get_object(payload: PresignedFileRepPayload): Promise<string>
     {
-        const filename = payload.getName();
-        const expiry = payload.getExpiry();
-        const file: IFileDomain = await this.getOne(filename);
+        const filename = payload.get_name();
+        const expiry = payload.get_expiry();
+        const file: IFileDomain = await this.get_one(filename);
 
-        return await this.getFileUrl(file, expiry);
+        return await this.get_file_url(file, expiry);
     }
 
     async persist(file: IFileDomain, payload: FileRepPayload): Promise<IFileDomain>
     {
-        file.extension = payload.getExtension();
-        file.originalName = payload.getName();
-        file.path = payload.getPath();
-        file.mimeType = payload.getMimeType();
-        file.size = payload.getSize();
+        file.extension = payload.get_extension();
+        file.original_name = payload.get_name();
+        file.path = payload.get_path();
+        file.mime_type = payload.get_mime_type();
+        file.size = payload.get_size();
 
         return await this.repository.save(file);
     }
 
-    async uploadFileBase64(file: IFileDomain, payload: FileBase64RepPayload): Promise<any>
+    async upload_file_base64(file: IFileDomain, payload: FileBase64RepPayload): Promise<any>
     {
-        await this.filesystem.uploadFileByBuffer(file.name, payload.getBase64());
+        await this.filesystem.uploadFileByBuffer(file.name, payload.get_base64());
 
         return file;
     }
 
-    async uploadFileMultipart(file: IFileDomain, payload: FileMultipartRepPayload): Promise<any>
+    async upload_file_multipart(file: IFileDomain, payload: FileMultipartRepPayload): Promise<any>
     {
-        await this.filesystem.uploadFile(file.name, payload.getFile().path);
+        await this.filesystem.uploadFile(file.name, payload.get_file().path);
 
         return file;
     }
@@ -63,44 +63,43 @@ class FileService implements IFileService
         return this.repository.list(payload);
     }
 
-    async listObjects(payload: ListObjectsPayload): Promise<any>
+    async list_objects(payload: ListObjectsPayload): Promise<any>
     {
-        return await this.filesystem.listObjects(payload.getPrefix(), payload.getRecursive());
+        return await this.filesystem.listObjects(payload.get_prefix(), payload.get_recursive());
     }
 
-    async getOne(id: string): Promise<IFileDomain>
+    async get_one(id: string): Promise<IFileDomain>
     {
         return await this.repository.getOne(id);
     }
 
-    async createBucket(payload: CreateBucketPayload): Promise<void>
+    async create_bucket(payload: CreateBucketPayload): Promise<void>
     {
-        const bucketName = payload.getBucketName();
-        const region = payload.getRegion();
-        const bucketPolicy = payload.getBucketPolicy();
+        const bucket_name = payload.get_bucket_name();
+        const region = payload.get_region();
+        const bucket_policy = payload.get_bucket_policy();
 
-        await this.filesystem.createBucket(bucketName, region);
-        await this.filesystem.setBucketPolicy(bucketPolicy, bucketName);
+        await this.filesystem.createBucket(bucket_name, region);
+        await this.filesystem.setBucketPolicy(bucket_policy, bucket_name);
     }
 
     async download(payload: IdPayload): Promise<IFileDTO>
     {
         const id = payload.getId();
-        const metadata: IFileDomain = await this.getOne(id);
-
+        const metadata: IFileDomain = await this.get_one(id);
         const stream = await this.filesystem.downloadStreamFile(id);
 
         return new FileDTO(metadata, stream);
     }
 
-    public async getFileUrl(file: IFileDomain, expiry: number): Promise<string>
+    public async get_file_url(file: IFileDomain, expiry: number): Promise<string>
     {
         const metadata = {
-            'Content-Type': file.mimeType,
+            'Content-Type': file.mime_type,
             'Content-Length': file.size
         };
 
-        return await this.filesystem.presignedGetObject(file.getId(), expiry, metadata);
+        return await this.filesystem.presignedGetObject(file.get_id(), expiry, metadata);
     }
 }
 

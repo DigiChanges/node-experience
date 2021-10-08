@@ -14,10 +14,10 @@ const FileSchema = new EntitySchema<File>({
         name: {
             type: String
         },
-        originalName: {
+        original_name: {
             type: String
         },
-        mimeType: {
+        mime_type: {
             type: String
         },
         path: {
@@ -32,12 +32,12 @@ const FileSchema = new EntitySchema<File>({
         version: {
             type: Number
         },
-        createdAt: {
+        created_at: {
             name: 'createdAt',
             type: 'timestamp with time zone',
             createDate: true
         },
-        updatedAt: {
+        updated_at: {
             name: 'updatedAt',
             type: 'timestamp with time zone',
             updateDate: true

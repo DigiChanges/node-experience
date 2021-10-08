@@ -3,11 +3,11 @@ import FileService from '../Services/FileService';
 
 class GetPresignedGetObjectUseCase
 {
-    private fileService = new FileService();
+    private file_service = new FileService();
 
     async handle(payload: PresignedFileRepPayload): Promise<string>
     {
-        return this.fileService.getPresignedGetObject(payload);
+        return this.file_service.get_presigned_get_object(payload);
     }
 }
 

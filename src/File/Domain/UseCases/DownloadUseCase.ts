@@ -4,11 +4,11 @@ import FileService from '../Services/FileService';
 
 class DownloadUseCase
 {
-    private fileService = new FileService();
+    private file_service = new FileService();
 
     async handle(payload: IdPayload): Promise<IFileDTO>
     {
-        return await this.fileService.download(payload);
+        return await this.file_service.download(payload);
     }
 }
 

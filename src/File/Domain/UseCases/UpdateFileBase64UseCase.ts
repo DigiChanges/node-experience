@@ -4,14 +4,14 @@ import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 
 class UpdateFileBase64UseCase
 {
-    private fileService = new FileService();
+    private file_service = new FileService();
 
     async handle(payload: FileUpdateBase64Payload): Promise<any>
     {
         const id = payload.getId();
-        let file: IFileDomain = await this.fileService.getOne(id);
-        file = await this.fileService.persist(file, payload);
-        return await this.fileService.uploadFileBase64(file, payload);
+        let file: IFileDomain = await this.file_service.get_one(id);
+        file = await this.file_service.persist(file, payload);
+        return await this.file_service.upload_file_base64(file, payload);
     }
 }
 

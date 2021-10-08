@@ -9,16 +9,16 @@ class FileTransformer extends Transformer
     transform(file: IFileDomain): IFileTransformer
     {
         return {
-            id: file.getId(),
+            id: file.get_id(),
             name: file.name,
-            originalName: file.originalName,
+            originalName: file.original_name,
             extension: file.extension,
             path: file.path,
-            mimeType: file.mimeType,
+            mimeType: file.mime_type,
             size: file.size,
             version: file.version,
-            createdAt: moment(file.createdAt).utc().unix(),
-            updatedAt: moment(file.updatedAt).utc().unix()
+            createdAt: moment(file.created_at).utc().unix(),
+            updatedAt: moment(file.updated_at).utc().unix()
         };
     }
 }

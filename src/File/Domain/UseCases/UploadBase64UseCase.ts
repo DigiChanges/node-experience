@@ -5,13 +5,13 @@ import File from '../Entities/File';
 
 class UploadBase64UseCase
 {
-    private fileService = new FileService();
+    private file_service = new FileService();
 
     async handle(payload: FileBase64RepPayload): Promise<any>
     {
         let file: IFileDomain = new File();
-        file = await this.fileService.persist(file, payload);
-        return await this.fileService.uploadFileBase64(file, payload);
+        file = await this.file_service.persist(file, payload);
+        return await this.file_service.upload_file_base64(file, payload);
     }
 }
 

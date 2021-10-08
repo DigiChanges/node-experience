@@ -30,7 +30,7 @@ class FileController
         return await use_case.handle(request);
     }
 
-    public async listFilesystemObjects(request: ListObjectsPayload)
+    public async list_filesystem_objects(request: ListObjectsPayload)
     {
         await ValidatorRequest.handle(request);
 
@@ -38,7 +38,7 @@ class FileController
         return await use_case.handle(request);
     }
 
-    public async getFileMetadata(request: IdPayload)
+    public async get_file_metadata(request: IdPayload)
     {
         await ValidatorRequest.handle(request);
 
@@ -47,7 +47,7 @@ class FileController
         return await use_case.handle(request);
     }
 
-    public async uploadBase64(request: FileBase64RepPayload)
+    public async upload_base64(request: FileBase64RepPayload)
     {
         await ValidatorRequest.handle(request);
 
@@ -55,7 +55,7 @@ class FileController
         return await use_case.handle(request);
     }
 
-    public async uploadMultipart(request: FileMultipartRepPayload)
+    public async upload_multipart(request: FileMultipartRepPayload)
     {
         await ValidatorRequest.handle(request);
 
@@ -63,7 +63,7 @@ class FileController
         return await use_case.handle(request);
     }
 
-    public async getPresignedGetObject(request: PresignedFileRepPayload)
+    public async get_presigned_get_object(request: PresignedFileRepPayload)
     {
         await ValidatorRequest.handle(request);
 
@@ -71,7 +71,7 @@ class FileController
         return await use_case.handle(request);
     }
 
-    public async downloadStreamFile(request: IdPayload): Promise<IFileDTO>
+    public async download_stream_file(request: IdPayload): Promise<IFileDTO>
     {
         await ValidatorRequest.handle(request);
 
@@ -80,7 +80,7 @@ class FileController
         return await use_case.handle(request);
     }
 
-    public async updateBase64(request: FileUpdateBase64Payload): Promise<any>
+    public async update_base64(request: FileUpdateBase64Payload): Promise<any>
     {
         await ValidatorRequest.handle(request);
 
@@ -88,7 +88,7 @@ class FileController
         return await use_case.handle(request);
     }
 
-    public async updateMultipart(request: FileUpdateMultipartPayload): Promise<any>
+    public async update_multipart(request: FileUpdateMultipartPayload): Promise<any>
     {
         await ValidatorRequest.handle(request);
 
