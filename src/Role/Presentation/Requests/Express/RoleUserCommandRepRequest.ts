@@ -27,22 +27,22 @@ class RoleCommandRepRequest implements RoleRepPayload
         this.enable = true;
     }
 
-    getName(): string
+    get_name(): string
     {
         return this.name;
     }
 
-    getSlug(): string
+    get_slug(): string
     {
         return this.slug;
     }
 
-    getEnable(): boolean
+    get_enable(): boolean
     {
         return this.enable;
     }
 
-    getPermissions(): any[]
+    get_permissions(): any[]
     {
         return [];
     }

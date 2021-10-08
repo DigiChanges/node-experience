@@ -7,7 +7,7 @@ class RemoveRoleUseCase
 
     async handle(payload: IdPayload): Promise<any>
     {
-        const id = payload.getId();
+        const id = payload.get_id();
         return await this.roleService.remove(id);
     }
 }

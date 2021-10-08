@@ -9,13 +9,13 @@ class RoleTransformer extends Transformer
     public transform(role: IRoleDomain): IRoleTransformer
     {
         return {
-            id: role.getId(),
+            id: role.get_id(),
             name: role.name,
             slug: role.slug,
             permissions: role.permissions ? role.permissions : null,
             enable: role.enable,
-            createdAt: moment(role.createdAt).utc().unix(),
-            updatedAt: moment(role.updatedAt).utc().unix()
+            createdAt: moment(role.created_at).utc().unix(),
+            updatedAt: moment(role.updated_at).utc().unix()
         };
     }
 }

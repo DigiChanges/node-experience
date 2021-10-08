@@ -22,7 +22,7 @@ const RoleSchema = new EntitySchema<Role>({
             type: Boolean,
             default: true
         },
-        ofSystem: {
+        of_system: {
             type: Boolean,
             default: false
         },
@@ -30,12 +30,12 @@ const RoleSchema = new EntitySchema<Role>({
             type: 'simple-array',
             nullable: true
         },
-        createdAt: {
+        created_at: {
             name: 'createdAt',
             type: 'timestamp with time zone',
             createDate: true
         },
-        updatedAt: {
+        updated_at: {
             name: 'updatedAt',
             type: 'timestamp with time zone',
             updateDate: true

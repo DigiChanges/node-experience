@@ -29,7 +29,7 @@ class RoleController
         return await use_case.handle(request);
     }
 
-    public async getOne(request: IdPayload): Promise<IRoleDomain>
+    public async get_one(request: IdPayload): Promise<IRoleDomain>
     {
         await ValidatorRequest.handle(request);
 
