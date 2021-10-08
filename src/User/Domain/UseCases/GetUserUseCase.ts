@@ -4,12 +4,12 @@ import UserService from '../Services/UserService';
 
 class GetUserUseCase
 {
-    private userService = new UserService();
+    private user_service = new UserService();
 
     async handle(payload: IdPayload): Promise<IUserDomain>
     {
-        const id = payload.getId();
-        return await this.userService.getOne(id);
+        const id = payload.get_id();
+        return await this.user_service.get_one(id);
     }
 }
 

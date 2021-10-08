@@ -4,11 +4,11 @@ import UserService from '../Services/UserService';
 
 class AssignRoleUseCase
 {
-    private userService = new UserService();
+    private user_service = new UserService();
 
     async handle(payload: UserAssignRolePayload): Promise<IUserDomain>
     {
-        return await this.userService.assignRole(payload);
+        return await this.user_service.assign_role(payload);
     }
 }
 

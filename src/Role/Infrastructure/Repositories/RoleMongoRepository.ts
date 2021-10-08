@@ -61,9 +61,9 @@ class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implem
 
     async delete(id: string): Promise<IRoleDomain>
     {
-        const isOfSystem = !!(await this.exist({ _id: id, ofSystem: true }, ['_id']));
+        const is_of_system = !!(await this.exist({ _id: id, of_system: true }, ['_id']));
 
-        if (isOfSystem)
+        if (is_of_system)
         {
             throw new RoleOfSystemNotDeletedException();
         }
@@ -72,7 +72,7 @@ class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implem
 
         if (!entity)
         {
-            throw new NotFoundException(Role.name);
+            throw new NotFoundException(this.entityName);
         }
 
         return entity;

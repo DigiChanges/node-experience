@@ -10,7 +10,7 @@ describe('Start Role Test', () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
-    let db_connection: ICreateConnection;
+    let dbConnection: ICreateConnection;
     let token: string = null;
     let role_id = '';
     let delete_response: any = null;
@@ -21,15 +21,15 @@ describe('Start Role Test', () =>
 
         server = config_server.server;
         request = config_server.request;
-        db_connection = config_server.dbConnection;
+        dbConnection = config_server.dbConnection;
 
         done();
     });
 
     afterAll((async(done) =>
     {
-        await db_connection.drop();
-        await db_connection.close();
+        await dbConnection.drop();
+        await dbConnection.close();
 
         done();
     }));

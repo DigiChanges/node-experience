@@ -3,8 +3,8 @@ interface IBaseDomain
     createdAt: Date;
     updatedAt: Date;
 
-    getId(): string;
-    setId(id: string): void;
+    get_id(): string;
+    set_id(id: string): void;
     clone(): void;
 }
 

@@ -2,7 +2,7 @@ import IUserDomain from '../IUserDomain';
 
 interface CheckUserRolePayload
 {
-    roleToCheck: string;
+    role_to_check: string;
     user:  IUserDomain;
 }
 

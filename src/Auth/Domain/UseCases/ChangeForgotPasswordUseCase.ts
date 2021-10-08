@@ -11,12 +11,12 @@ class ChangeForgotPasswordUseCase
 
     async handle(payload: ChangeForgotPasswordPayload)
     {
-        const confirmationToken = payload.getConfirmationToken();
+        const confirmation_token = payload.get_confirmation_token();
 
-        const user = await this.repository.getOneByConfirmationToken(confirmationToken);
-        user.confirmationToken = null;
-        user.passwordRequestedAt = null;
-        user.password = await payload.getPassword();
+        const user = await this.repository.get_one_by_confirmation_token(confirmation_token);
+        user.confirmation_token = null;
+        user.password_requested_at = null;
+        user.password = await payload.get_password();
 
         await this.repository.update(user);
 

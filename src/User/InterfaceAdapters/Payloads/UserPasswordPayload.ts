@@ -1,8 +1,8 @@
 
 interface UserPasswordRepPayload
 {
-    getPassword(): string;
-    getPasswordConfirmation(): string;
+    get_password(): string;
+    get_password_confirmation(): string;
 }
 
 export default UserPasswordRepPayload;

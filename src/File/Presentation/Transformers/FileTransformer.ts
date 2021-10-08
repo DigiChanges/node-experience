@@ -17,8 +17,8 @@ class FileTransformer extends Transformer
             mimeType: file.mime_type,
             size: file.size,
             version: file.version,
-            createdAt: moment(file.created_at).utc().unix(),
-            updatedAt: moment(file.updated_at).utc().unix()
+            createdAt: moment(file.createdAt).utc().unix(),
+            updatedAt: moment(file.updatedAt).utc().unix()
         };
     }
 }

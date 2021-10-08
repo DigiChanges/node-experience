@@ -14,20 +14,20 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
     {
         try
         {
-            const authService =  ContainerFactory.create<IAuthService>(SERVICES.IAuthService);
+            const auth_service =  ContainerFactory.create<IAuthService>(SERVICES.IAuthService);
 
-            const handlerPermission = handlerPermissions[0]; // TODO: Refactor for more permissions for handler
-            let isAllowed: boolean = Config.get('auth.authorization') !== 'true';
-            const authUser = req.authUser as IUserDomain;
+            const handler_permission = handlerPermissions[0]; // TODO: Refactor for more permissions for handler
+            let is_allowed: boolean = Config.get('auth.authorization') !== 'true';
+            const auth_user = req.authUser as IUserDomain;
 
-            const authorize = await authService.authorize(authUser, handlerPermission);
+            const authorize = await auth_service.authorize(auth_user, handler_permission);
 
             if (authorize)
             {
-                isAllowed = true;
+                is_allowed = true;
             }
 
-            if (isAllowed)
+            if (is_allowed)
             {
                 next();
             }

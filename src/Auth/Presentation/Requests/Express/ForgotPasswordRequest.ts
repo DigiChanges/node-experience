@@ -15,12 +15,12 @@ class ForgotPasswordRequest implements ForgotPasswordPayload
         this.email = data.email;
     }
 
-    getEmail(): string
+    get_email(): string
     {
         return this.email;
     }
 
-    async getConfirmationToken(): Promise<string>
+    async get_confirmation_token(): Promise<string>
     {
         const encryption: IEncryption = EncryptionFactory.create('md5');
 
@@ -29,7 +29,7 @@ class ForgotPasswordRequest implements ForgotPasswordPayload
         return await encryption.encrypt(stringToEncrypt);
     }
 
-    getPasswordRequestedAT(): Date
+    get_password_requested_at(): Date
     {
         return moment().toDate();
     }

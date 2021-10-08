@@ -1,8 +1,8 @@
 
 interface AuthPayload
 {
-    getEmail(): string;
-    getPassword(): string;
+    get_email(): string;
+    get_password(): string;
 }
 
 export default AuthPayload;

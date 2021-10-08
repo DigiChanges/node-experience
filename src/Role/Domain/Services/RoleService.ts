@@ -20,7 +20,7 @@ class RoleService
 
     async persist(role: IRoleDomain, payload: RoleRepPayload): Promise<IRoleDomain>
     {
-        this.auth_service.validatePermissions(payload.get_permissions());
+        this.auth_service.validate_permissions(payload.get_permissions());
         role.name = payload.get_name();
         role.slug = payload.get_slug();
         role.enable = payload.get_enable();

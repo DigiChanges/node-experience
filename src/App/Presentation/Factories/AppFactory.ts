@@ -4,18 +4,18 @@ import AppExpress from '../Shared/Express/AppExpress';
 
 class AppFactory
 {
-    private readonly appName: string;
+    private readonly app_name: string;
 
-    constructor(appName = 'AppExpress')
+    constructor(app_name = 'AppExpress')
     {
-        this.appName = appName;
+        this.app_name = app_name;
     }
 
     create(): IApp
     {
         let app = null;
 
-        if (this.appName === 'AppExpress')
+        if (this.app_name === 'AppExpress')
         {
             app = new AppExpress();
         }

@@ -8,20 +8,20 @@ import ValidatorRequest from '../../../App/Presentation/Shared/Express/Validator
 class SaveUserUseCase
 {
 
-    private eventHandler: EventHandler;
-    private userService = new UserService();
+    private event_handler: EventHandler;
+    private user_service = new UserService();
 
     constructor()
     {
-        this.eventHandler = EventHandler.getInstance();
+        this.event_handler = EventHandler.getInstance();
     }
 
     async handle(payload: UserSavePayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(payload);
-        const user = await this.userService.create(payload);
+        const user = await this.user_service.create(payload);
 
-        await this.eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, { email: user.email });
+        await this.event_handler.execute(UserCreatedEvent.USER_CREATED_EVENT, { email: user.email });
 
         return user;
     }

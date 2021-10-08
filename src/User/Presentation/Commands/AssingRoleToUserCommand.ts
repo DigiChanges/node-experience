@@ -13,10 +13,10 @@ AssignRoleToUserCommand
     .option('-e, --email <email>', 'Email of the user')
     .action(async(env: any) =>
     {
-        const assignRoleBySlugUseCase = new AssignRoleBySlugUseCase();
+        const assign_role_by_slug_use_case = new AssignRoleBySlugUseCase();
 
         const request: UserAssignRoleByPayload = new UserAssignRoleByCommandRequest(env);
-        const user = await assignRoleBySlugUseCase.handle(request);
+        const user = await assign_role_by_slug_use_case.handle(request);
 
         if (user)
         {

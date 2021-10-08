@@ -8,8 +8,8 @@ const VerifyTokenMiddleware = async(req: any, response: any, next: any) =>
 
         if (id)
         {
-            const useCase = new VerifyTokenBlacklistUseCase();
-            await useCase.handle(id);
+            const use_case = new VerifyTokenBlacklistUseCase();
+            await use_case.handle(id);
         }
 
         next();

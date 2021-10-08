@@ -2,9 +2,9 @@ import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
 
 interface IToken
 {
-    getExpires(): number;
-    getHash(): string;
-    getUser(): IUserDomain;
+    get_expires(): number;
+    get_hash(): string;
+    get_user(): IUserDomain;
 }
 
 export default IToken;

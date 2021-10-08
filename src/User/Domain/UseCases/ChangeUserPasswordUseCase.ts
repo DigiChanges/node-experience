@@ -4,14 +4,14 @@ import UserService from '../Services/UserService';
 
 class ChangeUserPasswordUseCase
 {
-    private userService = new UserService();
+    private user_service = new UserService();
 
     async handle(payload: ChangeUserPasswordPayload): Promise<IUserDomain>
     {
-        const id = payload.getId();
-        const user: IUserDomain = await this.userService.getOne(id);
+        const id = payload.get_id();
+        const user: IUserDomain = await this.user_service.get_one(id);
 
-        return await this.userService.persistPassword(user, payload);
+        return await this.user_service.persist_password(user, payload);
     }
 }
 

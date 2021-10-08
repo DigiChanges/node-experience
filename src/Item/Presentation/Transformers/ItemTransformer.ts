@@ -23,8 +23,8 @@ class ItemTransformer extends Transformer
             type: item.type,
             created_by: this.user_transformer.handle(item.get_created_by()),
             last_modified_by: this.user_transformer.handle(item.get_created_by()),
-            createdAt: moment(item.created_at).utc().unix(),
-            updatedAt: moment(item.updated_at).utc().unix()
+            createdAt: moment(item.createdAt).utc().unix(),
+            updatedAt: moment(item.updatedAt).utc().unix()
         };
     }
 }

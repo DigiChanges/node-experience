@@ -9,8 +9,8 @@ SyncRolesPermissionCommand
     .description('Sync permissions')
     .action(() =>
     {
-        const syncRolesPermissionUseCase = new SyncRolesPermissionUseCase();
-        syncRolesPermissionUseCase.handle();
+        const sync_roles_permission_use_case = new SyncRolesPermissionUseCase();
+        sync_roles_permission_use_case.handle();
 
         loggerCli.info('Sync successfully.');
     });

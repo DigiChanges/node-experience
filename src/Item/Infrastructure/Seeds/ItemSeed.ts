@@ -51,23 +51,23 @@ class ItemSeed implements ISeed
     {
         const user: IUserDomain = new User();
 
-        user.firstName = 'test';
-        user.lastName = 'item';
+        user.first_name = 'test';
+        user.last_name = 'item';
         user.email = 'testitem@node.com';
         user.birthday = '05/07/1992';
-        user.documentType = 'dni';
-        user.documentNumber = '3531915736';
+        user.document_type = 'dni';
+        user.document_number = '3531915736';
         user.gender = 'male';
         user.phone = '2234456999';
         user.country = 'Argentina';
         user.address = 'New America 123';
         user.password = await this.encryption.encrypt('123456789');
         user.enable = true;
-        user.confirmationToken = null;
-        user.passwordRequestedAt = null;
+        user.confirmation_token = null;
+        user.password_requested_at = null;
         user.permissions = [];
         user.roles = [];
-        user.isSuperAdmin = false;
+        user.is_super_admin = false;
 
         return await this.userRepository.save(user);
     }

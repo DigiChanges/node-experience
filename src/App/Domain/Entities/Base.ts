@@ -13,12 +13,12 @@ abstract class Base implements IBaseDomain
         this._id = uuidv4();
     }
 
-    getId(): string
+    get_id(): string
     {
         return this._id;
     }
 
-    setId(id: string)
+    set_id(id: string)
     {
         this._id = id;
     }

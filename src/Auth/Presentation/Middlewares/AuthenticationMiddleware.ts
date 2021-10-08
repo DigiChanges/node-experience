@@ -6,11 +6,11 @@ const AuthenticationMiddleware = async(req: any, res: any, next: any) =>
 {
     try
     {
-        const authService =  ContainerFactory.create<IAuthService>(SERVICES.IAuthService);
+        const auth_service =  ContainerFactory.create<IAuthService>(SERVICES.IAuthService);
 
-        const existMethodAndUrl = authService.checkWhitelist(req.method, req.path);
+        const exist_method_and_url = auth_service.check_whitelist(req.method, req.path);
 
-        if (existMethodAndUrl)
+        if (exist_method_and_url)
         {
             next();
         }
@@ -18,9 +18,9 @@ const AuthenticationMiddleware = async(req: any, res: any, next: any) =>
         {
             const token = req.get('Authorization');
 
-            req.tokenDecode = authService.validateToken(token);
+            req.tokenDecode = auth_service.validate_token(token);
 
-            req.authUser = await authService.getByEmail(req.tokenDecode.email);
+            req.authUser = await auth_service.get_by_email(req.tokenDecode.email);
 
             next();
         }

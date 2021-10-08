@@ -7,11 +7,11 @@ class UserRepRequest implements UserRepPayload
 {
     @decorate(Length(3, 50))
     @decorate(IsString())
-    firstName: string;
+    first_name: string;
 
     @decorate(Length(3, 50))
     @decorate(IsString())
-    lastName: string;
+    last_name: string;
 
     @decorate(IsEmail())
     email: string;
@@ -22,11 +22,11 @@ class UserRepRequest implements UserRepPayload
 
     @decorate(Length(2, 20))
     @decorate(IsString())
-    documentType: string;
+    document_type: string;
 
     @decorate(Length(3, 16))
     @decorate(IsString())
-    documentNumber: string;
+    document_number: string;
 
     @decorate(Length(3, 20))
     @decorate(IsString())
@@ -56,12 +56,12 @@ class UserRepRequest implements UserRepPayload
 
     constructor(data: Record<string, any>)
     {
-        this.firstName = data.firstName;
-        this.lastName = data.lastName;
+        this.first_name = data.first_name;
+        this.last_name = data.last_name;
         this.email = data.email;
         this.birthday = data.birthday;
-        this.documentType = data.documentType;
-        this.documentNumber = data.documentNumber;
+        this.document_type = data.document_type;
+        this.document_number = data.document_number;
         this.gender = data.gender;
         this.phone = data.phone;
         this.country = data.country;
@@ -70,82 +70,82 @@ class UserRepRequest implements UserRepPayload
         this.enable = data.enable ?? true;
     }
 
-    getFirstName(): string
+    get_first_name(): string
     {
-        return this.firstName;
+        return this.first_name;
     }
 
-    getLastName(): string
+    get_last_name(): string
     {
-        return this.lastName;
+        return this.last_name;
     }
 
-    getEmail(): string
+    get_email(): string
     {
         return this.email;
     }
 
-    getBirthday(): string
+    get_birthday(): string
     {
         return this.birthday;
     }
 
-    getDocumentType(): string
+    get_document_type(): string
     {
-        return this.documentType;
+        return this.document_type;
     }
 
-    getDocumentNumber(): string
+    get_document_number(): string
     {
-        return this.documentNumber;
+        return this.document_number;
     }
 
-    getGender(): string
+    get_gender(): string
     {
         return this.gender;
     }
 
-    getPhone(): string
+    get_phone(): string
     {
         return this.phone;
     }
 
-    getCountry(): string
+    get_country(): string
     {
         return this.country;
     }
 
-    getAddress(): string
+    get_address(): string
     {
         return this.address;
     }
 
-    getEnable(): boolean
+    get_enable(): boolean
     {
         return this.enable;
     }
 
-    getConfirmationToken(): null
+    get_confirmation_token(): null
     {
         return null;
     }
 
-    getPasswordRequestedAt(): null
+    get_password_requested_at(): null
     {
         return null;
     }
 
-    getRoles(): IRoleDomain[]
+    get_roles(): IRoleDomain[]
     {
         return [];
     }
 
-    getPermissions(): string[]
+    get_permissions(): string[]
     {
         return this.permissions;
     }
 
-    getIsSuperAdmin(): boolean
+    get_is_super_admin(): boolean
     {
         return false;
     }

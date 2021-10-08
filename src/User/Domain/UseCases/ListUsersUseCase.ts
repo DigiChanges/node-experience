@@ -3,11 +3,11 @@ import UserService from '../Services/UserService';
 
 class ListUsersUseCase
 {
-    private userService = new UserService();
+    private user_service = new UserService();
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {
-        return await this.userService.list(payload);
+        return await this.user_service.list(payload);
     }
 }
 

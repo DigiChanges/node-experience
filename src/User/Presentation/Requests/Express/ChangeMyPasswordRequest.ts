@@ -7,26 +7,26 @@ class ChangeMyPasswordRequest extends UserRepPasswordRequest implements ChangeMy
 {
     @IsString()
     @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
-    currentPassword: string;
+    current_password: string;
 
     @IsUUID('4')
-    userId: string;
+    user_id: string;
 
-    constructor(data: Record<string, any>, userId: string)
+    constructor(data: Record<string, any>, user_id: string)
     {
         super(data);
-        this.currentPassword = data.currentPassword;
-        this.userId = userId;
+        this.current_password = data.current_password;
+        this.user_id = user_id;
     }
 
-    getCurrentPassword(): string
+    get_current_password(): string
     {
-        return this.currentPassword;
+        return this.current_password;
     }
 
-    getId(): any
+    get_id(): any
     {
-        return this.userId;
+        return this.user_id;
     }
 }
 

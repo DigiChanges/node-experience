@@ -7,33 +7,33 @@ import NotificationSendMessagePayload from '../../InterfaceAdapters/Payloads/Not
 
 class NotificationService
 {
-    private eventHandler = EventHandler.getInstance();
+    private event_handler = EventHandler.getInstance();
 
-    async execute(pushNotification: PushNotification, payload: NotificationRepPayload, message: string, name: string)
+    async execute(push_notification: PushNotification, payload: NotificationRepPayload, message: string, name: string)
     {
-        pushNotification.subscription = payload.getSubscription();
-        pushNotification.name = name;
-        await this.eventHandler.execute(SendMessageEvent.SEND_MESSAGE_EVENT, { pushNotification, message });
+        push_notification.subscription = payload.get_subscription();
+        push_notification.name = name;
+        await this.event_handler.execute(SendMessageEvent.SEND_MESSAGE_EVENT, { push_notification, message });
 
         return { message: 'We\'ve sent you a notification' };
     }
 
-    async createSubscription(payload: NotificationRepPayload)
+    async create_subscription(payload: NotificationRepPayload)
     {
-        const pushNotification = new PushNotification();
+        const push_notification = new PushNotification();
         const message = 'successful subscription';
         const name = 'Node Experience';
 
-        return await this.execute(pushNotification, payload, message, name);
+        return await this.execute(push_notification, payload, message, name);
     }
 
-    async sendPushNotification(payload: NotificationSendMessagePayload)
+    async send_push_notification(payload: NotificationSendMessagePayload)
     {
-        const pushNotification = new PushNotification();
-        const message = payload.getMessage();
-        const name = payload.getName();
+        const push_notification = new PushNotification();
+        const message = payload.get_message();
+        const name = payload.get_name();
 
-        return await this.execute(pushNotification, payload, message, name);
+        return await this.execute(push_notification, payload, message, name);
     }
 
 }

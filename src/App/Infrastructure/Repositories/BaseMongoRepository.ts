@@ -39,7 +39,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
 
     async update(entity: T): Promise<T>
     {
-        return this.repository.findOneAndUpdate({ _id: entity.getId() } as any, { $set: entity } as any, { new: true }).populate(this.populate);
+        return this.repository.findOneAndUpdate({ _id: entity.get_id() } as any, { $set: entity } as any, { new: true }).populate(this.populate);
     }
 
     async delete(id: string): Promise<T>

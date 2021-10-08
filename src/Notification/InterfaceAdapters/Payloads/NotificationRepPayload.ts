@@ -2,7 +2,7 @@ import webPush from 'web-push';
 
 interface NotificationRepPayload
 {
-    getSubscription(): webPush.PushSubscription,
+    get_subscription(): webPush.PushSubscription,
 }
 
 export default NotificationRepPayload;

@@ -85,7 +85,7 @@ class FileService implements IFileService
 
     async download(payload: IdPayload): Promise<IFileDTO>
     {
-        const id = payload.getId();
+        const id = payload.get_id();
         const metadata: IFileDomain = await this.get_one(id);
         const stream = await this.filesystem.downloadStreamFile(id);
 

@@ -17,23 +17,23 @@ import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 class NotificationMongoRepository implements INotificationRepository<INotificationDomain>
 {
     private readonly repository: Model<INotification>;
-    private readonly emailRepository: Model<INotification>;
-    private readonly pushRepository: Model<INotification>;
+    private readonly email_repository: Model<INotification>;
+    private readonly push_repository: Model<INotification>;
 
     constructor()
     {
         this.repository = connection.model<INotification>('Notification');
-        this.emailRepository = this.repository.discriminators.EmailNotification;
-        this.pushRepository = this.repository.discriminators.PushNotification;
+        this.email_repository = this.repository.discriminators.EmailNotification;
+        this.push_repository = this.repository.discriminators.PushNotification;
     }
 
     async save(notification: INotificationDomain): Promise<INotificationDomain>
     {
-        const rep = this.getRepository(notification);
+        const rep = this.get_repository(notification);
         return await rep.create(notification);
     }
 
-    async getOne(id: string): Promise<INotificationDomain>
+    async get_one(id: string): Promise<INotificationDomain>
     {
         const notification = await this.repository.findOne({ _id: id });
 
@@ -67,15 +67,15 @@ class NotificationMongoRepository implements INotificationRepository<INotificati
         return new MongoPaginator(queryBuilder, criteria);
     }
 
-    private getRepository(kind: any)
+    private get_repository(kind: any)
     {
         if (kind instanceof EmailNotification)
         {
-            return this.emailRepository;
+            return this.email_repository;
         }
         else if (kind instanceof PushNotification)
         {
-            return this.pushRepository;
+            return this.push_repository;
         }
         else
         {

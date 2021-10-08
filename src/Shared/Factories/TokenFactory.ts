@@ -25,10 +25,10 @@ class TokenFactory
         const jWTToken = new JWTToken(id, expires, user, secret);
 
         const token: ITokenDomain = new Token();
-        token.setId(id);
-        token.hash = jWTToken.getHash();
-        token.payload = jWTToken.getPayload();
-        token.expires = jWTToken.getExpires();
+        token.set_id(id);
+        token.hash = jWTToken.get_hash();
+        token.payload = jWTToken.get_payload();
+        token.expires = jWTToken.get_expires();
 
         await this.repository.save(token);
 

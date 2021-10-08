@@ -37,7 +37,7 @@ class UserController
         return await use_case.handle(request);
     }
 
-    public async getOne(request: IdPayload): Promise<IUserDomain>
+    public async get_one(request: IdPayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(request);
 
@@ -53,7 +53,7 @@ class UserController
         return await use_case.handle(request);
     }
 
-    public async assignRole(request: UserAssignRolePayload): Promise<IUserDomain>
+    public async assign_role(request: UserAssignRolePayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(request);
 
@@ -69,7 +69,7 @@ class UserController
         return await use_case.handle(request);
     }
 
-    public async changeMyPassword(request: ChangeMyPasswordPayload): Promise<IUserDomain>
+    public async change_my_password(request: ChangeMyPasswordPayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(request);
 
@@ -77,7 +77,7 @@ class UserController
         return await use_case.handle(request);
     }
 
-    public async changeUserPassword(request: ChangeUserPasswordPayload): Promise<IUserDomain>
+    public async change_user_password(request: ChangeUserPasswordPayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(request);
 

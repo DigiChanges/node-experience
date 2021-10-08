@@ -7,28 +7,28 @@ class NotificationSendMessageRequest implements NotificationSendMessagePayload
 {
     private readonly name: string;
     private readonly message: string;
-    private readonly notificationSubscriptionRequest: NotificationRepPayload;
+    private readonly notification_subscription_request: NotificationRepPayload;
 
     constructor(data: Record<string, any>)
     {
-        this.notificationSubscriptionRequest = new NotificationSubscriptionRequest(data);
+        this.notification_subscription_request = new NotificationSubscriptionRequest(data);
         this.name = data.name;
         this.message = data.message;
     }
 
-    getName(): string
+    get_name(): string
     {
         return this.name;
     }
 
-    getMessage(): string
+    get_message(): string
     {
         return this.message;
     }
 
-    getSubscription(): webPush.PushSubscription
+    get_subscription(): webPush.PushSubscription
     {
-        return this.notificationSubscriptionRequest.getSubscription();
+        return this.notification_subscription_request.get_subscription();
     }
 }
 

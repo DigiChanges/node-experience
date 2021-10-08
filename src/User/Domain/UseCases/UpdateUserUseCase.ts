@@ -7,15 +7,15 @@ import CantDisabledException from '../../../Auth/Domain/Exceptions/CantDisabledE
 
 class UpdateUserUseCase
 {
-    private userService = new UserService();
+    private user_service = new UserService();
 
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {
-        const id = payload.getId();
-        const user: IUserDomain = await this.userService.getOne(id);
-        let enable = payload.getEnable();
+        const id = payload.get_id();
+        const user: IUserDomain = await this.user_service.get_one(id);
+        let enable = payload.get_enable();
 
-        if (payload.getTokenUserId() === user.getId())
+        if (payload.get_token_user_id() === user.get_id())
         {
             enable = true;
         }
@@ -23,11 +23,11 @@ class UpdateUserUseCase
         if (typeof user.roles !== 'undefined' && enable !== null) // TODO: Refactoring
         {
             const checkRole: CheckUserRolePayload = {
-                roleToCheck: Roles.SUPER_ADMIN.toLocaleLowerCase(),
+                role_to_check: Roles.SUPER_ADMIN.toLocaleLowerCase(),
                 user
             };
 
-            const verifyRole = await this.userService.checkIfUserHasRole(checkRole);
+            const verifyRole = await this.user_service.check_if_user_has_role(checkRole);
 
             if (verifyRole && !enable)
             {
@@ -35,7 +35,7 @@ class UpdateUserUseCase
             }
         }
 
-        return await this.userService.persist(user, payload);
+        return await this.user_service.persist(user, payload);
     }
 
 }

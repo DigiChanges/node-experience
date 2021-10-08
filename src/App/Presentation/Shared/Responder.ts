@@ -71,7 +71,7 @@ class Responder
 
     public sendStream(fileDto: IFileDTO, request: Request | any, response: Response, status: IHttpStatusCode)
     {
-        response.writeHead(status.code, { 'Content-Type': fileDto.metadata.mimeType });
+        response.writeHead(status.code, { 'Content-Type': fileDto.metadata.mime_type });
 
         fileDto.stream.pipe(response);
     }

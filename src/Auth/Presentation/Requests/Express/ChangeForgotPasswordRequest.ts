@@ -27,19 +27,19 @@ class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
         this.confirmationToken = data.confirmationToken;
     }
 
-    getConfirmationToken(): string
+    get_confirmation_token(): string
     {
         return this.confirmationToken;
     }
 
-    async getPassword(): Promise<string>
+    async get_password(): Promise<string>
     {
         const encryption: IEncryption = EncryptionFactory.create();
 
         return await encryption.encrypt(this.password);
     }
 
-    getPasswordConfirmation(): string
+    get_password_confirmation(): string
     {
         return this.passwordConfirmation;
     }

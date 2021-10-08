@@ -7,7 +7,7 @@ import SendPushNotificationUseCase from '../../Domain/UseCases/SendPushNotificat
 
 class NotificationController
 {
-    public async uploadTestNotificationBase64(request: NotificationRepPayload)
+    public async upload_test_notification_base64(request: NotificationRepPayload)
     {
         await ValidatorRequest.handle(request);
 
@@ -15,7 +15,7 @@ class NotificationController
         return use_case.handle(request);
     }
 
-    public async sendPushNotification(request: NotificationSendMessagePayload)
+    public async send_push_notification(request: NotificationSendMessagePayload)
     {
         await ValidatorRequest.handle(request);
 

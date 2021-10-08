@@ -3,10 +3,10 @@ import NotificationService from '../Services/NotificationService';
 
 class CreateSubscriptionUseCase
 {
-    private notificationService = new NotificationService();
+    private notification_service = new NotificationService();
     async handle(payload: NotificationRepPayload)
     {
-        return await this.notificationService.createSubscription(payload);
+        return await this.notification_service.create_subscription(payload);
     }
 }
 

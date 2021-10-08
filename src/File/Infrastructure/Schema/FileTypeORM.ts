@@ -32,12 +32,12 @@ const FileSchema = new EntitySchema<File>({
         version: {
             type: Number
         },
-        created_at: {
+        createdAt: {
             name: 'createdAt',
             type: 'timestamp with time zone',
             createDate: true
         },
-        updated_at: {
+        updatedAt: {
             name: 'updatedAt',
             type: 'timestamp with time zone',
             updateDate: true

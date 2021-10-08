@@ -3,11 +3,12 @@ import UserService from '../Services/UserService';
 
 class RemoveUserUseCase
 {
-    private userService = new UserService();
+    private user_service = new UserService();
+
     async handle(payload: IdPayload): Promise<any>
     {
-        const id = payload.getId();
-        return await this.userService.remove(id);
+        const id = payload.get_id();
+        return await this.user_service.remove(id);
     }
 }
 
