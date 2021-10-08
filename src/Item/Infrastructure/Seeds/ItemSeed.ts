@@ -40,8 +40,8 @@ class ItemSeed implements ISeed
 
             item.name = title;
             item.type = type;
-            item.createdBy = user;
-            item.lastModifiedBy = user;
+            item.created_by = user;
+            item.last_modified_by = user;
 
             await this.repository.save(item);
         }

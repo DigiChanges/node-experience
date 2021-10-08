@@ -8,8 +8,8 @@ class GetItemUseCase
 
     async handle(payload: IdPayload): Promise<IItemDomain>
     {
-        const id = payload.getId();
-        return await this.itemService.getOne(id);
+        const id = payload.get_id();
+        return await this.itemService.get_one(id);
     }
 }
 

@@ -16,8 +16,8 @@ class ItemService
 
     async persist(item: IItemDomain, payload: ItemRepPayload): Promise<IItemDomain>
     {
-        item.name = payload.getName();
-        item.type = payload.getType();
+        item.name = payload.get_name();
+        item.type = payload.get_type();
 
         return await this.repository.save(item);
     }
@@ -25,21 +25,21 @@ class ItemService
     async create(payload: ItemRepPayload, auth_user: IUserDomain): Promise<IItemDomain>
     {
         const item = new Item();
-        item.createdBy = auth_user;
+        item.created_by = auth_user;
 
         return await this.persist(item, payload);
     }
 
     async update(payload: ItemUpdatePayload, auth_user: IUserDomain): Promise<IItemDomain>
     {
-        const id = payload.getId();
-        const item: IItemDomain = await this.getOne(id);
-        item.lastModifiedBy = auth_user;
+        const id = payload.get_id();
+        const item: IItemDomain = await this.get_one(id);
+        item.last_modified_by = auth_user;
 
         return await this.persist(item, payload);
     }
 
-    async getOne(id: string): Promise<IItemDomain>
+    async get_one(id: string): Promise<IItemDomain>
     {
         return await this.repository.getOne(id);
     }

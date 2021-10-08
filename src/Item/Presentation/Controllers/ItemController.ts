@@ -30,7 +30,7 @@ class ItemController
         return await use_case.handle(request);
     }
 
-    public async getOne(request: IdPayload): Promise<IItemDomain>
+    public async get_one(request: IdPayload): Promise<IItemDomain>
     {
         await ValidatorRequest.handle(request);
 

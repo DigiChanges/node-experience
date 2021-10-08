@@ -17,25 +17,25 @@ const ItemSchema = new EntitySchema<Item>({
         type: {
             type: Number
         },
-        createdAt: {
+        created_at: {
             name: 'createdAt',
             type: 'timestamp with time zone',
             createDate: true
         },
-        updatedAt: {
+        updated_at: {
             name: 'updatedAt',
             type: 'timestamp with time zone',
             updateDate: true
         }
     },
     relations: {
-        createdBy: {
+        created_by: {
             type: 'many-to-one',
             target: 'User',
             joinColumn: true,
             eager: true
         },
-        lastModifiedBy: {
+        last_modified_by: {
             type: 'many-to-one',
             target: 'User',
             joinColumn: true,

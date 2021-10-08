@@ -18,13 +18,13 @@ class ItemTransformer extends Transformer
     public transform(item: IItemDomain): IItemTransformer
     {
         return {
-            id: item.getId(),
+            id: item.get_id(),
             name: item.name,
             type: item.type,
-            createdBy: this.user_transformer.handle(item.getCreatedBy()),
-            lastModifiedBy: this.user_transformer.handle(item.getCreatedBy()),
-            createdAt: moment(item.createdAt).utc().unix(),
-            updatedAt: moment(item.updatedAt).utc().unix()
+            created_by: this.user_transformer.handle(item.get_created_by()),
+            last_modified_by: this.user_transformer.handle(item.get_created_by()),
+            createdAt: moment(item.created_at).utc().unix(),
+            updatedAt: moment(item.updated_at).utc().unix()
         };
     }
 }

@@ -52,11 +52,11 @@ class ItemHandler
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.ITEMS_SHOW))
-    public async getOne(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async get_one(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req.params.id);
 
-        const item: IItemDomain = await this.controller.getOne(_request);
+        const item: IItemDomain = await this.controller.get_one(_request);
 
         this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }

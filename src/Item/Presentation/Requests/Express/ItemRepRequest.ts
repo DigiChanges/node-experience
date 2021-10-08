@@ -16,12 +16,12 @@ class ItemRepRequest implements ItemRepPayload
         this.type = data.type;
     }
 
-    getName(): string
+    get_name(): string
     {
         return this.name;
     }
 
-    getType(): number
+    get_type(): number
     {
         return this.type;
     }

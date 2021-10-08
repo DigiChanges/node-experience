@@ -6,8 +6,8 @@ const ItemSchema: any = new Schema<Item>({
     _id: { type: String, default: uuidv4 },
     name: { type:String, required: true },
     type: { type:Number, required: true },
-    createdBy: { type: Schema.Types.String, ref: 'User' },
-    lastModifiedBy: { type: Schema.Types.String, ref: 'User' }
+    created_by: { type: Schema.Types.String, ref: 'User' },
+    last_modified_by: { type: Schema.Types.String, ref: 'User' }
 }, { timestamps: true });
 
 ItemSchema.loadClass(Item);
