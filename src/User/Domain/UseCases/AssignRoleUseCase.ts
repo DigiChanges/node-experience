@@ -20,9 +20,7 @@ class AssignRoleUseCase
 
         user.clearRoles();
 
-        const roleIdsCondition = payload.getRolesId().map(roleId => ({ _id: roleId }));
-
-        const roles = await this.roleRepository.getBy({ $or: roleIdsCondition });
+        const roles = await this.roleRepository.getBy({ _id: { $in: payload.getRolesId() } });
 
         roles.forEach(role => user.setRole(role));
 
