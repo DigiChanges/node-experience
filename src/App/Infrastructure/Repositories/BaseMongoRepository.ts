@@ -88,6 +88,13 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
         return entities;
     }
 
+    async getInBy(condition: Record<string, string[]>): Promise<T[]>
+    {
+        const [key] = Object.keys(condition);
+
+        return await this.getBy({ [key]: { $in: condition[key] } });
+    }
+
     async exist(condition: Record<string, any>, select: string[], initThrow = false): Promise<any>
     {
         const exist = await this.repository.findOne(condition as any, select.join(' '));

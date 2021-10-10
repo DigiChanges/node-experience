@@ -1,5 +1,5 @@
 import { injectable, unmanaged } from 'inversify';
-import { EntitySchema, FindOneOptions, getRepository, Repository } from 'typeorm';
+import { EntitySchema, FindOneOptions, getRepository, In, Repository } from 'typeorm';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IByOptions from '../../InterfaceAdapters/IByOptions';
 import IBaseRepository from '../../InterfaceAdapters/IBaseRepository';
@@ -82,6 +82,13 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
         }
 
         return entities;
+    }
+
+    async getInBy(condition: Record<string, string[]>): Promise<T[]>
+    {
+        const [key] = Object.keys(condition);
+
+        return await this.getBy({ [key]: In(condition[key]) });
     }
 
     async exist(condition: Record<string, any> | Record<string, any>[], select: string[], initThrow = false): Promise<any>
