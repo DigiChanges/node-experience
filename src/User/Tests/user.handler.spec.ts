@@ -141,7 +141,7 @@ describe('Start User Test', () =>
                 lastName: 'Doe',
                 email: 'user3@node.com',
                 password: '12345678',
-                passwordConfirmation: '12345678',
+                password_confirmation: '12345678',
                 permissions: []
             };
 
