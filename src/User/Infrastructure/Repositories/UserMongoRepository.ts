@@ -20,7 +20,7 @@ class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implem
         super(User.name);
     }
 
-    async getOneByEmail(email: string): Promise<IUserDomain>
+    async get_one_by_email(email: string): Promise<IUserDomain>
     {
         const user = await this.repository.findOne({ email }).populate('roles');
 
@@ -32,9 +32,9 @@ class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implem
         return user;
     }
 
-    async getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>
+    async get_one_by_confirmation_token(confirmationToken: string): Promise<IUserDomain>
     {
-        const user = await this.repository.findOne({ confirmationToken }).populate('roles');
+        const user = await this.repository.findOne({ confirmation_token: confirmationToken }).populate('roles');
 
         if (!user)
         {
@@ -79,7 +79,7 @@ class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implem
 
     async update(user: IUserDomain): Promise<IUserDomain>
     {
-        return this.repository.findByIdAndUpdate({ _id: user.getId() }, user).populate('roles');
+        return this.repository.findByIdAndUpdate({ _id: user.get_id() }, user).populate('roles');
     }
 
     async delete(id: string): Promise<IUserDomain>

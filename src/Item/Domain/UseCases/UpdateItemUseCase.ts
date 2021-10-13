@@ -5,11 +5,11 @@ import ItemService from '../Services/ItemService';
 
 class UpdateItemUseCase
 {
-    private itemService: ItemService = new ItemService();
+    private item_service = new ItemService();
 
-    async handle(payload: ItemUpdatePayload, authUser: IUserDomain): Promise<IItemDomain>
+    async handle(payload: ItemUpdatePayload, auth_user: IUserDomain): Promise<IItemDomain>
     {
-        return await this.itemService.update(payload, authUser);
+        return await this.item_service.update(payload, auth_user);
     }
 }
 

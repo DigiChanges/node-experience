@@ -16,7 +16,7 @@ class VerifyTokenBlacklistUseCase
         const getTokenUseCase = new GetTokenUseCase();
         const tokenSaved: ITokenDomain = await getTokenUseCase.handle(tokenId);
 
-        if (tokenSaved.blackListed)
+        if (tokenSaved.black_listed)
         {
             throw new TokenBlackListedHttpException();
         }

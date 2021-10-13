@@ -9,17 +9,17 @@ class UserAssignRoleRequest extends IdRequest implements UserAssignRolePayload
     @IsUUID('4', {
         each: true
     })
-    rolesId: string[]
+    roles_id: string[]
 
     constructor(data: Record<string, any>, id: string)
     {
         super(id);
-        this.rolesId = data.rolesId;
+        this.roles_id = data.roles_id;
     }
 
-    getRolesId(): string[]
+    get_roles_id(): string[]
     {
-        return this.rolesId;
+        return this.roles_id;
     }
 }
 

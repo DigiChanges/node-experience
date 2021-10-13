@@ -14,44 +14,44 @@ import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 
 class ItemController
 {
-    public async save(request: ItemRepPayload, authUser: IUserDomain): Promise<IItemDomain>
+    public async save(request: ItemRepPayload, auth_user: IUserDomain): Promise<IItemDomain>
     {
         await ValidatorRequest.handle(request);
 
-        const saveItemUseCase = new SaveItemUseCase();
-        return await saveItemUseCase.handle(request, authUser);
+        const use_case = new SaveItemUseCase();
+        return await use_case.handle(request, auth_user);
     }
 
     public async list(request: ICriteria): Promise<IPaginator>
     {
         await ValidatorRequest.handle(request);
 
-        const listItemsUseCase = new ListItemsUseCase();
-        return await listItemsUseCase.handle(request);
+        const use_case = new ListItemsUseCase();
+        return await use_case.handle(request);
     }
 
-    public async getOne(request: IdPayload): Promise<IItemDomain>
+    public async get_one(request: IdPayload): Promise<IItemDomain>
     {
         await ValidatorRequest.handle(request);
 
-        const getItemUseCase = new GetItemUseCase();
-        return await getItemUseCase.handle(request);
+        const use_case = new GetItemUseCase();
+        return await use_case.handle(request);
     }
 
-    public async update(request: ItemUpdatePayload, authUser: IUserDomain)
+    public async update(request: ItemUpdatePayload, auth_user: IUserDomain)
     {
         await ValidatorRequest.handle(request);
 
-        const updateItemUseCase = new UpdateItemUseCase();
-        return await updateItemUseCase.handle(request, authUser);
+        const use_case = new UpdateItemUseCase();
+        return await use_case.handle(request, auth_user);
     }
 
     public async remove(request: IdPayload)
     {
         await ValidatorRequest.handle(request);
 
-        const removeItemUseCase = new RemoveItemUseCase();
-        return await removeItemUseCase.handle(request);
+        const use_case = new RemoveItemUseCase();
+        return await use_case.handle(request);
     }
 }
 

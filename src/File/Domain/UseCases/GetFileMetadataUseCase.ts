@@ -1,19 +1,15 @@
-import IFileRepository from '../../InterfaceAdapters/IFileRepository';
-import { REPOSITORIES } from '../../../Config/repositories';
-
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import FileService from '../Services/FileService';
 
 class GetFileMetadataUserCase
 {
-    @containerFactory(REPOSITORIES.IFileRepository)
-    private repository: IFileRepository;
+    private file_service = new FileService();
 
     async handle(payload: IdPayload): Promise<IFileDomain>
     {
-        const id = payload.getId();
-        return await this.repository.getOne(id);
+        const id = payload.get_id();
+        return await this.file_service.get_one(id);
     }
 }
 

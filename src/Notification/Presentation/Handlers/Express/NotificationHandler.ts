@@ -22,21 +22,21 @@ class NotificationHandler
     }
 
     @httpPost('/subscription')
-    public async uploadTestNotificationBase64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async upload_test_notification_base64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new NotificationSubscriptionRequest(req.body);
 
-        const notification = this.controller.uploadTestNotificationBase64(_request);
+        const notification = this.controller.upload_test_notification_base64(_request);
 
         this.responder.send(notification, req, res, StatusCode.HTTP_CREATED, null);
     }
 
     @httpPost('/message')
-    public async sendPushNotification(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async send_push_notification(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new NotificationSendMessageRequest(req.body);
 
-        const notification = this.controller.sendPushNotification(_request);
+        const notification = this.controller.send_push_notification(_request);
 
         this.responder.send(notification, req, res, StatusCode.HTTP_CREATED, null);
     }

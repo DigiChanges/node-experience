@@ -29,13 +29,13 @@ const ItemSchema = new EntitySchema<Item>({
         }
     },
     relations: {
-        createdBy: {
+        created_by: {
             type: 'many-to-one',
             target: 'User',
             joinColumn: true,
             eager: true
         },
-        lastModifiedBy: {
+        last_modified_by: {
             type: 'many-to-one',
             target: 'User',
             joinColumn: true,

@@ -15,11 +15,11 @@ const TypeNotificationSchema = new EntitySchema<TypeNotification>({
         name: {
             type: String
         },
-        emailTemplatePath: {
+        email_template_path: {
             type: String,
             nullable: true
         },
-        senderName: {
+        sender_name: {
             type: String,
             nullable: true
         },

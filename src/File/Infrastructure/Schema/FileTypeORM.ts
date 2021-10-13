@@ -14,10 +14,10 @@ const FileSchema = new EntitySchema<File>({
         name: {
             type: String
         },
-        originalName: {
+        original_name: {
             type: String
         },
-        mimeType: {
+        mime_type: {
             type: String
         },
         path: {

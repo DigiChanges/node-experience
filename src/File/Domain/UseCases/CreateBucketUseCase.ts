@@ -1,23 +1,13 @@
 import CreateBucketPayload from '../../InterfaceAdapters/Payloads/CreateBucketPayload';
-import { REPOSITORIES } from '../../../Config/repositories';
-import IFileRepository from '../../InterfaceAdapters/IFileRepository';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
+import FileService from '../Services/FileService';
 
 class CreateBucketUseCase
 {
-    @containerFactory(REPOSITORIES.IFileRepository)
-    private repository: IFileRepository;
+    private file_service = new FileService();
 
     async handle(payload: CreateBucketPayload): Promise<void>
     {
-        const bucketName = payload.getBucketName();
-        const region = payload.getRegion();
-        const bucketPolicy = payload.getBucketPolicy();
-
-        const filesystem = FilesystemFactory.create();
-        await filesystem.createBucket(bucketName, region);
-        await filesystem.setBucketPolicy(bucketPolicy, bucketName);
+        await this.file_service.create_bucket(payload);
     }
 }
 

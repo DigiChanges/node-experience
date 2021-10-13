@@ -12,8 +12,8 @@ export const NotificationSchema: any = new Schema({
 }, options).loadClass(Notification);
 
 export const EmailNotificationSchema: any = new Schema({
-    emailTemplatePath: { type: String, required: true },
-    senderName: { type: String, required: true },
+    email_template_path: { type: String, required: true },
+    sender_name: { type: String, required: true },
     from: { type: String, required: true },
     to: { type: String, required: true },
     cc: { type: String, default : null },

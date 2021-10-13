@@ -17,40 +17,40 @@ class RoleController
     {
         await ValidatorRequest.handle(request);
 
-        const saveRoleUseCase = new SaveRoleUseCase();
-        return await saveRoleUseCase.handle(request);
+        const use_case = new SaveRoleUseCase();
+        return await use_case.handle(request);
     }
 
     public async list(request: ICriteria): Promise<IPaginator>
     {
         await ValidatorRequest.handle(request);
 
-        const listRolesUseCase = new ListRolesUseCase();
-        return await listRolesUseCase.handle(request);
+        const use_case = new ListRolesUseCase();
+        return await use_case.handle(request);
     }
 
-    public async getOne(request: IdPayload): Promise<IRoleDomain>
+    public async get_one(request: IdPayload): Promise<IRoleDomain>
     {
         await ValidatorRequest.handle(request);
 
-        const getRoleUseCase = new GetRoleUseCase();
-        return await getRoleUseCase.handle(request);
+        const use_case = new GetRoleUseCase();
+        return await use_case.handle(request);
     }
 
     public async update(request: RoleUpdatePayload): Promise<IRoleDomain>
     {
         await ValidatorRequest.handle(request);
 
-        const updateRoleUseCase = new UpdateRoleUseCase();
-        return await updateRoleUseCase.handle(request);
+        const use_case = new UpdateRoleUseCase();
+        return await use_case.handle(request);
     }
 
     public async remove(request: IdPayload): Promise<any>
     {
         await ValidatorRequest.handle(request);
 
-        const removeRoleUseCase = new RemoveRoleUseCase();
-        return await removeRoleUseCase.handle(request);
+        const use_case = new RemoveRoleUseCase();
+        return await use_case.handle(request);
     }
 }
 

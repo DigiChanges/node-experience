@@ -10,7 +10,7 @@ class ForgotPasswordEvent
 
         setTimeout(() =>
         {
-            void Notificator.sendEmail(emailNotification, 'auth/forgot_password.hbs', { urlConfirmationToken });
+            void Notificator.send_email(emailNotification, 'auth/forgot_password.hbs', { urlConfirmationToken });
         }, 1000);
     }
 }

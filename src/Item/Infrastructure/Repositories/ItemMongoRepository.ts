@@ -16,7 +16,7 @@ class ItemMongoRepository extends BaseMongoRepository<IItemDomain, IItem> implem
 {
     constructor()
     {
-        super(Item.name, ['createdBy', 'lastModifiedBy']);
+        super(Item.name, ['created_by', 'last_modified_by']);
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>

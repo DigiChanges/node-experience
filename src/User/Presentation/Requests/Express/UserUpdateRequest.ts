@@ -7,18 +7,18 @@ import { IsString } from 'class-validator';
 class UserUpdateRequest extends Mixin(UserRepRequest, IdRequest) implements UserUpdatePayload
 {
     @IsString()
-    userId: string;
+    user_id: string;
 
-    constructor(data: Record<string, any>, id: string, userId: string)
+    constructor(data: Record<string, any>, id: string, user_id: string)
     {
         super(data);
         this.id = id;
-        this.userId = userId;
+        this.user_id = user_id;
     }
 
-    getTokenUserId(): string
+    get_token_user_id(): string
     {
-        return this.userId;
+        return this.user_id;
     }
 }
 

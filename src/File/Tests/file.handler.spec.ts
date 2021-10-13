@@ -14,15 +14,15 @@ describe('Start File Test', () =>
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
     let token: string = null;
-    let fileId = '';
+    let file_id = '';
 
     beforeAll(async(done) =>
     {
-        const configServer = await initTestServer();
+        const config_server = await initTestServer();
 
-        server = configServer.server;
-        request = configServer.request;
-        dbConnection = configServer.dbConnection;
+        server = config_server.server;
+        request = config_server.request;
+        dbConnection = config_server.dbConnection;
 
         jest.spyOn(FilesystemFactory, 'create').mockImplementation(() => new MockMinioStrategy());
 
@@ -75,7 +75,7 @@ describe('Start File Test', () =>
             expect(data.originalName).toStrictEqual('photo');
             expect(data.extension).toStrictEqual('jpg');
             expect(data.mimeType).toStrictEqual('image/jpeg');
-            fileId = data.id;
+            file_id = data.id;
 
             done();
         });
@@ -83,13 +83,13 @@ describe('Start File Test', () =>
         test('Get File /files/metadata/:id', async done =>
         {
             const payload = {
-                originalName: 'photo',
+                original_name: 'photo',
                 extension: 'jpg',
-                mimeType: 'image/jpeg'
+                mime_type: 'image/jpeg'
             };
 
             const response: IFileResponse = await request
-                .get(`/api/files/metadata/${fileId}`)
+                .get(`/api/files/metadata/${file_id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -100,9 +100,9 @@ describe('Start File Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(data.originalName).toStrictEqual(payload.originalName);
+            expect(data.originalName).toStrictEqual(payload.original_name);
             expect(data.extension).toStrictEqual(payload.extension);
-            expect(data.mimeType).toStrictEqual(payload.mimeType);
+            expect(data.mimeType).toStrictEqual(payload.mime_type);
 
             done();
         });

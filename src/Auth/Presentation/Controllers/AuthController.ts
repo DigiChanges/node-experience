@@ -20,44 +20,44 @@ class AuthController
     {
         await ValidatorRequest.handle(request);
 
-        const loginUseCase = new LoginUseCase();
-        return await loginUseCase.handle(request);
+        const use_case = new LoginUseCase();
+        return await use_case.handle(request);
     }
 
-    public async keepAlive(request: KeepAlivePayload)
+    public async keep_alive(request: KeepAlivePayload)
     {
         await ValidatorRequest.handle(request);
 
-        const keepAliveUseCase = new KeepAliveUseCase();
-        return await keepAliveUseCase.handle(request);
+        const use_case = new KeepAliveUseCase();
+        return await use_case.handle(request);
     }
 
-    public async forgotPassword(request: ForgotPasswordPayload)
+    public async forgot_password(request: ForgotPasswordPayload)
     {
         await ValidatorRequest.handle(request);
 
-        const forgotPasswordUseCase = new ForgotPasswordUseCase();
-        return await forgotPasswordUseCase.handle(request);
+        const use_case = new ForgotPasswordUseCase();
+        return await use_case.handle(request);
     }
 
-    public async changeForgotPassword(request: ChangeForgotPasswordPayload)
+    public async change_forgot_password(request: ChangeForgotPasswordPayload)
     {
         await ValidatorRequest.handle(request);
 
-        const changeForgotPasswordUseCase = new ChangeForgotPasswordUseCase();
-        return await changeForgotPasswordUseCase.handle(request);
+        const use_case = new ChangeForgotPasswordUseCase();
+        return await use_case.handle(request);
     }
 
     public permissions(): IGroupPermission[]
     {
-        const permissionUseCase = new PermissionUseCase();
-        return permissionUseCase.handle();
+        const use_case = new PermissionUseCase();
+        return use_case.handle();
     }
 
-    public syncRolesPermissions()
+    public sync_roles_permissions()
     {
-        const syncRolesPermissionUseCase = new SyncRolesPermissionUseCase();
-        return syncRolesPermissionUseCase.handle();
+        const use_case = new SyncRolesPermissionUseCase();
+        return use_case.handle();
     }
 }
 

@@ -12,16 +12,16 @@ describe('Start Role Test', () =>
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
     let token: string = null;
-    let roleId = '';
-    let deleteResponse: any = null;
+    let role_id = '';
+    let delete_response: any = null;
 
     beforeAll(async(done) =>
     {
-        const configServer = await initTestServer();
+        const config_server = await initTestServer();
 
-        server = configServer.server;
-        request = configServer.request;
-        dbConnection = configServer.dbConnection;
+        server = config_server.server;
+        request = config_server.request;
+        dbConnection = config_server.dbConnection;
 
         done();
     });
@@ -80,7 +80,7 @@ describe('Start Role Test', () =>
             expect(data.permissions).toStrictEqual(payload.permissions);
             expect(data.enable).toStrictEqual(true);
 
-            roleId = data.id;
+            role_id = data.id;
 
             done();
         });
@@ -111,7 +111,7 @@ describe('Start Role Test', () =>
             expect(data.permissions).toStrictEqual(payload.permissions);
             expect(data.enable).toStrictEqual(payload.enable);
 
-            roleId = data.id;
+            role_id = data.id;
 
             done();
         });
@@ -142,7 +142,7 @@ describe('Start Role Test', () =>
             expect(data.permissions).toStrictEqual(payload.permissions);
             expect(data.enable).toStrictEqual(payload.enable);
 
-            roleId = data.id;
+            role_id = data.id;
 
             done();
         });
@@ -158,7 +158,7 @@ describe('Start Role Test', () =>
             };
 
             const response: IRoleResponse = await request
-                .get(`/api/roles/${roleId}`)
+                .get(`/api/roles/${role_id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -187,7 +187,7 @@ describe('Start Role Test', () =>
             };
 
             const response: IRoleResponse = await request
-                .put(`/api/roles/${roleId}`)
+                .put(`/api/roles/${role_id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
@@ -215,23 +215,23 @@ describe('Start Role Test', () =>
                 enable: true
             };
 
-            const createResponse: IRoleResponse = await request
+            const create_response: IRoleResponse = await request
                 .post('/api/roles')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            token = createResponse.body.metadata.refreshToken;
+            token = create_response.body.metadata.refreshToken;
 
-            deleteResponse = await request
-                .delete(`/api/roles/${createResponse.body.data.id}`)
+            delete_response = await request
+                .delete(`/api/roles/${create_response.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, data } } = deleteResponse;
+            const { body: { status, statusCode, data } } = delete_response;
 
-            expect(deleteResponse.statusCode).toStrictEqual(201);
+            expect(delete_response.statusCode).toStrictEqual(201);
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_CREATED');
 
@@ -408,7 +408,7 @@ describe('Start Role Test', () =>
         {
 
             const response: IRoleResponse = await request
-                .get(`/api/roles/${roleId}dasdasda123`)
+                .get(`/api/roles/${role_id}dasdasda123`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -436,7 +436,7 @@ describe('Start Role Test', () =>
             };
 
             const response: IRoleResponse = await request
-                .put(`/api/roles/${roleId}`)
+                .put(`/api/roles/${role_id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
@@ -462,15 +462,15 @@ describe('Start Role Test', () =>
         test('Delete Role error /roles/:id', async done =>
         {
 
-            const deleteErrorResponse: IRoleResponse = await request
-                .delete(`/api/roles/${deleteResponse.body.data.id}`)
+            const delete_error_response: IRoleResponse = await request
+                .delete(`/api/roles/${delete_response.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, message } } = deleteErrorResponse;
+            const { body: { status, statusCode, message } } = delete_error_response;
 
-            expect(deleteErrorResponse.statusCode).toStrictEqual(400);
+            expect(delete_error_response.statusCode).toStrictEqual(400);
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
             expect(message).toStrictEqual('Role not found.');

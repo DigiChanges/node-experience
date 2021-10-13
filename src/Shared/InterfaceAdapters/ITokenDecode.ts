@@ -6,7 +6,7 @@ interface ITokenDecode
     sub: string;
     iat: number;
     exp: number;
-    userId: string;
+    user_id: string;
     email: string;
 }
 

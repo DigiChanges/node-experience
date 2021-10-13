@@ -5,8 +5,8 @@ interface IItemTransformer
     id: string;
     name: string;
     type: number;
-    createdBy: IUserMinimalDataTransformer;
-    lastModifiedBy: IUserMinimalDataTransformer;
+    created_by: IUserMinimalDataTransformer;
+    last_modified_by: IUserMinimalDataTransformer;
     createdAt: number;
     updatedAt: number;
 }

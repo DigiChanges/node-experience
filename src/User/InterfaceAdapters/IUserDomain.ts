@@ -3,12 +3,12 @@ import IBaseDomain from '../../App/InterfaceAdapters/IBaseDomain';
 
 interface IUserDomain extends IBaseDomain
 {
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     email: string;
     birthday: string;
-    documentType: string;
-    documentNumber: string;
+    document_type: string;
+    document_number: string;
     gender: string;
     phone: string;
     country: string;
@@ -17,14 +17,14 @@ interface IUserDomain extends IBaseDomain
     roles: IRoleDomain[];
     permissions: string[];
     enable: boolean;
-    isSuperAdmin: boolean;
-    confirmationToken: string;
-    passwordRequestedAt: Date;
+    is_super_admin: boolean;
+    confirmation_token: string;
+    password_requested_at: Date;
 
-    getFullName(): string;
-    setRole(role: IRoleDomain): void;
-    getRoles(): IRoleDomain[];
-    clearRoles(): void;
+    get_full_name(): string;
+    set_role(role: IRoleDomain): void;
+    get_roles(): IRoleDomain[];
+    clear_roles(): void;
 }
 
 export default IUserDomain;

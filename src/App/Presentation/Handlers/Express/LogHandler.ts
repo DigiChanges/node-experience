@@ -18,8 +18,8 @@ class LogHandler
     {
         return new Promise<string>((resolve, reject) =>
         {
-            const useCase = new GetLogViewUseCase();
-            const data = useCase.handle();
+            const use_case = new GetLogViewUseCase();
+            const data = use_case.handle();
 
             this.responder.render(data, 'log', res, resolve, reject);
         });

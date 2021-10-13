@@ -1,16 +1,13 @@
-import IItemRepository from '../../InterfaceAdapters/IItemRepository';
-import { REPOSITORIES } from '../../../Config/repositories';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import ItemService from '../Services/ItemService';
 
 class ListItemsUseCase
 {
-    @containerFactory(REPOSITORIES.IItemRepository)
-    private repository: IItemRepository;
+    private item_service = new ItemService();
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {
-        return await this.repository.list(payload);
+        return await this.item_service.list(payload);
     }
 }
 

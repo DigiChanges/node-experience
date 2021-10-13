@@ -13,37 +13,37 @@ class FileUpdateMultipartRequest extends IdRequest implements FileUpdateMultipar
         this.file = data.file;
     }
 
-    getName(): string
+    get_name(): string
     {
         return this.file.filename.split('.').shift();
     }
 
-    getOriginalName(): string
+    get_original_name(): string
     {
         return this.file.originalname;
     }
 
-    getMimeType(): string
+    get_mime_type(): string
     {
         return this.file.mimetype;
     }
 
-    getPath(): string
+    get_path(): string
     {
         return '/';
     }
 
-    getExtension(): string
+    get_extension(): string
     {
         return this.file.originalname.split('.').pop();
     }
 
-    getFile(): Express.Multer.File
+    get_file(): Express.Multer.File
     {
         return this.file;
     }
 
-    getSize(): number
+    get_size(): number
     {
         return this.file.size;
     }

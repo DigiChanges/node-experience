@@ -17,26 +17,26 @@ class LoginUseCase
     @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
     private encryption: IEncryption;
-    private tokenFactory: TokenFactory;
+    private token_factory: TokenFactory;
 
     constructor()
     {
-        this.tokenFactory = new TokenFactory();
+        this.token_factory = new TokenFactory();
         this.encryption = EncryptionFactory.create();
     }
 
     async handle(payload: AuthPayload)
     {
-        const email = payload.getEmail();
-        const password = payload.getPassword();
-        const user =  await this.repository.getOneByEmail(email);
+        const email = payload.get_email();
+        const password = payload.get_password();
+        const user =  await this.repository.get_one_by_email(email);
 
         if (user.enable === false)
         {
             throw new UserDisabledException();
         }
 
-        const roleDisabled = user.getRoles().find(role => role.enable === false);
+        const roleDisabled = user.get_roles().find(role => role.enable === false);
 
         if (roleDisabled)
         {
@@ -48,7 +48,7 @@ class LoginUseCase
             throw new BadCredentialsException();
         }
 
-        return this.tokenFactory.createToken(user);
+        return this.token_factory.createToken(user);
     }
 }
 

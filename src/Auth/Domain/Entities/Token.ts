@@ -6,7 +6,7 @@ class Token extends Base implements ITokenDomain
     hash : string;
     expires: number;
     payload: any;
-    blackListed: boolean;
+    black_listed: boolean;
 
     constructor()
     {
@@ -14,7 +14,7 @@ class Token extends Base implements ITokenDomain
         this.hash = '';
         this.payload = {};
         this.expires = 0;
-        this.blackListed = false;
+        this.black_listed = false;
     }
 }
 

@@ -4,12 +4,12 @@ import Base from '../../../App/Domain/Entities/Base';
 
 class User extends Base implements IUserDomain
 {
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     email: string;
     birthday: string;
-    documentType: string;
-    documentNumber: string;
+    document_type: string;
+    document_number: string;
     gender: string;
     phone: string;
     country: string;
@@ -18,23 +18,23 @@ class User extends Base implements IUserDomain
     roles: IRoleDomain[];
     permissions: string[];
     enable: boolean;
-    isSuperAdmin: boolean;
-    confirmationToken: string;
-    passwordRequestedAt: Date;
+    is_super_admin: boolean;
+    confirmation_token: string;
+    password_requested_at: Date;
 
-    getFullName(): string
+    get_full_name(): string
     {
-        return `${this.firstName} ${this.lastName}`;
+        return `${this.first_name} ${this.last_name}`;
     }
 
-    clearRoles(): void
+    clear_roles(): void
     {
         this.roles = [];
     }
 
-    setRole(role: IRoleDomain): void
+    set_role(role: IRoleDomain): void
     {
-        const find = this.roles.find((_role) => _role.getId().toString() === role.getId().toString());
+        const find = this.roles.find((_role) => _role.get_id().toString() === role.get_id().toString());
 
         if (!find)
         {
@@ -42,7 +42,7 @@ class User extends Base implements IUserDomain
         }
     }
 
-    getRoles(): IRoleDomain[]
+    get_roles(): IRoleDomain[]
     {
         return this.roles;
     }

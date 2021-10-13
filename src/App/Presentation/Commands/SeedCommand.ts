@@ -13,15 +13,15 @@ Seed
     .option('-l, --list', 'seed list')
     .action(async(name, options) =>
     {
-        const seedFactory = new SeedFactory();
+        const seed_factory = new SeedFactory();
 
         if (options.list)
         {
-            seedFactory.list();
+            seed_factory.list();
         }
         else
         {
-            await seedFactory.execute(name);
+            await seed_factory.execute(name);
         }
     });
 

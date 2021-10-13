@@ -8,33 +8,33 @@ import AuthService from '../../Services/AuthService';
 
 class AuthTransformer extends Transformer
 {
-    private roleUserTransformer: RoleUserTransformer;
+    private role_user_transformer: RoleUserTransformer;
 
     constructor()
     {
         super();
-        this.roleUserTransformer = new RoleUserTransformer();
+        this.role_user_transformer = new RoleUserTransformer();
     }
 
     public transform(token: IToken)
     {
-        const user: IUserDomain = token.getUser();
-        const authService: AuthService = new AuthService();
+        const user: IUserDomain = token.get_user();
+        const auth_service: AuthService = new AuthService();
 
         return {
             user: {
-                id: token.getUser().getId(),
-                firstName: token.getUser().firstName,
-                lastName: token.getUser().lastName,
-                email: token.getUser().email,
-                enable: token.getUser().enable,
-                permissions: authService.getPermissions(user),
-                roles: this.roleUserTransformer.handle(token.getUser().roles),
-                createdAt: moment(token.getUser().createdAt).utc().unix(),
-                updatedAt: moment(token.getUser().updatedAt).utc().unix()
+                id: token.get_user().get_id(),
+                first_name: token.get_user().first_name,
+                last_name: token.get_user().last_name,
+                email: token.get_user().email,
+                enable: token.get_user().enable,
+                permissions: auth_service.get_permissions(user),
+                roles: this.role_user_transformer.handle(token.get_user().roles),
+                createdAt: moment(token.get_user().createdAt).utc().unix(),
+                updatedAt: moment(token.get_user().updatedAt).utc().unix()
             },
-            expires: token.getExpires(),
-            token: token.getHash()
+            expires: token.get_expires(),
+            token: token.get_hash()
         };
     }
 }

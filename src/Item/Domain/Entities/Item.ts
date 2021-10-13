@@ -6,17 +6,17 @@ class Item extends Base implements IItemDomain
 {
     name: string;
     type: number;
-    createdBy: IUserDomain;
-    lastModifiedBy: IUserDomain;
+    created_by: IUserDomain;
+    last_modified_by: IUserDomain;
 
-    getCreatedBy(): IUserDomain
+    get_created_by(): IUserDomain
     {
-        return this.createdBy;
+        return this.created_by;
     }
 
-    getLastModifiedBy(): IUserDomain
+    get_last_modified_by(): IUserDomain
     {
-        return this.lastModifiedBy;
+        return this.last_modified_by;
     }
 }
 

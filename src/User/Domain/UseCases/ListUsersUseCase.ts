@@ -1,16 +1,13 @@
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
-import IUserRepository from '../../InterfaceAdapters/IUserRepository';
-import { REPOSITORIES } from '../../../Config/repositories';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import UserService from '../Services/UserService';
 
 class ListUsersUseCase
 {
-    @containerFactory(REPOSITORIES.IUserRepository)
-    private repository: IUserRepository;
+    private user_service = new UserService();
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {
-        return await this.repository.list(payload);
+        return await this.user_service.list(payload);
     }
 }
 

@@ -23,28 +23,28 @@ class JWTToken implements IToken
             sub: user.email,
             iat: this.expires,
             exp: this.expires,
-            userId: user.getId(),
+            user_id: user.get_id(),
             email: user.email
         };
         this.hash = jwt.encode(this.payload, secret, 'HS512');
     }
 
-    getExpires(): number
+    get_expires(): number
     {
         return this.expires;
     }
 
-    getHash(): string
+    get_hash(): string
     {
         return this.hash;
     }
 
-    getPayload(): any
+    get_payload(): any
     {
         return this.payload;
     }
 
-    getUser(): IUserDomain
+    get_user(): IUserDomain
     {
         return this.user;
     }

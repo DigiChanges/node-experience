@@ -13,7 +13,7 @@ import PushNotification from '../Domain/Entities/PushNotification';
 class Notificator
 {
     // TODO: This need more abstraction
-    public static async sendEmail(emailNotification: EmailNotification, templatePathNameFile: string, data: any = {}, save = true)
+    public static async send_email(email_notification: EmailNotification, template_path_name_file: string, data: any = {}, save = true)
     {
         const repository = new NotificationMongoRepository();
 
@@ -22,12 +22,12 @@ class Notificator
             const host: string = Config.get('mail.host');
             const port: number = Config.get('mail.port');
             const secure: boolean = Config.get('mail.secure') === 'true';
-            const templateRoot: string = Config.get('mail.templateDir');
-            const templateDir = `${path.dirname(require.main.filename || process.mainModule.filename)  }/${templateRoot}/${templatePathNameFile}`;
+            const template_root: string = Config.get('mail.template_dir');
+            const template_dir = `${path.dirname(require.main.filename || process.mainModule.filename)  }/${template_root}/${template_path_name_file}`;
 
-            const smtpConfig = { host, port, secure };
+            const smtp_config = { host, port, secure };
 
-            if (smtpConfig.secure)
+            if (smtp_config.secure)
             {
                 const auth = {
                     auth: {
@@ -35,39 +35,39 @@ class Notificator
                         pass: String(Config.get('mail.password'))
                     }
                 };
-                Object.assign(smtpConfig, auth);
+                Object.assign(smtp_config, auth);
             }
 
-            emailNotification.senderName = Config.get('mail.senderName');
-            emailNotification.from = Config.get('mail.senderEmailDefault');
-            emailNotification.emailTemplatePath = templateDir;
+            email_notification.sender_name = Config.get('mail.sender_name');
+            email_notification.from = Config.get('mail.senderEmailDefault');
+            email_notification.email_template_path = template_dir;
 
-            const transporter = nodemailer.createTransport(smtpConfig);
+            const transporter = nodemailer.createTransport(smtp_config);
 
-            const source = Fs.readFileSync(templateDir).toString();
+            const source = Fs.readFileSync(template_dir).toString();
 
             const template = Handlebars.compile(source);
 
             const html = template(data);
 
-            const mailData = {
-                from: `"${  emailNotification.senderName  }" <${  emailNotification.from  }>`,
-                to:  emailNotification.to,
-                subject: emailNotification.subject,
+            const mail_data = {
+                from: `"${  email_notification.sender_name  }" <${  email_notification.from  }>`,
+                to:  email_notification.to,
+                subject: email_notification.subject,
                 html
             };
 
-            if (emailNotification.cc)
+            if (email_notification.cc)
             {
-                Object.assign(mailData, { cc: emailNotification.cc });
+                Object.assign(mail_data, { cc: email_notification.cc });
             }
 
-            return await transporter.sendMail(mailData)
+            return await transporter.sendMail(mail_data)
                 .then(() =>
                 {
                     if (save)
                     {
-                        void repository.save(emailNotification);
+                        void repository.save(email_notification);
                     }
 
                     return true;
@@ -76,8 +76,8 @@ class Notificator
                 {
                     if (save)
                     {
-                        emailNotification.description = err;
-                        void repository.save(emailNotification);
+                        email_notification.description = err;
+                        void repository.save(email_notification);
                     }
                     throw new ErrorException('Something is wrong. Please try again later.', 'NotificatorException');
                 });
@@ -88,7 +88,7 @@ class Notificator
         }
     }
 
-    public static async sendPushNotification(pushNotification: PushNotification, message: string)
+    public static async send_push_notification(push_notification: PushNotification, message: string)
     {
         try
         {
@@ -96,10 +96,10 @@ class Notificator
             const privateKey: string = Config.get('push.privateKey');
             const subject: string = Config.get('url.urlWeb');
 
-            const pushSubscription = pushNotification.getSubscription();
+            const push_subscription = push_notification.get_subscription();
 
             const payload = JSON.stringify({
-                name: pushNotification.name,
+                name: push_notification.name,
                 message
             });
 
@@ -111,7 +111,7 @@ class Notificator
                 }
             };
 
-            return await webPush.sendNotification(pushSubscription, payload, options);
+            return await webPush.sendNotification(push_subscription, payload, options);
         }
         catch (e)
         {

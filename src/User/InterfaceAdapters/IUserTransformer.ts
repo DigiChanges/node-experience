@@ -3,12 +3,12 @@ import IRoleTransformer from '../../Role/InterfaceAdapters/IRoleTransformer';
 interface IUserTransformer
 {
     id: string;
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     email: string;
     birthday: string;
-    documentType: string;
-    documentNumber: string;
+    document_type: string;
+    document_number: string;
     gender: string;
     phone: string;
     country: string;

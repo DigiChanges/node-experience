@@ -49,11 +49,11 @@ class RoleHandler
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.ROLES_SHOW))
-    public async getOne(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async get_one(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req.params.id);
 
-        const role: IRoleDomain = await this.controller.getOne(_request);
+        const role: IRoleDomain = await this.controller.get_one(_request);
 
         this.responder.send(role, req, res, StatusCode.HTTP_OK, new RoleTransformer());
     }

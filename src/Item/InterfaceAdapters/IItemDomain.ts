@@ -5,11 +5,11 @@ interface IItemDomain extends IBaseDomain
 {
     name: string;
     type: number;
-    createdBy: IUserDomain;
-    lastModifiedBy: IUserDomain;
+    created_by: IUserDomain;
+    last_modified_by: IUserDomain;
 
-    getCreatedBy(): IUserDomain;
-    getLastModifiedBy(): IUserDomain;
+    get_created_by(): IUserDomain;
+    get_last_modified_by(): IUserDomain;
 }
 
 export default IItemDomain;

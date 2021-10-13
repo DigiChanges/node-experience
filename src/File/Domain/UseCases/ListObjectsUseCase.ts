@@ -1,12 +1,12 @@
 import ListObjectsPayload from '../../InterfaceAdapters/Payloads/ListObjectsPayload';
-import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
+import FileService from '../Services/FileService';
 
 class ListObjectsUseCase
 {
+    private file_service = new FileService();
     async handle(payload: ListObjectsPayload): Promise<any>
     {
-        const filesystem = FilesystemFactory.create();
-        return await filesystem.listObjects(payload.getPrefix(), payload.getRecursive());
+        return await this.file_service.list_objects(payload);
     }
 }
 

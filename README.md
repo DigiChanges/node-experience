@@ -131,8 +131,8 @@ To change from Mongoose to TypeORM the following steps must be followed:
        
 ## Commands Available
 
- * node dist/src/command.js addUserRole --role Admin --email user@node.com --firstName node --lastName node --password 12345678 --isSuperAdmin false
- * node dist/src/command.js addUserRole --role SuperAdmin --email superadmin@node.com --firstName super --lastName admin --password 12345678 --isSuperAdmin true
+ * node dist/src/command.js addUserRole --role Admin --email user@node.com --first_name node --last_name node --password 12345678 --is_super_admin false
+ * node dist/src/command.js addUserRole --role SuperAdmin --email superadmin@node.com --first_name super --last_name admin --password 12345678 --is_super_admin true
  * node dist/src/command.js syncRolesPermission
  * node dist/src/command.js createBucket --bucketName experience --region us-east-1
  * npx ts-node src/command.ts createVapID

@@ -5,8 +5,8 @@ import { v4 as uuidv4 } from 'uuid';
 const FileSchema: any = new Schema({
     _id: { type: String, default: uuidv4 },
     name: { type:String, required: true },
-    originalName: { type:String, required: true },
-    mimeType: { type:String, required: true },
+    original_name: { type:String, required: true },
+    mime_type: { type:String, required: true },
     path: { type:String },
     extension: { type:String, required: true },
     size: { type:Number, required: true },

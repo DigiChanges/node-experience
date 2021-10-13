@@ -1,27 +1,14 @@
-import IFileRepository from '../../InterfaceAdapters/IFileRepository';
-import { REPOSITORIES } from '../../../Config/repositories';
-
 import IFileDTO from '../../InterfaceAdapters/Payloads/IFileDTO';
-import FileDTO from '../../InterfaceAdapters/Payloads/FileDTO';
-import IFileDomain from '../../InterfaceAdapters/IFileDomain';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
+import FileService from '../Services/FileService';
 
 class DownloadUseCase
 {
-    @containerFactory(REPOSITORIES.IFileRepository)
-    private repository: IFileRepository;
+    private file_service = new FileService();
 
     async handle(payload: IdPayload): Promise<IFileDTO>
     {
-        const id = payload.getId();
-        const metadata: IFileDomain = await this.repository.getOne(id);
-
-        const filesystem = FilesystemFactory.create();
-        const stream = await filesystem.downloadStreamFile(id);
-
-        return new FileDTO(metadata, stream);
+        return await this.file_service.download(payload);
     }
 }
 

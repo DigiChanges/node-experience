@@ -1,18 +1,15 @@
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import IItemRepository from '../../InterfaceAdapters/IItemRepository';
-import { REPOSITORIES } from '../../../Config/repositories';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
+import ItemService from '../Services/ItemService';
 
 class RemoveItemUseCase
 {
-    @containerFactory(REPOSITORIES.IItemRepository)
-    private repository: IItemRepository;
+    private itemService = new ItemService();
 
     async handle(payload: IdPayload): Promise<IItemDomain>
     {
-        const id = payload.getId();
-        return await this.repository.delete(id);
+        const id = payload.get_id();
+        return await this.itemService.remove(id);
     }
 }
 

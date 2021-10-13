@@ -21,37 +21,37 @@ class FileUpdateBase64Request extends IdRequest implements FileUpdateBase64Paylo
         this.mimeType = data.base64.split(';base64').shift().split('data:').pop();
     }
 
-    getName(): string
+    get_name(): string
     {
         return this.filename.split('.').shift();
     }
 
-    getOriginalName(): string
+    get_original_name(): string
     {
         return this.filename;
     }
 
-    getMimeType(): string
+    get_mime_type(): string
     {
         return this.mimeType;
     }
 
-    getPath(): string
+    get_path(): string
     {
         return '/';
     }
 
-    getExtension(): string
+    get_extension(): string
     {
         return this.filename.split('.').pop();
     }
 
-    getSize(): number
+    get_size(): number
     {
         return Math.round((this.base64.length - 814) / 1.37);
     }
 
-    getBase64(): string
+    get_base64(): string
     {
         return this.base64;
     }

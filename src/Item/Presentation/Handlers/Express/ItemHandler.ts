@@ -17,7 +17,6 @@ import IItemDomain from '../../../InterfaceAdapters/IItemDomain';
 
 import ItemController from '../../Controllers/ItemController';
 import { AuthUser } from '../../../../Auth/Presentation/Helpers/AuthUser';
-import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
 
 @controller('/api/items')
 class ItemHandler
@@ -36,7 +35,7 @@ class ItemHandler
     {
         const _request = new ItemRepRequest(req.body);
 
-        const item: IItemDomain = await this.controller.save(_request, AuthUser(req) as IUserDomain);
+        const item: IItemDomain = await this.controller.save(_request, AuthUser(req));
 
         this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
@@ -52,11 +51,11 @@ class ItemHandler
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.ITEMS_SHOW))
-    public async getOne(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async get_one(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req.params.id);
 
-        const item: IItemDomain = await this.controller.getOne(_request);
+        const item: IItemDomain = await this.controller.get_one(_request);
 
         this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
@@ -66,7 +65,7 @@ class ItemHandler
     {
         const _request = new ItemUpdateRequest(req.body, req.params.id);
 
-        const item: IItemDomain = await this.controller.update(_request, AuthUser(req) as IUserDomain);
+        const item: IItemDomain = await this.controller.update(_request, AuthUser(req));
 
         this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }

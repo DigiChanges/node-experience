@@ -1,18 +1,15 @@
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import IRoleRepository from '../../InterfaceAdapters/IRoleRepository';
-import { REPOSITORIES } from '../../../Config/repositories';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import RoleService from '../Services/RoleService';
 
 class GetRoleUseCase
 {
-    @containerFactory(REPOSITORIES.IRoleRepository)
-    private repository: IRoleRepository;
+    private role_service = new RoleService();
 
     async handle(payload: IdPayload): Promise<IRoleDomain>
     {
-        const id = payload.getId();
-        return await this.repository.getOne(id);
+        const id = payload.get_id();
+        return await this.role_service.get_one(id);
     }
 }
 

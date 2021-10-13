@@ -9,7 +9,7 @@ class RoleUserTransformer extends Transformer
     public transform(role: IRoleDomain): IRoleTransformer
     {
         return {
-            id: role.getId(),
+            id: role.get_id(),
             name: role.name,
             slug: role.slug,
             enable: role.enable,
