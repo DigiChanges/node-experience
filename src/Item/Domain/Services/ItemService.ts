@@ -41,7 +41,7 @@ class ItemService
 
     async get_one(id: string): Promise<IItemDomain>
     {
-        return await this.repository.getOne(id);
+        return await this.repository.get_one(id);
     }
 
     async remove(id: string): Promise<IItemDomain>

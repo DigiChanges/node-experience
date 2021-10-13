@@ -70,7 +70,7 @@ class FileService implements IFileService
 
     async get_one(id: string): Promise<IFileDomain>
     {
-        return await this.repository.getOne(id);
+        return await this.repository.get_one(id);
     }
 
     async create_bucket(payload: CreateBucketPayload): Promise<void>

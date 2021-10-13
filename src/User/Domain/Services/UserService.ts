@@ -68,7 +68,7 @@ class UserService
 
     async get_one(id: string): Promise<IUserDomain>
     {
-        return await this.repository.getOneBy({ _id : id }, { populate: 'roles' });
+        return await this.repository.get_one_by({ _id : id }, { populate: 'roles' });
     }
 
     async remove(id: string): Promise<IUserDomain>
@@ -94,7 +94,7 @@ class UserService
 
         user.clear_roles();
 
-        const roles = await this.role_repository.getInBy({ _id: payload.getRolesId() });
+        const roles = await this.role_repository.get_in_by({ _id: payload.get_roles_id() });
 
         roles.forEach(role => user.set_role(role));
 
@@ -120,7 +120,7 @@ class UserService
 
         for (let i = 0; i < count; i++)
         {
-            const role: IRoleDomain = await this.role_repository.getOne(payload.user.roles[i].get_id());
+            const role: IRoleDomain = await this.role_repository.get_one(payload.user.roles[i].get_id());
 
             if (role.slug === payload.role_to_check)
             {

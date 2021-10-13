@@ -21,7 +21,7 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
         return await this.repository.save(entity);
     }
 
-    async getOne(id: string): Promise<T>
+    async get_one(id: string): Promise<T>
     {
         const entity = await this.repository.findOne(id);
 
@@ -52,7 +52,7 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
         return entity;
     }
 
-    async getOneBy(condition: Record<string, any>, options: IByOptions = { initThrow: true }): Promise<T>
+    async get_one_by(condition: Record<string, any>, options: IByOptions = { initThrow: true }): Promise<T>
     {
         let { initThrow } = options;
 
@@ -68,7 +68,7 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
         return entity;
     }
 
-    async getBy(condition: Record<string, any>, options: IByOptions = { initThrow: false }): Promise<T[]>
+    async get_by(condition: Record<string, any>, options: IByOptions = { initThrow: false }): Promise<T[]>
     {
         let { initThrow } = options;
 
@@ -84,11 +84,11 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
         return entities;
     }
 
-    async getInBy(condition: Record<string, string[]>): Promise<T[]>
+    async get_in_by(condition: Record<string, string[]>): Promise<T[]>
     {
         const [key] = Object.keys(condition);
 
-        return await this.getBy({ [key]: In(condition[key]) });
+        return await this.get_by({ [key]: In(condition[key]) });
     }
 
     async exist(condition: Record<string, any> | Record<string, any>[], select: string[], initThrow = false): Promise<any>
