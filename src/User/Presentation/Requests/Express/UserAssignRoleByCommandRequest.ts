@@ -15,12 +15,12 @@ class UserAssignRoleByCommandRequest implements UserAssignRoleByPayload
         this.email = env.email;
     }
 
-    get_slug_role(): string
+    getSlugRole(): string
     {
         return this.slug;
     }
 
-    get_email(): string
+    getEmail(): string
     {
         return this.email;
     }

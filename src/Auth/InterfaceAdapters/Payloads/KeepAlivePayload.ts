@@ -1,8 +1,8 @@
 
 interface KeepAlivePayload
 {
-    get_email(): string;
-    get_token_id(): string;
+    getEmail(): string;
+    getTokenId(): string;
 }
 
 export default KeepAlivePayload;

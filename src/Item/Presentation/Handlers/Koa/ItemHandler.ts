@@ -6,8 +6,6 @@ import ItemController from '../../Controllers/ItemController';
 import ItemTransformer from '../../Transformers/ItemTransformer';
 import ItemRepRequest from '../../Requests/ItemRepRequest';
 import { AuthUser } from '../../../../Auth/Presentation/Helpers/AuthUser';
-import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
-import IItemDomain from '../../../InterfaceAdapters/IItemDomain';
 import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import ItemRequestCriteria from '../../Requests/ItemRequestCriteria';
 import ItemUpdateRequest from '../../Requests/ItemUpdateRequest';
@@ -24,7 +22,7 @@ ItemHandler.post('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const request = new ItemRepRequest(ctx.request.body);
 
-    const item: IItemDomain = await controller.save(request, AuthUser(ctx.request.req) as IUserDomain);
+    const item = await controller.save(request, AuthUser(ctx.request.req));
 
     responder.send(item, ctx, StatusCode.HTTP_CREATED, new ItemTransformer());
 });
@@ -42,7 +40,7 @@ ItemHandler.get('/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new IdRequest(ctx.params.id);
 
-    const item: IItemDomain = await controller.getOne(_request);
+    const item = await controller.getOne(_request);
 
     responder.send(item, ctx, StatusCode.HTTP_OK, new ItemTransformer());
 });
@@ -51,7 +49,7 @@ ItemHandler.put('/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new ItemUpdateRequest(ctx.request.body, ctx.params.id);
 
-    const item: IItemDomain = await controller.update(_request, AuthUser(ctx.request.req) as IUserDomain);
+    const item = await controller.update(_request, AuthUser(ctx.request.req));
 
     responder.send(item, ctx, StatusCode.HTTP_OK, new ItemTransformer());
 });
@@ -60,7 +58,7 @@ ItemHandler.delete('/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new IdRequest(ctx.params.id);
 
-    const item: IItemDomain = await controller.remove(_request);
+    const item = await controller.remove(_request);
 
     responder.send(item, ctx, StatusCode.HTTP_OK, new ItemTransformer());
 });

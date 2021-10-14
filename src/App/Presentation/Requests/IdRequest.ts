@@ -13,7 +13,7 @@ class IdRequest implements IdPayload
         this.id = id;
     }
 
-    get_id(): string
+    getId(): string
     {
         return this.id;
     }

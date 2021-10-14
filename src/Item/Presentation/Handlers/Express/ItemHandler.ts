@@ -55,7 +55,7 @@ class ItemHandler
     {
         const _request = new IdRequest(req.params.id);
 
-        const item: IItemDomain = await this.controller.get_one(_request);
+        const item: IItemDomain = await this.controller.getOne(_request);
 
         this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }

@@ -4,7 +4,7 @@ import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 interface IRoleRepository extends IBaseRepository<IRoleDomain>
 {
-    get_by_slug(slug: string): Promise<IRoleDomain>;
+    getBySlug(slug: string): Promise<IRoleDomain>;
     list(criteria: ICriteria): Promise<IPaginator>
 }
 

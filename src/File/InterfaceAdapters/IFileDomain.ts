@@ -3,8 +3,8 @@ import IBaseDomain from '../../App/InterfaceAdapters/IBaseDomain';
 interface IFileDomain extends IBaseDomain
 {
     name: string;
-    original_name: string;
-    mime_type: string;
+    originalName: string;
+    mimeType: string;
     path: string;
     extension: string;
     size: number;

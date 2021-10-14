@@ -16,15 +16,15 @@ class RoleService
     private repository: IRoleRepository;
 
     @containerFactory(SERVICES.IAuthService)
-    private auth_service: IAuthService;
+    private authService: IAuthService;
 
     async persist(role: IRoleDomain, payload: RoleRepPayload): Promise<IRoleDomain>
     {
-        this.auth_service.validate_permissions(payload.get_permissions());
-        role.name = payload.get_name();
-        role.slug = payload.get_slug();
-        role.enable = payload.get_enable();
-        role.permissions = payload.get_permissions();
+        this.authService.validatePermissions(payload.getPermissions());
+        role.name = payload.getName();
+        role.slug = payload.getSlug();
+        role.enable = payload.getEnable();
+        role.permissions = payload.getPermissions();
 
         return await this.repository.save(role);
     }
@@ -37,14 +37,14 @@ class RoleService
 
     async update(payload: RoleUpdatePayload): Promise<IRoleDomain>
     {
-        const id = payload.get_id();
+        const id = payload.getId();
         const role: IRoleDomain = await this.get_one(id);
         return await this.persist(role, payload);
     }
 
     async get_one(id: string): Promise<IRoleDomain>
     {
-        return await this.repository.get_one(id);
+        return await this.repository.getOne(id);
     }
 
     async remove(id: string): Promise<IRoleDomain>

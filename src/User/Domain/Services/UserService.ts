@@ -17,6 +17,7 @@ import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
 import ChangeUserPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeUserPasswordPayload';
 import UserAssignRolePayload from '../../InterfaceAdapters/Payloads/UserAssignRolePayload';
 import UserAssignRoleByPayload from 'User/InterfaceAdapters/Payloads/UserAssignRoleByPayload';
+import Password from '../../../App/Domain/ValueObjects/Password';
 
 
 class UserService
@@ -25,10 +26,10 @@ class UserService
     private repository: IUserRepository;
 
     @containerFactory(REPOSITORIES.IRoleRepository)
-    private role_repository: IRoleRepository;
+    private roleRepository: IRoleRepository;
 
     @containerFactory(SERVICES.IAuthService)
-    private auth_service: IAuthService;
+    private authService: IAuthService;
     private encryption: IEncryption;
 
     constructor()
@@ -38,19 +39,19 @@ class UserService
 
     async persist(user: IUserDomain, payload: UserRepPayload): Promise<IUserDomain>
     {
-        this.auth_service.validate_permissions(payload.get_permissions());
-        user.first_name = payload.get_first_name();
-        user.last_name = payload.get_last_name();
-        user.enable = payload.get_enable();
-        user.email = payload.get_email();
-        user.birthday = payload.get_birthday();
-        user.document_type = payload.get_document_type();
-        user.document_number = payload.get_document_number();
-        user.gender = payload.get_gender();
-        user.phone = payload.get_phone();
-        user.country = payload.get_country();
-        user.address = payload.get_address();
-        user.permissions = payload.get_permissions();
+        this.authService.validatePermissions(payload.getPermissions());
+        user.firstName = payload.getFirstName();
+        user.lastName = payload.getLastName();
+        user.enable = payload.getEnable();
+        user.email = payload.getEmail();
+        user.birthday = payload.getBirthday();
+        user.documentType = payload.getDocumentType();
+        user.documentNumber = payload.getDocumentNumber();
+        user.gender = payload.getGender();
+        user.phone = payload.getPhone();
+        user.country = payload.getCountry();
+        user.address = payload.getAddress();
+        user.permissions = payload.getPermissions();
 
         return await this.repository.save(user);
     }
@@ -58,17 +59,21 @@ class UserService
     async create(payload: UserSavePayload): Promise<IUserDomain>
     {
         const user = new User();
-        user.password = await this.encryption.encrypt(payload.get_password());
-        user.confirmation_token = payload.get_confirmation_token();
-        user.password_requested_at = payload.get_password_requested_at();
-        user.roles = payload.get_roles();
-        user.is_super_admin = payload.get_is_super_admin();
+
+        const password = new Password(payload.getPassword());
+        await password.ready();
+        user.password = password;
+
+        user.confirmationToken = payload.getConfirmationToken();
+        user.passwordRequestedAt = payload.getPasswordRequestedAt();
+        user.roles = payload.getRoles();
+        user.isSuperAdmin = payload.getIsSuperAdmin();
         return await this.persist(user, payload);
     }
 
-    async get_one(id: string): Promise<IUserDomain>
+    async getOne(id: string): Promise<IUserDomain>
     {
-        return await this.repository.get_one_by({ _id : id }, { populate: 'roles' });
+        return await this.repository.getOneBy({ _id : id }, { populate: 'roles' });
     }
 
     async remove(id: string): Promise<IUserDomain>
@@ -81,46 +86,49 @@ class UserService
         return await this.repository.list(payload);
     }
 
-    async persist_password(user: IUserDomain, payload: ChangeUserPasswordPayload): Promise<IUserDomain>
+    async persistPassword(user: IUserDomain, payload: ChangeUserPasswordPayload): Promise<IUserDomain>
     {
-        user.password = await this.encryption.encrypt(payload.get_password());
+        const password = new Password(payload.getPassword());
+        await password.ready();
+        user.password = password;
+
         return await this.repository.update(user);
     }
 
-    async assign_role(payload: UserAssignRolePayload): Promise<IUserDomain>
+    async assignRole(payload: UserAssignRolePayload): Promise<IUserDomain>
     {
-        const id = payload.get_id();
-        const user: IUserDomain = await this.get_one(id);
+        const id = payload.getId();
+        const user: IUserDomain = await this.getOne(id);
 
-        user.clear_roles();
+        user.clearRoles();
 
-        const roles = await this.role_repository.get_in_by({ _id: payload.get_roles_id() });
+        const roles = await this.roleRepository.getInBy({ _id: payload.getRolesId() });
 
-        roles.forEach(role => user.set_role(role));
+        roles.forEach(role => user.setRole(role));
 
         return await this.repository.save(user);
     }
 
-    async assign_role_by_slug(payload: UserAssignRoleByPayload): Promise<IUserDomain>
+    async assignRoleBySlug(payload: UserAssignRoleByPayload): Promise<IUserDomain>
     {
-        const email = payload.get_email();
-        const slug = payload.get_slug_role();
+        const email = payload.getEmail();
+        const slug = payload.getSlugRole();
 
-        const user: IUserDomain = await this.repository.get_one_by_email(email);
-        const role: IRoleDomain = await this.role_repository.get_by_slug(slug);
+        const user: IUserDomain = await this.repository.getOneByEmail(email);
+        const role: IRoleDomain = await this.roleRepository.getBySlug(slug);
 
-        user.set_role(role);
+        user.setRole(role);
 
         return await this.repository.save(user);
     }
 
-    public async check_if_user_has_role(payload: CheckUserRolePayload): Promise<boolean>
+    public async checkIfUserHasRole(payload: CheckUserRolePayload): Promise<boolean>
     {
         const count = payload.user.roles.length;
 
         for (let i = 0; i < count; i++)
         {
-            const role: IRoleDomain = await this.role_repository.get_one(payload.user.roles[i].get_id());
+            const role: IRoleDomain = await this.roleRepository.getOne(payload.user.roles[i].getId());
 
             if (role.slug === payload.role_to_check)
             {

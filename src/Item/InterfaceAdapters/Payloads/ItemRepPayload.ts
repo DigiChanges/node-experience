@@ -1,8 +1,8 @@
 
 interface ItemRepPayload
 {
-    get_name(): string;
-    get_type(): number;
+    getName(): string;
+    getType(): number;
 }
 
 export default ItemRepPayload;

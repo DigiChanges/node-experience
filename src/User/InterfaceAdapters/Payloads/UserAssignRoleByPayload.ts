@@ -1,8 +1,8 @@
 
 interface UserAssignRoleByPayload
 {
-    get_slug_role(): string;
-    get_email(): string;
+    getSlugRole(): string;
+    getEmail(): string;
 }
 
 export default UserAssignRoleByPayload;

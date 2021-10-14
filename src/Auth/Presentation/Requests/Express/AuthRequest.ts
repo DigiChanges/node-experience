@@ -17,12 +17,12 @@ class AuthRequest implements AuthPayload
         this.password = data.password;
     }
 
-    get_email(): string
+    getEmail(): string
     {
         return this.email;
     }
 
-    get_password(): string
+    getPassword(): string
     {
         return this.password;
     }

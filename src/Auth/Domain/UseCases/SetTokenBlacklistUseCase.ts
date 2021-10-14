@@ -11,7 +11,7 @@ class SetTokenBlacklistUseCase
 
     async handle(token: ITokenDomain)
     {
-        token.black_listed = true;
+        token.blackListed = true;
         await this.repository.save(token);
     }
 }

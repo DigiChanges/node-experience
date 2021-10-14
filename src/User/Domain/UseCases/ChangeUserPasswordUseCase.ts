@@ -10,14 +10,14 @@ class ChangeUserPasswordUseCase
 
     async handle(payload: ChangeUserPasswordPayload): Promise<IUserDomain>
     {
-        const id = payload.get_id();
+        const id = payload.getId();
         const user: IUserDomain = await this.userService.getOne(id);
 
         const password = new Password(payload.getPassword());
         await password.ready();
         user.password = password;
 
-        return await this.userService.persist_password(user, payload);
+        return await this.userService.persistPassword(user, payload);
     }
 }
 

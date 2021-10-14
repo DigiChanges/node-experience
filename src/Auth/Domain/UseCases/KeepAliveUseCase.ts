@@ -13,26 +13,26 @@ class KeepAliveUseCase
     private repository: IUserRepository;
 
     @containerFactory(REPOSITORIES.ITokenRepository)
-    private token_repository: ITokenRepository<ITokenDomain>;
-    private token_factory: TokenFactory;
+    private tokenRepository: ITokenRepository<ITokenDomain>;
+    private tokenFactory: TokenFactory;
 
     constructor()
     {
-        this.token_factory = new TokenFactory();
+        this.tokenFactory = new TokenFactory();
     }
 
     async handle(payload: KeepAlivePayload)
     {
-        const email = payload.get_email();
-        const token_id = payload.get_token_id();
+        const email = payload.getEmail();
+        const token_id = payload.getTokenId();
 
-        const user = await this.repository.get_one_by_email(email);
-        const token: any = await this.token_repository.getOne(token_id);
+        const user = await this.repository.getOneByEmail(email);
+        const token: any = await this.tokenRepository.getOne(token_id);
 
         const set_token_blacklist_use_case = new SetTokenBlacklistUseCase();
         await set_token_blacklist_use_case.handle(token);
 
-        return await this.token_factory.createToken(user);
+        return await this.tokenFactory.createToken(user);
     }
 }
 

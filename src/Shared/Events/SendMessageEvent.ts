@@ -10,7 +10,7 @@ class SendMessageEvent
 
         setTimeout(() =>
         {
-            void Notificator.send_push_notification(pushNotification, message);
+            void Notificator.sendPushNotification(pushNotification, message);
         }, 1000);
     }
 }

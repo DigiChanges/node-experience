@@ -9,7 +9,7 @@ class UpdateFileBase64UseCase
     async handle(payload: FileUpdateBase64Payload): Promise<any>
     {
         const id = payload.getId();
-        let file: IFileDomain = await this.fileService.get_one(id);
+        let file: IFileDomain = await this.fileService.getOne(id);
         file = await this.fileService.persist(file, payload);
         return await this.fileService.uploadFileBase64(file, payload);
     }

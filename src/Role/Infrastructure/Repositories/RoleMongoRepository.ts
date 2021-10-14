@@ -22,7 +22,7 @@ class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implem
         super(Role.name);
     }
 
-    async get_by_slug(slug: string): Promise<IRoleDomain>
+    async getBySlug(slug: string): Promise<IRoleDomain>
     {
         return this.repository.findOne({ slug });
     }

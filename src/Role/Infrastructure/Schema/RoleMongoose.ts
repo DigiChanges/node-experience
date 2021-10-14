@@ -7,7 +7,7 @@ const RoleSchema: any = new Schema({
     name: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
     enable: { type: Boolean, required: true },
-    of_system: { type: Boolean, default: false },
+    ofSystem: { type: Boolean, default: false },
     permissions: { type: Array, required: true }
 }, { timestamps: true });
 

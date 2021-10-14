@@ -19,70 +19,71 @@ import ChangeMyPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeMyPa
 import ChangeUserPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeUserPasswordPayload';
 import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
 
+
 class UserController
 {
     public async save(request: UserSavePayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new SaveUserUseCase();
-        return await use_case.handle(request);
+        const useCase = new SaveUserUseCase();
+        return await useCase.handle(request);
     }
 
     public async list(request: ICriteria): Promise<IPaginator>
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new ListUsersUseCase();
-        return await use_case.handle(request);
+        const useCase = new ListUsersUseCase();
+        return await useCase.handle(request);
     }
 
-    public async get_one(request: IdPayload): Promise<IUserDomain>
+    public async getOne(request: IdPayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new GetUserUseCase();
-        return await use_case.handle(request);
+        const useCase = new GetUserUseCase();
+        return await useCase.handle(request);
     }
 
     public async update(request: UserUpdatePayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new UpdateUserUseCase();
-        return await use_case.handle(request);
+        const useCase = new UpdateUserUseCase();
+        return await useCase.handle(request);
     }
 
-    public async assign_role(request: UserAssignRolePayload): Promise<IUserDomain>
+    public async assignRole(request: UserAssignRolePayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new AssignRoleUseCase();
-        return await use_case.handle(request);
+        const useCase = new AssignRoleUseCase();
+        return await useCase.handle(request);
     }
 
     public async remove(request: IdPayload): Promise<any>
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new RemoveUserUseCase();
-        return await use_case.handle(request);
+        const useCase = new RemoveUserUseCase();
+        return await useCase.handle(request);
     }
 
-    public async change_my_password(request: ChangeMyPasswordPayload): Promise<IUserDomain>
+    public async changeMyPassword(request: ChangeMyPasswordPayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new ChangeMyPasswordUseCase();
-        return await use_case.handle(request);
+        const useCase = new ChangeMyPasswordUseCase();
+        return await useCase.handle(request);
     }
 
-    public async change_user_password(request: ChangeUserPasswordPayload): Promise<IUserDomain>
+    public async changeUserPassword(request: ChangeUserPasswordPayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new ChangeUserPasswordUseCase();
-        return await use_case.handle(request);
+        const useCase = new ChangeUserPasswordUseCase();
+        return await useCase.handle(request);
     }
 }
 

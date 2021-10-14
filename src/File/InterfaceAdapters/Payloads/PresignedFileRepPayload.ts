@@ -1,8 +1,8 @@
 
 interface PresignedFileRepPayload
 {
-    get_name(): string,
-    get_expiry(): number,
+    getName(): string,
+    getExpiry(): number,
 }
 
 export default PresignedFileRepPayload;

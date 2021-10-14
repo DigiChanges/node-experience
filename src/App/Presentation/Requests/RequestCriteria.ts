@@ -1,5 +1,6 @@
 import { ICriteria, IFilter, IPagination, ISort } from '@digichanges/shared-experience';
 
+
 abstract class RequestCriteria implements ICriteria
 {
     private readonly sort: ISort;

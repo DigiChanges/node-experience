@@ -8,7 +8,7 @@ class RemoveItemUseCase
 
     async handle(payload: IdPayload): Promise<IItemDomain>
     {
-        const id = payload.get_id();
+        const id = payload.getId();
         return await this.itemService.remove(id);
     }
 }

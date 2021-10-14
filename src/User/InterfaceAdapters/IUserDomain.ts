@@ -4,12 +4,12 @@ import Password from '../../App/Domain/ValueObjects/Password';
 
 interface IUserDomain extends IBaseDomain
 {
-    first_name: string;
-    last_name: string;
+    firstName: string;
+    lastName: string;
     email: string;
     birthday: string;
-    document_type: string;
-    document_number: string;
+    documentType: string;
+    documentNumber: string;
     gender: string;
     phone: string;
     country: string;
@@ -18,14 +18,14 @@ interface IUserDomain extends IBaseDomain
     roles: IRoleDomain[];
     permissions: string[];
     enable: boolean;
-    is_super_admin: boolean;
-    confirmation_token: string;
-    password_requested_at: Date;
+    isSuperAdmin: boolean;
+    confirmationToken: string;
+    passwordRequestedAt: Date;
 
-    get_full_name(): string;
-    set_role(role: IRoleDomain): void;
-    get_roles(): IRoleDomain[];
-    clear_roles(): void;
+    getFullName(): string;
+    setRole(role: IRoleDomain): void;
+    getRoles(): IRoleDomain[];
+    clearRoles(): void;
 }
 
 export default IUserDomain;

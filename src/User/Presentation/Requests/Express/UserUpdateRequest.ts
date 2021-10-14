@@ -16,7 +16,7 @@ class UserUpdateRequest extends Mixin(UserRepRequest, IdRequest) implements User
         this.user_id = user_id;
     }
 
-    get_token_user_id(): string
+    getTokenUserId(): string
     {
         return this.user_id;
     }

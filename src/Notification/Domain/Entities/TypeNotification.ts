@@ -5,8 +5,8 @@ import Base from '../../../App/Domain/Entities/Base';
 class TypeNotification extends Base
 {
     name: string;
-    email_template_path : string;
-    sender_name: string;
+    emailTemplatePath : string;
+    senderName: string;
     from: string;
     to: string;
     cc: string;
@@ -21,8 +21,8 @@ class TypeNotification extends Base
         super();
         this.cc = null;
         this.name = null;
-        this.email_template_path = null;
-        this.sender_name = null;
+        this.emailTemplatePath = null;
+        this.senderName = null;
         this.from = null;
         this.to = null;
         this.cc = null;

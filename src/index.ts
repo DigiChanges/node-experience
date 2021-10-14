@@ -34,7 +34,7 @@ void (async() =>
         const eventHandler = EventHandler.getInstance();
         await eventHandler.setListeners();
 
-        const app = AppFactory.create('AppKoa');
+        const app = AppFactory.create('AppExpress');
         app.initConfig();
         app.build();
         app.listen();

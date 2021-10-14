@@ -10,10 +10,10 @@ const RefreshTokenMiddleware = async(req: any, response: any, next: any) =>
 
         if (id && email)
         {
-            const keep_alive_use_case = new KeepAliveUseCase();
-            const payload = await keep_alive_use_case.handle({ get_email: () => email, get_token_id: () => id });
+            const keepAliveUseCase = new KeepAliveUseCase();
+            const payload = await keepAliveUseCase.handle({ getEmail: () => email, getTokenId: () => id });
 
-            req.refreshToken = payload.get_hash();
+            req.refreshToken = payload.getHash();
         }
 
         next();

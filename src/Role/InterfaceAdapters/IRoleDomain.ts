@@ -5,7 +5,7 @@ interface IRoleDomain extends IBaseDomain
     name: string;
     slug: string;
     enable: boolean;
-    of_system: boolean;
+    ofSystem: boolean;
     permissions: string[];
 }
 

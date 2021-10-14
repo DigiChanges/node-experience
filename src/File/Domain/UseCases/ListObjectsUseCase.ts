@@ -3,10 +3,10 @@ import FileService from '../Services/FileService';
 
 class ListObjectsUseCase
 {
-    private file_service = new FileService();
+    private fileService = new FileService();
     async handle(payload: ListObjectsPayload): Promise<any>
     {
-        return await this.file_service.list_objects(payload);
+        return await this.fileService.listObjects(payload);
     }
 }
 

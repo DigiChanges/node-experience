@@ -19,7 +19,7 @@ class RoleSqlRepository extends BaseSqlRepository<IRoleDomain> implements IRoleR
         super(Role.name, RoleSchema);
     }
 
-    async get_by_slug(slug: string): Promise<IRoleDomain>
+    async getBySlug(slug: string): Promise<IRoleDomain>
     {
         return await this.repository.findOne({ slug });
     }

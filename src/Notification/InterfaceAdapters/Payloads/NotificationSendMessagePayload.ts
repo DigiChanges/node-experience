@@ -2,8 +2,8 @@ import NotificationRepPayload from './NotificationRepPayload';
 
 interface NotificationSendMessagePayload extends NotificationRepPayload
 {
-    get_name(): string;
-    get_message(): string;
+    getName(): string;
+    getMessage(): string;
 }
 
 export default NotificationSendMessagePayload;

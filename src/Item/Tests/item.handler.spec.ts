@@ -10,26 +10,26 @@ describe('Start Item Test', () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
-    let db_connection: ICreateConnection;
+    let dbConnection: ICreateConnection;
     let token: string = null;
-    let item_id = '';
-    let delete_response: any = null;
+    let itemId = '';
+    let deleteResponse: any = null;
 
     beforeAll(async(done) =>
     {
-        const config_server = await initTestServer();
+        const configServer = await initTestServer();
 
-        server = config_server.server;
-        request = config_server.request;
-        db_connection = config_server.dbConnection;
+        server = configServer.server;
+        request = configServer.request;
+        dbConnection = configServer.dbConnection;
 
         done();
     });
 
     afterAll((async(done) =>
     {
-        await db_connection.drop();
-        await db_connection.close();
+        await dbConnection.drop();
+        await dbConnection.close();
 
         done();
     }));
@@ -76,7 +76,7 @@ describe('Start Item Test', () =>
 
             expect(data.name).toStrictEqual(payload.name);
             expect(data.type).toStrictEqual(payload.type);
-            item_id = data.id;
+            itemId = data.id;
 
             done();
         });
@@ -90,7 +90,7 @@ describe('Start Item Test', () =>
             };
 
             const response: IItemResponse = await request
-                .get(`/api/items/${item_id}`)
+                .get(`/api/items/${itemId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -115,7 +115,7 @@ describe('Start Item Test', () =>
             };
 
             const response: IItemResponse = await request
-                .put(`/api/items/${item_id}`)
+                .put(`/api/items/${itemId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
@@ -145,15 +145,15 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            delete_response = await request
+            deleteResponse = await request
                 .delete(`/api/items/${create_response.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${create_response.body.metadata.refreshToken}`)
                 .send();
 
-            const { body: { status, statusCode, data } } = delete_response;
+            const { body: { status, statusCode, data } } = deleteResponse;
 
-            expect(delete_response.statusCode).toStrictEqual(200);
+            expect(deleteResponse.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
@@ -311,7 +311,7 @@ describe('Start Item Test', () =>
         {
 
             const response: IItemResponse = await request
-                .get(`/api/items/${item_id}dasdasda123`)
+                .get(`/api/items/${itemId}dasdasda123`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -338,7 +338,7 @@ describe('Start Item Test', () =>
             };
 
             const response: IItemResponse = await request
-                .put(`/api/items/${item_id}`)
+                .put(`/api/items/${itemId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
@@ -365,7 +365,7 @@ describe('Start Item Test', () =>
         {
 
             const delete_error_response: IItemResponse = await request
-                .delete(`/api/items/${delete_response.body.data.id}`)
+                .delete(`/api/items/${deleteResponse.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();

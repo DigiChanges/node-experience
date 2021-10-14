@@ -53,7 +53,7 @@ class RoleHandler
     {
         const _request = new IdRequest(req.params.id);
 
-        const role: IRoleDomain = await this.controller.get_one(_request);
+        const role: IRoleDomain = await this.controller.getOne(_request);
 
         this.responder.send(role, req, res, StatusCode.HTTP_OK, new RoleTransformer());
     }

@@ -18,19 +18,19 @@ class UserTransformer extends Transformer
     public transform(user: IUserDomain): IUserTransformer
     {
         return {
-            id: user.get_id(),
-            first_name: user.first_name,
-            last_name: user.last_name,
+            id: user.getId(),
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email,
             birthday: user.birthday,
-            document_type: user.document_type,
-            document_number: user.document_number,
+            documentType: user.documentType,
+            documentNumber: user.documentNumber,
             gender: user.gender,
             phone: user.phone,
             country: user.country,
             address: user.address,
             enable: user.enable,
-            roles: this.role_transformer.handle(user.get_roles()),
+            roles: this.role_transformer.handle(user.getRoles()),
             permissions: user.permissions,
             createdAt: moment(user.createdAt).utc().unix(),
             updatedAt: moment(user.updatedAt).utc().unix()

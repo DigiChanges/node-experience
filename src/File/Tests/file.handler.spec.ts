@@ -18,11 +18,11 @@ describe('Start File Test', () =>
 
     beforeAll(async(done) =>
     {
-        const config_server = await initTestServer();
+        const configServer = await initTestServer();
 
-        server = config_server.server;
-        request = config_server.request;
-        dbConnection = config_server.dbConnection;
+        server = configServer.server;
+        request = configServer.request;
+        dbConnection = configServer.dbConnection;
 
         jest.spyOn(FilesystemFactory, 'create').mockImplementation(() => new MockMinioStrategy());
 
@@ -83,9 +83,9 @@ describe('Start File Test', () =>
         test('Get File /files/metadata/:id', async done =>
         {
             const payload = {
-                original_name: 'photo',
+                originalName: 'photo',
                 extension: 'jpg',
-                mime_type: 'image/jpeg'
+                mimeType: 'image/jpeg'
             };
 
             const response: IFileResponse = await request
@@ -100,9 +100,9 @@ describe('Start File Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(data.originalName).toStrictEqual(payload.original_name);
+            expect(data.originalName).toStrictEqual(payload.originalName);
             expect(data.extension).toStrictEqual(payload.extension);
-            expect(data.mimeType).toStrictEqual(payload.mime_type);
+            expect(data.mimeType).toStrictEqual(payload.mimeType);
 
             done();
         });

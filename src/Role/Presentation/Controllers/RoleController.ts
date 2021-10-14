@@ -17,40 +17,40 @@ class RoleController
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new SaveRoleUseCase();
-        return await use_case.handle(request);
+        const useCase = new SaveRoleUseCase();
+        return await useCase.handle(request);
     }
 
     public async list(request: ICriteria): Promise<IPaginator>
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new ListRolesUseCase();
-        return await use_case.handle(request);
+        const useCase = new ListRolesUseCase();
+        return await useCase.handle(request);
     }
 
-    public async get_one(request: IdPayload): Promise<IRoleDomain>
+    public async getOne(request: IdPayload): Promise<IRoleDomain>
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new GetRoleUseCase();
-        return await use_case.handle(request);
+        const useCase = new GetRoleUseCase();
+        return await useCase.handle(request);
     }
 
     public async update(request: RoleUpdatePayload): Promise<IRoleDomain>
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new UpdateRoleUseCase();
-        return await use_case.handle(request);
+        const useCase = new UpdateRoleUseCase();
+        return await useCase.handle(request);
     }
 
     public async remove(request: IdPayload): Promise<any>
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new RemoveRoleUseCase();
-        return await use_case.handle(request);
+        const useCase = new RemoveRoleUseCase();
+        return await useCase.handle(request);
     }
 }
 

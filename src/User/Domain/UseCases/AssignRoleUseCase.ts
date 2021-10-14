@@ -8,7 +8,7 @@ class AssignRoleUseCase
 
     async handle(payload: UserAssignRolePayload): Promise<IUserDomain>
     {
-        return await this.user_service.assign_role(payload);
+        return await this.user_service.assignRole(payload);
     }
 }
 

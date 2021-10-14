@@ -30,22 +30,22 @@ class RoleRepRequest implements RoleRepPayload
         this.enable = data.enable ?? true;
     }
 
-    get_name(): string
+    getName(): string
     {
         return this.name;
     }
 
-    get_slug(): string
+    getSlug(): string
     {
         return this.slug;
     }
 
-    get_permissions(): string[]
+    getPermissions(): string[]
     {
         return this.permissions;
     }
 
-    get_enable(): boolean
+    getEnable(): boolean
     {
         return this.enable;
     }

@@ -2,8 +2,8 @@ import Notification from './Notification';
 
 class EmailNotification extends Notification
 {
-    email_template_path : string;
-    sender_name: string;
+    emailTemplatePath : string;
+    senderName: string;
     from: string;
     to: string;
     cc: string;

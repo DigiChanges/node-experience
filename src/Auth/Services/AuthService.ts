@@ -22,7 +22,7 @@ class AuthService implements IAuthService
 {
 
     @containerFactory(REPOSITORIES.IUserRepository)
-    private user_repository: IUserRepository
+    private userRepository: IUserRepository
 
     private encryption: IEncryption;
 
@@ -31,27 +31,27 @@ class AuthService implements IAuthService
         this.encryption = EncryptionFactory.create();
     }
 
-    public decode_token(token: string): ITokenDecode
+    public decodeToken(token: string): ITokenDecode
     {
-        const token_array = token.split(' ');
+        const tokenArray = token.split(' ');
 
         const secret: string = Config.get('jwt.secret');
         const algorithm: TAlgorithm = Config.get('encryption.bcrypt.algorithm');
 
-        return jwt.decode(token_array[1], secret, false, algorithm);
+        return jwt.decode(tokenArray[1], secret, false, algorithm);
     }
 
-    public get_permissions(auth_user: IUserDomain): string[]
+    public getPermissions(auth_user: IUserDomain): string[]
     {
-        const role_permissions = auth_user.get_roles().filter(role => role.enable).reduce((accum, role) =>
+        const rolePermissions = auth_user.getRoles().filter(role => role.enable).reduce((accum, role) =>
         {
             return [...accum, ...role.permissions];
         }, []);
 
-        return [...new Set([...auth_user.permissions, ...role_permissions])];
+        return [...new Set([...auth_user.permissions, ...rolePermissions])];
     }
 
-    public validate_permissions(permissions: string[]): void
+    public validatePermissions(permissions: string[]): void
     {
         if (!_.isEmpty(permissions) && _.isEmpty(_.intersection(permissions, Permissions.permissions())))
         {
@@ -59,23 +59,23 @@ class AuthService implements IAuthService
         }
     }
 
-    public get_by_email(email: string): Promise<Auth>
+    public getByEmail(email: string): Promise<Auth>
     {
-        return this.user_repository.get_one_by_email(email);
+        return this.userRepository.getOneByEmail(email);
     }
 
     public async authorize(auth_user: Auth, handler_permission: string): Promise<boolean>
     {
-        const total_permissions = this.get_permissions(auth_user as IUserDomain);
+        const totalPermissions = this.getPermissions(auth_user as IUserDomain);
 
         let authorize = false;
 
-        if ((auth_user as IUserDomain)?.is_super_admin)
+        if ((auth_user as IUserDomain)?.isSuperAdmin)
         {
             return true;
         }
 
-        total_permissions.forEach((permission: string) =>
+        totalPermissions.forEach((permission: string) =>
         {
             if (permission === handler_permission)
             {
@@ -88,29 +88,29 @@ class AuthService implements IAuthService
         return authorize;
     }
 
-    public validate_token(token: string): ITokenDecode
+    public validateToken(token: string): ITokenDecode
     {
         if (typeof token === 'undefined' || token.indexOf('Bearer') === -1)
         {
             throw new TokenExpiredHttpException();
         }
 
-        const token_array = token.split(' ');
-        const hash = token_array[1];
+        const tokenArray = token.split(' ');
+        const hash = tokenArray[1];
 
         if (!hash || !token)
         {
             throw new TokenNotFoundHttpException();
         }
 
-        return this.decode_token(token);
+        return this.decodeToken(token);
     }
 
-    public check_whitelist(reqMethod: string, reqPath: string): boolean
+    public checkWhitelist(reqMethod: string, reqPath: string): boolean
     {
-        const same_path = (_url: string, _path: string): boolean => (_url === _path);
+        const samePath = (_url: string, _path: string): boolean => (_url === _path);
 
-        const match_url_reg_exp = (_url_reg_exp: RegExp, _path: string): boolean =>
+        const matchUrlRegExp = (_url_reg_exp: RegExp, _path: string): boolean =>
         {
             if (_url_reg_exp)
             {
@@ -122,11 +122,11 @@ class AuthService implements IAuthService
             return false;
         };
 
-        const match_url_path_with_params = (_url: string, _path: string): boolean =>
+        const matchUrlPathWithParams = (_url: string, _path: string): boolean =>
         {
             if (_url.includes('**') || _url.includes('*'))
             {
-                const is_allowed = (path: string[], url: string[]): boolean =>
+                const isAllowed = (path: string[], url: string[]): boolean =>
                 {
                     return url.every((_urlExtract, order): boolean =>
                     {
@@ -141,33 +141,33 @@ class AuthService implements IAuthService
                     });
                 };
 
-                return is_allowed(_path.split('/'), _url.split('/'));
+                return isAllowed(_path.split('/'), _url.split('/'));
             }
 
             return false;
         };
 
-        let exist_method_and_url = false;
-        const api_whitelist: { method: string[], url: string, urlRegExp: RegExp}[] = Config.get('apiWhitelist');
+        let existMethodAndUrl = false;
+        const apiWhitelist: { method: string[], url: string, urlRegExp: RegExp}[] = Config.get('apiWhitelist');
 
-        for (const conf of api_whitelist)
+        for (const conf of apiWhitelist)
         {
             if (conf.method.includes(reqMethod) || conf.method.includes('*'))
             {
-                exist_method_and_url = exist_method_and_url || same_path(conf.url, reqPath);
+                existMethodAndUrl = existMethodAndUrl || samePath(conf.url, reqPath);
 
-                exist_method_and_url = exist_method_and_url || match_url_reg_exp(conf?.urlRegExp, reqPath);
+                existMethodAndUrl = existMethodAndUrl || matchUrlRegExp(conf?.urlRegExp, reqPath);
 
-                exist_method_and_url = exist_method_and_url || match_url_path_with_params(conf.url, reqPath);
+                existMethodAndUrl = existMethodAndUrl || matchUrlPathWithParams(conf.url, reqPath);
 
-                if (exist_method_and_url)
+                if (existMethodAndUrl)
                 {
                     break;
                 }
             }
         }
 
-        return exist_method_and_url;
+        return existMethodAndUrl;
     }
 }
 

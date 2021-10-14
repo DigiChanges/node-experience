@@ -57,11 +57,11 @@ class UserHandler
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.USERS_SHOW))
-    public async get_one(@request() req: Request, @response() res: Response): Promise<void>
+    public async getOne(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new IdRequest(req.params.id);
 
-        const user: IUserDomain = await this.controller.get_one(_request);
+        const user: IUserDomain = await this.controller.getOne(_request);
 
         this.responder.send(user, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -69,7 +69,7 @@ class UserHandler
     @httpPut('/:id', AuthorizeMiddleware(Permissions.USERS_UPDATE))
     public async update(@request() req: any, @response() res: Response): Promise<void>
     {
-        const _request = new UserUpdateRequest(req.body, req.params.id, AuthUser<ITokenDecode>(req, 'tokenDecode').user_id);
+        const _request = new UserUpdateRequest(req.body, req.params.id, AuthUser<ITokenDecode>(req, 'tokenDecode').userId);
 
         const user: IUserDomain = await this.controller.update(_request);
 
@@ -77,11 +77,11 @@ class UserHandler
     }
 
     @httpPut('/assign-role/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN_ROLE))
-    public async assign_role(@request() req: Request, @response() res: Response): Promise<void>
+    public async assignRole(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new UserAssignRoleRequest(req.body, req.params.id);
 
-        const _response: IUserDomain = await this.controller.assign_role(_request);
+        const _response: IUserDomain = await this.controller.assignRole(_request);
 
         this.responder.send(_response, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
@@ -97,21 +97,21 @@ class UserHandler
     }
 
     @httpPost('/change-my-password', AuthorizeMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD))
-    public async change_my_password(@request() req: any, @response() res: Response): Promise<void>
+    public async changeMyPassword(@request() req: any, @response() res: Response): Promise<void>
     {
-        const _request = new ChangeMyPasswordRequest(req.body, AuthUser<ITokenDecode>(req, 'tokenDecode').user_id);
+        const _request = new ChangeMyPasswordRequest(req.body, AuthUser<ITokenDecode>(req, 'tokenDecode').userId);
 
-        const user: IUserDomain = await this.controller.change_my_password(_request);
+        const user: IUserDomain = await this.controller.changeMyPassword(_request);
 
         this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
     @httpPut('/change-user-password/:id', AuthorizeMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD))
-    public async change_user_password(@request() req: Request, @response() res: Response): Promise<void>
+    public async changeUserPassword(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new ChangeUserPasswordRequest(req.body, req.params.id);
 
-        const user: IUserDomain = await this.controller.change_user_password(_request);
+        const user: IUserDomain = await this.controller.changeUserPassword(_request);
 
         this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }

@@ -11,11 +11,11 @@ class UpdateUserUseCase
 
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {
-        const id = payload.get_id();
-        const user: IUserDomain = await this.user_service.get_one(id);
-        let enable = payload.get_enable();
+        const id = payload.getId();
+        const user: IUserDomain = await this.user_service.getOne(id);
+        let enable = payload.getEnable();
 
-        if (payload.get_token_user_id() === user.get_id())
+        if (payload.getTokenUserId() === user.getId())
         {
             enable = true;
         }
@@ -27,7 +27,7 @@ class UpdateUserUseCase
                 user
             };
 
-            const verifyRole = await this.user_service.check_if_user_has_role(checkRole);
+            const verifyRole = await this.user_service.checkIfUserHasRole(checkRole);
 
             if (verifyRole && !enable)
             {

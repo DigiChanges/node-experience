@@ -7,20 +7,20 @@ import SendPushNotificationUseCase from '../../Domain/UseCases/SendPushNotificat
 
 class NotificationController
 {
-    public async upload_test_notification_base64(request: NotificationRepPayload)
+    public async uploadTestNotificationBase64(request: NotificationRepPayload)
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new CreateSubscriptionUseCase();
-        return use_case.handle(request);
+        const useCase = new CreateSubscriptionUseCase();
+        return useCase.handle(request);
     }
 
-    public async send_push_notification(request: NotificationSendMessagePayload)
+    public async sendPushNotification(request: NotificationSendMessagePayload)
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new SendPushNotificationUseCase();
-        return use_case.handle(request);
+        const useCase = new SendPushNotificationUseCase();
+        return useCase.handle(request);
     }
 }
 

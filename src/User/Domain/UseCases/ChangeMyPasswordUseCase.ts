@@ -19,7 +19,7 @@ class ChangeMyPasswordUseCase
     async handle(payload: ChangeMyPasswordPayload): Promise<IUserDomain>
     {
         const id = payload.getId();
-        const user: IUserDomain = await this.userService.get_one(id);
+        const user: IUserDomain = await this.userService.getOne(id);
 
         if (! await this.encryption.compare(payload.getCurrentPassword(), user.password.toString()))
         {
@@ -30,7 +30,7 @@ class ChangeMyPasswordUseCase
         await password.ready();
         user.password = password;
 
-        return await this.userService.persist_password(user, payload);
+        return await this.userService.persistPassword(user, payload);
     }
 }
 
