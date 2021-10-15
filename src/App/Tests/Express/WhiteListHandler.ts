@@ -2,8 +2,8 @@ import { controller, request, response, next, httpGet, httpPost, httpDelete, htt
 import { NextFunction, Request, Response } from 'express';
 
 import { inject } from 'inversify';
-import { TYPES } from '../../types';
-import Responder from '../Presentation/Shared/Express/Responder';
+import { TYPES } from '../../../types';
+import Responder from '../../Presentation/Shared/Express/Responder';
 import { StatusCode } from '@digichanges/shared-experience';
 
 @controller('/test')

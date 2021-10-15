@@ -1,15 +1,13 @@
-import supertest from 'supertest';
+import { SuperAgentTest } from 'supertest';
 import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
-import { InversifyExpressServer } from 'inversify-express-utils';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IListUsersResponse, IUserResponse } from './types';
 import Config from 'config';
 
 describe('Start User Test', () =>
 {
-    let server: InversifyExpressServer;
-    let request: supertest.SuperTest<supertest.Test>;
+    let request: SuperAgentTest;
     let dbConnection: ICreateConnection;
     let token: string = null;
     let userId = '';
@@ -19,7 +17,6 @@ describe('Start User Test', () =>
     {
         const configServer = await initTestServer();
 
-        server = configServer.server;
         request = configServer.request;
         dbConnection = configServer.dbConnection;
 
@@ -141,7 +138,7 @@ describe('Start User Test', () =>
                 lastName: 'Doe',
                 email: 'user3@node.com',
                 password: '12345678',
-                passwordConfirmation: '12345678',
+                password_confirmation: '12345678',
                 permissions: []
             };
 
@@ -185,7 +182,6 @@ describe('Start User Test', () =>
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
-
 
             const { body: { status, statusCode, data } } = response;
 
@@ -274,8 +270,6 @@ describe('Start User Test', () =>
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
-
-            token = createResponse.body.metadata.refreshToken;
 
             deleteResponse = await request
                 .delete(`/api/users/${createResponse.body.data.id}`)

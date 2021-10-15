@@ -14,12 +14,12 @@ import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 
 class ItemController
 {
-    public async save(request: ItemRepPayload, auth_user: IUserDomain): Promise<IItemDomain>
+    public async save(request: ItemRepPayload, authUser: IUserDomain): Promise<IItemDomain>
     {
         await ValidatorRequest.handle(request);
 
         const useCase = new SaveItemUseCase();
-        return await useCase.handle(request, auth_user);
+        return await useCase.handle(request, authUser);
     }
 
     public async list(request: ICriteria): Promise<IPaginator>
@@ -38,12 +38,12 @@ class ItemController
         return await useCase.handle(request);
     }
 
-    public async update(request: ItemUpdatePayload, auth_user: IUserDomain)
+    public async update(request: ItemUpdatePayload, authUser: IUserDomain)
     {
         await ValidatorRequest.handle(request);
 
         const useCase = new UpdateItemUseCase();
-        return await useCase.handle(request, auth_user);
+        return await useCase.handle(request, authUser);
     }
 
     public async remove(request: IdPayload)

@@ -1,5 +1,4 @@
-import { InversifyExpressServer } from 'inversify-express-utils';
-import supertest from 'supertest';
+import { SuperAgentTest } from 'supertest';
 import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
@@ -8,8 +7,7 @@ import Config from 'config';
 
 describe('Start Role Test', () =>
 {
-    let server: InversifyExpressServer;
-    let request: supertest.SuperTest<supertest.Test>;
+    let request: SuperAgentTest;
     let dbConnection: ICreateConnection;
     let token: string = null;
     let roleId = '';
@@ -19,7 +17,6 @@ describe('Start Role Test', () =>
     {
         const configServer = await initTestServer();
 
-        server = configServer.server;
         request = configServer.request;
         dbConnection = configServer.dbConnection;
 
@@ -344,10 +341,10 @@ describe('Start Role Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { message } } = response;
+            const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
-            expect(message).toStrictEqual('Sync Successfully');
+            expect(data.message).toStrictEqual('Sync Successfully');
 
             done();
         });

@@ -12,7 +12,7 @@ const meta: any = {
 // Blocking when exceed more than 15 request per second
 const Throttle = throttle({
     windowMs: 1000, // 1 second
-    max: 15, // start blocking after 15 request
+    max: 30, // start blocking after 15 request
     message: meta
 });
 

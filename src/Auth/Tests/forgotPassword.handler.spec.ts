@@ -1,13 +1,11 @@
-import { InversifyExpressServer } from 'inversify-express-utils';
-import supertest from 'supertest';
+import { SuperAgentTest } from 'supertest';
 import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 import Notificator from '../../Notification/Services/Notificator';
 
 describe('Start ForgotPassword Test', () =>
 {
-    let server: InversifyExpressServer;
-    let request: supertest.SuperTest<supertest.Test>;
+    let request: SuperAgentTest;
     let dbConnection: ICreateConnection;
     let token: any = null;
 
@@ -15,7 +13,6 @@ describe('Start ForgotPassword Test', () =>
     {
         const configServer = await initTestServer();
 
-        server = configServer.server;
         request = configServer.request;
         dbConnection = configServer.dbConnection;
 
@@ -66,10 +63,10 @@ describe('Start ForgotPassword Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const { body: { message } } = response;
+            const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
-            expect(message).toStrictEqual('We\'ve sent you an email');
+            expect(data.message).toStrictEqual('We\'ve sent you an email');
 
             done();
         });

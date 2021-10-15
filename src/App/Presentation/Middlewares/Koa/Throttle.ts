@@ -5,7 +5,7 @@ const meta: any = {
     status: StatusCode.HTTP_TOO_MANY_REQUESTS.status,
     code: StatusCode.HTTP_TOO_MANY_REQUESTS.code,
     statusCode: StatusCode.HTTP_TOO_MANY_REQUESTS.statusCode,
-    message: 'Exceed 15 request per second',
+    message: 'Exceed 30 request per second',
     errors: null
 };
 
@@ -22,7 +22,7 @@ const Throttle = throttle({
         reset: 'Rate-Limit-Reset',
         total: 'Rate-Limit-Total'
     },
-    max: 15,
+    max: 30,
     disableHeader: true
 });
 

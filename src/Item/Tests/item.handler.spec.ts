@@ -1,5 +1,4 @@
-import { InversifyExpressServer } from 'inversify-express-utils';
-import supertest from 'supertest';
+import { SuperAgentTest } from 'supertest';
 import initTestServer from '../../initTestServer';
 import { ICreateConnection } from '@digichanges/shared-experience';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
@@ -8,8 +7,7 @@ import Config from 'config';
 
 describe('Start Item Test', () =>
 {
-    let server: InversifyExpressServer;
-    let request: supertest.SuperTest<supertest.Test>;
+    let request: SuperAgentTest;
     let dbConnection: ICreateConnection;
     let token: string = null;
     let itemId = '';
@@ -19,7 +17,6 @@ describe('Start Item Test', () =>
     {
         const configServer = await initTestServer();
 
-        server = configServer.server;
         request = configServer.request;
         dbConnection = configServer.dbConnection;
 
@@ -139,16 +136,16 @@ describe('Start Item Test', () =>
                 type: 13
             };
 
-            const create_response: IItemResponse = await request
+            const createResponse: IItemResponse = await request
                 .post('/api/items')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
             deleteResponse = await request
-                .delete(`/api/items/${create_response.body.data.id}`)
+                .delete(`/api/items/${createResponse.body.data.id}`)
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${create_response.body.metadata.refreshToken}`)
+                .set('Authorization', `Bearer ${token}`)
                 .send();
 
             const { body: { status, statusCode, data } } = deleteResponse;
@@ -363,16 +360,15 @@ describe('Start Item Test', () =>
 
         test('Delete Item error /items/:id', async done =>
         {
-
-            const delete_error_response: IItemResponse = await request
+            const deleteErrorResponse: IItemResponse = await request
                 .delete(`/api/items/${deleteResponse.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, message } } = delete_error_response;
+            const { body: { status, statusCode, message } } = deleteErrorResponse;
 
-            expect(delete_error_response.statusCode).toStrictEqual(400);
+            expect(deleteErrorResponse.statusCode).toStrictEqual(400);
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
             expect(message).toStrictEqual('Item not found.');
