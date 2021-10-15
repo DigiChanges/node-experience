@@ -13,7 +13,7 @@ import PushNotification from '../Domain/Entities/PushNotification';
 class Notificator
 {
     // TODO: This need more abstraction
-    public static async send_email(email_notification: EmailNotification, template_path_name_file: string, data: any = {}, save = true)
+    public static async sendEmail(emailNotification: EmailNotification, template_path_name_file: string, data: any = {}, save = true)
     {
         const repository = new NotificationMongoRepository();
 
@@ -22,8 +22,8 @@ class Notificator
             const host: string = Config.get('mail.host');
             const port: number = Config.get('mail.port');
             const secure: boolean = Config.get('mail.secure') === 'true';
-            const template_root: string = Config.get('mail.template_dir');
-            const template_dir = `${path.dirname(require.main.filename || process.mainModule.filename)  }/${template_root}/${template_path_name_file}`;
+            const templateRoot: string = Config.get('mail.templateDir');
+            const templateDir = `${path.dirname(require.main.filename || process.mainModule.filename)  }/${templateRoot}/${template_path_name_file}`;
 
             const smtp_config = { host, port, secure };
 
@@ -38,28 +38,28 @@ class Notificator
                 Object.assign(smtp_config, auth);
             }
 
-            email_notification.sender_name = Config.get('mail.sender_name');
-            email_notification.from = Config.get('mail.senderEmailDefault');
-            email_notification.email_template_path = template_dir;
+            emailNotification.senderName = Config.get('mail.senderName');
+            emailNotification.from = Config.get('mail.senderEmailDefault');
+            emailNotification.emailTemplatePath = templateDir;
 
             const transporter = nodemailer.createTransport(smtp_config);
 
-            const source = Fs.readFileSync(template_dir).toString();
+            const source = Fs.readFileSync(templateDir).toString();
 
             const template = Handlebars.compile(source);
 
             const html = template(data);
 
             const mail_data = {
-                from: `"${  email_notification.sender_name  }" <${  email_notification.from  }>`,
-                to:  email_notification.to,
-                subject: email_notification.subject,
+                from: `"${  emailNotification.senderName  }" <${  emailNotification.from  }>`,
+                to:  emailNotification.to,
+                subject: emailNotification.subject,
                 html
             };
 
-            if (email_notification.cc)
+            if (emailNotification.cc)
             {
-                Object.assign(mail_data, { cc: email_notification.cc });
+                Object.assign(mail_data, { cc: emailNotification.cc });
             }
 
             return await transporter.sendMail(mail_data)
@@ -67,7 +67,7 @@ class Notificator
                 {
                     if (save)
                     {
-                        void repository.save(email_notification);
+                        void repository.save(emailNotification);
                     }
 
                     return true;
@@ -76,8 +76,8 @@ class Notificator
                 {
                     if (save)
                     {
-                        email_notification.description = err;
-                        void repository.save(email_notification);
+                        emailNotification.description = err;
+                        void repository.save(emailNotification);
                     }
                     throw new ErrorException('Something is wrong. Please try again later.', 'NotificatorException');
                 });
@@ -88,7 +88,7 @@ class Notificator
         }
     }
 
-    public static async send_push_notification(push_notification: PushNotification, message: string)
+    public static async sendPushNotification(pushNotification: PushNotification, message: string)
     {
         try
         {
@@ -96,10 +96,10 @@ class Notificator
             const privateKey: string = Config.get('push.privateKey');
             const subject: string = Config.get('url.urlWeb');
 
-            const push_subscription = push_notification.get_subscription();
+            const pushSubscription = pushNotification.get_subscription();
 
             const payload = JSON.stringify({
-                name: push_notification.name,
+                name: pushNotification.name,
                 message
             });
 
@@ -111,7 +111,7 @@ class Notificator
                 }
             };
 
-            return await webPush.sendNotification(push_subscription, payload, options);
+            return await webPush.sendNotification(pushSubscription, payload, options);
         }
         catch (e)
         {

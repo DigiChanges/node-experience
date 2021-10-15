@@ -1,12 +1,14 @@
 import { StatusCode } from '@digichanges/shared-experience';
 import ErrorHttpException from '../../../App/Presentation/Shared/ErrorHttpException';
-import { Locales } from '../../../App/Presentation/Shared/Express/AppExpress';
+import Locales from '../../../App/Presentation/Shared/Locales';
+
 
 class WrongPermissionsHttpException extends ErrorHttpException
 {
     constructor()
     {
-        super(StatusCode.HTTP_BAD_REQUEST, Locales.__('general.exceptions.wrongPermissions'), []);
+        const locales = Locales.getInstance().getLocales();
+        super(StatusCode.HTTP_BAD_REQUEST, locales.__('general.exceptions.wrongPermissions'), []);
     }
 }
 

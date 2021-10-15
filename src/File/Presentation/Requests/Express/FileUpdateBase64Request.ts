@@ -1,4 +1,4 @@
-import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import FileUpdateBase64Payload from '../../../InterfaceAdapters/Payloads/FileUpdateBase64Payload';
 import { IsBase64, IsMimeType, IsString } from 'class-validator';
 
@@ -21,37 +21,32 @@ class FileUpdateBase64Request extends IdRequest implements FileUpdateBase64Paylo
         this.mimeType = data.base64.split(';base64').shift().split('data:').pop();
     }
 
-    get_name(): string
-    {
-        return this.filename.split('.').shift();
-    }
-
-    get_original_name(): string
+    getOriginalName(): string
     {
         return this.filename;
     }
 
-    get_mime_type(): string
+    getMimeType(): string
     {
         return this.mimeType;
     }
 
-    get_path(): string
+    getPath(): string
     {
         return '/';
     }
 
-    get_extension(): string
+    getExtension(): string
     {
         return this.filename.split('.').pop();
     }
 
-    get_size(): number
+    getSize(): number
     {
         return Math.round((this.base64.length - 814) / 1.37);
     }
 
-    get_base64(): string
+    getBase64(): string
     {
         return this.base64;
     }

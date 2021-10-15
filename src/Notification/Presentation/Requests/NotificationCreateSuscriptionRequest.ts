@@ -10,7 +10,7 @@ class NotificationSubscriptionRequest implements NotificationRepPayload
         this.subscription = data.subscription;
     }
 
-    get_subscription(): webPush.PushSubscription
+    getSubscription(): webPush.PushSubscription
     {
         return this.subscription;
     }

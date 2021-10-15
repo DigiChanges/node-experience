@@ -3,25 +3,25 @@ import EventHandler from '../../../Shared/Events/EventHandler';
 import UserCreatedEvent from '../../../Shared/Events/UserCreatedEvent';
 import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
 import UserService from '../Services/UserService';
-import ValidatorRequest from '../../../App/Presentation/Shared/Express/ValidatorRequest';
+import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
+
 
 class SaveUserUseCase
 {
-
-    private event_handler: EventHandler;
-    private user_service = new UserService();
+    private userService = new UserService();
+    private eventHandler: EventHandler;
 
     constructor()
     {
-        this.event_handler = EventHandler.getInstance();
+        this.eventHandler = EventHandler.getInstance();
     }
 
     async handle(payload: UserSavePayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(payload);
-        const user = await this.user_service.create(payload);
+        const user = await this.userService.create(payload);
 
-        await this.event_handler.execute(UserCreatedEvent.USER_CREATED_EVENT, { email: user.email });
+        await this.eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, { email: user.email });
 
         return user;
     }

@@ -6,7 +6,7 @@ class CreateSubscriptionUseCase
     private notification_service = new NotificationService();
     async handle(payload: NotificationRepPayload)
     {
-        return await this.notification_service.create_subscription(payload);
+        return await this.notification_service.createSubscription(payload);
     }
 }
 

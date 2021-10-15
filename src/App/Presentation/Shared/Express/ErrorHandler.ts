@@ -1,10 +1,10 @@
 import moment from 'moment';
 import { StatusCode } from '@digichanges/shared-experience';
 
-import Responder from '../Responder';
+import Responder from './Responder';
 import FormatError from '../FormatError';
 import { loggerCli, loggerFile } from '../../../../Shared/Logger';
-import { ErrorExceptionMapper } from './ErrorExceptionMapper';
+import { ErrorExceptionMapper } from '../ErrorExceptionMapper';
 import ErrorHttpException from '../ErrorHttpException';
 
 export class ErrorHandler

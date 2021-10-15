@@ -17,12 +17,12 @@ class ListObjectsRequest implements ListObjectsPayload
         this.prefix = data.prefix ? String(data.prefix) : undefined;
     }
 
-    get_recursive(): boolean
+    getRecursive(): boolean
     {
         return (this.recursive?.toLowerCase() === 'true');
     }
 
-    get_prefix(): string
+    getPrefix(): string
     {
         return this.prefix;
     }

@@ -4,7 +4,7 @@ import Config from 'config';
 
 import FormatResponder from './App/Presentation/Shared/FormatResponder';
 import IFormatResponder from './Shared/InterfaceAdapters/IFormatResponder';
-import Responder from './App/Presentation/Shared/Responder';
+import Responder from './App/Presentation/Shared/Express/Responder';
 
 import IItemRepository from './Item/InterfaceAdapters/IItemRepository';
 import IUserRepository from './User/InterfaceAdapters/IUserRepository';

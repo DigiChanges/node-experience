@@ -1,5 +1,5 @@
-import ItemUpdatePayload from '../../../InterfaceAdapters/Payloads/ItemUpdatePayload';
-import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
+import ItemUpdatePayload from '../../InterfaceAdapters/Payloads/ItemUpdatePayload';
+import IdRequest from '../../../App/Presentation/Requests/IdRequest';
 import ItemRepRequest from './ItemRepRequest';
 import { Mixin } from 'ts-mixer';
 

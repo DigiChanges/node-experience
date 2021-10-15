@@ -3,7 +3,7 @@ import UserPasswordRepPayload from './UserPasswordPayload';
 
 interface ChangeMyPasswordPayload extends IdPayload, UserPasswordRepPayload
 {
-    get_current_password(): string;
+    getCurrentPassword(): string;
 }
 
 export default ChangeMyPasswordPayload;

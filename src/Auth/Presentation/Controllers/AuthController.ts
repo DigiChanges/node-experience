@@ -5,7 +5,7 @@ import KeepAliveUseCase from '../../Domain/UseCases/KeepAliveUseCase';
 import PermissionUseCase from '../../Domain/UseCases/PermissionUseCase';
 import SyncRolesPermissionUseCase from '../../Domain/UseCases/SyncRolesPermissionUseCase';
 
-import ValidatorRequest from '../../../App/Presentation/Shared/Express/ValidatorRequest';
+import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
 import ChangeForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
 import AuthPayload from '../../InterfaceAdapters/Payloads/AuthPayload';
 import IToken from '../../InterfaceAdapters/IToken';
@@ -20,44 +20,44 @@ class AuthController
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new LoginUseCase();
-        return await use_case.handle(request);
+        const useCase = new LoginUseCase();
+        return await useCase.handle(request);
     }
 
-    public async keep_alive(request: KeepAlivePayload)
+    public async keepAlive(request: KeepAlivePayload)
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new KeepAliveUseCase();
-        return await use_case.handle(request);
+        const useCase = new KeepAliveUseCase();
+        return await useCase.handle(request);
     }
 
-    public async forgot_password(request: ForgotPasswordPayload)
+    public async forgotPassword(request: ForgotPasswordPayload)
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new ForgotPasswordUseCase();
-        return await use_case.handle(request);
+        const useCase = new ForgotPasswordUseCase();
+        return await useCase.handle(request);
     }
 
-    public async change_forgot_password(request: ChangeForgotPasswordPayload)
+    public async changeForgotPassword(request: ChangeForgotPasswordPayload)
     {
         await ValidatorRequest.handle(request);
 
-        const use_case = new ChangeForgotPasswordUseCase();
-        return await use_case.handle(request);
+        const useCase = new ChangeForgotPasswordUseCase();
+        return await useCase.handle(request);
     }
 
     public permissions(): IGroupPermission[]
     {
-        const use_case = new PermissionUseCase();
-        return use_case.handle();
+        const useCase = new PermissionUseCase();
+        return useCase.handle();
     }
 
-    public sync_roles_permissions()
+    public syncRolesPermissions()
     {
-        const use_case = new SyncRolesPermissionUseCase();
-        return use_case.handle();
+        const useCase = new SyncRolesPermissionUseCase();
+        return useCase.handle();
     }
 }
 

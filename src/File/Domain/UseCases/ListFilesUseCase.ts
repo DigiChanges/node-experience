@@ -4,11 +4,11 @@ import FileService from '../Services/FileService';
 
 class ListFilesUseCase
 {
-    private file_service = new FileService();
+    private fileService = new FileService();
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {
-        return await this.file_service.list(payload);
+        return await this.fileService.list(payload);
     }
 }
 

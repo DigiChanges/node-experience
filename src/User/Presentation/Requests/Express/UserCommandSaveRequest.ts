@@ -5,10 +5,10 @@ import UserSavePayload from '../../../InterfaceAdapters/Payloads/UserSavePayload
 class UserCommandSaveRequest implements UserSavePayload
 {
     @IsString()
-    first_name: string;
+    firstName: string;
 
     @IsString()
-    last_name: string;
+    lastName: string;
 
     @IsString()
     email: string;
@@ -19,11 +19,11 @@ class UserCommandSaveRequest implements UserSavePayload
 
     @Length(2, 3)
     @IsString()
-    document_type: string;
+    documentType: string;
 
     @Length(3, 16)
     @IsString()
-    document_number: string;
+    documentNumber: string;
 
     @Length(1, 20)
     @IsString()
@@ -45,7 +45,7 @@ class UserCommandSaveRequest implements UserSavePayload
     password: string;
 
     @IsString()
-    password_confirmation: string;
+    passwordConfirmation: string;
 
     @IsBoolean()
     enable: boolean;
@@ -61,19 +61,19 @@ class UserCommandSaveRequest implements UserSavePayload
     roles: IRoleDomain[];
 
     @IsBoolean()
-    is_super_admin: boolean;
+    isSuperAdmin: boolean;
 
     constructor(env: any, role: any = null)
     {
         this.email = env.email;
-        this.first_name = env.first_name;
-        this.last_name = env.last_name;
+        this.firstName = env.firstName;
+        this.lastName = env.lastName;
         this.password = env.password;
         this.birthday = env.birthday;
-        this.document_type = env.document_type;
-        this.document_number = env.document_number;
+        this.documentType = env.documentType;
+        this.documentNumber = env.documentNumber;
         this.password = env.password;
-        this.password_confirmation = env.password;
+        this.passwordConfirmation = env.passwordConfirmation;
         this.gender = env.gender;
         this.phone = env.phone;
         this.country = env.country;
@@ -81,97 +81,97 @@ class UserCommandSaveRequest implements UserSavePayload
         this.enable = true;
         this.roles = role ? [role] : [];
         this.permissions = [];
-        this.is_super_admin = env.is_super_admin === 'true';
+        this.isSuperAdmin = env.isSuperAdmin === 'true';
     }
 
-    get_first_name(): string
+    getFirstName(): string
     {
-        return this.first_name;
+        return this.firstName;
     }
 
-    get_last_name(): string
+    getLastName(): string
     {
-        return this.last_name;
+        return this.lastName;
     }
 
-    get_email(): string
+    getEmail(): string
     {
         return this.email;
     }
 
-    get_birthday(): string
+    getBirthday(): string
     {
         return this.birthday;
     }
 
-    get_document_number(): string
+    getDocumentNumber(): string
     {
-        return this.document_number;
+        return this.documentNumber;
     }
 
-    get_document_type(): string
+    getDocumentType(): string
     {
-        return this.document_type;
+        return this.documentType;
     }
 
-    get_gender(): string
+    getGender(): string
     {
         return this.gender;
     }
 
-    get_phone(): string
+    getPhone(): string
     {
         return this.phone;
     }
 
-    get_country(): string
+    getCountry(): string
     {
         return this.country;
     }
 
-    get_address(): string
+    getAddress(): string
     {
         return this.address;
     }
 
-    get_password(): string
+    getPassword(): string
     {
         return this.password;
     }
 
-    get_password_confirmation(): string
+    getPasswordConfirmation(): string
     {
         return this.password;
     }
 
-    get_enable(): boolean
+    getEnable(): boolean
     {
         return this.enable;
     }
 
-    get_confirmation_token(): null
+    getConfirmationToken(): null
     {
         return null;
     }
 
-    get_password_requested_at(): null
+    getPasswordRequestedAt(): null
     {
         return null;
     }
 
-    get_roles(): IRoleDomain[]
+    getRoles(): IRoleDomain[]
     {
         return this.roles;
     }
 
-    get_permissions(): string[]
+    getPermissions(): string[]
     {
         return this.permissions;
     }
 
-    get_is_super_admin(): boolean
+    getIsSuperAdmin(): boolean
     {
-        return this.is_super_admin;
+        return this.isSuperAdmin;
     }
 }
 

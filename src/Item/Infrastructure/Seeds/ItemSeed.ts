@@ -9,6 +9,7 @@ import User from '../../../User/Domain/Entities/User';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import { IEncryption } from '@digichanges/shared-experience';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
+import Password from '../../../App/Domain/ValueObjects/Password';
 
 class ItemSeed implements ISeed
 {
@@ -40,8 +41,8 @@ class ItemSeed implements ISeed
 
             item.name = title;
             item.type = type;
-            item.created_by = user;
-            item.last_modified_by = user;
+            item.createdBy = user;
+            item.lastModifiedBy = user;
 
             await this.repository.save(item);
         }
@@ -51,23 +52,27 @@ class ItemSeed implements ISeed
     {
         const user: IUserDomain = new User();
 
-        user.first_name = 'test';
-        user.last_name = 'item';
+        user.firstName = 'test';
+        user.lastName = 'item';
         user.email = 'testitem@node.com';
         user.birthday = '05/07/1992';
-        user.document_type = 'dni';
-        user.document_number = '3531915736';
+        user.documentType = 'dni';
+        user.documentNumber = '3531915736';
         user.gender = 'male';
         user.phone = '2234456999';
         user.country = 'Argentina';
         user.address = 'New America 123';
-        user.password = await this.encryption.encrypt('123456789');
+
+        const password = new Password('123456789');
+        await password.ready();
+        user.password = password;
+
         user.enable = true;
-        user.confirmation_token = null;
-        user.password_requested_at = null;
+        user.confirmationToken = null;
+        user.passwordRequestedAt = null;
         user.permissions = [];
         user.roles = [];
-        user.is_super_admin = false;
+        user.isSuperAdmin = false;
 
         return await this.userRepository.save(user);
     }

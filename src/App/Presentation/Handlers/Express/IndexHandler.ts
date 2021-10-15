@@ -2,9 +2,10 @@ import { inject } from 'inversify';
 import { controller, httpGet, BaseHttpController } from 'inversify-express-utils';
 import { StatusCode } from '@digichanges/shared-experience';
 
-import Responder from '../../Shared/Responder';
 import { TYPES } from '../../../../types';
-import { Locales } from '../../Shared/Express/AppExpress';
+import Responder from '../../Shared/Express/Responder';
+import Locales from '../../Shared/Locales';
+
 
 @controller('/')
 class IndexHandler extends BaseHttpController
@@ -15,7 +16,8 @@ class IndexHandler extends BaseHttpController
     @httpGet('/')
     public index()
     {
-        return this.responder.send({ message: Locales.__('general.greetings') }, this.httpContext.request, this.httpContext.response, StatusCode.HTTP_OK, null);
+        const locales = Locales.getInstance().getLocales();
+        return this.responder.send({ message: locales.__('general.greetings') }, this.httpContext.request, this.httpContext.response, StatusCode.HTTP_OK, null);
     }
 }
 

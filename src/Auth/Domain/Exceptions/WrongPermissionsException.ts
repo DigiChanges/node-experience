@@ -1,11 +1,13 @@
 import { ErrorException } from '@digichanges/shared-experience';
-import { Locales } from '../../../App/Presentation/Shared/Express/AppExpress';
+import Locales from '../../../App/Presentation/Shared/Locales';
+
 
 class WrongPermissionsException extends ErrorException
 {
     constructor()
     {
-        super(Locales.__('general.exceptions.wrongPermissions'), WrongPermissionsException.name);
+        const locales = Locales.getInstance().getLocales();
+        super(locales.__('general.exceptions.wrongPermissions'), WrongPermissionsException.name);
     }
 }
 

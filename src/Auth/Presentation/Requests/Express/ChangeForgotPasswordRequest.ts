@@ -1,9 +1,7 @@
 import Config from 'config';
 import { IsString, Length } from 'class-validator';
-import { IEncryption } from '@digichanges/shared-experience';
 
 import ChangeForgotPasswordPayload from '../../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
-import EncryptionFactory from '../../../../Shared/Factories/EncryptionFactory';
 import { Match } from '../../../../Shared/Decorators/match';
 
 class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
@@ -27,19 +25,17 @@ class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
         this.confirmationToken = data.confirmationToken;
     }
 
-    get_confirmation_token(): string
+    getConfirmationToken(): string
     {
         return this.confirmationToken;
     }
 
-    async get_password(): Promise<string>
+    getPassword(): string
     {
-        const encryption: IEncryption = EncryptionFactory.create();
-
-        return await encryption.encrypt(this.password);
+        return this.password;
     }
 
-    get_password_confirmation(): string
+    getPasswordConfirmation(): string
     {
         return this.passwordConfirmation;
     }

@@ -3,11 +3,11 @@ import NotificationService from '../Services/NotificationService';
 
 class SendPushNotificationUseCase
 {
-    private notification_service = new NotificationService();
+    private notificationService = new NotificationService();
 
     async handle(payload: NotificationSendMessagePayload)
     {
-        return this.notification_service.send_push_notification(payload);
+        return this.notificationService.sendPushNotification(payload);
     }
 }
 

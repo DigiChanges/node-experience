@@ -1,7 +1,7 @@
 interface ITimestamps
 {
-    created_at: Date;
-    updated_at: Date;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export default ITimestamps;

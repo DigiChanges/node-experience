@@ -1,4 +1,5 @@
-import VerifyTokenBlacklistUseCase from '../../Domain/UseCases/VerifyTokenBlacklistUseCase';
+import VerifyTokenBlacklistUseCase from '../../../Domain/UseCases/VerifyTokenBlacklistUseCase';
+
 
 const VerifyTokenMiddleware = async(req: any, response: any, next: any) =>
 {
@@ -8,8 +9,8 @@ const VerifyTokenMiddleware = async(req: any, response: any, next: any) =>
 
         if (id)
         {
-            const use_case = new VerifyTokenBlacklistUseCase();
-            await use_case.handle(id);
+            const useCase = new VerifyTokenBlacklistUseCase();
+            await useCase.handle(id);
         }
 
         next();

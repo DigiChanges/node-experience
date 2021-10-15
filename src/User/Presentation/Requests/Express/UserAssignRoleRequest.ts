@@ -1,7 +1,7 @@
 import { IsArray, IsUUID } from 'class-validator';
 
 import UserAssignRolePayload from '../../../InterfaceAdapters/Payloads/UserAssignRolePayload';
-import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 
 class UserAssignRoleRequest extends IdRequest implements UserAssignRolePayload
 {
@@ -9,17 +9,17 @@ class UserAssignRoleRequest extends IdRequest implements UserAssignRolePayload
     @IsUUID('4', {
         each: true
     })
-    roles_id: string[]
+    rolesId: string[]
 
     constructor(data: Record<string, any>, id: string)
     {
         super(id);
-        this.roles_id = data.roles_id;
+        this.rolesId = data.rolesId;
     }
 
-    get_roles_id(): string[]
+    getRolesId(): string[]
     {
-        return this.roles_id;
+        return this.rolesId;
     }
 }
 

@@ -4,11 +4,11 @@ import RoleService from '../Services/RoleService';
 
 class UpdateRoleUseCase
 {
-    private role_service = new RoleService();
+    private roleService = new RoleService();
 
     async handle(payload: RoleUpdatePayload): Promise<IRoleDomain>
     {
-        return await this.role_service.update(payload);
+        return await this.roleService.update(payload);
     }
 }
 

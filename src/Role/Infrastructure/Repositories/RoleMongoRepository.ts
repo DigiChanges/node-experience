@@ -22,7 +22,7 @@ class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implem
         super(Role.name);
     }
 
-    async get_by_slug(slug: string): Promise<IRoleDomain>
+    async getBySlug(slug: string): Promise<IRoleDomain>
     {
         return this.repository.findOne({ slug });
     }
@@ -61,9 +61,9 @@ class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implem
 
     async delete(id: string): Promise<IRoleDomain>
     {
-        const is_of_system = !!(await this.exist({ _id: id, of_system: true }, ['_id']));
+        const isOfSystem = !!(await this.exist({ _id: id, ofSystem: true }, ['_id']));
 
-        if (is_of_system)
+        if (isOfSystem)
         {
             throw new RoleOfSystemNotDeletedException();
         }

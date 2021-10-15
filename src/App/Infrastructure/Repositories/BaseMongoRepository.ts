@@ -25,7 +25,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
         return await this.repository.create(entity);
     }
 
-    async get_one(id: string): Promise<T>
+    async getOne(id: string): Promise<T>
     {
         const entity = await this.repository.findOne({ _id: id } as any).populate(this.populate);
 
@@ -39,7 +39,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
 
     async update(entity: T): Promise<T>
     {
-        return this.repository.findOneAndUpdate({ _id: entity.get_id() } as any, { $set: entity } as any, { new: true }).populate(this.populate);
+        return this.repository.findOneAndUpdate({ _id: entity.getId() } as any, { $set: entity } as any, { new: true }).populate(this.populate);
     }
 
     async delete(id: string): Promise<T>
@@ -54,7 +54,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
         return entity;
     }
 
-    async get_one_by(condition: Record<string, any>, options: IByOptions = { initThrow: true, populate: null }): Promise<T>
+    async getOneBy(condition: Record<string, any>, options: IByOptions = { initThrow: true, populate: null }): Promise<T>
     {
         let { initThrow, populate } = options;
 
@@ -71,7 +71,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
         return entity;
     }
 
-    async get_by(condition: Record<string, any>, options: IByOptions = { initThrow: false, populate: null }): Promise<T[]>
+    async getBy(condition: Record<string, any>, options: IByOptions = { initThrow: false, populate: null }): Promise<T[]>
     {
         let { initThrow, populate } = options;
 
@@ -88,11 +88,11 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
         return entities;
     }
 
-    async get_in_by(condition: Record<string, string[]>): Promise<T[]>
+    async getInBy(condition: Record<string, string[]>): Promise<T[]>
     {
         const [key] = Object.keys(condition);
 
-        return await this.get_by({ [key]: { $in: condition[key] } });
+        return await this.getBy({ [key]: { $in: condition[key] } });
     }
 
     async exist(condition: Record<string, any>, select: string[], initThrow = false): Promise<any>

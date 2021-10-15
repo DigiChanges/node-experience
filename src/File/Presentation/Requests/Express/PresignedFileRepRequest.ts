@@ -16,12 +16,12 @@ class PresignedFileRepRequest implements PresignedFileRepPayload
         this.expiry = data.expiry;
     }
 
-    get_name(): string
+    getName(): string
     {
         return this.filename;
     }
 
-    get_expiry(): number
+    getExpiry(): number
     {
         return this.expiry || 60 * 24 * 24 * 7;
     }

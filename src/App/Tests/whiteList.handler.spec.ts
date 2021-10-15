@@ -7,23 +7,23 @@ describe('White list routes Test', () =>
 {
     let server: InversifyExpressServer;
     let request: supertest.SuperTest<supertest.Test>;
-    let db_connection: ICreateConnection;
+    let dbConnection: ICreateConnection;
 
     beforeAll(async(done) =>
     {
-        const config_server = await initTestServer();
+        const configServer = await initTestServer();
 
-        server = config_server.server;
-        request = config_server.request;
-        db_connection = config_server.dbConnection;
+        server = configServer.server;
+        request = configServer.request;
+        dbConnection = configServer.dbConnection;
 
         done();
     });
 
     afterAll((async(done) =>
     {
-        await db_connection.drop();
-        await db_connection.close();
+        await dbConnection.drop();
+        await dbConnection.close();
 
         done();
     }));

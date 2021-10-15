@@ -8,7 +8,7 @@ class AssignRoleBySlugUseCase
 
     async handle(payload: UserAssignRoleByPayload): Promise<IUserDomain>
     {
-        return await this.user_service.assign_role_by_slug(payload);
+        return await this.user_service.assignRoleBySlug(payload);
     }
 }
 

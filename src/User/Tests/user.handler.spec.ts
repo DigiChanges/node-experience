@@ -12,16 +12,16 @@ describe('Start User Test', () =>
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
     let token: string = null;
-    let user_id = '';
-    let delete_response: any = null;
+    let userId = '';
+    let deleteResponse: any = null;
 
     beforeAll(async(done) =>
     {
-        const config_server = await initTestServer();
+        const configServer = await initTestServer();
 
-        server = config_server.server;
-        request = config_server.request;
-        dbConnection = config_server.dbConnection;
+        server = configServer.server;
+        request = configServer.request;
+        dbConnection = configServer.dbConnection;
 
         done();
     });
@@ -58,18 +58,18 @@ describe('Start User Test', () =>
         test('Add User without enable property /users', async done =>
         {
             const payload: any = {
-                first_name: 'Jhon',
-                last_name: 'Doe',
+                firstName: 'Jhon',
+                lastName: 'Doe',
                 email: 'user2@node.com',
                 birthday: '04/08/1991',
-                document_type: 'dni',
-                document_number: '35319112',
+                documentType: 'dni',
+                documentNumber: '35319112',
                 gender: 'male',
                 phone: '2234456999',
                 country: 'AR',
                 address: 'Norway 123',
                 password: '12345678',
-                password_confirmation: '12345678',
+                passwordConfirmation: '12345678',
                 permissions: []
             };
 
@@ -85,11 +85,11 @@ describe('Start User Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_CREATED');
 
-            expect(data.first_name).toStrictEqual(payload.first_name);
+            expect(data.firstName).toStrictEqual(payload.firstName);
             expect(data.email).toStrictEqual(payload.email);
             expect(data.enable).toStrictEqual(true);
 
-            user_id = data.id;
+            userId = data.id;
 
             done();
         });
@@ -97,18 +97,18 @@ describe('Start User Test', () =>
         test('Add User with enable property /users', async done =>
         {
             const payload: any = {
-                first_name: 'Jhon',
-                last_name: 'Doe',
+                firstName: 'Jhon',
+                lastName: 'Doe',
                 email: 'user3@node.com',
                 birthday: '04/08/1992',
-                document_type: 'dni',
-                document_number: '35319321',
+                documentType: 'dni',
+                documentNumber: '35319321',
                 gender: 'male',
                 phone: '2234456999',
                 country: 'AR',
                 address: 'Norway 123',
                 password: '12345678',
-                password_confirmation: '12345678',
+                passwordConfirmation: '12345678',
                 enable: false,
                 permissions: []
             };
@@ -125,11 +125,11 @@ describe('Start User Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_CREATED');
 
-            expect(data.first_name).toStrictEqual(payload.first_name);
+            expect(data.firstName).toStrictEqual(payload.firstName);
             expect(data.email).toStrictEqual(payload.email);
             expect(data.enable).toStrictEqual(payload.enable);
 
-            user_id = data.id;
+            userId = data.id;
 
             done();
         });
@@ -137,16 +137,16 @@ describe('Start User Test', () =>
         test('Get User /users/:id', async done =>
         {
             const payload: any = {
-                first_name: 'Jhon',
-                last_name: 'Doe',
+                firstName: 'Jhon',
+                lastName: 'Doe',
                 email: 'user3@node.com',
                 password: '12345678',
-                password_confirmation: '12345678',
+                passwordConfirmation: '12345678',
                 permissions: []
             };
 
             const response: IUserResponse = await request
-                .get(`/api/users/${user_id}`)
+                .get(`/api/users/${userId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -157,7 +157,7 @@ describe('Start User Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(data.first_name).toStrictEqual(payload.first_name);
+            expect(data.firstName).toStrictEqual(payload.firstName);
             expect(data.email).toStrictEqual(payload.email);
 
             done();
@@ -166,12 +166,12 @@ describe('Start User Test', () =>
         test('Update User /users/:id', async done =>
         {
             const payload: any = {
-                first_name: 'Jhon Update',
-                last_name: 'Doe Update',
+                firstName: 'Jhon Update',
+                lastName: 'Doe Update',
                 email: 'user2@update.com',
                 birthday: '04/08/1991',
-                document_type: 'dni',
-                document_number: '35319131',
+                documentType: 'dni',
+                documentNumber: '35319131',
                 gender: 'female',
                 phone: '22344569121',
                 country: 'UR',
@@ -181,7 +181,7 @@ describe('Start User Test', () =>
             };
 
             const response: IUserResponse = await request
-                .put(`/api/users/${user_id}`)
+                .put(`/api/users/${userId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
@@ -194,12 +194,12 @@ describe('Start User Test', () =>
             expect(statusCode).toStrictEqual('HTTP_CREATED');
 
             expect(data.email).toStrictEqual(payload.email);
-            expect(data.first_name).toStrictEqual(payload.first_name);
-            expect(data.last_name).toStrictEqual(payload.last_name);
+            expect(data.firstName).toStrictEqual(payload.firstName);
+            expect(data.lastName).toStrictEqual(payload.lastName);
             expect(data.enable).toStrictEqual(payload.enable);
             expect(data.birthday).toStrictEqual(payload.birthday);
-            expect(data.document_type).toStrictEqual(payload.document_type);
-            expect(data.document_number).toStrictEqual(payload.document_number);
+            expect(data.documentType).toStrictEqual(payload.documentType);
+            expect(data.documentNumber).toStrictEqual(payload.documentNumber);
             expect(data.gender).toStrictEqual(payload.gender);
             expect(data.phone).toStrictEqual(payload.phone);
             expect(data.country).toStrictEqual(payload.country);
@@ -210,9 +210,9 @@ describe('Start User Test', () =>
         test('Change my Password /users/change-my-password', async done =>
         {
             let payload: any = {
-                current_password: '12345678',
+                currentPassword: '12345678',
                 password: '123456789',
-                password_confirmation: '123456789'
+                passwordConfirmation: '123456789'
             };
 
             let response: any = await request
@@ -243,7 +243,7 @@ describe('Start User Test', () =>
             expect(statusCode).toStrictEqual('HTTP_CREATED');
 
             expect(response.body.data.user.email).toStrictEqual('user@node.com');
-            expect(response.body.data.user.first_name).toStrictEqual('user');
+            expect(response.body.data.user.firstName).toStrictEqual('user');
 
             token = response.body.data.token;
 
@@ -254,18 +254,18 @@ describe('Start User Test', () =>
         {
             const payload: any = {
                 email: 'user2@delete.com',
-                first_name: 'Jhon for delete',
-                last_name: 'Doe Update',
+                firstName: 'Jhon for delete',
+                lastName: 'Doe Update',
                 birthday: '04/08/1992',
-                document_type: 'dni',
-                document_number: '25319112',
+                documentType: 'dni',
+                documentNumber: '25319112',
                 gender: 'male',
                 phone: '2234456999',
                 country: 'AR',
                 address: 'Norway 126',
                 password: '12345678',
                 enable: false,
-                password_confirmation: '12345678',
+                passwordConfirmation: '12345678',
                 permissions: []
             };
 
@@ -277,19 +277,19 @@ describe('Start User Test', () =>
 
             token = createResponse.body.metadata.refreshToken;
 
-            delete_response = await request
+            deleteResponse = await request
                 .delete(`/api/users/${createResponse.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, data } } = delete_response;
+            const { body: { status, statusCode, data } } = deleteResponse;
 
-            expect(delete_response.statusCode).toStrictEqual(200);
+            expect(deleteResponse.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(data.first_name).toStrictEqual(payload.first_name);
+            expect(data.firstName).toStrictEqual(payload.firstName);
             expect(data.email).toStrictEqual(payload.email);
 
             done();
@@ -432,9 +432,9 @@ describe('Start User Test', () =>
             expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
-            expect(error.property).toStrictEqual('first_name');
+            expect(error.property).toStrictEqual('firstName');
             expect(error.constraints.isString).toBeDefined();
-            expect(error.constraints.isString).toStrictEqual('first_name must be a string');
+            expect(error.constraints.isString).toStrictEqual('firstName must be a string');
 
             done();
         });
@@ -443,7 +443,7 @@ describe('Start User Test', () =>
         {
 
             const response: IUserResponse = await request
-                .get(`/api/users/${user_id}dasdasda123`)
+                .get(`/api/users/${userId}dasdasda123`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -466,11 +466,11 @@ describe('Start User Test', () =>
         {
             const payload = {
                 email: 'aaaa1@update.com',
-                first_name: 150,
-                last_name: 'Doe 1',
+                firstName: 150,
+                lastName: 'Doe 1',
                 birthday: '04/07/1990',
-                document_type: 'dni',
-                document_number: '35319132',
+                documentType: 'dni',
+                documentNumber: '35319132',
                 gender: 'male',
                 phone: '22344569123',
                 country: 'AR',
@@ -479,7 +479,7 @@ describe('Start User Test', () =>
             };
 
             const response: IUserResponse = await request
-                .put(`/api/users/${user_id}`)
+                .put(`/api/users/${userId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
@@ -491,18 +491,17 @@ describe('Start User Test', () =>
             expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
-            expect(error.property).toStrictEqual('first_name');
+            expect(error.property).toStrictEqual('firstName');
             expect(error.constraints.isString).toBeDefined();
-            expect(error.constraints.isString).toStrictEqual('first_name must be a string');
+            expect(error.constraints.isString).toStrictEqual('firstName must be a string');
 
             done();
         });
 
         test('Delete User error /users/:id', async done =>
         {
-
             const deleteErrorResponse: IUserResponse = await request
-                .delete(`/api/users/${delete_response.body.data.id}`)
+                .delete(`/api/users/${deleteResponse.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();

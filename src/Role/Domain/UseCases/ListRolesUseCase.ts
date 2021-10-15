@@ -3,11 +3,11 @@ import RoleService from '../Services/RoleService';
 
 class ListRolesUseCase
 {
-    private role_service = new RoleService();
+    private roleService = new RoleService();
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {
-        return await this.role_service.list(payload);
+        return await this.roleService.list(payload);
     }
 }
 

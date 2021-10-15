@@ -12,6 +12,7 @@ import { ICacheRepository, ICreateConnection } from '@digichanges/shared-experie
 
 import AppFactory from './App/Presentation/Factories/AppFactory';
 
+
 void (async() =>
 {
     try
@@ -33,8 +34,7 @@ void (async() =>
         const eventHandler = EventHandler.getInstance();
         await eventHandler.setListeners();
 
-        const appFactory = new AppFactory();
-        const app = appFactory.create();
+        const app = AppFactory.create('AppExpress');
         app.initConfig();
         app.build();
         app.listen();

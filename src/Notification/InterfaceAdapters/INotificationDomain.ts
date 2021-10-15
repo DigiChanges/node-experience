@@ -6,8 +6,8 @@ interface INotificationDomain extends IBaseDomain
 
     url?: string;
 
-    email_template_path?: string;
-    sender_name?: string;
+    emailTemplatePath?: string;
+    senderName?: string;
     from?: string;
     to?: string;
     cc?: string;

@@ -1,5 +1,5 @@
 import UserUpdatePayload from '../../../InterfaceAdapters/Payloads/UserUpdatePayload';
-import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import { Mixin } from 'ts-mixer';
 import UserRepRequest from './UserRepRequest';
 import { IsString } from 'class-validator';
@@ -16,7 +16,7 @@ class UserUpdateRequest extends Mixin(UserRepRequest, IdRequest) implements User
         this.user_id = user_id;
     }
 
-    get_token_user_id(): string
+    getTokenUserId(): string
     {
         return this.user_id;
     }

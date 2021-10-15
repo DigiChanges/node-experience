@@ -17,14 +17,14 @@ import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 class NotificationMongoRepository implements INotificationRepository<INotificationDomain>
 {
     private readonly repository: Model<INotification>;
-    private readonly email_repository: Model<INotification>;
-    private readonly push_repository: Model<INotification>;
+    private readonly emailRepository: Model<INotification>;
+    private readonly pushRepository: Model<INotification>;
 
     constructor()
     {
         this.repository = connection.model<INotification>('Notification');
-        this.email_repository = this.repository.discriminators.EmailNotification;
-        this.push_repository = this.repository.discriminators.PushNotification;
+        this.emailRepository = this.repository.discriminators.EmailNotification;
+        this.pushRepository = this.repository.discriminators.PushNotification;
     }
 
     async save(notification: INotificationDomain): Promise<INotificationDomain>
@@ -33,7 +33,7 @@ class NotificationMongoRepository implements INotificationRepository<INotificati
         return await rep.create(notification);
     }
 
-    async get_one(id: string): Promise<INotificationDomain>
+    async getOne(id: string): Promise<INotificationDomain>
     {
         const notification = await this.repository.findOne({ _id: id });
 
@@ -71,11 +71,11 @@ class NotificationMongoRepository implements INotificationRepository<INotificati
     {
         if (kind instanceof EmailNotification)
         {
-            return this.email_repository;
+            return this.emailRepository;
         }
         else if (kind instanceof PushNotification)
         {
-            return this.push_repository;
+            return this.pushRepository;
         }
         else
         {

@@ -1,9 +1,9 @@
 
 interface CreateBucketPayload
 {
-    get_bucket_name(): string,
-    get_region(): string,
-    get_bucket_policy(): string,
+    getBucketName(): string,
+    getRegion(): string,
+    getBucketPolicy(): string,
 }
 
 export default CreateBucketPayload;

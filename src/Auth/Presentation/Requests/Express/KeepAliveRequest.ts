@@ -16,12 +16,12 @@ class KeepAliveRequest implements KeepAlivePayload
         this.id = data.id;
     }
 
-    get_email(): string
+    getEmail(): string
     {
         return this.email;
     }
 
-    get_token_id(): string
+    getTokenId(): string
     {
         return this.id;
     }

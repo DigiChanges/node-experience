@@ -1,11 +1,12 @@
 import { ErrorException } from '@digichanges/shared-experience';
-import { Locales } from '../../../App/Presentation/Shared/Express/AppExpress';
+import Locales from '../../../App/Presentation/Shared/Locales';
 
 class UserDisabledException extends ErrorException
 {
     constructor()
     {
-        super(Locales.__('general.exceptions.userDisabled'), UserDisabledException.name);
+        const locales = Locales.getInstance().getLocales();
+        super(locales.__('general.exceptions.userDisabled'), UserDisabledException.name);
     }
 }
 

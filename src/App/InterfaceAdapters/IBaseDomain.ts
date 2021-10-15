@@ -1,10 +1,10 @@
-interface IBaseDomain
-{
-    createdAt: Date;
-    updatedAt: Date;
+import ITimestamps from './ITimestamps';
 
-    get_id(): string;
-    set_id(id: string): void;
+
+interface IBaseDomain extends ITimestamps
+{
+    getId(): string;
+    setId(id: string): void;
     clone(): void;
 }
 

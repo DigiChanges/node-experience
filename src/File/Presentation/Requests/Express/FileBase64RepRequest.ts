@@ -19,39 +19,34 @@ class FileBase64RepRequest implements FileBase64RepPayload
         this.mimeType = data.base64.split(';base64').shift().split('data:').pop();
     }
 
-    get_name(): string
+    getOriginalName(): string
     {
         return this.filename.split('.').shift();
     }
 
-    get_original_name(): string
-    {
-        return this.filename;
-    }
-
-    get_mime_type(): string
+    getMimeType(): string
     {
         return this.mimeType;
     }
 
-    get_path(): string
+    getPath(): string
     {
         return '/';
     }
 
-    get_extension(): string
+    getExtension(): string
     {
         return this.filename.split('.').pop();
     }
 
-    get_size(): number
+    getSize(): number
     {
         const MIMETYPE_SIZE = 814;
         const ENCODING_INCREMENT_SIZE = 1.37;
         return Math.floor((this.base64.length - MIMETYPE_SIZE) / ENCODING_INCREMENT_SIZE);
     }
 
-    get_base64(): string
+    getBase64(): string
     {
         return this.base64;
     }

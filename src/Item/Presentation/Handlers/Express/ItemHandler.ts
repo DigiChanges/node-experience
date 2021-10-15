@@ -4,15 +4,15 @@ import { controller, httpDelete, httpGet, httpPost, httpPut, next, request, resp
 import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 
 import { TYPES } from '../../../../types';
-import Responder from '../../../../App/Presentation/Shared/Responder';
-import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';
+import Responder from '../../../../App/Presentation/Shared/Express/Responder';
+import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Express/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
 
 import ItemTransformer from '../../Transformers/ItemTransformer';
-import ItemRepRequest from '../../Requests/Express/ItemRepRequest';
-import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
-import ItemRequestCriteria from '../../Requests/Express/ItemRequestCriteria';
-import ItemUpdateRequest from '../../Requests/Express/ItemUpdateRequest';
+import ItemRepRequest from '../../Requests/ItemRepRequest';
+import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
+import ItemRequestCriteria from '../../Requests/ItemRequestCriteria';
+import ItemUpdateRequest from '../../Requests/ItemUpdateRequest';
 import IItemDomain from '../../../InterfaceAdapters/IItemDomain';
 
 import ItemController from '../../Controllers/ItemController';
@@ -55,7 +55,7 @@ class ItemHandler
     {
         const _request = new IdRequest(req.params.id);
 
-        const item: IItemDomain = await this.controller.get_one(_request);
+        const item: IItemDomain = await this.controller.getOne(_request);
 
         this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }

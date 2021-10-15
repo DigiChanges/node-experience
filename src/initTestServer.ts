@@ -13,27 +13,28 @@ import './Auth/Presentation/Handlers/Express/AuthHandler';
 import './User/Presentation/Handlers/Express/UserHandler';
 import './Role/Presentation/Handlers/Express/RoleHandler';
 import './File/Presentation/Handlers/Express/FileHandler';
+import './Item/Presentation/Handlers/Express/ItemHandler';
 import './App/Tests/WhiteListHandler';
 // import "../Presentation/Handlers/NotificationHandler";
 
-import { Locales } from './App/Presentation/Shared/Express/AppExpress';
-
 import { ICreateConnection, ITokenRepository } from '@digichanges/shared-experience';
 
-import LoggerWinston from './App/Presentation/Middlewares/LoggerWinston';
-import AuthenticationMiddleware from './Auth/Presentation/Middlewares/AuthenticationMiddleware';
-import RefreshTokenMiddleware from './Auth/Presentation/Middlewares/RefreshTokenMiddleware';
+import LoggerWinston from './App/Presentation/Middlewares/Express/LoggerWinston';
+import AuthenticationMiddleware from './Auth/Presentation/Middlewares/Express/AuthenticationMiddleware';
+import RefreshTokenMiddleware from './Auth/Presentation/Middlewares/Express/RefreshTokenMiddleware';
 
 import { ErrorHandler } from './App/Presentation/Shared/Express/ErrorHandler';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 import EventHandler from './Shared/Events/EventHandler';
-import RedirectRouteNotFoundMiddleware from './App/Presentation/Middlewares/RedirectRouteNotFoundMiddleware';
+import RedirectRouteNotFoundMiddleware from './App/Presentation/Middlewares/Express/RedirectRouteNotFoundMiddleware';
 import { REPOSITORIES } from './Config/repositories';
 import TokenMongoRepository from './Auth/Infrastructure/Repositories/TokenMongoRepository';
 import { validateEnv } from './Config/validateEnv';
 import container from './inversify.config';
 import ITokenDomain from './Auth/InterfaceAdapters/ITokenDomain';
 import SeedFactory from './Shared/Factories/SeedFactory';
+import Locales from './App/Presentation/Shared/Locales';
+
 
 const initTestServer = async(): Promise<any> =>
 {
@@ -48,12 +49,7 @@ const initTestServer = async(): Promise<any> =>
     container.unbind(REPOSITORIES.ITokenRepository);
     container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(TokenMongoRepository);
 
-    Locales.configure({
-        locales: ['en', 'es'],
-        directory: `${process.cwd()}/dist/src/Config/Locales`,
-        defaultLocale: 'en',
-        objectNotation: true
-    });
+    void Locales.getInstance();
 
     const server = new InversifyExpressServer(container);
 
@@ -72,7 +68,6 @@ const initTestServer = async(): Promise<any> =>
         app.use(LoggerWinston);
         app.use(AuthenticationMiddleware);
         app.use(RefreshTokenMiddleware);
-        app.use(Locales.init);
     });
 
     server.setErrorConfig((app: express.Application) =>

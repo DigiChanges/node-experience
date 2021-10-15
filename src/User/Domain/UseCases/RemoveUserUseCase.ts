@@ -7,7 +7,7 @@ class RemoveUserUseCase
 
     async handle(payload: IdPayload): Promise<any>
     {
-        const id = payload.get_id();
+        const id = payload.getId();
         return await this.user_service.remove(id);
     }
 }

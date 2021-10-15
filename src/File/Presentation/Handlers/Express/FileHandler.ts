@@ -3,19 +3,19 @@ import { controller, httpPost, request, response, next, httpGet, httpPut } from 
 import { NextFunction, Request, Response } from 'express';
 import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 
-import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';
+import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Express/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
 
 import { TYPES } from '../../../../types';
-import Responder from '../../../../App/Presentation/Shared/Responder';
+import Responder from '../../../../App/Presentation/Shared/Express/Responder';
 import ListObjectsRequest from '../../Requests/Express/ListObjectsRequest';
-import FileReqMulter from '../../Middlewares/FileReqMulter';
+import FileReqMulter from '../../Middlewares/Express/FileReqMulter';
 import FileBase64RepRequest from '../../Requests/Express/FileBase64RepRequest';
 import FileMultipartRepRequest from '../../Requests/Express/FileMultipartRepRequest';
 import PresignedFileRepRequest from '../../Requests/Express/PresignedFileRepRequest';
 import FileRequestCriteria from '../../Requests/Express/FileRequestCriteria';
 import FileTransformer from '../../Transformers/FileTransformer';
-import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import FileUpdateMultipartRequest from '../../Requests/Express/FileUpdateMultipartRequest';
 import FileUpdateBase64Request from '../../Requests/Express/FileUpdateBase64Request';
 import ObjectTransformer from '../../Transformers/ObjectTransformer';
@@ -48,7 +48,7 @@ class FileHandler
     {
         const _request = new ListObjectsRequest(req.query);
 
-        const objects = await this.controller.list_filesystem_objects(_request);
+        const objects = await this.controller.listFilesystemObjects(_request);
 
         this.responder.send(objects, req, res, StatusCode.HTTP_OK, new ObjectTransformer());
     }
@@ -58,7 +58,7 @@ class FileHandler
     {
         const _request = new IdRequest(req.params.id);
 
-        const file = await this.controller.get_file_metadata(_request);
+        const file = await this.controller.getFileMetadata(_request);
 
         this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileTransformer());
     }
@@ -68,7 +68,7 @@ class FileHandler
     {
         const _request = new FileBase64RepRequest(req.body);
 
-        const file = await this.controller.upload_base64(_request);
+        const file = await this.controller.uploadBase64(_request);
 
         this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
@@ -78,7 +78,7 @@ class FileHandler
     {
         const _request = new FileMultipartRepRequest(req.body);
 
-        const file = await this.controller.upload_multipart(_request);
+        const file = await this.controller.uploadMultipart(_request);
 
         this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
@@ -88,7 +88,7 @@ class FileHandler
     {
         const _request = new PresignedFileRepRequest(req.body);
 
-        const presignedGetObject = await this.controller.get_presigned_get_object(_request);
+        const presignedGetObject = await this.controller.getPresignedGetObject(_request);
 
         this.responder.send({ presignedGetObject }, req, res, StatusCode.HTTP_OK, null);
     }
@@ -98,7 +98,7 @@ class FileHandler
     {
         const _request = new IdRequest(req.params.id);
 
-        const fileDto = await this.controller.download_stream_file(_request);
+        const fileDto = await this.controller.downloadStreamFile(_request);
 
         this.responder.sendStream(fileDto, req, res, StatusCode.HTTP_OK);
     }
@@ -108,7 +108,7 @@ class FileHandler
     {
         const _request = new FileUpdateBase64Request(req.body, req.params.id);
 
-        const file = await this.controller.update_base64(_request);
+        const file = await this.controller.updateBase64(_request);
 
         this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
@@ -118,7 +118,7 @@ class FileHandler
     {
         const _request = new FileUpdateMultipartRequest(req.body, req.params.id);
 
-        const file = await this.controller.update_multipart(_request);
+        const file = await this.controller.updateMultipart(_request);
 
         this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }

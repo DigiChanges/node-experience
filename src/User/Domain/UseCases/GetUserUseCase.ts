@@ -8,8 +8,8 @@ class GetUserUseCase
 
     async handle(payload: IdPayload): Promise<IUserDomain>
     {
-        const id = payload.get_id();
-        return await this.user_service.get_one(id);
+        const id = payload.getId();
+        return await this.user_service.getOne(id);
     }
 }
 

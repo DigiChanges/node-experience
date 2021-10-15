@@ -11,10 +11,10 @@ const UserSchema = new EntitySchema<User>({
             primary: true,
             unique: true
         },
-        first_name: {
+        firstName: {
             type: String
         },
-        last_name: {
+        lastName: {
             type: String
         },
         email: {
@@ -28,15 +28,15 @@ const UserSchema = new EntitySchema<User>({
             type: Boolean,
             default: true
         },
-        is_super_admin: {
+        isSuperAdmin: {
             type: Boolean,
             default: false
         },
-        confirmation_token: {
+        confirmationToken: {
             type: String,
             nullable: true
         },
-        password_requested_at: {
+        passwordRequestedAt: {
             type: Date,
             nullable: true
         },

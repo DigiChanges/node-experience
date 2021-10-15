@@ -5,7 +5,7 @@ interface ITokenDomain extends IBaseDomain
     hash: string;
     expires: number;
     payload: any;
-    black_listed: boolean;
+    blackListed: boolean;
 }
 
 export default ITokenDomain;

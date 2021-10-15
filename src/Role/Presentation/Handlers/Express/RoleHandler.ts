@@ -4,13 +4,13 @@ import { controller, httpDelete, httpGet, httpPost, httpPut, request, response, 
 import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 
 import { TYPES } from '../../../../types';
-import Responder from '../../../../App/Presentation/Shared/Responder';
+import Responder from '../../../../App/Presentation/Shared/Express/Responder';
 import RoleTransformer from '../../Transformers/RoleTransformer';
 import RoleRepRequest from '../../Requests/Express/RoleRepRequest';
-import IdRequest from '../../../../App/Presentation/Requests/Express/IdRequest';
+import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import RoleRequestCriteria from '../../Requests/Express/RoleRequestCriteria';
 import RoleUpdateRequest from '../../Requests/Express/RoleUpdateRequest';
-import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/AuthorizeMiddleware';
+import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Express/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
 
 import IRoleDomain from '../../../InterfaceAdapters/IRoleDomain';
@@ -53,7 +53,7 @@ class RoleHandler
     {
         const _request = new IdRequest(req.params.id);
 
-        const role: IRoleDomain = await this.controller.get_one(_request);
+        const role: IRoleDomain = await this.controller.getOne(_request);
 
         this.responder.send(role, req, res, StatusCode.HTTP_OK, new RoleTransformer());
     }

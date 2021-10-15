@@ -3,11 +3,11 @@ import ItemService from '../Services/ItemService';
 
 class ListItemsUseCase
 {
-    private item_service = new ItemService();
+    private itemService = new ItemService();
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {
-        return await this.item_service.list(payload);
+        return await this.itemService.list(payload);
     }
 }
 

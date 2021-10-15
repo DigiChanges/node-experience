@@ -4,12 +4,12 @@ import RoleService from '../Services/RoleService';
 
 class GetRoleUseCase
 {
-    private role_service = new RoleService();
+    private roleService = new RoleService();
 
     async handle(payload: IdPayload): Promise<IRoleDomain>
     {
-        const id = payload.get_id();
-        return await this.role_service.get_one(id);
+        const id = payload.getId();
+        return await this.roleService.getOne(id);
     }
 }
 

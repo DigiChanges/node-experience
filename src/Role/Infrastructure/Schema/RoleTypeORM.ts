@@ -22,7 +22,7 @@ const RoleSchema = new EntitySchema<Role>({
             type: Boolean,
             default: true
         },
-        of_system: {
+        ofSystem: {
             type: Boolean,
             default: false
         },

@@ -1,4 +1,4 @@
-import ItemRepPayload from '../../../InterfaceAdapters/Payloads/ItemRepPayload';
+import ItemRepPayload from '../../InterfaceAdapters/Payloads/ItemRepPayload';
 import { IsInt, IsString } from 'class-validator';
 import { decorate } from 'ts-mixer';
 
@@ -16,12 +16,12 @@ class ItemRepRequest implements ItemRepPayload
         this.type = data.type;
     }
 
-    get_name(): string
+    getName(): string
     {
         return this.name;
     }
 
-    get_type(): number
+    getType(): number
     {
         return this.type;
     }

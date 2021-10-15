@@ -14,22 +14,22 @@ class UserRepPasswordRequest implements UserPasswordRepPayload
     @decorate(Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max')))
     @decorate(IsString())
     @decorate(Match('password'))
-    password_confirmation: string;
+    passwordConfirmation: string;
 
     constructor(data: Record<string, any>)
     {
         this.password = data.password;
-        this.password_confirmation = data.password_confirmation;
+        this.passwordConfirmation = data.passwordConfirmation;
     }
 
-    get_password(): string
+    getPassword(): string
     {
         return this.password;
     }
 
-    get_password_confirmation(): string
+    getPasswordConfirmation(): string
     {
-        return this.password_confirmation;
+        return this.passwordConfirmation;
     }
 }
 

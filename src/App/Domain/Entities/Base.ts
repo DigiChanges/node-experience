@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import IBaseDomain from '../../../App/InterfaceAdapters/IBaseDomain';
 
+
 abstract class Base implements IBaseDomain
 {
     _id: string;
@@ -13,12 +14,12 @@ abstract class Base implements IBaseDomain
         this._id = uuidv4();
     }
 
-    get_id(): string
+    getId(): string
     {
         return this._id;
     }
 
-    set_id(id: string)
+    setId(id: string)
     {
         this._id = id;
     }
