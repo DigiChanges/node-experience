@@ -44,7 +44,7 @@ AuthHandler.post('/forgot-password', async(ctx: Koa.ParameterizedContext & any) 
 
     const payload = await controller.forgotPassword(_request);
 
-    responder.send(payload, ctx, StatusCode.HTTP_OK);
+    responder.send(payload, ctx, StatusCode.HTTP_CREATED);
 });
 
 AuthHandler.post('/change-forgot-password', async(ctx: Koa.ParameterizedContext & any) =>
@@ -67,7 +67,7 @@ AuthHandler.post('/sync-roles-permissions', AuthorizeMiddleware(Permissions.AUTH
 {
     controller.syncRolesPermissions();
 
-    responder.send({ message: 'Sync Successfully' }, ctx, StatusCode.HTTP_OK);
+    responder.send({ message: 'Sync Successfully' }, ctx, StatusCode.HTTP_CREATED);
 });
 
 export default AuthHandler;

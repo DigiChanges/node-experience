@@ -1,7 +1,6 @@
 import { Response, Request } from 'express';
 import { inject, injectable } from 'inversify';
 import {
-    IFormatResponder,
     IHttpStatusCode,
     IPaginator,
     PaginatorTransformer,
@@ -9,6 +8,7 @@ import {
 } from '@digichanges/shared-experience';
 import { TYPES } from '../../../../types';
 import IFileDTO from '../../../../File/InterfaceAdapters/Payloads/IFileDTO';
+import IFormatResponder from '../../../../Shared/InterfaceAdapters/IFormatResponder';
 
 @injectable()
 class Responder
@@ -29,7 +29,7 @@ class Responder
 
         if (!transformer)
         {
-            return response.status(status.code).send({ ...data, metadata });
+            return response.status(status.code).send({ data: { ...data, metadata } });
         }
 
         data = transformer.handle(data);

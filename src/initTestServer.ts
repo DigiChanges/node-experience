@@ -8,7 +8,7 @@ import './User/Presentation/Handlers/Express/UserHandler';
 import './Role/Presentation/Handlers/Express/RoleHandler';
 import './File/Presentation/Handlers/Express/FileHandler';
 import './Item/Presentation/Handlers/Express/ItemHandler';
-import './App/Tests/WhiteListHandler';
+import './App/Tests/Express/WhiteListHandler';
 // import "../Presentation/Handlers/NotificationHandler";
 
 import { ICreateConnection, ITokenRepository } from '@digichanges/shared-experience';
@@ -46,14 +46,14 @@ const initTestServer = async(): Promise<any> =>
     const app = AppFactory.create('AppExpress', {
         viewRouteEngine: `${process.cwd()}/dist/src/App/Presentation/Views`,
         localesDirectory: `${process.cwd()}/dist/src/Config/Locales`,
-        serverPort: 8089
+        serverPort: 8088
     });
 
     app.initConfig();
+    app.build();
 
-    const application = app.build();
-    application.use(RedirectRouteNotFoundMiddleware);
-    const request: supertest.SuperTest<supertest.Test> = supertest(application);
+    const application = app.callback();
+    const request: supertest.SuperAgentTest = supertest.agent(application);
 
     const seed = new SeedFactory();
     await seed.init();

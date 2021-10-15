@@ -22,7 +22,7 @@ ItemHandler.post('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const request = new ItemRepRequest(ctx.request.body);
 
-    const item = await controller.save(request, AuthUser(ctx.request.req));
+    const item = await controller.save(request, AuthUser(ctx));
 
     responder.send(item, ctx, StatusCode.HTTP_CREATED, new ItemTransformer());
 });
@@ -49,9 +49,9 @@ ItemHandler.put('/:id', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new ItemUpdateRequest(ctx.request.body, ctx.params.id);
 
-    const item = await controller.update(_request, AuthUser(ctx.request.req));
+    const item = await controller.update(_request, AuthUser(ctx));
 
-    responder.send(item, ctx, StatusCode.HTTP_OK, new ItemTransformer());
+    responder.send(item, ctx, StatusCode.HTTP_CREATED, new ItemTransformer());
 });
 
 ItemHandler.delete('/:id', async(ctx: Koa.ParameterizedContext & any) =>

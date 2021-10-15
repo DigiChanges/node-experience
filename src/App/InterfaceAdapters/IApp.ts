@@ -2,8 +2,9 @@
 interface IApp
 {
     initConfig(): any;
-    build(): any;
-    listen(): void;
+    build(): void;
+    listen(): any;
+    callback(): any;
 }
 
 export default IApp;

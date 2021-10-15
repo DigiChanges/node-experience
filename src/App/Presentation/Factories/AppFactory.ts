@@ -10,7 +10,7 @@ class AppFactory
     {
         const strategy: Record<string, IApp> = {
             AppExpress: new AppExpress(config),
-            AppKoa: new AppKoa()
+            AppKoa: new AppKoa(config)
         };
 
         return strategy[appName];

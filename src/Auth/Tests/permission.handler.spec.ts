@@ -1,13 +1,11 @@
-import { InversifyExpressServer } from 'inversify-express-utils';
-import supertest from 'supertest';
+import { SuperAgentTest } from 'supertest';
 import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 import { IPermissionsResponse } from './types';
 
 describe('Start Permission Test', () =>
 {
-    let server: InversifyExpressServer;
-    let request: supertest.SuperTest<supertest.Test>;
+    let request: SuperAgentTest;
     let dbConnection: ICreateConnection;
     let token: any = null;
 
@@ -15,7 +13,6 @@ describe('Start Permission Test', () =>
     {
         const configServer = await initTestServer();
 
-        server = configServer.server;
         request = configServer.request;
         dbConnection = configServer.dbConnection;
 
@@ -53,7 +50,6 @@ describe('Start Permission Test', () =>
 
         test('Get Permissions', async(done) =>
         {
-
             const response: IPermissionsResponse = await request
                 .get('/api/auth/permissions')
                 .set('Accept', 'application/json')
@@ -75,19 +71,15 @@ describe('Start Permission Test', () =>
 
         test('Resource Not found', async(done) =>
         {
-
             const response: any = await request
                 .get('/api/auth/notfound')
                 .set('Authorization', `Bearer ${token}`)
                 .set('Accept', 'application/json')
                 .send();
 
-            const { body: { status, statusCode, message } } = response;
+            const { body: { message } } = response;
 
             expect(response.statusCode).toStrictEqual(404);
-            expect(status).toStrictEqual('error');
-            expect(statusCode).toStrictEqual('HTTP_NOT_FOUND');
-
             expect(message).toStrictEqual('Route not found.');
 
             done();
@@ -95,7 +87,6 @@ describe('Start Permission Test', () =>
 
         test('Not authorized', async(done) =>
         {
-
             const response: any = await request
                 .get('/api/auth/permissions')
                 .set('Accept', 'application/json')

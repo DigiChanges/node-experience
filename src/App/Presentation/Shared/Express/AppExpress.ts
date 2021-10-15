@@ -5,7 +5,6 @@ import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 import exphbs from 'express-handlebars';
-import Config from 'config';
 
 import '../../Handlers/Express/IndexHandler';
 import '../../../../Item/Presentation/Handlers/Express/ItemHandler';
@@ -39,9 +38,10 @@ class AppExpress implements IApp
 
     constructor(config: IAppConfig)
     {
-        this.port = (Config.get('serverPort') || 8090); // default port to listen;
+        this.port = config.serverPort || 8090; // default port to listen;
         this.server = new InversifyExpressServer(container);
         this.locales = Locales.getInstance();
+        this.config = config;
     }
 
     public initConfig()
@@ -79,20 +79,23 @@ class AppExpress implements IApp
         });
     }
 
-    public build(): any
+    public build(): void
     {
         this.app = this.server.build();
-        return this.app;
+        this.app.use(RedirectRouteNotFoundMiddleware);
     }
 
-    public listen()
+    public listen(execute = false): any
     {
-        this.app.use(RedirectRouteNotFoundMiddleware);
-
         this.app.listen(this.port, () =>
         {
             loggerCli.debug(`App listening on the port ${this.port}`);
         });
+    }
+
+    public callback(): any
+    {
+        return this.app;
     }
 }
 

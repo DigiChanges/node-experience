@@ -62,7 +62,7 @@ RoleHandler.delete('/:id', AuthorizeMiddleware(Permissions.ROLES_DELETE), async(
 
     const role: IRoleDomain = await controller.remove(_request);
 
-    responder.send(role, ctx, StatusCode.HTTP_OK, new RoleTransformer());
+    responder.send(role, ctx, StatusCode.HTTP_CREATED, new RoleTransformer());
 });
 
 export default RoleHandler;

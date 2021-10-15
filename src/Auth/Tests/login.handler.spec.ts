@@ -1,19 +1,16 @@
-import { InversifyExpressServer } from 'inversify-express-utils';
-import supertest from 'supertest';
+import { SuperAgentTest } from 'supertest';
 import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 
 describe('Start Login Test', () =>
 {
-    let server: InversifyExpressServer;
-    let request: supertest.SuperTest<supertest.Test>;
+    let request: SuperAgentTest;
     let dbConnection: ICreateConnection;
 
     beforeAll(async(done) =>
     {
         const configServer = await initTestServer();
 
-        server = configServer.server;
         request = configServer.request;
         dbConnection = configServer.dbConnection;
 

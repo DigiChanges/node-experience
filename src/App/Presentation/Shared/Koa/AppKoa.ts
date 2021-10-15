@@ -2,10 +2,9 @@ import cors from 'koa-cors';
 import helmet from 'koa-helmet';
 import hbshbs from 'koa-hbs';
 import pino from 'koa-pino-logger';
-import Config from 'config';
 
 import AuthenticationMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/AuthenticationMiddleware';
-import { loggerCli, loggerFile } from '../../../../Shared/Logger';
+import { loggerCli } from '../../../../Shared/Logger';
 import RedirectRouteNotFoundMiddleware from '../../Middlewares/Koa/RedirectRouteNotFoundMiddleware';
 import Throttle from '../../Middlewares/Koa/Throttle';
 import VerifyTokenMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/VerifyTokenMiddleware';
@@ -23,6 +22,8 @@ import UserHandler from '../../../../User/Presentation/Handlers/Koa/UserHandler'
 import NotificationHandler from '../../../../Notification/Presentation/Handlers/Koa/NotificationHandler';
 import FileHandler from '../../../../File/Presentation/Handlers/Koa/FileHandler';
 import AuthHandler from '../../../../Auth/Presentation/Handlers/Koa/AuthHandler';
+import IAppConfig from '../../../InterfaceAdapters/IAppConfig';
+import WhiteListHandler from '../../../Tests/Koa/WhiteListHandler';
 
 
 class AppKoa implements IApp
@@ -30,22 +31,23 @@ class AppKoa implements IApp
     public port?: number;
     private readonly app: Koa;
     private locales: Locales;
+    private config: IAppConfig;
 
-    constructor()
+    constructor(config: IAppConfig)
     {
-        this.port = (Config.get('serverPort') || 8090);
+        this.port = config.serverPort || 8090;
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         this.app = require('koa-qs')(new Koa());
         this.locales = Locales.getInstance();
+        this.config = config;
     }
 
     public initConfig()
     {
         this.app.use(cors());
         this.app.use(helmet());
-        const view_route = `${Config.get('nodePath')}/dist/src/App/Presentation/Views`;
         this.app.use(hbshbs.middleware({
-            viewPath: view_route
+            viewPath: this.config.viewRouteEngine
         }));
 
         // Generic error handling middleware.
@@ -81,11 +83,14 @@ class AppKoa implements IApp
         this.app.on('error', console.error);
     }
 
-    public build()
+    public build(): void
     {
         // Route middleware.
         this.app.use(IndexHandler.routes());
         this.app.use(IndexHandler.allowedMethods());
+
+        this.app.use(WhiteListHandler.routes());
+        this.app.use(WhiteListHandler.allowedMethods());
 
         this.app.use(ItemHandler.routes());
         this.app.use(ItemHandler.allowedMethods());
@@ -105,17 +110,20 @@ class AppKoa implements IApp
         this.app.use(AuthHandler.routes());
         this.app.use(AuthHandler.allowedMethods());
 
-        return this.app;
+        this.app.use(RedirectRouteNotFoundMiddleware);
     }
 
-    public listen()
+    public listen(): any
     {
-        this.app.use(RedirectRouteNotFoundMiddleware);
-
-        const server = this.app.listen(this.port, () =>
+        return this.app.listen(this.port, () =>
         {
             loggerCli.debug(`Koa is listening to http://localhost:${this.port}`);
         });
+    }
+
+    public callback(): any
+    {
+        return this.app.callback();
     }
 }
 

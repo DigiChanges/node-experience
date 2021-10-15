@@ -38,6 +38,7 @@ void (async() =>
             localesDirectory: `${Config.get('nodePath')}/dist/src/Config/Locales`,
             serverPort: Config.get('serverPort')
         });
+
         app.initConfig();
         app.build();
         app.listen();
