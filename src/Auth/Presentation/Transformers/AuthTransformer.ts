@@ -24,8 +24,8 @@ class AuthTransformer extends Transformer
         return {
             user: {
                 id: token.getUser().getId(),
-                first_name: token.getUser().firstName,
-                last_name: token.getUser().lastName,
+                firstName: token.getUser().firstName,
+                lastName: token.getUser().lastName,
                 email: token.getUser().email,
                 enable: token.getUser().enable,
                 permissions: authService.getPermissions(user),

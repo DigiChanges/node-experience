@@ -61,7 +61,7 @@ describe('Start ForgotPassword Test', () =>
             };
 
             const response: any = await request
-                .post('/api/auth/forgotPassword')
+                .post('/api/auth/forgot-password')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);

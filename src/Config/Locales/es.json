@@ -12,7 +12,8 @@
 			"wrongPermissions": "Error en los permisos.",
 			"routeNotFound": "Ruta no encontrada.",
 			"tokenExpired": "Debes estar autenticado.",
-			"forbidden": "Acceso prohibido."
+			"forbidden": "Acceso prohibido.",
+            "roleOfSystemNotDeleted":"Prohibido eliminar roles del sistema."
 		}
 	}
 }

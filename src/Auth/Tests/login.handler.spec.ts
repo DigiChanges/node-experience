@@ -47,7 +47,7 @@ describe('Start Login Test', () =>
         expect(statusCode).toStrictEqual('HTTP_CREATED');
 
         expect(data.user.email).toStrictEqual('user@node.com');
-        expect(data.user.first_name).toStrictEqual('user');
+        expect(data.user.firstName).toStrictEqual('user');
 
         done();
     });
@@ -71,7 +71,7 @@ describe('Start Login Test', () =>
         expect(statusCode).toStrictEqual('HTTP_CREATED');
 
         expect(data.user.email).toStrictEqual('superadmin@node.com');
-        expect(data.user.first_name).toStrictEqual('Super');
+        expect(data.user.firstName).toStrictEqual('Super');
 
         done();
     });

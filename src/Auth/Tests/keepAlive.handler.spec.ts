@@ -52,9 +52,8 @@ describe('Start Keep Alive Test', () =>
 
         test.skip('Keep Alive POST /', async done =>
         {
-
             const response: any = await request
-                .post('/api/auth/keepAlive')
+                .post('/api/auth/keep-alive')
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();

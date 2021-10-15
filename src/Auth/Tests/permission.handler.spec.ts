@@ -66,9 +66,9 @@ describe('Start Permission Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            const keep_alive = data.some(({ group, permissions }) => group === 'AUTH' && permissions.some((permission) => permission === 'authKeepAlive'));
+            const keepAlive = data.some(({ group, permissions }) => group === 'AUTH' && permissions.some((permission) => permission === 'authKeepAlive'));
 
-            expect(keep_alive).toStrictEqual(true);
+            expect(keepAlive).toStrictEqual(true);
 
             done();
         });

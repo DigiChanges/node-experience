@@ -12,6 +12,7 @@ import { REPOSITORIES } from '../../../Config/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 import Password from '../../../App/Domain/ValueObjects/Password';
+import Permissions from '../../../Config/Permissions';
 
 class UserSeed implements ISeed
 {
@@ -41,7 +42,7 @@ class UserSeed implements ISeed
         const roleAdmin: IRoleDomain = new Role();
         roleAdmin.name = 'Admin';
         roleAdmin.slug = 'admin';
-        roleAdmin.permissions = [];
+        roleAdmin.permissions = Permissions.permissions();
         roleAdmin.enable = true;
 
         await this.roleRepository.save(roleAdmin);
@@ -100,8 +101,7 @@ class UserSeed implements ISeed
         userAdmin.address = 'New America 123';
 
         const userAdminPassword = new Password('12345678');
-        await userAdminPassword.ready();
-        userAdmin.password = userAdminPassword;
+        userAdmin.password = await userAdminPassword.ready();
 
         userAdmin.enable = true;
         userAdmin.confirmationToken = null;
@@ -125,8 +125,7 @@ class UserSeed implements ISeed
         userOperator.address = 'New America 123';
 
         const userOperatorPassword = new Password('123456789');
-        await userOperatorPassword.ready();
-        userOperator.password = userOperatorPassword;
+        userOperator.password = await userOperatorPassword.ready();
 
         userOperator.enable = true;
         userOperator.confirmationToken = null;
@@ -150,8 +149,7 @@ class UserSeed implements ISeed
         userOperatorDisabled.address = 'New America 123';
 
         const userOperatorDisabledPassword = new Password('1234567901');
-        await userOperatorDisabledPassword.ready();
-        userOperatorDisabled.password = userOperatorDisabledPassword;
+        userOperatorDisabled.password = await userOperatorDisabledPassword.ready();
 
         userOperatorDisabled.enable = false;
         userOperatorDisabled.confirmationToken = null;
@@ -175,8 +173,7 @@ class UserSeed implements ISeed
         userOperatorRoleDisabled.address = 'New America 123';
 
         const userOperatorRoleDisabledPassword = new Password('1234567901');
-        await userOperatorRoleDisabledPassword.ready();
-        userOperatorRoleDisabled.password = userOperatorRoleDisabledPassword;
+        userOperatorRoleDisabled.password = await userOperatorRoleDisabledPassword.ready();
 
         userOperatorRoleDisabled.enable = true;
         userOperatorRoleDisabled.confirmationToken = null;

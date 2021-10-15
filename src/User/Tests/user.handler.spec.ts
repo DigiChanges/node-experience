@@ -12,8 +12,8 @@ describe('Start User Test', () =>
     let request: supertest.SuperTest<supertest.Test>;
     let dbConnection: ICreateConnection;
     let token: string = null;
-    let user_id = '';
-    let delete_response: any = null;
+    let userId = '';
+    let deleteResponse: any = null;
 
     beforeAll(async(done) =>
     {
@@ -89,7 +89,7 @@ describe('Start User Test', () =>
             expect(data.email).toStrictEqual(payload.email);
             expect(data.enable).toStrictEqual(true);
 
-            user_id = data.id;
+            userId = data.id;
 
             done();
         });
@@ -129,7 +129,7 @@ describe('Start User Test', () =>
             expect(data.email).toStrictEqual(payload.email);
             expect(data.enable).toStrictEqual(payload.enable);
 
-            user_id = data.id;
+            userId = data.id;
 
             done();
         });
@@ -146,7 +146,7 @@ describe('Start User Test', () =>
             };
 
             const response: IUserResponse = await request
-                .get(`/api/users/${user_id}`)
+                .get(`/api/users/${userId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -181,7 +181,7 @@ describe('Start User Test', () =>
             };
 
             const response: IUserResponse = await request
-                .put(`/api/users/${user_id}`)
+                .put(`/api/users/${userId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
@@ -210,7 +210,7 @@ describe('Start User Test', () =>
         test('Change my Password /users/change-my-password', async done =>
         {
             let payload: any = {
-                current_password: '12345678',
+                currentPassword: '12345678',
                 password: '123456789',
                 passwordConfirmation: '123456789'
             };
@@ -277,15 +277,15 @@ describe('Start User Test', () =>
 
             token = createResponse.body.metadata.refreshToken;
 
-            delete_response = await request
+            deleteResponse = await request
                 .delete(`/api/users/${createResponse.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, data } } = delete_response;
+            const { body: { status, statusCode, data } } = deleteResponse;
 
-            expect(delete_response.statusCode).toStrictEqual(200);
+            expect(deleteResponse.statusCode).toStrictEqual(200);
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
@@ -443,7 +443,7 @@ describe('Start User Test', () =>
         {
 
             const response: IUserResponse = await request
-                .get(`/api/users/${user_id}dasdasda123`)
+                .get(`/api/users/${userId}dasdasda123`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();
@@ -479,7 +479,7 @@ describe('Start User Test', () =>
             };
 
             const response: IUserResponse = await request
-                .put(`/api/users/${user_id}`)
+                .put(`/api/users/${userId}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
@@ -500,9 +500,8 @@ describe('Start User Test', () =>
 
         test('Delete User error /users/:id', async done =>
         {
-
             const deleteErrorResponse: IUserResponse = await request
-                .delete(`/api/users/${delete_response.body.data.id}`)
+                .delete(`/api/users/${deleteResponse.body.data.id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
                 .send();

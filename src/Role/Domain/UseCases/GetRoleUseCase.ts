@@ -9,7 +9,7 @@ class GetRoleUseCase
     async handle(payload: IdPayload): Promise<IRoleDomain>
     {
         const id = payload.getId();
-        return await this.roleService.get_one(id);
+        return await this.roleService.getOne(id);
     }
 }
 

@@ -13,6 +13,7 @@ import './Auth/Presentation/Handlers/Express/AuthHandler';
 import './User/Presentation/Handlers/Express/UserHandler';
 import './Role/Presentation/Handlers/Express/RoleHandler';
 import './File/Presentation/Handlers/Express/FileHandler';
+import './Item/Presentation/Handlers/Express/ItemHandler';
 import './App/Tests/WhiteListHandler';
 // import "../Presentation/Handlers/NotificationHandler";
 

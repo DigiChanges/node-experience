@@ -20,9 +20,10 @@ class Password
         }
     }
 
-    public async ready(): Promise<void>
+    public async ready(): Promise<Password>
     {
         this.value = await this.encryption.encrypt(this.value);
+        return this;
     }
 
     public toString = () =>

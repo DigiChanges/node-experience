@@ -61,9 +61,9 @@ class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implem
 
     async delete(id: string): Promise<IRoleDomain>
     {
-        const is_of_system = !!(await this.exist({ _id: id, of_system: true }, ['_id']));
+        const isOfSystem = !!(await this.exist({ _id: id, ofSystem: true }, ['_id']));
 
-        if (is_of_system)
+        if (isOfSystem)
         {
             throw new RoleOfSystemNotDeletedException();
         }

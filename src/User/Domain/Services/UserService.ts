@@ -61,8 +61,7 @@ class UserService
         const user = new User();
 
         const password = new Password(payload.getPassword());
-        await password.ready();
-        user.password = password;
+        user.password = await password.ready();
 
         user.confirmationToken = payload.getConfirmationToken();
         user.passwordRequestedAt = payload.getPasswordRequestedAt();
@@ -89,8 +88,7 @@ class UserService
     async persistPassword(user: IUserDomain, payload: ChangeUserPasswordPayload): Promise<IUserDomain>
     {
         const password = new Password(payload.getPassword());
-        await password.ready();
-        user.password = password;
+        user.password = await password.ready();
 
         return await this.repository.update(user);
     }

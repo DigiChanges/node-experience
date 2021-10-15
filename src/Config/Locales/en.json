@@ -12,7 +12,8 @@
 			"wrongPermissions": "Wrong permissions.",
 			"routeNotFound": "Route not found.",
 			"tokenExpired": "You must be authenticated.",
-			"forbidden": "Forbidden."
+			"forbidden": "Forbidden.",
+            "roleOfSystemNotDeleted":"Forbidden delete role of system"
 		}
 	}
 }

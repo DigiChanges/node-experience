@@ -9,7 +9,7 @@ class UserSaveRequest extends Mixin(UserRepRequest, UserRepPasswordRequest) impl
     {
         super(data);
         this.password = data.password;
-        this.passwordConfirmation = data.password_confirmation;
+        this.passwordConfirmation = data.passwordConfirmation;
     }
 }
 

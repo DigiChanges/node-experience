@@ -38,11 +38,11 @@ class RoleService
     async update(payload: RoleUpdatePayload): Promise<IRoleDomain>
     {
         const id = payload.getId();
-        const role: IRoleDomain = await this.get_one(id);
+        const role: IRoleDomain = await this.getOne(id);
         return await this.persist(role, payload);
     }
 
-    async get_one(id: string): Promise<IRoleDomain>
+    async getOne(id: string): Promise<IRoleDomain>
     {
         return await this.repository.getOne(id);
     }
