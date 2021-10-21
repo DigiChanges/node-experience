@@ -3,8 +3,9 @@ import PushNotification from '../Entities/PushNotification';
 import EventHandler from '../../../Shared/Events/EventHandler';
 import SendMessageEvent from '../../../Shared/Events/SendMessageEvent';
 import NotificationSendMessagePayload from '../../InterfaceAdapters/Payloads/NotificationSendMessagePayload';
+import { injectable } from 'inversify';
 
-
+@injectable()
 class NotificationService
 {
     private eventHandler = EventHandler.getInstance();

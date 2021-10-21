@@ -11,7 +11,7 @@ import WrongPermissionsException from '../Domain/Exceptions/WrongPermissionsExce
 import { IEncryption } from '@digichanges/shared-experience';
 import ITokenDecode from '../../Shared/InterfaceAdapters/ITokenDecode';
 import { containerFactory } from '../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../Config/repositories';
+import { REPOSITORIES } from '../../repositories';
 import IUserRepository from '../../User/InterfaceAdapters/IUserRepository';
 import TokenExpiredHttpException from '../Presentation/Exceptions/TokenExpiredHttpException';
 import TokenNotFoundHttpException from '../Presentation/Exceptions/TokenNotFoundHttpException';

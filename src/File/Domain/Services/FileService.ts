@@ -3,7 +3,7 @@ import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 import IFileService from '../../InterfaceAdapters/IFileService';
 import { containerFactory }  from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../Config/repositories';
+import { REPOSITORIES } from '../../../repositories';
 import IFileRepository from '../../InterfaceAdapters/IFileRepository';
 import PresignedFileRepPayload from 'File/InterfaceAdapters/Payloads/PresignedFileRepPayload';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';

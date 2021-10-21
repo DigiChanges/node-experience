@@ -2,7 +2,7 @@ import ChangeForgotPasswordPayload from '../../InterfaceAdapters/Payloads/Change
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../Config/repositories';
+import { REPOSITORIES } from '../../../repositories';
 import Password from '../../../App/Domain/ValueObjects/Password';
 
 class ChangeForgotPasswordUseCase

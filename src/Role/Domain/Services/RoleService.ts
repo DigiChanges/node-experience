@@ -2,14 +2,15 @@ import RoleRepPayload from '../../InterfaceAdapters/Payloads/RoleRepPayload';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
 import Role from '../Entities/Role';
 import IRoleRepository from '../../InterfaceAdapters/IRoleRepository';
-import { REPOSITORIES } from '../../../Config/repositories';
+import { REPOSITORIES } from '../../../repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import RoleUpdatePayload from '../../InterfaceAdapters/Payloads/RoleUpdatePayload';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
 import { SERVICES } from '../../../services';
+import { injectable } from 'inversify';
 
-
+@injectable()
 class RoleService
 {
     @containerFactory(REPOSITORIES.IRoleRepository)

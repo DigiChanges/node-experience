@@ -4,11 +4,13 @@ import UserCreatedEvent from '../../../Shared/Events/UserCreatedEvent';
 import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
 import UserService from '../Services/UserService';
 import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
-
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
 
 class SaveUserUseCase
 {
-    private userService = new UserService();
+    @containerFactory(SERVICES.IUserService)
+    private userService: UserService;
     private eventHandler: EventHandler;
 
     constructor()

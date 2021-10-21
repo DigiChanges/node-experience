@@ -2,7 +2,7 @@ import faker from 'faker';
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
 import Item from '../../Domain/Entities/Item';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../Config/repositories';
+import { REPOSITORIES } from '../../../repositories';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import User from '../../../User/Domain/Entities/User';

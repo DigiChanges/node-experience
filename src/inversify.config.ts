@@ -14,7 +14,7 @@ import IFileRepository from './File/InterfaceAdapters/IFileRepository';
 
 import AuthService from './Auth/Services/AuthService';
 
-import { REPOSITORIES } from './Config/repositories';
+import { REPOSITORIES } from './repositories';
 import { TYPES } from './types';
 import { SERVICES } from './services';
 
@@ -32,12 +32,23 @@ import { ITokenRepository } from '@digichanges/shared-experience';
 import ITokenDomain from './Auth/InterfaceAdapters/ITokenDomain';
 import IFileService from './File/InterfaceAdapters/IFileService';
 import FileService from './File/Domain/Services/FileService';
+import NotificationService from './Notification/Domain/Services/NotificationService';
+import RoleService from './Role/Domain/Services/RoleService';
+import ItemService from './Item/Domain/Services/ItemService';
+import UserService from './User/Domain/Services/UserService';
+import INotificationRepository from './Notification/InterfaceAdapters/INotificationRepository';
+import INotificationDomain from './Notification/InterfaceAdapters/INotificationDomain';
+import NotificationMongoRepository from './Notification/Infrastructure/Repositories/NotificationMongoRepository';
 
 const container = new Container();
 
 /* IServices */
 container.bind<IAuthService>(SERVICES.IAuthService).to(AuthService);
 container.bind<IFileService>(SERVICES.IFileService).to(FileService);
+container.bind(SERVICES.INotificationService).to(NotificationService);
+container.bind(SERVICES.IRoleService).to(RoleService);
+container.bind(SERVICES.IItemService).to(ItemService);
+container.bind(SERVICES.IUserService).to(UserService);
 
 /* Libs */
 container.bind<Responder>(TYPES.Responder).to(Responder);
@@ -57,6 +68,7 @@ else if (Config.get('dbConfig.default') === 'Mongoose')
     container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository);
     container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongoRepository);
     container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository);
+    container.bind<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository).to(NotificationMongoRepository);
 }
 
 container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(TokenRedisRepository);

@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { exit } from 'shelljs';
 import commander from 'commander';
 import dotenv from 'dotenv';
