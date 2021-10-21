@@ -29,31 +29,30 @@ Hi! Node experience it's a boilerplate with many tools together for a simple bas
 * Ts-node
 * Winston
 
-Execute DEV Environment
-- **docker-compose up --build -d**
-- Also, you could use **make dev**
-- docker-compose exec node bash dev.init.sh
-- Also, you could use **make init**
+### Execute DEV Environment
+- ```docker-compose up --build -d```
+- Also, you could use ```make dev```
+- ```docker-compose exec node bash dev.init.sh```
+- Also, you could use ```make init```
 
-Execute Debug DEV Environment
-```bash
-make debug
-```
+### Execute Debug DEV Environment
+- ```make debug```
 
 Create Push Notifications Keys
-- docker-compose exec node npx ts-node src/command.ts createVapID
+- ```docker-compose exec node npx ts-node src/command.ts createVapID```
 
 Minio Browser
 - http://127.0.0.1:9002/minio
 
-Execute PROD Environment
-- docker-compose -f docker-compose.prod.yml up --build
+### Execute PROD Environment
+- ```docker-compose -f docker-compose.prod.yml up --build```
 
-Execute TEST Environment
-- **yarn test**
+### Execute TEST Environment
+- ```yarn test```
+- ```make test```
 
-Test and watch one file
-- **yarn test-watch dist/src/[Module]/Tests/[test-name].spec.js**
+### Test and watch one file
+- ```yarn test-watch dist/src/[Module]/Tests/[test-name].spec.js**```
 
 TODO: Started
 
@@ -131,8 +130,8 @@ To change from Mongoose to TypeORM the following steps must be followed:
        
 ## Commands Available
 
- * node dist/src/command.js addUserRole --role Admin --email user@node.com --firstName node --lastName node --password 12345678 --isSuperAdmin false
- * node dist/src/command.js addUserRole --role SuperAdmin --email superadmin@node.com --firstName super --lastName admin --password 12345678 --isSuperAdmin true
- * node dist/src/command.js syncRolesPermission
- * node dist/src/command.js createBucket --bucketName experience --region us-east-1
- * npx ts-node src/command.ts createVapID
+ * ```node dist/src/command.js addUserRole --role Admin --email user@node.com --firstName node --lastName node --password 12345678 --isSuperAdmin false```
+ * ```node dist/src/command.js addUserRole --role SuperAdmin --email superadmin@node.com --firstName super --lastName admin --password 12345678 --isSuperAdmin true```
+ * ```node dist/src/command.js syncRolesPermission```
+ * ```node dist/src/command.js createBucket --bucketName experience --region us-east-1```
+ * ```npx ts-node src/command.ts createVapID```
