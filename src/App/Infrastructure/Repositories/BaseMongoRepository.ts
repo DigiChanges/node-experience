@@ -13,7 +13,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
     protected repository: Model<D>;
     protected populate: string[];
 
-    protected constructor(@unmanaged() entityName: string, @unmanaged() populate: string[] = [])
+    constructor(@unmanaged() entityName: string, @unmanaged() populate: string[] = [])
     {
         this.entityName = entityName;
         this.repository = connection.model<D>(entityName);

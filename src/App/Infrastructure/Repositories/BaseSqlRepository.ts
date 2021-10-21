@@ -10,7 +10,7 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
     protected readonly entityName: string;
     protected repository: Repository<T>;
 
-    protected constructor(@unmanaged() entityName: string, @unmanaged() schema: EntitySchema)
+    constructor(@unmanaged() entityName: string, @unmanaged() schema: EntitySchema)
     {
         this.entityName = entityName;
         this.repository = getRepository<T>(schema);

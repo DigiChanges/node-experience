@@ -33,7 +33,7 @@ void (async() =>
         const eventHandler = EventHandler.getInstance();
         await eventHandler.setListeners();
 
-        const app = AppFactory.create('AppExpress', {
+        const app = AppFactory.create('AppKoa', {
             viewRouteEngine: `${Config.get('nodePath')}/dist/src/App/Presentation/Views`,
             localesDirectory: `${Config.get('nodePath')}/dist/src/Config/Locales`,
             serverPort: Config.get('serverPort')
