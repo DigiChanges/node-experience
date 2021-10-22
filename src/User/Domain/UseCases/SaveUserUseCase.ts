@@ -21,7 +21,6 @@ class SaveUserUseCase
 
     async handle(payload: UserSavePayload): Promise<IUserDomain>
     {
-        await ValidatorRequest.handle(payload);
         const user = await this.userService.create(payload);
 
         await this.eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, { email: user.email });
