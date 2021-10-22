@@ -6,11 +6,11 @@ import IFileService from '../../InterfaceAdapters/IFileService';
 class ListObjectsUseCase
 {
     @containerFactory(SERVICES.IFileService)
-    private file_service: IFileService;
+    private fileService: IFileService;
 
     async handle(payload: ListObjectsPayload): Promise<any>
     {
-        return await this.file_service.listObjects(payload);
+        return await this.fileService.listObjects(payload);
     }
 }
 

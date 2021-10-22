@@ -6,11 +6,11 @@ import IFileService from '../../InterfaceAdapters/IFileService';
 class ListFilesUseCase
 {
     @containerFactory(SERVICES.IFileService)
-    private file_service: IFileService;
+    private fileService: IFileService;
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {
-        return await this.file_service.list(payload);
+        return await this.fileService.list(payload);
     }
 }
 

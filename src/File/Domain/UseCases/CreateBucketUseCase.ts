@@ -6,11 +6,11 @@ import IFileService from '../../InterfaceAdapters/IFileService';
 class CreateBucketUseCase
 {
     @containerFactory(SERVICES.IFileService)
-    private file_service: IFileService;
+    private fileService: IFileService;
 
     async handle(payload: CreateBucketPayload): Promise<void>
     {
-        await this.file_service.createBucket(payload);
+        await this.fileService.createBucket(payload);
     }
 }
 

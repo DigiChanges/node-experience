@@ -6,11 +6,11 @@ import IFileService from '../../InterfaceAdapters/IFileService';
 class GetPresignedGetObjectUseCase
 {
     @containerFactory(SERVICES.IFileService)
-    private file_service: IFileService;
+    private fileService: IFileService;
 
     async handle(payload: PresignedFileRepPayload): Promise<string>
     {
-        return this.file_service.getPresignedGetObject(payload);
+        return this.fileService.getPresignedGetObject(payload);
     }
 }
 

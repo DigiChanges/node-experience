@@ -7,14 +7,14 @@ import IFileService from '../../InterfaceAdapters/IFileService';
 class UpdateFileMultipartUseCase
 {
     @containerFactory(SERVICES.IFileService)
-    private file_service: IFileService;
+    private fileService: IFileService;
 
     async handle(payload: FileUpdateMultipartPayload): Promise<any>
     {
         const id = payload.getId();
-        let file: IFileDomain = await this.file_service.getOne(id);
-        file = await this.file_service.persist(file, payload);
-        return await this.file_service.uploadFileMultipart(file, payload);
+        let file: IFileDomain = await this.fileService.getOne(id);
+        file = await this.fileService.persist(file, payload);
+        return await this.fileService.uploadFileMultipart(file, payload);
     }
 }
 

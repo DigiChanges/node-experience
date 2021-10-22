@@ -8,14 +8,14 @@ import IFileService from '../../InterfaceAdapters/IFileService';
 class UpdateFileBase64UseCase
 {
     @containerFactory(SERVICES.IFileService)
-    private file_service: IFileService;
+    private fileService: IFileService;
 
     async handle(payload: FileUpdateBase64Payload): Promise<any>
     {
         const id = payload.getId();
-        let file: IFileDomain = await this.file_service.getOne(id);
-        file = await this.file_service.persist(file, payload);
-        return await this.file_service.uploadFileBase64(file, payload);
+        let file: IFileDomain = await this.fileService.getOne(id);
+        file = await this.fileService.persist(file, payload);
+        return await this.fileService.uploadFileBase64(file, payload);
     }
 }
 

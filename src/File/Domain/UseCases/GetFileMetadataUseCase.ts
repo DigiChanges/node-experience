@@ -7,12 +7,12 @@ import IFileService from '../../InterfaceAdapters/IFileService';
 class GetFileMetadataUserCase
 {
     @containerFactory(SERVICES.IFileService)
-    private file_service: IFileService;
+    private fileService: IFileService;
 
     async handle(payload: IdPayload): Promise<IFileDomain>
     {
         const id = payload.getId();
-        return await this.file_service.getOne(id);
+        return await this.fileService.getOne(id);
     }
 }
 

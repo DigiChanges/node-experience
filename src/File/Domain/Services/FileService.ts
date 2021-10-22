@@ -22,7 +22,7 @@ class FileService implements IFileService
     @containerFactory(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;
 
-    private file_system = FilesystemFactory.create();
+    private fileSystem = FilesystemFactory.create();
 
     async getPresignedGetObject(payload: PresignedFileRepPayload): Promise<string>
     {
@@ -46,14 +46,14 @@ class FileService implements IFileService
 
     async uploadFileBase64(file: IFileDomain, payload: FileBase64RepPayload): Promise<any>
     {
-        await this.file_system.uploadFileByBuffer(file.name, payload.getBase64());
+        await this.fileSystem.uploadFileByBuffer(file.name, payload.getBase64());
 
         return file;
     }
 
     async uploadFileMultipart(file: IFileDomain, payload: FileMultipartRepPayload): Promise<any>
     {
-        await this.file_system.uploadFile(file.name, payload.getFile().path);
+        await this.fileSystem.uploadFile(file.name, payload.getFile().path);
 
         return file;
     }
@@ -65,7 +65,7 @@ class FileService implements IFileService
 
     async listObjects(payload: ListObjectsPayload): Promise<any>
     {
-        return await this.file_system.listObjects(payload.getPrefix(), payload.getRecursive());
+        return await this.fileSystem.listObjects(payload.getPrefix(), payload.getRecursive());
     }
 
     async getOne(id: string): Promise<IFileDomain>
@@ -79,15 +79,15 @@ class FileService implements IFileService
         const region = payload.getRegion();
         const bucketPolicy = payload.getBucketPolicy();
 
-        await this.file_system.createBucket(bucketName, region);
-        await this.file_system.setBucketPolicy(bucketPolicy, bucketName);
+        await this.fileSystem.createBucket(bucketName, region);
+        await this.fileSystem.setBucketPolicy(bucketPolicy, bucketName);
     }
 
     async download(payload: IdPayload): Promise<IFileDTO>
     {
         const id = payload.getId();
         const metadata: IFileDomain = await this.getOne(id);
-        const stream = await this.file_system.downloadStreamFile(id);
+        const stream = await this.fileSystem.downloadStreamFile(id);
 
         return new FileDTO(metadata, stream);
     }
@@ -99,7 +99,7 @@ class FileService implements IFileService
             'Content-Length': file.size
         };
 
-        return await this.file_system.presignedGetObject(file.getId(), expiry, metadata);
+        return await this.fileSystem.presignedGetObject(file.getId(), expiry, metadata);
     }
 }
 

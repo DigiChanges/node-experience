@@ -7,11 +7,11 @@ import IFileService from '../../InterfaceAdapters/IFileService';
 class DownloadUseCase
 {
     @containerFactory(SERVICES.IFileService)
-    private file_service: IFileService;
+    private fileService: IFileService;
 
     async handle(payload: IdPayload): Promise<IFileDTO>
     {
-        return await this.file_service.download(payload);
+        return await this.fileService.download(payload);
     }
 }
 
