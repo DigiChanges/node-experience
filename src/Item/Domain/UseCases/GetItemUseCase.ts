@@ -7,12 +7,12 @@ import { SERVICES } from '../../../services';
 class GetItemUseCase
 {
     @containerFactory(SERVICES.IItemService)
-    private item_service = new ItemService();
+    private itemService = new ItemService();
 
     async handle(payload: IdPayload): Promise<IItemDomain>
     {
         const id = payload.getId();
-        return await this.item_service.getOne(id);
+        return await this.itemService.getOne(id);
     }
 }
 

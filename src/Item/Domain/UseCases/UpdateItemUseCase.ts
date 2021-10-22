@@ -8,11 +8,11 @@ import { SERVICES } from '../../../services';
 class UpdateItemUseCase
 {
     @containerFactory(SERVICES.IItemService)
-    private item_service = new ItemService();
+    private itemService = new ItemService();
 
     async handle(payload: ItemUpdatePayload, auth_user: IUserDomain): Promise<IItemDomain>
     {
-        return await this.item_service.update(payload, auth_user);
+        return await this.itemService.update(payload, auth_user);
     }
 }
 
