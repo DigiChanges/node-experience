@@ -9,9 +9,10 @@ import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
 import { SERVICES } from '../../../services';
 import { injectable } from 'inversify';
+import IRoleService from '../../InterfaceAdapters/IRoleService';
 
 @injectable()
-class RoleService
+class RoleService implements IRoleService
 {
     @containerFactory(REPOSITORIES.IRoleRepository)
     private repository: IRoleRepository;

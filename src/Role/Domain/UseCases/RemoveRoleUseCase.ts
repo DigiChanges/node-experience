@@ -1,14 +1,17 @@
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import RoleService from '../Services/RoleService';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
+import IRoleService from '../../InterfaceAdapters/IRoleService';
 
 class RemoveRoleUseCase
 {
-    private roleService = new RoleService();
+    @containerFactory(SERVICES.IRoleService)
+    private role_service: IRoleService;
 
     async handle(payload: IdPayload): Promise<any>
     {
         const id = payload.getId();
-        return await this.roleService.remove(id);
+        return await this.role_service.remove(id);
     }
 }
 

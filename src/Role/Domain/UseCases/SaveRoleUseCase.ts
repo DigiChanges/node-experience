@@ -1,17 +1,17 @@
 import RoleRepPayload from '../../InterfaceAdapters/Payloads/RoleRepPayload';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
-import RoleService from '../Services/RoleService';
 import { SERVICES } from '../../../services';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import IRoleService from '../../InterfaceAdapters/IRoleService';
 
 class SaveRoleUseCase
 {
     @containerFactory(SERVICES.IRoleService)
-    private roleService: RoleService;
+    private role_service: IRoleService;
 
     async handle(payload: RoleRepPayload): Promise<IRoleDomain>
     {
-        return await this.roleService.create(payload);
+        return await this.role_service.create(payload);
     }
 }
 
