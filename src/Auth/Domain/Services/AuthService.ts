@@ -20,9 +20,8 @@ import Config from 'config';
 @injectable()
 class AuthService implements IAuthService
 {
-
     @containerFactory(REPOSITORIES.IUserRepository)
-    private user_repository: IUserRepository
+    private userRepository: IUserRepository
 
     private encryption: IEncryption;
 
@@ -61,7 +60,7 @@ class AuthService implements IAuthService
 
     public getByEmail(email: string): Promise<Auth>
     {
-        return this.user_repository.getOneByEmail(email);
+        return this.userRepository.getOneByEmail(email);
     }
 
     public async authorize(auth_user: Auth, handler_permission: string): Promise<boolean>
