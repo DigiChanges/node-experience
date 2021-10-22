@@ -39,16 +39,18 @@ import UserService from './User/Domain/Services/UserService';
 import INotificationRepository from './Notification/InterfaceAdapters/INotificationRepository';
 import INotificationDomain from './Notification/InterfaceAdapters/INotificationDomain';
 import NotificationMongoRepository from './Notification/Infrastructure/Repositories/NotificationMongoRepository';
+import IItemService from './Item/InterfaceAdapters/IItemService';
+import INotificationService from './Notification/InterfaceAdapters/INotificationService';
 
 const container = new Container();
 
 /* IServices */
+container.bind(SERVICES.IRoleService).to(RoleService);
+container.bind(SERVICES.IUserService).to(UserService);
 container.bind<IAuthService>(SERVICES.IAuthService).to(AuthService);
 container.bind<IFileService>(SERVICES.IFileService).to(FileService);
-container.bind(SERVICES.INotificationService).to(NotificationService);
-container.bind(SERVICES.IRoleService).to(RoleService);
-container.bind(SERVICES.IItemService).to(ItemService);
-container.bind(SERVICES.IUserService).to(UserService);
+container.bind<IItemService>(SERVICES.IItemService).to(ItemService);
+container.bind<INotificationService>(SERVICES.INotificationService).to(NotificationService);
 
 /* Libs */
 container.bind<Responder>(TYPES.Responder).to(Responder);

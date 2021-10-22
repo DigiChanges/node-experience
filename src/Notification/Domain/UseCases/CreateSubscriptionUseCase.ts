@@ -1,9 +1,13 @@
 import NotificationRepPayload from '../../InterfaceAdapters/Payloads/NotificationRepPayload';
-import NotificationService from '../Services/NotificationService';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
+import INotificationService from '../../InterfaceAdapters/INotificationService';
 
 class CreateSubscriptionUseCase
 {
-    private notification_service = new NotificationService();
+    @containerFactory(SERVICES.INotificationService)
+    private notification_service: INotificationService;
+
     async handle(payload: NotificationRepPayload)
     {
         return await this.notification_service.createSubscription(payload);

@@ -4,13 +4,14 @@ import EventHandler from '../../../Shared/Events/EventHandler';
 import SendMessageEvent from '../../../Shared/Events/SendMessageEvent';
 import NotificationSendMessagePayload from '../../InterfaceAdapters/Payloads/NotificationSendMessagePayload';
 import { injectable } from 'inversify';
+import INotificationResponse from '../../InterfaceAdapters/INotificationResponse';
 
 @injectable()
 class NotificationService
 {
     private eventHandler = EventHandler.getInstance();
 
-    async execute(pushNotification: PushNotification, payload: NotificationRepPayload, message: string, name: string)
+    async execute(pushNotification: PushNotification, payload: NotificationRepPayload, message: string, name: string): Promise<INotificationResponse>
     {
         pushNotification.subscription = payload.getSubscription();
         pushNotification.name = name;
@@ -19,7 +20,7 @@ class NotificationService
         return { message: 'We\'ve sent you a notification' };
     }
 
-    async createSubscription(payload: NotificationRepPayload)
+    async createSubscription(payload: NotificationRepPayload): Promise<INotificationResponse>
     {
         const pushNotification = new PushNotification();
         const message = 'successful subscription';
@@ -28,7 +29,7 @@ class NotificationService
         return await this.execute(pushNotification, payload, message, name);
     }
 
-    async sendPushNotification(payload: NotificationSendMessagePayload)
+    async sendPushNotification(payload: NotificationSendMessagePayload): Promise<INotificationResponse>
     {
         const pushNotification = new PushNotification();
         const message = payload.getMessage();
@@ -36,7 +37,6 @@ class NotificationService
 
         return await this.execute(pushNotification, payload, message, name);
     }
-
 }
 
 export default NotificationService;
