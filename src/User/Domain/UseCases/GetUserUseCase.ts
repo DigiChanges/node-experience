@@ -1,10 +1,13 @@
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import UserService from '../Services/UserService';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
 
 class GetUserUseCase
 {
-    private user_service = new UserService();
+    @containerFactory(SERVICES.IUserService)
+    private user_service: UserService;
 
     async handle(payload: IdPayload): Promise<IUserDomain>
     {

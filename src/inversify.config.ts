@@ -41,12 +41,14 @@ import INotificationDomain from './Notification/InterfaceAdapters/INotificationD
 import NotificationMongoRepository from './Notification/Infrastructure/Repositories/NotificationMongoRepository';
 import IItemService from './Item/InterfaceAdapters/IItemService';
 import INotificationService from './Notification/InterfaceAdapters/INotificationService';
+import IUserService from './User/InterfaceAdapters/IUserService';
+import IRoleService from './Role/InterfaceAdapters/IRoleService';
 
 const container = new Container();
 
 /* IServices */
-container.bind(SERVICES.IRoleService).to(RoleService);
-container.bind(SERVICES.IUserService).to(UserService);
+container.bind<IRoleService>(SERVICES.IRoleService).to(RoleService);
+container.bind<IUserService>(SERVICES.IUserService).to(UserService);
 container.bind<IAuthService>(SERVICES.IAuthService).to(AuthService);
 container.bind<IFileService>(SERVICES.IFileService).to(FileService);
 container.bind<IItemService>(SERVICES.IItemService).to(ItemService);

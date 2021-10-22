@@ -4,10 +4,13 @@ import UserService from '../Services/UserService';
 import CheckUserRolePayload from '../../InterfaceAdapters/Payloads/CheckUserRolePayload';
 import Roles from '../../../Config/Roles';
 import CantDisabledException from '../../../Auth/Domain/Exceptions/CantDisabledException';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
 
 class UpdateUserUseCase
 {
-    private user_service = new UserService();
+    @containerFactory(SERVICES.IUserService)
+    private user_service: UserService;
 
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {

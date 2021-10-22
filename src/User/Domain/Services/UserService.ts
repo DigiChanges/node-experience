@@ -19,9 +19,10 @@ import UserAssignRolePayload from '../../InterfaceAdapters/Payloads/UserAssignRo
 import UserAssignRoleByPayload from 'User/InterfaceAdapters/Payloads/UserAssignRoleByPayload';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import { injectable } from 'inversify';
+import IUserService from '../../InterfaceAdapters/IUserService';
 
 @injectable()
-class UserService
+class UserService implements IUserService
 {
     @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
@@ -121,7 +122,7 @@ class UserService
         return await this.repository.save(user);
     }
 
-    public async checkIfUserHasRole(payload: CheckUserRolePayload): Promise<boolean>
+    async checkIfUserHasRole(payload: CheckUserRolePayload): Promise<boolean>
     {
         const count = payload.user.roles.length;
 

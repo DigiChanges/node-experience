@@ -1,10 +1,13 @@
 import UserAssignRolePayload from '../../InterfaceAdapters/Payloads/UserAssignRolePayload';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import UserService from '../Services/UserService';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
 
 class AssignRoleUseCase
 {
-    private user_service = new UserService();
+    @containerFactory(SERVICES.IUserService)
+    private user_service: UserService;
 
     async handle(payload: UserAssignRolePayload): Promise<IUserDomain>
     {

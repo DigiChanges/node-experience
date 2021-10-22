@@ -5,10 +5,14 @@ import PasswordWrongException from '../../../Auth/Domain/Exceptions/PasswordWron
 import Password from '../../../App/Domain/ValueObjects/Password';
 import { IEncryption } from '@digichanges/shared-experience';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
 
 class ChangeMyPasswordUseCase
 {
-    private userService = new UserService();
+    @containerFactory(SERVICES.IUserService)
+    private user_service: UserService;
+
     private encryption: IEncryption;
 
     constructor()
@@ -19,7 +23,7 @@ class ChangeMyPasswordUseCase
     async handle(payload: ChangeMyPasswordPayload): Promise<IUserDomain>
     {
         const id = payload.getId();
-        const user: IUserDomain = await this.userService.getOne(id);
+        const user: IUserDomain = await this.user_service.getOne(id);
 
         if (! await this.encryption.compare(payload.getCurrentPassword(), user.password.toString()))
         {
@@ -30,7 +34,7 @@ class ChangeMyPasswordUseCase
         await password.ready();
         user.password = password;
 
-        return await this.userService.persistPassword(user, payload);
+        return await this.user_service.persistPassword(user, payload);
     }
 }
 
