@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import container from '../../inversify.config';
 import { SERVICES_IDENTIFIER } from '../../serviceIdentifier';
 import InjectionFactory from '../Factories/InjectionFactory';

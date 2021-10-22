@@ -1,26 +1,25 @@
 import { injectable } from 'inversify';
 import jwt, { TAlgorithm } from 'jwt-simple';
 import _ from 'lodash';
-import Config from 'config';
 
-import EncryptionFactory from '../../Shared/Factories/EncryptionFactory';
-import IAuthService from '../InterfaceAdapters/IAuthService';
-import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
-import Permissions from '../../Config/Permissions';
-import WrongPermissionsException from '../Domain/Exceptions/WrongPermissionsException';
+import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
+import IAuthService from '../../InterfaceAdapters/IAuthService';
+import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
+import Permissions from '../../../Config/Permissions';
+import WrongPermissionsException from '../Exceptions/WrongPermissionsException';
 import { IEncryption } from '@digichanges/shared-experience';
-import ITokenDecode from '../../Shared/InterfaceAdapters/ITokenDecode';
-import { containerFactory } from '../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../Config/repositories';
-import IUserRepository from '../../User/InterfaceAdapters/IUserRepository';
-import TokenExpiredHttpException from '../Presentation/Exceptions/TokenExpiredHttpException';
-import TokenNotFoundHttpException from '../Presentation/Exceptions/TokenNotFoundHttpException';
-import Auth from '../Domain/Types/Auth';
+import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../repositories';
+import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
+import TokenExpiredHttpException from '../../Presentation/Exceptions/TokenExpiredHttpException';
+import TokenNotFoundHttpException from '../../Presentation/Exceptions/TokenNotFoundHttpException';
+import Auth from '../Types/Auth';
+import Config from 'config';
 
 @injectable()
 class AuthService implements IAuthService
 {
-
     @containerFactory(REPOSITORIES.IUserRepository)
     private userRepository: IUserRepository
 

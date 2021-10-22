@@ -7,15 +7,18 @@ import path from 'path';
 import { ErrorException } from '@digichanges/shared-experience';
 
 import EmailNotification from '../Domain/Entities/EmailNotification';
-import NotificationMongoRepository from '../Infrastructure/Repositories/NotificationMongoRepository';
 import PushNotification from '../Domain/Entities/PushNotification';
+import ContainerFactory from '../../Shared/Factories/ContainerFactory';
+import INotificationRepository from '../InterfaceAdapters/INotificationRepository';
+import INotificationDomain from '../InterfaceAdapters/INotificationDomain';
+import { REPOSITORIES } from '../../repositories';
 
 class Notificator
 {
     // TODO: This need more abstraction
     public static async sendEmail(emailNotification: EmailNotification, template_path_name_file: string, data: any = {}, save = true)
     {
-        const repository = new NotificationMongoRepository();
+        const repository = ContainerFactory.create<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository);
 
         try
         {

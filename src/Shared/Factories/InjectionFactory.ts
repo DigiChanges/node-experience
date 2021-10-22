@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 const INJECTION = Symbol.for('INJECTION');
 
 class InjectionFactory

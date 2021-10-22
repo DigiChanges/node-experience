@@ -6,7 +6,7 @@ import UserRepPayload from '../../InterfaceAdapters/Payloads/UserRepPayload';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import User from '../Entities/User';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
-import { REPOSITORIES } from '../../../Config/repositories';
+import { REPOSITORIES } from '../../../repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
 import { SERVICES } from '../../../services';
@@ -18,9 +18,11 @@ import ChangeUserPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeUs
 import UserAssignRolePayload from '../../InterfaceAdapters/Payloads/UserAssignRolePayload';
 import UserAssignRoleByPayload from 'User/InterfaceAdapters/Payloads/UserAssignRoleByPayload';
 import Password from '../../../App/Domain/ValueObjects/Password';
+import { injectable } from 'inversify';
+import IUserService from '../../InterfaceAdapters/IUserService';
 
-
-class UserService
+@injectable()
+class UserService implements IUserService
 {
     @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
@@ -120,7 +122,7 @@ class UserService
         return await this.repository.save(user);
     }
 
-    public async checkIfUserHasRole(payload: CheckUserRolePayload): Promise<boolean>
+    async checkIfUserHasRole(payload: CheckUserRolePayload): Promise<boolean>
     {
         const count = payload.user.roles.length;
 

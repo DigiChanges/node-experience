@@ -2,9 +2,12 @@ import ItemUpdatePayload from '../../InterfaceAdapters/Payloads/ItemUpdatePayloa
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import ItemService from '../Services/ItemService';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
 
 class UpdateItemUseCase
 {
+    @containerFactory(SERVICES.IItemService)
     private itemService = new ItemService();
 
     async handle(payload: ItemUpdatePayload, auth_user: IUserDomain): Promise<IItemDomain>

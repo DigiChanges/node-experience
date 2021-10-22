@@ -1,11 +1,13 @@
 import FileUpdateMultipartPayload from '../../InterfaceAdapters/Payloads/FileUpdateMultipartPayload';
-import FileService from '../Services/FileService';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
-
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
+import IFileService from '../../InterfaceAdapters/IFileService';
 
 class UpdateFileMultipartUseCase
 {
-    private fileService = new FileService();
+    @containerFactory(SERVICES.IFileService)
+    private fileService: IFileService;
 
     async handle(payload: FileUpdateMultipartPayload): Promise<any>
     {

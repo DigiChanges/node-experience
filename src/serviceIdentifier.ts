@@ -1,4 +1,4 @@
-import { REPOSITORIES } from './Config/repositories';
+import { REPOSITORIES } from './repositories';
 import { SERVICES } from './services';
 import { TYPES } from './types';
 

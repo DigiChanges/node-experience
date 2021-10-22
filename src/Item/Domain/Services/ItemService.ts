@@ -2,14 +2,16 @@ import ItemRepPayload from '../../InterfaceAdapters/Payloads/ItemRepPayload';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 import Item from '../Entities/Item';
 import IItemRepository from '../../InterfaceAdapters/IItemRepository';
-import { REPOSITORIES } from '../../../Config/repositories';
+import { REPOSITORIES } from '../../../repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import ItemUpdatePayload from '../../InterfaceAdapters/Payloads/ItemUpdatePayload';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import { injectable } from 'inversify';
+import IItemService from '../../InterfaceAdapters/IItemService';
 
-
-class ItemService
+@injectable()
+class ItemService implements IItemService
 {
     @containerFactory(REPOSITORIES.IItemRepository)
     private repository: IItemRepository;

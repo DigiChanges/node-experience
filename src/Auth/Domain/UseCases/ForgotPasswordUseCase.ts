@@ -1,7 +1,7 @@
 import Config from 'config';
 import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
-import { REPOSITORIES } from '../../../Config/repositories';
+import { REPOSITORIES } from '../../../repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import EmailNotification from '../../../Notification/Domain/Entities/EmailNotification';
 import ForgotPasswordEvent from '../../../Shared/Events/ForgotPasswordEvent';

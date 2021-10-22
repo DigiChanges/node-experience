@@ -2,7 +2,6 @@ import ErrorHttpException from '../../../App/Presentation/Shared/ErrorHttpExcept
 import { IEncryption, StatusCode } from '@digichanges/shared-experience';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 
-
 class Password
 {
     private value: string;

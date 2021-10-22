@@ -5,4 +5,5 @@ export enum SERVICES {
     IRoleService = 'IRoleService',
     IUserService = 'IUserService',
     IItemService = 'IItemService',
+    INotificationService = 'INotificationService'
 }

@@ -1,9 +1,12 @@
 import CreateBucketPayload from '../../InterfaceAdapters/Payloads/CreateBucketPayload';
-import FileService from '../Services/FileService';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
+import IFileService from '../../InterfaceAdapters/IFileService';
 
 class CreateBucketUseCase
 {
-    private fileService = new FileService();
+    @containerFactory(SERVICES.IFileService)
+    private fileService: IFileService;
 
     async handle(payload: CreateBucketPayload): Promise<void>
     {

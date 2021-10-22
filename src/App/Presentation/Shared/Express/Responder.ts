@@ -40,21 +40,17 @@ class Responder
     // TODO: Refactor to encapsulate this logic
     public async paginate(paginator: IPaginator, request: Request | any, response: Response, status: IHttpStatusCode, transformer: Transformer = null)
     {
-        let metadata = null;
         const data = await paginator.paginate();
-
-        if (request)
-        {
-            metadata = {
-                ...paginator.getMetadata()
-            };
-        }
-
+        const metadata = paginator.getMetadata();
         const result = this.formatResponder.getFormatData(data, status, metadata);
 
         if (!transformer)
         {
-            return response.status(status.code).send({ ...data, metadata });
+            return response.status(status.code)
+                .send({
+                    data,
+                    metadata
+                });
         }
 
         result.data = transformer.handle(data);

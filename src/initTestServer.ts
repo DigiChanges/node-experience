@@ -16,7 +16,7 @@ import { ICreateConnection, ITokenRepository } from '@digichanges/shared-experie
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 import EventHandler from './Shared/Events/EventHandler';
 import RedirectRouteNotFoundMiddleware from './App/Presentation/Middlewares/Express/RedirectRouteNotFoundMiddleware';
-import { REPOSITORIES } from './Config/repositories';
+import { REPOSITORIES } from './repositories';
 import TokenMongoRepository from './Auth/Infrastructure/Repositories/TokenMongoRepository';
 import { validateEnv } from './Config/validateEnv';
 import container from './inversify.config';

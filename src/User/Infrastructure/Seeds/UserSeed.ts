@@ -8,7 +8,7 @@ import User from '../../Domain/Entities/User';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
-import { REPOSITORIES } from '../../../Config/repositories';
+import { REPOSITORIES } from '../../../repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 import Password from '../../../App/Domain/ValueObjects/Password';

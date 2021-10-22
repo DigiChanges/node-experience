@@ -4,7 +4,7 @@ import { Transformer } from '@digichanges/shared-experience';
 import IToken from '../../InterfaceAdapters/IToken';
 import RoleUserTransformer from '../../../Role/Presentation/Transformers/RoleUserTransformer';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
-import AuthService from '../../Services/AuthService';
+import AuthService from '../../Domain/Services/AuthService';
 
 class AuthTransformer extends Transformer
 {

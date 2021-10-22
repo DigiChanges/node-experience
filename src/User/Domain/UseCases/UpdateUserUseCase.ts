@@ -4,15 +4,18 @@ import UserService from '../Services/UserService';
 import CheckUserRolePayload from '../../InterfaceAdapters/Payloads/CheckUserRolePayload';
 import Roles from '../../../Config/Roles';
 import CantDisabledException from '../../../Auth/Domain/Exceptions/CantDisabledException';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
 
 class UpdateUserUseCase
 {
-    private user_service = new UserService();
+    @containerFactory(SERVICES.IUserService)
+    private userService: UserService;
 
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {
         const id = payload.getId();
-        const user: IUserDomain = await this.user_service.getOne(id);
+        const user: IUserDomain = await this.userService.getOne(id);
         let enable = payload.getEnable();
 
         if (payload.getTokenUserId() === user.getId())
@@ -27,7 +30,7 @@ class UpdateUserUseCase
                 user
             };
 
-            const verifyRole = await this.user_service.checkIfUserHasRole(checkRole);
+            const verifyRole = await this.userService.checkIfUserHasRole(checkRole);
 
             if (verifyRole && !enable)
             {
@@ -35,7 +38,7 @@ class UpdateUserUseCase
             }
         }
 
-        return await this.user_service.persist(user, payload);
+        return await this.userService.persist(user, payload);
     }
 
 }

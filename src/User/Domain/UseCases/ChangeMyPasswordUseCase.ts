@@ -5,10 +5,14 @@ import PasswordWrongException from '../../../Auth/Domain/Exceptions/PasswordWron
 import Password from '../../../App/Domain/ValueObjects/Password';
 import { IEncryption } from '@digichanges/shared-experience';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
 
 class ChangeMyPasswordUseCase
 {
-    private userService = new UserService();
+    @containerFactory(SERVICES.IUserService)
+    private userService: UserService;
+
     private encryption: IEncryption;
 
     constructor()

@@ -1,9 +1,12 @@
 import PresignedFileRepPayload from '../../InterfaceAdapters/Payloads/PresignedFileRepPayload';
-import FileService from '../Services/FileService';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
+import IFileService from '../../InterfaceAdapters/IFileService';
 
 class GetPresignedGetObjectUseCase
 {
-    private fileService = new FileService();
+    @containerFactory(SERVICES.IFileService)
+    private fileService: IFileService;
 
     async handle(payload: PresignedFileRepPayload): Promise<string>
     {

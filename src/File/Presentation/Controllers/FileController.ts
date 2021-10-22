@@ -43,7 +43,6 @@ class FileController
         await ValidatorRequest.handle(request);
 
         const useCase = new GetFileMetadataUserCase();
-
         return await useCase.handle(request);
     }
 
@@ -76,7 +75,6 @@ class FileController
         await ValidatorRequest.handle(request);
 
         const useCase = new DownloadUseCase();
-
         return await useCase.handle(request);
     }
 

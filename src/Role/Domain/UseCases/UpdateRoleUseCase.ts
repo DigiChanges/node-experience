@@ -1,10 +1,13 @@
 import RoleUpdatePayload from '../../InterfaceAdapters/Payloads/RoleUpdatePayload';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
-import RoleService from '../Services/RoleService';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
+import IRoleService from '../../InterfaceAdapters/IRoleService';
 
 class UpdateRoleUseCase
 {
-    private roleService = new RoleService();
+    @containerFactory(SERVICES.IRoleService)
+    private roleService: IRoleService;
 
     async handle(payload: RoleUpdatePayload): Promise<IRoleDomain>
     {
