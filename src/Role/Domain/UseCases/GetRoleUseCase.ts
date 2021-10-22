@@ -7,12 +7,12 @@ import IRoleService from '../../InterfaceAdapters/IRoleService';
 class GetRoleUseCase
 {
     @containerFactory(SERVICES.IRoleService)
-    private role_service: IRoleService;
+    private roleService: IRoleService;
 
     async handle(payload: IdPayload): Promise<IRoleDomain>
     {
         const id = payload.getId();
-        return await this.role_service.getOne(id);
+        return await this.roleService.getOne(id);
     }
 }
 

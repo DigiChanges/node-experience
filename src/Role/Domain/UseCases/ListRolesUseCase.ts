@@ -6,11 +6,11 @@ import IRoleService from '../../InterfaceAdapters/IRoleService';
 class ListRolesUseCase
 {
     @containerFactory(SERVICES.IRoleService)
-    private role_service: IRoleService;
+    private roleService: IRoleService;
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {
-        return await this.role_service.list(payload);
+        return await this.roleService.list(payload);
     }
 }
 

@@ -7,11 +7,11 @@ import IRoleService from '../../InterfaceAdapters/IRoleService';
 class SaveRoleUseCase
 {
     @containerFactory(SERVICES.IRoleService)
-    private role_service: IRoleService;
+    private roleService: IRoleService;
 
     async handle(payload: RoleRepPayload): Promise<IRoleDomain>
     {
-        return await this.role_service.create(payload);
+        return await this.roleService.create(payload);
     }
 }
 

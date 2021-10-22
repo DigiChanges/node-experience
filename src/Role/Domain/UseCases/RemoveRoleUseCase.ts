@@ -6,12 +6,12 @@ import IRoleService from '../../InterfaceAdapters/IRoleService';
 class RemoveRoleUseCase
 {
     @containerFactory(SERVICES.IRoleService)
-    private role_service: IRoleService;
+    private roleService: IRoleService;
 
     async handle(payload: IdPayload): Promise<any>
     {
         const id = payload.getId();
-        return await this.role_service.remove(id);
+        return await this.roleService.remove(id);
     }
 }
 
