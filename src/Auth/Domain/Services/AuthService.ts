@@ -22,7 +22,7 @@ class AuthService implements IAuthService
 {
 
     @containerFactory(REPOSITORIES.IUserRepository)
-    private userRepository: IUserRepository
+    private user_repository: IUserRepository
 
     private encryption: IEncryption;
 
@@ -61,7 +61,7 @@ class AuthService implements IAuthService
 
     public getByEmail(email: string): Promise<Auth>
     {
-        return this.userRepository.getOneByEmail(email);
+        return this.user_repository.getOneByEmail(email);
     }
 
     public async authorize(auth_user: Auth, handler_permission: string): Promise<boolean>

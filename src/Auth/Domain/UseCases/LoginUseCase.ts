@@ -17,11 +17,11 @@ class LoginUseCase
     @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
     private encryption: IEncryption;
-    private tokenFactory: TokenFactory;
+    private token_factory: TokenFactory;
 
     constructor()
     {
-        this.tokenFactory = new TokenFactory();
+        this.token_factory = new TokenFactory();
         this.encryption = EncryptionFactory.create();
     }
 
@@ -48,7 +48,7 @@ class LoginUseCase
             throw new BadCredentialsException();
         }
 
-        return this.tokenFactory.createToken(user);
+        return this.token_factory.createToken(user);
     }
 }
 
