@@ -10,7 +10,7 @@ import { SERVICES } from '../../../services';
 class SaveUserUseCase
 {
     @containerFactory(SERVICES.IUserService)
-    private user_service: UserService;
+    private userService: UserService;
 
     private eventHandler: EventHandler;
 
@@ -22,7 +22,7 @@ class SaveUserUseCase
     async handle(payload: UserSavePayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(payload);
-        const user = await this.user_service.create(payload);
+        const user = await this.userService.create(payload);
 
         await this.eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, { email: user.email });
 

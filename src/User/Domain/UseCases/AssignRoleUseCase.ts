@@ -7,11 +7,11 @@ import { SERVICES } from '../../../services';
 class AssignRoleUseCase
 {
     @containerFactory(SERVICES.IUserService)
-    private user_service: UserService;
+    private userService: UserService;
 
     async handle(payload: UserAssignRolePayload): Promise<IUserDomain>
     {
-        return await this.user_service.assignRole(payload);
+        return await this.userService.assignRole(payload);
     }
 }
 

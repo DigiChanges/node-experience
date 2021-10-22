@@ -11,7 +11,7 @@ import { SERVICES } from '../../../services';
 class ChangeMyPasswordUseCase
 {
     @containerFactory(SERVICES.IUserService)
-    private user_service: UserService;
+    private userService: UserService;
 
     private encryption: IEncryption;
 
@@ -23,7 +23,7 @@ class ChangeMyPasswordUseCase
     async handle(payload: ChangeMyPasswordPayload): Promise<IUserDomain>
     {
         const id = payload.getId();
-        const user: IUserDomain = await this.user_service.getOne(id);
+        const user: IUserDomain = await this.userService.getOne(id);
 
         if (! await this.encryption.compare(payload.getCurrentPassword(), user.password.toString()))
         {
@@ -34,7 +34,7 @@ class ChangeMyPasswordUseCase
         await password.ready();
         user.password = password;
 
-        return await this.user_service.persistPassword(user, payload);
+        return await this.userService.persistPassword(user, payload);
     }
 }
 
