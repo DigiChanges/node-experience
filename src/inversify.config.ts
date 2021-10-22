@@ -12,7 +12,7 @@ import IRoleRepository from './Role/InterfaceAdapters/IRoleRepository';
 import IAuthService from './Auth/InterfaceAdapters/IAuthService';
 import IFileRepository from './File/InterfaceAdapters/IFileRepository';
 
-import AuthService from './Auth/Services/AuthService';
+import AuthService from './Auth/Domain/Services/AuthService';
 
 import { REPOSITORIES } from './repositories';
 import { TYPES } from './types';
