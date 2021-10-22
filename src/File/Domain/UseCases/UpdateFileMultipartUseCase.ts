@@ -1,18 +1,20 @@
 import FileUpdateMultipartPayload from '../../InterfaceAdapters/Payloads/FileUpdateMultipartPayload';
-import FileService from '../Services/FileService';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
-
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
+import IFileService from '../../InterfaceAdapters/IFileService';
 
 class UpdateFileMultipartUseCase
 {
-    private fileService = new FileService();
+    @containerFactory(SERVICES.IFileService)
+    private file_service: IFileService;
 
     async handle(payload: FileUpdateMultipartPayload): Promise<any>
     {
         const id = payload.getId();
-        let file: IFileDomain = await this.fileService.getOne(id);
-        file = await this.fileService.persist(file, payload);
-        return await this.fileService.uploadFileMultipart(file, payload);
+        let file: IFileDomain = await this.file_service.getOne(id);
+        file = await this.file_service.persist(file, payload);
+        return await this.file_service.uploadFileMultipart(file, payload);
     }
 }
 

@@ -1,14 +1,17 @@
 import IFileDTO from '../../InterfaceAdapters/Payloads/IFileDTO';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import FileService from '../Services/FileService';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { SERVICES } from '../../../services';
+import IFileService from '../../InterfaceAdapters/IFileService';
 
 class DownloadUseCase
 {
-    private fileService = new FileService();
+    @containerFactory(SERVICES.IFileService)
+    private file_service: IFileService;
 
     async handle(payload: IdPayload): Promise<IFileDTO>
     {
-        return await this.fileService.download(payload);
+        return await this.file_service.download(payload);
     }
 }
 
