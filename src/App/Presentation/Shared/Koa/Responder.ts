@@ -38,13 +38,15 @@ class Responder
     public async paginate(paginator: IPaginator, ctx: Koa.ParameterizedContext, status: IHttpStatusCode, transformer: Transformer = null)
     {
         const data = await paginator.paginate();
-        const result = this.formatResponder.getFormatData(data, status, null);
+        const metadata = paginator.getMetadata();
+        const result = this.formatResponder.getFormatData(data, status, metadata);
 
         if (!transformer)
         {
             ctx.status = status.code;
             return ctx.body = {
-                data
+                data,
+                metadata
             };
         }
 
