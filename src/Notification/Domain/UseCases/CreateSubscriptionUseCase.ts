@@ -6,11 +6,11 @@ import INotificationService from '../../InterfaceAdapters/INotificationService';
 class CreateSubscriptionUseCase
 {
     @containerFactory(SERVICES.INotificationService)
-    private notification_service: INotificationService;
+    private notificationService: INotificationService;
 
     async handle(payload: NotificationRepPayload)
     {
-        return await this.notification_service.createSubscription(payload);
+        return await this.notificationService.createSubscription(payload);
     }
 }
 

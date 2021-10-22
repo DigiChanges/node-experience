@@ -5,9 +5,10 @@ import SendMessageEvent from '../../../Shared/Events/SendMessageEvent';
 import NotificationSendMessagePayload from '../../InterfaceAdapters/Payloads/NotificationSendMessagePayload';
 import { injectable } from 'inversify';
 import INotificationResponse from '../../InterfaceAdapters/INotificationResponse';
+import INotificationService from '../../InterfaceAdapters/INotificationService';
 
 @injectable()
-class NotificationService
+class NotificationService implements INotificationService
 {
     private eventHandler = EventHandler.getInstance();
 
