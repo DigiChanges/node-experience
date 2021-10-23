@@ -2,7 +2,7 @@
 interface IAppConfig
 {
     viewRouteEngine: string;
-    localesDirectory: string;
+    // localesDirectory: string;
     serverPort: number;
 }
 

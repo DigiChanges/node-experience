@@ -1,4 +1,3 @@
-
 import { validateEnv } from './Config/validateEnv';
 import MainConfig from './Config/mainConfig';
 import { loggerCli } from './Shared/Logger';
@@ -31,9 +30,9 @@ void (async() =>
         const eventHandler = EventHandler.getInstance();
         await eventHandler.setListeners();
 
-        const app = AppFactory.create('AppExpress', {
+        const app = AppFactory.create('AppKoa', {
             viewRouteEngine: `${process.cwd()}/dist/App/Presentation/Views`,
-            localesDirectory: `${process.cwd()}/dist/src/Config/Locales`,
+            // localesDirectory: `${process.cwd()}/dist/src/Config/Locales`,
             serverPort: config.getConfig().serverPort
         });
 
