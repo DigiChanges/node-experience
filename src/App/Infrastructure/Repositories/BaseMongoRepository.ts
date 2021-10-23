@@ -17,7 +17,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
     {
         this.entityName = entityName;
         this.repository = connection.model<D>(entityName);
-        this.populate = populate;
+        this.populate = [];
     }
 
     async save(entity: T): Promise<T>

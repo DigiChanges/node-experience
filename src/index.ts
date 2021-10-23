@@ -35,7 +35,7 @@ void (async() =>
 
         const app = AppFactory.create('AppKoa', {
             viewRouteEngine: `${Config.get('nodePath')}/dist/src/App/Presentation/Views`,
-            localesDirectory: `${Config.get('nodePath')}/dist/src/Config/Locales`,
+            // localesDirectory: `${Config.get('nodePath')}/dist/src/Config/Locales`,
             serverPort: Config.get('serverPort')
         });
 

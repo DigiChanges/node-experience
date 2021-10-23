@@ -2,7 +2,6 @@
   "name": "node-experience",
   "version": "0.1.0",
   "description": "",
-  "main": "dist/src/index.js",
   "scripts": {
     "clean": "rimraf dist/*",
     "lint-fix": "eslint -c .eslintrc.js ./src --fix",
@@ -21,11 +20,22 @@
     "command": "npx ts-node src/command.ts",
     "docker:command": "docker-compose exec node yarn command",
     "ts-check": "tsc -p tsconfig.json --skipLibCheck --noEmit",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "parcel-dev": "parcel watch --no-hmr --no-cache --no-autoinstall --log-level \"verbose\""
   },
   "nodemonConfig": {
     "execMap": {
       "ts": "node --require ts-node/register/transpile-only"
+    }
+  },
+  "targets": {
+    "app": {
+      "source": "src/index.ts",
+      "distDir": "dist",
+      "outputFormat": "commonjs",
+      "engines": {
+        "node": ">=12"
+      }
     }
   },
   "keywords": [],
@@ -45,7 +55,7 @@
     "cors": "^2.8.5",
     "cpy-cli": "^3.1.1",
     "dotenv": "^8.2.0",
-    "envalid": "^6.0.2",
+    "envalid": "^7.2.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "express": "^4.17.1",
@@ -95,6 +105,7 @@
   "devDependencies": {
     "@commitlint/cli": "^13.2.1",
     "@commitlint/config-conventional": "^13.2.0",
+    "@parcel/transformer-typescript-tsc": "^2.0.0",
     "@shelf/jest-mongodb": "^1.2.4",
     "@types/bcrypt": "^3.0.1",
     "@types/bcryptjs": "^2.4.2",
@@ -142,6 +153,7 @@
     "lint-staged": "^11.2.6",
     "nodemon": "^2.0.7",
     "npm-run-all": "^4.1.5",
+    "parcel": "^2.0.0",
     "pino-pretty": "^7.0.1",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",

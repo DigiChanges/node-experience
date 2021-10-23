@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 yarn
-yarn dev
+yarn run parcel-dev

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "target": "ES2019",
     "lib": [
       "ES2019",
@@ -10,7 +10,7 @@
     "allowJs": true,
     "outDir": "./dist",
     "baseUrl": "./src",
-    "module": "CommonJS",
+    "module": "commonjs",
     "esModuleInterop": true,
     "noImplicitAny": true,
     "types": [
@@ -24,7 +24,8 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "isolatedModules": true
   },
   "include": [
     "./src",
