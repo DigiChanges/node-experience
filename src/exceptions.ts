@@ -16,6 +16,8 @@ import NotFoundException from './Shared/Exceptions/NotFoundException';
 import NotFoundHttpException from './App/Presentation/Exceptions/NotFoundHttpException';
 import WrongPermissionsException from './Auth/Domain/Exceptions/WrongPermissionsException';
 import WrongPermissionsHttpException from './Auth/Presentation/Exceptions/WrongPermissionsHttpException';
+import InvalidPasswordException from './App/Domain/Exceptions/InvalidPasswordException';
+import InvalidPasswordHttpException from './App/Presentation/Exceptions/InvalidPasswordHttpException';
 
 const exceptions = {
     [DecryptForbiddenException.name]: new DecryptForbiddenHttpException(),
@@ -26,7 +28,8 @@ const exceptions = {
     [CantDisabledException.name]: new CantDisabledHttpException(),
     [PasswordWrongException.name]: new PasswordWrongHttpException(),
     [NotFoundException.name]: new NotFoundHttpException(),
-    [WrongPermissionsException.name]: new WrongPermissionsHttpException()
+    [WrongPermissionsException.name]: new WrongPermissionsHttpException(),
+    [InvalidPasswordException.name]: new InvalidPasswordHttpException()
 };
 
 export default exceptions;

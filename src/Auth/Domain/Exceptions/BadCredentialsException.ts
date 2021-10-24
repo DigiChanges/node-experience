@@ -6,7 +6,7 @@ class BadCredentialsException extends ErrorException
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        const key = 'general.exceptions.badCredentials';
+        const key = 'auth.domain.exceptions.badCredentials';
         super({
             message: locales.__(key),
             errorCode: key

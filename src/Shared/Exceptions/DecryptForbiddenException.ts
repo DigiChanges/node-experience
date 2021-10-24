@@ -6,7 +6,7 @@ class DecryptForbiddenException extends ErrorException
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        const key = 'general.exceptions.decryptForbidden';
+        const key = 'shared.exceptions.decryptForbidden';
         super({
             message: locales.__(key),
             errorCode: key

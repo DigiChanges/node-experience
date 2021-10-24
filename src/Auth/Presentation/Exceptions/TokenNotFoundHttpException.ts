@@ -7,7 +7,7 @@ class TokenNotFoundHttpException extends ErrorHttpException
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        const key = 'general.exceptions.tokenNotFound';
+        const key = 'auth.presentation.exceptions.tokenNotFound';
         super(StatusCode.HTTP_FORBIDDEN, {
             message: locales.__(key),
             errorCode: key

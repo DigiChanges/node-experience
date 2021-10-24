@@ -1,6 +1,7 @@
-import ErrorHttpException from '../../../App/Presentation/Shared/ErrorHttpException';
-import { IEncryption, StatusCode } from '@digichanges/shared-experience';
+import { IEncryption } from '@digichanges/shared-experience';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
+import Config from 'config';
+import InvalidPasswordException from '../Exceptions/InvalidPasswordException';
 
 class Password
 {
@@ -12,10 +13,12 @@ class Password
         this.encryption = EncryptionFactory.create();
         this.value = data;
 
-        if (this.value.length <= 4)
+        const min = Config.get<number>('validationSettings.password.min');
+        const max = Config.get<number>('validationSettings.password.max');
+
+        if (this.value.length < min ||  this.value.length > max)
         {
-            // TODO: Refactor error - Add Domain Exception
-            throw new ErrorHttpException(StatusCode.HTTP_BAD_REQUEST, { message: 'Error password' });
+            throw new InvalidPasswordException();
         }
     }
 

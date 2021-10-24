@@ -7,7 +7,7 @@ class DuplicateEntityHttpException extends ErrorHttpException
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        const key = 'general.exceptions.duplicateEntity';
+        const key = 'app.presentation.exceptions.duplicateEntity';
         super(StatusCode.HTTP_UNPROCESSABLE_ENTITY, {
             message: locales.__(key),
             errorCode: key

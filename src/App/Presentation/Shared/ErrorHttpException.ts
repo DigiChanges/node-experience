@@ -8,12 +8,12 @@ class ErrorHttpException extends Error
     private _metadata: Record<string, any>;
     private _errorCode: string;
 
-    constructor(statusCode: IStatusCode, errorMessage: IErrorMessage, errors: ValidationError[] = [],  metadata: Record<string, any> = {})
+    constructor(statusCode: IStatusCode, errorMessage?: IErrorMessage, errors: ValidationError[] = [],  metadata: Record<string, any> = {})
     {
         super();
         this._statusCode = statusCode;
         this._errors = errors;
-        this.message = errorMessage.message;
+        this.message = errorMessage?.message ?? 'Http error';
         this._errorCode = errorMessage?.errorCode ?? null;
         this._metadata = metadata;
     }

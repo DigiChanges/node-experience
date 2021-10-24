@@ -1,19 +1,55 @@
 {
-	"general": {
-		"greetings": "Bienvenido a Node Experience",
+	"greetings": "Bienvenido a Node Experience",
+	"app": {
+		"domain": {
+			"exceptions": {
+				"invalidPassword": "Contraseña invalida"
+			}
+		},
+		"presentation": {
+			"exceptions": {
+				"duplicateEntity": "Entidad duplocada.",
+				"routeNotFound": "Ruta no encontrada."
+			}
+		}
+	},
+	"auth": {
+		"domain": {
+			"exceptions": {
+				"badCredentials": "Error en las credenciales.",
+				"cantDisabled": "No se puede deshabilitar.",
+				"passwordWrong": "Error en la contraseña.",
+				"wrongPermissions": "Error en los permisos."
+			}
+		},
+		"presentation": {
+			"exceptions": {
+				"forbidden": "Acceso prohibido.",
+				"tokenBlackListed": "Token no permitido.",
+				"tokenExpired": "Debes estar autenticado.",
+				"tokenNotFound": "Token no encontrado"
+			}
+		}
+	},
+	"role": {
+		"domain": {
+			"exceptions": {
+				"roleDisabled": "Tu rol esta esta deshabilitado.",
+				"roleOfSystemNotDeleted":"Prohibido eliminar roles del sistema."
+			}
+		}
+	},
+	"shared": {
 		"exceptions": {
 			"decryptForbidden": "No se puede desencriptar.",
-			"badCredentials": "Error en las credenciales.",
-			"userDisabled": "Tu usuario esta deshabilitado.",
-			"roleDisabled": "Tu rol esta esta deshabilitado.",
-			"cantDisabled": "No se puede deshabilitar.",
-			"passwordWrong": "Error en la contraseña.",
-			"notFound": "no encontrado.",
-			"wrongPermissions": "Error en los permisos.",
-			"routeNotFound": "Ruta no encontrada.",
-			"tokenExpired": "Debes estar autenticado.",
-			"forbidden": "Acceso prohibido.",
-            "roleOfSystemNotDeleted":"Prohibido eliminar roles del sistema."
+			"notFound": "No encontrado."
+		}
+	},
+	"user": {
+		"domain": {
+			"exceptions": {
+				"userDisabled": "Tu usuario esta deshabilitado."
+			}
 		}
 	}
 }
