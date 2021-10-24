@@ -15,7 +15,7 @@ class Password
         if (this.value.length <= 4)
         {
             // TODO: Refactor error - Add Domain Exception
-            throw new ErrorHttpException(StatusCode.HTTP_BAD_REQUEST, 'Error password', []);
+            throw new ErrorHttpException(StatusCode.HTTP_BAD_REQUEST, { message: 'Error password' });
         }
     }
 

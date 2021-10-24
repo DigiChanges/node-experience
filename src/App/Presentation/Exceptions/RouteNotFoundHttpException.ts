@@ -7,7 +7,11 @@ class RouteNotFoundHttpException extends ErrorHttpException
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        super(StatusCode.HTTP_NOT_FOUND, locales.__('general.exceptions.routeNotFound'), []);
+        const key = 'general.exceptions.routeNotFound';
+        super(StatusCode.HTTP_NOT_FOUND, {
+            message: locales.__(key),
+            errorCode: key
+        });
     }
 }
 

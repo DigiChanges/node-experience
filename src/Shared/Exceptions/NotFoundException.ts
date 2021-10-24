@@ -7,7 +7,11 @@ class NotFoundException extends ErrorException
     constructor(entity: string)
     {
         const locales = Locales.getInstance().getLocales();
-        super(`${entity} ${locales.__('general.exceptions.notFound')}`, NotFoundException.name);
+        const key = 'general.exceptions.notFound';
+        super({
+            message: `${entity} ${locales.__(key)}`,
+            errorCode: key
+        }, NotFoundException.name, { entity });
     }
 }
 

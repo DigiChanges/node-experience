@@ -32,7 +32,7 @@ class Locales
         return Locales.instance;
     }
 
-    public getLocales(): any
+    public getLocales(): typeof i18n
     {
         return this.i18n;
     }

@@ -7,7 +7,11 @@ class BadCredentialsHttpException extends ErrorHttpException
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        super(StatusCode.HTTP_FORBIDDEN, locales.__('general.exceptions.badCredentials'), []);
+        const key = 'general.exceptions.badCredentials';
+        super(StatusCode.HTTP_FORBIDDEN, {
+            message: locales.__(key),
+            errorCode: key
+        });
     }
 }
 

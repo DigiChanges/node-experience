@@ -82,7 +82,7 @@ class Notificator
                         emailNotification.description = err;
                         void repository.save(emailNotification);
                     }
-                    throw new ErrorException('Something is wrong. Please try again later.', 'NotificatorException');
+                    throw new ErrorException({ message: 'Something is wrong. Please try again later' }, 'NotificatorException');
                 });
         }
         catch (e)

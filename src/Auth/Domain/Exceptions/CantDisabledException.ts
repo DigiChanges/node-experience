@@ -7,7 +7,11 @@ class CantDisabledException extends ErrorException
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        super(locales.__('general.exceptions.cantDisabled'), CantDisabledException.name);
+        const key = 'general.exceptions.cantDisabled';
+        super({
+            message: locales.__(key),
+            errorCode: key
+        }, CantDisabledException.name);
     }
 }
 

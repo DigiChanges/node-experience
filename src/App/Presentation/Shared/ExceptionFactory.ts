@@ -1,34 +1,16 @@
 import ErrorHttpException from './ErrorHttpException';
-
-import DecryptForbiddenHttpException from '../Exceptions/DecryptForbiddenHttpException';
-import BadCredentialsHttpException from '../../../Auth/Presentation/Exceptions/BadCredentialsHttpException';
-import UserDisabledHttpException from '../../../User/Presentation/Exceptions/UserDisabledHttpException';
-import CantDisabledHttpException from '../../../Auth/Presentation/Exceptions/CantDisabledHttpException';
-import PasswordWrongHttpException from '../../../Auth/Presentation/Exceptions/PasswordWrongHttpException';
-import NotFoundHttpException from '../Exceptions/NotFoundHttpException';
 import TokenExpiredHttpException from '../../../Auth/Presentation/Exceptions/TokenExpiredHttpException';
 import DuplicateEntityHttpException from '../Exceptions/DuplicateEntityHttpException';
-import RoleDisabledHttpException from '../../../Role/Presentation/Exceptions/RoleDisabledHttpException';
-import WrongPermissionsHttpException from '../../../Auth/Presentation/Exceptions/WrongPermissionsHttpException';
 import { StatusCode } from '@digichanges/shared-experience';
-import RoleOfSystemNotDeletedHttpException
-    from '../../../Role/Presentation/Exceptions/RoleOfSystemNotDeletedHttpException';
+import exceptions from '../../../exceptions';
 
 class ExceptionFactory
 {
     private exceptionsMapper: any = {
-        DecryptForbiddenException: new DecryptForbiddenHttpException(),
-        BadCredentialsException: new BadCredentialsHttpException(),
-        UserDisabledException: new UserDisabledHttpException(),
-        RoleDisabledException: new RoleDisabledHttpException(),
-        RoleOfSystemNotDeletedException: new RoleOfSystemNotDeletedHttpException(),
-        CantDisabledException: new CantDisabledHttpException(),
-        PasswordWrongException: new PasswordWrongHttpException(),
-        NotFoundException: new NotFoundHttpException(),
-        WrongPermissionsException: new WrongPermissionsHttpException(),
-        Error: new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, 'Internal Error', []),
-        TypeError: new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, 'Internal Error', []),
-        ErrorHttpException: new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, 'Internal Error', [])
+        ...exceptions,
+        Error: new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: 'Internal Error' }),
+        TypeError: new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: 'Internal Error' }),
+        ErrorHttpException: new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: 'Internal Error' })
     };
 
     public getException(err: any): ErrorHttpException
@@ -36,6 +18,7 @@ class ExceptionFactory
         let exception = this.exceptionsMapper[err?.name || 'Error'] as ErrorHttpException;
 
         const message = err?.message || exception?.message;
+        const errorCode = err?.errorCode || exception?.errorCode;
         const metadata = err?.metadata || exception?.metadata;
 
         if (err instanceof Error && err.message === 'Token expired')
@@ -62,6 +45,7 @@ class ExceptionFactory
 
         exception.message = message;
         exception.metadata = metadata;
+        exception.errorCode = errorCode;
 
         return exception;
     }

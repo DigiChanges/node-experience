@@ -7,7 +7,11 @@ class PasswordWrongException extends ErrorException
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        super(locales.__('general.exceptions.passwordWrong'), PasswordWrongException.name);
+        const key = 'general.exceptions.passwordWrong';
+        super({
+            message: locales.__(key),
+            errorCode: key
+        }, PasswordWrongException.name);
     }
 }
 

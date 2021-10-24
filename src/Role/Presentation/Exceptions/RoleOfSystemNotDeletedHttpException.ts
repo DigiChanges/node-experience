@@ -8,7 +8,11 @@ class RoleOfSystemNotDeletedHttpException extends ErrorHttpException
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        super(StatusCode.HTTP_FORBIDDEN, locales.__('general.exceptions.roleOfSystemNotDeleted'), []);
+        const key = 'general.exceptions.roleOfSystemNotDeleted';
+        super(StatusCode.HTTP_FORBIDDEN, {
+            message:  locales.__(key),
+            errorCode: key
+        });
     }
 }
 

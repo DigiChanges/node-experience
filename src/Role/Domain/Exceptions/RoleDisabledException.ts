@@ -7,7 +7,11 @@ class RoleDisabledException extends ErrorException
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        super(locales.__('general.exceptions.roleDisabled'), RoleDisabledException.name);
+        const key = 'general.exceptions.roleDisabled';
+        super({
+            message: locales.__(key),
+            errorCode: key
+        }, RoleDisabledException.name);
     }
 }
 

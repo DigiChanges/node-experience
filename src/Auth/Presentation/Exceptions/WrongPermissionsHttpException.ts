@@ -8,7 +8,11 @@ class WrongPermissionsHttpException extends ErrorHttpException
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        super(StatusCode.HTTP_BAD_REQUEST, locales.__('general.exceptions.wrongPermissions'), []);
+        const key = 'general.exceptions.wrongPermissions';
+        super(StatusCode.HTTP_BAD_REQUEST, {
+            message: locales.__(key),
+            errorCode: key
+        }, []);
     }
 }
 

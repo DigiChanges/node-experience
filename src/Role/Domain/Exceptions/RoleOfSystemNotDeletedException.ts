@@ -7,7 +7,11 @@ class RoleOfSystemNotDeletedException extends ErrorException
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        super(locales.__('general.exceptions.roleOfSystemNotDeleted'), RoleOfSystemNotDeletedException.name);
+        const key = 'general.exceptions.roleOfSystemNotDeleted';
+        super({
+            message:  locales.__(key),
+            errorCode: key
+        }, RoleOfSystemNotDeletedException.name);
     }
 }
 

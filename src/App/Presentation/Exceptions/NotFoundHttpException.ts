@@ -7,7 +7,11 @@ class NotFoundHttpException extends ErrorHttpException
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        super(StatusCode.HTTP_BAD_REQUEST, locales.__('general.exceptions.notFound'), []);
+        const key = 'general.exceptions.notFound';
+        super(StatusCode.HTTP_BAD_REQUEST, {
+            message: locales.__(key),
+            errorCode: key
+        });
     }
 }
 
