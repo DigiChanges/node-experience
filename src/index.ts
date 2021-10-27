@@ -32,7 +32,7 @@ void (async() =>
 
         const app = AppFactory.create('AppKoa', {
             viewRouteEngine: `${process.cwd()}/dist/App/Presentation/Views`,
-            // localesDirectory: `${process.cwd()}/dist/src/Config/Locales`,
+            localesDirectory: `${process.cwd()}/dist/src/Config/Locales`,
             serverPort: config.getConfig().serverPort
         });
 

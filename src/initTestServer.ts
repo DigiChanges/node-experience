@@ -43,8 +43,8 @@ const initTestServer = async(): Promise<any> =>
     container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(TokenMongoRepository);
 
     const app = AppFactory.create('AppExpress', {
-        viewRouteEngine: `${process.cwd()}/dist/src/App/Presentation/Views`,
-        // localesDirectory: `${process.cwd()}/dist/src/Config/Locales`,
+        viewRouteEngine: `${process.cwd()}/dist/App/Presentation/Views`,
+        localesDirectory: `${process.cwd()}/dist/Config/Locales`,
         serverPort: 8088
     });
 
