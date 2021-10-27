@@ -43,7 +43,7 @@ class ItemService implements IItemService
 
     async getOne(id: string): Promise<IItemDomain>
     {
-        return await this.repository.getOne(id);
+        return await this.repository.getOneBy({ _id : id }, { populate: ['createdBy', 'lastModifiedBy'], initThrow: true });
     }
 
     async remove(id: string): Promise<IItemDomain>

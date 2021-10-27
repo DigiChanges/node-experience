@@ -6,8 +6,6 @@ import { REPOSITORIES } from '../../../repositories';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import User from '../../../User/Domain/Entities/User';
-import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
-import { IEncryption } from '@digichanges/shared-experience';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import Password from '../../../App/Domain/ValueObjects/Password';
 
@@ -19,12 +17,6 @@ class ItemSeed implements ISeed
     @containerFactory(REPOSITORIES.IUserRepository)
     private userRepository: IUserRepository;
 
-    private encryption: IEncryption;
-
-    constructor()
-    {
-        this.encryption = EncryptionFactory.create();
-    }
 
     public async init()
     {

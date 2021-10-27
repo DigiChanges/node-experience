@@ -21,8 +21,8 @@ class ItemTransformer extends Transformer
             id: item.getId(),
             name: item.name,
             type: item.type,
-            createdBy: this.userTransformer.handle(item.getCreatedBy()),
-            lastModifiedBy: this.userTransformer.handle(item.getCreatedBy()),
+            createdBy: (typeof item.createdBy == 'string' || item.createdBy == null) ? item.createdBy : this.userTransformer.handle(item.getCreatedBy()),
+            lastModifiedBy: (typeof item.lastModifiedBy == 'string' || item.lastModifiedBy == null) ? item.lastModifiedBy : this.userTransformer.handle(item.getLastModifiedBy()),
             createdAt: moment(item.createdAt).utc().unix(),
             updatedAt: moment(item.updatedAt).utc().unix()
         };
