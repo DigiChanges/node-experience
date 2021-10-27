@@ -9,7 +9,7 @@
     "tsc": "tsc",
     "tsc-e": "yarn tsc --project extend.tsconfig.json",
     "build": "npm-run-all clean lint pre-build tsc",
-    "pre-build": "cpy --cwd=src --parents '**/*' '!**/*.ts' ../dist/src",
+    "pre-build": "cpy --cwd=src --parents '**/*' '!**/*.ts' ../dist",
     "dev:start": "npm-run-all build start",
     "dev": "nodemon --watch src -e ts --exec yarn dev:start",
     "debug": "nodemon --inspect=0.0.0.0:9229 src/index.ts",
@@ -21,6 +21,8 @@
     "docker:command": "docker-compose exec node yarn command",
     "ts-check": "tsc -p tsconfig.json --skipLibCheck --noEmit",
     "pre-commit": "lint-staged",
+    "watch": "nodemon dist/index.js",
+    "dev:watch": "yarn pre-build && concurrently \"yarn parcel-dev\" \"yarn watch\"",
     "parcel-dev": "parcel watch --no-hmr --no-cache --no-autoinstall --log-level \"verbose\""
   },
   "nodemonConfig": {
@@ -146,6 +148,7 @@
     "@types/web-push": "^3.3.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
+    "concurrently": "^6.3.0",
     "eslint": "^7.25.0",
     "fs-extra": "^8.1.0",
     "husky": "^7.0.4",

@@ -34,8 +34,8 @@ void (async() =>
         await eventHandler.setListeners();
 
         const app = AppFactory.create('AppKoa', {
-            viewRouteEngine: `${Config.get('nodePath')}/dist/src/App/Presentation/Views`,
-            // localesDirectory: `${Config.get('nodePath')}/dist/src/Config/Locales`,
+            viewRouteEngine: `${Config.get('nodePath')}/dist/App/Presentation/Views`,
+            localesDirectory: `${Config.get('nodePath')}/dist/Config/Locales`,
             serverPort: Config.get('serverPort')
         });
 
