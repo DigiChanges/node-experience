@@ -16,7 +16,7 @@
     "start": "node dist/src/index.js",
     "dev:experimental": "nodemon --delay 8 --watch src -e ts --exec bash compile.sh",
     "test": "jest --runInBand --coverage",
-    "test-watch": "npx jest --watch --coverage=false",
+    "test-watch": "npx jest --watch --silent --coverage=false",
     "command": "npx ts-node src/command.ts",
     "docker:command": "docker-compose exec node yarn command",
     "ts-check": "tsc -p tsconfig.json --skipLibCheck --noEmit",

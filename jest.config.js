@@ -21,37 +21,36 @@ module.exports = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ["dist/**/{*.js,ts}", "../dist/**/{*.js,ts}", "/**/*.js"],
+  collectCoverageFrom: ["src/**/{*.js,ts}", "../src/**/{*.js,ts}", "/**/*.js"],
 
   // transform: tsjPreset.transform,
-  // transform: {
-  //   '^.+\\.ts?$': 'ts-jest',
-  // },
-
+  transform: {
+    '^.+\\.ts?$': 'ts-jest',
+  },
   // The directory where Jest should output its coverage files
   coverageDirectory: "coverage",
 
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
-    "/node_modules/",
-    "./.eslintrc.js",
-    "dist/src/app.js",
-    "dist/src/index.js",
-    "dist/src/command.js",
-    "dist/src/File/*",
-    "dist/src/AppExpress/Domain/*",
-    "dist/src/Infrastructure/Notifications/*",
-    "dist/src/User/Presentation/Commands/*",
-    "dist/src/Item/Presentation/Commands/*",
-    "dist/src/Role/Presentation/Commands/*",
-    "dist/src/AppExpress/Presentation/Criterias/NotificationFilter.js",
-    "dist/src/AppExpress/Presentation/Criterias/NotificationSort.js",
-    "dist/src/File/Infrastructure/Repositories/FileSqlRepository.js",
-    "dist/src/User/Infrastructure/Repositories/UserSqlRepository.js",
-    "dist/src/Role/Infrastructure/Repositories/RoleSqlRepository.js",
-    "dist/src/Item/Infrastructure/Repositories/ItemSqlRepository.js",
-    "dist/src/Auth/Infrastructure/Repositories/TokenRedisRepository.js",
-    "dist/src/AppExpress/Domain/UseCases/GetLogViewUseCase.js",
+    "<rootDir>/node_modules/",
+    "<rootDir>/.eslintrc.js",
+    "<rootDir>/src/app.ts",
+    "<rootDir>/src/index.ts",
+    "<rootDir>/src/command.ts",
+    "<rootDir>/src/File/*",
+    "<rootDir>/src/AppExpress/Domain/*",
+    "<rootDir>/src/Infrastructure/Notifications/*",
+    "<rootDir>/src/User/Presentation/Commands/*",
+    "<rootDir>/src/Item/Presentation/Commands/*",
+    "<rootDir>/src/Role/Presentation/Commands/*",
+    "<rootDir>/src/AppExpress/Presentation/Criterias/NotificationFilter.ts",
+    "<rootDir>/src/AppExpress/Presentation/Criterias/NotificationSort.ts",
+    "<rootDir>/src/File/Infrastructure/Repositories/FileSqlRepository.ts",
+    "<rootDir>/src/User/Infrastructure/Repositories/UserSqlRepository.ts",
+    "<rootDir>/src/Role/Infrastructure/Repositories/RoleSqlRepository.ts",
+    "<rootDir>/src/Item/Infrastructure/Repositories/ItemSqlRepository.ts",
+    "<rootDir>/src/Auth/Infrastructure/Repositories/TokenRedisRepository.ts",
+    "<rootDir>/src/AppExpress/Domain/UseCases/GetLogViewUseCase.ts",
   ],
 
   // Indicates which provider should be used to instrument code for coverage
@@ -108,6 +107,7 @@ module.exports = {
   // An array of file extensions your modules use
   moduleFileExtensions: [
     "js",
+    "ts",
     "json",
     "node"
   ],
@@ -149,9 +149,9 @@ module.exports = {
   // rootDir: "./dist/src/Tests",
 
   // A list of paths to directories that Jest should use to search for files in
-  // roots: [
-  //   "<rootDir>"
-  // ],
+  roots: [
+    "<rootDir>/src"
+  ],
 
   // Allows you to use a custom runner instead of Jest's default test runner
   // runner: "jest-runner",
@@ -180,12 +180,13 @@ module.exports = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  testMatch: [
-    "**/Tests/**/*.(spec|test).[j]s?(x)",
-    "**/?(*.)+(spec|test).[j]s?(x)"
-  ],
+  // testMatch: [
+  //   "**/Tests/**/*.(spec|test).[j]s?(x)",
+  //   "**/?(*.)+(spec|test).[j]s?(x)"
+  // ],
 
-  // testRegex: '(/Tests/.*|(\\.|/)(test|spec))\\.ts?$',
+
+  testRegex: '(/Tests/.*|(\\.|/)(test|spec))\\.ts?$',
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [

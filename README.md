@@ -52,7 +52,8 @@ Minio Browser
 - ```make test```
 
 ### Test and watch one file
-- ```yarn test-watch dist/src/[Module]/Tests/[test-name].spec.js**```
+- ```make exec```
+- ```yarn test-watch src/[Module]/Tests/[test-name].spec.ts```
 
 TODO: Started
 
