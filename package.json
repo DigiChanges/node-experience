@@ -93,6 +93,8 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^13.2.1",
+    "@commitlint/config-conventional": "^13.2.0",
     "@shelf/jest-mongodb": "^1.2.4",
     "@types/bcrypt": "^3.0.1",
     "@types/bcryptjs": "^2.4.2",
