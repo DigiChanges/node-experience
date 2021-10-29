@@ -46,6 +46,12 @@ test:
 	@echo '************                               ************'
 	docker-compose exec node yarn test
 
+ts_check:
+	@echo '************                               ************'
+	@echo '************       Exec NODE TS CHECK      ************'
+	@echo '************                               ************'
+	docker-compose exec node yarn ts-check
+
 init:
 	@echo '************                               ************'
 	@echo '************           Init NODE    	      ************'

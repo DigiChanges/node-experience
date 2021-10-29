@@ -3,7 +3,7 @@ import PresignedFileRepPayload from './Payloads/PresignedFileRepPayload';
 import FileRepPayload from './Payloads/FileRepPayload';
 import FileBase64RepPayload from './Payloads/FileBase64RepPayload';
 import FileMultipartRepPayload from './Payloads/FileMultipartRepPayload';
-import {ICriteria, IPaginator} from '@digichanges/shared-experience';
+import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 import ListObjectsPayload from './Payloads/ListObjectsPayload';
 import CreateBucketPayload from './Payloads/CreateBucketPayload';
 import IdPayload from '../../Shared/InterfaceAdapters/IdPayload';
