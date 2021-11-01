@@ -6,7 +6,11 @@ class UserDisabledException extends ErrorException
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        super(locales.__('general.exceptions.userDisabled'), UserDisabledException.name);
+        const key = 'user.domain.exceptions.userDisabled';
+        super({
+            message: locales.__(key),
+            errorCode: key
+        }, UserDisabledException.name);
     }
 }
 

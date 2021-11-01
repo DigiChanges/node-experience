@@ -14,9 +14,6 @@ import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import IndexHandler from '../../Handlers/Koa/IndexHandler';
 import ItemHandler from '../../../../Item/Presentation/Handlers/Koa/ItemHandler';
-import Responder from './Responder';
-import ErrorHttpException from '../ErrorHttpException';
-import { ErrorExceptionMapper } from '../ErrorExceptionMapper';
 import RoleHandler from '../../../../Role/Presentation/Handlers/Koa/RoleHandler';
 import UserHandler from '../../../../User/Presentation/Handlers/Koa/UserHandler';
 import NotificationHandler from '../../../../Notification/Presentation/Handlers/Koa/NotificationHandler';
@@ -24,6 +21,7 @@ import FileHandler from '../../../../File/Presentation/Handlers/Koa/FileHandler'
 import AuthHandler from '../../../../Auth/Presentation/Handlers/Koa/AuthHandler';
 import IAppConfig from '../../../InterfaceAdapters/IAppConfig';
 import WhiteListHandler from '../../../Tests/Koa/WhiteListHandler';
+import { ErrorHandler } from './ErrorHandler';
 
 
 class AppKoa implements IApp
@@ -51,21 +49,7 @@ class AppKoa implements IApp
         }));
 
         // Generic error handling middleware.
-        this.app.use(async(ctx: Koa.Context, next: () => Promise<any>) =>
-        {
-            try
-            {
-                await next();
-            }
-            catch (error)
-            {
-                const responder = new Responder();
-                const exception: ErrorHttpException = ErrorExceptionMapper.handle(error);
-
-                responder.error(exception, ctx, exception.statusCode);
-                ctx.app.emit('error', error, ctx);
-            }
-        });
+        this.app.use(ErrorHandler.handle);
 
         this.app.use(bodyParser({
             jsonLimit: '5mb'

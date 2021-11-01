@@ -1,13 +1,16 @@
 import { ErrorException } from '@digichanges/shared-experience';
 import Locales from '../../App/Presentation/Shared/Locales';
 
-
 class DecryptForbiddenException extends ErrorException
 {
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        super(locales.__('general.exceptions.decryptForbidden'), DecryptForbiddenException.name);
+        const key = 'shared.exceptions.decryptForbidden';
+        super({
+            message: locales.__(key),
+            errorCode: key
+        }, DecryptForbiddenException.name);
     }
 }
 

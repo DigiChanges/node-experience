@@ -7,7 +7,7 @@ class FormatError
 {
     getFormat = (errorHttpException: ErrorHttpException): any =>
     {
-        const { statusCode, message, errors, metadata } = errorHttpException;
+        const { statusCode, message, errors, metadata, errorCode } = errorHttpException;
         const validationModels: ValidationModel[] = [];
 
         if (!_.isEmpty(errors))
@@ -24,6 +24,7 @@ class FormatError
             code: statusCode.code,
             statusCode: statusCode.statusCode,
             message: statusCode.code === StatusCode.HTTP_INTERNAL_SERVER_ERROR.code ? 'Internal Error Server' : message,
+            errorCode,
             errors: _.isEmpty(validationModels) ? null : validationModels,
             metadata
         };

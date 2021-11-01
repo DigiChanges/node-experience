@@ -17,7 +17,7 @@ class IndexHandler extends BaseHttpController
     public index()
     {
         const locales = Locales.getInstance().getLocales();
-        return this.responder.send({ message: locales.__('general.greetings') }, this.httpContext.request, this.httpContext.response, StatusCode.HTTP_OK, null);
+        return this.responder.send({ message: locales.__('greetings') }, this.httpContext.request, this.httpContext.response, StatusCode.HTTP_OK, null);
     }
 }
 

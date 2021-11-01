@@ -1,21 +1,20 @@
-import ErrorHttpException from '../../../App/Presentation/Shared/ErrorHttpException';
-import { IEncryption, StatusCode } from '@digichanges/shared-experience';
+import { IEncryption } from '@digichanges/shared-experience';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
+import InvalidPasswordException from '../Exceptions/InvalidPasswordException';
 
 class Password
 {
     private value: string;
     private encryption: IEncryption;
 
-    constructor(data: string)
+    constructor(data: string, min = 3, max = 10)
     {
         this.encryption = EncryptionFactory.create();
         this.value = data;
 
-        if (this.value.length <= 4)
+        if (this.value.length < min ||  this.value.length > max)
         {
-            // TODO: Refactor error - Add Domain Exception
-            throw new ErrorHttpException(StatusCode.HTTP_BAD_REQUEST, 'Error password', []);
+            throw new InvalidPasswordException();
         }
     }
 

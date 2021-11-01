@@ -1,18 +1,20 @@
+import { IErrorMessage, IStatusCode, StatusCode } from '@digichanges/shared-experience';
 import { ValidationError } from 'class-validator';
-import { IStatusCode } from '@digichanges/shared-experience';
 
 class ErrorHttpException extends Error
 {
     private _statusCode: IStatusCode;
     private _errors: ValidationError[];
     private _metadata: Record<string, any>;
+    private _errorCode: string;
 
-    constructor(statusCode: IStatusCode, message: string, errors: ValidationError[], metadata: Record<string, any> = {})
+    constructor(statusCode: IStatusCode = StatusCode.HTTP_INTERNAL_SERVER_ERROR, errorMessage: IErrorMessage  = { message: 'Internal Error' }, errors: ValidationError[] = [],  metadata: Record<string, any> = {})
     {
         super();
         this._statusCode = statusCode;
         this._errors = errors;
-        this.message = message;
+        this.message = errorMessage?.message;
+        this._errorCode = errorMessage?.errorCode ?? null;
         this._metadata = metadata;
     }
 
@@ -44,6 +46,16 @@ class ErrorHttpException extends Error
     public set metadata(metadata: Record<string, any>)
     {
         this._metadata = metadata;
+    }
+
+    public get errorCode(): string
+    {
+        return this._errorCode;
+    }
+
+    public set errorCode(errorKey: string)
+    {
+        this._errorCode = errorKey;
     }
 }
 

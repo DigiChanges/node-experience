@@ -1,19 +1,55 @@
 {
-	"general": {
-		"greetings": "Welcome to Node Experience",
+	"greetings": "Welcome to Node Experience",
+	"app": {
+		"domain": {
+			"exceptions": {
+				"invalidPassword": "Invalid Password."
+			}
+		},
+		"presentation": {
+			"exceptions": {
+				"duplicateEntity": "Duplicate entity.",
+				"routeNotFound": "Route not found."
+			}
+		}
+	},
+	"auth": {
+		"domain": {
+			"exceptions": {
+				"badCredentials": "Error credentials.",
+				"cantDisabled": "Disabled forbidden.",
+				"passwordWrong": "Wrong password.",
+				"wrongPermissions": "Wrong permissions."
+			}
+		},
+		"presentation": {
+			"exceptions": {
+				"forbidden": "Forbidden.",
+				"tokenBlackListed": "Token not allowed.",
+				"tokenExpired": "You must be authenticated.",
+				"tokenNotFound": "Token not found."
+			}
+		}
+	},
+	"role": {
+		"domain": {
+			"exceptions": {
+				"roleDisabled": "Your role is disable.",
+				"roleOfSystemNotDeleted": "Forbidden delete role of system"
+			}
+		}
+	},
+	"shared": {
 		"exceptions": {
 			"decryptForbidden": "Decrypt forbidden.",
-			"badCredentials": "Error credentials.",
-			"userDisabled": "Your user is disable.",
-			"roleDisabled": "Your role is disable.",
-			"cantDisabled": "Disabled forbidden.",
-			"passwordWrong": "Wrong password.",
-			"notFound": "not found.",
-			"wrongPermissions": "Wrong permissions.",
-			"routeNotFound": "Route not found.",
-			"tokenExpired": "You must be authenticated.",
-			"forbidden": "Forbidden.",
-            "roleOfSystemNotDeleted":"Forbidden delete role of system"
+			"notFound": "not found."
+		}
+	},
+	"user": {
+		"domain": {
+			"exceptions": {
+				"userDisabled": "Your user is disable."
+			}
 		}
 	}
 }

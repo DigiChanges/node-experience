@@ -1,13 +1,16 @@
 import { ErrorException } from '@digichanges/shared-experience';
 import Locales from '../../../App/Presentation/Shared/Locales';
 
-
 class RoleOfSystemNotDeletedException extends ErrorException
 {
     constructor()
     {
         const locales = Locales.getInstance().getLocales();
-        super(locales.__('general.exceptions.roleOfSystemNotDeleted'), RoleOfSystemNotDeletedException.name);
+        const key = 'role.domain.exceptions.roleOfSystemNotDeleted';
+        super({
+            message:  locales.__(key),
+            errorCode: key
+        }, RoleOfSystemNotDeletedException.name);
     }
 }
 
