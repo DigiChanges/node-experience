@@ -10,6 +10,7 @@ import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import { IEncryption } from '@digichanges/shared-experience';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import Password from '../../../App/Domain/ValueObjects/Password';
+import Config from 'config';
 
 class ItemSeed implements ISeed
 {
@@ -63,7 +64,10 @@ class ItemSeed implements ISeed
         user.country = 'Argentina';
         user.address = 'New America 123';
 
-        const password = new Password('123456789');
+        const min = Config.get<number>('validationSettings.password.min');
+        const max = Config.get<number>('validationSettings.password.max');
+
+        const password = new Password('123456789', min, max);
         await password.ready();
         user.password = password;
 

@@ -1,6 +1,5 @@
 import { IEncryption } from '@digichanges/shared-experience';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
-import Config from 'config';
 import InvalidPasswordException from '../Exceptions/InvalidPasswordException';
 
 class Password
@@ -8,13 +7,10 @@ class Password
     private value: string;
     private encryption: IEncryption;
 
-    constructor(data: string)
+    constructor(data: string, min = 3, max = 10)
     {
         this.encryption = EncryptionFactory.create();
         this.value = data;
-
-        const min = Config.get<number>('validationSettings.password.min');
-        const max = Config.get<number>('validationSettings.password.max');
 
         if (this.value.length < min ||  this.value.length > max)
         {

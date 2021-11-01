@@ -13,6 +13,7 @@ import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import Permissions from '../../../Config/Permissions';
+import Config from 'config';
 
 class UserSeed implements ISeed
 {
@@ -31,6 +32,9 @@ class UserSeed implements ISeed
 
     public async init(): Promise<void>
     {
+        const min = Config.get<number>('validationSettings.password.min');
+        const max = Config.get<number>('validationSettings.password.max');
+
         const roleSuperAdmin: IRoleDomain = new Role();
         roleSuperAdmin.name = 'SuperAdmin';
         roleSuperAdmin.slug = 'superadmin';
@@ -75,7 +79,7 @@ class UserSeed implements ISeed
         userSuperAdmin.country = 'Argentina';
         userSuperAdmin.address = 'New America 123';
 
-        const password = new Password('12345678');
+        const password = new Password('12345678', min, max);
         await password.ready();
         userSuperAdmin.password = password;
 
@@ -100,7 +104,7 @@ class UserSeed implements ISeed
         userAdmin.country = 'Argentina';
         userAdmin.address = 'New America 123';
 
-        const userAdminPassword = new Password('12345678');
+        const userAdminPassword = new Password('12345678', min, max);
         userAdmin.password = await userAdminPassword.ready();
 
         userAdmin.enable = true;
@@ -124,7 +128,7 @@ class UserSeed implements ISeed
         userOperator.country = 'Argentina';
         userOperator.address = 'New America 123';
 
-        const userOperatorPassword = new Password('123456789');
+        const userOperatorPassword = new Password('123456789', min, max);
         userOperator.password = await userOperatorPassword.ready();
 
         userOperator.enable = true;
@@ -148,7 +152,7 @@ class UserSeed implements ISeed
         userOperatorDisabled.country = 'Argentina';
         userOperatorDisabled.address = 'New America 123';
 
-        const userOperatorDisabledPassword = new Password('1234567901');
+        const userOperatorDisabledPassword = new Password('1234567901', min, max);
         userOperatorDisabled.password = await userOperatorDisabledPassword.ready();
 
         userOperatorDisabled.enable = false;
@@ -172,7 +176,7 @@ class UserSeed implements ISeed
         userOperatorRoleDisabled.country = 'Argentina';
         userOperatorRoleDisabled.address = 'New America 123';
 
-        const userOperatorRoleDisabledPassword = new Password('1234567901');
+        const userOperatorRoleDisabledPassword = new Password('1234567901', min, max);
         userOperatorRoleDisabled.password = await userOperatorRoleDisabledPassword.ready();
 
         userOperatorRoleDisabled.enable = true;
