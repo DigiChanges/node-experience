@@ -9,7 +9,7 @@ describe('Start ForgotPassword Test', () =>
     let dbConnection: ICreateConnection;
     let token: any = null;
 
-    beforeAll(async(done) =>
+    beforeAll(async() =>
     {
         const configServer = await initTestServer();
 
@@ -18,20 +18,18 @@ describe('Start ForgotPassword Test', () =>
 
         jest.spyOn(Notificator, 'sendEmail').mockImplementation(() => new Promise<boolean>((resolve) => resolve(true)));
 
-        done();
     });
 
-    afterAll((async(done) =>
+    afterAll((async() =>
     {
         await dbConnection.drop();
         await dbConnection.close();
 
-        done();
     }));
 
     describe('ForgotPassword Success', () =>
     {
-        beforeAll(async(done) =>
+        beforeAll(async() =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -47,10 +45,9 @@ describe('Start ForgotPassword Test', () =>
 
             token = data.token;
 
-            done();
         });
 
-        test('ForgotPassword POST /', async done =>
+        test('ForgotPassword POST /', async() =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -68,7 +65,6 @@ describe('Start ForgotPassword Test', () =>
             expect(response.statusCode).toStrictEqual(201);
             expect(data.message).toStrictEqual('We\'ve sent you an email');
 
-            done();
         });
     });
 });

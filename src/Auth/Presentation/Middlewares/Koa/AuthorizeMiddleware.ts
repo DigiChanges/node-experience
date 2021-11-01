@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import Config from 'config';
+import { mainConfig } from '../../../../Config/mainConfig';
 
 import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
 import ForbiddenHttpException from '../../Exceptions/ForbiddenHttpException';
@@ -15,7 +15,7 @@ const AuthorizeMiddleware = (...handlerPermissions: any) =>
         const authService =  ContainerFactory.create<IAuthService>(SERVICES.IAuthService);
 
         const handlerPermission = handlerPermissions[0]; // TODO: Refactor for more permissions for handler
-        let isAllowed: boolean = Config.get('auth.authorization') !== 'true';
+        let isAllowed: boolean = mainConfig.auth.authorization !== true;
         const authUser = ctx.authUser as IUserDomain;
 
         const authorize = await authService.authorize(authUser, handlerPermission);

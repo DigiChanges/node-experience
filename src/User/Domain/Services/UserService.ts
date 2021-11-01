@@ -1,4 +1,3 @@
-import { IEncryption } from '@digichanges/shared-experience';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
@@ -10,7 +9,6 @@ import { REPOSITORIES } from '../../../repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
 import { SERVICES } from '../../../services';
-import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import CheckUserRolePayload from '../../InterfaceAdapters/Payloads/CheckUserRolePayload';
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
@@ -33,12 +31,6 @@ class UserService implements IUserService
 
     @containerFactory(SERVICES.IAuthService)
     private authService: IAuthService;
-    private encryption: IEncryption;
-
-    constructor()
-    {
-        this.encryption = EncryptionFactory.create();
-    }
 
     async persist(user: IUserDomain, payload: UserRepPayload): Promise<IUserDomain>
     {

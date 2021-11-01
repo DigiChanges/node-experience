@@ -1,9 +1,9 @@
-import { SuperAgentTest } from 'supertest';
 import { ICreateConnection } from '@digichanges/shared-experience';
+import { SuperAgentTest } from 'supertest';
+import { mainConfig } from '../../Config/mainConfig';
 import initTestServer from '../../initTestServer';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IListUsersResponse, IUserResponse } from './types';
-import Config from 'config';
 
 describe('Start User Test', () =>
 {
@@ -13,27 +13,25 @@ describe('Start User Test', () =>
     let userId = '';
     let deleteResponse: any = null;
 
-    beforeAll(async(done) =>
+    beforeAll(async() =>
     {
         const configServer = await initTestServer();
 
         request = configServer.request;
         dbConnection = configServer.dbConnection;
 
-        done();
     });
 
-    afterAll((async(done) =>
+    afterAll((async() =>
     {
         await dbConnection.drop();
         await dbConnection.close();
 
-        done();
     }));
 
     describe('User Success', () =>
     {
-        beforeAll(async(done) =>
+        beforeAll(async() =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -49,10 +47,9 @@ describe('Start User Test', () =>
 
             token = data.token;
 
-            done();
         });
 
-        test('Add User without enable property /users', async done =>
+        test('Add User without enable property /users', async() =>
         {
             const payload: any = {
                 firstName: 'Jhon',
@@ -88,10 +85,9 @@ describe('Start User Test', () =>
 
             userId = data.id;
 
-            done();
         });
 
-        test('Add User with enable property /users', async done =>
+        test('Add User with enable property /users', async() =>
         {
             const payload: any = {
                 firstName: 'Jhon',
@@ -128,10 +124,9 @@ describe('Start User Test', () =>
 
             userId = data.id;
 
-            done();
         });
 
-        test('Get User /users/:id', async done =>
+        test('Get User /users/:id', async() =>
         {
             const payload: any = {
                 firstName: 'Jhon',
@@ -157,10 +152,9 @@ describe('Start User Test', () =>
             expect(data.firstName).toStrictEqual(payload.firstName);
             expect(data.email).toStrictEqual(payload.email);
 
-            done();
         });
 
-        test('Update User /users/:id', async done =>
+        test('Update User /users/:id', async() =>
         {
             const payload: any = {
                 firstName: 'Jhon Update',
@@ -200,10 +194,9 @@ describe('Start User Test', () =>
             expect(data.phone).toStrictEqual(payload.phone);
             expect(data.country).toStrictEqual(payload.country);
 
-            done();
         });
 
-        test('Change my Password /users/change-my-password', async done =>
+        test('Change my Password /users/change-my-password', async() =>
         {
             let payload: any = {
                 currentPassword: '12345678',
@@ -243,10 +236,9 @@ describe('Start User Test', () =>
 
             token = response.body.data.token;
 
-            done();
         });
 
-        test('Delete User /users/:id', async done =>
+        test('Delete User /users/:id', async() =>
         {
             const payload: any = {
                 email: 'user2@delete.com',
@@ -286,10 +278,9 @@ describe('Start User Test', () =>
             expect(data.firstName).toStrictEqual(payload.firstName);
             expect(data.email).toStrictEqual(payload.email);
 
-            done();
         });
 
-        test('Get Users /users', async done =>
+        test('Get Users /users', async() =>
         {
 
             const response: IListUsersResponse = await request
@@ -311,17 +302,16 @@ describe('Start User Test', () =>
             expect(pagination.lastPage).toStrictEqual(2);
             expect(pagination.from).toStrictEqual(0);
             expect(pagination.to).toStrictEqual(5);
-            expect(pagination.path).toContain(Config.get('url.urlApi'));
+            expect(pagination.path).toContain(mainConfig.url.urlApi);
             expect(pagination.firstUrl).toContain('/api/users?pagination[offset]=0&pagination[limit]=5');
             expect(pagination.lastUrl).toContain('/api/users?pagination[offset]=5&pagination[limit]=5');
             expect(pagination.nextUrl).toContain('/api/users?pagination[offset]=5&pagination[limit]=5');
             expect(pagination.prevUrl).toStrictEqual(null);
             expect(pagination.currentUrl).toContain('/api/users?pagination[offset]=0&pagination[limit]=5');
 
-            done();
         });
 
-        test('Get Users /users without pagination', async done =>
+        test('Get Users /users without pagination', async() =>
         {
 
             const response: IListUsersResponse = await request
@@ -338,10 +328,9 @@ describe('Start User Test', () =>
 
             expect(pagination).not.toBeDefined();
 
-            done();
         });
 
-        test('Get Users /users with Filter Type', async done =>
+        test('Get Users /users with Filter Type', async() =>
         {
 
             const response: IListUsersResponse = await request
@@ -360,10 +349,9 @@ describe('Start User Test', () =>
             expect(pagination.total).toStrictEqual(1);
 
 
-            done();
         });
 
-        test('Get Users /users with Sort Desc Type', async done =>
+        test('Get Users /users with Sort Desc Type', async() =>
         {
 
             const response: IListUsersResponse = await request
@@ -381,13 +369,12 @@ describe('Start User Test', () =>
             expect(user1.email).toStrictEqual('user@node.com');
             expect(user2.email).toStrictEqual('user2@update.com');
 
-            done();
         });
     });
 
     describe('User Fails', () =>
     {
-        beforeAll(async(done) =>
+        beforeAll(async() =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -403,10 +390,9 @@ describe('Start User Test', () =>
 
             token = data.token;
 
-            done();
         });
 
-        test('Add User /users', async done =>
+        test('Add User /users', async() =>
         {
             const payload = {
                 name: 'User 2',
@@ -430,10 +416,9 @@ describe('Start User Test', () =>
             expect(error.constraints.isString).toBeDefined();
             expect(error.constraints.isString).toStrictEqual('firstName must be a string');
 
-            done();
         });
 
-        test('Get User /users/:id', async done =>
+        test('Get User /users/:id', async() =>
         {
 
             const response: IUserResponse = await request
@@ -453,10 +438,9 @@ describe('Start User Test', () =>
             expect(error.constraints.isUuid).toBeDefined();
             expect(error.constraints.isUuid).toStrictEqual('id must be a UUID');
 
-            done();
         });
 
-        test('Update User /users/:id', async done =>
+        test('Update User /users/:id', async() =>
         {
             const payload = {
                 email: 'aaaa1@update.com',
@@ -489,10 +473,9 @@ describe('Start User Test', () =>
             expect(error.constraints.isString).toBeDefined();
             expect(error.constraints.isString).toStrictEqual('firstName must be a string');
 
-            done();
         });
 
-        test('Delete User error /users/:id', async done =>
+        test('Delete User error /users/:id', async() =>
         {
             const deleteErrorResponse: IUserResponse = await request
                 .delete(`/api/users/${deleteResponse.body.data.id}`)
@@ -507,7 +490,6 @@ describe('Start User Test', () =>
             expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
             expect(message).toStrictEqual('User not found.');
 
-            done();
         });
     });
 });

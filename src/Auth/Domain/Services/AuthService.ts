@@ -2,12 +2,10 @@ import { injectable } from 'inversify';
 import jwt, { TAlgorithm } from 'jwt-simple';
 import _ from 'lodash';
 
-import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import IAuthService from '../../InterfaceAdapters/IAuthService';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import Permissions from '../../../Config/Permissions';
 import WrongPermissionsException from '../Exceptions/WrongPermissionsException';
-import { IEncryption } from '@digichanges/shared-experience';
 import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../repositories';
@@ -15,7 +13,7 @@ import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import TokenExpiredHttpException from '../../Presentation/Exceptions/TokenExpiredHttpException';
 import TokenNotFoundHttpException from '../../Presentation/Exceptions/TokenNotFoundHttpException';
 import Auth from '../Types/Auth';
-import Config from 'config';
+import { mainConfig } from '../../../Config/mainConfig';
 
 @injectable()
 class AuthService implements IAuthService
@@ -23,19 +21,12 @@ class AuthService implements IAuthService
     @containerFactory(REPOSITORIES.IUserRepository)
     private userRepository: IUserRepository
 
-    private encryption: IEncryption;
-
-    constructor()
-    {
-        this.encryption = EncryptionFactory.create();
-    }
-
     public decodeToken(token: string): ITokenDecode
     {
         const tokenArray = token.split(' ');
 
-        const secret: string = Config.get('jwt.secret');
-        const algorithm: TAlgorithm = Config.get('encryption.bcrypt.algorithm');
+        const secret: string = mainConfig.jwt.secret;
+        const algorithm: TAlgorithm = mainConfig.encryption.bcrypt.algorithm;
 
         return jwt.decode(tokenArray[1], secret, false, algorithm);
     }
@@ -147,11 +138,11 @@ class AuthService implements IAuthService
         };
 
         let existMethodAndUrl = false;
-        const apiWhitelist: { method: string[], url: string, urlRegExp: RegExp}[] = Config.get('apiWhitelist');
+        const apiWhitelist: { methods: string[], url: string, urlRegExp?: RegExp}[] = mainConfig.apiWhitelist;
 
         for (const conf of apiWhitelist)
         {
-            if (conf.method.includes(reqMethod) || conf.method.includes('*'))
+            if (conf.methods.includes(reqMethod) || conf.methods.includes('*'))
             {
                 existMethodAndUrl = existMethodAndUrl || samePath(conf.url, reqPath);
 

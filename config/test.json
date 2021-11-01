@@ -69,7 +69,7 @@
       "saltRounds": 10,
       "algorithm": "HS512"
     },
-  "encryptionDefault": "bcrypt"
+    "default": "bcrypt"
   },
   "jwt": {
     "secret": "mySecretJWT",
@@ -106,43 +106,43 @@
   },
   "apiWhitelist": [
     {
-      "method": ["GET"],
+      "methods": ["GET"],
       "url": "/"
     },
     {
-      "method": ["POST"],
+      "methods": ["POST"],
       "url": "/api/auth/login"
     },
     {
-      "method": ["POST"],
+      "methods": ["POST"],
       "url": "/api/auth/forgotPassword"
     },
     {
-      "method": ["POST"],
+      "methods": ["POST"],
       "url": "/api/auth/changeForgotPassword"
     },
     {
-      "method": ["*"],
+      "methods": ["*"],
       "url": "/test/all/*"
     },
     {
-      "method": ["GET"],
+      "methods": ["GET"],
       "url": "/test/countries"
     },
     {
-      "method": ["GET"],
+      "methods": ["GET"],
       "url": "/test/countries/**"
     },
     {
-      "method": ["GET"],
+      "methods": ["GET"],
       "url": "/test/countries/**/states"
     },
     {
-      "method": ["GET"],
+      "methods": ["GET"],
       "url": "/test/countries/**/states/**/cities"
     },
     {
-      "method": ["GET"],
+      "methods": ["GET"],
       "url": "/test/countries/**/states/*"
     }
   ]

@@ -1,4 +1,5 @@
 import i18n from 'i18n';
+import { mainConfig } from '../../../Config/mainConfig';
 
 class Locales
 {
@@ -9,7 +10,7 @@ class Locales
     {
         this.i18n.configure({
             locales: ['en', 'es'],
-            directory: `${process.cwd()}/dist/src/Config/Locales`,
+            directory: `${mainConfig.nodePath}/dist/src/Config/Locales`,
             defaultLocale: 'en',
             objectNotation: true
         });

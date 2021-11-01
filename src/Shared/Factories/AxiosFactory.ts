@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
-import Config from 'config';
+import { mainConfig } from '../../Config/mainConfig';
 
-const port = Config.get('serverPort');
+const port = mainConfig.serverPort;
 const baseURL = `http://localhost:${port}/api/`;
 const timeout = 3000;
 const headersPublic = {

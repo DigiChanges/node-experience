@@ -8,27 +8,25 @@ describe('Start Keep Alive Test', () =>
     let dbConnection: ICreateConnection;
     let token: any = null;
 
-    beforeAll(async(done) =>
+    beforeAll(async() =>
     {
         const configServer = await initTestServer();
 
         request = configServer.request;
         dbConnection = configServer.dbConnection;
 
-        done();
     });
 
-    afterAll((async(done) =>
+    afterAll((async() =>
     {
         await dbConnection.drop();
         await dbConnection.close();
 
-        done();
     }));
 
     describe('Keep Alive Success', () =>
     {
-        beforeAll(async(done) =>
+        beforeAll(async() =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -44,10 +42,9 @@ describe('Start Keep Alive Test', () =>
 
             token = data.token;
 
-            done();
         });
 
-        test.skip('Keep Alive POST /', async done =>
+        test.skip('Keep Alive POST /', async() =>
         {
             const response: any = await request
                 .post('/api/auth/keep-alive')
@@ -63,7 +60,6 @@ describe('Start Keep Alive Test', () =>
 
             token = refreshToken;
 
-            done();
         });
     });
 });

@@ -1,11 +1,7 @@
-import faker from 'faker';
-import { IEncryption } from '@digichanges/shared-experience';
-
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
 import Role from '../../../Role/Domain/Entities/Role';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import User from '../../Domain/Entities/User';
-import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
 import { REPOSITORIES } from '../../../repositories';
@@ -22,13 +18,6 @@ class UserSeed implements ISeed
 
     @containerFactory(REPOSITORIES.IRoleRepository)
     private roleRepository: IRoleRepository;
-
-    private encryption: IEncryption;
-
-    constructor()
-    {
-        this.encryption = EncryptionFactory.create();
-    }
 
     public async init(): Promise<void>
     {

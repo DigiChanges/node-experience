@@ -1,4 +1,4 @@
-import Config from 'config';
+import { mainConfig } from '../../Config/mainConfig';
 import { v4 as uuidv4 } from 'uuid';
 import { ITokenRepository } from '@digichanges/shared-experience';
 
@@ -18,8 +18,8 @@ class TokenFactory
 
     public async createToken(user: IUserDomain): Promise<IToken>
     {
-        const expires: number = Config.get('jwt.expires');
-        const secret: string = Config.get('jwt.secret');
+        const expires: number = mainConfig.jwt.expires;
+        const secret: string = mainConfig.jwt.secret;
         const id = uuidv4();
 
         const jWTToken = new JWTToken(id, expires, user, secret);

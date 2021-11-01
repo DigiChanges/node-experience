@@ -71,7 +71,7 @@
       "saltRounds": 10,
       "algorithm": "HS512"
     },
-  "encryptionDefault": "bcrypt"
+    "default": "bcrypt"
   },
   "jwt": {
     "secret": "mySecretJWT",
@@ -104,19 +104,19 @@
   },
   "apiWhitelist": [
     {
-      "method": ["GET"],
+      "methods": ["GET"],
       "url": "/"
     },
     {
-      "method": ["POST"],
+      "methods": ["POST"],
       "url": "/api/auth/login"
     },
     {
-      "method": ["POST"],
+      "methods": ["POST"],
       "url": "/api/auth/forgotPassword"
     },
     {
-      "method": ["POST"],
+      "methods": ["POST"],
       "url": "/api/auth/changeForgotPassword"
     }
   ]

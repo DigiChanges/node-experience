@@ -1,17 +1,16 @@
-import Config from 'config';
-
 import { IsString, Length } from 'class-validator';
-import { Match } from '../../../../Shared/Decorators/match';
 import { decorate } from 'ts-mixer';
+import { mainConfig } from '../../../../Config/mainConfig';
+import { Match } from '../../../../Shared/Decorators/match';
 import UserPasswordRepPayload from '../../../InterfaceAdapters/Payloads/UserPasswordPayload';
 
 class UserRepPasswordRequest implements UserPasswordRepPayload
 {
-    @decorate(Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max')))
+    @decorate(Length(mainConfig.validationSettings.password.minLength, mainConfig.validationSettings.password.maxLength))
     @decorate(IsString())
     password: string;
 
-    @decorate(Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max')))
+    @decorate(Length(mainConfig.validationSettings.password.minLength, mainConfig.validationSettings.password.maxLength))
     @decorate(IsString())
     @decorate(Match('password'))
     passwordConfirmation: string;

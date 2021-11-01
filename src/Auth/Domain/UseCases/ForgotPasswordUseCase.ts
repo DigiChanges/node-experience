@@ -1,4 +1,4 @@
-import Config from 'config';
+import { mainConfig } from '../../../Config/mainConfig';
 import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import { REPOSITORIES } from '../../../repositories';
@@ -23,7 +23,7 @@ class ForgotPasswordUseCase
 
         const emailNotification = new EmailNotification();
 
-        const urlConfirmationToken = `${Config.get('url.urlWeb')}changeForgotPassword/${user.confirmationToken}`;
+        const urlConfirmationToken = `${mainConfig.url.urlWeb}changeForgotPassword/${user.confirmationToken}`;
 
         emailNotification.name = 'Forgot Password';
         emailNotification.to = payload.getEmail();

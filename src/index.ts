@@ -1,8 +1,6 @@
-import dotenv from 'dotenv';
-dotenv.config(); // Need before get config
-import Config from 'config';
 
 import { validateEnv } from './Config/validateEnv';
+import { mainConfig } from './Config/mainConfig';
 import { loggerCli } from './Shared/Logger';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 
@@ -17,7 +15,6 @@ void (async() =>
 {
     try
     {
-        // Initialize configuration
         validateEnv();
 
         const databaseFactory = new DatabaseFactory();
@@ -26,17 +23,17 @@ void (async() =>
         createConnection.initConfig();
         await createConnection.create();
 
-        const cache: ICacheRepository = CacheFactory.createRedisCache(); // Create for redis repository
-        await cache.createConnection(Config.get('cache.redis')); // Create connection for cache
+        const cache: ICacheRepository = CacheFactory.createRedisCache();
+        await cache.createConnection(mainConfig.cache.redis);
         await cache.cleanAll();
 
         const eventHandler = EventHandler.getInstance();
         await eventHandler.setListeners();
 
-        const app = AppFactory.create('AppKoa', {
-            viewRouteEngine: `${Config.get('nodePath')}/dist/App/Presentation/Views`,
-            localesDirectory: `${Config.get('nodePath')}/dist/Config/Locales`,
-            serverPort: Config.get('serverPort')
+        const app = AppFactory.create('AppExpress', {
+            viewRouteEngine: `${mainConfig.nodePath}/dist/App/Presentation/Views`,
+            localesDirectory: `${mainConfig.nodePath}/dist/src/Config/Locales`,
+            serverPort: mainConfig.serverPort
         });
 
         app.initConfig();

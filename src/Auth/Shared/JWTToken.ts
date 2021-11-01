@@ -1,7 +1,7 @@
 import moment from 'moment';
 import jwt from 'jwt-simple';
 import IToken from '../InterfaceAdapters/IToken';
-import Config from 'config';
+import { mainConfig } from '../../Config/mainConfig';
 import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
 import ITokenDecode from '../../Shared/InterfaceAdapters/ITokenDecode';
 
@@ -18,8 +18,8 @@ class JWTToken implements IToken
         this.expires = moment().utc().add({ minutes: expires }).unix();
         this.payload = {
             id,
-            iss: Config.get('jwt.iss'),
-            aud: Config.get('jwt.aud'),
+            iss: mainConfig.jwt.iss,
+            aud: mainConfig.jwt.aud,
             sub: user.email,
             iat: this.expires,
             exp: this.expires,

@@ -3,7 +3,7 @@ import initTestServer from '../../initTestServer';
 import { ICreateConnection } from '@digichanges/shared-experience';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IItemResponse, IListItemsResponse } from './types';
-import Config from 'config';
+import { mainConfig } from '../../Config/mainConfig';
 
 describe('Start Item Test', () =>
 {
@@ -13,27 +13,25 @@ describe('Start Item Test', () =>
     let itemId = '';
     let deleteResponse: any = null;
 
-    beforeAll(async(done) =>
+    beforeAll(async() =>
     {
         const configServer = await initTestServer();
 
         request = configServer.request;
         dbConnection = configServer.dbConnection;
 
-        done();
     });
 
-    afterAll((async(done) =>
+    afterAll((async() =>
     {
         await dbConnection.drop();
         await dbConnection.close();
 
-        done();
     }));
 
     describe('Item Success', () =>
     {
-        beforeAll(async(done) =>
+        beforeAll(async() =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -49,10 +47,9 @@ describe('Start Item Test', () =>
 
             token = data.token;
 
-            done();
         });
 
-        test('Add Item /items', async done =>
+        test('Add Item /items', async() =>
         {
             const payload = {
                 name: 'Item 1',
@@ -75,10 +72,9 @@ describe('Start Item Test', () =>
             expect(data.type).toStrictEqual(payload.type);
             itemId = data.id;
 
-            done();
         });
 
-        test('Get Item /items/:id', async done =>
+        test('Get Item /items/:id', async() =>
         {
 
             const payload = {
@@ -101,10 +97,9 @@ describe('Start Item Test', () =>
             expect(data.name).toStrictEqual(payload.name);
             expect(data.type).toStrictEqual(payload.type);
 
-            done();
         });
 
-        test('Update Item /items/:id', async done =>
+        test('Update Item /items/:id', async() =>
         {
             const payload = {
                 name: 'Item 1 update',
@@ -126,10 +121,9 @@ describe('Start Item Test', () =>
             expect(data.name).toStrictEqual(payload.name);
             expect(data.type).toStrictEqual(payload.type);
 
-            done();
         });
 
-        test('Delete Item /items/:id', async done =>
+        test('Delete Item /items/:id', async() =>
         {
             const payload = {
                 name: 'Item 13 for delete',
@@ -157,10 +151,9 @@ describe('Start Item Test', () =>
             expect(data.name).toStrictEqual(payload.name);
             expect(data.type).toStrictEqual(payload.type);
 
-            done();
         });
 
-        test('Get Items /items', async done =>
+        test('Get Items /items', async() =>
         {
 
             const response: IListItemsResponse = await request
@@ -182,17 +175,16 @@ describe('Start Item Test', () =>
             expect(pagination.lastPage).toStrictEqual(3);
             expect(pagination.from).toStrictEqual(0);
             expect(pagination.to).toStrictEqual(5);
-            expect(pagination.path).toContain(Config.get('url.urlApi'));
+            expect(pagination.path).toContain(mainConfig.url.urlApi);
             expect(pagination.firstUrl).toContain('/api/items?pagination[offset]=0&pagination[limit]=5');
             expect(pagination.lastUrl).toContain('/api/items?pagination[offset]=10&pagination[limit]=5');
             expect(pagination.nextUrl).toContain('/api/items?pagination[offset]=5&pagination[limit]=5');
             expect(pagination.prevUrl).toStrictEqual(null);
             expect(pagination.currentUrl).toContain('/api/items?pagination[offset]=0&pagination[limit]=5');
 
-            done();
         });
 
-        test('Get Items /items without pagination', async done =>
+        test('Get Items /items without pagination', async() =>
         {
 
             const response: IListItemsResponse = await request
@@ -210,10 +202,9 @@ describe('Start Item Test', () =>
             expect(data.length).toStrictEqual(11);
             expect(pagination).not.toBeDefined();
 
-            done();
         });
 
-        test('Get Items /items with Filter Type', async done =>
+        test('Get Items /items with Filter Type', async() =>
         {
 
             const response: IListItemsResponse = await request
@@ -233,10 +224,9 @@ describe('Start Item Test', () =>
 
             expect(data[0].type).toStrictEqual(11);
 
-            done();
         });
 
-        test('Get Items /items with Sort Desc Type', async done =>
+        test('Get Items /items with Sort Desc Type', async() =>
         {
 
             const response: IListItemsResponse = await request
@@ -253,13 +243,12 @@ describe('Start Item Test', () =>
 
             expect(item1.type).toBeGreaterThanOrEqual(item2.type);
 
-            done();
         });
     });
 
     describe('Item Fails', () =>
     {
-        beforeAll(async(done) =>
+        beforeAll(async() =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -275,10 +264,9 @@ describe('Start Item Test', () =>
 
             token = data.token;
 
-            done();
         });
 
-        test('Add Item /items', async done =>
+        test('Add Item /items', async() =>
         {
             const payload = {
                 name: 'Item 2',
@@ -301,10 +289,9 @@ describe('Start Item Test', () =>
             expect(error.property).toStrictEqual('type');
             expect(error.constraints.isInt).toStrictEqual('type must be an integer number');
 
-            done();
         });
 
-        test('Get Item /items/:id', async done =>
+        test('Get Item /items/:id', async() =>
         {
 
             const response: IItemResponse = await request
@@ -324,10 +311,9 @@ describe('Start Item Test', () =>
             expect(error.constraints.isUuid).toBeDefined();
             expect(error.constraints.isUuid).toStrictEqual('id must be a UUID');
 
-            done();
         });
 
-        test('Update Item /items/:id', async done =>
+        test('Update Item /items/:id', async() =>
         {
             const payload = {
                 name: 11,
@@ -355,10 +341,9 @@ describe('Start Item Test', () =>
             expect(errorType.constraints.isInt).toBeDefined();
             expect(errorType.constraints.isInt).toStrictEqual('type must be an integer number');
 
-            done();
         });
 
-        test('Delete Item error /items/:id', async done =>
+        test('Delete Item error /items/:id', async() =>
         {
             const deleteErrorResponse: IItemResponse = await request
                 .delete(`/api/items/${deleteResponse.body.data.id}`)
@@ -373,7 +358,6 @@ describe('Start Item Test', () =>
             expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
             expect(message).toStrictEqual('Item not found.');
 
-            done();
         });
     });
 });

@@ -1,4 +1,4 @@
-import Config from 'config';
+import { mainConfig } from '../../../Config/mainConfig';
 import { injectable } from 'inversify';
 import { ICacheRepository, ITokenRepository } from '@digichanges/shared-experience';
 
@@ -12,7 +12,7 @@ import Token from '../../Domain/Entities/Token';
 class TokenRedisRepository implements ITokenRepository<ITokenDomain>
 {
     private readonly repository: ICacheRepository;
-    private readonly expire: number = Math.floor((+Config.get('jwt.expires') + 10) * 60);
+    private readonly expire: number = Math.floor((+mainConfig.jwt.expires + 10) * 60);
 
     constructor()
     {

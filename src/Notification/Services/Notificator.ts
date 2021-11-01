@@ -1,4 +1,4 @@
-import Config from 'config';
+import { mainConfig } from '../../Config/mainConfig';
 import Fs from 'fs';
 import Handlebars from 'handlebars';
 import nodemailer from 'nodemailer';
@@ -22,10 +22,10 @@ class Notificator
 
         try
         {
-            const host: string = Config.get('mail.host');
-            const port: number = Config.get('mail.port');
-            const secure: boolean = Config.get('mail.secure') === 'true';
-            const templateRoot: string = Config.get('mail.templateDir');
+            const host: string = mainConfig.mail.host;
+            const port: number = mainConfig.mail.port;
+            const secure: boolean = mainConfig.mail.secure === true;
+            const templateRoot: string = mainConfig.mail.templateDir;
             const templateDir = `${path.dirname(require.main.filename || process.mainModule.filename)  }/${templateRoot}/${template_path_name_file}`;
 
             const smtp_config = { host, port, secure };
@@ -34,15 +34,15 @@ class Notificator
             {
                 const auth = {
                     auth: {
-                        user: String(Config.get('mail.username')),
-                        pass: String(Config.get('mail.password'))
+                        user: String(mainConfig.mail.username),
+                        pass: String(mainConfig.mail.password)
                     }
                 };
                 Object.assign(smtp_config, auth);
             }
 
-            emailNotification.senderName = Config.get('mail.senderName');
-            emailNotification.from = Config.get('mail.senderEmailDefault');
+            emailNotification.senderName = mainConfig.mail.senderName;
+            emailNotification.from = mainConfig.mail.senderEmailDefault;
             emailNotification.emailTemplatePath = templateDir;
 
             const transporter = nodemailer.createTransport(smtp_config);
@@ -95,9 +95,9 @@ class Notificator
     {
         try
         {
-            const publicKey: string = Config.get('push.publicKey');
-            const privateKey: string = Config.get('push.privateKey');
-            const subject: string = Config.get('url.urlWeb');
+            const publicKey: string = mainConfig.push.publicKey;
+            const privateKey: string = mainConfig.push.privateKey;
+            const subject: string = mainConfig.url.urlWeb;
 
             const pushSubscription = pushNotification.get_subscription();
 

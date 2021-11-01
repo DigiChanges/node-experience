@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Config from 'config';
+import { mainConfig } from '../../Config/mainConfig';
 import { ICreateConnection } from '@digichanges/shared-experience';
 
 import IUserDocument from '../../User/InterfaceAdapters/IUserDocument';
@@ -32,7 +32,7 @@ class MongooseCreateConnection implements ICreateConnection
 
     async initConfig()
     {
-        const config: any = Config.get('dbConfig.Mongoose');
+        const config: any = mainConfig.dbConfig.Mongoose;
         this.uri = `mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`;
     }
 

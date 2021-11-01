@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
-import Config from 'config';
+import { mainConfig } from './Config/mainConfig';
 
 import FormatResponder from './App/Presentation/Shared/FormatResponder';
 import IFormatResponder from './Shared/InterfaceAdapters/IFormatResponder';
@@ -59,14 +59,14 @@ container.bind<Responder>(TYPES.Responder).to(Responder);
 container.bind<IFormatResponder>(TYPES.IFormatResponder).to(FormatResponder);
 
 /* Repositories */
-if (Config.get('dbConfig.default') === 'TypeORM')
+if (mainConfig.dbConfig.default === 'TypeORM')
 {
     container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemSqlRepository);
     container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserSqlRepository);
     container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleSqlRepository);
     container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileSqlRepository);
 }
-else if (Config.get('dbConfig.default') === 'Mongoose')
+else if (mainConfig.dbConfig.default === 'Mongoose')
 {
     container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMongoRepository);
     container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository);

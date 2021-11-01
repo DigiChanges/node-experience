@@ -7,25 +7,23 @@ describe('Start Login Test', () =>
     let request: SuperAgentTest;
     let dbConnection: ICreateConnection;
 
-    beforeAll(async(done) =>
+    beforeAll(async() =>
     {
         const configServer = await initTestServer();
 
         request = configServer.request;
         dbConnection = configServer.dbConnection;
 
-        done();
     });
 
-    afterAll((async(done) =>
+    afterAll((async() =>
     {
         await dbConnection.drop();
         await dbConnection.close();
 
-        done();
     }));
 
-    test('Login User Success', async(done) =>
+    test('Login User Success', async() =>
     {
         const payload = {
             email: 'user@node.com',
@@ -46,10 +44,9 @@ describe('Start Login Test', () =>
         expect(data.user.email).toStrictEqual('user@node.com');
         expect(data.user.firstName).toStrictEqual('user');
 
-        done();
     });
 
-    test('Login SuperAdmin Success', async(done) =>
+    test('Login SuperAdmin Success', async() =>
     {
         const payload = {
             email: 'superadmin@node.com',
@@ -70,10 +67,9 @@ describe('Start Login Test', () =>
         expect(data.user.email).toStrictEqual('superadmin@node.com');
         expect(data.user.firstName).toStrictEqual('Super');
 
-        done();
     });
 
-    test('Login SuperAdmin Wrong Credentials', async(done) =>
+    test('Login SuperAdmin Wrong Credentials', async() =>
     {
         const payload = {
             email: 'superadmin@node.com',
@@ -93,10 +89,9 @@ describe('Start Login Test', () =>
 
         expect(message).toStrictEqual('Error credentials.');
 
-        done();
     });
 
-    test('Login Operator Enable False', async(done) =>
+    test('Login Operator Enable False', async() =>
     {
         const payload = {
             email: 'operator@disabled.com',
@@ -116,10 +111,9 @@ describe('Start Login Test', () =>
 
         expect(message).toStrictEqual('Your user is disable.');
 
-        done();
     });
 
-    test('Login Operator with Role Operator Enable False', async(done) =>
+    test('Login Operator with Role Operator Enable False', async() =>
     {
         const payload = {
             email: 'operator@roleDisabled.com',
@@ -139,6 +133,5 @@ describe('Start Login Test', () =>
 
         expect(message).toStrictEqual('Your role is disable.');
 
-        done();
     });
 });

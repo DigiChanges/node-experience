@@ -1,17 +1,17 @@
-import Config from 'config';
+import { mainConfig } from '../../Config/mainConfig';
 import MinioStrategy from '../Filesystem/MinioStrategy';
 import { IFilesystem } from '@digichanges/shared-experience';
 
 class FilesystemFactory
 {
-    static create(fileSystem: string = Config.get('filesystem.default')): IFilesystem
+    static create(fileSystem: string = mainConfig.filesystem.default): IFilesystem
     {
         const fileSystems: Record<string, any> = {
             minio: MinioStrategy
         };
 
         const fileSystemConfig: Record<string, any> = {
-            minio: Config.get('filesystem.minio')
+            minio: mainConfig.filesystem.minio
         };
 
         return new fileSystems[fileSystem](fileSystemConfig[fileSystem]);

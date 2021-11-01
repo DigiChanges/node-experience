@@ -63,7 +63,9 @@
   "productInfo":{
     "productName": "PRODUCT_NAME"
   },
-  "encryptionDefault": "ENCRYPTION_DEFAULT",
+  "encryption": {
+    "default": "ENCRYPTION_DEFAULT"
+  },
   "url": {
     "urlApi": "URL_API",
     "urlWeb": "URL_WEB"
