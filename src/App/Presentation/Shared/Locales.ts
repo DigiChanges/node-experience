@@ -1,5 +1,4 @@
 import i18n from 'i18n';
-import Config from 'config';
 
 class Locales
 {
@@ -10,7 +9,7 @@ class Locales
     {
         this.i18n.configure({
             locales: ['en', 'es'],
-            directory: `${Config.get('nodePath')}/dist/src/Config/Locales`,
+            directory: `${process.cwd()}/dist/src/Config/Locales`,
             defaultLocale: 'en',
             objectNotation: true
         });
@@ -19,6 +18,7 @@ class Locales
         {
             throw new Error('Error: Instantiation failed: Use SingletonClass.getInstance() instead of new.');
         }
+
         Locales.instance = this;
     }
 
