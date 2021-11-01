@@ -20,16 +20,16 @@ import InvalidPasswordException from './App/Domain/Exceptions/InvalidPasswordExc
 import InvalidPasswordHttpException from './App/Presentation/Exceptions/InvalidPasswordHttpException';
 
 const exceptions = {
-    [DecryptForbiddenException.name]: new DecryptForbiddenHttpException(),
-    [BadCredentialsException.name]: new BadCredentialsHttpException(),
-    [UserDisabledException.name]: new UserDisabledHttpException(),
-    [RoleDisabledException.name]: new RoleDisabledHttpException(),
-    [RoleOfSystemNotDeletedException.name]: new RoleOfSystemNotDeletedHttpException(),
-    [CantDisabledException.name]: new CantDisabledHttpException(),
-    [PasswordWrongException.name]: new PasswordWrongHttpException(),
-    [NotFoundException.name]: new NotFoundHttpException(),
-    [WrongPermissionsException.name]: new WrongPermissionsHttpException(),
-    [InvalidPasswordException.name]: new InvalidPasswordHttpException()
+    [DecryptForbiddenException.name]: DecryptForbiddenHttpException,
+    [BadCredentialsException.name]: BadCredentialsHttpException,
+    [UserDisabledException.name]: UserDisabledHttpException,
+    [RoleDisabledException.name]: RoleDisabledHttpException,
+    [RoleOfSystemNotDeletedException.name]: RoleOfSystemNotDeletedHttpException,
+    [CantDisabledException.name]: CantDisabledHttpException,
+    [PasswordWrongException.name]: PasswordWrongHttpException,
+    [NotFoundException.name]: NotFoundHttpException,
+    [WrongPermissionsException.name]: WrongPermissionsHttpException,
+    [InvalidPasswordException.name]: InvalidPasswordHttpException
 };
 
 export default exceptions;

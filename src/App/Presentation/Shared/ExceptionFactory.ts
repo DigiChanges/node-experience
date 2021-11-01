@@ -1,21 +1,20 @@
 import ErrorHttpException from './ErrorHttpException';
 import TokenExpiredHttpException from '../../../Auth/Presentation/Exceptions/TokenExpiredHttpException';
 import DuplicateEntityHttpException from '../Exceptions/DuplicateEntityHttpException';
-import { StatusCode } from '@digichanges/shared-experience';
 import exceptions from '../../../exceptions';
 
 class ExceptionFactory
 {
     private exceptionsMapper: any = {
         ...exceptions,
-        Error: new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: 'Internal Error' }),
-        TypeError: new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: 'Internal Error' }),
-        ErrorHttpException: new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: 'Internal Error' })
+        Error: ErrorHttpException,
+        TypeError: ErrorHttpException,
+        ErrorHttpException
     };
 
     public getException(err: any): ErrorHttpException
     {
-        let exception = this.exceptionsMapper[err?.name || 'Error'] as ErrorHttpException;
+        let exception = new this.exceptionsMapper[err?.name || 'Error']() as ErrorHttpException;
 
         const message = err?.message || exception?.message;
         const errorCode = err?.errorCode || exception?.errorCode;
