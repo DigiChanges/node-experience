@@ -2,16 +2,21 @@ import Config from 'config';
 import MinioStrategy from '../Filesystem/MinioStrategy';
 import { IFilesystem } from '@digichanges/shared-experience';
 
+type FileSystem = 'minio';
+
 class FilesystemFactory
 {
-    static create(encryptionConfig: string = Config.get('filesystem.default')): IFilesystem
+    static create(fileSystem: FileSystem = Config.get('filesystem.default')): IFilesystem
     {
-        if (encryptionConfig === 'minio')
-        {
-            const config = Config.get('filesystem.minio');
+        const fileSystems = {
+            minio: MinioStrategy
+        };
 
-            return new MinioStrategy(config);
-        }
+        const fileSystemConfig = {
+            minio: Config.get('filesystem.minio')
+        };
+
+        return new fileSystems[fileSystem](fileSystemConfig[fileSystem]);
     }
 }
 
