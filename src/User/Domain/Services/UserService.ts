@@ -18,7 +18,7 @@ import UserAssignRoleByPayload from 'User/InterfaceAdapters/Payloads/UserAssignR
 import Password from '../../../App/Domain/ValueObjects/Password';
 import { injectable } from 'inversify';
 import IUserService from '../../InterfaceAdapters/IUserService';
-import Config from 'config';
+import { mainConfig } from '../../../Config/mainConfig';
 
 @injectable()
 class UserService implements IUserService
@@ -55,8 +55,8 @@ class UserService implements IUserService
     {
         const user = new User();
 
-        const min = Config.get<number>('validationSettings.password.min');
-        const max = Config.get<number>('validationSettings.password.max');
+        const min = mainConfig.validationSettings.password.minLength;
+        const max = mainConfig.validationSettings.password.maxLength;
 
         const password = new Password(payload.getPassword(), min, max);
         user.password = await password.ready();
@@ -85,8 +85,8 @@ class UserService implements IUserService
 
     async persistPassword(user: IUserDomain, payload: ChangeUserPasswordPayload): Promise<IUserDomain>
     {
-        const min = Config.get<number>('validationSettings.password.min');
-        const max = Config.get<number>('validationSettings.password.max');
+        const min = mainConfig.validationSettings.password.minLength;
+        const max = mainConfig.validationSettings.password.maxLength;
 
         const password = new Password(payload.getPassword(), min, max);
         user.password = await password.ready();

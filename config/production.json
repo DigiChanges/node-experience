@@ -15,22 +15,7 @@
       "password": "experience",
       "synchronize": true,
       "migrationsRun": false,
-      "logging": true,
-      "entities": [
-        "dist/src/Infrastructure/Entities/TypeORM/Mongo/*{.ts,.js}"
-      ],
-      "migrations": [
-        "dist/src/Infrastructure/Migrations/TypeORM/Mongo/**/*{.ts,.js}"
-      ],
-      "subscribers": [
-        "dist/src/Infrastructure/Subscribers/TypeORM/Mongo/**/*{.ts,.js}"
-      ],
-      "cli": {
-        "entitiesDir": "/src/Infrastructure/Entities",
-        "migrationsDir": "/src/Infrastructure/Migrations",
-        "subscribersDir": "/src/Infrastructure/Subscribers"
-      },
-      "default": "TypeORM"
+      "logging": true
     },
     "Mongoose": {
       "host": "db",

@@ -7,7 +7,7 @@ import { IEncryption } from '@digichanges/shared-experience';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { SERVICES } from '../../../services';
-import Config from 'config';
+import { mainConfig } from '../../../Config/mainConfig';
 
 class ChangeMyPasswordUseCase
 {
@@ -31,8 +31,8 @@ class ChangeMyPasswordUseCase
             throw new PasswordWrongException();
         }
 
-        const min = Config.get<number>('validationSettings.password.min');
-        const max = Config.get<number>('validationSettings.password.max');
+        const min = mainConfig.validationSettings.password.minLength;
+        const max = mainConfig.validationSettings.password.maxLength;
 
         const password = new Password(payload.getPassword(), min, max);
         await password.ready();

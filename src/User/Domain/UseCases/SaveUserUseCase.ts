@@ -3,7 +3,6 @@ import EventHandler from '../../../Shared/Events/EventHandler';
 import UserCreatedEvent from '../../../Shared/Events/UserCreatedEvent';
 import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
 import UserService from '../Services/UserService';
-import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { SERVICES } from '../../../services';
 

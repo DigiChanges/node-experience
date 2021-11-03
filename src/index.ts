@@ -31,8 +31,8 @@ void (async() =>
         await eventHandler.setListeners();
 
         const app = AppFactory.create('AppExpress', {
-            viewRouteEngine: `${mainConfig.nodePath}/dist/App/Presentation/Views`,
-            localesDirectory: `${mainConfig.nodePath}/dist/src/Config/Locales`,
+            viewRouteEngine: `${process.cwd()}/dist/App/Presentation/Views`,
+            localesDirectory: `${process.cwd()}/dist/src/Config/Locales`,
             serverPort: mainConfig.serverPort
         });
 

@@ -9,7 +9,7 @@ import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import Permissions from '../../../Config/Permissions';
-import Config from 'config';
+import { mainConfig } from '../../../Config/mainConfig';
 
 class UserSeed implements ISeed
 {
@@ -21,8 +21,8 @@ class UserSeed implements ISeed
 
     public async init(): Promise<void>
     {
-        const min = Config.get<number>('validationSettings.password.min');
-        const max = Config.get<number>('validationSettings.password.max');
+        const min = mainConfig.validationSettings.password.minLength;
+        const max = mainConfig.validationSettings.password.maxLength;
 
         const roleSuperAdmin: IRoleDomain = new Role();
         roleSuperAdmin.name = 'SuperAdmin';

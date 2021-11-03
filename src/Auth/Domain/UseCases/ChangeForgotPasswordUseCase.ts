@@ -4,7 +4,7 @@ import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../repositories';
 import Password from '../../../App/Domain/ValueObjects/Password';
-import Config from 'config';
+import { mainConfig } from '../../../Config/mainConfig';
 
 class ChangeForgotPasswordUseCase
 {
@@ -19,8 +19,8 @@ class ChangeForgotPasswordUseCase
         user.confirmationToken = null;
         user.passwordRequestedAt = null;
 
-        const min = Config.get<number>('validationSettings.password.min');
-        const max = Config.get<number>('validationSettings.password.max');
+        const min = mainConfig.validationSettings.password.minLength;
+        const max = mainConfig.validationSettings.password.maxLength;
 
         const password = new Password(payload.getPassword(), min, max);
         await password.ready();

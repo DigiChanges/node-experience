@@ -37,6 +37,9 @@ class ItemSqlRepository extends BaseSqlRepository<Item> implements IItemReposito
             queryBuilder.setParameter(ItemFilter.NAME, `%${filter.get(ItemFilter.NAME)}%`);
         }
 
+        queryBuilder.leftJoinAndSelect('i.createdBy', 'createdBy');
+        queryBuilder.leftJoinAndSelect('i.lastModifiedBy', 'lastModifiedBy');
+
         return new Paginator(queryBuilder, criteria);
     }
 }

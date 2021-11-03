@@ -4,7 +4,7 @@ import UserService from '../Services/UserService';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { SERVICES } from '../../../services';
-import Config from 'config';
+import { mainConfig } from '../../../Config/mainConfig';
 
 
 class ChangeUserPasswordUseCase
@@ -17,8 +17,8 @@ class ChangeUserPasswordUseCase
         const id = payload.getId();
         const user: IUserDomain = await this.userService.getOne(id);
 
-        const min = Config.get<number>('validationSettings.password.min');
-        const max = Config.get<number>('validationSettings.password.max');
+        const min = mainConfig.validationSettings.password.minLength;
+        const max = mainConfig.validationSettings.password.maxLength;
 
         const password = new Password(payload.getPassword(), min, max);
         await password.ready();
