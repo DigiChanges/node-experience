@@ -4,14 +4,17 @@ import { IFilesystem } from '@digichanges/shared-experience';
 
 class FilesystemFactory
 {
-    static create(encryptionConfig: string = Config.get('filesystem.default')): IFilesystem
+    static create(fileSystem: string = Config.get('filesystem.default')): IFilesystem
     {
-        if (encryptionConfig === 'minio')
-        {
-            const config = Config.get('filesystem.minio');
+        const fileSystems: Record<string, any> = {
+            minio: MinioStrategy
+        };
 
-            return new MinioStrategy(config);
-        }
+        const fileSystemConfig: Record<string, any> = {
+            minio: Config.get('filesystem.minio')
+        };
+
+        return new fileSystems[fileSystem](fileSystemConfig[fileSystem]);
     }
 }
 

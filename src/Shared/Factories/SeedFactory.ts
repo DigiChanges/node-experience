@@ -1,4 +1,3 @@
-import ISeed from '../InterfaceAdapters/ISeed';
 import { loggerCli } from '../Logger';
 import _ from 'lodash';
 
@@ -6,7 +5,7 @@ import seeds from '../../seed';
 
 class SeedFactory
 {
-    private seeds: {[name:string]: ISeed } = {
+    private seeds = {
         ...seeds
     }
 
@@ -18,10 +17,7 @@ class SeedFactory
     public list(): void
     {
         loggerCli.info('⬐ Seed List');
-        for (const name of Object.keys(this.seeds))
-        {
-            loggerCli.info(`↳ ${name}`);
-        }
+        Object.keys(this.seeds).forEach(name =>  loggerCli.info(`↳ ${name}`));
     }
 
     public async init(): Promise<void>
@@ -33,7 +29,7 @@ class SeedFactory
     {
         this.validateSeedName(name);
 
-        await this.seeds[name].init();
+        await (new this.seeds[name]()).init();
 
         loggerCli.info(`→ ${name} run successfully ✔`);
     }
@@ -43,7 +39,7 @@ class SeedFactory
         loggerCli.info('⬐ All Seed Run');
         for await (const name of Object.keys(this.seeds))
         {
-            await this.seeds[name].init();
+            await (new this.seeds[name]()).init();
 
             loggerCli.info(`↳ ${name} run successfully ✔`);
         }
