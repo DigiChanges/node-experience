@@ -118,7 +118,7 @@
       "url": "/api/auth/register"
     },
     {
-      "method": ["POST"],
+      "methods": ["POST"],
       "url": "/api/auth/forgot-password"
     },
     {
@@ -126,7 +126,7 @@
       "url": "/api/auth/change-forgot-password"
     },
     {
-      "method": ["PUT"],
+      "methods": ["PUT"],
       "url": "/api/auth/verify-your-account/**"
     },
     {

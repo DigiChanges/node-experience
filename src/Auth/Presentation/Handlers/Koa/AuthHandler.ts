@@ -18,6 +18,7 @@ import DefaultTransformer from '../../../../App/Presentation/Transformers/Defaul
 import RegisterRequest from '../../Requests/Express/RegisterRequest';
 import UpdateMeRequest from '../../Requests/Express/UpdateMeRequest';
 import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
+import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/auth'
@@ -60,25 +61,7 @@ AuthHandler.post('/login', async(ctx: Koa.ParameterizedContext & any ) =>
     responder.send(payload, ctx, StatusCode.HTTP_CREATED, new AuthTransformer());
 });
 
-AuthHandler.post('/register', async(ctx: Koa.ParameterizedContext & any) =>
-{
-    const _request = new RegisterRequest(ctx.request.body);
-
-    const payload = await controller.register(_request);
-
-    responder.send(payload, ctx, StatusCode.HTTP_CREATED, new DefaultTransformer());
-});
-
-AuthHandler.post('/logout', async(ctx: Koa.ParameterizedContext & any) =>
-{
-    const payload = await controller.logout(AuthUser(ctx, 'tokenDecode'));
-
-    ctx.cookies.set('refreshToken', null);
-
-    await responder.send(payload, ctx, StatusCode.HTTP_OK, new DefaultTransformer());
-});
-
-AuthHandler.post('/refresh-token', AuthorizeMiddleware(Permissions.REFRESH_TOKEN), async(ctx: Koa.ParameterizedContext & any) =>
+AuthHandler.post('/refresh-token', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new RefreshTokenRequest(ctx.cookies.get('refreshToken'));
 
@@ -137,4 +120,5 @@ AuthHandler.post('/sync-roles-permissions', AuthorizeMiddleware(Permissions.AUTH
 
     responder.send({ message: 'Sync Successfully' }, ctx, StatusCode.HTTP_CREATED);
 });
+
 export default AuthHandler;
