@@ -98,6 +98,10 @@
     },
     {
       "methods": ["POST"],
+      "url": "/api/auth/register"
+    },
+    {
+      "method": ["POST"],
       "url": "/api/auth/forgotPassword"
     },
     {

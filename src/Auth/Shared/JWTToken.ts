@@ -9,6 +9,7 @@ class JWTToken implements IToken
 {
     private readonly expires: number;
     private readonly hash: string;
+    private readonly refreshHash: string;
     private readonly user: IUserDomain;
     private readonly payload: ITokenDecode;
 
@@ -28,6 +29,7 @@ class JWTToken implements IToken
             email: user.email
         };
         this.hash = jwt.encode(this.payload, secret, 'HS512');
+        this.refreshHash = jwt.encode(this.payload, secret, 'HS512');
     }
 
     getExpires(): number
@@ -38,6 +40,11 @@ class JWTToken implements IToken
     getHash(): string
     {
         return this.hash;
+    }
+
+    getRefreshHash(): string
+    {
+        return this.refreshHash;
     }
 
     getPayload(): any

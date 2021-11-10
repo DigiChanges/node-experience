@@ -1,12 +1,12 @@
-import UserUpdatePayload from '../../../InterfaceAdapters/Payloads/UserUpdatePayload';
-import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import { decorate, Mixin } from 'ts-mixer';
-import UserRepRequest from './UserRepRequest';
+import UserWithoutPermissionsRequest
+    from '../../../../User/Presentation/Requests/Express/UserWithoutPermissionsRequest';
+import UserRepPayload from '../../../../User/InterfaceAdapters/Payloads/UserRepPayload';
 import { IsEmail, IsString, IsUUID, Length } from 'class-validator';
 import { Unique } from '../../../../Shared/Decorators/unique';
 import { REPOSITORIES } from '../../../../repositories';
 
-class UserUpdateRequest extends Mixin(UserRepRequest, IdRequest) implements UserUpdatePayload
+class UpdateMeRequest extends Mixin(UserWithoutPermissionsRequest) implements UserRepPayload
 {
     @IsUUID('4')
     userId: string;
@@ -14,7 +14,7 @@ class UserUpdateRequest extends Mixin(UserRepRequest, IdRequest) implements User
     @decorate(IsEmail())
     @decorate(Unique({
         repository: REPOSITORIES.IUserRepository,
-        refAttr: 'id'
+        refAttr: 'userId'
     }))
     email: string;
 
@@ -22,22 +22,16 @@ class UserUpdateRequest extends Mixin(UserRepRequest, IdRequest) implements User
     @decorate(IsString())
     @decorate(Unique({
         repository: REPOSITORIES.IUserRepository,
-        refAttr: 'id'
+        refAttr: 'userId'
     }))
     documentNumber: string;
 
-    constructor(data: Record<string, any>, id: string, userId: string)
+    constructor(data: Record<string, any>, userId: string)
     {
         super(data);
-        this.id = id;
         this.userId = userId;
         this.email = data.email;
         this.documentNumber = data.documentNumber;
-    }
-
-    getTokenUserId(): string
-    {
-        return this.userId;
     }
 
     getEmail(): string
@@ -51,4 +45,4 @@ class UserUpdateRequest extends Mixin(UserRepRequest, IdRequest) implements User
     }
 }
 
-export default UserUpdateRequest;
+export default UpdateMeRequest;

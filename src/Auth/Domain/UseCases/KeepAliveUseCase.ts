@@ -24,13 +24,13 @@ class KeepAliveUseCase
     async handle(payload: KeepAlivePayload)
     {
         const email = payload.getEmail();
-        const token_id = payload.getTokenId();
+        const tokenId = payload.getTokenId();
 
         const user = await this.repository.getOneByEmail(email);
-        const token: any = await this.tokenRepository.getOne(token_id);
+        const token: ITokenDomain = await this.tokenRepository.getOne(tokenId);
 
-        const set_token_blacklist_use_case = new SetTokenBlacklistUseCase();
-        await set_token_blacklist_use_case.handle(token);
+        const useCase = new SetTokenBlacklistUseCase();
+        await useCase.handle(token);
 
         return await this.tokenFactory.createToken(user);
     }

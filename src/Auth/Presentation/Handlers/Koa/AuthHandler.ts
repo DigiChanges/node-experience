@@ -11,6 +11,13 @@ import ChangeForgotPasswordRequest from '../../Requests/Express/ChangeForgotPass
 import PermissionsTransformer from '../../Transformers/PermissionsTransformer';
 import Permissions from '../../../../Config/Permissions';
 import AuthorizeMiddleware from '../../Middlewares/Koa/AuthorizeMiddleware';
+import { AuthUser } from '../../Helpers/AuthUser';
+import UserTransformer from '../../../../User/Presentation/Transformers/UserTransformer';
+import moment from 'moment';
+import DefaultTransformer from '../../../../App/Presentation/Transformers/DefaultTransformer';
+import RegisterRequest from '../../Requests/Express/RegisterRequest';
+import UpdateMeRequest from '../../Requests/Express/UpdateMeRequest';
+import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/auth'
@@ -20,13 +27,63 @@ const AuthHandler: Router = new Router(routerOpts);
 const responder: Responder = new Responder();
 const controller = new AuthController();
 
+AuthHandler.get('/me', async(ctx: Koa.ParameterizedContext & any) =>
+{
+    responder.send(AuthUser(ctx), ctx, StatusCode.HTTP_OK, new UserTransformer());
+});
+
+AuthHandler.put('/me', async(ctx: Koa.ParameterizedContext & any) =>
+{
+    const _request = new UpdateMeRequest(ctx.request.body, AuthUser<IUserDomain>(ctx).getId());
+
+    const payload = await controller.updateMe(_request, AuthUser(ctx));
+
+    responder.send(payload, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
+});
+
 AuthHandler.post('/login', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new AuthRequest(ctx.request.body);
 
     const payload = await controller.login(_request);
 
+    ctx.cookies.set(
+        'refreshToken',
+        payload.getRefreshHash(),
+        {
+            expires: moment.unix(payload.getExpires()).toDate(),
+            maxAge: payload.getExpires(),
+            path: '/',
+            httpOnly: true
+        });
+
     responder.send(payload, ctx, StatusCode.HTTP_CREATED, new AuthTransformer());
+});
+
+AuthHandler.post('/register', async(ctx: Koa.ParameterizedContext & any) =>
+{
+    const _request = new RegisterRequest(ctx.request.body);
+
+    const payload = await controller.register(_request);
+
+    ctx.cookies.set(
+        'refreshToken',
+        payload.getRefreshHash(),
+        {
+            expires: moment.unix(payload.getExpires()).toDate(),
+            maxAge: payload.getExpires(),
+            path: '/',
+            httpOnly: true
+        });
+
+    responder.send(payload, ctx, StatusCode.HTTP_CREATED, new AuthTransformer());
+});
+
+AuthHandler.post('/logout', async(ctx: Koa.ParameterizedContext & any) =>
+{
+    const payload = await controller.logout(AuthUser(ctx, 'tokenDecode'));
+
+    await responder.send(payload, ctx, StatusCode.HTTP_OK, new DefaultTransformer());
 });
 
 AuthHandler.post('/keep-alive', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE), async(ctx: Koa.ParameterizedContext & any) =>
@@ -69,5 +126,4 @@ AuthHandler.post('/sync-roles-permissions', AuthorizeMiddleware(Permissions.AUTH
 
     responder.send({ message: 'Sync Successfully' }, ctx, StatusCode.HTTP_CREATED);
 });
-
 export default AuthHandler;

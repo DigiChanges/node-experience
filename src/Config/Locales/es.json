@@ -20,6 +20,9 @@
 				"cantDisabled": "No se puede deshabilitar.",
 				"passwordWrong": "Error en la contraseña.",
 				"wrongPermissions": "Error en los permisos."
+			},
+			"messages": {
+				"logout": "You have logged out successfully"
 			}
 		},
 		"presentation": {

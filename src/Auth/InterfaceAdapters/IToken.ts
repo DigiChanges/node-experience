@@ -4,6 +4,7 @@ interface IToken
 {
     getExpires(): number;
     getHash(): string;
+    getRefreshHash(): string;
     getUser(): IUserDomain;
     getPayload(): any;
 }

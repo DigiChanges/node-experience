@@ -3,7 +3,7 @@ import Base from '../../../App/Domain/Entities/Base';
 
 class Token extends Base implements ITokenDomain
 {
-    hash : string;
+    hash: string;
     expires: number;
     payload: any;
     blackListed: boolean;

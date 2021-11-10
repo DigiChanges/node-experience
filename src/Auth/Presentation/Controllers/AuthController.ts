@@ -12,7 +12,15 @@ import IToken from '../../InterfaceAdapters/IToken';
 import KeepAlivePayload from '../../InterfaceAdapters/Payloads/KeepAlivePayload';
 import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
 import IGroupPermission from '../../InterfaceAdapters/IGroupPermission';
-
+import LogoutUseCase from '../../Domain/UseCases/LogoutUseCase';
+import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
+import UserSavePayload from '../../../User/InterfaceAdapters/Payloads/UserSavePayload';
+import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
+import SaveUserUseCase from '../../../User/Domain/UseCases/SaveUserUseCase';
+import RegisterPayload from '../../InterfaceAdapters/Payloads/RegisterPayload';
+import RegisterUseCase from '../../Domain/UseCases/RegisterUseCase';
+import UpdateMeUseCase from '../../Domain/UseCases/UpdateMeUseCase';
+import UserRepPayload from '../../../User/InterfaceAdapters/Payloads/UserRepPayload';
 
 class AuthController
 {
@@ -22,6 +30,28 @@ class AuthController
 
         const useCase = new LoginUseCase();
         return await useCase.handle(request);
+    }
+
+    public async register(request: RegisterPayload): Promise<IToken>
+    {
+        await ValidatorRequest.handle(request);
+
+        const useCase = new RegisterUseCase();
+        return await useCase.handle(request);
+    }
+
+    public async updateMe(request: UserRepPayload, authUser: IUserDomain): Promise<IUserDomain>
+    {
+        await ValidatorRequest.handle(request);
+
+        const useCase = new UpdateMeUseCase();
+        return await useCase.handle(request, authUser);
+    }
+
+    public async logout(tokenDecode:ITokenDecode): Promise<Record<string, any>>
+    {
+        const useCase = new LogoutUseCase();
+        return await useCase.handle(tokenDecode);
     }
 
     public async keepAlive(request: KeepAlivePayload)
@@ -54,7 +84,7 @@ class AuthController
         return useCase.handle();
     }
 
-    public syncRolesPermissions()
+    public syncRolesPermissions(): string[]
     {
         const useCase = new SyncRolesPermissionUseCase();
         return useCase.handle();

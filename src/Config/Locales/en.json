@@ -20,6 +20,9 @@
 				"cantDisabled": "Disabled forbidden.",
 				"passwordWrong": "Wrong password.",
 				"wrongPermissions": "Wrong permissions."
+			},
+			"messages": {
+				"logout": "You have logged out successfully"
 			}
 		},
 		"presentation": {

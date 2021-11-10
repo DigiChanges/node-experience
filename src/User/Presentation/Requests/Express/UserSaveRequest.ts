@@ -8,8 +8,6 @@ class UserSaveRequest extends Mixin(UserRepRequest, UserRepPasswordRequest) impl
     constructor(data: Record<string, any>)
     {
         super(data);
-        this.password = data.password;
-        this.passwordConfirmation = data.passwordConfirmation;
     }
 }
 

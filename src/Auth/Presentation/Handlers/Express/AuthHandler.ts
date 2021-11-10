@@ -1,4 +1,4 @@
-import { controller, httpPost, request, response, httpGet } from 'inversify-express-utils';
+import { controller, httpGet, httpPost, httpPut, request, response } from 'inversify-express-utils';
 import { Request, Response } from 'express';
 import { StatusCode } from '@digichanges/shared-experience';
 
@@ -18,6 +18,13 @@ import AuthTransformer from '../../Transformers/AuthTransformer';
 import PermissionsTransformer from '../../Transformers/PermissionsTransformer';
 
 import AuthController from '../../Controllers/AuthController';
+import { AuthUser } from '../../Helpers/AuthUser';
+import UserTransformer from '../../../../User/Presentation/Transformers/UserTransformer';
+import moment from 'moment';
+import DefaultTransformer from '../../../../App/Presentation/Transformers/DefaultTransformer';
+import RegisterRequest from '../../Requests/Express/RegisterRequest';
+import UpdateMeRequest from '../../Requests/Express/UpdateMeRequest';
+import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
 
 @controller('/api/auth')
 class AuthHandler
@@ -31,6 +38,21 @@ class AuthHandler
         this.controller = new AuthController();
     }
 
+    @httpGet('/me')
+    public async me(@request() req: Request, @response() res: Response): Promise<void>
+    {
+        this.responder.send(AuthUser(req), null, res, StatusCode.HTTP_OK, new UserTransformer());
+    }
+
+    @httpPut('/me')
+    public async updateMe(@request() req: Request, @response() res: Response): Promise<void>
+    {
+        const _request = new UpdateMeRequest(req.body, AuthUser<IUserDomain>(req).getId());
+
+        const payload = await this.controller.updateMe(_request, AuthUser(req));
+        this.responder.send(AuthUser(req), null, res, StatusCode.HTTP_OK, new UserTransformer());
+    }
+
     @httpPost('/login')
     public async login(@request() req: Request, @response() res: Response): Promise<void>
     {
@@ -38,7 +60,45 @@ class AuthHandler
 
         const payload = await this.controller.login(_request);
 
+        res.cookie(
+            'refreshToken',
+            payload.getRefreshHash(),
+            {
+                expires: moment.unix(payload.getExpires()).toDate(),
+                maxAge: payload.getExpires(),
+                path: '/',
+                httpOnly: true
+            });
+
         this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new AuthTransformer());
+    }
+
+    @httpPost('/register')
+    public async register(@request() req: Request, @response() res: Response): Promise<void>
+    {
+        const _request = new RegisterRequest(req.body);
+
+        const payload = await this.controller.register(_request);
+
+        res.cookie(
+            'refreshToken',
+            payload.getRefreshHash(),
+            {
+                expires: moment.unix(payload.getExpires()).toDate(),
+                maxAge: payload.getExpires(),
+                path: '/',
+                httpOnly: true
+            });
+
+        this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new AuthTransformer());
+    }
+
+    @httpPost('/logout')
+    public async logout(@request() req: Request, @response() res: Response)
+    {
+        const payload = await this.controller.logout(AuthUser(req, 'tokenDecode'));
+
+        this.responder.send({ message: 'Sync Successfully' }, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
 
     @httpPost('/keep-alive', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE))
