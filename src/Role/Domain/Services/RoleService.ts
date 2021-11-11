@@ -11,7 +11,6 @@ import { SERVICES } from '../../../services';
 import { injectable } from 'inversify';
 import IRoleService from '../../InterfaceAdapters/IRoleService';
 import UniqueService from '../../../App/Domain/Services/UniqueService';
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 
 @injectable()
 class RoleService implements IRoleService
@@ -27,9 +26,10 @@ class RoleService implements IRoleService
         this.authService.validatePermissions(payload.getPermissions());
 
         void await UniqueService.validate<IRoleDomain>({
-            repository: REPOSITORIES.IUserRepository,
-            attr: 'slug',
-            value: payload.getSlug(),
+            repository: REPOSITORIES.IRoleRepository,
+            validate: {
+                slug: payload.getSlug()
+            },
             refValue: role.getId()
         });
 
@@ -44,6 +44,14 @@ class RoleService implements IRoleService
     async create(payload: RoleRepPayload): Promise<IRoleDomain>
     {
         const role = new Role();
+
+        void await UniqueService.validate<IRoleDomain>({
+            repository: REPOSITORIES.IRoleRepository,
+            validate: {
+                slug: payload.getSlug()
+            }
+        });
+
         return await this.persist(role, payload);
     }
 
