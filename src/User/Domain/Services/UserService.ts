@@ -18,9 +18,8 @@ import UserAssignRoleByPayload from 'User/InterfaceAdapters/Payloads/UserAssignR
 import Password from '../../../App/Domain/ValueObjects/Password';
 import { injectable } from 'inversify';
 import IUserService from '../../InterfaceAdapters/IUserService';
-import Config from 'config';
-import MainConfig from '../../../Config/mainConfig';
 import UniqueService from '../../../App/Domain/Services/UniqueService';
+import MainConfig from '../../../Config/mainConfig';
 
 @injectable()
 class UserService implements IUserService
@@ -42,10 +41,15 @@ class UserService implements IUserService
 
         void await UniqueService.validate<IUserDomain>({
             repository: REPOSITORIES.IUserRepository,
-            validate: {
-                email: payload.getEmail(),
-                documentNumber: payload.getDocumentNumber()
-            },
+            attr: 'email',
+            value: payload.getEmail(),
+            refValue: user.getId()
+        });
+
+        void await UniqueService.validate<IUserDomain>({
+            repository: REPOSITORIES.IUserRepository,
+            attr: 'documentNumber',
+            value: payload.getDocumentNumber(),
             refValue: user.getId()
         });
 
@@ -68,6 +72,18 @@ class UserService implements IUserService
     async create(payload: UserSavePayload): Promise<IUserDomain>
     {
         const user = new User();
+
+        void await UniqueService.validate<IUserDomain>({
+            repository: REPOSITORIES.IUserRepository,
+            attr: 'email',
+            value: payload.getEmail()
+        });
+
+        void await UniqueService.validate<IUserDomain>({
+            repository: REPOSITORIES.IUserRepository,
+            attr: 'documentNumber',
+            value: payload.getDocumentNumber()
+        });
 
         const min = this.config.getConfig().validationSettings.password.minLength;
         const max = this.config.getConfig().validationSettings.password.maxLength;

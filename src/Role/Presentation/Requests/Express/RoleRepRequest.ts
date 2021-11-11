@@ -1,8 +1,6 @@
 import RoleRepPayload from '../../../InterfaceAdapters/Payloads/RoleRepPayload';
 import { IsArray, IsBoolean, IsOptional, IsString, Length } from 'class-validator';
 import { decorate } from 'ts-mixer';
-import { Unique } from '../../../../Shared/Decorators/unique';
-import { REPOSITORIES } from '../../../../repositories';
 
 class RoleRepRequest implements RoleRepPayload
 {
@@ -12,9 +10,6 @@ class RoleRepRequest implements RoleRepPayload
 
     @decorate(Length(3, 30))
     @decorate(IsString())
-    @decorate(Unique({
-        repository: REPOSITORIES.IRoleRepository
-    }))
     slug: string;
 
     @decorate(IsArray())
