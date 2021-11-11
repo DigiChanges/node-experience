@@ -27,6 +27,7 @@ import UpdateMeRequest from '../../Requests/Express/UpdateMeRequest';
 import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
 import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
 import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
+import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
 
 @controller('/api/auth')
 class AuthHandler

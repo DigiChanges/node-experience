@@ -19,6 +19,7 @@ import RegisterRequest from '../../Requests/Express/RegisterRequest';
 import UpdateMeRequest from '../../Requests/Express/UpdateMeRequest';
 import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
 import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
+import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/auth'
@@ -59,6 +60,15 @@ AuthHandler.post('/login', async(ctx: Koa.ParameterizedContext & any ) =>
         });
 
     responder.send(payload, ctx, StatusCode.HTTP_CREATED, new AuthTransformer());
+});
+
+AuthHandler.post('/logout', async(ctx: Koa.ParameterizedContext & any) =>
+{
+    const payload = await controller.logout(AuthUser(ctx, 'tokenDecode'));
+
+    ctx.cookies.set('refreshToken', null);
+
+    await responder.send(payload, ctx, StatusCode.HTTP_OK, new DefaultTransformer());
 });
 
 AuthHandler.post('/refresh-token', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE), async(ctx: Koa.ParameterizedContext & any) =>

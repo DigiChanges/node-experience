@@ -4,6 +4,7 @@ import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../repositories';
 import Password from '../../../App/Domain/ValueObjects/Password';
+import Locales from '../../../App/Presentation/Shared/Locales';
 import MainConfig from '../../../Config/mainConfig';
 import Locales from '../../../App/Presentation/Shared/Locales';
 

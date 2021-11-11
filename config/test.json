@@ -130,7 +130,11 @@
       "url": "/api/auth/verify-your-account/**"
     },
     {
-      "methods": ["*"],
+      "method": ["PUT"],
+      "url": "/api/auth/verify-your-account/**"
+    },
+    {
+      "method": ["*"],
       "url": "/test/all/*"
     },
     {

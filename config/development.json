@@ -116,7 +116,11 @@
       "url": "/api/auth/verify-your-account/**"
     },
     {
-      "methods": ["GET"],
+      "method": ["PUT"],
+      "url": "/api/auth/verify-your-account/**"
+    },
+    {
+      "method": ["GET"],
       "url": "/log"
     }
   ]
