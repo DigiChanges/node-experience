@@ -111,10 +111,10 @@ class UserWithoutPermissionsRequest implements UserRepPayload
 
     getEnable(): boolean
     {
-        return true;
+        return false;
     }
 
-    getConfirmationToken(): null
+    getConfirmationToken(): Promise<string>
     {
         return null;
     }

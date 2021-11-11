@@ -17,7 +17,7 @@ import moment from 'moment';
 import DefaultTransformer from '../../../../App/Presentation/Transformers/DefaultTransformer';
 import RegisterRequest from '../../Requests/Express/RegisterRequest';
 import UpdateMeRequest from '../../Requests/Express/UpdateMeRequest';
-import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
+import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/auth'
@@ -66,22 +66,14 @@ AuthHandler.post('/register', async(ctx: Koa.ParameterizedContext & any) =>
 
     const payload = await controller.register(_request);
 
-    ctx.cookies.set(
-        'refreshToken',
-        payload.getRefreshHash(),
-        {
-            expires: moment.unix(payload.getExpires()).toDate(),
-            maxAge: payload.getExpires(),
-            path: '/',
-            httpOnly: true
-        });
-
-    responder.send(payload, ctx, StatusCode.HTTP_CREATED, new AuthTransformer());
+    responder.send(payload, ctx, StatusCode.HTTP_CREATED, new DefaultTransformer());
 });
 
 AuthHandler.post('/logout', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const payload = await controller.logout(AuthUser(ctx, 'tokenDecode'));
+
+    ctx.cookies.set('refreshToken', null);
 
     await responder.send(payload, ctx, StatusCode.HTTP_OK, new DefaultTransformer());
 });
@@ -111,6 +103,15 @@ AuthHandler.post('/change-forgot-password', async(ctx: Koa.ParameterizedContext 
     const payload = await controller.changeForgotPassword(_request);
 
     responder.send(payload, ctx, StatusCode.HTTP_CREATED);
+});
+
+AuthHandler.put('/verify-your-account/:confirmationToken', async(ctx: Koa.ParameterizedContext & any) =>
+{
+    const _request = new VerifyYourAccountRequest(ctx.params.confirmationToken);
+
+    const payload = await controller.verifyYourAccount(_request);
+
+    responder.send(payload, ctx, StatusCode.HTTP_CREATED, new DefaultTransformer());
 });
 
 AuthHandler.get('/permissions', AuthorizeMiddleware(Permissions.GET_PERMISSIONS), async(ctx: Koa.ParameterizedContext) =>

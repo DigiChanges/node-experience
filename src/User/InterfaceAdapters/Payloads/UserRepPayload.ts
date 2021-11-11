@@ -15,7 +15,7 @@ interface UserRepPayload
     getEnable(): boolean;
     getRoles(): IRoleDomain[];
     getPermissions(): string[];
-    getConfirmationToken(): null;
+    getConfirmationToken(): Promise<string>;
     getPasswordRequestedAt(): null;
     getIsSuperAdmin(): boolean;
 }

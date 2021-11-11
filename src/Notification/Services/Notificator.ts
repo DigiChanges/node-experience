@@ -12,6 +12,8 @@ import ContainerFactory from '../../Shared/Factories/ContainerFactory';
 import INotificationRepository from '../InterfaceAdapters/INotificationRepository';
 import INotificationDomain from '../InterfaceAdapters/INotificationDomain';
 import { REPOSITORIES } from '../../repositories';
+import StatusNotificationEnum from '../Domain/Enum/StatusNotificationEnum';
+import AttachmentsFilesService from '../Domain/Services/AttachmentsFilesService';
 
 class Notificator
 {
@@ -54,23 +56,34 @@ class Notificator
 
             const html = template(data);
 
-            const mail_data = {
+            const mailData = {
                 from: `"${  emailNotification.senderName  }" <${  emailNotification.from  }>`,
                 to:  emailNotification.to,
                 subject: emailNotification.subject,
                 html
             };
 
-            if (emailNotification.cc)
+            if (emailNotification?.cc)
             {
-                Object.assign(mail_data, { cc: emailNotification.cc });
+                Object.assign(mailData, { cc: emailNotification.cc });
             }
 
-            return await transporter.sendMail(mail_data)
+            if (emailNotification?.bcc)
+            {
+                Object.assign(mailData, { bcc: emailNotification.bcc });
+            }
+
+            if (emailNotification?.attachedFiles)
+            {
+                Object.assign(mailData, { attachments: await AttachmentsFilesService.getTempFilesAttachments(emailNotification) });
+            }
+
+            return await transporter.sendMail(mailData)
                 .then(() =>
                 {
                     if (save)
                     {
+                        emailNotification.htmlRender = html;
                         void repository.save(emailNotification);
                     }
 
@@ -80,9 +93,13 @@ class Notificator
                 {
                     if (save)
                     {
-                        emailNotification.description = err;
+                        emailNotification.htmlRender = html;
+                        emailNotification.status = StatusNotificationEnum.FAILED;
                         void repository.save(emailNotification);
                     }
+
+                    AttachmentsFilesService.unlinkTempFilesAttachments(emailNotification.tempFilesAttachments);
+
                     throw new ErrorException({ message: 'Something is wrong. Please try again later' }, 'NotificatorException');
                 });
         }

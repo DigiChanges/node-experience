@@ -107,6 +107,10 @@
     {
       "methods": ["POST"],
       "url": "/api/auth/changeForgotPassword"
+    },
+    {
+      "method": ["PUT"],
+      "url": "/api/auth/verify-your-account/**"
     }
   ]
 }

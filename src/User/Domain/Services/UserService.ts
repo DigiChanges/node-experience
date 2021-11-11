@@ -83,7 +83,7 @@ class UserService implements IUserService
         const password = new Password(payload.getPassword(), min, max);
         user.password = await password.ready();
 
-        user.confirmationToken = payload.getConfirmationToken();
+        user.confirmationToken = String(await payload.getConfirmationToken());
         user.passwordRequestedAt = payload.getPasswordRequestedAt();
         user.roles = payload.getRoles();
         user.isSuperAdmin = payload.getIsSuperAdmin();

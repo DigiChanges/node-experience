@@ -3,7 +3,7 @@ import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import Base from '../../../App/Domain/Entities/Base';
 import Password from '../../../App/Domain/ValueObjects/Password';
 
-
+// TODO: check if it is necessary to add a new attribute to know if the user is varified
 class User extends Base implements IUserDomain
 {
     firstName: string;

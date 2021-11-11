@@ -8,6 +8,11 @@ import EventHandler from '../../../Shared/Events/EventHandler';
 import IToken from '../../InterfaceAdapters/IToken';
 import UserSavePayload from '../../../User/InterfaceAdapters/Payloads/UserSavePayload';
 import UserCreatedEvent from '../../../Shared/Events/UserCreatedEvent';
+import SendEmailService from '../../../Notification/Domain/Services/SendEmailService';
+import RegisterEvent from '../../../Shared/Events/RegisterEvent';
+import Config from 'config';
+import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
+import Locales from '../../../App/Presentation/Shared/Locales';
 
 class RegisterUseCase
 {
@@ -24,13 +29,32 @@ class RegisterUseCase
         this.eventHandler = EventHandler.getInstance();
     }
 
-    async handle(payload: UserSavePayload): Promise<IToken>
+    async handle(payload: UserSavePayload): Promise<Record<string, string>>
     {
         const user = await this.userService.create(payload);
 
-        await this.eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, { email: user.email });
+        const urlConfirmationToken = `${Config.get('url.urlWeb')}verify-your-account/${user.confirmationToken}`;
 
-        return this.tokenFactory.createToken(user);
+        void await SendEmailService.handle({
+            event: RegisterEvent.REGISTER_EVENT,
+            type: TypeNotificationEnum.VERIFY_ACCOUNT,
+            to: user.email,
+            name: 'Verify your account',
+            args: {
+                urlConfirmationToken,
+                userName: user.firstName
+            },
+            data: {
+                EMAIL_USER: user.email,
+                URL_CONFIRMATION_TOKEN: urlConfirmationToken
+            },
+            external: true
+        });
+
+        const locales = Locales.getInstance().getLocales();
+        const key = 'auth.domain.messages.register';
+
+        return { message: locales.__(key), messageCode: key };
     }
 }
 

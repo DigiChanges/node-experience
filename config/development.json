@@ -108,7 +108,11 @@
       "url": "/api/auth/changeForgotPassword"
     },
     {
-      "methods": ["GET"],
+      "method": ["PUT"],
+      "url": "/api/auth/verify-your-account/**"
+    },
+    {
+      "method": ["GET"],
       "url": "/log"
     }
   ]

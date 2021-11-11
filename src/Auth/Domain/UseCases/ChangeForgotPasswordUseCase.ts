@@ -5,6 +5,7 @@ import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../repositories';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import MainConfig from '../../../Config/mainConfig';
+import Locales from '../../../App/Presentation/Shared/Locales';
 
 class ChangeForgotPasswordUseCase
 {
@@ -29,8 +30,10 @@ class ChangeForgotPasswordUseCase
 
         await this.repository.update(user);
 
-        // TODO: Add message and code message
-        return { message: 'Your password has been changed' };
+        const locales = Locales.getInstance().getLocales();
+        const key = 'auth.domain.messages.changeForgotPassword';
+
+        return { message: locales.__(key), messageCode: key };
     }
 }
 

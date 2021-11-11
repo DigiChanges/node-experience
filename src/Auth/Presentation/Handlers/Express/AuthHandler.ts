@@ -25,6 +25,7 @@ import DefaultTransformer from '../../../../App/Presentation/Transformers/Defaul
 import RegisterRequest from '../../Requests/Express/RegisterRequest';
 import UpdateMeRequest from '../../Requests/Express/UpdateMeRequest';
 import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
+import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
 
 @controller('/api/auth')
 class AuthHandler
@@ -80,17 +81,7 @@ class AuthHandler
 
         const payload = await this.controller.register(_request);
 
-        res.cookie(
-            'refreshToken',
-            payload.getRefreshHash(),
-            {
-                expires: moment.unix(payload.getExpires()).toDate(),
-                maxAge: payload.getExpires(),
-                path: '/',
-                httpOnly: true
-            });
-
-        this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new AuthTransformer());
+        this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
 
     @httpPost('/logout')
@@ -98,7 +89,9 @@ class AuthHandler
     {
         const payload = await this.controller.logout(AuthUser(req, 'tokenDecode'));
 
-        this.responder.send({ message: 'Sync Successfully' }, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
+        res.cookie('refreshToken', null);
+
+        this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
 
     @httpPost('/keep-alive', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE))
@@ -129,6 +122,16 @@ class AuthHandler
         const payload = await this.controller.changeForgotPassword(_request);
 
         this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, null);
+    }
+
+    @httpPut('/verify-your-account/:confirmationToken')
+    public async verifyYourAccount(@request() req: Request, @response() res: Response)
+    {
+        const _request = new VerifyYourAccountRequest(req.params.confirmationToken);
+
+        const payload = await this.controller.verifyYourAccount(_request);
+
+        this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
 
     @httpGet('/permissions', AuthorizeMiddleware(Permissions.GET_PERMISSIONS))

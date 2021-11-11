@@ -21,6 +21,8 @@ import RegisterPayload from '../../InterfaceAdapters/Payloads/RegisterPayload';
 import RegisterUseCase from '../../Domain/UseCases/RegisterUseCase';
 import UpdateMeUseCase from '../../Domain/UseCases/UpdateMeUseCase';
 import UserRepPayload from '../../../User/InterfaceAdapters/Payloads/UserRepPayload';
+import VerifyYourAccountPayload from '../../InterfaceAdapters/Payloads/VerifyYourAccountPayload';
+import VerifyYourAccountUseCase from '../../Domain/UseCases/VerifyYourAccountUseCase';
 
 class AuthController
 {
@@ -32,7 +34,7 @@ class AuthController
         return await useCase.handle(request);
     }
 
-    public async register(request: RegisterPayload): Promise<IToken>
+    public async register(request: RegisterPayload): Promise<Record<string, any>>
     {
         await ValidatorRequest.handle(request);
 
@@ -75,6 +77,14 @@ class AuthController
         await ValidatorRequest.handle(request);
 
         const useCase = new ChangeForgotPasswordUseCase();
+        return await useCase.handle(request);
+    }
+
+    public async verifyYourAccount(request: VerifyYourAccountPayload)
+    {
+        await ValidatorRequest.handle(request);
+
+        const useCase = new VerifyYourAccountUseCase();
         return await useCase.handle(request);
     }
 
