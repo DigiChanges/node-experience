@@ -1,6 +1,5 @@
 import ChangeMyPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeMyPasswordPayload';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
-import UserService from '../Services/UserService';
 import PasswordWrongException from '../../../Auth/Domain/Exceptions/PasswordWrongException';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import { IEncryption } from '@digichanges/shared-experience';
@@ -8,11 +7,12 @@ import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { SERVICES } from '../../../services';
 import MainConfig from '../../../Config/mainConfig';
+import IUserService from '../../InterfaceAdapters/IUserService';
 
 class ChangeMyPasswordUseCase
 {
     @containerFactory(SERVICES.IUserService)
-    private userService: UserService;
+    private userService: IUserService;
 
     private encryption: IEncryption;
 
