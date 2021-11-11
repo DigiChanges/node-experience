@@ -1,27 +1,26 @@
 import ContainerFactory from '../../../Shared/Factories/ContainerFactory';
 import IBaseRepository from '../../InterfaceAdapters/IBaseRepository';
 import IUniqueConfig from '../../InterfaceAdapters/IUniqueConfig';
+import UniqueAttributeException from '../Exceptions/UniqueAttributeException';
 
 class UniqueService
 {
-    static async handle(config: IUniqueConfig, initThrow = false): Promise<boolean>
+    static async validate<T = any>(config: IUniqueConfig<T>): Promise<void>
     {
-        const _repository = ContainerFactory.create<IBaseRepository<any>>(config.repository);
-        const exist = await _repository.exist({ [config.attr]: config.value }, ['_id'], initThrow);
+        const { repository, value, attr, refValue } = config;
 
-        if (exist)
+        const _repository = ContainerFactory.create<IBaseRepository<any>>(repository);
+        const exist = await _repository.exist({ [attr]: value }, ['_id'], false);
+
+        if (refValue && exist && exist._id !== refValue)
         {
-            if (config?.refValue)
-            {
-                return exist._id === config.refValue;
-            }
-            else
-            {
-                return false;
-            }
+            throw new UniqueAttributeException(attr);
+        }
+        else if (!refValue && exist)
+        {
+            throw new UniqueAttributeException(attr);
         }
 
-        return true;
     }
 }
 

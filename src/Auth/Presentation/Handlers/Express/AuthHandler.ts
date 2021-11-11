@@ -47,7 +47,7 @@ class AuthHandler
     @httpPut('/me')
     public async updateMe(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const _request = new UpdateMeRequest(req.body, AuthUser<IUserDomain>(req).getId());
+        const _request = new UpdateMeRequest(req.body);
 
         const payload = await this.controller.updateMe(_request, AuthUser(req));
         this.responder.send(AuthUser(req), null, res, StatusCode.HTTP_OK, new UserTransformer());

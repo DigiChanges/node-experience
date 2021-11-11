@@ -3,7 +3,8 @@
 	"app": {
 		"domain": {
 			"exceptions": {
-				"invalidPassword": "Invalid Password."
+				"invalidPassword": "Invalid Password.",
+				"uniqueAttribute": "The {{name}} property is already in use"
 			}
 		},
 		"presentation": {

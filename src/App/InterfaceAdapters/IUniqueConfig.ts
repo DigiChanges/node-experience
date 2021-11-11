@@ -1,9 +1,9 @@
 import { REPOSITORIES } from '../../repositories';
 
-interface IUniqueConfig
+interface IUniqueConfig<T = any>
 {
     repository: REPOSITORIES;
-    attr: string;
+    attr: (keyof T) | string;
     value: string | number;
     refValue?: string;
 }

@@ -1,7 +1,6 @@
 import { decorate, Mixin } from 'ts-mixer';
 import { IsEmail, IsString, Length } from 'class-validator';
 import IRoleDomain from '../../../../Role/InterfaceAdapters/IRoleDomain';
-import { Unique } from '../../../../Shared/Decorators/unique';
 import { REPOSITORIES } from '../../../../repositories';
 import UserRepPayload from '../../../InterfaceAdapters/Payloads/UserRepPayload';
 
@@ -16,9 +15,6 @@ class UserWithoutPermissionsRequest implements UserRepPayload
     lastName: string;
 
     @decorate(IsEmail())
-    @decorate(Unique({
-        repository: REPOSITORIES.IUserRepository
-    }))
     email: string;
 
     @decorate(Length(3, 10))
@@ -31,9 +27,6 @@ class UserWithoutPermissionsRequest implements UserRepPayload
 
     @decorate(Length(3, 16))
     @decorate(IsString())
-    @decorate(Unique({
-        repository: REPOSITORIES.IUserRepository
-    }))
     documentNumber: string;
 
     @decorate(Length(3, 20))

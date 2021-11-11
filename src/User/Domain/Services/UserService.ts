@@ -19,6 +19,8 @@ import Password from '../../../App/Domain/ValueObjects/Password';
 import { injectable } from 'inversify';
 import IUserService from '../../InterfaceAdapters/IUserService';
 import MainConfig from '../../../Config/mainConfig';
+import Config from 'config';
+import UniqueService from '../../../App/Domain/Services/UniqueService';
 
 @injectable()
 class UserService implements IUserService
@@ -37,6 +39,21 @@ class UserService implements IUserService
     async persist(user: IUserDomain, payload: UserRepPayload): Promise<IUserDomain>
     {
         this.authService.validatePermissions(payload.getPermissions());
+
+        void await UniqueService.validate<IUserDomain>({
+            repository: REPOSITORIES.IUserRepository,
+            attr: 'email',
+            value: payload.getEmail(),
+            refValue: user.getId()
+        });
+
+        void await UniqueService.validate<IUserDomain>({
+            repository: REPOSITORIES.IUserRepository,
+            attr: 'documentNumber',
+            value: payload.getDocumentNumber(),
+            refValue: user.getId()
+        });
+
         user.firstName = payload.getFirstName();
         user.lastName = payload.getLastName();
         user.enable = payload.getEnable();
@@ -59,6 +76,18 @@ class UserService implements IUserService
 
         const min = this.config.getConfig().validationSettings.password.minLength;
         const max = this.config.getConfig().validationSettings.password.maxLength;
+
+        void await UniqueService.validate<IUserDomain>({
+            repository: REPOSITORIES.IUserRepository,
+            attr: 'email',
+            value: payload.getEmail()
+        });
+
+        void await UniqueService.validate<IUserDomain>({
+            repository: REPOSITORIES.IUserRepository,
+            attr: 'documentNumber',
+            value: payload.getDocumentNumber()
+        });
 
         const password = new Password(payload.getPassword(), min, max);
         user.password = await password.ready();
