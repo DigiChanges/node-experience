@@ -41,15 +41,10 @@ class UserService implements IUserService
 
         void await UniqueService.validate<IUserDomain>({
             repository: REPOSITORIES.IUserRepository,
-            attr: 'email',
-            value: payload.getEmail(),
-            refValue: user.getId()
-        });
-
-        void await UniqueService.validate<IUserDomain>({
-            repository: REPOSITORIES.IUserRepository,
-            attr: 'documentNumber',
-            value: payload.getDocumentNumber(),
+            validate: {
+                email: payload.getEmail(),
+                documentNumber: payload.getDocumentNumber()
+            },
             refValue: user.getId()
         });
 
@@ -75,14 +70,10 @@ class UserService implements IUserService
 
         void await UniqueService.validate<IUserDomain>({
             repository: REPOSITORIES.IUserRepository,
-            attr: 'email',
-            value: payload.getEmail()
-        });
-
-        void await UniqueService.validate<IUserDomain>({
-            repository: REPOSITORIES.IUserRepository,
-            attr: 'documentNumber',
-            value: payload.getDocumentNumber()
+            validate: {
+                email: payload.getEmail(),
+                documentNumber: payload.getDocumentNumber()
+            }
         });
 
         const min = this.config.getConfig().validationSettings.password.minLength;
