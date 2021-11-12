@@ -82,7 +82,6 @@ describe('Start User Test', () =>
             expect(data.enable).toStrictEqual(true);
 
             userId = data.id;
-
         });
 
         test('Add User with enable property /users', async() =>
@@ -121,7 +120,6 @@ describe('Start User Test', () =>
             expect(data.enable).toStrictEqual(payload.enable);
 
             userId = data.id;
-
         });
 
         test('Get User /users/:id', async() =>
@@ -149,7 +147,6 @@ describe('Start User Test', () =>
 
             expect(data.firstName).toStrictEqual(payload.firstName);
             expect(data.email).toStrictEqual(payload.email);
-
         });
 
         test('Update User /users/:id', async() =>
@@ -191,7 +188,6 @@ describe('Start User Test', () =>
             expect(data.gender).toStrictEqual(payload.gender);
             expect(data.phone).toStrictEqual(payload.phone);
             expect(data.country).toStrictEqual(payload.country);
-
         });
 
         test('Change my Password /users/change-my-password', async() =>
@@ -233,7 +229,6 @@ describe('Start User Test', () =>
             expect(response.body.data.user.firstName).toStrictEqual('user');
 
             token = response.body.data.token;
-
         });
 
         test('Delete User /users/:id', async() =>
@@ -275,7 +270,6 @@ describe('Start User Test', () =>
 
             expect(data.firstName).toStrictEqual(payload.firstName);
             expect(data.email).toStrictEqual(payload.email);
-
         });
 
         test('Get Users /users', async() =>
@@ -331,7 +325,6 @@ describe('Start User Test', () =>
 
         test('Get Users /users with Filter Type', async() =>
         {
-
             const response: IListUsersResponse = await request
                 .get('/api/users?pagination[limit]=20&pagination[offset]=0&filter[email]=user2@node.com')
                 .set('Accept', 'application/json')
@@ -350,7 +343,6 @@ describe('Start User Test', () =>
 
         test('Get Users /users with Sort Desc Type', async() =>
         {
-
             const response: IListUsersResponse = await request
                 .get('/api/users?pagination[limit]=20&pagination[offset]=0&sort[email]=desc')
                 .set('Accept', 'application/json')
@@ -414,7 +406,6 @@ describe('Start User Test', () =>
 
         test('Get User /users/:id', async() =>
         {
-
             const response: IUserResponse = await request
                 .get(`/api/users/${userId}dasdasda123`)
                 .set('Accept', 'application/json')
@@ -484,4 +475,3 @@ describe('Start User Test', () =>
         });
     });
 });
-
