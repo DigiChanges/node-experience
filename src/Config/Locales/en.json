@@ -23,7 +23,8 @@
 				"wrongPermissions": "Wrong permissions."
 			},
 			"messages": {
-				"logout": "You have logged out successfully"
+				"logout": "You have logged out successfully",
+				"forgotPassword": "We've sent you an email"
 			}
 		},
 		"presentation": {

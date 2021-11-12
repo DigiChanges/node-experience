@@ -22,7 +22,8 @@
 				"wrongPermissions": "Error en los permisos."
 			},
 			"messages": {
-				"logout": "You have logged out successfully"
+				"logout": "Has cerrado tu sesion correctamente.",
+                "forgotPassword": "Te hemos enviado un email."
 			}
 		},
 		"presentation": {

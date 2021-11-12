@@ -407,9 +407,9 @@ describe('Start User Test', () =>
             expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
-            expect(error.property).toStrictEqual('firstName');
+            expect(error.property).toStrictEqual('permissions');
             expect(error.constraints.isString).toBeDefined();
-            expect(error.constraints.isString).toStrictEqual('firstName must be a string');
+            expect(error.constraints.isString).toStrictEqual('each value in permissions must be a string');
         });
 
         test('Get User /users/:id', async() =>
@@ -462,9 +462,9 @@ describe('Start User Test', () =>
             expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
-            expect(error.property).toStrictEqual('firstName');
+            expect(error.property).toStrictEqual('permissions');
             expect(error.constraints.isString).toBeDefined();
-            expect(error.constraints.isString).toStrictEqual('firstName must be a string');
+            expect(error.constraints.isString).toStrictEqual('each value in permissions must be a string');
         });
 
         test('Delete User error /users/:id', async() =>

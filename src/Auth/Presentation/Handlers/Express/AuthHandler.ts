@@ -67,7 +67,7 @@ class AuthHandler
             {
                 expires: moment.unix(payload.getExpires()).toDate(),
                 maxAge: payload.getExpires(),
-                path: '/',
+                path: '/api/auth/keep-alive',
                 httpOnly: true
             });
 
