@@ -8,7 +8,7 @@ import CacheFactory from './Shared/Factories/CacheFactory';
 import { ICacheRepository, ICreateConnection } from '@digichanges/shared-experience';
 
 import AppFactory from './App/Presentation/Factories/AppFactory';
-
+import CronFactory from './Shared/Factories/CronFactory';
 
 void (async() =>
 {
@@ -29,6 +29,9 @@ void (async() =>
 
         const eventHandler = EventHandler.getInstance();
         await eventHandler.setListeners();
+
+        const cronFactory = new CronFactory();
+        cronFactory.start();
 
         const app = AppFactory.create('AppKoa', {
             viewRouteEngine: `${process.cwd()}/dist/App/Presentation/Views`,
