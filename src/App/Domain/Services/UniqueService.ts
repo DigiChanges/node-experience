@@ -26,8 +26,6 @@ class UniqueService
                 throw new UniqueAttributeException(attr);
             }
         }
-
-
     }
 }
 
