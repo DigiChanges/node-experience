@@ -1,14 +1,16 @@
 import AuthPayload from '../../../InterfaceAdapters/Payloads/AuthPayload';
-import { mainConfig } from '../../../../Config/mainConfig';
+import MainConfig from '../../../../Config/mainConfig';
 import { IsString, IsEmail, Length } from 'class-validator';
 
 class AuthRequest implements AuthPayload
 {
+
     @IsEmail()
     email: string;
 
     @IsString()
-    @Length(mainConfig.validationSettings.password.minLength, mainConfig.validationSettings.password.maxLength)
+    @Length(MainConfig.getInstance().getConfig().validationSettings.password.minLength,
+        MainConfig.getInstance().getConfig().validationSettings.password.maxLength)
     password: string;
 
     constructor(data: Record<string, any>)

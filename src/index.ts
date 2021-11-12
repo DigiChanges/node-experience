@@ -1,6 +1,6 @@
 
 import { validateEnv } from './Config/validateEnv';
-import { mainConfig } from './Config/mainConfig';
+import MainConfig from './Config/mainConfig';
 import { loggerCli } from './Shared/Logger';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 
@@ -16,6 +16,7 @@ void (async() =>
     try
     {
         validateEnv();
+        const config = MainConfig.getInstance();
 
         const databaseFactory = new DatabaseFactory();
         const createConnection: ICreateConnection = databaseFactory.create();
@@ -24,7 +25,7 @@ void (async() =>
         await createConnection.create();
 
         const cache: ICacheRepository = CacheFactory.createRedisCache();
-        await cache.createConnection(mainConfig.cache.redis);
+        await cache.createConnection(config.getConfig().cache.redis);
         await cache.cleanAll();
 
         const eventHandler = EventHandler.getInstance();
@@ -33,7 +34,7 @@ void (async() =>
         const app = AppFactory.create('AppExpress', {
             viewRouteEngine: `${process.cwd()}/dist/App/Presentation/Views`,
             localesDirectory: `${process.cwd()}/dist/src/Config/Locales`,
-            serverPort: mainConfig.serverPort
+            serverPort: config.getConfig().serverPort
         });
 
         app.initConfig();

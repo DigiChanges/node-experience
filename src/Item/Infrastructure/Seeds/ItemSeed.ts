@@ -8,7 +8,7 @@ import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import User from '../../../User/Domain/Entities/User';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import Password from '../../../App/Domain/ValueObjects/Password';
-import { mainConfig } from '../../../Config/mainConfig';
+import MainConfig from '../../../Config/mainConfig';
 
 class ItemSeed implements ISeed
 {
@@ -42,6 +42,7 @@ class ItemSeed implements ISeed
 
     private async createUser(): Promise<IUserDomain>
     {
+        const config = MainConfig.getInstance();
         const user: IUserDomain = new User();
 
         user.firstName = 'test';
@@ -55,8 +56,8 @@ class ItemSeed implements ISeed
         user.country = 'Argentina';
         user.address = 'New America 123';
 
-        const min = mainConfig.validationSettings.password.minLength;
-        const max = mainConfig.validationSettings.password.maxLength;
+        const min = config.getConfig().validationSettings.password.minLength;
+        const max = config.getConfig().validationSettings.password.maxLength;
 
         const password = new Password('123456789', min, max);
         await password.ready();

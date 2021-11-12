@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { IEncryption } from '@digichanges/shared-experience';
-import { mainConfig } from '../../Config/mainConfig';
+import MainConfig from '../../Config/mainConfig';
 import DecryptForbiddenException from '../Exceptions/DecryptForbiddenException';
 
 class BcryptEncryptionStrategy implements IEncryption
@@ -17,7 +17,8 @@ class BcryptEncryptionStrategy implements IEncryption
 
     async encrypt(chain: string): Promise<string>
     {
-        const saltRounds: number = mainConfig.encryption.bcrypt.saltRounds;
+        const config = MainConfig.getInstance();
+        const saltRounds: number = config.getConfig().encryption.bcrypt.saltRounds;
 
         return await bcrypt.hash(chain, saltRounds);
     }

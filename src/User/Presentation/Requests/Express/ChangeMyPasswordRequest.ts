@@ -1,12 +1,13 @@
 import { IsString, IsUUID, Length } from 'class-validator';
-import { mainConfig } from '../../../../Config/mainConfig';
+import MainConfig from '../../../../Config/mainConfig';
 import ChangeMyPasswordPayload from '../../../InterfaceAdapters/Payloads/ChangeMyPasswordPayload';
 import UserRepPasswordRequest from './UserRepPasswordRequest';
 
 class ChangeMyPasswordRequest extends UserRepPasswordRequest implements ChangeMyPasswordPayload
 {
     @IsString()
-    @Length(mainConfig.validationSettings.password.minLength, mainConfig.validationSettings.password.maxLength)
+    @Length(MainConfig.getInstance().getConfig().validationSettings.password.minLength,
+        MainConfig.getInstance().getConfig().validationSettings.password.maxLength)
     currentPassword: string;
 
     @IsUUID('4')

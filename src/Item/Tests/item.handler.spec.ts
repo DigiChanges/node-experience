@@ -3,7 +3,7 @@ import initTestServer from '../../initTestServer';
 import { ICreateConnection } from '@digichanges/shared-experience';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IItemResponse, IListItemsResponse } from './types';
-import { mainConfig } from '../../Config/mainConfig';
+import MainConfig from '../../Config/mainConfig';
 
 describe('Start Item Test', () =>
 {
@@ -155,6 +155,7 @@ describe('Start Item Test', () =>
 
         test('Get Items /items', async() =>
         {
+            const config = MainConfig.getInstance();
 
             const response: IListItemsResponse = await request
                 .get('/api/items?pagination[offset]=0&pagination[limit]=5')
@@ -175,7 +176,7 @@ describe('Start Item Test', () =>
             expect(pagination.lastPage).toStrictEqual(3);
             expect(pagination.from).toStrictEqual(0);
             expect(pagination.to).toStrictEqual(5);
-            expect(pagination.path).toContain(mainConfig.url.urlApi);
+            expect(pagination.path).toContain(config.getConfig().url.urlApi);
             expect(pagination.firstUrl).toContain('/api/items?pagination[offset]=0&pagination[limit]=5');
             expect(pagination.lastUrl).toContain('/api/items?pagination[offset]=10&pagination[limit]=5');
             expect(pagination.nextUrl).toContain('/api/items?pagination[offset]=5&pagination[limit]=5');

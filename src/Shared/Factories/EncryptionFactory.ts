@@ -1,11 +1,11 @@
 import { IEncryption } from '@digichanges/shared-experience';
-import { mainConfig } from '../../Config/mainConfig';
+import MainConfig from '../../Config/mainConfig';
 import BcryptEncryptionStrategy from '../Encryption/BcryptEncryptionStrategy';
 import Md5EncryptionStrategy from '../Encryption/Md5EncryptionStrategy';
 
 class EncryptionFactory
 {
-    static create(encryptionConfig: string = mainConfig.encryption.default): IEncryption
+    static create(encryptionConfig: string = MainConfig.getInstance().getConfig().encryption.default): IEncryption
     {
         const encryptions: Record<string, any>  = {
             bcrypt: BcryptEncryptionStrategy,

@@ -13,20 +13,21 @@ import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import TokenExpiredHttpException from '../../Presentation/Exceptions/TokenExpiredHttpException';
 import TokenNotFoundHttpException from '../../Presentation/Exceptions/TokenNotFoundHttpException';
 import Auth from '../Types/Auth';
-import { mainConfig } from '../../../Config/mainConfig';
+import MainConfig from '../../../Config/mainConfig';
 
 @injectable()
 class AuthService implements IAuthService
 {
     @containerFactory(REPOSITORIES.IUserRepository)
     private userRepository: IUserRepository
+    private config = MainConfig.getInstance();
 
     public decodeToken(token: string): ITokenDecode
     {
         const tokenArray = token.split(' ');
 
-        const secret: string = mainConfig.jwt.secret;
-        const algorithm: TAlgorithm = mainConfig.encryption.bcrypt.algorithm;
+        const secret: string = this.config.getConfig().jwt.secret;
+        const algorithm: TAlgorithm = this.config.getConfig().encryption.bcrypt.algorithm;
 
         return jwt.decode(tokenArray[1], secret, false, algorithm);
     }
@@ -138,7 +139,7 @@ class AuthService implements IAuthService
         };
 
         let existMethodAndUrl = false;
-        const apiWhitelist: { methods: string[], url: string, urlRegExp?: RegExp}[] = mainConfig.apiWhitelist;
+        const apiWhitelist: { methods: string[], url: string, urlRegExp?: RegExp}[] = this.config.getConfig().apiWhitelist;
 
         for (const conf of apiWhitelist)
         {

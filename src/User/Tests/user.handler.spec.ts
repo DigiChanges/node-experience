@@ -1,6 +1,6 @@
 import { ICreateConnection } from '@digichanges/shared-experience';
 import { SuperAgentTest } from 'supertest';
-import { mainConfig } from '../../Config/mainConfig';
+import MainConfig from '../../Config/mainConfig';
 import initTestServer from '../../initTestServer';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IListUsersResponse, IUserResponse } from './types';
@@ -282,6 +282,7 @@ describe('Start User Test', () =>
 
         test('Get Users /users', async() =>
         {
+            const config = MainConfig.getInstance();
 
             const response: IListUsersResponse = await request
                 .get('/api/users?pagination[offset]=0&pagination[limit]=5')
@@ -302,7 +303,7 @@ describe('Start User Test', () =>
             expect(pagination.lastPage).toStrictEqual(2);
             expect(pagination.from).toStrictEqual(0);
             expect(pagination.to).toStrictEqual(5);
-            expect(pagination.path).toContain(mainConfig.url.urlApi);
+            expect(pagination.path).toContain(config.getConfig().url.urlApi);
             expect(pagination.firstUrl).toContain('/api/users?pagination[offset]=0&pagination[limit]=5');
             expect(pagination.lastUrl).toContain('/api/users?pagination[offset]=5&pagination[limit]=5');
             expect(pagination.nextUrl).toContain('/api/users?pagination[offset]=5&pagination[limit]=5');

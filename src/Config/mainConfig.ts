@@ -54,21 +54,21 @@ type JwtConfig = {
     aud: string;
 };
 
-  type MailConfig = {
-      host: string;
-      port: number;
-      username: string;
-      password: string;
-      secure: boolean;
-      senderName: string;
-      senderEmailDefault: string;
-      templateDir: string;
-  };
+type MailConfig = {
+    host: string;
+    port: number;
+    username: string;
+    password: string;
+    secure: boolean;
+    senderName: string;
+    senderEmailDefault: string;
+    templateDir: string;
+};
 
-  type PushConfig = {
-      privateKey: string;
-      publicKey: string;
-  };
+type PushConfig = {
+    privateKey: string;
+    publicKey: string;
+};
 
 type BCryptType = {
     type: string;
@@ -131,7 +131,40 @@ type ConfigType = {
     apiWhitelist: ApiWhiteType[];
 }
 
+class MainConfig
+{
+    private mainConfig: ConfigType;
+    private static instance: MainConfig = new MainConfig();
+
+    private constructor()
+    {
+        this.mainConfig = Config.util.loadFileConfigs();
+
+        if (MainConfig.instance)
+        {
+            throw new Error('Error: Instantiation failed: Use getInstance() instead of new.');
+        }
+
+        MainConfig.instance = this;
+    }
+
+    public static getInstance(): MainConfig
+    {
+        if (!MainConfig.instance)
+        {
+            MainConfig.instance = new MainConfig();
+        }
+
+        return MainConfig.instance;
+    }
+
+    public getConfig(): ConfigType
+    {
+        return this.mainConfig;
+    }
+}
+
 // config from dist/config folder
 // const ourConfigDir = path.resolve(__dirname, '../config');
 // const mainConfig = Config.util.loadFileConfigs(ourConfigDir);
-export const mainConfig: ConfigType = Config.util.loadFileConfigs();
+export default MainConfig;

@@ -3,7 +3,7 @@ import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IListRolesResponse, IRoleResponse } from './types';
-import { mainConfig } from '../../Config/mainConfig';
+import MainConfig from '../../Config/mainConfig';
 
 describe('Start Role Test', () =>
 {
@@ -230,6 +230,7 @@ describe('Start Role Test', () =>
 
         test('Get Roles /roles', async done =>
         {
+            const config = MainConfig.getInstance();
 
             const response: IListRolesResponse = await request
                 .get('/api/roles?pagination[offset]=0&pagination[limit]=5')
@@ -250,7 +251,7 @@ describe('Start Role Test', () =>
             expect(pagination.lastPage).toStrictEqual(2);
             expect(pagination.from).toStrictEqual(0);
             expect(pagination.to).toStrictEqual(5);
-            expect(pagination.path).toContain(mainConfig.url.urlApi);
+            expect(pagination.path).toContain(config.getConfig().url.urlApi);
             expect(pagination.firstUrl).toContain('/api/roles?pagination[offset]=0&pagination[limit]=5');
             expect(pagination.lastUrl).toContain('/api/roles?pagination[offset]=5&pagination[limit]=5');
             expect(pagination.nextUrl).toContain('/api/roles?pagination[offset]=5&pagination[limit]=5');
