@@ -11,13 +11,14 @@ describe('Start ForgotPassword Test', () =>
 
     beforeAll(async() =>
     {
+        jest.mock('../../Notification/Services/Notificator', () => jest.fn());
+        // @ts-ignore
+        Notificator.sendEmail = jest.fn(() => async() => new Promise<boolean>((resolve) => resolve(true)));
+
         const configServer = await initTestServer();
 
         request = configServer.request;
         dbConnection = configServer.dbConnection;
-
-        jest.spyOn(Notificator, 'sendEmail').mockImplementation(() => new Promise<boolean>((resolve) => resolve(true)));
-
     });
 
     afterAll((async() =>
@@ -44,7 +45,6 @@ describe('Start ForgotPassword Test', () =>
             const { body: { data } } = response;
 
             token = data.token;
-
         });
 
         test('ForgotPassword POST /', async() =>
@@ -64,8 +64,6 @@ describe('Start ForgotPassword Test', () =>
 
             expect(response.statusCode).toStrictEqual(201);
             expect(data.message).toStrictEqual('We\'ve sent you an email');
-
         });
     });
 });
-

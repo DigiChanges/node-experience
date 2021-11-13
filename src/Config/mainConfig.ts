@@ -116,7 +116,6 @@ type ConfigType = {
         bcrypt: BCryptType;
         default: string;
     };
-    // encryption: any;
     jwt: JwtConfig;
     mail: MailConfig;
     push: PushConfig;

@@ -4,6 +4,7 @@ import MainConfig from '../../Config/mainConfig';
 import initTestServer from '../../initTestServer';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IListUsersResponse, IUserResponse } from './types';
+import Notificator from '../../Notification/Services/Notificator';
 
 describe('Start User Test', () =>
 {
@@ -19,14 +20,12 @@ describe('Start User Test', () =>
 
         request = configServer.request;
         dbConnection = configServer.dbConnection;
-
     });
 
     afterAll((async() =>
     {
         await dbConnection.drop();
         await dbConnection.close();
-
     }));
 
     describe('User Success', () =>
@@ -46,7 +45,6 @@ describe('Start User Test', () =>
             const { body: { data } } = response;
 
             token = data.token;
-
         });
 
         test('Add User without enable property /users', async() =>
@@ -348,8 +346,6 @@ describe('Start User Test', () =>
 
             expect(data.length).toStrictEqual(1);
             expect(pagination.total).toStrictEqual(1);
-
-
         });
 
         test('Get Users /users with Sort Desc Type', async() =>
@@ -369,7 +365,6 @@ describe('Start User Test', () =>
 
             expect(user1.email).toStrictEqual('user@node.com');
             expect(user2.email).toStrictEqual('user2@update.com');
-
         });
     });
 
@@ -390,7 +385,6 @@ describe('Start User Test', () =>
             const { body: { data } } = response;
 
             token = data.token;
-
         });
 
         test('Add User /users', async() =>
@@ -416,7 +410,6 @@ describe('Start User Test', () =>
             expect(error.property).toStrictEqual('firstName');
             expect(error.constraints.isString).toBeDefined();
             expect(error.constraints.isString).toStrictEqual('firstName must be a string');
-
         });
 
         test('Get User /users/:id', async() =>
@@ -438,7 +431,6 @@ describe('Start User Test', () =>
             expect(error.property).toStrictEqual('id');
             expect(error.constraints.isUuid).toBeDefined();
             expect(error.constraints.isUuid).toStrictEqual('id must be a UUID');
-
         });
 
         test('Update User /users/:id', async() =>
@@ -473,7 +465,6 @@ describe('Start User Test', () =>
             expect(error.property).toStrictEqual('firstName');
             expect(error.constraints.isString).toBeDefined();
             expect(error.constraints.isString).toStrictEqual('firstName must be a string');
-
         });
 
         test('Delete User error /users/:id', async() =>
@@ -490,7 +481,6 @@ describe('Start User Test', () =>
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
             expect(message).toStrictEqual('User not found.');
-
         });
     });
 });
