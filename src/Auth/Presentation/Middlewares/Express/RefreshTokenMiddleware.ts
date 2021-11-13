@@ -1,4 +1,4 @@
-import KeepAliveUseCase from '../../../Domain/UseCases/KeepAliveUseCase';
+import RefreshTokenUseCase from '../../../Domain/UseCases/RefreshTokenUseCase';
 
 
 const RefreshTokenMiddleware = async(req: any, response: any, next: any) =>
@@ -10,7 +10,7 @@ const RefreshTokenMiddleware = async(req: any, response: any, next: any) =>
 
         if (id && email)
         {
-            const keepAliveUseCase = new KeepAliveUseCase();
+            const keepAliveUseCase = new RefreshTokenUseCase();
             const payload = await keepAliveUseCase.handle({ getEmail: () => email, getTokenId: () => id });
 
             req.refreshToken = payload.getHash();

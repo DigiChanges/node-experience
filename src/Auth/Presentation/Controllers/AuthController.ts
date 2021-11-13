@@ -1,7 +1,7 @@
 import LoginUseCase from '../../Domain/UseCases/LoginUseCase';
 import ChangeForgotPasswordUseCase from '../../Domain/UseCases/ChangeForgotPasswordUseCase';
 import ForgotPasswordUseCase from '../../Domain/UseCases/ForgotPasswordUseCase';
-import KeepAliveUseCase from '../../Domain/UseCases/KeepAliveUseCase';
+import RefreshTokenUseCase from '../../Domain/UseCases/RefreshTokenUseCase';
 import PermissionUseCase from '../../Domain/UseCases/PermissionUseCase';
 import SyncRolesPermissionUseCase from '../../Domain/UseCases/SyncRolesPermissionUseCase';
 
@@ -9,7 +9,7 @@ import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest'
 import ChangeForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
 import AuthPayload from '../../InterfaceAdapters/Payloads/AuthPayload';
 import IToken from '../../InterfaceAdapters/IToken';
-import KeepAlivePayload from '../../InterfaceAdapters/Payloads/KeepAlivePayload';
+import RefreshTokenPayload from '../../InterfaceAdapters/Payloads/RefreshTokenPayload';
 import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
 import IGroupPermission from '../../InterfaceAdapters/IGroupPermission';
 import LogoutUseCase from '../../Domain/UseCases/LogoutUseCase';
@@ -56,11 +56,11 @@ class AuthController
         return await useCase.handle(tokenDecode);
     }
 
-    public async keepAlive(request: KeepAlivePayload)
+    public async refreshToken(request: RefreshTokenPayload)
     {
         await ValidatorRequest.handle(request);
 
-        const useCase = new KeepAliveUseCase();
+        const useCase = new RefreshTokenUseCase();
         return await useCase.handle(request);
     }
 

@@ -5,7 +5,7 @@ import Responder from '../../../../App/Presentation/Shared/Koa/Responder';
 import AuthRequest from '../../Requests/Express/AuthRequest';
 import AuthController from '../../Controllers/AuthController';
 import AuthTransformer from '../../Transformers/AuthTransformer';
-import KeepAliveRequest from '../../Requests/Express/KeepAliveRequest';
+import RefreshTokenRequest from '../../Requests/Express/RefreshTokenRequest';
 import ForgotPasswordRequest from '../../Requests/Express/ForgotPasswordRequest';
 import ChangeForgotPasswordRequest from '../../Requests/Express/ChangeForgotPasswordRequest';
 import PermissionsTransformer from '../../Transformers/PermissionsTransformer';
@@ -41,7 +41,7 @@ AuthHandler.put('/me', async(ctx: Koa.ParameterizedContext & any) =>
     responder.send(payload, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
 });
 
-AuthHandler.post('/login', async(ctx: Koa.ParameterizedContext & any) =>
+AuthHandler.post('/login', async(ctx: Koa.ParameterizedContext & any ) =>
 {
     const _request = new AuthRequest(ctx.request.body);
 
@@ -53,7 +53,7 @@ AuthHandler.post('/login', async(ctx: Koa.ParameterizedContext & any) =>
         {
             expires: moment.unix(payload.getExpires()).toDate(),
             maxAge: payload.getExpires(),
-            path: '/',
+            path: '/api/auth/refresh-token',
             httpOnly: true
         });
 
@@ -78,11 +78,21 @@ AuthHandler.post('/logout', async(ctx: Koa.ParameterizedContext & any) =>
     await responder.send(payload, ctx, StatusCode.HTTP_OK, new DefaultTransformer());
 });
 
-AuthHandler.post('/keep-alive', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE), async(ctx: Koa.ParameterizedContext & any) =>
+AuthHandler.post('/refresh-token', AuthorizeMiddleware(Permissions.REFRESH_TOKEN), async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new KeepAliveRequest(ctx.tokenDecode);
+    const _request = new RefreshTokenRequest(ctx.cookies.get('refreshToken'));
 
-    const payload = await controller.keepAlive(_request);
+    const payload = await controller.refreshToken(_request);
+
+    ctx.cookies.set(
+        'refreshToken',
+        payload.getRefreshHash(),
+        {
+            expires: moment.unix(payload.getExpires()).toDate(),
+            maxAge: payload.getExpires(),
+            path: '/api/auth/refresh-token',
+            httpOnly: true
+        });
 
     await responder.send(payload, ctx, StatusCode.HTTP_OK, new AuthTransformer());
 });

@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import KeepAliveUseCase from '../../../Domain/UseCases/KeepAliveUseCase';
+import RefreshTokenUseCase from '../../../Domain/UseCases/RefreshTokenUseCase';
 
 
 const RefreshTokenMiddleware = async(ctx: Koa.ParameterizedContext, next: Koa.Next) =>
@@ -11,7 +11,7 @@ const RefreshTokenMiddleware = async(ctx: Koa.ParameterizedContext, next: Koa.Ne
 
         if (id && email)
         {
-            const keepAliveUseCase = new KeepAliveUseCase();
+            const keepAliveUseCase = new RefreshTokenUseCase();
             const payload = await keepAliveUseCase.handle({ getEmail: () => email, getTokenId: () => id });
 
             ctx.refreshToken = payload.getHash();

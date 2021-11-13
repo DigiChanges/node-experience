@@ -13,15 +13,15 @@ class VerifyTokenBlacklistUseCase
 
     async handle(tokenId: string)
     {
-        const getTokenUseCase = new GetTokenUseCase();
-        const tokenSaved: ITokenDomain = await getTokenUseCase.handle(tokenId);
+        const useCase = new GetTokenUseCase();
+        const token: ITokenDomain = await useCase.handle(tokenId);
 
-        if (tokenSaved.blackListed)
+        if (token.blackListed)
         {
             throw new TokenBlackListedHttpException();
         }
 
-        return tokenSaved;
+        return token;
     }
 }
 

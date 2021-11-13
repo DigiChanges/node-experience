@@ -4,7 +4,7 @@ import Auth from '../Domain/Types/Auth';
 
 interface IAuthService
 {
-    decodeToken(token: string): ITokenDecode;
+    decodeToken(token: string, bearer?: boolean): ITokenDecode;
     getPermissions(authUser: IUserDomain): string[]
     validatePermissions(permissions: string[]): void
     getByEmail(email: string): Promise<Auth>;

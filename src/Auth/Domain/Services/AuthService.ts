@@ -22,14 +22,14 @@ class AuthService implements IAuthService
     private userRepository: IUserRepository
     private config = MainConfig.getInstance();
 
-    public decodeToken(token: string): ITokenDecode
+    public decodeToken(token: string, bearer = true): ITokenDecode
     {
-        const tokenArray = token.split(' ');
+        const _token = bearer ? token.split(' ')[1] : token;
 
         const secret: string = this.config.getConfig().jwt.secret;
         const algorithm: TAlgorithm = this.config.getConfig().encryption.bcrypt.algorithm;
 
-        return jwt.decode(tokenArray[1], secret, false, algorithm);
+        return jwt.decode(_token, secret, false, algorithm);
     }
 
     public getPermissions(auth_user: IUserDomain): string[]
@@ -55,13 +55,13 @@ class AuthService implements IAuthService
         return this.userRepository.getOneByEmail(email);
     }
 
-    public async authorize(auth_user: Auth, handler_permission: string): Promise<boolean>
+    public async authorize(authUser: Auth, handler_permission: string): Promise<boolean>
     {
-        const totalPermissions = this.getPermissions(auth_user as IUserDomain);
+        const totalPermissions = this.getPermissions(authUser as IUserDomain);
 
         let authorize = false;
 
-        if ((auth_user as IUserDomain)?.isSuperAdmin)
+        if ((authUser as IUserDomain)?.isSuperAdmin)
         {
             return true;
         }
@@ -81,7 +81,7 @@ class AuthService implements IAuthService
 
     public validateToken(token: string): ITokenDecode
     {
-        if (typeof token === 'undefined' || token.indexOf('Bearer') === -1)
+        if (!token || !token.includes('Bearer'))
         {
             throw new TokenExpiredHttpException();
         }

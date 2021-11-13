@@ -12,7 +12,7 @@ import Permissions from '../../../../Config/Permissions';
 import AuthRequest from '../../Requests/Express/AuthRequest';
 import ForgotPasswordRequest from '../../Requests/Express/ForgotPasswordRequest';
 import ChangeForgotPasswordRequest from '../../Requests/Express/ChangeForgotPasswordRequest';
-import KeepAliveRequest from '../../Requests/Express/KeepAliveRequest';
+import RefreshTokenRequest from '../../Requests/Express/RefreshTokenRequest';
 
 import AuthTransformer from '../../Transformers/AuthTransformer';
 import PermissionsTransformer from '../../Transformers/PermissionsTransformer';
@@ -67,7 +67,7 @@ class AuthHandler
             {
                 expires: moment.unix(payload.getExpires()).toDate(),
                 maxAge: payload.getExpires(),
-                path: '/api/auth/keep-alive',
+                path: '/api/auth/refresh-token',
                 httpOnly: true
             });
 
@@ -94,12 +94,12 @@ class AuthHandler
         this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
 
-    @httpPost('/keep-alive', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE))
-    public async keepAlive(@request() req: any, @response() res: Response)
+    @httpPost('/refresh-token', AuthorizeMiddleware(Permissions.REFRESH_TOKEN))
+    public async refreshToken(@request() req: Request, @response() res: Response)
     {
-        const _request = new KeepAliveRequest(req.tokenDecode);
+        const _request = new RefreshTokenRequest(req.headers.cookie.split('refreshToken=')[1]);
 
-        const payload = await this.controller.keepAlive(_request);
+        const payload = await this.controller.refreshToken(_request);
 
         this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
