@@ -26,8 +26,6 @@ import RegisterRequest from '../../Requests/RegisterRequest';
 import UpdateMeRequest from '../../Requests/UpdateMeRequest';
 import VerifyYourAccountRequest from '../../Requests/VerifyYourAccountRequest';
 import RefreshTokenMiddleware from '../../Middlewares/Express/RefreshTokenMiddleware';
-import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
-import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
 
 @controller('/api/auth')
 class AuthHandler

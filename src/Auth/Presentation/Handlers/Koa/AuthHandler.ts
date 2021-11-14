@@ -17,9 +17,8 @@ import moment from 'moment';
 import DefaultTransformer from '../../../../App/Presentation/Transformers/DefaultTransformer';
 import RegisterRequest from '../../Requests/RegisterRequest';
 import UpdateMeRequest from '../../Requests/UpdateMeRequest';
-import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
+import VerifyYourAccountRequest from '../../Requests/VerifyYourAccountRequest';
 import RefreshTokenMiddleware from '../../Middlewares/Koa/RefreshTokenMiddleware';
-import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/auth'

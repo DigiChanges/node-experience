@@ -14,24 +14,13 @@ import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswo
 import IGroupPermission from '../../InterfaceAdapters/IGroupPermission';
 import LogoutUseCase from '../../Domain/UseCases/LogoutUseCase';
 import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
-import UserSavePayload from '../../../User/InterfaceAdapters/Payloads/UserSavePayload';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
-import SaveUserUseCase from '../../../User/Domain/UseCases/SaveUserUseCase';
 import RegisterPayload from '../../InterfaceAdapters/Payloads/RegisterPayload';
 import RegisterUseCase from '../../Domain/UseCases/RegisterUseCase';
 import UpdateMeUseCase from '../../Domain/UseCases/UpdateMeUseCase';
 import UserRepPayload from '../../../User/InterfaceAdapters/Payloads/UserRepPayload';
 import VerifyYourAccountPayload from '../../InterfaceAdapters/Payloads/VerifyYourAccountPayload';
 import VerifyYourAccountUseCase from '../../Domain/UseCases/VerifyYourAccountUseCase';
-import LogoutUseCase from '../../Domain/UseCases/LogoutUseCase';
-import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
-import UserSavePayload from '../../../User/InterfaceAdapters/Payloads/UserSavePayload';
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
-import SaveUserUseCase from '../../../User/Domain/UseCases/SaveUserUseCase';
-import RegisterPayload from '../../InterfaceAdapters/Payloads/RegisterPayload';
-import RegisterUseCase from '../../Domain/UseCases/RegisterUseCase';
-import UpdateMeUseCase from '../../Domain/UseCases/UpdateMeUseCase';
-import UserRepPayload from '../../../User/InterfaceAdapters/Payloads/UserRepPayload';
 
 class AuthController
 {
