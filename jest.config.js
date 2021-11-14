@@ -35,7 +35,7 @@ module.exports = {
     "<rootDir>/node_modules/",
     "<rootDir>/.eslintrc.js",
     "<rootDir>/src/app.ts",
-    "<rootDir>/src/index.ts",
+    "<rootDir>/src/Logger.ts",
     "<rootDir>/src/command.ts",
     "<rootDir>/src/File/*",
     "<rootDir>/src/AppExpress/Domain/*",

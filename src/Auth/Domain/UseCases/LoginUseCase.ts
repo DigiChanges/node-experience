@@ -11,6 +11,7 @@ import BadCredentialsException from '../Exceptions/BadCredentialsException';
 import UserDisabledException from '../../../User/Domain/Exceptions/UserDisabledException';
 import RoleDisabledException from '../../../Role/Domain/Exceptions/RoleDisabledException';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import Logger from '../../../Shared/Logger/Logger';
 
 class LoginUseCase
 {
