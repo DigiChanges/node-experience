@@ -1,6 +1,6 @@
-import IRoleDomain from '../../../../Role/InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
 import { ArrayMinSize, IsArray, IsBoolean, IsString, Length } from 'class-validator';
-import UserSavePayload from '../../../InterfaceAdapters/Payloads/UserSavePayload';
+import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
 
 class UserCommandSaveRequest implements UserSavePayload
 {

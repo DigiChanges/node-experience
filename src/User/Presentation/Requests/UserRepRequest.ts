@@ -1,4 +1,4 @@
-import UserRepPayload from '../../../InterfaceAdapters/Payloads/UserRepPayload';
+import UserRepPayload from '../../InterfaceAdapters/Payloads/UserRepPayload';
 import { ArrayMinSize, IsArray, IsBoolean, IsString } from 'class-validator';
 import { decorate, Mixin } from 'ts-mixer';
 import UserWithoutPermissionsRequest from './UserWithoutPermissionsRequest';

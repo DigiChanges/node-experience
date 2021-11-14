@@ -1,4 +1,4 @@
-import FileMultipartRepPayload from '../../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
+import FileMultipartRepPayload from '../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
 import { IsDefined } from 'class-validator';
 
 

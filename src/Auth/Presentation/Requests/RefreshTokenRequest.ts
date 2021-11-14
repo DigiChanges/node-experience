@@ -1,5 +1,5 @@
-import RefreshTokenPayload from '../../../InterfaceAdapters/Payloads/RefreshTokenPayload';
-import { IsEmail, IsString } from 'class-validator';
+import RefreshTokenPayload from '../../InterfaceAdapters/Payloads/RefreshTokenPayload';
+import { IsString } from 'class-validator';
 
 class RefreshTokenRequest implements RefreshTokenPayload
 {
@@ -8,7 +8,6 @@ class RefreshTokenRequest implements RefreshTokenPayload
 
     constructor(refreshToken: string)
     {
-        console.log(refreshToken);
         this.refreshToken = refreshToken;
     }
 

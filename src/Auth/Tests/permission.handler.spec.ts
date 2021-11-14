@@ -42,7 +42,6 @@ describe('Start Permission Test', () =>
             const { body: { data } } = response;
 
             token = data.token;
-
         });
 
         test('Get Permissions', async() =>
@@ -59,10 +58,9 @@ describe('Start Permission Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            const keepAlive = data.some(({ group, permissions }) => group === 'AUTH' && permissions.some((permission) => permission === 'authKeepAlive'));
+            const keepAlive = data.some(({ group, permissions }) => group === 'USERS' && permissions.some((permission) => permission === 'usersSave'));
 
             expect(keepAlive).toStrictEqual(true);
-
         });
 
         test('Resource Not found', async() =>
@@ -77,7 +75,6 @@ describe('Start Permission Test', () =>
 
             expect(response.statusCode).toStrictEqual(404);
             expect(message).toStrictEqual('Route not found.');
-
         });
 
         test('Not authorized', async() =>
@@ -87,14 +84,13 @@ describe('Start Permission Test', () =>
                 .set('Accept', 'application/json')
                 .send();
 
-            const { body: { status, statusCode, message, metadata: { refreshToken } } } = response;
+            const { body: { status, statusCode, message } } = response;
 
             expect(response.statusCode).toStrictEqual(403);
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
             expect(message).toStrictEqual('You must be authenticated.');
-
         });
     });
 });

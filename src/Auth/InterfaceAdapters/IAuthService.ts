@@ -10,6 +10,7 @@ interface IAuthService
     getByEmail(email: string): Promise<Auth>;
     authorize(authUser: Auth, handlerPermission: string): Promise<boolean>;
     validateToken(token: string): ITokenDecode;
+    validateRefreshToken(token: string): ITokenDecode;
     checkWhitelist(method: string, path: string): boolean;
 }
 

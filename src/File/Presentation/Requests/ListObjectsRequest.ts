@@ -1,4 +1,4 @@
-import ListObjectsPayload from '../../../InterfaceAdapters/Payloads/ListObjectsPayload';
+import ListObjectsPayload from '../../InterfaceAdapters/Payloads/ListObjectsPayload';
 import { IsBoolean, IsOptional } from 'class-validator';
 
 class ListObjectsRequest implements ListObjectsPayload

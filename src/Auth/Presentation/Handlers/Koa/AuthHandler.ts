@@ -2,12 +2,12 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import { StatusCode } from '@digichanges/shared-experience';
 import Responder from '../../../../App/Presentation/Shared/Koa/Responder';
-import AuthRequest from '../../Requests/Express/AuthRequest';
+import AuthRequest from '../../Requests/AuthRequest';
 import AuthController from '../../Controllers/AuthController';
 import AuthTransformer from '../../Transformers/AuthTransformer';
-import RefreshTokenRequest from '../../Requests/Express/RefreshTokenRequest';
-import ForgotPasswordRequest from '../../Requests/Express/ForgotPasswordRequest';
-import ChangeForgotPasswordRequest from '../../Requests/Express/ChangeForgotPasswordRequest';
+import RefreshTokenRequest from '../../Requests/RefreshTokenRequest';
+import ForgotPasswordRequest from '../../Requests/ForgotPasswordRequest';
+import ChangeForgotPasswordRequest from '../../Requests/ChangeForgotPasswordRequest';
 import PermissionsTransformer from '../../Transformers/PermissionsTransformer';
 import Permissions from '../../../../Config/Permissions';
 import AuthorizeMiddleware from '../../Middlewares/Koa/AuthorizeMiddleware';
@@ -15,11 +15,11 @@ import { AuthUser } from '../../Helpers/AuthUser';
 import UserTransformer from '../../../../User/Presentation/Transformers/UserTransformer';
 import moment from 'moment';
 import DefaultTransformer from '../../../../App/Presentation/Transformers/DefaultTransformer';
-import RegisterRequest from '../../Requests/Express/RegisterRequest';
-import UpdateMeRequest from '../../Requests/Express/UpdateMeRequest';
+import RegisterRequest from '../../Requests/RegisterRequest';
+import UpdateMeRequest from '../../Requests/UpdateMeRequest';
 import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
+import RefreshTokenMiddleware from '../../Middlewares/Koa/RefreshTokenMiddleware';
 import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
-import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/auth'
@@ -43,7 +43,7 @@ AuthHandler.put('/me', async(ctx: Koa.ParameterizedContext & any) =>
     responder.send(payload, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
 });
 
-AuthHandler.post('/login', async(ctx: Koa.ParameterizedContext & any ) =>
+AuthHandler.post('/login', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new AuthRequest(ctx.request.body);
 
@@ -80,9 +80,9 @@ AuthHandler.post('/logout', async(ctx: Koa.ParameterizedContext & any) =>
     await responder.send(payload, ctx, StatusCode.HTTP_OK, new DefaultTransformer());
 });
 
-AuthHandler.post('/refresh-token', AuthorizeMiddleware(Permissions.AUTH_KEEP_ALIVE), async(ctx: Koa.ParameterizedContext & any) =>
+AuthHandler.post('/refresh-token', RefreshTokenMiddleware, async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new RefreshTokenRequest(ctx.cookies.get('refreshToken'));
+    const _request = new RefreshTokenRequest(ctx.refreshToken);
 
     const payload = await controller.refreshToken(_request);
 

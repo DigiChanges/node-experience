@@ -1,5 +1,5 @@
 import { Mixin } from 'ts-mixer';
-import UserSavePayload from '../../../InterfaceAdapters/Payloads/UserSavePayload';
+import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
 import UserRepPasswordRequest from './UserRepPasswordRequest';
 import UserRepRequest from './UserRepRequest';
 

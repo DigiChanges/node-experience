@@ -26,7 +26,7 @@ class RefreshTokenUseCase
         this.tokenFactory = new TokenFactory();
     }
 
-    async handle(payload: RefreshTokenPayload & any)
+    async handle(payload: RefreshTokenPayload)
     {
         const tokenDecode = this.authService.decodeToken(payload.getRefreshToken(), false);
 

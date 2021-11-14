@@ -1,19 +1,26 @@
 import RefreshTokenUseCase from '../../../Domain/UseCases/RefreshTokenUseCase';
+import ContainerFactory from '../../../../Shared/Factories/ContainerFactory';
+import IAuthService from '../../../InterfaceAdapters/IAuthService';
+import { SERVICES } from '../../../../services';
+import ErrorHttpException from '../../../../App/Presentation/Shared/ErrorHttpException';
+import { StatusCode } from '@digichanges/shared-experience';
 
 
 const RefreshTokenMiddleware = async(req: any, response: any, next: any) =>
 {
     try
     {
-        const email = req?.tokenDecode ? req.tokenDecode.email : null;
-        const id = req?.tokenDecode ? req.tokenDecode.id : null;
+        const authService =  ContainerFactory.create<IAuthService>(SERVICES.IAuthService);
+        const refreshToken = req.headers.cookie.split('refreshToken=')[1];
 
-        if (id && email)
+        if (refreshToken)
         {
-            const keepAliveUseCase = new RefreshTokenUseCase();
-            const payload = await keepAliveUseCase.handle({ getEmail: () => email, getTokenId: () => id });
-
-            req.refreshToken = payload.getHash();
+            authService.validateRefreshToken(refreshToken);
+            req.refreshToken = refreshToken;
+        }
+        else
+        {
+            throw new ErrorHttpException(StatusCode.HTTP_UNAUTHORIZED, { message: 'Missing refresh token' });
         }
 
         next();

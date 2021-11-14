@@ -6,10 +6,10 @@ import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 import { TYPES } from '../../../../types';
 import Responder from '../../../../App/Presentation/Shared/Express/Responder';
 import RoleTransformer from '../../Transformers/RoleTransformer';
-import RoleRepRequest from '../../Requests/Express/RoleRepRequest';
+import RoleRepRequest from '../../Requests/RoleRepRequest';
 import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
-import RoleRequestCriteria from '../../Requests/Express/RoleRequestCriteria';
-import RoleUpdateRequest from '../../Requests/Express/RoleUpdateRequest';
+import RoleRequestCriteria from '../../Requests/RoleRequestCriteria';
+import RoleUpdateRequest from '../../Requests/RoleUpdateRequest';
 import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Express/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
 

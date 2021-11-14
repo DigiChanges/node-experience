@@ -1,10 +1,10 @@
 import { Mixin } from 'ts-mixer';
-import UserRepPasswordRequest from '../../../../User/Presentation/Requests/Express/UserRepPasswordRequest';
-import RegisterPayload from '../../../InterfaceAdapters/Payloads/RegisterPayload';
+import UserRepPasswordRequest from '../../../User/Presentation/Requests/UserRepPasswordRequest';
+import RegisterPayload from '../../InterfaceAdapters/Payloads/RegisterPayload';
 import UserWithoutPermissionsRequest
-    from '../../../../User/Presentation/Requests/Express/UserWithoutPermissionsRequest';
+    from '../../../User/Presentation/Requests/UserWithoutPermissionsRequest';
 import moment from 'moment';
-import EncryptionFactory from '../../../../Shared/Factories/EncryptionFactory';
+import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 
 class RegisterRequest extends Mixin(UserWithoutPermissionsRequest, UserRepPasswordRequest) implements RegisterPayload
 {

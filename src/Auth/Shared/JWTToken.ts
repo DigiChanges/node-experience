@@ -12,6 +12,7 @@ class JWTToken implements IToken
     private readonly refreshHash: string;
     private readonly user: IUserDomain;
     private readonly payload: ITokenDecode;
+    private readonly payloadRefreshToken: ITokenDecode;
 
     constructor(id: string, expires: number, user: IUserDomain, secret: string)
     {
@@ -28,8 +29,17 @@ class JWTToken implements IToken
             userId: user.getId(),
             email: user.email
         };
+
+        const expiresRefreshToken = moment().utc().add({ minutes: expires + 1 }).unix();
+
+        this.payloadRefreshToken = {
+            ...this.payload,
+            iat: expiresRefreshToken,
+            exp: expiresRefreshToken
+        };
+
         this.hash = jwt.encode(this.payload, secret, 'HS512');
-        this.refreshHash = jwt.encode(this.payload, secret, 'HS512');
+        this.refreshHash = jwt.encode(this.payloadRefreshToken, secret, 'HS512');
     }
 
     getExpires(): number

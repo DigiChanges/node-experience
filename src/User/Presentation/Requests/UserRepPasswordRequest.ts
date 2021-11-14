@@ -1,8 +1,8 @@
 import { IsString, Length } from 'class-validator';
 import { decorate } from 'ts-mixer';
-import MainConfig from '../../../../Config/mainConfig';
-import { Match } from '../../../../Shared/Decorators/match';
-import UserPasswordRepPayload from '../../../InterfaceAdapters/Payloads/UserPasswordPayload';
+import MainConfig from '../../../Config/mainConfig';
+import { Match } from '../../../Shared/Decorators/match';
+import UserPasswordRepPayload from '../../InterfaceAdapters/Payloads/UserPasswordPayload';
 
 class UserRepPasswordRequest implements UserPasswordRepPayload
 {

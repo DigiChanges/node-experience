@@ -1,4 +1,4 @@
-import RoleRepPayload from '../../../InterfaceAdapters/Payloads/RoleRepPayload';
+import RoleRepPayload from '../../InterfaceAdapters/Payloads/RoleRepPayload';
 import { IsArray, IsBoolean, IsOptional, IsString } from 'class-validator';
 
 class RoleCommandRepRequest implements RoleRepPayload

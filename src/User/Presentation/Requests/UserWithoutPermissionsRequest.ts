@@ -1,8 +1,8 @@
 import { decorate, Mixin } from 'ts-mixer';
 import { IsEmail, IsString, Length } from 'class-validator';
-import IRoleDomain from '../../../../Role/InterfaceAdapters/IRoleDomain';
-import { REPOSITORIES } from '../../../../repositories';
-import UserRepPayload from '../../../InterfaceAdapters/Payloads/UserRepPayload';
+import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
+import { REPOSITORIES } from '../../../repositories';
+import UserRepPayload from '../../InterfaceAdapters/Payloads/UserRepPayload';
 
 class UserWithoutPermissionsRequest implements UserRepPayload
 {

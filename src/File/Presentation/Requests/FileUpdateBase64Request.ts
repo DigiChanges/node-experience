@@ -1,5 +1,5 @@
-import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
-import FileUpdateBase64Payload from '../../../InterfaceAdapters/Payloads/FileUpdateBase64Payload';
+import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import FileUpdateBase64Payload from '../../InterfaceAdapters/Payloads/FileUpdateBase64Payload';
 import { IsBase64, IsMimeType, IsString } from 'class-validator';
 
 class FileUpdateBase64Request extends IdRequest implements FileUpdateBase64Payload

@@ -1,7 +1,7 @@
 import { loggerCli } from '../../../Shared/Logger';
 import commander from 'commander';
 import RoleRepPayload from '../../InterfaceAdapters/Payloads/RoleRepPayload';
-import RoleCommandRepRequest from '../Requests/Express/RoleUserCommandRepRequest';
+import RoleCommandRepRequest from '../Requests/RoleUserCommandRepRequest';
 import SaveRoleUseCase from '../../Domain/UseCases/SaveRoleUseCase';
 
 const AddRoleCommand = new commander.Command('addRole');

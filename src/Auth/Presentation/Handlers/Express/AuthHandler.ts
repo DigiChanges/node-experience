@@ -9,10 +9,10 @@ import Responder from '../../../../App/Presentation/Shared/Express/Responder';
 import AuthorizeMiddleware from '../../Middlewares/Express/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
 
-import AuthRequest from '../../Requests/Express/AuthRequest';
-import ForgotPasswordRequest from '../../Requests/Express/ForgotPasswordRequest';
-import ChangeForgotPasswordRequest from '../../Requests/Express/ChangeForgotPasswordRequest';
-import RefreshTokenRequest from '../../Requests/Express/RefreshTokenRequest';
+import AuthRequest from '../../Requests/AuthRequest';
+import ForgotPasswordRequest from '../../Requests/ForgotPasswordRequest';
+import ChangeForgotPasswordRequest from '../../Requests/ChangeForgotPasswordRequest';
+import RefreshTokenRequest from '../../Requests/RefreshTokenRequest';
 
 import AuthTransformer from '../../Transformers/AuthTransformer';
 import PermissionsTransformer from '../../Transformers/PermissionsTransformer';
@@ -22,9 +22,10 @@ import { AuthUser } from '../../Helpers/AuthUser';
 import UserTransformer from '../../../../User/Presentation/Transformers/UserTransformer';
 import moment from 'moment';
 import DefaultTransformer from '../../../../App/Presentation/Transformers/DefaultTransformer';
-import RegisterRequest from '../../Requests/Express/RegisterRequest';
-import UpdateMeRequest from '../../Requests/Express/UpdateMeRequest';
-import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
+import RegisterRequest from '../../Requests/RegisterRequest';
+import UpdateMeRequest from '../../Requests/UpdateMeRequest';
+import VerifyYourAccountRequest from '../../Requests/VerifyYourAccountRequest';
+import RefreshTokenMiddleware from '../../Middlewares/Express/RefreshTokenMiddleware';
 import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
 import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
 
@@ -95,10 +96,10 @@ class AuthHandler
         this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
 
-    @httpPost('/refresh-token', AuthorizeMiddleware(Permissions.REFRESH_TOKEN))
-    public async refreshToken(@request() req: Request, @response() res: Response)
+    @httpPost('/refresh-token', RefreshTokenMiddleware)
+    public async refreshToken(@request() req: any, @response() res: Response)
     {
-        const _request = new RefreshTokenRequest(req.headers.cookie.split('refreshToken=')[1]);
+        const _request = new RefreshTokenRequest(req.refreshToken);
 
         const payload = await this.controller.refreshToken(_request);
 

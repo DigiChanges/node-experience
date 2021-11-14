@@ -1,4 +1,4 @@
-import FileBase64RepPayload from '../../../InterfaceAdapters/Payloads/FileBase64RepPayload';
+import FileBase64RepPayload from '../../InterfaceAdapters/Payloads/FileBase64RepPayload';
 import { IsBase64, IsMimeType, IsString } from 'class-validator';
 
 class FileBase64RepRequest implements FileBase64RepPayload

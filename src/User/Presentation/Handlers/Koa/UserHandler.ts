@@ -5,12 +5,12 @@ import Responder from '../../../../App/Presentation/Shared/Koa/Responder';
 import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import UserController from '../../Controllers/UserControllers';
 import IUserDomain from '../../../InterfaceAdapters/IUserDomain';
-import UserRequestCriteria from '../../Requests/Express/UserRequestCriteria';
-import UserUpdateRequest from '../../Requests/Express/UserUpdateRequest';
-import UserSaveRequest from '../../Requests/Express/UserSaveRequest';
-import UserAssignRoleRequest from '../../Requests/Express/UserAssignRoleRequest';
-import ChangeMyPasswordRequest from '../../Requests/Express/ChangeMyPasswordRequest';
-import ChangeUserPasswordRequest from '../../Requests/Express/ChangeUserPasswordRequest';
+import UserRequestCriteria from '../../Requests/UserRequestCriteria';
+import UserUpdateRequest from '../../Requests/UserUpdateRequest';
+import UserSaveRequest from '../../Requests/UserSaveRequest';
+import UserAssignRoleRequest from '../../Requests/UserAssignRoleRequest';
+import ChangeMyPasswordRequest from '../../Requests/ChangeMyPasswordRequest';
+import ChangeUserPasswordRequest from '../../Requests/ChangeUserPasswordRequest';
 import UserTransformer from '../../Transformers/UserTransformer';
 
 

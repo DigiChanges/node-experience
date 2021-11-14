@@ -1,6 +1,6 @@
 import { IsString, IsUUID, Length } from 'class-validator';
-import MainConfig from '../../../../Config/mainConfig';
-import ChangeMyPasswordPayload from '../../../InterfaceAdapters/Payloads/ChangeMyPasswordPayload';
+import MainConfig from '../../../Config/mainConfig';
+import ChangeMyPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeMyPasswordPayload';
 import UserRepPasswordRequest from './UserRepPasswordRequest';
 
 class ChangeMyPasswordRequest extends UserRepPasswordRequest implements ChangeMyPasswordPayload

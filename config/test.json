@@ -119,6 +119,10 @@
     },
     {
       "methods": ["POST"],
+      "url": "/api/auth/forgotPassword"
+    },
+    {
+      "methods": ["POST"],
       "url": "/api/auth/forgot-password"
     },
     {
@@ -130,11 +134,15 @@
       "url": "/api/auth/verify-your-account/**"
     },
     {
-      "method": ["PUT"],
+      "methods": ["PUT"],
       "url": "/api/auth/verify-your-account/**"
     },
     {
-      "method": ["*"],
+      "methods": ["POST"],
+      "url": "/api/auth/refresh-token"
+    },
+    {
+      "methods": ["*"],
       "url": "/test/all/*"
     },
     {

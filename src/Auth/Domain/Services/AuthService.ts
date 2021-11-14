@@ -97,6 +97,16 @@ class AuthService implements IAuthService
         return this.decodeToken(token);
     }
 
+    public validateRefreshToken(refreshToken: string): ITokenDecode
+    {
+        if (!refreshToken)
+        {
+            throw new TokenNotFoundHttpException();
+        }
+
+        return this.decodeToken(refreshToken, false);
+    }
+
     public checkWhitelist(reqMethod: string, reqPath: string): boolean
     {
         const samePath = (_url: string, _path: string): boolean => (_url === _path);

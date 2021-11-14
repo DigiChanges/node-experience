@@ -12,15 +12,15 @@ import Permissions from '../../../../Config/Permissions';
 import UserTransformer from '../../Transformers/UserTransformer';
 
 import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
-import UserRequestCriteria from '../../Requests/Express/UserRequestCriteria';
-import UserUpdateRequest from '../../Requests/Express/UserUpdateRequest';
-import UserAssignRoleRequest from '../../Requests/Express/UserAssignRoleRequest';
-import ChangeUserPasswordRequest from '../../Requests/Express/ChangeUserPasswordRequest';
-import ChangeMyPasswordRequest from '../../Requests/Express/ChangeMyPasswordRequest';
+import UserRequestCriteria from '../../Requests/UserRequestCriteria';
+import UserUpdateRequest from '../../Requests/UserUpdateRequest';
+import UserAssignRoleRequest from '../../Requests/UserAssignRoleRequest';
+import ChangeUserPasswordRequest from '../../Requests/ChangeUserPasswordRequest';
+import ChangeMyPasswordRequest from '../../Requests/ChangeMyPasswordRequest';
 
 import IUserDomain from '../../../InterfaceAdapters/IUserDomain';
 import UserController from '../../Controllers/UserControllers';
-import UserSaveRequest from '../../Requests/Express/UserSaveRequest';
+import UserSaveRequest from '../../Requests/UserSaveRequest';
 import { AuthUser } from '../../../../Auth/Presentation/Helpers/AuthUser';
 import ITokenDecode from '../../../../Shared/InterfaceAdapters/ITokenDecode';
 
