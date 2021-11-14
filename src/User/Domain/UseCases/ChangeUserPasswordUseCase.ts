@@ -3,8 +3,8 @@ import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { SERVICES } from '../../../services';
-import MainConfig from '../../../Config/mainConfig';
 import IUserService from '../../InterfaceAdapters/IUserService';
+import MainConfig from '../../../Config/mainConfig';
 
 class ChangeUserPasswordUseCase
 {

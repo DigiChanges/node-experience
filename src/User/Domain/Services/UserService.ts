@@ -18,8 +18,8 @@ import UserAssignRoleByPayload from 'User/InterfaceAdapters/Payloads/UserAssignR
 import Password from '../../../App/Domain/ValueObjects/Password';
 import { injectable } from 'inversify';
 import IUserService from '../../InterfaceAdapters/IUserService';
-import MainConfig from '../../../Config/mainConfig';
 import Config from 'config';
+import MainConfig from '../../../Config/mainConfig';
 import UniqueService from '../../../App/Domain/Services/UniqueService';
 
 @injectable()

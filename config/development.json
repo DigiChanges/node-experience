@@ -101,18 +101,22 @@
     },
     {
       "methods": ["POST"],
-      "url": "/api/auth/forgotPassword"
+      "url": "/api/auth/register"
     },
     {
       "methods": ["POST"],
-      "url": "/api/auth/changeForgotPassword"
+      "url": "/api/auth/forgot-password"
     },
     {
-      "method": ["PUT"],
+      "methods": ["POST"],
+      "url": "/api/auth/change-forgot-password"
+    },
+    {
+      "methods": ["PUT"],
       "url": "/api/auth/verify-your-account/**"
     },
     {
-      "method": ["GET"],
+      "methods": ["GET"],
       "url": "/log"
     }
   ]

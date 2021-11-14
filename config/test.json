@@ -119,18 +119,18 @@
     },
     {
       "method": ["POST"],
-      "url": "/api/auth/forgotPassword"
+      "url": "/api/auth/forgot-password"
     },
     {
       "methods": ["POST"],
-      "url": "/api/auth/changeForgotPassword"
+      "url": "/api/auth/change-forgot-password"
     },
     {
       "method": ["PUT"],
       "url": "/api/auth/verify-your-account/**"
     },
     {
-      "method": ["*"],
+      "methods": ["*"],
       "url": "/test/all/*"
     },
     {
