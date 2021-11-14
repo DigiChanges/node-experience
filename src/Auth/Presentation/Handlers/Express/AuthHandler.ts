@@ -24,7 +24,6 @@ import moment from 'moment';
 import DefaultTransformer from '../../../../App/Presentation/Transformers/DefaultTransformer';
 import RegisterRequest from '../../Requests/Express/RegisterRequest';
 import UpdateMeRequest from '../../Requests/Express/UpdateMeRequest';
-import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
 import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
 import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
 import VerifyYourAccountRequest from '../../Requests/Express/VerifyYourAccountRequest';
@@ -102,6 +101,16 @@ class AuthHandler
         const _request = new RefreshTokenRequest(req.headers.cookie.split('refreshToken=')[1]);
 
         const payload = await this.controller.refreshToken(_request);
+
+        res.cookie(
+            'refreshToken',
+            payload.getRefreshHash(),
+            {
+                expires: moment.unix(payload.getExpires()).toDate(),
+                maxAge: payload.getExpires(),
+                path: '/api/auth/refresh-token',
+                httpOnly: true
+            });
 
         this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
