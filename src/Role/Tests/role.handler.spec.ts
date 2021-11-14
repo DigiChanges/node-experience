@@ -3,7 +3,7 @@ import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IListRolesResponse, IRoleResponse } from './types';
-import Config from 'config';
+import MainConfig from '../../Config/mainConfig';
 
 describe('Start Role Test', () =>
 {
@@ -13,27 +13,24 @@ describe('Start Role Test', () =>
     let roleId = '';
     let deleteResponse: any = null;
 
-    beforeAll(async(done) =>
+    beforeAll(async() =>
     {
         const configServer = await initTestServer();
 
         request = configServer.request;
         dbConnection = configServer.dbConnection;
-
-        done();
     });
 
-    afterAll((async(done) =>
+    afterAll((async() =>
     {
         await dbConnection.drop();
         await dbConnection.close();
 
-        done();
     }));
 
     describe('Role Success', () =>
     {
-        beforeAll(async(done) =>
+        beforeAll(async() =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -48,11 +45,9 @@ describe('Start Role Test', () =>
             const { body: { data } } = response;
 
             token = data.token;
-
-            done();
         });
 
-        test('Add Role without enable property /roles', async done =>
+        test('Add Role without enable property /roles', async() =>
         {
             const payload: any = {
                 name: 'Role1 Test',
@@ -78,11 +73,9 @@ describe('Start Role Test', () =>
             expect(data.enable).toStrictEqual(true);
 
             roleId = data.id;
-
-            done();
         });
 
-        test('Add Role with enable property /roles', async done =>
+        test('Add Role with enable property /roles', async() =>
         {
             const payload: any = {
                 name: 'Role2 Test',
@@ -109,11 +102,9 @@ describe('Start Role Test', () =>
             expect(data.enable).toStrictEqual(payload.enable);
 
             roleId = data.id;
-
-            done();
         });
 
-        test('Add Role with permissions property /roles', async done =>
+        test('Add Role with permissions property /roles', async() =>
         {
             const payload: any = {
                 name: 'Role3 Test',
@@ -140,11 +131,9 @@ describe('Start Role Test', () =>
             expect(data.enable).toStrictEqual(payload.enable);
 
             roleId = data.id;
-
-            done();
         });
 
-        test('Get Role /roles/:id', async done =>
+        test('Get Role /roles/:id', async() =>
         {
             const payload: any = {
                 name: 'Role3 Test',
@@ -169,11 +158,9 @@ describe('Start Role Test', () =>
             expect(data.slug).toStrictEqual(payload.slug);
             expect(data.permissions).toStrictEqual(payload.permissions);
             expect(data.enable).toStrictEqual(payload.enable);
-
-            done();
         });
 
-        test('Update Role /roles/:id', async done =>
+        test('Update Role /roles/:id', async() =>
         {
             const payload: any = {
                 name: 'Role3 Test Update',
@@ -198,11 +185,9 @@ describe('Start Role Test', () =>
             expect(data.slug).toStrictEqual(payload.slug);
             expect(data.permissions).toStrictEqual(payload.permissions);
             expect(data.enable).toStrictEqual(payload.enable);
-
-            done();
         });
 
-        test('Delete Role /roles/:id', async done =>
+        test('Delete Role /roles/:id', async() =>
         {
             const payload: any = {
                 name: 'Role4 Test',
@@ -233,12 +218,11 @@ describe('Start Role Test', () =>
             expect(data.slug).toStrictEqual(payload.slug);
             expect(data.permissions).toStrictEqual(payload.permissions);
             expect(data.enable).toStrictEqual(payload.enable);
-
-            done();
         });
 
-        test('Get Roles /roles', async done =>
+        test('Get Roles /roles', async() =>
         {
+            const config = MainConfig.getInstance();
 
             const response: IListRolesResponse = await request
                 .get('/api/roles?pagination[offset]=0&pagination[limit]=5')
@@ -259,17 +243,16 @@ describe('Start Role Test', () =>
             expect(pagination.lastPage).toStrictEqual(2);
             expect(pagination.from).toStrictEqual(0);
             expect(pagination.to).toStrictEqual(5);
-            expect(pagination.path).toContain(Config.get('url.urlApi'));
+            expect(pagination.path).toContain(config.getConfig().url.urlApi);
             expect(pagination.firstUrl).toContain('/api/roles?pagination[offset]=0&pagination[limit]=5');
             expect(pagination.lastUrl).toContain('/api/roles?pagination[offset]=5&pagination[limit]=5');
             expect(pagination.nextUrl).toContain('/api/roles?pagination[offset]=5&pagination[limit]=5');
             expect(pagination.prevUrl).toStrictEqual(null);
             expect(pagination.currentUrl).toContain('/api/roles?pagination[offset]=0&pagination[limit]=5');
 
-            done();
         });
 
-        test('Get Roles /roles without pagination', async done =>
+        test('Get Roles /roles without pagination', async() =>
         {
 
             const response: IListRolesResponse = await request
@@ -286,11 +269,9 @@ describe('Start Role Test', () =>
 
             expect(data.length).toStrictEqual(6);
             expect(pagination).not.toBeDefined();
-
-            done();
         });
 
-        test('Get Roles /roles with Filter Type', async done =>
+        test('Get Roles /roles with Filter Type', async() =>
         {
 
             const response: IListRolesResponse = await request
@@ -307,13 +288,10 @@ describe('Start Role Test', () =>
 
             expect(data.length).toStrictEqual(1);
             expect(pagination.total).toStrictEqual(1);
-
-            done();
         });
 
-        test('Get Roles /roles with Sort Desc Type', async done =>
+        test('Get Roles /roles with Sort Desc Type', async() =>
         {
-
             const response: IListRolesResponse = await request
                 .get('/api/roles?pagination[limit]=20&pagination[offset]=0&sort[slug]=desc')
                 .set('Accept', 'application/json')
@@ -328,11 +306,9 @@ describe('Start Role Test', () =>
 
             expect(role1.slug).toStrictEqual('role3testupdate');
             expect(role2.slug).toStrictEqual('role2test');
-
-            done();
         });
 
-        test('Sync roles permissions /sync-roles-permissions', async done =>
+        test('Sync roles permissions /sync-roles-permissions', async() =>
         {
 
             const response: any = await request
@@ -345,14 +321,12 @@ describe('Start Role Test', () =>
 
             expect(response.statusCode).toStrictEqual(201);
             expect(data.message).toStrictEqual('Sync Successfully');
-
-            done();
         });
     });
 
     describe('Role Fails', () =>
     {
-        beforeAll(async(done) =>
+        beforeAll(async() =>
         {
             const payload = {
                 email: 'superadmin@node.com',
@@ -368,10 +342,9 @@ describe('Start Role Test', () =>
 
             token = data.token;
 
-            done();
         });
 
-        test('Add Role /roles', async done =>
+        test('Add Role /roles', async() =>
         {
             const payload = {
                 name: 'Role 2',
@@ -394,11 +367,9 @@ describe('Start Role Test', () =>
             expect(error.property).toStrictEqual('slug');
             expect(error.constraints.isString).toBeDefined();
             expect(error.constraints.isString).toStrictEqual('slug must be a string');
-
-            done();
         });
 
-        test('Get Role /roles/:id', async done =>
+        test('Get Role /roles/:id', async() =>
         {
 
             const response: IRoleResponse = await request
@@ -417,11 +388,9 @@ describe('Start Role Test', () =>
             expect(error.property).toStrictEqual('id');
             expect(error.constraints.isUuid).toBeDefined();
             expect(error.constraints.isUuid).toStrictEqual('id must be a UUID');
-
-            done();
         });
 
-        test('Update Role /roles/:id', async done =>
+        test('Update Role /roles/:id', async() =>
         {
             const payload: any = {
                 name: 150,
@@ -449,11 +418,9 @@ describe('Start Role Test', () =>
             expect(error2.property).toStrictEqual('permissions');
             expect(error2.constraints.isArray).toBeDefined();
             expect(error2.constraints.isArray).toStrictEqual('permissions must be an array');
-
-            done();
         });
 
-        test('Delete Role error /roles/:id', async done =>
+        test('Delete Role error /roles/:id', async() =>
         {
             const deleteErrorResponse: IRoleResponse = await request
                 .delete(`/api/roles/${deleteResponse.body.data.id}`)
@@ -467,9 +434,6 @@ describe('Start Role Test', () =>
             expect(status).toStrictEqual('error');
             expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
             expect(message).toStrictEqual('Role not found.');
-
-            done();
         });
     });
 });
-

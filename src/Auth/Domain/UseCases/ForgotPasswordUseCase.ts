@@ -1,4 +1,4 @@
-import Config from 'config';
+import MainConfig from '../../../Config/mainConfig';
 import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import { REPOSITORIES } from '../../../repositories';
@@ -14,6 +14,7 @@ class ForgotPasswordUseCase
 
     async handle(payload: ForgotPasswordPayload)
     {
+        const config = MainConfig.getInstance();
         const user = await this.repository.getOneByEmail(payload.getEmail());
 
         user.confirmationToken = String(await payload.getConfirmationToken());
@@ -23,7 +24,7 @@ class ForgotPasswordUseCase
 
         const emailNotification = new EmailNotification();
 
-        const urlConfirmationToken = `${Config.get('url.urlWeb')}changeForgotPassword/${user.confirmationToken}`;
+        const urlConfirmationToken = `${config.getConfig().url.urlWeb}changeForgotPassword/${user.confirmationToken}`;
 
         emailNotification.name = 'Forgot Password';
         emailNotification.to = payload.getEmail();

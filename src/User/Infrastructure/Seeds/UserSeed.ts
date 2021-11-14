@@ -1,11 +1,7 @@
-import faker from 'faker';
-import { IEncryption } from '@digichanges/shared-experience';
-
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
 import Role from '../../../Role/Domain/Entities/Role';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import User from '../../Domain/Entities/User';
-import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
 import { REPOSITORIES } from '../../../repositories';
@@ -13,7 +9,7 @@ import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import Permissions from '../../../Config/Permissions';
-import Config from 'config';
+import MainConfig from '../../../Config/mainConfig';
 
 class UserSeed implements ISeed
 {
@@ -23,17 +19,12 @@ class UserSeed implements ISeed
     @containerFactory(REPOSITORIES.IRoleRepository)
     private roleRepository: IRoleRepository;
 
-    private encryption: IEncryption;
-
-    constructor()
-    {
-        this.encryption = EncryptionFactory.create();
-    }
-
     public async init(): Promise<void>
     {
-        const min = Config.get<number>('validationSettings.password.min');
-        const max = Config.get<number>('validationSettings.password.max');
+        const config = MainConfig.getInstance();
+
+        const min = config.getConfig().validationSettings.password.minLength;
+        const max = config.getConfig().validationSettings.password.maxLength;
 
         const roleSuperAdmin: IRoleDomain = new Role();
         roleSuperAdmin.name = 'SuperAdmin';

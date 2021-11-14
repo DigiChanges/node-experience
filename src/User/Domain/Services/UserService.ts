@@ -1,4 +1,3 @@
-import { IEncryption } from '@digichanges/shared-experience';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
@@ -10,7 +9,6 @@ import { REPOSITORIES } from '../../../repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
 import { SERVICES } from '../../../services';
-import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import CheckUserRolePayload from '../../InterfaceAdapters/Payloads/CheckUserRolePayload';
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
@@ -20,7 +18,7 @@ import UserAssignRoleByPayload from 'User/InterfaceAdapters/Payloads/UserAssignR
 import Password from '../../../App/Domain/ValueObjects/Password';
 import { injectable } from 'inversify';
 import IUserService from '../../InterfaceAdapters/IUserService';
-import Config from 'config';
+import MainConfig from '../../../Config/mainConfig';
 
 @injectable()
 class UserService implements IUserService
@@ -33,12 +31,8 @@ class UserService implements IUserService
 
     @containerFactory(SERVICES.IAuthService)
     private authService: IAuthService;
-    private encryption: IEncryption;
 
-    constructor()
-    {
-        this.encryption = EncryptionFactory.create();
-    }
+    private config = MainConfig.getInstance();
 
     async persist(user: IUserDomain, payload: UserRepPayload): Promise<IUserDomain>
     {
@@ -63,8 +57,8 @@ class UserService implements IUserService
     {
         const user = new User();
 
-        const min = Config.get<number>('validationSettings.password.min');
-        const max = Config.get<number>('validationSettings.password.max');
+        const min = this.config.getConfig().validationSettings.password.minLength;
+        const max = this.config.getConfig().validationSettings.password.maxLength;
 
         const password = new Password(payload.getPassword(), min, max);
         user.password = await password.ready();
@@ -93,8 +87,8 @@ class UserService implements IUserService
 
     async persistPassword(user: IUserDomain, payload: ChangeUserPasswordPayload): Promise<IUserDomain>
     {
-        const min = Config.get<number>('validationSettings.password.min');
-        const max = Config.get<number>('validationSettings.password.max');
+        const min = this.config.getConfig().validationSettings.password.minLength;
+        const max = this.config.getConfig().validationSettings.password.maxLength;
 
         const password = new Password(payload.getPassword(), min, max);
         user.password = await password.ready();

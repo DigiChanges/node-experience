@@ -1,10 +1,9 @@
 import cors from 'koa-cors';
 import helmet from 'koa-helmet';
 import hbshbs from 'koa-hbs';
-import pino from 'koa-pino-logger';
+import koaPino from 'koa-pino-logger';
 
 import AuthenticationMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/AuthenticationMiddleware';
-import { loggerCli } from '../../../../Shared/Logger';
 import RedirectRouteNotFoundMiddleware from '../../Middlewares/Koa/RedirectRouteNotFoundMiddleware';
 import Throttle from '../../Middlewares/Koa/Throttle';
 import VerifyTokenMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/VerifyTokenMiddleware';
@@ -22,7 +21,7 @@ import AuthHandler from '../../../../Auth/Presentation/Handlers/Koa/AuthHandler'
 import IAppConfig from '../../../InterfaceAdapters/IAppConfig';
 import WhiteListHandler from '../../../Tests/Koa/WhiteListHandler';
 import { ErrorHandler } from './ErrorHandler';
-
+import Logger from '../../../../Shared/Logger/Logger';
 
 class AppKoa implements IApp
 {
@@ -55,16 +54,13 @@ class AppKoa implements IApp
             jsonLimit: '5mb'
         }));
 
-        this.app.use(pino({
-            prettyPrint: { colorize: true }
+        this.app.use(koaPino({
+            logger: Logger
         }));
+
         this.app.use(Throttle);
         this.app.use(AuthenticationMiddleware);
         this.app.use(VerifyTokenMiddleware);
-
-        // Application error logging
-        // eslint-disable-next-line no-console
-        this.app.on('error', console.error);
     }
 
     public build(): void
@@ -101,7 +97,7 @@ class AppKoa implements IApp
     {
         return this.app.listen(this.port, () =>
         {
-            loggerCli.debug(`Koa is listening to http://localhost:${this.port}`);
+            Logger.debug(`Koa is listening to http://localhost:${this.port}`);
         });
     }
 

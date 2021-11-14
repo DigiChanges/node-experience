@@ -15,21 +15,7 @@
       "password": "experience",
       "synchronize": true,
       "migrationsRun": false,
-      "logging": true,
-      "entities": [
-        "src/Infrastructure/Schema/TypeORM/*.ts"
-      ],
-      "migrations": [
-        "src/Infrastructure/Migrations/TypeORM/**/*.ts"
-      ],
-      "subscribers": [
-        "src/Infrastructure/Subscribers/TypeORM/**/*.ts"
-      ],
-      "cli": {
-        "entitiesDir": "/src/Infrastructure/Entities/TypeORM",
-        "migrationsDir": "/src/Infrastructure/Migrations",
-        "subscribersDir": "/src/Infrastructure/Subscribers"
-      }
+      "logging": true
     },
     "Mongoose": {
       "host": "db",
@@ -69,7 +55,7 @@
       "saltRounds": 10,
       "algorithm": "HS512"
     },
-  "encryptionDefault": "bcrypt"
+    "default": "bcrypt"
   },
   "jwt": {
     "secret": "mySecretJWT",
@@ -106,23 +92,23 @@
   },
   "apiWhitelist": [
     {
-      "method": ["GET"],
+      "methods": ["GET"],
       "url": "/"
     },
     {
-      "method": ["POST"],
+      "methods": ["POST"],
       "url": "/api/auth/login"
     },
     {
-      "method": ["POST"],
+      "methods": ["POST"],
       "url": "/api/auth/forgotPassword"
     },
     {
-      "method": ["POST"],
+      "methods": ["POST"],
       "url": "/api/auth/changeForgotPassword"
     },
     {
-      "method": ["GET"],
+      "methods": ["GET"],
       "url": "/log"
     }
   ]

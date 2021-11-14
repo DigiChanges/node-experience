@@ -1,4 +1,4 @@
-import Config from 'config';
+import MainConfig from '../../../../Config/mainConfig';
 import { IsString, Length } from 'class-validator';
 
 import ChangeForgotPasswordPayload from '../../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
@@ -7,11 +7,13 @@ import { Match } from '../../../../Shared/Decorators/match';
 class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
 {
     @IsString()
-    @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
+    @Length(MainConfig.getInstance().getConfig().validationSettings.password.minLength,
+        MainConfig.getInstance().getConfig().validationSettings.password.maxLength)
     password: string;
 
     @IsString()
-    @Length(Config.get('validationSettings.password.min'), Config.get('validationSettings.password.max'))
+    @Length(MainConfig.getInstance().getConfig().validationSettings.password.minLength,
+        MainConfig.getInstance().getConfig().validationSettings.password.maxLength)
     @Match('password', { message: 'passwordConfirmation don\'t match' })
     passwordConfirmation: string;
 

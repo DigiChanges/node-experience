@@ -6,11 +6,9 @@ import { REPOSITORIES } from '../../../repositories';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import User from '../../../User/Domain/Entities/User';
-import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
-import { IEncryption } from '@digichanges/shared-experience';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import Password from '../../../App/Domain/ValueObjects/Password';
-import Config from 'config';
+import MainConfig from '../../../Config/mainConfig';
 
 class ItemSeed implements ISeed
 {
@@ -19,13 +17,6 @@ class ItemSeed implements ISeed
 
     @containerFactory(REPOSITORIES.IUserRepository)
     private userRepository: IUserRepository;
-
-    private encryption: IEncryption;
-
-    constructor()
-    {
-        this.encryption = EncryptionFactory.create();
-    }
 
     public async init()
     {
@@ -51,6 +42,7 @@ class ItemSeed implements ISeed
 
     private async createUser(): Promise<IUserDomain>
     {
+        const config = MainConfig.getInstance();
         const user: IUserDomain = new User();
 
         user.firstName = 'test';
@@ -64,8 +56,8 @@ class ItemSeed implements ISeed
         user.country = 'Argentina';
         user.address = 'New America 123';
 
-        const min = Config.get<number>('validationSettings.password.min');
-        const max = Config.get<number>('validationSettings.password.max');
+        const min = config.getConfig().validationSettings.password.minLength;
+        const max = config.getConfig().validationSettings.password.maxLength;
 
         const password = new Password('123456789', min, max);
         await password.ready();

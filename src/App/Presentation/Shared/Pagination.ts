@@ -1,6 +1,6 @@
-import Config from 'config';
 import { IPagination } from '@digichanges/shared-experience';
 import QueryString from 'qs';
+import MainConfig from '../../../Config/mainConfig';
 
 class Pagination implements IPagination
 {
@@ -18,7 +18,8 @@ class Pagination implements IPagination
         this.limit = query?.pagination ? Number(this.pagination.limit) : 10;
         this.offset = query?.pagination ? Number(this.pagination.offset) : 0;
         this.exist = query?.pagination !== undefined;
-        this.host = Config.get('url.urlApi');
+        const config = MainConfig.getInstance();
+        this.host = config.getConfig().url.urlApi;
     }
 
     getPath(): string

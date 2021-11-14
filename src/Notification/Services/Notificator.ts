@@ -1,4 +1,4 @@
-import Config from 'config';
+import MainConfig from '../../Config/mainConfig';
 import Fs from 'fs';
 import Handlebars from 'handlebars';
 import nodemailer from 'nodemailer';
@@ -19,13 +19,14 @@ class Notificator
     public static async sendEmail(emailNotification: EmailNotification, template_path_name_file: string, data: any = {}, save = true)
     {
         const repository = ContainerFactory.create<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository);
+        const config = MainConfig.getInstance();
 
         try
         {
-            const host: string = Config.get('mail.host');
-            const port: number = Config.get('mail.port');
-            const secure: boolean = Config.get('mail.secure') === 'true';
-            const templateRoot: string = Config.get('mail.templateDir');
+            const host: string = config.getConfig().mail.host;
+            const port: number = config.getConfig().mail.port;
+            const secure: boolean = config.getConfig().mail.secure === true;
+            const templateRoot: string = config.getConfig().mail.templateDir;
             const templateDir = `${path.dirname(require.main.filename || process.mainModule.filename)  }/${templateRoot}/${template_path_name_file}`;
 
             const smtp_config = { host, port, secure };
@@ -34,15 +35,15 @@ class Notificator
             {
                 const auth = {
                     auth: {
-                        user: String(Config.get('mail.username')),
-                        pass: String(Config.get('mail.password'))
+                        user: String(config.getConfig().mail.username),
+                        pass: String(config.getConfig().mail.password)
                     }
                 };
                 Object.assign(smtp_config, auth);
             }
 
-            emailNotification.senderName = Config.get('mail.senderName');
-            emailNotification.from = Config.get('mail.senderEmailDefault');
+            emailNotification.senderName = config.getConfig().mail.senderName;
+            emailNotification.from = config.getConfig().mail.senderEmailDefault;
             emailNotification.emailTemplatePath = templateDir;
 
             const transporter = nodemailer.createTransport(smtp_config);
@@ -93,11 +94,12 @@ class Notificator
 
     public static async sendPushNotification(pushNotification: PushNotification, message: string)
     {
+        const config = MainConfig.getInstance();
         try
         {
-            const publicKey: string = Config.get('push.publicKey');
-            const privateKey: string = Config.get('push.privateKey');
-            const subject: string = Config.get('url.urlWeb');
+            const publicKey: string = config.getConfig().push.publicKey;
+            const privateKey: string = config.getConfig().push.privateKey;
+            const subject: string = config.getConfig().url.urlWeb;
 
             const pushSubscription = pushNotification.get_subscription();
 

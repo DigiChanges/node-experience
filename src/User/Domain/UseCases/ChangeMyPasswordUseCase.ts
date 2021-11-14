@@ -7,7 +7,7 @@ import { IEncryption } from '@digichanges/shared-experience';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { SERVICES } from '../../../services';
-import Config from 'config';
+import MainConfig from '../../../Config/mainConfig';
 
 class ChangeMyPasswordUseCase
 {
@@ -23,6 +23,8 @@ class ChangeMyPasswordUseCase
 
     async handle(payload: ChangeMyPasswordPayload): Promise<IUserDomain>
     {
+        const config = MainConfig.getInstance();
+
         const id = payload.getId();
         const user: IUserDomain = await this.userService.getOne(id);
 
@@ -31,8 +33,8 @@ class ChangeMyPasswordUseCase
             throw new PasswordWrongException();
         }
 
-        const min = Config.get<number>('validationSettings.password.min');
-        const max = Config.get<number>('validationSettings.password.max');
+        const min = config.getConfig().validationSettings.password.minLength;
+        const max = config.getConfig().validationSettings.password.maxLength;
 
         const password = new Password(payload.getPassword(), min, max);
         await password.ready();

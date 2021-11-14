@@ -1,4 +1,4 @@
-import Config from 'config';
+import MainConfig from '../../Config/mainConfig';
 import TypeORMCreateConnection from '../Database/TypeORMCreateConnection';
 import MongooseCreateConnection from '../Database/MongooseCreateConnection';
 import { ICreateConnection } from '@digichanges/shared-experience';
@@ -14,12 +14,15 @@ class DatabaseFactory
 
     create(): ICreateConnection
     {
+        const mainConfig = MainConfig.getInstance();
+
         if (!this.dbDefault)
         {
-            this.dbDefault = Config.get('dbConfig.default');
+            this.dbDefault = mainConfig.getConfig().dbConfig.default;
         }
 
-        const config = Config.get(`dbConfig.${this.dbDefault}`);
+        const dbConfig: any = mainConfig.getConfig().dbConfig;
+        const config = dbConfig[this.dbDefault];
 
         const createConnections: Record<string, ICreateConnection> = {
             TypeORM: new TypeORMCreateConnection(config),

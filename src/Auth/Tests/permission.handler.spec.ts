@@ -9,27 +9,25 @@ describe('Start Permission Test', () =>
     let dbConnection: ICreateConnection;
     let token: any = null;
 
-    beforeAll(async(done) =>
+    beforeAll(async() =>
     {
         const configServer = await initTestServer();
 
         request = configServer.request;
         dbConnection = configServer.dbConnection;
 
-        done();
     });
 
-    afterAll((async(done) =>
+    afterAll((async() =>
     {
         await dbConnection.drop();
         await dbConnection.close();
 
-        done();
     }));
 
     describe('', () =>
     {
-        beforeAll(async(done) =>
+        beforeAll(async() =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -45,10 +43,9 @@ describe('Start Permission Test', () =>
 
             token = data.token;
 
-            done();
         });
 
-        test('Get Permissions', async(done) =>
+        test('Get Permissions', async() =>
         {
             const response: IPermissionsResponse = await request
                 .get('/api/auth/permissions')
@@ -66,10 +63,9 @@ describe('Start Permission Test', () =>
 
             expect(keepAlive).toStrictEqual(true);
 
-            done();
         });
 
-        test('Resource Not found', async(done) =>
+        test('Resource Not found', async() =>
         {
             const response: any = await request
                 .get('/api/auth/notfound')
@@ -82,10 +78,9 @@ describe('Start Permission Test', () =>
             expect(response.statusCode).toStrictEqual(404);
             expect(message).toStrictEqual('Route not found.');
 
-            done();
         });
 
-        test('Not authorized', async(done) =>
+        test('Not authorized', async() =>
         {
             const response: any = await request
                 .get('/api/auth/permissions')
@@ -100,7 +95,6 @@ describe('Start Permission Test', () =>
 
             expect(message).toStrictEqual('You must be authenticated.');
 
-            done();
         });
     });
 });

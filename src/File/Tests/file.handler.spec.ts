@@ -14,7 +14,7 @@ describe('Start File Test', () =>
     let token: string = null;
     let file_id = '';
 
-    beforeAll(async(done) =>
+    beforeAll(async() =>
     {
         const configServer = await initTestServer();
 
@@ -23,20 +23,18 @@ describe('Start File Test', () =>
 
         jest.spyOn(FilesystemFactory, 'create').mockImplementation(() => new MockMinioStrategy());
 
-        done();
     });
 
-    afterAll((async(done) =>
+    afterAll((async() =>
     {
         await dbConnection.drop();
         await dbConnection.close();
 
-        done();
     }));
 
     describe('File Success', () =>
     {
-        beforeAll(async(done) =>
+        beforeAll(async() =>
         {
             const payload = {
                 email: 'user@node.com',
@@ -52,10 +50,9 @@ describe('Start File Test', () =>
 
             token = data.token;
 
-            done();
         });
 
-        test('Add File /files/base64', async done =>
+        test('Add File /files/base64', async() =>
         {
             const response: IFileResponse = await request
                 .post('/api/files/base64')
@@ -74,10 +71,9 @@ describe('Start File Test', () =>
             expect(data.mimeType).toStrictEqual('image/jpeg');
             file_id = data.id;
 
-            done();
         });
 
-        test('Get File /files/metadata/:id', async done =>
+        test('Get File /files/metadata/:id', async() =>
         {
             const payload = {
                 originalName: 'photo',
@@ -101,10 +97,9 @@ describe('Start File Test', () =>
             expect(data.extension).toStrictEqual(payload.extension);
             expect(data.mimeType).toStrictEqual(payload.mimeType);
 
-            done();
         });
 
-        // test('Get File /files/:id', async done =>
+        // test('Get File /files/:id', async () =>
         // {
         //     const response: any = await request
         //         .get(`/api/files/${fileId}`)
@@ -118,10 +113,9 @@ describe('Start File Test', () =>
         //     expect(status).toStrictEqual('success');
         //     expect(statusCode).toStrictEqual('HTTP_OK');
         //
-        //     done();
         // });
         //
-        // test('Update Item /items/:id', async done =>
+        // test('Update Item /items/:id', async () =>
         // {
         //     const payload = {
         //         name: 'Item 1 update',
@@ -143,10 +137,9 @@ describe('Start File Test', () =>
         //     expect(data.name).toStrictEqual(payload.name);
         //     expect(data.type).toStrictEqual(payload.type);
         //
-        //     done();
         // });
         //
-        // test('Delete Item /items/:id', async done =>
+        // test('Delete Item /items/:id', async () =>
         // {
         //     const payload = {
         //         name: 'Item 13 for delete',
@@ -174,10 +167,9 @@ describe('Start File Test', () =>
         //     expect(data.name).toStrictEqual(payload.name);
         //     expect(data.type).toStrictEqual(payload.type);
         //
-        //     done();
         // });
         //
-        // test('Get Items /items', async done =>
+        // test('Get Items /items', async () =>
         // {
         //
         //     const response: any = await request
@@ -197,10 +189,9 @@ describe('Start File Test', () =>
         //     expect(pagination.currentUrl).toContain('/api/items?pagination[limit]=5&pagination[offset]=0');
         //     expect(pagination.nextUrl).toContain('/api/items?pagination[limit]=5&pagination[offset]=5');
         //
-        //     done();
         // });
         //
-        // test('Get Items /items without pagination', async done =>
+        // test('Get Items /items without pagination', async () =>
         // {
         //
         //     const response: any = await request
@@ -218,10 +209,9 @@ describe('Start File Test', () =>
         //     expect(data.length).toStrictEqual(11);
         //     expect(pagination).not.toBeDefined();
         //
-        //     done();
         // });
         //
-        // test('Get Items /items with Filter Type', async done =>
+        // test('Get Items /items with Filter Type', async () =>
         // {
         //
         //     const response: any = await request
@@ -241,10 +231,9 @@ describe('Start File Test', () =>
         //
         //     expect(data[0].type).toStrictEqual(11);
         //
-        //     done();
         // });
         //
-        // test('Get Items /items with Sort Desc Type', async done =>
+        // test('Get Items /items with Sort Desc Type', async () =>
         // {
         //
         //     const response: any = await request
@@ -261,13 +250,12 @@ describe('Start File Test', () =>
         //
         //     expect(item1.type).toBeGreaterThanOrEqual(item2.type);
         //
-        //     done();
         // });
     });
 
     // describe('Item Fails', () =>
     // {
-    //     beforeAll(async(done) =>
+    //     beforeAll(async() =>
     //     {
     //         const payload = {
     //             email: 'user@node.com',
@@ -283,10 +271,9 @@ describe('Start File Test', () =>
     //
     //         token = data.token;
     //
-    //         done();
     //     });
     //
-    //     test('Add File /files/base64', async done =>
+    //     test('Add File /files/base64', async () =>
     //     {
     //         const response: any = await request
     //             .post('/api/items')
@@ -304,10 +291,9 @@ describe('Start File Test', () =>
     //         expect(error.property).toStrictEqual('type');
     //         expect(error.constraints.isInt).toStrictEqual('type must be an integer number');
     //
-    //         done();
     //     });
     //
-    //     test('Get Item /items/:id', async done =>
+    //     test('Get Item /items/:id', async () =>
     //     {
     //
     //         const response: any = await request
@@ -327,10 +313,9 @@ describe('Start File Test', () =>
     //         expect(error.constraints.isUuid).toBeDefined();
     //         expect(error.constraints.isUuid).toStrictEqual('id must be an UUID');
     //
-    //         done();
     //     });
     //
-    //     test('Update Item /items/:id', async done =>
+    //     test('Update Item /items/:id', async () =>
     //     {
     //         const payload = {
     //             name: 11,
@@ -358,10 +343,9 @@ describe('Start File Test', () =>
     //         expect(errorType.constraints.isInt).toBeDefined();
     //         expect(errorType.constraints.isInt).toStrictEqual('type must be an integer number');
     //
-    //         done();
     //     });
     //
-    //     test('Delete Item error /items/:id', async done =>
+    //     test('Delete Item error /items/:id', async () =>
     //     {
     //
     //         const deleteErrorResponse: any = await request
@@ -377,7 +361,6 @@ describe('Start File Test', () =>
     //         expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
     //         expect(message).toStrictEqual('Item not found.');
     //
-    //         done();
     //     });
     // });
 });
