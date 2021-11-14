@@ -10,6 +10,7 @@ import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
 import { SERVICES } from '../../../services';
 import { injectable } from 'inversify';
 import IRoleService from '../../InterfaceAdapters/IRoleService';
+import UniqueService from '../../../App/Domain/Services/UniqueService';
 
 @injectable()
 class RoleService implements IRoleService
@@ -23,6 +24,15 @@ class RoleService implements IRoleService
     async persist(role: IRoleDomain, payload: RoleRepPayload): Promise<IRoleDomain>
     {
         this.authService.validatePermissions(payload.getPermissions());
+
+        void await UniqueService.validate<IRoleDomain>({
+            repository: REPOSITORIES.IRoleRepository,
+            validate: {
+                slug: payload.getSlug()
+            },
+            refValue: role.getId()
+        });
+
         role.name = payload.getName();
         role.slug = payload.getSlug();
         role.enable = payload.getEnable();
@@ -34,6 +44,14 @@ class RoleService implements IRoleService
     async create(payload: RoleRepPayload): Promise<IRoleDomain>
     {
         const role = new Role();
+
+        void await UniqueService.validate<IRoleDomain>({
+            repository: REPOSITORIES.IRoleRepository,
+            validate: {
+                slug: payload.getSlug()
+            }
+        });
+
         return await this.persist(role, payload);
     }
 

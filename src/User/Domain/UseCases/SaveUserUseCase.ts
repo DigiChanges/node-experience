@@ -5,11 +5,12 @@ import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
 import UserService from '../Services/UserService';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { SERVICES } from '../../../services';
+import IUserService from '../../InterfaceAdapters/IUserService';
 
 class SaveUserUseCase
 {
     @containerFactory(SERVICES.IUserService)
-    private userService: UserService;
+    private userService: IUserService;
 
     private eventHandler: EventHandler;
 

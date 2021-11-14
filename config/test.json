@@ -115,11 +115,31 @@
     },
     {
       "methods": ["POST"],
+      "url": "/api/auth/register"
+    },
+    {
+      "methods": ["POST"],
       "url": "/api/auth/forgotPassword"
     },
     {
       "methods": ["POST"],
-      "url": "/api/auth/changeForgotPassword"
+      "url": "/api/auth/forgot-password"
+    },
+    {
+      "methods": ["POST"],
+      "url": "/api/auth/change-forgot-password"
+    },
+    {
+      "methods": ["PUT"],
+      "url": "/api/auth/verify-your-account/**"
+    },
+    {
+      "methods": ["PUT"],
+      "url": "/api/auth/verify-your-account/**"
+    },
+    {
+      "methods": ["POST"],
+      "url": "/api/auth/refresh-token"
     },
     {
       "methods": ["*"],

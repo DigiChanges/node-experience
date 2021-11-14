@@ -3,9 +3,10 @@ import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswo
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import { REPOSITORIES } from '../../../repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import EmailNotification from '../../../Notification/Domain/Entities/EmailNotification';
 import ForgotPasswordEvent from '../../../Shared/Events/ForgotPasswordEvent';
-import EventHandler from '../../../Shared/Events/EventHandler';
+import SendEmailService from '../../../Notification/Domain/Services/SendEmailService';
+import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
+import Locales from '../../../App/Presentation/Shared/Locales';
 
 class ForgotPasswordUseCase
 {
@@ -22,19 +23,28 @@ class ForgotPasswordUseCase
 
         await this.repository.save(user);
 
-        const emailNotification = new EmailNotification();
-
         const urlConfirmationToken = `${config.getConfig().url.urlWeb}changeForgotPassword/${user.confirmationToken}`;
 
-        emailNotification.name = 'Forgot Password';
-        emailNotification.to = payload.getEmail();
-        emailNotification.subject = 'Forgot Password';
+        void await SendEmailService.handle({
+            event: ForgotPasswordEvent.FORGOT_PASSWORD_EVENT,
+            type: TypeNotificationEnum.FORGOT_PASSWORD,
+            to: user.email,
+            name: 'Forgot password',
+            args: {
+                urlConfirmationToken,
+                userName: user.firstName
+            },
+            data: {
+                EMAIL_USER: user.email,
+                URL_CONFIRMATION_TOKEN: urlConfirmationToken
+            },
+            external: true
+        });
 
-        const eventHandler = EventHandler.getInstance();
+        const locales = Locales.getInstance().getLocales();
+        const key = 'auth.domain.messages.forgotPassword';
 
-        await eventHandler.execute(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT, { emailNotification, urlConfirmationToken });
-
-        return { message: 'We\'ve sent you an email' };
+        return { message: locales.__(key), messageCode: key };
     }
 }
 

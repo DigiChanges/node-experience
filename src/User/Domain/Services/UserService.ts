@@ -18,6 +18,7 @@ import UserAssignRoleByPayload from 'User/InterfaceAdapters/Payloads/UserAssignR
 import Password from '../../../App/Domain/ValueObjects/Password';
 import { injectable } from 'inversify';
 import IUserService from '../../InterfaceAdapters/IUserService';
+import UniqueService from '../../../App/Domain/Services/UniqueService';
 import MainConfig from '../../../Config/mainConfig';
 
 @injectable()
@@ -37,6 +38,16 @@ class UserService implements IUserService
     async persist(user: IUserDomain, payload: UserRepPayload): Promise<IUserDomain>
     {
         this.authService.validatePermissions(payload.getPermissions());
+
+        void await UniqueService.validate<IUserDomain>({
+            repository: REPOSITORIES.IUserRepository,
+            validate: {
+                email: payload.getEmail(),
+                documentNumber: payload.getDocumentNumber()
+            },
+            refValue: user.getId()
+        });
+
         user.firstName = payload.getFirstName();
         user.lastName = payload.getLastName();
         user.enable = payload.getEnable();
@@ -57,16 +68,33 @@ class UserService implements IUserService
     {
         const user = new User();
 
+        void await UniqueService.validate<IUserDomain>({
+            repository: REPOSITORIES.IUserRepository,
+            validate: {
+                email: payload.getEmail(),
+                documentNumber: payload.getDocumentNumber()
+            }
+        });
+
         const min = this.config.getConfig().validationSettings.password.minLength;
         const max = this.config.getConfig().validationSettings.password.maxLength;
+
+        void await UniqueService.validate<IUserDomain>({
+            repository: REPOSITORIES.IUserRepository,
+            validate: {
+                email: payload.getEmail(),
+                documentNumber: payload.getDocumentNumber()
+            }
+        });
 
         const password = new Password(payload.getPassword(), min, max);
         user.password = await password.ready();
 
-        user.confirmationToken = payload.getConfirmationToken();
+        user.confirmationToken = await payload.getConfirmationToken();
         user.passwordRequestedAt = payload.getPasswordRequestedAt();
         user.roles = payload.getRoles();
         user.isSuperAdmin = payload.getIsSuperAdmin();
+
         return await this.persist(user, payload);
     }
 

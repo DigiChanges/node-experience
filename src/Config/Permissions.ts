@@ -5,7 +5,6 @@ class Permissions
     static readonly ALL: string = 'all';
 
     // AUTH
-    static readonly AUTH_KEEP_ALIVE: string = 'authKeepAlive';
     static readonly AUTH_SYNC_PERMISSIONS: string = 'authSyncPermissions';
     static readonly GET_PERMISSIONS: string = 'getPermissions';
 
@@ -46,7 +45,6 @@ class Permissions
             {
                 group: 'AUTH',
                 permissions: [
-                    Permissions.AUTH_KEEP_ALIVE,
                     Permissions.AUTH_SYNC_PERMISSIONS,
                     Permissions.GET_PERMISSIONS
                 ]

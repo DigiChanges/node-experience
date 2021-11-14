@@ -3,7 +3,8 @@
 	"app": {
 		"domain": {
 			"exceptions": {
-				"invalidPassword": "Invalid Password."
+				"invalidPassword": "Invalid Password.",
+				"uniqueAttribute": "The {{name}} property is already in use"
 			}
 		},
 		"presentation": {
@@ -20,6 +21,10 @@
 				"cantDisabled": "Disabled forbidden.",
 				"passwordWrong": "Wrong password.",
 				"wrongPermissions": "Wrong permissions."
+			},
+			"messages": {
+				"logout": "You have logged out successfully",
+				"forgotPassword": "We've sent you an email"
 			}
 		},
 		"presentation": {

@@ -4,12 +4,13 @@ import Auth from '../Domain/Types/Auth';
 
 interface IAuthService
 {
-    decodeToken(token: string): ITokenDecode;
+    decodeToken(token: string, bearer?: boolean): ITokenDecode;
     getPermissions(authUser: IUserDomain): string[]
     validatePermissions(permissions: string[]): void
     getByEmail(email: string): Promise<Auth>;
     authorize(authUser: Auth, handlerPermission: string): Promise<boolean>;
     validateToken(token: string): ITokenDecode;
+    validateRefreshToken(token: string): ITokenDecode;
     checkWhitelist(method: string, path: string): boolean;
 }
 

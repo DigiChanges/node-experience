@@ -1,29 +1,26 @@
 import Koa from 'koa';
-import KeepAliveUseCase from '../../../Domain/UseCases/KeepAliveUseCase';
-
+import ErrorHttpException from '../../../../App/Presentation/Shared/ErrorHttpException';
+import { StatusCode } from '@digichanges/shared-experience';
+import ContainerFactory from '../../../../Shared/Factories/ContainerFactory';
+import IAuthService from '../../../InterfaceAdapters/IAuthService';
+import { SERVICES } from '../../../../services';
 
 const RefreshTokenMiddleware = async(ctx: Koa.ParameterizedContext, next: Koa.Next) =>
 {
-    try
+    const authService =  ContainerFactory.create<IAuthService>(SERVICES.IAuthService);
+    const refreshToken = ctx.cookies.get('refreshToken');
+
+    if (refreshToken)
     {
-        const email = ctx?.tokenDecode ? ctx.tokenDecode.email : null;
-        const id = ctx?.tokenDecode ? ctx.tokenDecode.id : null;
-
-        if (id && email)
-        {
-            const keepAliveUseCase = new KeepAliveUseCase();
-            const payload = await keepAliveUseCase.handle({ getEmail: () => email, getTokenId: () => id });
-
-            ctx.refreshToken = payload.getHash();
-        }
-
-        await next();
+        authService.validateRefreshToken(refreshToken);
+        ctx.refreshToken = refreshToken;
     }
-    catch (error)
+    else
     {
-        await next();
-        return error;
+        throw new ErrorHttpException(StatusCode.HTTP_UNAUTHORIZED, { message: 'Missing refresh token' });
     }
+
+    await next();
 };
 
 export default RefreshTokenMiddleware;

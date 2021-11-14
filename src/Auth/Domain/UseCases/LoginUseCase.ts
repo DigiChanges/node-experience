@@ -11,7 +11,7 @@ import BadCredentialsException from '../Exceptions/BadCredentialsException';
 import UserDisabledException from '../../../User/Domain/Exceptions/UserDisabledException';
 import RoleDisabledException from '../../../Role/Domain/Exceptions/RoleDisabledException';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import Logger from '../../../Shared/Logger/Logger';
+import IToken from '../../InterfaceAdapters/IToken';
 
 class LoginUseCase
 {
@@ -26,7 +26,7 @@ class LoginUseCase
         this.encryption = EncryptionFactory.create();
     }
 
-    async handle(payload: AuthPayload)
+    async handle(payload: AuthPayload): Promise<IToken>
     {
         const email = payload.getEmail();
         const password = payload.getPassword();

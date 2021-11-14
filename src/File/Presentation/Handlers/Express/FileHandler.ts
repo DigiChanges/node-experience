@@ -8,16 +8,16 @@ import Permissions from '../../../../Config/Permissions';
 
 import { TYPES } from '../../../../types';
 import Responder from '../../../../App/Presentation/Shared/Express/Responder';
-import ListObjectsRequest from '../../Requests/Express/ListObjectsRequest';
+import ListObjectsRequest from '../../Requests/ListObjectsRequest';
 import FileReqMulter from '../../Middlewares/Express/FileReqMulter';
-import FileBase64RepRequest from '../../Requests/Express/FileBase64RepRequest';
-import FileMultipartRepRequest from '../../Requests/Express/FileMultipartRepRequest';
-import PresignedFileRepRequest from '../../Requests/Express/PresignedFileRepRequest';
-import FileRequestCriteria from '../../Requests/Express/FileRequestCriteria';
+import FileBase64RepRequest from '../../Requests/FileBase64RepRequest';
+import FileMultipartRepRequest from '../../Requests/FileMultipartRepRequest';
+import PresignedFileRepRequest from '../../Requests/PresignedFileRepRequest';
+import FileRequestCriteria from '../../Requests/FileRequestCriteria';
 import FileTransformer from '../../Transformers/FileTransformer';
 import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
-import FileUpdateMultipartRequest from '../../Requests/Express/FileUpdateMultipartRequest';
-import FileUpdateBase64Request from '../../Requests/Express/FileUpdateBase64Request';
+import FileUpdateMultipartRequest from '../../Requests/FileUpdateMultipartRequest';
+import FileUpdateBase64Request from '../../Requests/FileUpdateBase64Request';
 import ObjectTransformer from '../../Transformers/ObjectTransformer';
 import FileController from '../../Controllers/FileController';
 
