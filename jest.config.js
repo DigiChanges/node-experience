@@ -21,7 +21,10 @@ module.exports = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ["src/**/{*.js,ts}", "../src/**/{*.js,ts}", "/**/*.js"],
+  collectCoverageFrom: [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/node_modules/"
+  ],
 
   // transform: tsjPreset.transform,
   transform: {

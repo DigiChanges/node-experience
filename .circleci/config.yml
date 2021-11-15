@@ -10,20 +10,12 @@ jobs:
       - run: npm install --force
       - run: npm run ci
       - run: npm test
-#      - store_test_results:
-#          path: test-results
-#      - run:
-#          name: Creating Dummy Artifacts
-#          command: |
-#            echo "my artifact file" > /usr/app/art-1;
-#            mkdir /tmp/artifacts;
-#            echo "my artifact files in a dir" > /tmp/artifacts/art-2;
       - store_artifacts:
           path: ~/circleci/coverage
           destination: reports/
 
 workflows:
-  version: 2.1
+  version: 2
   test_build:
     jobs:
       - test
