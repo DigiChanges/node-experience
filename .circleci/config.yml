@@ -1,6 +1,7 @@
 version: 2.1
 jobs:
   test:
+    working_directory: ~/circleci
     docker:
       - image: circleci/node:16
     steps:
@@ -9,6 +10,9 @@ jobs:
       - run: npm install --force
       - run: npm run ci
       - run: npm test
+      - store_artifacts:
+          path: ~/circleci/coverage
+          destination: reports/
 
 workflows:
   version: 2

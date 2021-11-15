@@ -1,5 +1,7 @@
 # Welcome to Node Experience!
 
+[![CircleCI](https://circleci.com/gh/DigiChanges/node-experience/tree/master.svg?style=svg)](https://circleci.com/gh/DigiChanges/node-experience/tree/master)
+
 Hi! Node experience it's a boilerplate with many tools together for a simple basic project inspired on Clean Architectures.
 
 **Tools:**
