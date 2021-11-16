@@ -14,7 +14,7 @@ import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
 import ChangeUserPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeUserPasswordPayload';
 import UserAssignRolePayload from '../../InterfaceAdapters/Payloads/UserAssignRolePayload';
-import UserAssignRoleByPayload from 'User/InterfaceAdapters/Payloads/UserAssignRoleByPayload';
+import UserAssignRoleBySlug from 'User/InterfaceAdapters/Payloads/UserAssignRoleBySlug';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import { injectable } from 'inversify';
 import IUserService from '../../InterfaceAdapters/IUserService';
@@ -138,7 +138,7 @@ class UserService implements IUserService
         return await this.repository.save(user);
     }
 
-    async assignRoleBySlug(payload: UserAssignRoleByPayload): Promise<IUserDomain>
+    async assignRoleBySlug(payload: UserAssignRoleBySlug): Promise<IUserDomain>
     {
         const email = payload.getEmail();
         const slug = payload.getSlugRole();
@@ -153,17 +153,15 @@ class UserService implements IUserService
 
     async checkIfUserHasRole(payload: CheckUserRolePayload): Promise<boolean>
     {
-        const count = payload.user.roles.length;
+        const roles = payload.user.getRoles();
 
-        for (let i = 0; i < count; i++)
+        roles.forEach((role) =>
         {
-            const role: IRoleDomain = await this.roleRepository.getOne(payload.user.roles[i].getId());
-
             if (role.slug === payload.role_to_check)
             {
                 return true;
             }
-        }
+        });
 
         return false;
     }

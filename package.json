@@ -49,6 +49,7 @@
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "catch-decorator": "^2.0.0",
+    "child_process": "^1.0.2",
     "class-validator": "^0.13.1",
     "commander": "^5.1.0",
     "compression": "^1.7.4",
@@ -62,7 +63,6 @@
     "express-handlebars": "^5.3.0",
     "express-rate-limit": "^5.2.6",
     "express-throttle": "^2.0.0",
-    "express-winston": "^4.1.0",
     "faker": "^5.5.3",
     "handlebars": "^4.7.7",
     "helmet": "^3.23.3",
@@ -93,14 +93,15 @@
     "nodemailer": "6.5.0",
     "pg": "^8.7.1",
     "pg-promise": "^10.11.1",
+    "pino-express": "^1.1.1",
+    "pino-multi-stream": "^6.0.0",
     "promise-events": "^0.2.4",
     "reflect-metadata": "^0.1.13",
     "tedis": "^0.1.12",
     "ts-mixer": "^6.0.0",
     "typeorm": "^0.2.38",
     "uuid": "^8.3.2",
-    "web-push": "^3.4.4",
-    "winston": "^3.3.3"
+    "web-push": "^3.4.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.2.1",

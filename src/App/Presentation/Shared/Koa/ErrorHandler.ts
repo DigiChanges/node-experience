@@ -17,7 +17,6 @@ export class ErrorHandler
             const exception: ErrorHttpException = ErrorExceptionMapper.handle(err);
 
             responder.error(exception, ctx, exception.statusCode);
-            ctx.app.emit('error', err, ctx);
         }
     }
 }

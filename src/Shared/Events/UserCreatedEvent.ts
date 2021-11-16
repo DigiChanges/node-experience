@@ -1,4 +1,4 @@
-import { loggerCli } from '../Logger';
+import Logger from '../Logger/Logger';
 
 class UserCreatedEvent
 {
@@ -8,7 +8,7 @@ class UserCreatedEvent
     {
         const { email } = props;
 
-        loggerCli.debug(`User ${email} Created!`);
+        Logger.debug(`User ${email} Created!`);
     }
 }
 

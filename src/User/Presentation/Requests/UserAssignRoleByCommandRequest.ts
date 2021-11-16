@@ -1,7 +1,7 @@
 import { IsString } from 'class-validator';
-import UserAssignRoleByPayload from '../../InterfaceAdapters/Payloads/UserAssignRoleByPayload';
+import UserAssignRoleBySlug from '../../InterfaceAdapters/Payloads/UserAssignRoleBySlug';
 
-class UserAssignRoleByCommandRequest implements UserAssignRoleByPayload
+class UserAssignRoleByCommandRequest implements UserAssignRoleBySlug
 {
     @IsString()
     private readonly slug: string;

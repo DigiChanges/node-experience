@@ -1,6 +1,5 @@
 import { validateEnv } from './Config/validateEnv';
 import MainConfig from './Config/mainConfig';
-import { loggerCli } from './Shared/Logger';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 
 import EventHandler from './Shared/Events/EventHandler';
@@ -9,6 +8,7 @@ import { ICacheRepository, ICreateConnection } from '@digichanges/shared-experie
 
 import AppFactory from './App/Presentation/Factories/AppFactory';
 import CronFactory from './Shared/Factories/CronFactory';
+import Logger from './Shared/Logger/Logger';
 
 void (async() =>
 {
@@ -33,7 +33,7 @@ void (async() =>
         const cronFactory = new CronFactory();
         cronFactory.start();
 
-        const app = AppFactory.create('AppKoa', {
+        const app = AppFactory.create('AppExpress', {
             viewRouteEngine: `${process.cwd()}/dist/App/Presentation/Views`,
             localesDirectory: `${process.cwd()}/dist/src/Config/Locales`,
             serverPort: config.getConfig().serverPort
@@ -45,7 +45,7 @@ void (async() =>
     }
     catch (error) // TODO: Change this error catch
     {
-        loggerCli.info('Error while connecting to the database', error);
+        Logger.info('Error while connecting to the database', error);
         return error;
     }
 })();

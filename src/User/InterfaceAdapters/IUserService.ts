@@ -4,7 +4,7 @@ import UserSavePayload from './Payloads/UserSavePayload';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 import ChangeUserPasswordPayload from './Payloads/ChangeUserPasswordPayload';
 import UserAssignRolePayload from './Payloads/UserAssignRolePayload';
-import UserAssignRoleByPayload from './Payloads/UserAssignRoleByPayload';
+import UserAssignRoleBySlug from './Payloads/UserAssignRoleBySlug';
 import CheckUserRolePayload from './Payloads/CheckUserRolePayload';
 
 interface IUserService
@@ -16,7 +16,7 @@ interface IUserService
     list(payload: ICriteria): Promise<IPaginator>;
     persistPassword(user: IUserDomain, payload: ChangeUserPasswordPayload): Promise<IUserDomain>;
     assignRole(payload: UserAssignRolePayload): Promise<IUserDomain>;
-    assignRoleBySlug(payload: UserAssignRoleByPayload): Promise<IUserDomain>;
+    assignRoleBySlug(payload: UserAssignRoleBySlug): Promise<IUserDomain>;
     checkIfUserHasRole(payload: CheckUserRolePayload): Promise<boolean>;
 }
 

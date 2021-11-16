@@ -2,7 +2,6 @@ import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import EventHandler from '../../../Shared/Events/EventHandler';
 import UserCreatedEvent from '../../../Shared/Events/UserCreatedEvent';
 import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
-import UserService from '../Services/UserService';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { SERVICES } from '../../../services';
 import IUserService from '../../InterfaceAdapters/IUserService';

@@ -5,6 +5,8 @@ import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 import exphbs from 'express-handlebars';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const pinoExpress = require('pino-express');
 
 import '../../Handlers/Express/IndexHandler';
 import '../../../../Item/Presentation/Handlers/Express/ItemHandler';
@@ -15,10 +17,8 @@ import '../../../../File/Presentation/Handlers/Express/FileHandler';
 import '../../../../Notification/Presentation/Handlers/Express/NotificationHandler';
 import '../../Handlers/Express/LogHandler';
 
-import LoggerWinston from '../../Middlewares/Express/LoggerWinston';
 import AuthenticationMiddleware from '../../../../Auth/Presentation/Middlewares/Express/AuthenticationMiddleware';
 import { ErrorHandler } from './ErrorHandler';
-import { loggerCli } from '../../../../Shared/Logger';
 import RedirectRouteNotFoundMiddleware from '../../Middlewares/Express/RedirectRouteNotFoundMiddleware';
 import Throttle from '../../Middlewares/Express/Throttle';
 import VerifyTokenMiddleware from '../../../../Auth/Presentation/Middlewares/Express/VerifyTokenMiddleware';
@@ -26,6 +26,7 @@ import container from '../../../../inversify.config';
 import IApp from '../../../InterfaceAdapters/IApp';
 import Locales from '../Locales';
 import IAppConfig from '../../../InterfaceAdapters/IAppConfig';
+import Logger from '../../../../Shared/Logger/Logger';
 
 
 class AppExpress implements IApp
@@ -67,7 +68,7 @@ class AppExpress implements IApp
                 partialsDir: `${this.config.viewRouteEngine}/Partials`
             }));
             app.set('view engine', '.hbs');
-            app.use(LoggerWinston);
+            app.use(pinoExpress(Logger));
             app.use('/api/', Throttle);
             app.use(AuthenticationMiddleware);
             app.use(VerifyTokenMiddleware);
@@ -89,7 +90,7 @@ class AppExpress implements IApp
     {
         this.app.listen(this.port, () =>
         {
-            loggerCli.debug(`App listening on the port ${this.port}`);
+            Logger.debug(`App listening on the port ${this.port}`);
         });
     }
 
