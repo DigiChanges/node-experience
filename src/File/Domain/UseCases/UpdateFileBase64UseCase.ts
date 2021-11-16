@@ -1,5 +1,4 @@
 import FileUpdateBase64Payload from '../../InterfaceAdapters/Payloads/FileUpdateBase64Payload';
-import FileService from '../Services/FileService';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { SERVICES } from '../../../services';

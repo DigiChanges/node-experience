@@ -49,9 +49,9 @@ class AuthHandler
     public async updateMe(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new UpdateMeRequest(req.body);
-
         const payload = await this.controller.updateMe(_request, AuthUser(req));
-        this.responder.send(AuthUser(req), null, res, StatusCode.HTTP_OK, new UserTransformer());
+
+        this.responder.send(payload, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
     @httpPost('/login')
@@ -71,7 +71,7 @@ class AuthHandler
                 httpOnly: true
             });
 
-        this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new AuthTransformer());
+        this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
 
     @httpPost('/register')
@@ -81,7 +81,7 @@ class AuthHandler
 
         const payload = await this.controller.register(_request);
 
-        this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
+        this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
 
     @httpPost('/logout')
@@ -111,7 +111,7 @@ class AuthHandler
                 httpOnly: true
             });
 
-        this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new AuthTransformer());
+        this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
 
     @httpPost('/forgot-password')
@@ -121,7 +121,7 @@ class AuthHandler
 
         const payload = await this.controller.forgotPassword(_request);
 
-        this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, null);
+        this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, null);
     }
 
     @httpPost('/change-forgot-password')
@@ -131,7 +131,7 @@ class AuthHandler
 
         const payload = await this.controller.changeForgotPassword(_request);
 
-        this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, null);
+        this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, null);
     }
 
     @httpPut('/verify-your-account/:confirmationToken')
@@ -141,7 +141,7 @@ class AuthHandler
 
         const payload = await this.controller.verifyYourAccount(_request);
 
-        this.responder.send(payload, null, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
+        this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
 
     @httpGet('/permissions', AuthorizeMiddleware(Permissions.GET_PERMISSIONS))

@@ -163,7 +163,4 @@ class MainConfig
     }
 }
 
-// config from dist/config folder
-// const ourConfigDir = path.resolve(__dirname, '../config');
-// const mainConfig = Config.util.loadFileConfigs(ourConfigDir);
 export default MainConfig;
