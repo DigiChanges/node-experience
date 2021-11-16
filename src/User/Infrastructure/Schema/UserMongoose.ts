@@ -17,7 +17,8 @@ const UserSchema: any = new Schema({
     password: { type: String, required: true },
     permissions: { type: Array, required: true },
     roles: [{ type: Schema.Types.String, ref: 'Role' }],
-    enable: { type: Boolean, required: true },
+    enable: { type: Boolean, required: true, default: true },
+    verify: { type: Boolean, required: true, default: false },
     isSuperAdmin: { type: Boolean, required: true },
     confirmationToken: { type: String },
     passwordRequestedAt: { type: Date }

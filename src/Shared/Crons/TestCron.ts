@@ -14,7 +14,7 @@ class TestCron extends Cron
 
     async task(): Promise<void>
     {
-        console.log('hello world');
+        console.log('hello world 2021');
     }
 }
 

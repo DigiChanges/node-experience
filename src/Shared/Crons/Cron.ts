@@ -1,4 +1,5 @@
 import { ScheduledTask, schedule } from 'node-cron';
+import Logger from '../Logger/Logger';
 
 abstract class Cron
 {
@@ -12,7 +13,7 @@ abstract class Cron
             // TODO: Log start time and end time of each executed cron
             void (async() =>
             {
-                console.log(`Running ${this.cronName()}`);
+                Logger.info(`Running ${this.cronName()}`);
                 await this.task();
             })();
         }, {

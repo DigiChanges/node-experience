@@ -128,11 +128,12 @@ type ConfigType = {
     };
     validationSettings: ValidateSettingsType;
     apiWhitelist: ApiWhiteType[];
+    executeCrons: boolean;
 }
 
 class MainConfig
 {
-    private mainConfig: ConfigType;
+    private readonly mainConfig: ConfigType;
     private static instance: MainConfig = new MainConfig();
 
     private constructor()

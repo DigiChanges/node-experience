@@ -28,6 +28,7 @@ export function validateEnv()
         PRODUCT_NAME: str(),
         ENCRYPTION_DEFAULT: str(),
         PUSH_PRIVATE_KEY: str(),
-        PUSH_PUBLIC_KEY: str()
+        PUSH_PUBLIC_KEY: str(),
+        EXECUTE_CRONS: bool()
     });
 }

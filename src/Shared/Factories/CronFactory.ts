@@ -1,7 +1,10 @@
 import crons from '../../crons';
+import MainConfig from '../../Config/mainConfig';
 
 class CronFactory
 {
+    private readonly config = MainConfig.getInstance();
+
     private crons = {
         ...crons
     }
@@ -10,11 +13,17 @@ class CronFactory
     {
         if (name)
         {
-            this.one(name, 'start');
+            if (this.config.getConfig().executeCrons)
+            {
+                this.one(name, 'start');
+            }
         }
         else
         {
-            this.all('start');
+            if (this.config.getConfig().executeCrons)
+            {
+                this.all('start');
+            }
         }
     }
 

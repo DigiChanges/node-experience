@@ -20,6 +20,7 @@ class User extends Base implements IUserDomain
     roles: IRoleDomain[];
     permissions: string[];
     enable: boolean;
+    verify: boolean;
     isSuperAdmin: boolean;
     confirmationToken: string;
     passwordRequestedAt: Date;

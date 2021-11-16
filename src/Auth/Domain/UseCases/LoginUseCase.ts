@@ -12,6 +12,7 @@ import UserDisabledException from '../../../User/Domain/Exceptions/UserDisabledE
 import RoleDisabledException from '../../../Role/Domain/Exceptions/RoleDisabledException';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import IToken from '../../InterfaceAdapters/IToken';
+import UnverifiedUserException from '../../../User/Domain/Exceptions/UnverifiedUserException';
 
 class LoginUseCase
 {
@@ -31,6 +32,11 @@ class LoginUseCase
         const email = payload.getEmail();
         const password = payload.getPassword();
         const user =  await this.repository.getOneByEmail(email);
+
+        if (user.verify === false)
+        {
+            throw new UnverifiedUserException();
+        }
 
         if (user.enable === false)
         {

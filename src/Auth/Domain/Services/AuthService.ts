@@ -55,28 +55,16 @@ class AuthService implements IAuthService
         return this.userRepository.getOneByEmail(email);
     }
 
-    public async authorize(authUser: Auth, handler_permission: string): Promise<boolean>
+    public async authorize(authUser: Auth, handlerPermissions: string[]): Promise<boolean>
     {
         const totalPermissions = this.getPermissions(authUser as IUserDomain);
-
-        let authorize = false;
 
         if ((authUser as IUserDomain)?.isSuperAdmin)
         {
             return true;
         }
 
-        totalPermissions.forEach((permission: string) =>
-        {
-            if (permission === handler_permission)
-            {
-                authorize = true;
-
-                return;
-            }
-        });
-
-        return authorize;
+        return handlerPermissions.every((hp: string) => totalPermissions.some((permission) => hp === permission));
     }
 
     public validateToken(token: string): ITokenDecode
