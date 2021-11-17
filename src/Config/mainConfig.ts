@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config(); // Need before get config
 import Config from 'config';
 import { TAlgorithm } from 'jwt-simple';
+import { validateEnv } from './validateEnv';
 
 type TypeORMConfig = {
     type: string;
@@ -138,6 +139,10 @@ class MainConfig
 
     private constructor()
     {
+        const cleanEnv: any = validateEnv();
+
+        process.env = { ...process.env, ...cleanEnv };
+
         this.mainConfig = Config.util.loadFileConfigs();
 
         if (MainConfig.instance)
@@ -161,18 +166,6 @@ class MainConfig
     public getConfig(): ConfigType
     {
         return this.mainConfig;
-    }
-
-    public static parse<T = any>(value: any): T
-    {
-        try
-        {
-            return JSON.parse(value);
-        }
-        catch (e)
-        {
-            return value;
-        }
     }
 }
 

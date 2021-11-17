@@ -11,7 +11,7 @@ class CronFactory
 
     start(name: keyof CronFactory['crons'] = null): void
     {
-        const executeCrons: boolean = MainConfig.parse(this.config.getConfig().executeCrons);
+        const executeCrons: boolean = this.config.getConfig().executeCrons;
 
         if (name)
         {

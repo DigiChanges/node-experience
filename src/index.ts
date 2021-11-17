@@ -14,7 +14,6 @@ void (async() =>
 {
     try
     {
-        validateEnv();
         const config = MainConfig.getInstance();
 
         const databaseFactory = new DatabaseFactory();
