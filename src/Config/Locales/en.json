@@ -4,8 +4,7 @@
 		"domain": {
 			"exceptions": {
 				"invalidPassword": "Invalid Password.",
-				"uniqueAttribute": "The {{name}} property is already in use",
-				"unverifiedUser": "This user is not verified."
+				"uniqueAttribute": "The {{name}} property is already in use"
 			}
 		},
 		"presentation": {
@@ -54,7 +53,8 @@
 	"user": {
 		"domain": {
 			"exceptions": {
-				"userDisabled": "Your user is disable."
+				"userDisabled": "Your user is disable.",
+				"unverifiedUser": "This user is not verified."
 			}
 		}
 	}
