@@ -54,9 +54,7 @@ class AppKoa implements IApp
             jsonLimit: '5mb'
         }));
 
-        this.app.use(koaPino({
-            logger: Logger
-        }));
+        this.app.use(koaPino({ logger: <any>Logger }));
 
         this.app.use(Throttle);
         this.app.use(AuthenticationMiddleware);
