@@ -142,6 +142,7 @@
     "@types/node-cron": "^3.0.0",
     "@types/nodemailer": "^6.4.1",
     "@types/pg": "^8.6.1",
+    "@types/pino": "^7.0.5",
     "@types/shelljs": "^0.8.8",
     "@types/supertest": "^2.0.11",
     "@types/uuid": "^8.3.0",

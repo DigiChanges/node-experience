@@ -162,6 +162,18 @@ class MainConfig
     {
         return this.mainConfig;
     }
+
+    public static parse<T = any>(value: any): T
+    {
+        try
+        {
+            return JSON.parse(value);
+        }
+        catch (e)
+        {
+            return value;
+        }
+    }
 }
 
 export default MainConfig;

@@ -1,5 +1,5 @@
 import fs from 'fs';
-import pino from 'pino';
+import pino  from 'pino';
 import pretty from 'pino-pretty';
 
 const prettyPino = pretty({
@@ -8,7 +8,7 @@ const prettyPino = pretty({
     hideObject: true
 });
 
-const streams = [
+const streams = <any>[
     { level: 'debug', stream: prettyPino },
     { level: 'fatal', stream: fs.createWriteStream(`${process.cwd()}/dist/logs/fatal.stream.log`) },
     { level: 'error', stream: fs.createWriteStream(`${process.cwd()}/dist/logs/error.stream.log`) },
@@ -17,7 +17,6 @@ const streams = [
 
 const Logger = pino({
     level: 'debug' // this MUST be set at the lowest level of the destinations
-// @ts-ignore
 }, pino.multistream(streams));
 
 export default Logger;

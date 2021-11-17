@@ -11,16 +11,18 @@ class CronFactory
 
     start(name: keyof CronFactory['crons'] = null): void
     {
+        const executeCrons: boolean = MainConfig.parse(this.config.getConfig().executeCrons);
+
         if (name)
         {
-            if (this.config.getConfig().executeCrons)
+            if (executeCrons)
             {
                 this.one(name, 'start');
             }
         }
         else
         {
-            if (this.config.getConfig().executeCrons)
+            if (executeCrons)
             {
                 this.all('start');
             }
