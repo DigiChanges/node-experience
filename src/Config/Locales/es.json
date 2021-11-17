@@ -3,7 +3,9 @@
 	"app": {
 		"domain": {
 			"exceptions": {
-				"invalidPassword": "Contraseña invalida"
+				"invalidPassword": "Contraseña invalida",
+				"uniqueAttribute": "La propiedad {{name}} ya se cuentra en uso",
+				"unverifiedUser": "Este usuario no esta verificado."
 			}
 		},
 		"presentation": {

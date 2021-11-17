@@ -4,7 +4,8 @@
 		"domain": {
 			"exceptions": {
 				"invalidPassword": "Invalid Password.",
-				"uniqueAttribute": "The {{name}} property is already in use"
+				"uniqueAttribute": "The {{name}} property is already in use",
+				"unverifiedUser": "This user is not verified."
 			}
 		},
 		"presentation": {

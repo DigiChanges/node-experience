@@ -75,6 +75,7 @@ class UserSeed implements ISeed
         userSuperAdmin.password = password;
 
         userSuperAdmin.enable = true;
+        userSuperAdmin.verify = true;
         userSuperAdmin.confirmationToken = null;
         userSuperAdmin.passwordRequestedAt = null;
         userSuperAdmin.permissions = [];
@@ -98,6 +99,7 @@ class UserSeed implements ISeed
         const userAdminPassword = new Password('12345678', min, max);
         userAdmin.password = await userAdminPassword.ready();
 
+        userAdmin.verify = true;
         userAdmin.enable = true;
         userAdmin.confirmationToken = null;
         userAdmin.passwordRequestedAt = null;
@@ -122,6 +124,7 @@ class UserSeed implements ISeed
         const userOperatorPassword = new Password('123456789', min, max);
         userOperator.password = await userOperatorPassword.ready();
 
+        userOperator.verify = true;
         userOperator.enable = true;
         userOperator.confirmationToken = null;
         userOperator.passwordRequestedAt = null;
@@ -146,6 +149,7 @@ class UserSeed implements ISeed
         const userOperatorDisabledPassword = new Password('1234567901', min, max);
         userOperatorDisabled.password = await userOperatorDisabledPassword.ready();
 
+        userOperatorDisabled.verify = false;
         userOperatorDisabled.enable = false;
         userOperatorDisabled.confirmationToken = null;
         userOperatorDisabled.passwordRequestedAt = null;
@@ -170,6 +174,7 @@ class UserSeed implements ISeed
         const userOperatorRoleDisabledPassword = new Password('1234567901', min, max);
         userOperatorRoleDisabled.password = await userOperatorRoleDisabledPassword.ready();
 
+        userOperatorRoleDisabled.verify = true;
         userOperatorRoleDisabled.enable = true;
         userOperatorRoleDisabled.confirmationToken = null;
         userOperatorRoleDisabled.passwordRequestedAt = null;
