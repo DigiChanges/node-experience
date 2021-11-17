@@ -1,8 +1,8 @@
 import UserCommandSaveRequest from '../Requests/UserCommandSaveRequest';
-import { loggerCli } from '../../../Shared/Logger';
 import commander from 'commander';
 import SaveUserUseCase from '../../Domain/UseCases/SaveUserUseCase';
 import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
+import Logger from '../../../Shared/Logger/Logger';
 
 const AddUserCommand = new commander.Command('addUser');
 
@@ -29,7 +29,7 @@ AddUserCommand
 
         if (user)
         {
-            loggerCli.info('User created successfully.');
+            Logger.info('User created successfully.');
         }
     });
 

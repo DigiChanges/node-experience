@@ -6,7 +6,6 @@ dotenv.config(); // Need before get config
 
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
 
-import { loggerCli } from './Shared/Logger';
 
 import AddUserRoleCommand from './User/Presentation/Commands/AddUserRoleCommand';
 import AddUserCommand from './User/Presentation/Commands/AddUserCommand';
@@ -18,6 +17,7 @@ import SyncRolesPermissionCommand from './Auth/Presentation/Commands/SyncRolesPe
 import CreateBucketCommand from './File/Presentation/Commands/CreateBucketCommand';
 import Seed from './App/Presentation/Commands/SeedCommand';
 import initCommand from './initCommand';
+import Logger from './Shared/Logger/Logger';
 
 void (async() =>
 {
@@ -42,8 +42,8 @@ void (async() =>
     catch (error)
     {
         // TODO: Add exception mapping to handle errors like server express
-        loggerCli.info('Error:', error);
-        loggerCli.info(error.message);
+        Logger.info('Error:', error);
+        Logger.info(error.message);
         exit();
     }
 })();

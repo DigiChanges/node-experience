@@ -1,11 +1,11 @@
 import RoleRepPayload from '../../../Role/InterfaceAdapters/Payloads/RoleRepPayload';
 import RoleCommandRepRequest from '../../../Role/Presentation/Requests/RoleUserCommandRepRequest';
 import UserCommandSaveRequest from '../Requests/UserCommandSaveRequest';
-import { loggerCli } from '../../../Shared/Logger';
 import commander from 'commander';
 import SaveUserUseCase from '../../Domain/UseCases/SaveUserUseCase';
 import SaveRoleUseCase from '../../../Role/Domain/UseCases/SaveRoleUseCase';
 import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
+import Logger from '../../../Shared/Logger/Logger';
 
 const AddUserRoleCommand = new commander.Command('addUserRole');
 
@@ -38,7 +38,7 @@ AddUserRoleCommand
 
         if (user && role)
         {
-            loggerCli.info('User and Role created successfully.');
+            Logger.info('User and Role created successfully.');
         }
     });
 

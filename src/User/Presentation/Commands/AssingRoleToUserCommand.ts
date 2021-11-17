@@ -1,8 +1,8 @@
-import { loggerCli } from '../../../Shared/Logger';
 import commander from 'commander';
 import UserAssignRoleByCommandRequest from '../Requests/UserAssignRoleByCommandRequest';
 import UserAssignRoleBySlug from '../../InterfaceAdapters/Payloads/UserAssignRoleBySlug';
 import AssignRoleBySlugUseCase from '../../Domain/UseCases/AssignRoleBySlugUseCase';
+import Logger from '../../../Shared/Logger/Logger';
 
 const AssignRoleToUserCommand = new commander.Command('assignRoleToUser');
 
@@ -20,7 +20,7 @@ AssignRoleToUserCommand
 
         if (user)
         {
-            loggerCli.info('Assign user to role successfully.');
+            Logger.info('Assign user to role successfully.');
         }
     });
 
