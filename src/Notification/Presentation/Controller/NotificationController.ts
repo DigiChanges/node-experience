@@ -4,7 +4,6 @@ import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest'
 import CreateSubscriptionUseCase from '../../Domain/UseCases/CreateSubscriptionUseCase';
 import SendPushNotificationUseCase from '../../Domain/UseCases/SendPushNotificationUseCase';
 
-
 class NotificationController
 {
     public async uploadTestNotificationBase64(request: NotificationRepPayload)

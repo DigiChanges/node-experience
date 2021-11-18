@@ -1,4 +1,3 @@
-
 import EventHandler from '../../../Shared/Events/EventHandler';
 import ISendEmailParams from '../../InterfaceAdapters/ISendEmailParams';
 import EmailNotification from '../Entities/EmailNotification';

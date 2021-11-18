@@ -51,16 +51,6 @@ const TypeNotificationSchema = new EntitySchema<TypeNotification>({
             type: 'enum',
             enum: TypeNotificationEnum,
             default: TypeNotificationEnum.EMAIL
-        },
-        createdAt: {
-            name: 'createdAt',
-            type: 'timestamp with time zone',
-            createDate: true
-        },
-        updatedAt: {
-            name: 'updatedAt',
-            type: 'timestamp with time zone',
-            updateDate: true
         }
     }
 });
