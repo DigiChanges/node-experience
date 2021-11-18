@@ -10,9 +10,9 @@ class SaveItemUseCase
     @containerFactory(SERVICES.IItemService)
     private itemService: IItemService;
 
-    async handle(payload: ItemRepPayload, auth_user: IUserDomain): Promise<IItemDomain>
+    async handle(payload: ItemRepPayload, authUser: IUserDomain): Promise<IItemDomain>
     {
-        return await this.itemService.create(payload, auth_user);
+        return await this.itemService.create(payload, authUser);
     }
 }
 

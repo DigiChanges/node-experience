@@ -7,8 +7,8 @@ import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 interface IItemService
 {
     persist(item: IItemDomain, payload: ItemRepPayload): Promise<IItemDomain>;
-    create(payload: ItemRepPayload, auth_user: IUserDomain): Promise<IItemDomain>;
-    update(payload: ItemUpdatePayload, auth_user: IUserDomain): Promise<IItemDomain>;
+    create(payload: ItemRepPayload, authUser: IUserDomain): Promise<IItemDomain>;
+    update(payload: ItemUpdatePayload, authUser: IUserDomain): Promise<IItemDomain>;
     getOne(id: string): Promise<IItemDomain>;
     remove(id: string): Promise<IItemDomain>;
     list(payload: ICriteria): Promise<IPaginator>;

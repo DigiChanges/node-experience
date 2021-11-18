@@ -14,7 +14,7 @@ import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 
 class ItemController
 {
-    public async save(request: ItemRepPayload, authUser: IUserDomain): Promise<IItemDomain>
+    public async save(request: ItemRepPayload, authUser: IUserDomain)
     {
         await ValidatorRequest.handle(request);
 
@@ -22,7 +22,7 @@ class ItemController
         return await useCase.handle(request, authUser);
     }
 
-    public async list(request: ICriteria): Promise<IPaginator>
+    public async list(request: ICriteria)
     {
         await ValidatorRequest.handle(request);
 
@@ -30,7 +30,7 @@ class ItemController
         return await useCase.handle(request);
     }
 
-    public async getOne(request: IdPayload): Promise<IItemDomain>
+    public async getOne(request: IdPayload)
     {
         await ValidatorRequest.handle(request);
 

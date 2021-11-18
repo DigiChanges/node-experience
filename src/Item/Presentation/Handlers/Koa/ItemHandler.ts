@@ -9,6 +9,8 @@ import { AuthUser } from '../../../../Auth/Presentation/Helpers/AuthUser';
 import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import ItemRequestCriteria from '../../Requests/ItemRequestCriteria';
 import ItemUpdateRequest from '../../Requests/ItemUpdateRequest';
+import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/AuthorizeMiddleware';
+import Permissions from '../../../../Config/Permissions';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/items'
@@ -18,7 +20,7 @@ const ItemHandler: Router = new Router(routerOpts);
 const responder: Responder = new Responder();
 const controller: ItemController = new ItemController();
 
-ItemHandler.post('/', async(ctx: Koa.ParameterizedContext & any) =>
+ItemHandler.post('/', AuthorizeMiddleware(Permissions.ITEMS_SAVE), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const request = new ItemRepRequest(ctx.request.body);
 
@@ -27,7 +29,7 @@ ItemHandler.post('/', async(ctx: Koa.ParameterizedContext & any) =>
     responder.send(item, ctx, StatusCode.HTTP_CREATED, new ItemTransformer());
 });
 
-ItemHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
+ItemHandler.get('/', AuthorizeMiddleware(Permissions.ITEMS_LIST), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new ItemRequestCriteria(ctx.request.query, ctx.request.url);
 
@@ -36,7 +38,7 @@ ItemHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
     await responder.paginate(paginator, ctx, StatusCode.HTTP_OK, new ItemTransformer());
 });
 
-ItemHandler.get('/:id', async(ctx: Koa.ParameterizedContext & any) =>
+ItemHandler.get('/:id', AuthorizeMiddleware(Permissions.ITEMS_SHOW), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new IdRequest(ctx.params.id);
 
@@ -45,7 +47,7 @@ ItemHandler.get('/:id', async(ctx: Koa.ParameterizedContext & any) =>
     responder.send(item, ctx, StatusCode.HTTP_OK, new ItemTransformer());
 });
 
-ItemHandler.put('/:id', async(ctx: Koa.ParameterizedContext & any) =>
+ItemHandler.put('/:id', AuthorizeMiddleware(Permissions.ITEMS_UPDATE), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new ItemUpdateRequest(ctx.request.body, ctx.params.id);
 
@@ -54,7 +56,7 @@ ItemHandler.put('/:id', async(ctx: Koa.ParameterizedContext & any) =>
     responder.send(item, ctx, StatusCode.HTTP_CREATED, new ItemTransformer());
 });
 
-ItemHandler.delete('/:id', async(ctx: Koa.ParameterizedContext & any) =>
+ItemHandler.delete('/:id', AuthorizeMiddleware(Permissions.ITEMS_DELETE), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new IdRequest(ctx.params.id);
 

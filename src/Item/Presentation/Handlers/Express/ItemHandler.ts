@@ -51,7 +51,7 @@ class ItemHandler
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.ITEMS_SHOW))
-    public async get_one(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async getOne(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req.params.id);
 
