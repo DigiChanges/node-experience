@@ -6,7 +6,7 @@
     "build": "npm-run-all clean lint pre-build tsc",
     "pre-check": "yarn type && yarn lint",
     "clean": "rimraf dist/*",
-    "ci": "npm run pre-build && npm run type && npm run lint && npm run cpy-ci npm run command createFolderLogger",
+    "ci": "npm run pre-build && npm run type && npm run lint && npm run cpy-ci && npm run command createFolderLogger",
     "type": "tsc -p tsconfig.json --skipLibCheck --noEmit",
     "command": "npx ts-node src/command.ts",
     "dev": "parcel watch --no-hmr --no-cache --no-autoinstall --log-level \"verbose\"",
