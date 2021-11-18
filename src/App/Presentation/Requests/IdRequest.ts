@@ -2,7 +2,6 @@ import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import { IsUUID } from 'class-validator';
 import { decorate } from 'ts-mixer';
 
-
 class IdRequest implements IdPayload
 {
     @decorate(IsUUID('4'))

@@ -7,7 +7,6 @@ import FormatResponder from '../FormatResponder';
 import FormatError from '../FormatError';
 import ErrorHttpException from '../ErrorHttpException';
 
-
 class Responder
 {
     private formatResponder: IFormatResponder;

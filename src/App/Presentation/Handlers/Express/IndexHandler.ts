@@ -6,7 +6,6 @@ import { TYPES } from '../../../../types';
 import Responder from '../../Shared/Express/Responder';
 import Locales from '../../Shared/Locales';
 
-
 @controller('/')
 class IndexHandler extends BaseHttpController
 {
