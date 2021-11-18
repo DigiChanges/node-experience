@@ -29,6 +29,7 @@ class Permissions
     static readonly FILES_UPLOAD: string = 'filesUpload';
     static readonly FILES_UPDATE: string = 'filesUpdate';
     static readonly FILES_DOWNLOAD: string = 'filesDownload';
+    static readonly FILES_DELETE: string = 'filesDelete';
     static readonly FILES_LIST: string = 'filesList';
     static readonly FILES_SHOW_METADATA: string = 'filesShowMetadata';
 
@@ -77,6 +78,7 @@ class Permissions
                 permissions: [
                     Permissions.FILES_UPLOAD,
                     Permissions.FILES_UPDATE,
+                    Permissions.FILES_DELETE,
                     Permissions.FILES_DOWNLOAD,
                     Permissions.FILES_LIST,
                     Permissions.FILES_SHOW_METADATA
