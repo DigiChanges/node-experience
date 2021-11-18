@@ -1,5 +1,5 @@
 import { inject } from 'inversify';
-import { controller, httpPost, request, response, next, httpGet, httpPut } from 'inversify-express-utils';
+import {controller, httpPost, request, response, next, httpGet, httpPut, httpDelete} from 'inversify-express-utils';
 import { NextFunction, Request, Response } from 'express';
 import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 
@@ -44,7 +44,7 @@ class FileHandler
     }
 
     @httpGet('/objects', AuthorizeMiddleware(Permissions.FILES_LIST))
-    public async list_filesystem_objects(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async listFilesystemObjects(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ListObjectsRequest(req.query);
 
@@ -54,7 +54,7 @@ class FileHandler
     }
 
     @httpGet('/metadata/:id', AuthorizeMiddleware(Permissions.FILES_SHOW_METADATA))
-    public async get_file_metadata(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async getFileMetadata(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req.params.id);
 
@@ -64,7 +64,7 @@ class FileHandler
     }
 
     @httpPost('/base64', AuthorizeMiddleware(Permissions.FILES_UPLOAD))
-    public async upload_base64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async uploadBase64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new FileBase64RepRequest(req.body);
 
@@ -74,7 +74,7 @@ class FileHandler
     }
 
     @httpPost('/', FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPLOAD))
-    public async upload_multipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async uploadMultipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new FileMultipartRepRequest(req.body);
 
@@ -83,8 +83,8 @@ class FileHandler
         this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
-    @httpPost('/presignedGetObject', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))
-    public async get_presigned_get_object(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    @httpPost('/presigned-get-object', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))
+    public async getPresignedGetObject(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new PresignedFileRepRequest(req.body);
 
@@ -94,7 +94,7 @@ class FileHandler
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))
-    public async download_stream_file(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async downloadStreamFile(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest(req.params.id);
 
@@ -103,8 +103,18 @@ class FileHandler
         this.responder.sendStream(fileDto, req, res, StatusCode.HTTP_OK);
     }
 
+    @httpDelete('/:id', AuthorizeMiddleware(Permissions.FILES_DELETE))
+    public async removeFile(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const _request = new IdRequest(req.params.id);
+
+        const file = await this.controller.removeFile(_request);
+
+        this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileTransformer());
+    }
+
     @httpPut('/base64/:id', AuthorizeMiddleware(Permissions.FILES_UPDATE))
-    public async update_base64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async updateBase64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new FileUpdateBase64Request(req.body, req.params.id);
 
@@ -114,7 +124,7 @@ class FileHandler
     }
 
     @httpPut('/:id', FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPDATE))
-    public async update_multipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    public async updateMultipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new FileUpdateMultipartRequest(req.body, req.params.id);
 

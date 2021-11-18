@@ -1,7 +1,6 @@
 import FileMultipartRepPayload from '../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
 import { IsDefined } from 'class-validator';
 
-
 class FileMultipartRepRequest implements FileMultipartRepPayload
 {
     @IsDefined()

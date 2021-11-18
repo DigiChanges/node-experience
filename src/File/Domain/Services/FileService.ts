@@ -101,6 +101,13 @@ class FileService implements IFileService
 
         return await this.fileSystem.presignedGetObject(file.getId(), expiry, metadata);
     }
+
+    async removeFile(id: string): Promise<IFileDomain>
+    {
+        const file = await this.repository.delete(id);
+        void await this.fileSystem.removeObjects(file.name);
+        return file;
+    }
 }
 
 export default FileService;

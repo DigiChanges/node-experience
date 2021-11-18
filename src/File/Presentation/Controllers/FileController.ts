@@ -18,11 +18,11 @@ import IFileDTO from '../../InterfaceAdapters/Payloads/IFileDTO';
 import PresignedFileRepPayload from '../../InterfaceAdapters/Payloads/PresignedFileRepPayload';
 import FileUpdateBase64Payload from '../../InterfaceAdapters/Payloads/FileUpdateBase64Payload';
 import FileUpdateMultipartPayload from '../../InterfaceAdapters/Payloads/FileUpdateMultipartPayload';
-
+import RemoveFileUseCase from '../../Domain/UseCases/RemoveFileUseCase';
 
 class FileController
 {
-    public async list(request: ICriteria): Promise<IPaginator>
+    public async list(request: ICriteria)
     {
         await ValidatorRequest.handle(request);
 
@@ -70,7 +70,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async downloadStreamFile(request: IdPayload): Promise<IFileDTO>
+    public async downloadStreamFile(request: IdPayload)
     {
         await ValidatorRequest.handle(request);
 
@@ -78,7 +78,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async updateBase64(request: FileUpdateBase64Payload): Promise<any>
+    public async updateBase64(request: FileUpdateBase64Payload)
     {
         await ValidatorRequest.handle(request);
 
@@ -86,11 +86,19 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async updateMultipart(request: FileUpdateMultipartPayload): Promise<any>
+    public async updateMultipart(request: FileUpdateMultipartPayload)
     {
         await ValidatorRequest.handle(request);
 
         const useCase = new UpdateFileMultipartUseCase();
+        return await useCase.handle(request);
+    }
+
+    public async removeFile(request: IdPayload)
+    {
+        await ValidatorRequest.handle(request);
+
+        const useCase = new RemoveFileUseCase();
         return await useCase.handle(request);
     }
 }
