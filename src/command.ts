@@ -18,6 +18,7 @@ import CreateBucketCommand from './File/Presentation/Commands/CreateBucketComman
 import Seed from './App/Presentation/Commands/SeedCommand';
 import initCommand from './initCommand';
 import Logger from './Shared/Logger/Logger';
+import CreateFolderLogger from './App/Presentation/Commands/CreateFolderLogger';
 
 void (async() =>
 {
@@ -35,6 +36,7 @@ void (async() =>
         program.addCommand(SyncRolesPermissionCommand);
         program.addCommand(CreateBucketCommand);
         program.addCommand(Seed);
+        program.addCommand(CreateFolderLogger);
 
         await program.parseAsync(process.argv);
         exit();
