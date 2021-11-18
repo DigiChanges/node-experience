@@ -61,7 +61,7 @@ AuthHandler.post('/login', async(ctx: Koa.ParameterizedContext & any) =>
     responder.send(payload, ctx, StatusCode.HTTP_CREATED, new AuthTransformer());
 });
 
-AuthHandler.post('/register', async(ctx: Koa.ParameterizedContext & any) =>
+AuthHandler.post('/signup', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new RegisterRequest(ctx.request.body);
 

@@ -7,7 +7,6 @@ import IAuthService from '../../../InterfaceAdapters/IAuthService';
 import { SERVICES } from '../../../../services';
 import ContainerFactory from '../../../../Shared/Factories/ContainerFactory';
 
-
 const AuthorizeMiddleware = (...handlerPermissions: string[]) =>
 {
     return async(ctx: Koa.ParameterizedContext, next: Koa.Next) =>

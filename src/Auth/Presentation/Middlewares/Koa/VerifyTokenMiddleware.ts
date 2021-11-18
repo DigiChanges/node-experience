@@ -1,7 +1,6 @@
 import VerifyTokenBlacklistUseCase from '../../../Domain/UseCases/VerifyTokenBlacklistUseCase';
 import Koa from 'koa';
 
-
 const VerifyTokenMiddleware = async(ctx: Koa.ParameterizedContext, next: Koa.Next) =>
 {
     const id = ctx?.tokenDecode?.id;

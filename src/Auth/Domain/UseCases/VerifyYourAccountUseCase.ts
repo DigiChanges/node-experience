@@ -3,7 +3,6 @@ import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../repositories';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import SendEmailService from '../../../Notification/Domain/Services/SendEmailService';
-import RegisterEvent from '../../../Shared/Events/RegisterEvent';
 import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../App/Presentation/Shared/Locales';
 import VerifiedAccountEvent from '../../../Shared/Events/VerifiedAccountEvent';

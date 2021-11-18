@@ -74,7 +74,7 @@ class AuthHandler
         this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
 
-    @httpPost('/register')
+    @httpPost('/signup')
     public async register(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new RegisterRequest(req.body);

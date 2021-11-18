@@ -8,10 +8,8 @@ import SyncRolesPermissionUseCase from '../../Domain/UseCases/SyncRolesPermissio
 import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
 import ChangeForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
 import AuthPayload from '../../InterfaceAdapters/Payloads/AuthPayload';
-import IToken from '../../InterfaceAdapters/IToken';
 import RefreshTokenPayload from '../../InterfaceAdapters/Payloads/RefreshTokenPayload';
 import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
-import IGroupPermission from '../../InterfaceAdapters/IGroupPermission';
 import LogoutUseCase from '../../Domain/UseCases/LogoutUseCase';
 import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
@@ -24,7 +22,7 @@ import VerifyYourAccountUseCase from '../../Domain/UseCases/VerifyYourAccountUse
 
 class AuthController
 {
-    public async login(request: AuthPayload): Promise<IToken>
+    public async login(request: AuthPayload)
     {
         await ValidatorRequest.handle(request);
 
@@ -32,7 +30,7 @@ class AuthController
         return await useCase.handle(request);
     }
 
-    public async register(request: RegisterPayload): Promise<Record<string, any>>
+    public async register(request: RegisterPayload)
     {
         await ValidatorRequest.handle(request);
 
@@ -40,7 +38,7 @@ class AuthController
         return await useCase.handle(request);
     }
 
-    public async updateMe(request: UserRepPayload, authUser: IUserDomain): Promise<IUserDomain>
+    public async updateMe(request: UserRepPayload, authUser: IUserDomain)
     {
         await ValidatorRequest.handle(request);
 
@@ -48,7 +46,7 @@ class AuthController
         return await useCase.handle(request, authUser);
     }
 
-    public async logout(tokenDecode:ITokenDecode): Promise<Record<string, any>>
+    public async logout(tokenDecode:ITokenDecode)
     {
         const useCase = new LogoutUseCase();
         return await useCase.handle(tokenDecode);
@@ -86,13 +84,13 @@ class AuthController
         return await useCase.handle(request);
     }
 
-    public permissions(): IGroupPermission[]
+    public permissions()
     {
         const useCase = new PermissionUseCase();
         return useCase.handle();
     }
 
-    public syncRolesPermissions(): string[]
+    public syncRolesPermissions()
     {
         const useCase = new SyncRolesPermissionUseCase();
         return useCase.handle();

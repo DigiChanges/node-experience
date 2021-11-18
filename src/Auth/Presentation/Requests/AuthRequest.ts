@@ -4,7 +4,6 @@ import { IsString, IsEmail, Length } from 'class-validator';
 
 class AuthRequest implements AuthPayload
 {
-
     @IsEmail()
     email: string;
 
