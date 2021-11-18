@@ -90,6 +90,7 @@
       "max": 15
     }
   },
+  "executeCrons": false,
   "apiWhitelist": [
     {
       "methods": ["GET"],

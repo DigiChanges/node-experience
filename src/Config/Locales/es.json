@@ -3,7 +3,8 @@
 	"app": {
 		"domain": {
 			"exceptions": {
-				"invalidPassword": "Contraseña invalida"
+				"invalidPassword": "Contraseña invalida",
+				"uniqueAttribute": "La propiedad {{name}} ya se cuentra en uso"
 			}
 		},
 		"presentation": {
@@ -52,7 +53,8 @@
 	"user": {
 		"domain": {
 			"exceptions": {
-				"userDisabled": "Tu usuario esta deshabilitado."
+				"userDisabled": "Tu usuario esta deshabilitado.",
+				"unverifiedUser": "Este usuario no esta verificado."
 			}
 		}
 	}

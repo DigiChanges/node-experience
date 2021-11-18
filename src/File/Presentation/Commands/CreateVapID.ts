@@ -1,4 +1,4 @@
-import { loggerCli } from '../../../Shared/Logger';
+import Logger from '../../../Shared/Logger/Logger';
 import commander from 'commander';
 import webpush from 'web-push';
 
@@ -13,10 +13,10 @@ CreateVapID
 
         if (vapidKeys)
         {
-            loggerCli.info('publicKey:');
-            loggerCli.info(vapidKeys.publicKey);
-            loggerCli.info('privateKey:');
-            loggerCli.info(vapidKeys.privateKey);
+            Logger.info('publicKey:');
+            Logger.info(vapidKeys.publicKey);
+            Logger.info('privateKey:');
+            Logger.info(vapidKeys.privateKey);
         }
     });
 

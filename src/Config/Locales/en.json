@@ -53,7 +53,8 @@
 	"user": {
 		"domain": {
 			"exceptions": {
-				"userDisabled": "Your user is disable."
+				"userDisabled": "Your user is disable.",
+				"unverifiedUser": "This user is not verified."
 			}
 		}
 	}

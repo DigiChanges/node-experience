@@ -18,6 +18,7 @@ interface IUserDomain extends IBaseDomain
     roles: IRoleDomain[];
     permissions: string[];
     enable: boolean;
+    verify: boolean;
     isSuperAdmin: boolean;
     confirmationToken: string;
     passwordRequestedAt: Date;

@@ -19,7 +19,7 @@ class UserRepRequest extends Mixin(UserWithoutPermissionsRequest) implements Use
     {
         super(data);
         this.permissions = data.permissions;
-        this.enable = data.enable ?? true;
+        this.enable = data?.enable ?? true;
     }
 
     getPermissions(): string[]

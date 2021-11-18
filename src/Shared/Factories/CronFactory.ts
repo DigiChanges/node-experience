@@ -1,20 +1,31 @@
 import crons from '../../crons';
+import MainConfig from '../../Config/mainConfig';
 
 class CronFactory
 {
+    private readonly config = MainConfig.getInstance();
+
     private crons = {
         ...crons
     }
 
     start(name: keyof CronFactory['crons'] = null): void
     {
+        const executeCrons: boolean = this.config.getConfig().executeCrons;
+
         if (name)
         {
-            this.one(name, 'start');
+            if (executeCrons)
+            {
+                this.one(name, 'start');
+            }
         }
         else
         {
-            this.all('start');
+            if (executeCrons)
+            {
+                this.all('start');
+            }
         }
     }
 

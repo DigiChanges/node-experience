@@ -91,7 +91,7 @@ describe('Start Login Test', () =>
 
     });
 
-    test('Login Operator Enable False', async() =>
+    test('Login Operator unverified', async() =>
     {
         const payload = {
             email: 'operator@disabled.com',
@@ -109,8 +109,7 @@ describe('Start Login Test', () =>
         expect(status).toStrictEqual('error');
         expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
-        expect(message).toStrictEqual('Your user is disable.');
-
+        expect(message).toStrictEqual('This user is not verified.');
     });
 
     test('Login Operator with Role Operator Enable False', async() =>

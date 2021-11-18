@@ -69,5 +69,6 @@
   "url": {
     "urlApi": "URL_API",
     "urlWeb": "URL_WEB"
-  }
+  },
+  "executeCrons": "EXECUTE_CRONS"
 }

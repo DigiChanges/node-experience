@@ -17,12 +17,12 @@ class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implem
 {
     constructor()
     {
-        super(User.name);
+        super(User.name, ['roles']);
     }
 
     async getOneByEmail(email: string): Promise<IUserDomain>
     {
-        const user = await this.repository.findOne({ email }).populate('roles');
+        const user = await this.repository.findOne({ email }).populate(this.populate);
 
         if (!user)
         {
@@ -34,7 +34,7 @@ class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implem
 
     async getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>
     {
-        const user = await this.repository.findOne({ confirmationToken }).populate('roles');
+        const user = await this.repository.findOne({ confirmationToken }).populate(this.populate);
 
         if (!user)
         {
@@ -75,23 +75,6 @@ class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implem
         void queryBuilder.populate('roles');
 
         return new MongoPaginator(queryBuilder, criteria);
-    }
-
-    async update(user: IUserDomain): Promise<IUserDomain>
-    {
-        return this.repository.findByIdAndUpdate({ _id: user.getId() }, user).populate('roles');
-    }
-
-    async delete(id: string): Promise<IUserDomain>
-    {
-        const user = await this.repository.findByIdAndDelete(id).populate('roles');
-
-        if (!user)
-        {
-            throw new NotFoundException('User');
-        }
-
-        return user;
     }
 }
 

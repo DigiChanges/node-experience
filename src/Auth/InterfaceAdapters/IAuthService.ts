@@ -8,7 +8,7 @@ interface IAuthService
     getPermissions(authUser: IUserDomain): string[]
     validatePermissions(permissions: string[]): void
     getByEmail(email: string): Promise<Auth>;
-    authorize(authUser: Auth, handlerPermission: string): Promise<boolean>;
+    authorize(authUser: Auth, handlerPermissions: string[]): Promise<boolean>;
     validateToken(token: string): ITokenDecode;
     validateRefreshToken(token: string): ITokenDecode;
     checkWhitelist(method: string, path: string): boolean;

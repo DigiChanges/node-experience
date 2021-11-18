@@ -1,4 +1,4 @@
-import { loggerCli } from '../../../Shared/Logger';
+import Logger from '../../../Shared/Logger/Logger';
 import commander from 'commander';
 import SyncRolesPermissionUseCase from '../../Domain/UseCases/SyncRolesPermissionUseCase';
 
@@ -12,7 +12,7 @@ SyncRolesPermissionCommand
         const syncRolesPermissionUseCase = new SyncRolesPermissionUseCase();
         syncRolesPermissionUseCase.handle();
 
-        loggerCli.info('Sync successfully.');
+        Logger.info('Sync successfully.');
     });
 
 export default SyncRolesPermissionCommand;

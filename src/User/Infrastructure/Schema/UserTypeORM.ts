@@ -21,12 +21,42 @@ const UserSchema = new EntitySchema<User>({
             type: String,
             unique: true
         },
+        birthday: {
+            type: String
+        },
+        documentType: {
+            type: String
+        },
+        documentNumber: {
+            type: String,
+            unique: true
+        },
+        gender: {
+            type: String
+        },
+        phone: {
+            type: String
+        },
+        country: {
+            type: String
+        },
+        address: {
+            type: String
+        },
         password: {
             type: String
+        },
+        permissions: {
+            type: 'simple-array',
+            nullable: true
         },
         enable: {
             type: Boolean,
             default: true
+        },
+        verify: {
+            type: Boolean,
+            default: false
         },
         isSuperAdmin: {
             type: Boolean,
@@ -38,10 +68,6 @@ const UserSchema = new EntitySchema<User>({
         },
         passwordRequestedAt: {
             type: Date,
-            nullable: true
-        },
-        permissions: {
-            type: 'simple-array',
             nullable: true
         },
         createdAt: {

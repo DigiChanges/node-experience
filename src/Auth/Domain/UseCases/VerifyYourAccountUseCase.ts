@@ -19,6 +19,7 @@ class VerifyYourAccountUseCase
 
         const user = await this.repository.getOneByConfirmationToken(confirmationToken);
 
+        user.verify = true;
         user.enable = true;
         user.confirmationToken = null;
 

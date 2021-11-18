@@ -2,7 +2,7 @@ import { cleanEnv, str, port, bool, num, url } from 'envalid';
 
 export function validateEnv()
 {
-    cleanEnv(process.env, {
+    return cleanEnv(process.env, {
         NODE_ENV: str(),
         SERVER_PORT: port(),
         DB_HOST: str(),
@@ -28,6 +28,7 @@ export function validateEnv()
         PRODUCT_NAME: str(),
         ENCRYPTION_DEFAULT: str(),
         PUSH_PRIVATE_KEY: str(),
-        PUSH_PUBLIC_KEY: str()
+        PUSH_PUBLIC_KEY: str(),
+        EXECUTE_CRONS: bool()
     });
 }
