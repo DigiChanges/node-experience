@@ -9,13 +9,13 @@ import IFileDocument from '../../File/InterfaceAdapters/IFileDocument';
 import INotificationDocument from '../../Notification/InterfaceAdapters/INotificationDocument';
 import ITokenDocument from '../../Auth/InterfaceAdapters/ITokenDocument';
 
-import ItemSchema from '../../Item/Infrastructure/Schema/ItemMongoose';
+import ItemSchema from '../../Item/Infrastructure/Schemas/ItemMongoose';
 
-import RoleSchema from '../../Role/Infrastructure/Schema/RoleMongoose';
-import UserSchema from '../../User/Infrastructure/Schema/UserMongoose';
-import FileSchema from '../../File/Infrastructure/Schema/FileMongoose';
-import { EmailNotificationSchema, NotificationSchema, PushNotificationSchema } from '../../Notification/Infrastructure/Schema/NotificationMongoose';
-import TokenSchema from '../../Auth/Infrastructure/Schema/TokenMongoose';
+import RoleSchema from '../../Role/Infrastructure/Schemas/RoleMongoose';
+import UserSchema from '../../User/Infrastructure/Schemas/UserMongoose';
+import FileSchema from '../../File/Infrastructure/Schemas/FileMongoose';
+import { EmailNotificationSchema, NotificationSchema, PushNotificationSchema } from '../../Notification/Infrastructure/Schemas/NotificationMongoose';
+import TokenSchema from '../../Auth/Infrastructure/Schemas/TokenMongoose';
 
 export let connection: mongoose.Connection = null;
 

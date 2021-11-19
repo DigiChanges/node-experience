@@ -1,5 +1,5 @@
 import { inject } from 'inversify';
-import {controller, httpPost, request, response, next, httpGet, httpPut, httpDelete} from 'inversify-express-utils';
+import { controller, httpPost, request, response, next, httpGet, httpPut, httpDelete } from 'inversify-express-utils';
 import { NextFunction, Request, Response } from 'express';
 import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 

@@ -52,7 +52,7 @@ FileHandler.get('/metadata/:id', AuthorizeMiddleware(Permissions.FILES_SHOW_META
     responder.send(file, ctx, StatusCode.HTTP_OK, new FileTransformer());
 });
 
-FileHandler.post('/base-64', AuthorizeMiddleware(Permissions.FILES_UPLOAD), async(ctx: Koa.ParameterizedContext & any) =>
+FileHandler.post('/base64', AuthorizeMiddleware(Permissions.FILES_UPLOAD), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new FileBase64RepRequest(ctx.request.body);
 
@@ -97,7 +97,7 @@ FileHandler.get('/:id', AuthorizeMiddleware(Permissions.FILES_DELETE), async(ctx
     responder.send(file, ctx, StatusCode.HTTP_OK, new FileTransformer());
 });
 
-FileHandler.put('/base-64/:id', AuthorizeMiddleware(Permissions.FILES_UPDATE), async(ctx: Koa.ParameterizedContext & any) =>
+FileHandler.put('/base64/:id', AuthorizeMiddleware(Permissions.FILES_UPDATE), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new FileUpdateBase64Request(ctx.request.body, ctx.params.id);
 
