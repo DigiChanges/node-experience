@@ -1,4 +1,3 @@
-
 interface IApp
 {
     initConfig(): any;

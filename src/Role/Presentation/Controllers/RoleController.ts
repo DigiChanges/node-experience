@@ -45,7 +45,7 @@ class RoleController
         return await useCase.handle(request);
     }
 
-    public async remove(request: IdPayload): Promise<any>
+    public async remove(request: IdPayload): Promise<IRoleDomain>
     {
         await ValidatorRequest.handle(request);
 

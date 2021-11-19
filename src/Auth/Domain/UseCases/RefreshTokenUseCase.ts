@@ -8,6 +8,7 @@ import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ITokenDomain from '../../../Auth/InterfaceAdapters/ITokenDomain';
 import { SERVICES } from '../../../services';
 import IAuthService from '../../InterfaceAdapters/IAuthService';
+import IToken from '../../InterfaceAdapters/IToken';
 
 class RefreshTokenUseCase
 {
@@ -26,7 +27,7 @@ class RefreshTokenUseCase
         this.tokenFactory = new TokenFactory();
     }
 
-    async handle(payload: RefreshTokenPayload)
+    async handle(payload: RefreshTokenPayload): Promise<IToken>
     {
         const tokenDecode = this.authService.decodeToken(payload.getRefreshToken(), false);
 

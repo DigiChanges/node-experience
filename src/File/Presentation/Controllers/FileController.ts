@@ -1,4 +1,4 @@
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import {ICriteria, IPaginator} from '@digichanges/shared-experience';
 
 import ListFilesUseCase from '../../Domain/UseCases/ListFilesUseCase';
 import ListObjectsUseCase from '../../Domain/UseCases/ListObjectsUseCase';
@@ -14,15 +14,16 @@ import ListObjectsPayload from '../../InterfaceAdapters/Payloads/ListObjectsPayl
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import FileBase64RepPayload from '../../InterfaceAdapters/Payloads/FileBase64RepPayload';
 import FileMultipartRepPayload from '../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
-import IFileDTO from '../../InterfaceAdapters/Payloads/IFileDTO';
 import PresignedFileRepPayload from '../../InterfaceAdapters/Payloads/PresignedFileRepPayload';
 import FileUpdateBase64Payload from '../../InterfaceAdapters/Payloads/FileUpdateBase64Payload';
 import FileUpdateMultipartPayload from '../../InterfaceAdapters/Payloads/FileUpdateMultipartPayload';
 import RemoveFileUseCase from '../../Domain/UseCases/RemoveFileUseCase';
+import IFileDomain from '../../InterfaceAdapters/IFileDomain';
+import IFileDTO from '../../InterfaceAdapters/Payloads/IFileDTO';
 
 class FileController
 {
-    public async list(request: ICriteria)
+    public async list(request: ICriteria): Promise<IPaginator>
     {
         await ValidatorRequest.handle(request);
 
@@ -30,7 +31,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async listFilesystemObjects(request: ListObjectsPayload)
+    public async listFilesystemObjects(request: ListObjectsPayload): Promise<any>
     {
         await ValidatorRequest.handle(request);
 
@@ -38,7 +39,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async getFileMetadata(request: IdPayload)
+    public async getFileMetadata(request: IdPayload): Promise<IFileDomain>
     {
         await ValidatorRequest.handle(request);
 
@@ -46,7 +47,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async uploadBase64(request: FileBase64RepPayload)
+    public async uploadBase64(request: FileBase64RepPayload): Promise<any>
     {
         await ValidatorRequest.handle(request);
 
@@ -54,7 +55,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async uploadMultipart(request: FileMultipartRepPayload)
+    public async uploadMultipart(request: FileMultipartRepPayload): Promise<any>
     {
         await ValidatorRequest.handle(request);
 
@@ -62,7 +63,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async getPresignedGetObject(request: PresignedFileRepPayload)
+    public async getPresignedGetObject(request: PresignedFileRepPayload): Promise<string>
     {
         await ValidatorRequest.handle(request);
 
@@ -70,7 +71,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async downloadStreamFile(request: IdPayload)
+    public async downloadStreamFile(request: IdPayload): Promise<IFileDTO>
     {
         await ValidatorRequest.handle(request);
 
@@ -78,7 +79,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async updateBase64(request: FileUpdateBase64Payload)
+    public async updateBase64(request: FileUpdateBase64Payload): Promise<any>
     {
         await ValidatorRequest.handle(request);
 
@@ -86,7 +87,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async updateMultipart(request: FileUpdateMultipartPayload)
+    public async updateMultipart(request: FileUpdateMultipartPayload): Promise<any>
     {
         await ValidatorRequest.handle(request);
 
@@ -94,7 +95,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async removeFile(request: IdPayload)
+    public async removeFile(request: IdPayload): Promise<IFileDomain>
     {
         await ValidatorRequest.handle(request);
 

@@ -6,13 +6,14 @@ import SendEmailService from '../../../Notification/Domain/Services/SendEmailSer
 import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../App/Presentation/Shared/Locales';
 import VerifiedAccountEvent from '../../../Shared/Events/VerifiedAccountEvent';
+import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
 
 class VerifyYourAccountUseCase
 {
     @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
 
-    async handle(payload: VerifyYourAccountPayload): Promise<Record<string, string>>
+    async handle(payload: VerifyYourAccountPayload): Promise<ILocaleMessage>
     {
         const confirmationToken = payload.getConfirmationToken();
 

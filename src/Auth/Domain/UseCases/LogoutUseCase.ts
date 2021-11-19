@@ -6,6 +6,7 @@ import { ITokenRepository } from '@digichanges/shared-experience';
 import ITokenDomain from '../../InterfaceAdapters/ITokenDomain';
 import SetTokenBlacklistUseCase from './SetTokenBlacklistUseCase';
 import Locales from '../../../App/Presentation/Shared/Locales';
+import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
 
 class LogoutUseCase
 {
@@ -18,7 +19,7 @@ class LogoutUseCase
         this.tokenFactory = new TokenFactory();
     }
 
-    async handle(tokenDecode:ITokenDecode): Promise<Record<string, string>>
+    async handle(tokenDecode:ITokenDecode): Promise<ILocaleMessage>
     {
         const tokenId = tokenDecode.id;
 
