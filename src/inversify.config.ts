@@ -9,14 +9,10 @@ import Responder from './App/Presentation/Shared/Express/Responder';
 import IItemRepository from './Item/InterfaceAdapters/IItemRepository';
 import IUserRepository from './User/InterfaceAdapters/IUserRepository';
 import IRoleRepository from './Role/InterfaceAdapters/IRoleRepository';
-import IAuthService from './Auth/InterfaceAdapters/IAuthService';
 import IFileRepository from './File/InterfaceAdapters/IFileRepository';
-
-import AuthService from './Auth/Domain/Services/AuthService';
 
 import { REPOSITORIES } from './repositories';
 import { TYPES } from './types';
-import { SERVICES } from './services';
 
 import ItemMongoRepository from './Item/Infrastructure/Repositories/ItemMongoRepository';
 import UserMongoRepository from './User/Infrastructure/Repositories/UserMongoRepository';
@@ -30,29 +26,13 @@ import RoleSqlRepository from './Role/Infrastructure/Repositories/RoleSqlReposit
 import TokenRedisRepository from './Auth/Infrastructure/Repositories/TokenRedisRepository';
 import { ITokenRepository } from '@digichanges/shared-experience';
 import ITokenDomain from './Auth/InterfaceAdapters/ITokenDomain';
-import IFileService from './File/InterfaceAdapters/IFileService';
-import FileService from './File/Domain/Services/FileService';
-import NotificationService from './Notification/Domain/Services/NotificationService';
-import RoleService from './Role/Domain/Services/RoleService';
-import ItemService from './Item/Domain/Services/ItemService';
-import UserService from './User/Domain/Services/UserService';
 import INotificationRepository from './Notification/InterfaceAdapters/INotificationRepository';
 import INotificationDomain from './Notification/InterfaceAdapters/INotificationDomain';
 import NotificationMongoRepository from './Notification/Infrastructure/Repositories/NotificationMongoRepository';
-import IItemService from './Item/InterfaceAdapters/IItemService';
-import INotificationService from './Notification/InterfaceAdapters/INotificationService';
-import IUserService from './User/InterfaceAdapters/IUserService';
-import IRoleService from './Role/InterfaceAdapters/IRoleService';
 
 const container = new Container();
 
 /* IServices */
-container.bind<IRoleService>(SERVICES.IRoleService).to(RoleService);
-container.bind<IUserService>(SERVICES.IUserService).to(UserService);
-container.bind<IAuthService>(SERVICES.IAuthService).to(AuthService);
-container.bind<IFileService>(SERVICES.IFileService).to(FileService);
-container.bind<IItemService>(SERVICES.IItemService).to(ItemService);
-container.bind<INotificationService>(SERVICES.INotificationService).to(NotificationService);
 
 /* Libs */
 container.bind<Responder>(TYPES.Responder).to(Responder);

@@ -6,9 +6,8 @@ import { REPOSITORIES } from '../../../repositories';
 import SetTokenBlacklistUseCase from './SetTokenBlacklistUseCase';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ITokenDomain from '../../../Auth/InterfaceAdapters/ITokenDomain';
-import { SERVICES } from '../../../services';
-import IAuthService from '../../InterfaceAdapters/IAuthService';
 import IToken from '../../InterfaceAdapters/IToken';
+import AuthService from '../Services/AuthService';
 
 class RefreshTokenUseCase
 {
@@ -18,14 +17,9 @@ class RefreshTokenUseCase
     @containerFactory(REPOSITORIES.ITokenRepository)
     private tokenRepository: ITokenRepository<ITokenDomain>;
 
-    @containerFactory(SERVICES.IAuthService)
-    private authService: IAuthService;
-    private tokenFactory: TokenFactory;
+    private authService = new AuthService();
 
-    constructor()
-    {
-        this.tokenFactory = new TokenFactory();
-    }
+    private tokenFactory = new TokenFactory();
 
     async handle(payload: RefreshTokenPayload): Promise<IToken>
     {

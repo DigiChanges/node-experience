@@ -1,13 +1,10 @@
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { SERVICES } from '../../../services';
-import IItemService from '../../InterfaceAdapters/IItemService';
+import ItemService from '../Services/ItemService';
 
 class RemoveItemUseCase
 {
-    @containerFactory(SERVICES.IItemService)
-    private itemService: IItemService;
+    private itemService = new ItemService();
 
     async handle(payload: IdPayload): Promise<IItemDomain>
     {

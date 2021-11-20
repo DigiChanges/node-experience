@@ -1,14 +1,11 @@
 import FileMultipartRepPayload from '../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 import File from '../Entities/File';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { SERVICES } from '../../../services';
-import IFileService from '../../InterfaceAdapters/IFileService';
+import FileService from '../Services/FileService';
 
 class UploadMultipartUseCase
 {
-    @containerFactory(SERVICES.IFileService)
-    private fileService: IFileService;
+    private fileService = new FileService();
 
     async handle(payload: FileMultipartRepPayload): Promise<any>
     {

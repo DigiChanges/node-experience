@@ -1,8 +1,5 @@
-import { IEncryption } from '@digichanges/shared-experience';
 import TokenFactory from '../../../Shared/Factories/TokenFactory';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { SERVICES } from '../../../services';
 import UserService from '../../../User/Domain/Services/UserService';
 import EventHandler from '../../../Shared/Events/EventHandler';
 import SendEmailService from '../../../Notification/Domain/Services/SendEmailService';
@@ -15,18 +12,13 @@ import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
 
 class RegisterUseCase
 {
-    @containerFactory(SERVICES.IUserService)
-    private userService: UserService;
-    private encryption: IEncryption;
-    private tokenFactory: TokenFactory;
-    private eventHandler: EventHandler;
+    private userService = new UserService();
 
-    constructor()
-    {
-        this.tokenFactory = new TokenFactory();
-        this.encryption = EncryptionFactory.create();
-        this.eventHandler = EventHandler.getInstance();
-    }
+    private encryption = EncryptionFactory.create();
+
+    private tokenFactory = new TokenFactory();
+
+    private eventHandler = EventHandler.getInstance();
 
     async handle(payload: RegisterPayload): Promise<ILocaleMessage>
     {

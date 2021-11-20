@@ -1,14 +1,11 @@
 import FileBase64RepPayload from '../../InterfaceAdapters/Payloads/FileBase64RepPayload';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 import File from '../Entities/File';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { SERVICES } from '../../../services';
-import IFileService from '../../InterfaceAdapters/IFileService';
+import FileService from '../Services/FileService';
 
 class UploadBase64UseCase
 {
-    @containerFactory(SERVICES.IFileService)
-    private fileService: IFileService;
+    private fileService = new FileService();
 
     async handle(payload: FileBase64RepPayload): Promise<any>
     {

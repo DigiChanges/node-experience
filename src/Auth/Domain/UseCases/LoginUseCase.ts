@@ -1,5 +1,3 @@
-import { IEncryption } from '@digichanges/shared-experience';
-
 import AuthPayload from '../../InterfaceAdapters/Payloads/AuthPayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
@@ -18,14 +16,10 @@ class LoginUseCase
 {
     @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-    private encryption: IEncryption;
-    private tokenFactory: TokenFactory;
 
-    constructor()
-    {
-        this.tokenFactory = new TokenFactory();
-        this.encryption = EncryptionFactory.create();
-    }
+    private encryption = EncryptionFactory.create();
+
+    private tokenFactory = new TokenFactory();
 
     async handle(payload: AuthPayload): Promise<IToken>
     {

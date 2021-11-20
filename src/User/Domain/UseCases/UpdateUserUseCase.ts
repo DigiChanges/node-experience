@@ -3,14 +3,11 @@ import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import CheckUserRolePayload from '../../InterfaceAdapters/Payloads/CheckUserRolePayload';
 import Roles from '../../../Config/Roles';
 import CantDisabledException from '../../../Auth/Domain/Exceptions/CantDisabledException';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { SERVICES } from '../../../services';
-import IUserService from '../../InterfaceAdapters/IUserService';
+import UserService from '../Services/UserService';
 
 class UpdateUserUseCase
 {
-    @containerFactory(SERVICES.IUserService)
-    private userService: IUserService;
+    private userService = new UserService();
 
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {

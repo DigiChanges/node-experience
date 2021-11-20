@@ -1,12 +1,9 @@
 import NotificationSendMessagePayload from '../../InterfaceAdapters/Payloads/NotificationSendMessagePayload';
-import INotificationService from '../../InterfaceAdapters/INotificationService';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { SERVICES } from '../../../services';
+import NotificationService from '../Services/NotificationService';
 
 class SendPushNotificationUseCase
 {
-    @containerFactory(SERVICES.INotificationService)
-    private notificationService: INotificationService;
+    private notificationService = new NotificationService();
 
     async handle(payload: NotificationSendMessagePayload)
     {

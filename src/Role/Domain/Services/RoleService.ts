@@ -6,20 +6,15 @@ import { REPOSITORIES } from '../../../repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import RoleUpdatePayload from '../../InterfaceAdapters/Payloads/RoleUpdatePayload';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
-import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
-import { SERVICES } from '../../../services';
-import { injectable } from 'inversify';
-import IRoleService from '../../InterfaceAdapters/IRoleService';
 import UniqueService from '../../../App/Domain/Services/UniqueService';
+import AuthService from '../../../Auth/Domain/Services/AuthService';
 
-@injectable()
-class RoleService implements IRoleService
+class RoleService
 {
     @containerFactory(REPOSITORIES.IRoleRepository)
     private repository: IRoleRepository;
 
-    @containerFactory(SERVICES.IAuthService)
-    private authService: IAuthService;
+    private authService = new AuthService();
 
     async persist(role: IRoleDomain, payload: RoleRepPayload): Promise<IRoleDomain>
     {

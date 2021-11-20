@@ -1,8 +1,6 @@
-import { injectable } from 'inversify';
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
-import IFileService from '../../InterfaceAdapters/IFileService';
-import { containerFactory }  from '../../../Shared/Decorators/ContainerFactory';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../repositories';
 import IFileRepository from '../../InterfaceAdapters/IFileRepository';
 import PresignedFileRepPayload from 'File/InterfaceAdapters/Payloads/PresignedFileRepPayload';
@@ -16,8 +14,7 @@ import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import FileDTO from '../../InterfaceAdapters/Payloads/FileDTO';
 import IFileDTO from '../../InterfaceAdapters/Payloads/IFileDTO';
 
-@injectable()
-class FileService implements IFileService
+class FileService
 {
     @containerFactory(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;

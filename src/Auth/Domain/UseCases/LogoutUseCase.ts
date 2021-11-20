@@ -1,5 +1,4 @@
 import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
-import TokenFactory from '../../../Shared/Factories/TokenFactory';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../repositories';
 import { ITokenRepository } from '@digichanges/shared-experience';
@@ -12,14 +11,8 @@ class LogoutUseCase
 {
     @containerFactory(REPOSITORIES.ITokenRepository)
     private tokenRepository: ITokenRepository<ITokenDomain>;
-    private tokenFactory: TokenFactory;
 
-    constructor()
-    {
-        this.tokenFactory = new TokenFactory();
-    }
-
-    async handle(tokenDecode:ITokenDecode): Promise<ILocaleMessage>
+    async handle(tokenDecode: ITokenDecode): Promise<ILocaleMessage>
     {
         const tokenId = tokenDecode.id;
 

@@ -1,14 +1,12 @@
-import ContainerFactory from '../../../../Shared/Factories/ContainerFactory';
-import IAuthService from '../../../InterfaceAdapters/IAuthService';
-import { SERVICES } from '../../../../services';
 import ErrorHttpException from '../../../../App/Presentation/Shared/ErrorHttpException';
 import { StatusCode } from '@digichanges/shared-experience';
+import AuthService from '../../../Domain/Services/AuthService';
 
 const RefreshTokenMiddleware = async(req: any, response: any, next: any) =>
 {
     try
     {
-        const authService =  ContainerFactory.create<IAuthService>(SERVICES.IAuthService);
+        const authService =  new AuthService();
         const refreshToken = req.headers.cookie.split('refreshToken=')[1];
 
         if (refreshToken)

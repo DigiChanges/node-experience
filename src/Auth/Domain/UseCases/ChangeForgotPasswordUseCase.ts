@@ -6,13 +6,14 @@ import { REPOSITORIES } from '../../../repositories';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import MainConfig from '../../../Config/mainConfig';
 import Locales from '../../../App/Presentation/Shared/Locales';
+import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
 
 class ChangeForgotPasswordUseCase
 {
     @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
 
-    async handle(payload: ChangeForgotPasswordPayload)
+    async handle(payload: ChangeForgotPasswordPayload): Promise<ILocaleMessage>
     {
         const config = MainConfig.getInstance();
         const confirmationToken = payload.getConfirmationToken();

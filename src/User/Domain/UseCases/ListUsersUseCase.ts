@@ -1,12 +1,9 @@
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { SERVICES } from '../../../services';
-import IUserService from '../../InterfaceAdapters/IUserService';
+import UserService from '../Services/UserService';
 
 class ListUsersUseCase
 {
-    @containerFactory(SERVICES.IUserService)
-    private userService: IUserService;
+    private userService = new UserService();
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {

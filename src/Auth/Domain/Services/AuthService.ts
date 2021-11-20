@@ -1,8 +1,5 @@
-import { injectable } from 'inversify';
 import jwt, { TAlgorithm } from 'jwt-simple';
 import _ from 'lodash';
-
-import IAuthService from '../../InterfaceAdapters/IAuthService';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import Permissions from '../../../Config/Permissions';
 import WrongPermissionsException from '../Exceptions/WrongPermissionsException';
@@ -15,11 +12,11 @@ import TokenNotFoundHttpException from '../../Presentation/Exceptions/TokenNotFo
 import Auth from '../Types/Auth';
 import MainConfig from '../../../Config/mainConfig';
 
-@injectable()
-class AuthService implements IAuthService
+class AuthService
 {
     @containerFactory(REPOSITORIES.IUserRepository)
     private userRepository: IUserRepository
+
     private config = MainConfig.getInstance();
 
     public decodeToken(token: string, bearer = true): ITokenDecode
