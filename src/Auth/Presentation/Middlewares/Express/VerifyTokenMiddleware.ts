@@ -1,6 +1,5 @@
 import VerifyTokenBlacklistUseCase from '../../../Domain/UseCases/VerifyTokenBlacklistUseCase';
 
-
 const VerifyTokenMiddleware = async(req: any, response: any, next: any) =>
 {
     try

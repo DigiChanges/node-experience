@@ -14,6 +14,8 @@ import FileUpdateMultipartRequest from '../../Requests/FileUpdateMultipartReques
 import FileMultipartRepRequest from '../../Requests/FileMultipartRepRequest';
 import FileReqMulter from '../../Middlewares/Koa/FileReqMulter';
 import ObjectTransformer from '../../Transformers/ObjectTransformer';
+import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/AuthorizeMiddleware';
+import Permissions from '../../../../Config/Permissions';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/files'
@@ -23,7 +25,7 @@ const FileHandler: Router = new Router(routerOpts);
 const responder: Responder = new Responder();
 const controller = new FileController();
 
-FileHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
+FileHandler.get('/', AuthorizeMiddleware(Permissions.FILES_LIST), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new FileRequestCriteria(ctx.request.query, ctx.request.url);
 
@@ -32,7 +34,7 @@ FileHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
     await responder.paginate(paginator, ctx, StatusCode.HTTP_OK, new FileTransformer());
 });
 
-FileHandler.get('/objects', async(ctx: Koa.ParameterizedContext & any) =>
+FileHandler.get('/objects', AuthorizeMiddleware(Permissions.FILES_LIST), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new ListObjectsRequest(ctx.request.query);
 
@@ -41,7 +43,7 @@ FileHandler.get('/objects', async(ctx: Koa.ParameterizedContext & any) =>
     await responder.send(objects, ctx, StatusCode.HTTP_OK, new ObjectTransformer());
 });
 
-FileHandler.get('/metadata/:id', async(ctx: Koa.ParameterizedContext & any) =>
+FileHandler.get('/metadata/:id', AuthorizeMiddleware(Permissions.FILES_SHOW_METADATA), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new IdRequest(ctx.params.id);
 
@@ -50,7 +52,7 @@ FileHandler.get('/metadata/:id', async(ctx: Koa.ParameterizedContext & any) =>
     responder.send(file, ctx, StatusCode.HTTP_OK, new FileTransformer());
 });
 
-FileHandler.post('/base64', async(ctx: Koa.ParameterizedContext & any) =>
+FileHandler.post('/base64', AuthorizeMiddleware(Permissions.FILES_UPLOAD), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new FileBase64RepRequest(ctx.request.body);
 
@@ -59,7 +61,7 @@ FileHandler.post('/base64', async(ctx: Koa.ParameterizedContext & any) =>
     responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
-FileHandler.post('/', FileReqMulter.single('file'), async(ctx: Koa.ParameterizedContext & any) =>
+FileHandler.post('/', <any>FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPLOAD), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new FileMultipartRepRequest(ctx.request);
 
@@ -68,7 +70,7 @@ FileHandler.post('/', FileReqMulter.single('file'), async(ctx: Koa.Parameterized
     responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
-FileHandler.post('/presignedGetObject', async(ctx: Koa.ParameterizedContext & any) =>
+FileHandler.post('/presigned-get-object', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new PresignedFileRepRequest(ctx.request.body);
 
@@ -77,7 +79,7 @@ FileHandler.post('/presignedGetObject', async(ctx: Koa.ParameterizedContext & an
     responder.send({ presignedGetObject }, ctx, StatusCode.HTTP_OK, null);
 });
 
-FileHandler.get('/:id', async(ctx: Koa.ParameterizedContext & any) =>
+FileHandler.get('/:id', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new IdRequest(ctx.params.id);
 
@@ -86,7 +88,16 @@ FileHandler.get('/:id', async(ctx: Koa.ParameterizedContext & any) =>
     responder.sendStream(fileDto, ctx, StatusCode.HTTP_OK);
 });
 
-FileHandler.put('/base64/:id', async(ctx: Koa.ParameterizedContext & any) =>
+FileHandler.get('/:id', AuthorizeMiddleware(Permissions.FILES_DELETE), async(ctx: Koa.ParameterizedContext & any) =>
+{
+    const _request = new IdRequest(ctx.params.id);
+
+    const file = await controller.removeFile(_request);
+
+    responder.send(file, ctx, StatusCode.HTTP_OK, new FileTransformer());
+});
+
+FileHandler.put('/base64/:id', AuthorizeMiddleware(Permissions.FILES_UPDATE), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new FileUpdateBase64Request(ctx.request.body, ctx.params.id);
 
@@ -95,7 +106,7 @@ FileHandler.put('/base64/:id', async(ctx: Koa.ParameterizedContext & any) =>
     responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
-FileHandler.put('/:id', FileReqMulter.single('file'), async(ctx: Koa.ParameterizedContext & any) =>
+FileHandler.put('/:id', <any>FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPDATE), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new FileUpdateMultipartRequest(ctx.request, ctx.params.id);
 

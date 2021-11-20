@@ -28,7 +28,6 @@ import Locales from '../Locales';
 import IAppConfig from '../../../InterfaceAdapters/IAppConfig';
 import Logger from '../../../../Shared/Logger/Logger';
 
-
 class AppExpress implements IApp
 {
     public port?: number;

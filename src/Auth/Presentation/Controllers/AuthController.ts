@@ -8,10 +8,8 @@ import SyncRolesPermissionUseCase from '../../Domain/UseCases/SyncRolesPermissio
 import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
 import ChangeForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
 import AuthPayload from '../../InterfaceAdapters/Payloads/AuthPayload';
-import IToken from '../../InterfaceAdapters/IToken';
 import RefreshTokenPayload from '../../InterfaceAdapters/Payloads/RefreshTokenPayload';
 import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
-import IGroupPermission from '../../InterfaceAdapters/IGroupPermission';
 import LogoutUseCase from '../../Domain/UseCases/LogoutUseCase';
 import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
@@ -21,6 +19,9 @@ import UpdateMeUseCase from '../../Domain/UseCases/UpdateMeUseCase';
 import UserRepPayload from '../../../User/InterfaceAdapters/Payloads/UserRepPayload';
 import VerifyYourAccountPayload from '../../InterfaceAdapters/Payloads/VerifyYourAccountPayload';
 import VerifyYourAccountUseCase from '../../Domain/UseCases/VerifyYourAccountUseCase';
+import IToken from '../../InterfaceAdapters/IToken';
+import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
+import IGroupPermission from '../../InterfaceAdapters/IGroupPermission';
 
 class AuthController
 {
@@ -32,7 +33,7 @@ class AuthController
         return await useCase.handle(request);
     }
 
-    public async register(request: RegisterPayload): Promise<Record<string, any>>
+    public async register(request: RegisterPayload): Promise<ILocaleMessage>
     {
         await ValidatorRequest.handle(request);
 
@@ -48,13 +49,13 @@ class AuthController
         return await useCase.handle(request, authUser);
     }
 
-    public async logout(tokenDecode:ITokenDecode): Promise<Record<string, any>>
+    public async logout(tokenDecode:ITokenDecode): Promise<ILocaleMessage>
     {
         const useCase = new LogoutUseCase();
         return await useCase.handle(tokenDecode);
     }
 
-    public async refreshToken(request: RefreshTokenPayload)
+    public async refreshToken(request: RefreshTokenPayload): Promise<IToken>
     {
         await ValidatorRequest.handle(request);
 
@@ -62,7 +63,7 @@ class AuthController
         return await useCase.handle(request);
     }
 
-    public async forgotPassword(request: ForgotPasswordPayload)
+    public async forgotPassword(request: ForgotPasswordPayload): Promise<ILocaleMessage>
     {
         await ValidatorRequest.handle(request);
 
@@ -78,7 +79,7 @@ class AuthController
         return await useCase.handle(request);
     }
 
-    public async verifyYourAccount(request: VerifyYourAccountPayload)
+    public async verifyYourAccount(request: VerifyYourAccountPayload): Promise<ILocaleMessage>
     {
         await ValidatorRequest.handle(request);
 

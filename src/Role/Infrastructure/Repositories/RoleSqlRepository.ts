@@ -7,7 +7,7 @@ import RoleFilter from '../../Presentation/Criterias/RoleFilter';
 import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
 import BaseSqlRepository from '../../../App/Infrastructure/Repositories/BaseSqlRepository';
 import Role from '../../Domain/Entities/Role';
-import RoleSchema from '../Schema/RoleTypeORM';
+import RoleSchema from '../Schemas/RoleTypeORM';
 import RoleOfSystemNotDeletedException from '../../Domain/Exceptions/RoleOfSystemNotDeletedException';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 

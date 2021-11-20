@@ -7,13 +7,14 @@ import ForgotPasswordEvent from '../../../Shared/Events/ForgotPasswordEvent';
 import SendEmailService from '../../../Notification/Domain/Services/SendEmailService';
 import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../App/Presentation/Shared/Locales';
+import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
 
 class ForgotPasswordUseCase
 {
     @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
 
-    async handle(payload: ForgotPasswordPayload)
+    async handle(payload: ForgotPasswordPayload): Promise<ILocaleMessage>
     {
         const config = MainConfig.getInstance();
         const user = await this.repository.getOneByEmail(payload.getEmail());

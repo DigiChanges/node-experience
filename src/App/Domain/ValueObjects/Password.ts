@@ -24,7 +24,7 @@ class Password
         return this;
     }
 
-    public toString = () =>
+    public toString = (): string =>
     {
         return this.value;
     };

@@ -10,9 +10,9 @@ class UpdateItemUseCase
     @containerFactory(SERVICES.IItemService)
     private itemService: IItemService;
 
-    async handle(payload: ItemUpdatePayload, auth_user: IUserDomain): Promise<IItemDomain>
+    async handle(payload: ItemUpdatePayload, authUser: IUserDomain): Promise<IItemDomain>
     {
-        return await this.itemService.update(payload, auth_user);
+        return await this.itemService.update(payload, authUser);
     }
 }
 

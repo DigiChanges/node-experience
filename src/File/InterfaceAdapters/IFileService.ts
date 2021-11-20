@@ -21,6 +21,7 @@ interface IFileService
     createBucket(payload: CreateBucketPayload): Promise<void>
     download(payload: IdPayload): Promise<IFileDTO>
     getFileUrl(file: IFileDomain, expiry: number): Promise<string>
+    removeFile(id: string): Promise<IFileDomain>
 }
 
 export default IFileService;

@@ -3,7 +3,6 @@ import FormatError from '../../Shared/FormatError';
 import { StatusCode } from '@digichanges/shared-experience';
 import RouteNotFoundHttpException from '../../Exceptions/RouteNotFoundHttpException';
 
-
 const RedirectRouteNotFoundMiddleware = (ctx: any) =>
 {
     const responder = new Responder();

@@ -6,7 +6,7 @@ import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 import Paginator from '../../../App/Presentation/Shared/Paginator';
 import UserFilter from '../../Presentation/Criterias/UserFilter';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
-import UserSchema from '../Schema/UserTypeORM';
+import UserSchema from '../Schemas/UserTypeORM';
 
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import BaseSqlRepository from '../../../App/Infrastructure/Repositories/BaseSqlRepository';

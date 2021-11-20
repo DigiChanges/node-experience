@@ -57,6 +57,11 @@ class MockMinioStrategy implements IFilesystem
         return new Promise((resolve) => resolve('success'));
     }
 
+    async removeObjects(objectName: string): Promise<void>
+    {
+        return new Promise<void>((resolve) => resolve);
+    }
+
     getClient(): any
     {
         return this.filesystem;

@@ -116,7 +116,7 @@
     },
     {
       "methods": ["POST"],
-      "url": "/api/auth/register"
+      "url": "/api/auth/signup"
     },
     {
       "methods": ["POST"],

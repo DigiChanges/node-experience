@@ -62,7 +62,7 @@ class UserController
         return await useCase.handle(request);
     }
 
-    public async remove(request: IdPayload): Promise<any>
+    public async remove(request: IdPayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(request);
 

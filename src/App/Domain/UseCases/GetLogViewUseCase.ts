@@ -3,7 +3,7 @@ import fs from 'fs';
 
 class GetLogViewUseCase
 {
-    handle(): any
+    handle(): any[]
     {
         const viewRoute = path.join(__dirname, '../../../logs');
         const rawData = fs.readFileSync(`${viewRoute}/error.log`, { encoding: 'utf-8' });

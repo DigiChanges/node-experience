@@ -13,7 +13,7 @@ class SyncRolesPermissionUseCase
     @containerFactory(REPOSITORIES.IRoleRepository)
     private repository: IRoleRepository;
 
-    handle()
+    handle(): string[]
     {
         const roles = Roles.getRoles();
 

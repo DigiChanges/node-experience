@@ -1,6 +1,5 @@
 import ITimestamps from './ITimestamps';
 
-
 interface IBaseDomain extends ITimestamps
 {
     getId(): string;

@@ -11,6 +11,7 @@ import Config from 'config';
 import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../App/Presentation/Shared/Locales';
 import RegisterPayload from '../../InterfaceAdapters/Payloads/RegisterPayload';
+import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
 
 class RegisterUseCase
 {
@@ -27,7 +28,7 @@ class RegisterUseCase
         this.eventHandler = EventHandler.getInstance();
     }
 
-    async handle(payload: RegisterPayload): Promise<Record<string, string>>
+    async handle(payload: RegisterPayload): Promise<ILocaleMessage>
     {
         const user = await this.userService.create(payload);
 

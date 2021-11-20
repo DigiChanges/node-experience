@@ -93,6 +93,11 @@ class MinioStrategy implements IFilesystem
 
     }
 
+    async removeObjects(objectName: string): Promise<void>
+    {
+        await this.filesystem.removeObject(this.bucketName, objectName);
+    }
+
     getClient(): any
     {
         return this.filesystem;

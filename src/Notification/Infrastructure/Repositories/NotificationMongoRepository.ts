@@ -29,7 +29,7 @@ class NotificationMongoRepository implements INotificationRepository<INotificati
 
     async save(notification: INotificationDomain): Promise<INotificationDomain>
     {
-        const rep = this.get_repository(notification);
+        const rep = this.getRepository(notification);
         return await rep.create(notification);
     }
 
@@ -67,7 +67,7 @@ class NotificationMongoRepository implements INotificationRepository<INotificati
         return new MongoPaginator(queryBuilder, criteria);
     }
 
-    private get_repository(kind: any)
+    private getRepository(kind: any)
     {
         if (kind instanceof EmailNotification)
         {

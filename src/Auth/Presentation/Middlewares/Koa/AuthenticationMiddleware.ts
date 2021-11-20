@@ -3,7 +3,6 @@ import { SERVICES } from '../../../../services';
 import ContainerFactory from '../../../../Shared/Factories/ContainerFactory';
 import Koa from 'koa';
 
-
 const AuthenticationMiddleware = async(ctx: Koa.ParameterizedContext, next: Koa.Next) =>
 {
     const authService =  ContainerFactory.create<IAuthService>(SERVICES.IAuthService);

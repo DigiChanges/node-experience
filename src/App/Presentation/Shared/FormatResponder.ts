@@ -2,7 +2,6 @@ import { injectable } from 'inversify';
 import { IStatusCode } from '@digichanges/shared-experience';
 import IFormatResponder from '../../../Shared/InterfaceAdapters/IFormatResponder';
 
-
 @injectable()
 class FormatResponder implements IFormatResponder
 {

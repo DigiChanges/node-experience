@@ -38,7 +38,7 @@ class ItemController
         return await useCase.handle(request);
     }
 
-    public async update(request: ItemUpdatePayload, authUser: IUserDomain)
+    public async update(request: ItemUpdatePayload, authUser: IUserDomain): Promise<IItemDomain>
     {
         await ValidatorRequest.handle(request);
 
@@ -46,7 +46,7 @@ class ItemController
         return await useCase.handle(request, authUser);
     }
 
-    public async remove(request: IdPayload)
+    public async remove(request: IdPayload): Promise<IItemDomain>
     {
         await ValidatorRequest.handle(request);
 

@@ -5,7 +5,7 @@ import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import Paginator from '../../../App/Presentation/Shared/Paginator';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
-import ItemSchema from '../Schema/ItemTypeORM';
+import ItemSchema from '../Schemas/ItemTypeORM';
 
 import BaseSqlRepository from '../../../App/Infrastructure/Repositories/BaseSqlRepository';
 
