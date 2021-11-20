@@ -2,24 +2,15 @@ import ChangeMyPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeMyPa
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import PasswordWrongException from '../../../Auth/Domain/Exceptions/PasswordWrongException';
 import Password from '../../../App/Domain/ValueObjects/Password';
-import { IEncryption } from '@digichanges/shared-experience';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { SERVICES } from '../../../services';
 import MainConfig from '../../../Config/mainConfig';
-import IUserService from '../../InterfaceAdapters/IUserService';
+import UserService from '../Services/UserService';
 
 class ChangeMyPasswordUseCase
 {
-    @containerFactory(SERVICES.IUserService)
-    private userService: IUserService;
+    private userService = new UserService();
 
-    private encryption: IEncryption;
-
-    constructor()
-    {
-        this.encryption = EncryptionFactory.create();
-    }
+    private encryption = EncryptionFactory.create();
 
     async handle(payload: ChangeMyPasswordPayload): Promise<IUserDomain>
     {

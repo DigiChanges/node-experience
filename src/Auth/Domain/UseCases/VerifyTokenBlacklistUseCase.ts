@@ -11,7 +11,7 @@ class VerifyTokenBlacklistUseCase
     @containerFactory(REPOSITORIES.ITokenRepository)
     private repository: ITokenRepository<ITokenDomain>;
 
-    async handle(tokenId: string)
+    async handle(tokenId: string): Promise<ITokenDomain>
     {
         const useCase = new GetTokenUseCase();
         const token: ITokenDomain = await useCase.handle(tokenId);

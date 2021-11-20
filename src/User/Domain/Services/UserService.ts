@@ -7,8 +7,6 @@ import User from '../Entities/User';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import { REPOSITORIES } from '../../../repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import IAuthService from '../../../Auth/InterfaceAdapters/IAuthService';
-import { SERVICES } from '../../../services';
 import CheckUserRolePayload from '../../InterfaceAdapters/Payloads/CheckUserRolePayload';
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
@@ -16,13 +14,11 @@ import ChangeUserPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeUs
 import UserAssignRolePayload from '../../InterfaceAdapters/Payloads/UserAssignRolePayload';
 import UserAssignRoleBySlug from 'User/InterfaceAdapters/Payloads/UserAssignRoleBySlug';
 import Password from '../../../App/Domain/ValueObjects/Password';
-import { injectable } from 'inversify';
-import IUserService from '../../InterfaceAdapters/IUserService';
 import UniqueService from '../../../App/Domain/Services/UniqueService';
 import MainConfig from '../../../Config/mainConfig';
+import AuthService from '../../../Auth/Domain/Services/AuthService';
 
-@injectable()
-class UserService implements IUserService
+class UserService
 {
     @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
@@ -30,8 +26,7 @@ class UserService implements IUserService
     @containerFactory(REPOSITORIES.IRoleRepository)
     private roleRepository: IRoleRepository;
 
-    @containerFactory(SERVICES.IAuthService)
-    private authService: IAuthService;
+    private authService = new AuthService();
 
     private config = MainConfig.getInstance();
 

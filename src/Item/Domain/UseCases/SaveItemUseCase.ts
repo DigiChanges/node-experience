@@ -1,14 +1,11 @@
 import ItemRepPayload from '../../InterfaceAdapters/Payloads/ItemRepPayload';
 import IItemDomain from '../../InterfaceAdapters/IItemDomain';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { SERVICES } from '../../../services';
-import IItemService from '../../InterfaceAdapters/IItemService';
+import ItemService from '../Services/ItemService';
 
 class SaveItemUseCase
 {
-    @containerFactory(SERVICES.IItemService)
-    private itemService: IItemService;
+    private itemService = new ItemService();
 
     async handle(payload: ItemRepPayload, authUser: IUserDomain): Promise<IItemDomain>
     {

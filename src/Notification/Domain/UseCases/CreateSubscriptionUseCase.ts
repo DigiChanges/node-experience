@@ -1,13 +1,10 @@
 import NotificationRepPayload from '../../InterfaceAdapters/Payloads/NotificationRepPayload';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { SERVICES } from '../../../services';
-import INotificationService from '../../InterfaceAdapters/INotificationService';
 import INotificationResponse from '../../InterfaceAdapters/INotificationResponse';
+import NotificationService from '../Services/NotificationService';
 
 class CreateSubscriptionUseCase
 {
-    @containerFactory(SERVICES.INotificationService)
-    private notificationService: INotificationService;
+    private notificationService = new NotificationService();
 
     async handle(payload: NotificationRepPayload): Promise<INotificationResponse>
     {

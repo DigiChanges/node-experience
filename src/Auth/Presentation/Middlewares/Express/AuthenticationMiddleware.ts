@@ -1,12 +1,10 @@
-import IAuthService from '../../../InterfaceAdapters/IAuthService';
-import { SERVICES } from '../../../../services';
-import ContainerFactory from '../../../../Shared/Factories/ContainerFactory';
+import AuthService from '../../../Domain/Services/AuthService';
 
 const AuthenticationMiddleware = async(req: any, res: any, next: any) =>
 {
     try
     {
-        const authService =  ContainerFactory.create<IAuthService>(SERVICES.IAuthService);
+        const authService =  new AuthService();
 
         const existMethodAndUrl = authService.checkWhitelist(req.method, req.path);
 

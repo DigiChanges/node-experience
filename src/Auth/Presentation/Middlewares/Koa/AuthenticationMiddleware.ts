@@ -1,11 +1,9 @@
-import IAuthService from '../../../InterfaceAdapters/IAuthService';
-import { SERVICES } from '../../../../services';
-import ContainerFactory from '../../../../Shared/Factories/ContainerFactory';
 import Koa from 'koa';
+import AuthService from '../../../Domain/Services/AuthService';
 
 const AuthenticationMiddleware = async(ctx: Koa.ParameterizedContext, next: Koa.Next) =>
 {
-    const authService =  ContainerFactory.create<IAuthService>(SERVICES.IAuthService);
+    const authService =  new AuthService();
 
     const existMethodAndUrl = authService.checkWhitelist(ctx.method, ctx.path);
 

@@ -1,15 +1,12 @@
 import ChangeUserPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeUserPasswordPayload';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import Password from '../../../App/Domain/ValueObjects/Password';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { SERVICES } from '../../../services';
-import IUserService from '../../InterfaceAdapters/IUserService';
 import MainConfig from '../../../Config/mainConfig';
+import UserService from '../Services/UserService';
 
 class ChangeUserPasswordUseCase
 {
-    @containerFactory(SERVICES.IUserService)
-    private userService: IUserService;
+    private userService = new UserService();
 
     async handle(payload: ChangeUserPasswordPayload): Promise<IUserDomain>
     {

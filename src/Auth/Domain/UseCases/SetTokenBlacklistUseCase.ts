@@ -9,7 +9,7 @@ class SetTokenBlacklistUseCase
     @containerFactory(REPOSITORIES.ITokenRepository)
     private repository: ITokenRepository<ITokenDomain>;
 
-    async handle(token: ITokenDomain)
+    async handle(token: ITokenDomain): Promise<void>
     {
         token.blackListed = true;
         await this.repository.save(token);

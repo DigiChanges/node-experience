@@ -2,21 +2,13 @@ import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import EventHandler from '../../../Shared/Events/EventHandler';
 import UserCreatedEvent from '../../../Shared/Events/UserCreatedEvent';
 import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { SERVICES } from '../../../services';
-import IUserService from '../../InterfaceAdapters/IUserService';
+import UserService from '../Services/UserService';
 
 class SaveUserUseCase
 {
-    @containerFactory(SERVICES.IUserService)
-    private userService: IUserService;
+    private userService = new UserService();
 
-    private eventHandler: EventHandler;
-
-    constructor()
-    {
-        this.eventHandler = EventHandler.getInstance();
-    }
+    private eventHandler = EventHandler.getInstance();
 
     async handle(payload: UserSavePayload): Promise<IUserDomain>
     {

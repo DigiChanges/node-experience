@@ -9,7 +9,7 @@ class GetTokenUseCase
     @containerFactory(REPOSITORIES.ITokenRepository)
     private repository: ITokenRepository<ITokenDomain>;
 
-    async handle(id: string)
+    async handle(id: string): Promise<ITokenDomain>
     {
         return await this.repository.getOne(id);
     }

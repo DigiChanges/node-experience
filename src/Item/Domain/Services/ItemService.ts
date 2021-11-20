@@ -7,11 +7,8 @@ import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
 import ItemUpdatePayload from '../../InterfaceAdapters/Payloads/ItemUpdatePayload';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
-import { injectable } from 'inversify';
-import IItemService from '../../InterfaceAdapters/IItemService';
 
-@injectable()
-class ItemService implements IItemService
+class ItemService
 {
     @containerFactory(REPOSITORIES.IItemRepository)
     private repository: IItemRepository;
