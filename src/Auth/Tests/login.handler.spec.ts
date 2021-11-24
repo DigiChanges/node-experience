@@ -20,7 +20,6 @@ describe('Start Login Test', () =>
     {
         await dbConnection.drop();
         await dbConnection.close();
-
     }));
 
     test('Login User Success', async() =>

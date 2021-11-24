@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { StatusCode } from '@digichanges/shared-experience';
 
 import { inject } from 'inversify';
-import { TYPES } from '../../../../types';
+import { TYPES } from '../../../../Config/Injects/types';
 import Responder from '../../../../App/Presentation/Shared/Express/Responder';
 
 import AuthorizeMiddleware from '../../Middlewares/Express/AuthorizeMiddleware';

@@ -4,7 +4,7 @@ import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import User from '../../Domain/Entities/User';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
-import { REPOSITORIES } from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 import Password from '../../../App/Domain/ValueObjects/Password';

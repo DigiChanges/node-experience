@@ -3,7 +3,7 @@ import { controller, httpDelete, httpGet, httpPost, httpPut, request, response }
 import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 
 import { inject } from 'inversify';
-import { TYPES } from '../../../../types';
+import { TYPES } from '../../../../Config/Injects/types';
 import Responder from '../../../../App/Presentation/Shared/Express/Responder';
 
 import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Express/AuthorizeMiddleware';

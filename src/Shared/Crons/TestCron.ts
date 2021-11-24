@@ -1,4 +1,5 @@
 import Cron from './Cron';
+import Logger from '../Logger/Logger';
 
 class TestCron extends Cron
 {
@@ -14,7 +15,7 @@ class TestCron extends Cron
 
     async task(): Promise<void>
     {
-        console.log('hello world 2021');
+        Logger.infoAsync('hello world 2021');
     }
 }
 

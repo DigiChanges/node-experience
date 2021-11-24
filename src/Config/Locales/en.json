@@ -4,7 +4,7 @@
 		"domain": {
 			"exceptions": {
 				"invalidPassword": "Invalid Password.",
-				"uniqueAttribute": "The {{name}} property is already in use"
+				"uniqueAttribute": "The {{name}} property is already in use."
 			}
 		},
 		"presentation": {
@@ -23,8 +23,9 @@
 				"wrongPermissions": "Wrong permissions."
 			},
 			"messages": {
-				"logout": "You have logged out successfully",
-				"forgotPassword": "We've sent you an email"
+				"logout": "You have logged out successfully.",
+				"forgotPassword": "We've sent you an email.",
+				"register": "You have sign up successfully."
 			}
 		},
 		"presentation": {
@@ -40,7 +41,7 @@
 		"domain": {
 			"exceptions": {
 				"roleDisabled": "Your role is disable.",
-				"roleOfSystemNotDeleted": "Forbidden delete role of system"
+				"roleOfSystemNotDeleted": "Forbidden delete role of system."
 			}
 		}
 	},

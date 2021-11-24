@@ -63,7 +63,7 @@ FileHandler.post('/base64', AuthorizeMiddleware(Permissions.FILES_UPLOAD), async
 
 FileHandler.post('/', <any>FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPLOAD), async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new FileMultipartRepRequest(ctx.request);
+    const _request = new FileMultipartRepRequest(ctx.request.file);
 
     const file = await controller.uploadMultipart(_request);
 

@@ -3,7 +3,7 @@ import { inject } from 'inversify';
 import { controller, httpDelete, httpGet, httpPost, httpPut, next, request, response } from 'inversify-express-utils';
 import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 
-import { TYPES } from '../../../../types';
+import { TYPES } from '../../../../Config/Injects/types';
 import Responder from '../../../../App/Presentation/Shared/Express/Responder';
 import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Express/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';

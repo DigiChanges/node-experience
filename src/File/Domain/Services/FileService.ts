@@ -1,7 +1,7 @@
 import IFileDomain from '../../InterfaceAdapters/IFileDomain';
 import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import IFileRepository from '../../InterfaceAdapters/IFileRepository';
 import PresignedFileRepPayload from 'File/InterfaceAdapters/Payloads/PresignedFileRepPayload';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';

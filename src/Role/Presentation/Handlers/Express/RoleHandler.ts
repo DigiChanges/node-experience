@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { controller, httpDelete, httpGet, httpPost, httpPut, request, response, next } from 'inversify-express-utils';
 import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 
-import { TYPES } from '../../../../types';
+import { TYPES } from '../../../../Config/Injects/types';
 import Responder from '../../../../App/Presentation/Shared/Express/Responder';
 import RoleTransformer from '../../Transformers/RoleTransformer';
 import RoleRepRequest from '../../Requests/RoleRepRequest';

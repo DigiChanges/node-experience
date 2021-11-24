@@ -133,7 +133,7 @@ module.exports = {
         '@typescript-eslint/ban-ts-comment': 0,
         '@typescript-eslint/no-unsafe-call': 0,
         '@typescript-eslint/require-await': 0,
-        'no-mixed-spaces-and-tabs': 0,
+        'no-mixed-spaces-and-tabs': 0
     }
 };
 

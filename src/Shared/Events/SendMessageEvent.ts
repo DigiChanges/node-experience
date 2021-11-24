@@ -1,4 +1,6 @@
-import Notificator from '../../Notification/Services/Notificator';
+import ContainerFactory from '../Factories/ContainerFactory';
+import INotificationFactory from '../../Notification/Shared/INotificationFactory';
+import { FACTORIES } from '../../Config/Injects/factories';
 
 class SendMessageEvent
 {
@@ -8,10 +10,13 @@ class SendMessageEvent
     {
         const { pushNotification, message } = props;
 
-        setTimeout(() =>
-        {
-            void Notificator.sendPushNotification(pushNotification, message);
-        }, 1000);
+        const notificationFactory = ContainerFactory.create<INotificationFactory>(FACTORIES.INotificationFactory);
+
+        const emailNotifier = notificationFactory.create('webPush');
+        emailNotifier.pushNotification = pushNotification;
+        emailNotifier.message = message;
+
+        await emailNotifier.send();
     }
 }
 

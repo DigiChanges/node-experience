@@ -2,7 +2,7 @@ import { controller, request, response, next, httpGet } from 'inversify-express-
 import { NextFunction, Request, Response } from 'express';
 
 import { inject } from 'inversify';
-import { TYPES } from '../../../../types';
+import { TYPES } from '../../../../Config/Injects/types';
 import Responder from '../../Shared/Express/Responder';
 
 import GetLogViewUseCase from '../../../Domain/UseCases/GetLogViewUseCase';

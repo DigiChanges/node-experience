@@ -47,6 +47,7 @@ services:
     image: minio/minio
     ports:
       - "9000:9000"
+      - "9001:9001"
     networks:
      - experiencenet
     environment:
@@ -55,7 +56,7 @@ services:
       MINIO_DOMAIN: localhost
     volumes:
       - minio:/data
-    command: server /data
+    command: server --address 0.0.0.0:9000 --console-address 0.0.0.0:9001 /data
 
   redis:
     image: bitnami/redis:latest
@@ -80,4 +81,3 @@ volumes:
     driver: "local"
   minio:
     driver: "local"
-

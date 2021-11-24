@@ -1,4 +1,3 @@
-import { validateEnv } from './Config/validateEnv';
 import MainConfig from './Config/mainConfig';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 
@@ -32,7 +31,7 @@ void (async() =>
         const cronFactory = new CronFactory();
         cronFactory.start();
 
-        const app = AppFactory.create('AppExpress', {
+        const app = AppFactory.create('AppKoa', {
             viewRouteEngine: `${process.cwd()}/dist/App/Presentation/Views`,
             localesDirectory: `${process.cwd()}/dist/src/Config/Locales`,
             serverPort: config.getConfig().serverPort

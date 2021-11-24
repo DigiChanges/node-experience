@@ -1,6 +1,6 @@
 import { ITokenRepository } from '@digichanges/shared-experience';
 
-import { REPOSITORIES } from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ITokenDomain from '../../../Auth/InterfaceAdapters/ITokenDomain';
 

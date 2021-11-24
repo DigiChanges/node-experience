@@ -6,7 +6,7 @@ import {
     PaginatorTransformer,
     Transformer
 } from '@digichanges/shared-experience';
-import { TYPES } from '../../../../types';
+import { TYPES } from '../../../../Config/Injects/types';
 import IFileDTO from '../../../../File/InterfaceAdapters/Payloads/IFileDTO';
 import IFormatResponder from '../../../../Shared/InterfaceAdapters/IFormatResponder';
 

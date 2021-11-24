@@ -11,8 +11,8 @@ import IUserRepository from './User/InterfaceAdapters/IUserRepository';
 import IRoleRepository from './Role/InterfaceAdapters/IRoleRepository';
 import IFileRepository from './File/InterfaceAdapters/IFileRepository';
 
-import { REPOSITORIES } from './repositories';
-import { TYPES } from './types';
+import { REPOSITORIES } from './Config/Injects/repositories';
+import { TYPES } from './Config/Injects/types';
 
 import ItemMongoRepository from './Item/Infrastructure/Repositories/ItemMongoRepository';
 import UserMongoRepository from './User/Infrastructure/Repositories/UserMongoRepository';
@@ -29,10 +29,11 @@ import ITokenDomain from './Auth/InterfaceAdapters/ITokenDomain';
 import INotificationRepository from './Notification/InterfaceAdapters/INotificationRepository';
 import INotificationDomain from './Notification/InterfaceAdapters/INotificationDomain';
 import NotificationMongoRepository from './Notification/Infrastructure/Repositories/NotificationMongoRepository';
+import INotificationFactory from './Notification/Shared/INotificationFactory';
+import { FACTORIES } from './Config/Injects/factories';
+import NotificationFactory from './Notification/Shared/NotificationFactory';
 
 const container = new Container();
-
-/* IServices */
 
 /* Libs */
 container.bind<Responder>(TYPES.Responder).to(Responder);
@@ -56,5 +57,8 @@ else if (MainConfig.getInstance().getConfig().dbConfig.default === 'Mongoose')
 }
 
 container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(TokenRedisRepository);
+
+/* Factories */
+container.bind<INotificationFactory>(FACTORIES.INotificationFactory).to(NotificationFactory);
 
 export default container;

@@ -72,7 +72,7 @@
     "secure":false,
     "senderName": "Notifications",
     "senderEmailDefault": "notification@localhost.com",
-    "templateDir": "App/Infrastructure/templates/emails"
+    "templateDir": "src/App/Infrastructure/templates/emails"
   },
   "url":{
     "urlApi": "http://localhost:8089/api/",

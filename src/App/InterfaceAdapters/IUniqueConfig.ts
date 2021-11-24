@@ -1,4 +1,4 @@
-import { REPOSITORIES } from '../../repositories';
+import { REPOSITORIES } from '../../Config/Injects/repositories';
 
 interface IUniqueConfig<T = any>
 {

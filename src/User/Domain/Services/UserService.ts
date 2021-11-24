@@ -5,7 +5,7 @@ import UserRepPayload from '../../InterfaceAdapters/Payloads/UserRepPayload';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import User from '../Entities/User';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
-import { REPOSITORIES } from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import CheckUserRolePayload from '../../InterfaceAdapters/Payloads/CheckUserRolePayload';
 import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';

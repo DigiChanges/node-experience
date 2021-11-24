@@ -1,6 +1,6 @@
 import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { ITokenRepository } from '@digichanges/shared-experience';
 import ITokenDomain from '../../InterfaceAdapters/ITokenDomain';
 import SetTokenBlacklistUseCase from './SetTokenBlacklistUseCase';

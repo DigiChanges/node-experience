@@ -1,4 +1,6 @@
-import Notificator from '../../Notification/Services/Notificator';
+import ContainerFactory from '../Factories/ContainerFactory';
+import INotificationFactory from '../../Notification/Shared/INotificationFactory';
+import { FACTORIES } from '../../Config/Injects/factories';
 
 class VerifiedAccountEvent
 {
@@ -8,10 +10,14 @@ class VerifiedAccountEvent
     {
         const { emailNotification, args } = props;
 
-        setTimeout(() =>
-        {
-            void Notificator.sendEmail(emailNotification, 'auth/verifiedAccount.hbs', args);
-        }, 1000);
+        const notificationFactory = ContainerFactory.create<INotificationFactory>(FACTORIES.INotificationFactory);
+
+        const emailNotificator = notificationFactory.create('email');
+        emailNotificator.emailNotification = emailNotification;
+        emailNotificator.templatePathNameFile = 'auth/verifiedAccount.hbs';
+        emailNotificator.data = args;
+
+        await emailNotificator.send();
     }
 }
 

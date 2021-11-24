@@ -1,7 +1,7 @@
 import { SuperAgentTest } from 'supertest';
 import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
-import Notificator from '../../Notification/Services/Notificator';
+import EmailStrategy from '../../Notification/Shared/EmailStrategy';
 
 describe('Start ForgotPassword Test', () =>
 {
@@ -11,9 +11,9 @@ describe('Start ForgotPassword Test', () =>
 
     beforeAll(async() =>
     {
-        jest.mock('../../Notification/Services/Notificator', () => jest.fn());
+        jest.mock('../../Notification/Shared/EmailStrategy', () => jest.fn());
         // @ts-ignore
-        Notificator.sendEmail = jest.fn(() => async() => new Promise<boolean>((resolve) => resolve(true)));
+        EmailStrategy.send = jest.fn(() => async() => new Promise<boolean>((resolve) => resolve(true)));
 
         const configServer = await initTestServer();
 
@@ -63,7 +63,7 @@ describe('Start ForgotPassword Test', () =>
             const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
-            expect(data.message).toStrictEqual('We\'ve sent you an email');
+            expect(data.message).toStrictEqual('We\'ve sent you an email.');
         });
     });
 });

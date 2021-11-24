@@ -1,7 +1,7 @@
 import MainConfig from '../../../Config/mainConfig';
 import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
-import { REPOSITORIES } from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ForgotPasswordEvent from '../../../Shared/Events/ForgotPasswordEvent';
 import SendEmailService from '../../../Notification/Domain/Services/SendEmailService';
@@ -24,7 +24,7 @@ class ForgotPasswordUseCase
 
         await this.repository.save(user);
 
-        const urlConfirmationToken = `${config.getConfig().url.urlWeb}changeForgotPassword/${user.confirmationToken}`;
+        const urlConfirmationToken = `${config.getConfig().url.urlWeb}/changeForgotPassword/${user.confirmationToken}`;
 
         void await SendEmailService.handle({
             event: ForgotPasswordEvent.FORGOT_PASSWORD_EVENT,

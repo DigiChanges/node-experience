@@ -2,7 +2,7 @@ import { ITokenRepository } from '@digichanges/shared-experience';
 import RefreshTokenPayload from '../../InterfaceAdapters/Payloads/RefreshTokenPayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import TokenFactory from '../../../Shared/Factories/TokenFactory';
-import { REPOSITORIES } from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import SetTokenBlacklistUseCase from './SetTokenBlacklistUseCase';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ITokenDomain from '../../../Auth/InterfaceAdapters/ITokenDomain';

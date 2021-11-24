@@ -6,7 +6,7 @@ import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Express/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
 
-import { TYPES } from '../../../../types';
+import { TYPES } from '../../../../Config/Injects/types';
 import Responder from '../../../../App/Presentation/Shared/Express/Responder';
 import ListObjectsRequest from '../../Requests/ListObjectsRequest';
 import FileReqMulter from '../../Middlewares/Express/FileReqMulter';
@@ -76,7 +76,7 @@ class FileHandler
     @httpPost('/', FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPLOAD))
     public async uploadMultipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new FileMultipartRepRequest(req.body);
+        const _request = new FileMultipartRepRequest(req.file);
 
         const file = await this.controller.uploadMultipart(_request);
 

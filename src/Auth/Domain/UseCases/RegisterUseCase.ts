@@ -1,30 +1,22 @@
-import TokenFactory from '../../../Shared/Factories/TokenFactory';
-import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import UserService from '../../../User/Domain/Services/UserService';
-import EventHandler from '../../../Shared/Events/EventHandler';
 import SendEmailService from '../../../Notification/Domain/Services/SendEmailService';
 import RegisterEvent from '../../../Shared/Events/RegisterEvent';
-import Config from 'config';
 import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../App/Presentation/Shared/Locales';
 import RegisterPayload from '../../InterfaceAdapters/Payloads/RegisterPayload';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
+import MainConfig from '../../../Config/mainConfig';
 
 class RegisterUseCase
 {
     private userService = new UserService();
 
-    private encryption = EncryptionFactory.create();
-
-    private tokenFactory = new TokenFactory();
-
-    private eventHandler = EventHandler.getInstance();
-
     async handle(payload: RegisterPayload): Promise<ILocaleMessage>
     {
+        const config = MainConfig.getInstance();
         const user = await this.userService.create(payload);
 
-        const urlConfirmationToken = `${Config.get('url.urlWeb')}verify-your-account/${user.confirmationToken}`;
+        const urlConfirmationToken = `${config.getConfig().url.urlWeb}verify-your-account/${user.confirmationToken}`;
 
         void await SendEmailService.handle({
             event: RegisterEvent.REGISTER_EVENT,

@@ -6,9 +6,9 @@ class FileMultipartRepRequest implements FileMultipartRepPayload
     @IsDefined()
     file: any;
 
-    constructor(data: Record<string, any>)
+    constructor(file: any)
     {
-        this.file = data.file;
+        this.file = file;
     }
 
     getOriginalName(): string

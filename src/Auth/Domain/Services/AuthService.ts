@@ -5,7 +5,7 @@ import Permissions from '../../../Config/Permissions';
 import WrongPermissionsException from '../Exceptions/WrongPermissionsException';
 import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../repositories';
+import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import TokenExpiredHttpException from '../../Presentation/Exceptions/TokenExpiredHttpException';
 import TokenNotFoundHttpException from '../../Presentation/Exceptions/TokenNotFoundHttpException';

@@ -4,12 +4,12 @@
 		"domain": {
 			"exceptions": {
 				"invalidPassword": "Contraseña invalida",
-				"uniqueAttribute": "La propiedad {{name}} ya se cuentra en uso"
+				"uniqueAttribute": "La propiedad {{name}} ya se encuentra en uso"
 			}
 		},
 		"presentation": {
 			"exceptions": {
-				"duplicateEntity": "Entidad duplocada.",
+				"duplicateEntity": "Entidad duplicada.",
 				"routeNotFound": "Ruta no encontrada."
 			}
 		}
@@ -24,7 +24,8 @@
 			},
 			"messages": {
 				"logout": "Has cerrado tu sesion correctamente.",
-                "forgotPassword": "Te hemos enviado un email."
+                "forgotPassword": "Te hemos enviado un email.",
+                "register": "Te has registrado correctamente."
 			}
 		},
 		"presentation": {
@@ -32,7 +33,7 @@
 				"forbidden": "Acceso prohibido.",
 				"tokenBlackListed": "Token no permitido.",
 				"tokenExpired": "Debes estar autenticado.",
-				"tokenNotFound": "Token no encontrado"
+				"tokenNotFound": "Token no encontrado."
 			}
 		}
 	},

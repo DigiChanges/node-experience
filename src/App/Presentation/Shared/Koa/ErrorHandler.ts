@@ -2,6 +2,7 @@ import { Context } from 'koa';
 import Responder from './Responder';
 import { ErrorExceptionMapper } from '../ErrorExceptionMapper';
 import ErrorHttpException from '../ErrorHttpException';
+import Logger from '../../../../Shared/Logger/Logger';
 
 export class ErrorHandler
 {
@@ -15,6 +16,11 @@ export class ErrorHandler
         {
             const responder = new Responder();
             const exception: ErrorHttpException = ErrorExceptionMapper.handle(err);
+
+            if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test')
+            {
+                Logger.debug(err.stack);
+            }
 
             responder.error(exception, ctx, exception.statusCode);
         }

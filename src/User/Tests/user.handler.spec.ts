@@ -4,7 +4,6 @@ import MainConfig from '../../Config/mainConfig';
 import initTestServer from '../../initTestServer';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IListUsersResponse, IUserResponse } from './types';
-import Notificator from '../../Notification/Services/Notificator';
 
 describe('Start User Test', () =>
 {
