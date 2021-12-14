@@ -8,7 +8,7 @@
       "DOM"
     ],
     "allowJs": true,
-    "outDir": "./dist/src",
+    "outDir": "./dist",
     "baseUrl": "./src",
     "module": "commonjs",
     "esModuleInterop": true,

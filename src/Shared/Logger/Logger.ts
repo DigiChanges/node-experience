@@ -10,8 +10,8 @@ const prettyPino = pretty({
 
 const streams = <any>[
     { level: 'debug', stream: prettyPino },
-    { level: 'fatal', stream: fs.createWriteStream('./dist/logs/fatal.stream.log') },
-    { level: 'error', stream: fs.createWriteStream('./dist/logs/error.stream.log') },
+    { level: 'fatal', stream: fs.createWriteStream('./dist/src/logs/fatal.stream.log') },
+    { level: 'error', stream: fs.createWriteStream('./dist/src/logs/error.stream.log') },
     { level: 'error', stream: process.stderr }
 ];
 
