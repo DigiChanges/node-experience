@@ -157,7 +157,7 @@ class EmailStrategy implements INotifierStrategy
         }
         catch (e)
         {
-            throw new ErrorException({ message: 'Error to send Email' }, 'EmailStrategy');
+            throw new ErrorException({ message: e.message }, 'EmailStrategy');
         }
     }
 }
