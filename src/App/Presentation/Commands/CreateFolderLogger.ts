@@ -9,7 +9,7 @@ CreateFolderLogger
     .description('Create dir logs')
     .action(async(name, options) =>
     {
-        const dir = './dist/logs';
+        const dir = './dist/src/logs';
 
         if (!fs.existsSync(dir))
         {
