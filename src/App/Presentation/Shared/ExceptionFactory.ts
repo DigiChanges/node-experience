@@ -2,7 +2,7 @@ import ErrorHttpException from './ErrorHttpException';
 import TokenExpiredHttpException from '../../../Auth/Presentation/Exceptions/TokenExpiredHttpException';
 import DuplicateEntityHttpException from '../Exceptions/DuplicateEntityHttpException';
 import exceptions from '../../../exceptions';
-import { ErrorException, StatusCode } from '@digichanges/shared-experience';
+import { StatusCode } from '@digichanges/shared-experience';
 
 class ExceptionFactory
 {
@@ -29,7 +29,7 @@ class ExceptionFactory
         {
             exception = new TokenExpiredHttpException();
         }
-        else if (err?.name === 'MongoError')
+        else if (err?.name === 'MongoServerError')
         {
             if (err.code === 11000)
             {
