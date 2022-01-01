@@ -34,7 +34,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
             throw new NotFoundException(this.entityName);
         }
 
-        return entity;
+        return entity as any;
     }
 
     async update(entity: T): Promise<T>
@@ -51,7 +51,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
             throw new NotFoundException(this.entityName);
         }
 
-        return entity;
+        return entity as any;
     }
 
     async getOneBy(condition: Record<string, any>, options: IByOptions = { initThrow: true, populate: null }): Promise<T>
@@ -68,7 +68,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
             throw new NotFoundException(this.entityName);
         }
 
-        return entity;
+        return entity as any;
     }
 
     async getBy(condition: Record<string, any>, options: IByOptions = { initThrow: false, populate: null }): Promise<T[]>
