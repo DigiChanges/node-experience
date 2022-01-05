@@ -9,8 +9,6 @@ RUN npm install -g pm2 && yarn
 # Bundle APP files
 COPY . /usr/app
 
-RUN yarn pre-build
-
 RUN chown -R node:node /usr/app
 
 USER node
