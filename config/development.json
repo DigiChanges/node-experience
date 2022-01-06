@@ -1,6 +1,6 @@
 {
   "env": "development",
-  "nodePath": "/usr/app",
+  "nodePath": "/home/node/app",
   "serverPort": 8089,
   "auth": {
     "authorization": false
