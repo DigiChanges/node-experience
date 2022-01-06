@@ -7,11 +7,11 @@ WORKDIR /home/node/app
 
 COPY --chown=node:node package.json yarn.lock ./
 
-RUN --chown=node:node yarn
+RUN yarn
 
-COPY --chown=node:node . .
+COPY . .
 
-RUN --chown=node:node yarn pre-build && yarn tsc
+RUN yarn pre-build && yarn tsc
 
 EXPOSE ${PORT}
 
