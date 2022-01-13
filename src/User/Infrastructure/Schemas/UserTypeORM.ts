@@ -7,7 +7,7 @@ const UserSchema = new EntitySchema<User>({
     tableName: 'users',
     columns: {
         _id: {
-            type: String,
+            type: 'uuid',
             primary: true,
             unique: true
         },
@@ -44,22 +44,32 @@ const UserSchema = new EntitySchema<User>({
             type: String
         },
         password: {
-            type: String
+            type: String,
+            transformer: {
+                from(val: string)
+                {
+                    return val;
+                },
+                to(val: Record<string, string>)
+                {
+                    return val.value;
+                }
+            }
         },
         permissions: {
             type: 'simple-array',
             nullable: true
         },
         enable: {
-            type: Boolean,
+            type: 'bool',
             default: true
         },
         verify: {
-            type: Boolean,
+            type: 'bool',
             default: false
         },
         isSuperAdmin: {
-            type: Boolean,
+            type: 'bool',
             default: false
         },
         confirmationToken: {

@@ -7,7 +7,7 @@ const RoleSchema = new EntitySchema<Role>({
     tableName: 'roles',
     columns: {
         _id: {
-            type: String,
+            type: 'uuid',
             primary: true,
             unique: true
         },
@@ -19,11 +19,11 @@ const RoleSchema = new EntitySchema<Role>({
             unique: true
         },
         enable: {
-            type: Boolean,
+            type: 'bool',
             default: true
         },
         ofSystem: {
-            type: Boolean,
+            type: 'bool',
             default: false
         },
         permissions: {

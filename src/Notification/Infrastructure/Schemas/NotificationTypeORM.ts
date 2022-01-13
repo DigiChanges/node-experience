@@ -8,7 +8,7 @@ const TypeNotificationSchema = new EntitySchema<TypeNotification>({
     tableName: 'notifications',
     columns: {
         _id: {
-            type: String,
+            type: 'uuid',
             primary: true,
             unique: true
         },

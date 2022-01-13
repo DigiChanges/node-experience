@@ -7,7 +7,7 @@ const ItemSchema = new EntitySchema<Item>({
     tableName: 'items',
     columns: {
         _id: {
-            type: String,
+            type: 'uuid',
             primary: true,
             unique: true
         },

@@ -7,7 +7,7 @@ const FileSchema = new EntitySchema<File>({
     tableName: 'files',
     columns: {
         _id: {
-            type: String,
+            type: 'uuid',
             primary: true,
             unique: true
         },
