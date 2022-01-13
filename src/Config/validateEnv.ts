@@ -10,7 +10,7 @@ export function validateEnv()
         DB_DATABASE: str(),
         DB_PASSWORD: str(),
         DB_PORT: port(),
-        DB_SINCRONIZE: bool(),
+        DB_SYNCHRONIZE: bool(),
         DB_TYPE_DEFAULT: str(),
         TZ: str(),
         JWT_SECRET: str(),

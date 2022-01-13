@@ -32,7 +32,7 @@ void (async() =>
         cronFactory.start();
 
         const app = AppFactory.create('AppKoa', {
-            viewRouteEngine: `${process.cwd()}/dist/App/Presentation/Views`,
+            viewRouteEngine: `${process.cwd()}/dist/src/App/Presentation/Views`,
             localesDirectory: `${process.cwd()}/dist/src/Config/Locales`,
             serverPort: config.getConfig().serverPort
         });

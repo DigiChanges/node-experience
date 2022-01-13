@@ -22,7 +22,8 @@
     "tsc": "tsc",
     "test": "jest --runInBand --coverage",
     "test-watch": "npx jest --watch --silent --coverage=false",
-    "watch": "nodemon dist/src/index.js"
+    "watch": "nodemon dist/src/index.js",
+    "prepare": "husky install"
   },
   "nodemonConfig": {
     "execMap": {
@@ -93,16 +94,17 @@
     "node-minio": "^1.0.2",
     "nodemailer": "6.7.2",
     "pg": "^8.7.1",
+    "pg-mem": "^2.2.0",
     "pg-promise": "^10.11.1",
     "pino-express": "^1.1.1",
     "pino-multi-stream": "^6.0.0",
     "pino-pretty": "^7.2.0",
     "promise-events": "^0.2.4",
     "reflect-metadata": "^0.1.13",
+    "shelljs": "^0.8.4",
     "tedis": "^0.1.12",
     "ts-mixer": "^6.0.0",
     "typeorm": "^0.2.38",
-    "shelljs": "^0.8.4",
     "uuid": "^8.3.2",
     "web-push": "^3.4.4"
   },
@@ -170,6 +172,6 @@
     "typescript": "^4.4.4"
   },
   "engines": {
-     "yarn": "^1.*"
+    "yarn": "^1.*"
   }
 }

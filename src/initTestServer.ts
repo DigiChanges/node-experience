@@ -2,21 +2,13 @@ import 'reflect-metadata';
 
 import supertest from 'supertest';
 
-import './App/Presentation/Handlers/Express/IndexHandler';
-import './Auth/Presentation/Handlers/Express/AuthHandler';
-import './User/Presentation/Handlers/Express/UserHandler';
-import './Role/Presentation/Handlers/Express/RoleHandler';
-import './File/Presentation/Handlers/Express/FileHandler';
-import './Item/Presentation/Handlers/Express/ItemHandler';
-import './App/Tests/Express/WhiteListHandler';
-// import "../Presentation/Handlers/NotificationHandler";
-
 import { ICreateConnection, ITokenRepository } from '@digichanges/shared-experience';
 
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 import EventHandler from './Shared/Events/EventHandler';
 import { REPOSITORIES } from './Config/Injects/repositories';
 import TokenMongoRepository from './Auth/Infrastructure/Repositories/TokenMongoRepository';
+import TokenSqlRepository from './Auth/Infrastructure/Repositories/TokenSqlRepository';
 import { validateEnv } from './Config/validateEnv';
 import container from './inversify.config';
 import ITokenDomain from './Auth/InterfaceAdapters/ITokenDomain';
@@ -26,6 +18,7 @@ import Locales from './App/Presentation/Shared/Locales';
 import { FACTORIES } from './Config/Injects/factories';
 import INotificationFactory from './Notification/Shared/INotificationFactory';
 import MockNotificationFactory from './Notification/Tests/MockNotificationFactory';
+import MainConfig from './Config/mainConfig';
 
 const initTestServer = async(): Promise<any> =>
 {
@@ -42,13 +35,18 @@ const initTestServer = async(): Promise<any> =>
 
     void Locales.getInstance();
 
+    const mainConfig = MainConfig.getInstance();
+
     container.unbind(REPOSITORIES.ITokenRepository);
-    container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(TokenMongoRepository);
+    container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(mainConfig.getConfig().dbConfig.default === 'Mongoose'
+        ? TokenMongoRepository
+        : TokenSqlRepository
+    );
 
     container.unbind(FACTORIES.INotificationFactory);
     container.bind<INotificationFactory>(FACTORIES.INotificationFactory).to(MockNotificationFactory);
 
-    const app = AppFactory.create('AppExpress', {
+    const app = AppFactory.create('AppKoa', {
         viewRouteEngine: `${process.cwd()}/dist/src/App/Presentation/Views`,
         localesDirectory: `${process.cwd()}/dist/src/Config/Locales`,
         serverPort: 8088
