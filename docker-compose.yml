@@ -70,7 +70,7 @@ services:
     networks:
      - experiencenet
     volumes:
-      - data:/bitnami/redis/data
+      - redis:/bitnami/redis/data
 
 networks:
   experiencenet:
@@ -80,4 +80,6 @@ volumes:
   data:
     driver: "local"
   minio:
+    driver: "local"
+  redis:
     driver: "local"
