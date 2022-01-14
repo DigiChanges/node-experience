@@ -38,7 +38,7 @@ class RoleSqlRepository extends BaseSqlRepository<IRoleDomain> implements IRoleR
             const _enable = filter.get(RoleFilter.ENABLE);
             const enable: boolean = _enable !== 'false';
 
-            queryBuilder.andWhere(`"${RoleFilter.ENABLE}" = :${RoleFilter.ENABLE}`);
+            queryBuilder.andWhere(`i.${RoleFilter.ENABLE} = :${RoleFilter.ENABLE}`);
             queryBuilder.setParameter(RoleFilter.ENABLE, enable);
         }
 
@@ -46,7 +46,7 @@ class RoleSqlRepository extends BaseSqlRepository<IRoleDomain> implements IRoleR
         {
             const name = filter.get(RoleFilter.NAME);
 
-            queryBuilder.andWhere(`"${RoleFilter.NAME}" ilike :${RoleFilter.NAME}`);
+            queryBuilder.andWhere(`i.${RoleFilter.NAME} ilike :${RoleFilter.NAME}`);
             queryBuilder.setParameter(RoleFilter.NAME, `%${name}%`);
         }
 
@@ -54,11 +54,11 @@ class RoleSqlRepository extends BaseSqlRepository<IRoleDomain> implements IRoleR
         {
             const slug = filter.get(RoleFilter.SLUG);
 
-            queryBuilder.andWhere(`"${RoleFilter.SLUG}" ilike :${RoleFilter.SLUG}`);
+            queryBuilder.andWhere(`i.${RoleFilter.SLUG} ilike :${RoleFilter.SLUG}`);
             queryBuilder.setParameter(RoleFilter.SLUG, `%${slug}%`);
         }
 
-        queryBuilder.andWhere(`"${RoleFilter.SLUG}" != '${Roles.SUPER_ADMIN.toLowerCase()}'`);
+        queryBuilder.andWhere(`i.${RoleFilter.SLUG} != '${Roles.SUPER_ADMIN.toLowerCase()}'`);
 
         return new Paginator(queryBuilder, criteria);
     }

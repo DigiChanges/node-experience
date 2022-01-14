@@ -30,7 +30,7 @@ class FileSqlRepository extends BaseSqlRepository<IFileDomain> implements IFileR
         {
             const name = filter.get(FileFilter.NAME);
 
-            queryBuilder.andWhere(`"${FileFilter.NAME}" ilike :${FileFilter.NAME}`);
+            queryBuilder.andWhere(`i.${FileFilter.NAME} ilike :${FileFilter.NAME}`);
             queryBuilder.setParameter(FileFilter.NAME, `%${name}%`);
         }
 

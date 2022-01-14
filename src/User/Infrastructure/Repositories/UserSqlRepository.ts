@@ -53,19 +53,18 @@ class UserSqlRepository extends BaseSqlRepository<IUserDomain> implements IUserR
 
         if (filter.has(UserFilter.ENABLE))
         {
-            // FIXME: column enable is ambiguous error occurs
-            // const _enable = filter.get(UserFilter.ENABLE);
-            // const enable: boolean = _enable !== 'false';
+            const _enable = filter.get(UserFilter.ENABLE);
+            const enable: boolean = _enable !== 'false';
 
-            // queryBuilder.andWhere(`"${UserFilter.ENABLE}" = :${UserFilter.ENABLE}`);
-            // queryBuilder.setParameter(UserFilter.ENABLE, enable);
+            queryBuilder.andWhere(`i.${UserFilter.ENABLE} = :${UserFilter.ENABLE}`);
+            queryBuilder.setParameter(UserFilter.ENABLE, enable);
         }
 
         if (filter.has(UserFilter.EMAIL))
         {
             const email = filter.get(UserFilter.EMAIL);
 
-            queryBuilder.andWhere(`"${UserFilter.EMAIL}" ilike :${UserFilter.EMAIL}`);
+            queryBuilder.andWhere(`i.${UserFilter.EMAIL} ilike :${UserFilter.EMAIL}`);
             queryBuilder.setParameter(UserFilter.EMAIL, `%${email}%`);
         }
 
@@ -73,7 +72,7 @@ class UserSqlRepository extends BaseSqlRepository<IUserDomain> implements IUserR
         {
             const isSuperAdmin = filter.get(UserFilter.IS_SUPER_ADMIN);
 
-            queryBuilder.andWhere(`"${UserFilter.IS_SUPER_ADMIN}" = :${UserFilter.IS_SUPER_ADMIN}`);
+            queryBuilder.andWhere(`i.${UserFilter.IS_SUPER_ADMIN} = :${UserFilter.IS_SUPER_ADMIN}`);
             queryBuilder.setParameter(UserFilter.IS_SUPER_ADMIN, isSuperAdmin);
         }
 
