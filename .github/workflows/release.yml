@@ -20,8 +20,14 @@ jobs:
 
     steps:
       - env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        name: Release
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ env.GITHUB_TOKEN }}
+
+      - name: Release
         uses: ridedott/release-me-action@master
         with:
           disable-changelog: true
