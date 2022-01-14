@@ -10,6 +10,7 @@ import Role from '../../Domain/Entities/Role';
 import RoleSchema from '../Schemas/RoleTypeORM';
 import RoleOfSystemNotDeletedException from '../../Domain/Exceptions/RoleOfSystemNotDeletedException';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
+import Roles from '../../../Config/Roles';
 
 @injectable()
 class RoleSqlRepository extends BaseSqlRepository<IRoleDomain> implements IRoleRepository
@@ -32,11 +33,32 @@ class RoleSqlRepository extends BaseSqlRepository<IRoleDomain> implements IRoleR
 
         queryBuilder.where('1 = 1');
 
+        if (filter.has(RoleFilter.ENABLE))
+        {
+            const _enable = filter.get(RoleFilter.ENABLE);
+            const enable: boolean = _enable !== 'false';
+
+            queryBuilder.andWhere(`"${RoleFilter.ENABLE}" = :${RoleFilter.ENABLE}`);
+            queryBuilder.setParameter(RoleFilter.ENABLE, enable);
+        }
+
         if (filter.has(RoleFilter.NAME))
         {
-            queryBuilder.andWhere(`i.${  RoleFilter.NAME  } like :${  RoleFilter.NAME}`);
-            queryBuilder.setParameter(RoleFilter.NAME, `%${filter.get(RoleFilter.NAME)}%`);
+            const name = filter.get(RoleFilter.NAME);
+
+            queryBuilder.andWhere(`"${RoleFilter.NAME}" ilike :${RoleFilter.NAME}`);
+            queryBuilder.setParameter(RoleFilter.NAME, `%${name}%`);
         }
+
+        if (filter.has(RoleFilter.SLUG))
+        {
+            const slug = filter.get(RoleFilter.SLUG);
+
+            queryBuilder.andWhere(`"${RoleFilter.SLUG}" ilike :${RoleFilter.SLUG}`);
+            queryBuilder.setParameter(RoleFilter.SLUG, `%${slug}%`);
+        }
+
+        queryBuilder.andWhere(`"${RoleFilter.SLUG}" != '${Roles.SUPER_ADMIN.toLowerCase()}'`);
 
         return new Paginator(queryBuilder, criteria);
     }
