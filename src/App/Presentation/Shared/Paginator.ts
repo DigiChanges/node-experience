@@ -69,7 +69,8 @@ class Paginator implements IPaginator
             let order = value.toUpperCase();
             order = (order === 'DESC') ? 'DESC' : 'ASC';
 
-            this.queryBuilder.addOrderBy(key, order as any);
+            const { alias } = this.queryBuilder;
+            this.queryBuilder.addOrderBy(`${alias}.${key}`, order as any);
         });
     }
 

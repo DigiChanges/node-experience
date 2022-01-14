@@ -53,14 +53,27 @@ class UserSqlRepository extends BaseSqlRepository<IUserDomain> implements IUserR
 
         if (filter.has(UserFilter.ENABLE))
         {
+            const _enable = filter.get(UserFilter.ENABLE);
+            const enable: boolean = _enable !== 'false';
+
             queryBuilder.andWhere(`i.${UserFilter.ENABLE} = :${UserFilter.ENABLE}`);
-            queryBuilder.setParameter(UserFilter.ENABLE, filter.get(UserFilter.ENABLE));
+            queryBuilder.setParameter(UserFilter.ENABLE, enable);
         }
 
         if (filter.has(UserFilter.EMAIL))
         {
-            queryBuilder.andWhere(`i.${UserFilter.EMAIL} like :${UserFilter.EMAIL}`);
-            queryBuilder.setParameter(UserFilter.EMAIL, `%${filter.get(UserFilter.EMAIL)}%`);
+            const email = filter.get(UserFilter.EMAIL);
+
+            queryBuilder.andWhere(`i.${UserFilter.EMAIL} ilike :${UserFilter.EMAIL}`);
+            queryBuilder.setParameter(UserFilter.EMAIL, `%${email}%`);
+        }
+
+        if (filter.has(UserFilter.IS_SUPER_ADMIN))
+        {
+            const isSuperAdmin = filter.get(UserFilter.IS_SUPER_ADMIN);
+
+            queryBuilder.andWhere(`i.${UserFilter.IS_SUPER_ADMIN} = :${UserFilter.IS_SUPER_ADMIN}`);
+            queryBuilder.setParameter(UserFilter.IS_SUPER_ADMIN, isSuperAdmin);
         }
 
         queryBuilder.leftJoinAndSelect('i.roles', 'role');

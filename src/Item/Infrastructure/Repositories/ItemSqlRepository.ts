@@ -27,14 +27,18 @@ class ItemSqlRepository extends BaseSqlRepository<Item> implements IItemReposito
 
         if (filter.has(ItemFilter.TYPE))
         {
-            queryBuilder.andWhere(`i.${  ItemFilter.TYPE  } = :${  ItemFilter.TYPE }`);
-            queryBuilder.setParameter(ItemFilter.TYPE, filter.get(ItemFilter.TYPE));
+            const type = filter.get(ItemFilter.TYPE);
+
+            queryBuilder.andWhere(`i.${ItemFilter.TYPE} = :${ItemFilter.TYPE}`);
+            queryBuilder.setParameter(ItemFilter.TYPE, type);
         }
 
         if (filter.has(ItemFilter.NAME))
         {
-            queryBuilder.andWhere(`i.${  ItemFilter.NAME  } like :${  ItemFilter.NAME }`);
-            queryBuilder.setParameter(ItemFilter.NAME, `%${filter.get(ItemFilter.NAME)}%`);
+            const name = filter.get(ItemFilter.NAME);
+
+            queryBuilder.andWhere(`i.${ItemFilter.NAME} ilike :${ItemFilter.NAME}`);
+            queryBuilder.setParameter(ItemFilter.NAME, `%${name}%`);
         }
 
         queryBuilder.leftJoinAndSelect('i.createdBy', 'createdBy');
