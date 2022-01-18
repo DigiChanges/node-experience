@@ -104,7 +104,7 @@
     "pino-pretty": "^7.2.0",
     "promise-events": "^0.2.4",
     "reflect-metadata": "^0.1.13",
-    "shelljs": "^0.8.4",
+    "shelljs": "^0.8.5",
     "tedis": "^0.1.12",
     "ts-mixer": "^6.0.0",
     "typeorm": "^0.2.38",
