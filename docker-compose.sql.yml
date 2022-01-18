@@ -1,4 +1,4 @@
-version: '3'
+version: '3.4'
 
 services:
   db:
@@ -8,12 +8,16 @@ services:
       context: docker/postgres/
       dockerfile: Dockerfile
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       - POSTGRES_USER=experience
       - POSTGRES_DB=experience
       - POSTGRES_PASSWORD=experience
     volumes:
-      - data:/var/lib/postgresql/data
+      - data_sql:/var/lib/postgresql/data
     networks:
       - experiencenet
+
+volumes:
+  data_sql:
+    driver: "local"

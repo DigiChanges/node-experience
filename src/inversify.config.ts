@@ -32,6 +32,10 @@ import NotificationMongoRepository from './Notification/Infrastructure/Repositor
 import INotificationFactory from './Notification/Shared/INotificationFactory';
 import { FACTORIES } from './Config/Injects/factories';
 import NotificationFactory from './Notification/Shared/NotificationFactory';
+import RoleMikroSqlRepository from './Role/Infrastructure/Repositories/RoleMikroSqlRepository';
+import UserMikroSqlRepository from './User/Infrastructure/Repositories/UserMikroSqlRepository';
+import ItemMikroSqlRepository from './Item/Infrastructure/Repositories/ItemMikroSqlRepository';
+import FileMikroSqlRepository from './File/Infrastructure/Repositories/FileMikroSqlRepository';
 
 const container = new Container();
 
@@ -54,6 +58,14 @@ else if (MainConfig.getInstance().getConfig().dbConfig.default === 'Mongoose')
     container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongoRepository);
     container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository);
     container.bind<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository).to(NotificationMongoRepository);
+}
+else if (MainConfig.getInstance().getConfig().dbConfig.default === 'MikroORM')
+{
+    container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMikroSqlRepository);
+    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMikroSqlRepository);
+    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMikroSqlRepository);
+    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMikroSqlRepository);
+    // container.bind<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository).to(NotificationMongoRepository);
 }
 
 container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(TokenRedisRepository);

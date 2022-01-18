@@ -3,7 +3,7 @@ import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import Base from '../../../App/Domain/Entities/Base';
 import Password from '../../../App/Domain/ValueObjects/Password';
 
-// TODO: check if it is necessary to add a new attribute to know if the user is varified
+// TODO: check if it is necessary to add a new attribute to know if the user is verified
 class User extends Base implements IUserDomain
 {
     firstName: string;
@@ -37,7 +37,7 @@ class User extends Base implements IUserDomain
 
     setRole(role: IRoleDomain): void
     {
-        const find = this.roles.find((_role) => _role.getId().toString() === role.getId().toString());
+        const find = this.getRoles().find((_role) => _role.getId().toString() === role.getId().toString());
 
         if (!find)
         {
@@ -47,7 +47,13 @@ class User extends Base implements IUserDomain
 
     getRoles(): IRoleDomain[]
     {
-        return this.roles;
+        if (this.roles.find)
+        {
+            return this.roles ?? [];
+        }
+
+        // @ts-ignore
+        return this.roles.getItems() ?? [];
     }
 }
 

@@ -6,7 +6,6 @@ import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import RoleUpdatePayload from '../../InterfaceAdapters/Payloads/RoleUpdatePayload';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
-import UniqueService from '../../../App/Domain/Services/UniqueService';
 import AuthService from '../../../Auth/Domain/Services/AuthService';
 
 class RoleService
@@ -20,14 +19,6 @@ class RoleService
     {
         this.authService.validatePermissions(payload.getPermissions());
 
-        void await UniqueService.validate<IRoleDomain>({
-            repository: REPOSITORIES.IRoleRepository,
-            validate: {
-                slug: payload.getSlug()
-            },
-            refValue: role.getId()
-        });
-
         role.name = payload.getName();
         role.slug = payload.getSlug();
         role.enable = payload.getEnable();
@@ -39,14 +30,6 @@ class RoleService
     async create(payload: RoleRepPayload): Promise<IRoleDomain>
     {
         const role = new Role();
-
-        void await UniqueService.validate<IRoleDomain>({
-            repository: REPOSITORIES.IRoleRepository,
-            validate: {
-                slug: payload.getSlug()
-            }
-        });
-
         return await this.persist(role, payload);
     }
 

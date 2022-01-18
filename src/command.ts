@@ -19,6 +19,7 @@ import Seed from './App/Presentation/Commands/SeedCommand';
 import initCommand from './initCommand';
 import Logger from './Shared/Logger/Logger';
 import CreateFolderLogger from './App/Presentation/Commands/CreateFolderLogger';
+import ActiveUserCommand from './User/Presentation/Commands/ActiveUserCommand';
 
 void (async() =>
 {
@@ -37,6 +38,7 @@ void (async() =>
         program.addCommand(CreateBucketCommand);
         program.addCommand(Seed);
         program.addCommand(CreateFolderLogger);
+        program.addCommand(ActiveUserCommand);
 
         await program.parseAsync(process.argv);
         exit();
@@ -44,8 +46,7 @@ void (async() =>
     catch (error)
     {
         // TODO: Add exception mapping to handle errors like server express
-        Logger.info('Error:', error);
-        Logger.info(error.message);
+        Logger.error(error);
         exit();
     }
 })();

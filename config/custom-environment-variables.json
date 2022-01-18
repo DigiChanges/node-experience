@@ -12,7 +12,8 @@
       "username": "DB_USER",
       "password": "DB_PASSWORD",
       "synchronize": "DB_SYNCHRONIZE",
-      "database": "DB_DATABASE"
+      "database": "DB_DATABASE",
+      "type": "DB_TYPE"
     },
     "Mongoose": {
       "host": "DB_HOST",
@@ -20,6 +21,14 @@
       "username": "DB_USER",
       "password": "DB_PASSWORD",
       "database": "DB_DATABASE"
+    },
+    "MikroORM": {
+      "host": "DB_HOST",
+      "port": "DB_PORT",
+      "user": "DB_USER",
+      "password": "DB_PASSWORD",
+      "dbName": "DB_DATABASE",
+      "type": "DB_TYPE"
     },
     "default" : "DB_TYPE_DEFAULT"
   },

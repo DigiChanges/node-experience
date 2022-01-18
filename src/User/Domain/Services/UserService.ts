@@ -17,6 +17,7 @@ import Password from '../../../App/Domain/ValueObjects/Password';
 import UniqueService from '../../../App/Domain/Services/UniqueService';
 import MainConfig from '../../../Config/mainConfig';
 import AuthService from '../../../Auth/Domain/Services/AuthService';
+import UserActivePayload from '../../InterfaceAdapters/Payloads/UserActivePayload';
 
 class UserService
 {
@@ -159,6 +160,17 @@ class UserService
         });
 
         return false;
+    }
+
+    async activeUser(payload: UserActivePayload): Promise<void>
+    {
+        const email = payload.getEmail();
+        const user = await this.repository.getOneByEmail(email);
+
+        user.enable = true;
+        user.verify = true;
+
+        await this.repository.save(user);
     }
 }
 

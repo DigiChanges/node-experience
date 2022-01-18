@@ -38,6 +38,14 @@
       "username": "experience",
       "password": "experience"
     },
+    "MikroORM": {
+      "type": "postgresql",
+      "host": "db",
+      "port": 5432,
+      "dbName": "experience",
+      "user": "experience",
+      "password": "experience"
+    },
     "default": "Mongoose"
   },
   "cache": {

@@ -32,6 +32,15 @@ type MongooseConfig = {
     password: string;
 };
 
+type MikroORMConfig = {
+    dbName: string,
+    host: string;
+    port: number;
+    type: 'mysql' | 'mariadb' | 'postgresql' | 'sqlite',
+    user: string;
+    password: string;
+};
+
 type RedisConfig = {
     host: string;
     port: number;
@@ -100,6 +109,7 @@ type ConfigType = {
     dbConfig: {
         TypeORM: TypeORMConfig;
         Mongoose: MongooseConfig;
+        MikroORM: MikroORMConfig;
         default: string;
     };
     cache: {

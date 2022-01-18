@@ -27,6 +27,9 @@ import IApp from '../../../InterfaceAdapters/IApp';
 import Locales from '../Locales';
 import IAppConfig from '../../../InterfaceAdapters/IAppConfig';
 import Logger from '../../../../Shared/Logger/Logger';
+import MainConfig from '../../../../Config/mainConfig';
+import { RequestContext } from '@mikro-orm/core';
+import { orm } from '../../../../Shared/Database/MikroORMCreateConnection';
 
 class AppExpress implements IApp
 {
@@ -67,6 +70,15 @@ class AppExpress implements IApp
                 partialsDir: `${this.config.viewRouteEngine}/Partials`
             }));
             app.set('view engine', '.hbs');
+
+            if (MainConfig.getInstance().getConfig().dbConfig.default === 'MikroORM')
+            {
+                app.use((req, res, next) =>
+                {
+                    RequestContext.create(orm.em, next);
+                });
+            }
+
             app.use(pinoExpress(Logger));
             app.use('/api/', Throttle);
             app.use(AuthenticationMiddleware);

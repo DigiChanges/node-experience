@@ -36,6 +36,10 @@ class ExceptionFactory
                 exception = new DuplicateEntityHttpException();
             }
         }
+        else if (err?.name === 'UniqueConstraintViolationException')
+        {
+            exception = new DuplicateEntityHttpException();
+        }
 
         return exception;
     }

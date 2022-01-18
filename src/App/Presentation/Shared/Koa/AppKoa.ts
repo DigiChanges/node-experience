@@ -22,6 +22,9 @@ import IAppConfig from '../../../InterfaceAdapters/IAppConfig';
 import WhiteListHandler from '../../../Tests/Koa/WhiteListHandler';
 import { ErrorHandler } from './ErrorHandler';
 import Logger from '../../../../Shared/Logger/Logger';
+import MainConfig from '../../../../Config/mainConfig';
+import { RequestContext } from '@mikro-orm/core';
+import { orm } from '../../../../Shared/Database/MikroORMCreateConnection';
 
 class AppKoa implements IApp
 {
@@ -53,6 +56,11 @@ class AppKoa implements IApp
         this.app.use(bodyParser({
             jsonLimit: '5mb'
         }));
+
+        if (MainConfig.getInstance().getConfig().dbConfig.default === 'MikroORM')
+        {
+            this.app.use((ctx, next) => RequestContext.createAsync(orm.em, next));
+        }
 
         this.app.use(koaPino({ logger: <any>Logger }));
 

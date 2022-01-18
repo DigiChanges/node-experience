@@ -12,7 +12,8 @@ import UserAssignRoleRequest from '../../Requests/UserAssignRoleRequest';
 import ChangeMyPasswordRequest from '../../Requests/ChangeMyPasswordRequest';
 import ChangeUserPasswordRequest from '../../Requests/ChangeUserPasswordRequest';
 import UserTransformer from '../../Transformers/UserTransformer';
-
+import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/AuthorizeMiddleware';
+import Permissions from '../../../../Config/Permissions';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/users'
@@ -22,7 +23,7 @@ const UserHandler: Router = new Router(routerOpts);
 const responder: Responder = new Responder();
 const controller = new UserController();
 
-UserHandler.post('/', async(ctx: Koa.ParameterizedContext & any) =>
+UserHandler.post('/', AuthorizeMiddleware(Permissions.USERS_SAVE), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new UserSaveRequest(ctx.request.body);
 
@@ -31,7 +32,7 @@ UserHandler.post('/', async(ctx: Koa.ParameterizedContext & any) =>
     responder.send(user, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
 });
 
-UserHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
+UserHandler.get('/', AuthorizeMiddleware(Permissions.USERS_LIST), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new UserRequestCriteria(ctx.request.query, ctx.request.url);
 
@@ -40,7 +41,7 @@ UserHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
     await responder.paginate(paginator, ctx, StatusCode.HTTP_OK, new UserTransformer());
 });
 
-UserHandler.get('/:id', async(ctx: Koa.ParameterizedContext & any) =>
+UserHandler.get('/:id', AuthorizeMiddleware(Permissions.USERS_SHOW), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new IdRequest(ctx.params.id);
 
@@ -49,7 +50,7 @@ UserHandler.get('/:id', async(ctx: Koa.ParameterizedContext & any) =>
     responder.send(user, ctx, StatusCode.HTTP_OK, new UserTransformer());
 });
 
-UserHandler.put('/:id', async(ctx: Koa.ParameterizedContext & any) =>
+UserHandler.put('/:id', AuthorizeMiddleware(Permissions.USERS_UPDATE), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new UserUpdateRequest(ctx.request.body, ctx.params.id, ctx.tokenDecode.userId);
 
@@ -58,7 +59,7 @@ UserHandler.put('/:id', async(ctx: Koa.ParameterizedContext & any) =>
     responder.send(user, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
 });
 
-UserHandler.put('/assign-role/:id', async(ctx: Koa.ParameterizedContext & any) =>
+UserHandler.put('/assign-role/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN_ROLE), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new UserAssignRoleRequest(ctx.request.body, ctx.params.id);
 
@@ -67,7 +68,7 @@ UserHandler.put('/assign-role/:id', async(ctx: Koa.ParameterizedContext & any) =
     responder.send(user, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
 });
 
-UserHandler.delete('/:id', async(ctx: Koa.ParameterizedContext & any) =>
+UserHandler.delete('/:id', AuthorizeMiddleware(Permissions.USERS_DELETE), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new IdRequest(ctx.params.id);
 
@@ -76,7 +77,7 @@ UserHandler.delete('/:id', async(ctx: Koa.ParameterizedContext & any) =>
     responder.send(user, ctx, StatusCode.HTTP_OK, new UserTransformer());
 });
 
-UserHandler.post('/change-my-password', async(ctx: Koa.ParameterizedContext & any) =>
+UserHandler.post('/change-my-password', AuthorizeMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new ChangeMyPasswordRequest(ctx.request.body, ctx.tokenDecode.userId);
 
@@ -85,7 +86,7 @@ UserHandler.post('/change-my-password', async(ctx: Koa.ParameterizedContext & an
     responder.send(user, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
 });
 
-UserHandler.put('/change-user-password/:id', async(ctx: Koa.ParameterizedContext & any) =>
+UserHandler.put('/change-user-password/:id', AuthorizeMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const _request = new ChangeUserPasswordRequest(ctx.request.body, ctx.params.id);
 

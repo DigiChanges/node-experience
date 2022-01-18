@@ -23,7 +23,8 @@
     "test": "jest --runInBand --coverage",
     "test-watch": "npx jest --watch --silent --coverage=false",
     "watch": "nodemon dist/src/index.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "sincronize": "npx ts-node src/App/Presentation/Commands/sincronizeMikroORM.ts"
   },
   "nodemonConfig": {
     "execMap": {
@@ -44,8 +45,10 @@
   "author": "Digichanges",
   "license": "MIT",
   "dependencies": {
-    "@digichanges/shared-experience": "^0.6.2",
+    "@digichanges/shared-experience": "^0.7.1",
     "@koa/multer": "^3.0.0",
+    "@mikro-orm/core": "^5.0.0-dev.636",
+    "@mikro-orm/postgresql": "^5.0.0-dev.636",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",

@@ -17,12 +17,15 @@ class ItemTransformer extends Transformer
 
     public transform(item: IItemDomain): IItemTransformer
     {
+        const createdBy = item.getCreatedBy();
+        const lastModifiedBy = item.getLastModifiedBy();
+
         return {
             id: item.getId(),
             name: item.name,
             type: item.type,
-            createdBy: this.userTransformer.handle(item.getCreatedBy()),
-            lastModifiedBy: this.userTransformer.handle(item.getCreatedBy()),
+            createdBy: createdBy ? this.userTransformer.handle(createdBy) : null,
+            lastModifiedBy: lastModifiedBy ? this.userTransformer.handle(lastModifiedBy) : null,
             createdAt: moment(item.createdAt).utc().unix(),
             updatedAt: moment(item.updatedAt).utc().unix()
         };

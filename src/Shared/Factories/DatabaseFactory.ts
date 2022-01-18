@@ -2,6 +2,7 @@ import MainConfig from '../../Config/mainConfig';
 import TypeORMCreateConnection from '../Database/TypeORMCreateConnection';
 import MongooseCreateConnection from '../Database/MongooseCreateConnection';
 import { ICreateConnection } from '@digichanges/shared-experience';
+import MikroORMCreateConnection from '../Database/MikroORMCreateConnection';
 
 class DatabaseFactory
 {
@@ -24,12 +25,13 @@ class DatabaseFactory
         const dbConfig: any = mainConfig.getConfig().dbConfig;
         const config = dbConfig[this.dbDefault];
 
-        const createConnections: Record<string, ICreateConnection> = {
-            TypeORM: new TypeORMCreateConnection(config),
-            Mongoose: new MongooseCreateConnection(config)
+        const createConnections: Record<string, any> = {
+            TypeORM: TypeORMCreateConnection,
+            Mongoose: MongooseCreateConnection,
+            MikroORM: MikroORMCreateConnection
         };
 
-        return createConnections[this.dbDefault];
+        return new createConnections[this.dbDefault](config);
     }
 }
 
