@@ -14,14 +14,12 @@ describe('Start Keep Alive Test', () =>
 
         request = configServer.request;
         dbConnection = configServer.dbConnection;
-
     });
 
     afterAll((async() =>
     {
         await dbConnection.drop();
         await dbConnection.close();
-
     }));
 
     describe('Keep Alive Success', () =>
@@ -41,7 +39,6 @@ describe('Start Keep Alive Test', () =>
             const { body: { data } } = response;
 
             token = data.token;
-
         });
 
         test.skip('Keep Alive POST /', async() =>
@@ -59,7 +56,6 @@ describe('Start Keep Alive Test', () =>
             expect(statusCode).toStrictEqual('HTTP_CREATED');
 
             token = refreshToken;
-
         });
     });
 });

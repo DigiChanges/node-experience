@@ -300,12 +300,10 @@ describe('Start User Test', () =>
             expect(pagination.nextUrl).toContain('/api/users?pagination[offset]=5&pagination[limit]=5');
             expect(pagination.prevUrl).toStrictEqual(null);
             expect(pagination.currentUrl).toContain('/api/users?pagination[offset]=0&pagination[limit]=5');
-
         });
 
         test('Get Users /users without pagination', async() =>
         {
-
             const response: IListUsersResponse = await request
                 .get('/api/users')
                 .set('Accept', 'application/json')
@@ -319,7 +317,6 @@ describe('Start User Test', () =>
             expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(pagination).not.toBeDefined();
-
         });
 
         test('Get Users /users with Filter Type', async() =>

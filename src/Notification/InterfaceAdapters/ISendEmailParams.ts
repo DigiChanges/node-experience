@@ -8,7 +8,7 @@ interface ISendEmailParams
     event: string;
     args: Record<string, any>
     name: string;
-    subject?:string;
+    subject?: string;
     data?: IEmailNotificationData;
     files?: IFileDomain[];
     to: string;

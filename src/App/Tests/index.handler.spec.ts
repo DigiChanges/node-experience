@@ -13,14 +13,12 @@ describe('Start Index Test', () =>
 
         request = configServer.request;
         dbConnection = configServer.dbConnection;
-
     });
 
     afterAll((async() =>
     {
         await dbConnection.drop();
         await dbConnection.close();
-
     }));
 
     describe('#get', () =>
@@ -29,7 +27,6 @@ describe('Start Index Test', () =>
         {
             const response: any = await request.get('/');
             expect(response.statusCode).toStrictEqual(200);
-
         });
     });
 });

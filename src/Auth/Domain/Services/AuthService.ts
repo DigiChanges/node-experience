@@ -15,7 +15,7 @@ import MainConfig from '../../../Config/mainConfig';
 class AuthService
 {
     @containerFactory(REPOSITORIES.IUserRepository)
-    private userRepository: IUserRepository
+    private userRepository: IUserRepository;
 
     private config = MainConfig.getInstance();
 

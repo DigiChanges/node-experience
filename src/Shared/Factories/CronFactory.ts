@@ -7,7 +7,7 @@ class CronFactory
 
     private crons = {
         ...crons
-    }
+    };
 
     start(name: keyof CronFactory['crons'] = null): void
     {
@@ -53,7 +53,6 @@ class CronFactory
             (new this.crons[< keyof CronFactory['crons']> name]())[method]();
         }
     }
-
 }
 
 export default CronFactory;

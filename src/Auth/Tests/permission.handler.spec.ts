@@ -15,14 +15,12 @@ describe('Start Permission Test', () =>
 
         request = configServer.request;
         dbConnection = configServer.dbConnection;
-
     });
 
     afterAll((async() =>
     {
         await dbConnection.drop();
         await dbConnection.close();
-
     }));
 
     describe('', () =>

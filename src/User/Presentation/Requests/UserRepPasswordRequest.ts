@@ -9,13 +9,13 @@ class UserRepPasswordRequest implements UserPasswordRepPayload
     @decorate(Length(MainConfig.getInstance().getConfig().validationSettings.password.minLength,
         MainConfig.getInstance().getConfig().validationSettings.password.maxLength))
     @decorate(IsString())
-    password: string;
+        password: string;
 
     @decorate(Length(MainConfig.getInstance().getConfig().validationSettings.password.minLength,
         MainConfig.getInstance().getConfig().validationSettings.password.maxLength))
     @decorate(IsString())
     @decorate(Match('password'))
-    passwordConfirmation: string;
+        passwordConfirmation: string;
 
     constructor(data: Record<string, any>)
     {

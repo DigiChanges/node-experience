@@ -18,7 +18,7 @@ class ErrorHttpException extends Error
         this._metadata = metadata;
     }
 
-    public get statusCode() : IStatusCode
+    public get statusCode(): IStatusCode
     {
         return this._statusCode;
     }
@@ -28,7 +28,7 @@ class ErrorHttpException extends Error
         this._statusCode = value;
     }
 
-    public get errors() : ValidationError[]
+    public get errors(): ValidationError[]
     {
         return this._errors;
     }
@@ -38,7 +38,7 @@ class ErrorHttpException extends Error
         this._errors = err;
     }
 
-    public get metadata() : Record<string, any>
+    public get metadata(): Record<string, any>
     {
         return this._metadata;
     }
