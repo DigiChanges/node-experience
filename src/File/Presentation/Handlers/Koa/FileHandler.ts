@@ -40,7 +40,7 @@ FileHandler.get('/objects', AuthorizeMiddleware(Permissions.FILES_LIST), async(c
 
     const objects = await controller.listFilesystemObjects(_request);
 
-    await responder.send(objects, ctx, StatusCode.HTTP_OK, new ObjectTransformer());
+    void await responder.send(objects, ctx, StatusCode.HTTP_OK, new ObjectTransformer());
 });
 
 FileHandler.get('/metadata/:id', AuthorizeMiddleware(Permissions.FILES_SHOW_METADATA), async(ctx: Koa.ParameterizedContext & any) =>
@@ -49,7 +49,7 @@ FileHandler.get('/metadata/:id', AuthorizeMiddleware(Permissions.FILES_SHOW_META
 
     const file = await controller.getFileMetadata(_request);
 
-    responder.send(file, ctx, StatusCode.HTTP_OK, new FileTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_OK, new FileTransformer());
 });
 
 FileHandler.post('/base64', AuthorizeMiddleware(Permissions.FILES_UPLOAD), async(ctx: Koa.ParameterizedContext & any) =>
@@ -58,7 +58,7 @@ FileHandler.post('/base64', AuthorizeMiddleware(Permissions.FILES_UPLOAD), async
 
     const file = await controller.uploadBase64(_request);
 
-    responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
 FileHandler.post('/', <any>FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPLOAD), async(ctx: Koa.ParameterizedContext & any) =>
@@ -67,7 +67,7 @@ FileHandler.post('/', <any>FileReqMulter.single('file'), AuthorizeMiddleware(Per
 
     const file = await controller.uploadMultipart(_request);
 
-    responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
 FileHandler.post('/presigned-get-object', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD), async(ctx: Koa.ParameterizedContext & any) =>
@@ -76,7 +76,7 @@ FileHandler.post('/presigned-get-object', AuthorizeMiddleware(Permissions.FILES_
 
     const presignedGetObject = await controller.getPresignedGetObject(_request);
 
-    responder.send({ presignedGetObject }, ctx, StatusCode.HTTP_OK, null);
+    void await responder.send({ presignedGetObject }, ctx, StatusCode.HTTP_OK, null);
 });
 
 FileHandler.get('/:id', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD), async(ctx: Koa.ParameterizedContext & any) =>
@@ -94,7 +94,7 @@ FileHandler.get('/:id', AuthorizeMiddleware(Permissions.FILES_DELETE), async(ctx
 
     const file = await controller.removeFile(_request);
 
-    responder.send(file, ctx, StatusCode.HTTP_OK, new FileTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_OK, new FileTransformer());
 });
 
 FileHandler.put('/base64/:id', AuthorizeMiddleware(Permissions.FILES_UPDATE), async(ctx: Koa.ParameterizedContext & any) =>
@@ -103,7 +103,7 @@ FileHandler.put('/base64/:id', AuthorizeMiddleware(Permissions.FILES_UPDATE), as
 
     const file = await controller.updateBase64(_request);
 
-    responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
 FileHandler.put('/:id', <any>FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPDATE), async(ctx: Koa.ParameterizedContext & any) =>
@@ -112,7 +112,7 @@ FileHandler.put('/:id', <any>FileReqMulter.single('file'), AuthorizeMiddleware(P
 
     const file = await controller.updateMultipart(_request);
 
-    responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
 export default FileHandler;

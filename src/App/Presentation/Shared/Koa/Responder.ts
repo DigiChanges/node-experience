@@ -18,7 +18,7 @@ class Responder
         this.formatError = new FormatError();
     }
 
-    public send(data: any, ctx: Koa.ParameterizedContext, status: IHttpStatusCode, transformer: Transformer = null)
+    public async send(data: any, ctx: Koa.ParameterizedContext, status: IHttpStatusCode, transformer: Transformer = null)
     {
         if (!transformer)
         {
@@ -28,7 +28,7 @@ class Responder
             };
         }
 
-        data = transformer.handle(data);
+        data = await transformer.handle(data);
 
         ctx.status = status.code;
         return ctx.body = this.formatResponder.getFormatData(data, status, null);
@@ -49,12 +49,12 @@ class Responder
             };
         }
 
-        result.data = transformer.handle(data);
+        result.data = await transformer.handle(data);
 
         if (paginator.getExist())
         {
             const paginatorTransformer = new PaginatorTransformer();
-            paginator = paginatorTransformer.handle(paginator);
+            paginator = await paginatorTransformer.handle(paginator);
 
             const pagination = { pagination: paginator };
 

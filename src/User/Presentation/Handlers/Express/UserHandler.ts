@@ -43,7 +43,7 @@ class UserHandler
 
         const user: IUserDomain = await this.controller.save(_request);
 
-        this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
+        void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
     @httpGet('/', AuthorizeMiddleware(Permissions.USERS_LIST))
@@ -63,7 +63,7 @@ class UserHandler
 
         const user: IUserDomain = await this.controller.getOne(_request);
 
-        this.responder.send(user, req, res, StatusCode.HTTP_OK, new UserTransformer());
+        void await this.responder.send(user, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
     @httpPut('/:id', AuthorizeMiddleware(Permissions.USERS_UPDATE))
@@ -73,7 +73,7 @@ class UserHandler
 
         const user: IUserDomain = await this.controller.update(_request);
 
-        this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
+        void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
     @httpPut('/assign-role/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN_ROLE))
@@ -83,7 +83,7 @@ class UserHandler
 
         const _response: IUserDomain = await this.controller.assignRole(_request);
 
-        this.responder.send(_response, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
+        void await this.responder.send(_response, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.USERS_DELETE))
@@ -93,7 +93,7 @@ class UserHandler
 
         const data = await this.controller.remove(_request);
 
-        this.responder.send(data, req, res, StatusCode.HTTP_OK, new UserTransformer());
+        void await this.responder.send(data, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
     @httpPost('/change-my-password', AuthorizeMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD))
@@ -103,7 +103,7 @@ class UserHandler
 
         const user: IUserDomain = await this.controller.changeMyPassword(_request);
 
-        this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
+        void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
     @httpPut('/change-user-password/:id', AuthorizeMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD))
@@ -113,7 +113,7 @@ class UserHandler
 
         const user: IUserDomain = await this.controller.changeUserPassword(_request);
 
-        this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
+        void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 }
 

@@ -50,7 +50,7 @@ class FileHandler
 
         const objects = await this.controller.listFilesystemObjects(_request);
 
-        this.responder.send(objects, req, res, StatusCode.HTTP_OK, new ObjectTransformer());
+        void await this.responder.send(objects, req, res, StatusCode.HTTP_OK, new ObjectTransformer());
     }
 
     @httpGet('/metadata/:id', AuthorizeMiddleware(Permissions.FILES_SHOW_METADATA))
@@ -60,7 +60,7 @@ class FileHandler
 
         const file = await this.controller.getFileMetadata(_request);
 
-        this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileTransformer());
     }
 
     @httpPost('/base64', AuthorizeMiddleware(Permissions.FILES_UPLOAD))
@@ -70,7 +70,7 @@ class FileHandler
 
         const file = await this.controller.uploadBase64(_request);
 
-        this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
     @httpPost('/', FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPLOAD))
@@ -80,7 +80,7 @@ class FileHandler
 
         const file = await this.controller.uploadMultipart(_request);
 
-        this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
     @httpPost('/presigned-get-object', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))
@@ -90,7 +90,7 @@ class FileHandler
 
         const presignedGetObject = await this.controller.getPresignedGetObject(_request);
 
-        this.responder.send({ presignedGetObject }, req, res, StatusCode.HTTP_OK, null);
+        void await this.responder.send({ presignedGetObject }, req, res, StatusCode.HTTP_OK, null);
     }
 
     @httpGet('/:id', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))
@@ -110,7 +110,7 @@ class FileHandler
 
         const file = await this.controller.removeFile(_request);
 
-        this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileTransformer());
     }
 
     @httpPut('/base64/:id', AuthorizeMiddleware(Permissions.FILES_UPDATE))
@@ -120,7 +120,7 @@ class FileHandler
 
         const file = await this.controller.updateBase64(_request);
 
-        this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
     @httpPut('/:id', FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPDATE))
@@ -130,7 +130,7 @@ class FileHandler
 
         const file = await this.controller.updateMultipart(_request);
 
-        this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 }
 

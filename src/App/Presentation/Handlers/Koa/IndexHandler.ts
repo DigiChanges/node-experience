@@ -12,7 +12,7 @@ const responder: Responder = new Responder();
 
 IndexHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
-    responder.send('Welcome to Node Experience', ctx, StatusCode.HTTP_OK);
+    void await responder.send('Welcome to Node Experience', ctx, StatusCode.HTTP_OK);
 });
 
 export default IndexHandler;

@@ -21,7 +21,7 @@ NotificationHandler.post('/subscription', async(ctx: Koa.ParameterizedContext & 
 
     const notification = await controller.uploadTestNotificationBase64(_request);
 
-    responder.send(notification, ctx, StatusCode.HTTP_CREATED);
+    void await responder.send(notification, ctx, StatusCode.HTTP_CREATED);
 });
 
 NotificationHandler.post('/message', async(ctx: Koa.ParameterizedContext & any) =>
@@ -30,7 +30,7 @@ NotificationHandler.post('/message', async(ctx: Koa.ParameterizedContext & any) 
 
     const notification = await controller.sendPushNotification(_request);
 
-    await responder.send(notification, ctx, StatusCode.HTTP_CREATED);
+    void await responder.send(notification, ctx, StatusCode.HTTP_CREATED);
 });
 
 export default NotificationHandler;

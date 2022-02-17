@@ -16,7 +16,7 @@ class AuthTransformer extends Transformer
         this.roleUserTransformer = new RoleUserTransformer();
     }
 
-    public transform(token: IToken)
+    public async transform(token: IToken)
     {
         const user: IUserDomain = token.getUser();
         const authService: AuthService = new AuthService();
@@ -29,7 +29,7 @@ class AuthTransformer extends Transformer
                 email: token.getUser().email,
                 enable: token.getUser().enable,
                 permissions: authService.getPermissions(user),
-                roles: this.roleUserTransformer.handle(token.getUser().roles),
+                roles: await this.roleUserTransformer.handle(token.getUser().roles),
                 createdAt: moment(token.getUser().createdAt).utc().unix(),
                 updatedAt: moment(token.getUser().updatedAt).utc().unix()
             },

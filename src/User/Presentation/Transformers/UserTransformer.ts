@@ -15,7 +15,7 @@ class UserTransformer extends Transformer
         this.role_transformer = new RoleTransformer();
     }
 
-    public transform(user: IUserDomain): IUserTransformer
+    public async transform(user: IUserDomain): Promise<IUserTransformer>
     {
         return {
             id: user.getId(),
@@ -30,7 +30,7 @@ class UserTransformer extends Transformer
             country: user.country,
             address: user.address,
             enable: user.enable,
-            roles: this.role_transformer.handle(user.getRoles()),
+            roles: await this.role_transformer.handle(user.getRoles()),
             permissions: user.permissions,
             createdAt: moment(user.createdAt).utc().unix(),
             updatedAt: moment(user.updatedAt).utc().unix()

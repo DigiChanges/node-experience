@@ -3,7 +3,7 @@ import { Transformer } from '@digichanges/shared-experience';
 
 class ObjectTransformer extends Transformer
 {
-    transform(object: any)
+    public async transform(object: any)
     {
         return {
             name: object.name,

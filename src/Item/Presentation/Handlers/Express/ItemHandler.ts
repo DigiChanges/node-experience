@@ -37,7 +37,7 @@ class ItemHandler
 
         const item: IItemDomain = await this.controller.save(_request, AuthUser(req));
 
-        this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new ItemTransformer());
+        void await this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
 
     @httpGet('/', AuthorizeMiddleware(Permissions.ITEMS_LIST))
@@ -57,7 +57,7 @@ class ItemHandler
 
         const item: IItemDomain = await this.controller.getOne(_request);
 
-        this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
+        void await this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
     @httpPut('/:id', AuthorizeMiddleware(Permissions.ITEMS_UPDATE))
@@ -67,7 +67,7 @@ class ItemHandler
 
         const item: IItemDomain = await this.controller.update(_request, AuthUser(req));
 
-        this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new ItemTransformer());
+        void await this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.ITEMS_DELETE))
@@ -77,7 +77,7 @@ class ItemHandler
 
         const item: IItemDomain = await this.controller.remove(_request);
 
-        this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
+        void await this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 }
 

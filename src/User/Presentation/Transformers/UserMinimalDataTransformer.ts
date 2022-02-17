@@ -5,7 +5,7 @@ import IUserMinimalDataTransformer from '../../InterfaceAdapters/IUserMinimalDat
 
 class UserMinimalDataTransformer extends Transformer
 {
-    public transform(user: IUserDomain): IUserMinimalDataTransformer
+    public async transform(user: IUserDomain): Promise<IUserMinimalDataTransformer>
     {
         return {
             id: user.getId(),
