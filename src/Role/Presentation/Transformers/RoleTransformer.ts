@@ -6,7 +6,7 @@ import IRoleTransformer from '../../InterfaceAdapters/IRoleTransformer';
 
 class RoleTransformer extends Transformer
 {
-    public transform(role: IRoleDomain): IRoleTransformer
+    public async transform(role: IRoleDomain): Promise<IRoleTransformer>
     {
         return {
             id: role.getId(),

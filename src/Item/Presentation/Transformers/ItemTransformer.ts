@@ -15,7 +15,7 @@ class ItemTransformer extends Transformer
         this.userTransformer = new UserMinimalDataTransformer();
     }
 
-    public transform(item: IItemDomain): IItemTransformer
+    public async transform(item: IItemDomain): Promise<IItemTransformer>
     {
         const createdBy = item.getCreatedBy();
         const lastModifiedBy = item.getLastModifiedBy();
@@ -24,8 +24,8 @@ class ItemTransformer extends Transformer
             id: item.getId(),
             name: item.name,
             type: item.type,
-            createdBy: createdBy ? this.userTransformer.handle(createdBy) : null,
-            lastModifiedBy: lastModifiedBy ? this.userTransformer.handle(lastModifiedBy) : null,
+            createdBy: createdBy ? await this.userTransformer.handle(createdBy) : null,
+            lastModifiedBy: lastModifiedBy ? await this.userTransformer.handle(lastModifiedBy) : null,
             createdAt: moment(item.createdAt).utc().unix(),
             updatedAt: moment(item.updatedAt).utc().unix()
         };

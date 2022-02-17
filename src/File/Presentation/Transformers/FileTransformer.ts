@@ -6,7 +6,7 @@ import IFileTransformer from '../../InterfaceAdapters/IFileTransformer';
 
 class FileTransformer extends Transformer
 {
-    transform(file: IFileDomain): IFileTransformer
+    public async transform(file: IFileDomain): Promise<IFileTransformer>
     {
         return {
             id: file.getId(),

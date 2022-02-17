@@ -13,10 +13,10 @@ class IndexHandler extends BaseHttpController
     private responder: Responder;
 
     @httpGet('/')
-    public index()
+    public async index()
     {
         const locales = Locales.getInstance().getLocales();
-        return this.responder.send({ message: locales.__('greetings') }, this.httpContext.request, this.httpContext.response, StatusCode.HTTP_OK, null);
+        return await this.responder.send({ message: locales.__('greetings') }, this.httpContext.request, this.httpContext.response, StatusCode.HTTP_OK, null);
     }
 }
 

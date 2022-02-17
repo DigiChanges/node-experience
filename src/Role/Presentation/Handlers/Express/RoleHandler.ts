@@ -35,7 +35,7 @@ class RoleHandler
 
         const role: IRoleDomain = await this.controller.save(_request);
 
-        this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
+        void await this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
     }
 
     @httpGet('/', AuthorizeMiddleware(Permissions.ROLES_LIST))
@@ -55,7 +55,7 @@ class RoleHandler
 
         const role: IRoleDomain = await this.controller.getOne(_request);
 
-        this.responder.send(role, req, res, StatusCode.HTTP_OK, new RoleTransformer());
+        void await this.responder.send(role, req, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
 
     @httpPut('/:id', AuthorizeMiddleware(Permissions.ROLES_UPDATE))
@@ -65,7 +65,7 @@ class RoleHandler
 
         const role: IRoleDomain = await this.controller.update(_request);
 
-        this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
+        void await this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.ROLES_DELETE))
@@ -75,7 +75,7 @@ class RoleHandler
 
         const data = await this.controller.remove(_request);
 
-        this.responder.send(data, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
+        void await this.responder.send(data, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
     }
 }
 
