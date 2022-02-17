@@ -18,7 +18,7 @@ class RegisterEvent
         emailNotificator.data = args;
 
         await emailNotificator.send();
-    }
+    };
 }
 
 export default RegisterEvent;

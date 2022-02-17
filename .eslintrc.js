@@ -28,7 +28,15 @@ module.exports = {
     ],
     'rules': {
         indent: 'off',
-        '@typescript-eslint/indent': ['error', 4],
+        '@typescript-eslint/indent': ['error', 4,
+          {
+            "ignoredNodes": [
+              "FunctionExpression > .params[decorators.length > 0]",
+              "FunctionExpression > .params > :matches(Decorator, :not(:first-child))",
+              "ClassBody.body > PropertyDefinition[decorators.length > 0] > .key"
+            ]
+          }
+        ],
         'quotes': ['warn', 'single'],
         'semi': ['warn', 'always'],
         'semi-spacing': ['warn', {'before': false, 'after': true}],
@@ -43,6 +51,8 @@ module.exports = {
         'space-before-function-paren': ['warn', 'never'],
         'keyword-spacing': ['warn', {'before': true}],
         'linebreak-style': ['error', 'unix'],
+        "padded-blocks": ["error", "never"],
+        "eol-last": ["error","always"],
         'brace-style': ['error', 'allman'],
         'prefer-const': ['warn'],
         'max-len': [
@@ -133,7 +143,8 @@ module.exports = {
         '@typescript-eslint/ban-ts-comment': 0,
         '@typescript-eslint/no-unsafe-call': 0,
         '@typescript-eslint/require-await': 0,
+        "@typescript-eslint/type-annotation-spacing": "warn",
+        "@typescript-eslint/no-unsafe-argument": "warn",
         'no-mixed-spaces-and-tabs': 0
     }
 };
-

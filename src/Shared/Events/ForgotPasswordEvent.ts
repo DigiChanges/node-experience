@@ -18,7 +18,7 @@ class ForgotPasswordEvent
         emailNotificator.data = args;
 
         await emailNotificator.send();
-    }
+    };
 }
 
 export default ForgotPasswordEvent;

@@ -22,14 +22,12 @@ describe('Start File Test', () =>
         dbConnection = configServer.dbConnection;
 
         jest.spyOn(FilesystemFactory, 'create').mockImplementation(() => new MockMinioStrategy());
-
     });
 
     afterAll((async() =>
     {
         await dbConnection.drop();
         await dbConnection.close();
-
     }));
 
     describe('File Success', () =>
@@ -49,7 +47,6 @@ describe('Start File Test', () =>
             const { body: { data } } = response;
 
             token = data.token;
-
         });
 
         test('Add File /files/base64', async() =>
@@ -70,7 +67,6 @@ describe('Start File Test', () =>
             expect(data.extension).toStrictEqual('jpg');
             expect(data.mimeType).toStrictEqual('image/jpeg');
             file_id = data.id;
-
         });
 
         test('Get File /files/metadata/:id', async() =>
@@ -96,7 +92,6 @@ describe('Start File Test', () =>
             expect(data.originalName).toStrictEqual(payload.originalName);
             expect(data.extension).toStrictEqual(payload.extension);
             expect(data.mimeType).toStrictEqual(payload.mimeType);
-
         });
 
         // test('Get File /files/:id', async () =>

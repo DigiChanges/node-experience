@@ -25,7 +25,6 @@ describe('Start Role Test', () =>
     {
         await dbConnection.drop();
         await dbConnection.close();
-
     }));
 
     describe('Role Success', () =>
@@ -249,12 +248,10 @@ describe('Start Role Test', () =>
             expect(pagination.nextUrl).toContain('/api/roles?pagination[offset]=5&pagination[limit]=5');
             expect(pagination.prevUrl).toStrictEqual(null);
             expect(pagination.currentUrl).toContain('/api/roles?pagination[offset]=0&pagination[limit]=5');
-
         });
 
         test('Get Roles /roles without pagination', async() =>
         {
-
             const response: IListRolesResponse = await request
                 .get('/api/roles')
                 .set('Accept', 'application/json')
@@ -273,7 +270,6 @@ describe('Start Role Test', () =>
 
         test('Get Roles /roles with Filter Type', async() =>
         {
-
             const response: IListRolesResponse = await request
                 .get('/api/roles?pagination[limit]=20&pagination[offset]=0&filter[slug]=admin')
                 .set('Accept', 'application/json')
@@ -310,7 +306,6 @@ describe('Start Role Test', () =>
 
         test('Sync roles permissions /sync-roles-permissions', async() =>
         {
-
             const response: any = await request
                 .post('/api/auth/sync-roles-permissions')
                 .set('Accept', 'application/json')
@@ -341,7 +336,6 @@ describe('Start Role Test', () =>
             const { body: { data } } = response;
 
             token = data.token;
-
         });
 
         test('Add Role /roles', async() =>
@@ -371,7 +365,6 @@ describe('Start Role Test', () =>
 
         test('Get Role /roles/:id', async() =>
         {
-
             const response: IRoleResponse = await request
                 .get(`/api/roles/${roleId}dasdasda123`)
                 .set('Accept', 'application/json')

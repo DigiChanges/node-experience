@@ -9,7 +9,7 @@ class EmailNotification extends Notification
 {
     status: StatusNotificationEnum;
     type: TypeNotificationEnum;
-    emailTemplatePath : string;
+    emailTemplatePath: string;
     htmlRender: string;
     senderName: string;
     from: string;

@@ -90,7 +90,6 @@ class MinioStrategy implements IFilesystem
 
             stream.on('error', (error: any) => reject(error));
         });
-
     }
 
     async removeObjects(objectName: string): Promise<void>

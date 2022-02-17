@@ -7,7 +7,7 @@ class SeedFactory
 {
     private seeds = {
         ...seeds
-    }
+    };
 
     public async execute(name: string): Promise<any>
     {

@@ -5,7 +5,7 @@ import Base from '../../../App/Domain/Entities/Base';
 class TypeNotification extends Base
 {
     name: string;
-    emailTemplatePath : string;
+    emailTemplatePath: string;
     senderName: string;
     from: string;
     to: string;

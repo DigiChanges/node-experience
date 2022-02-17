@@ -25,7 +25,6 @@ describe('Start ForgotPassword Test', () =>
     {
         await dbConnection.drop();
         await dbConnection.close();
-
     }));
 
     describe('ForgotPassword Success', () =>

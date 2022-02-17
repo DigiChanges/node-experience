@@ -37,7 +37,6 @@ class UpdateUserUseCase
 
         return await this.userService.persist(user, payload);
     }
-
 }
 
 export default UpdateUserUseCase;

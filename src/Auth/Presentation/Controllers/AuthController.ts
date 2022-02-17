@@ -49,7 +49,7 @@ class AuthController
         return await useCase.handle(request, authUser);
     }
 
-    public async logout(tokenDecode:ITokenDecode): Promise<ILocaleMessage>
+    public async logout(tokenDecode: ITokenDecode): Promise<ILocaleMessage>
     {
         const useCase = new LogoutUseCase();
         return await useCase.handle(tokenDecode);

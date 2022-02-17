@@ -7,7 +7,7 @@ import UserUpdatePayload from '../../InterfaceAdapters/Payloads/UserUpdatePayloa
 class UserUpdateRequest extends Mixin(UserRepRequest, IdRequest) implements UserUpdatePayload
 {
     @decorate(IsUUID('4'))
-    userId: string;
+        userId: string;
 
     constructor(data: Record<string, any>, id: string, userId: string)
     {

@@ -9,7 +9,7 @@ class UserCreatedEvent
         const { email } = props;
 
         Logger.info(`User ${email} Created!`);
-    }
+    };
 }
 
 export default UserCreatedEvent;

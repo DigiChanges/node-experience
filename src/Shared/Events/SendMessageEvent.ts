@@ -17,7 +17,7 @@ class SendMessageEvent
         emailNotifier.message = message;
 
         await emailNotifier.send();
-    }
+    };
 }
 
 export default SendMessageEvent;

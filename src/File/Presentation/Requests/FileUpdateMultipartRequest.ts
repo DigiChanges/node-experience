@@ -5,7 +5,7 @@ import { IsDefined } from 'class-validator';
 class FileUpdateMultipartRequest extends IdRequest implements FileUpdateMultipartPayload
 {
     @IsDefined()
-    file: any;
+        file: any;
 
     constructor(data: Record<string, any>, id: string)
     {

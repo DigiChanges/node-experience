@@ -23,7 +23,7 @@ class Permissions
     static readonly USERS_DELETE: string = 'usersDelete';
     static readonly USERS_ASSIGN_ROLE: string = 'usersAssignRole';
     static readonly USERS_CHANGE_MY_PASSWORD: string = 'usersChangeMyPassword';
-    static readonly USERS_CHANGE_USER_PASSWORD:string = 'usersChangeUserPassword';
+    static readonly USERS_CHANGE_USER_PASSWORD: string = 'usersChangeUserPassword';
 
     // FILES
     static readonly FILES_UPLOAD: string = 'filesUpload';

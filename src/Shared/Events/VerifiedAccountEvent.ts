@@ -18,7 +18,7 @@ class VerifiedAccountEvent
         emailNotificator.data = args;
 
         await emailNotificator.send();
-    }
+    };
 }
 
 export default VerifiedAccountEvent;
