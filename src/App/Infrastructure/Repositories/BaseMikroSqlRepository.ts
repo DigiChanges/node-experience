@@ -1,5 +1,5 @@
 import { injectable, unmanaged } from 'inversify';
-import { EntityRepository } from '@mikro-orm/core';
+import { EntityRepository, EntitySchema, FindOneOptions } from '@mikro-orm/core';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IByOptions from '../../InterfaceAdapters/IByOptions';
 import IBaseRepository from '../../InterfaceAdapters/IBaseRepository';
@@ -12,7 +12,7 @@ abstract class BaseMikroSqlRepository<T> implements IBaseRepository<T>
     protected repository: EntityRepository<any>;
     protected em = EntityManagerFactory.getEntityFactory();
 
-    constructor(@unmanaged() entityName: string, @unmanaged() entitySchema: any)
+    constructor(@unmanaged() entityName: string, @unmanaged() entitySchema: EntitySchema<any>)
     {
         this.entityName = entityName;
         this.repository = this.em.getRepository(entitySchema);
@@ -56,13 +56,11 @@ abstract class BaseMikroSqlRepository<T> implements IBaseRepository<T>
         return entity;
     }
 
-    async getOneBy(condition: Record<string, any>, options: IByOptions = { initThrow: true }): Promise<T>
+    async getOneBy(condition: Record<string, any>, options: IByOptions = {}): Promise<T>
     {
-        let { initThrow } = options;
+        const { initThrow = true, populate = [] } = options;
 
-        initThrow = initThrow ?? false;
-
-        const entity = await this.repository.findOne(condition);
+        const entity = await this.repository.findOne(condition, ({ populate } as FindOneOptions<T>));
 
         if (initThrow && !entity)
         {
