@@ -1,4 +1,4 @@
-import { Document, Model } from 'mongoose';
+import { Document, FilterQuery, Model, UpdateQuery } from 'mongoose';
 import { injectable, unmanaged } from 'inversify';
 import { connection } from '../../../Shared/Database/MongooseCreateConnection';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
@@ -27,7 +27,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
 
     async getOne(id: string): Promise<T>
     {
-        const entity = await this.repository.findOne({ _id: id } as any).populate(this.populate);
+        const entity = await this.repository.findOne({ _id: id } as FilterQuery<T>).populate(this.populate);
 
         if (!entity)
         {
@@ -39,7 +39,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
 
     async update(entity: T): Promise<T>
     {
-        return this.repository.findOneAndUpdate({ _id: entity.getId() } as any, { $set: entity } as any, { new: true }).populate(this.populate);
+        return this.repository.findOneAndUpdate({ _id: entity.getId() } as FilterQuery<T>, { $set: entity } as UpdateQuery<T>, { new: true }).populate(this.populate);
     }
 
     async delete(id: string): Promise<T>
@@ -54,14 +54,11 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
         return entity as any;
     }
 
-    async getOneBy(condition: Record<string, any>, options: IByOptions = { initThrow: true, populate: null }): Promise<T>
+    async getOneBy(condition: Record<string, any>, options: IByOptions = {}): Promise<T>
     {
-        let { initThrow, populate } = options;
+        const { initThrow = true, populate = null } = options;
 
-        initThrow = initThrow ?? false;
-        populate = populate ?? null;
-
-        const entity = await this.repository.findOne(condition as any).populate(populate).exec();
+        const entity = await this.repository.findOne(condition as FilterQuery<T>).populate(populate).exec();
 
         if (initThrow && !entity)
         {
@@ -78,7 +75,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
         initThrow = initThrow ?? false;
         populate = populate ?? null;
 
-        const entities = await this.repository.find(condition as any).populate(populate).exec();
+        const entities = await this.repository.find(condition as FilterQuery<T>).populate(populate).exec();
 
         if (initThrow && entities.length === 0)
         {
@@ -97,7 +94,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
 
     async exist(condition: Record<string, any>, select: string[], initThrow = false): Promise<any>
     {
-        const exist = await this.repository.findOne(condition as any, select.join(' '));
+        const exist = await this.repository.findOne(condition as FilterQuery<T>, select.join(' '));
 
         if (initThrow && !exist)
         {
