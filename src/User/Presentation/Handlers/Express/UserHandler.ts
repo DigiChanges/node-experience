@@ -59,7 +59,7 @@ class UserHandler
     @httpGet('/:id', AuthorizeMiddleware(Permissions.USERS_SHOW))
     public async getOne(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const _request = new IdRequest(req.params.id);
+        const _request = new IdRequest({ id: req.params.id });
 
         const user: IUserDomain = await this.controller.getOne(_request);
 
@@ -89,7 +89,7 @@ class UserHandler
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.USERS_DELETE))
     public async remove(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const _request = new IdRequest(req.params.id);
+        const _request = new IdRequest({ id: req.params.id });
 
         const data = await this.controller.remove(_request);
 

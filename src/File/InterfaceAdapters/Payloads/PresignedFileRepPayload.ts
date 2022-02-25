@@ -1,5 +1,6 @@
+import FileOptionsQueryPayload from './FileOptionsQueryPayload';
 
-interface PresignedFileRepPayload
+interface PresignedFileRepPayload extends FileOptionsQueryPayload
 {
     getName(): string,
     getExpiry(): number,

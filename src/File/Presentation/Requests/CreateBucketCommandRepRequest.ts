@@ -1,13 +1,14 @@
 import { IsString } from 'class-validator';
 import CreateBucketPayload from '../../InterfaceAdapters/Payloads/CreateBucketPayload';
 
-// TODO: Refactor set policy
 class CreateBucketCommandRequest implements CreateBucketPayload
 {
     @IsString()
     bucketName: string;
 
-    bucketPolicy: any;
+    bucketPublicPolicy: any;
+
+    bucketPrivatePolicy: any;
 
     @IsString()
     region: string;
@@ -16,7 +17,21 @@ class CreateBucketCommandRequest implements CreateBucketPayload
     {
         this.bucketName = env.bucketName;
         this.region = env.region;
-        this.bucketPolicy = {
+        this.bucketPrivatePolicy = {
+            Version: '2012-10-17',
+            Statement: [
+                {
+                    Effect: 'Allow',
+                    Principal: { AWS: '*' },
+                    Action: [
+                        's3:GetBucketLocation'
+                    ],
+                    Resource: 'arn:aws:s3:::*'
+                }
+            ]
+        };
+
+        this.bucketPublicPolicy = {
             Version: '2012-10-17',
             Statement: [
                 {
@@ -25,21 +40,11 @@ class CreateBucketCommandRequest implements CreateBucketPayload
                     Action: [
                         's3:GetBucketLocation',
                         's3:ListBucket',
-                        's3:ListBucketMultipartUploads'
+                        's3:GetObject'
                     ],
-                    Resource: `arn:aws:s3:::${this.bucketName}`
-                },
-                {
-                    Effect: 'Allow',
-                    Principal: { AWS: '*' },
-                    Action: [
-                        's3:GetObject',
-                        's3:PutObject',
-                        's3:DeleteObject',
-                        's3:ListMultipartUploadParts',
-                        's3:AbortMultipartUpload'
-                    ],
-                    Resource: `arn:aws:s3:::${this.bucketName}/*`
+                    Resource: [
+                        'arn:aws:s3:::*'
+                    ]
                 }
             ]
         };
@@ -50,9 +55,14 @@ class CreateBucketCommandRequest implements CreateBucketPayload
         return this.bucketName;
     }
 
-    getBucketPolicy(): string
+    getBucketPublicPolicy(): string
     {
-        return JSON.stringify(this.bucketPolicy);
+        return JSON.stringify(this.bucketPublicPolicy);
+    }
+
+    getBucketPrivatePolicy(): string
+    {
+        return JSON.stringify(this.bucketPrivatePolicy);
     }
 
     getRegion(): string

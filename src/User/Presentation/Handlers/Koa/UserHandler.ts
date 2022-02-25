@@ -43,7 +43,7 @@ UserHandler.get('/', AuthorizeMiddleware(Permissions.USERS_LIST), async(ctx: Koa
 
 UserHandler.get('/:id', AuthorizeMiddleware(Permissions.USERS_SHOW), async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new IdRequest(ctx.params.id);
+    const _request = new IdRequest({ id: ctx.params.id });
 
     const user: IUserDomain = await controller.getOne(_request);
 
@@ -70,7 +70,7 @@ UserHandler.put('/assign-role/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN
 
 UserHandler.delete('/:id', AuthorizeMiddleware(Permissions.USERS_DELETE), async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new IdRequest(ctx.params.id);
+    const _request = new IdRequest({ id: ctx.params.id });
 
     const user: IUserDomain = await controller.remove(_request);
 

@@ -24,7 +24,7 @@
     "test-watch": "npx jest --watch --silent --coverage=false",
     "watch": "nodemon dist/src/index.js",
     "prepare": "husky install",
-    "sincronize": "npx ts-node src/App/Presentation/Commands/sincronizeMikroORM.ts"
+    "sync-db": "npx ts-node src/App/Presentation/Commands/SynchronizeMikroORM.ts"
   },
   "nodemonConfig": {
     "execMap": {

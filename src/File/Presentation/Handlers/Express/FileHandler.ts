@@ -56,7 +56,7 @@ class FileHandler
     @httpGet('/metadata/:id', AuthorizeMiddleware(Permissions.FILES_SHOW_METADATA))
     public async getFileMetadata(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest(req.params.id);
+        const _request = new IdRequest({ id: req.params.id });
 
         const file = await this.controller.getFileMetadata(_request);
 
@@ -66,7 +66,12 @@ class FileHandler
     @httpPost('/base64', AuthorizeMiddleware(Permissions.FILES_UPLOAD))
     public async uploadBase64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new FileBase64RepRequest(req.body);
+        const body = {
+            data: req.body,
+            query: req.query
+        };
+
+        const _request = new FileBase64RepRequest(body);
 
         const file = await this.controller.uploadBase64(_request);
 
@@ -76,7 +81,12 @@ class FileHandler
     @httpPost('/', FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPLOAD))
     public async uploadMultipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new FileMultipartRepRequest(req.file);
+        const body = {
+            file: req.file,
+            params: req.params
+        };
+
+        const _request = new FileMultipartRepRequest(body);
 
         const file = await this.controller.uploadMultipart(_request);
 
@@ -86,7 +96,12 @@ class FileHandler
     @httpPost('/presigned-get-object', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))
     public async getPresignedGetObject(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new PresignedFileRepRequest(req.body);
+        const body = {
+            data: req.body,
+            query: req.query
+        };
+
+        const _request = new PresignedFileRepRequest(body);
 
         const presignedGetObject = await this.controller.getPresignedGetObject(_request);
 
@@ -96,7 +111,7 @@ class FileHandler
     @httpGet('/:id', AuthorizeMiddleware(Permissions.FILES_DOWNLOAD))
     public async downloadStreamFile(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest(req.params.id);
+        const _request = new IdRequest({ id: req.params.id });
 
         const fileDto = await this.controller.downloadStreamFile(_request);
 
@@ -106,7 +121,7 @@ class FileHandler
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.FILES_DELETE))
     public async removeFile(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest(req.params.id);
+        const _request = new IdRequest({ id: req.params.id });
 
         const file = await this.controller.removeFile(_request);
 
@@ -116,7 +131,13 @@ class FileHandler
     @httpPut('/base64/:id', AuthorizeMiddleware(Permissions.FILES_UPDATE))
     public async updateBase64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new FileUpdateBase64Request(req.body, req.params.id);
+        const body = {
+            data: req.body,
+            query: req.query,
+            id: req.params.id
+        };
+
+        const _request = new FileUpdateBase64Request(body);
 
         const file = await this.controller.updateBase64(_request);
 
@@ -126,9 +147,28 @@ class FileHandler
     @httpPut('/:id', FileReqMulter.single('file'), AuthorizeMiddleware(Permissions.FILES_UPDATE))
     public async updateMultipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new FileUpdateMultipartRequest(req.body, req.params.id);
+        const body = {
+            file: req.file,
+            params: req.params,
+            id: req.params.id
+        };
+
+        const _request = new FileUpdateMultipartRequest(body);
 
         const file = await this.controller.updateMultipart(_request);
+
+        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
+    }
+    @httpDelete('/:id', AuthorizeMiddleware(Permissions.FILES_DELETE))
+    public async deleteFile(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const body = {
+            id: req.params.id
+        };
+
+        const _request = new IdRequest(body);
+
+        const file = await this.controller.removeFile(_request);
 
         void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }

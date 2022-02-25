@@ -1,3 +1,4 @@
+
 interface IFileTransformer
 {
     id: string;
@@ -8,6 +9,7 @@ interface IFileTransformer
     extension: string;
     size: number;
     version: number;
+    isPublic: boolean;
     createdAt: number;
     updatedAt: number;
 }

@@ -1,8 +1,9 @@
+import FileOptionsQueryPayload from './FileOptionsQueryPayload';
 import FileRepPayload from './FileRepPayload';
 
-interface FileMultipartRepPayload extends FileRepPayload
+interface FileMultipartRepPayload extends FileRepPayload, FileOptionsQueryPayload
 {
-    getFile(): any
+    getFile(): any;
 }
 
 export default FileMultipartRepPayload;

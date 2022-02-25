@@ -47,7 +47,8 @@
       "useSSL": "MINIO_USE_SSL",
       "port": "MINIO_PORT",
       "region": "MINIO_REGION",
-      "bucket": "MINIO_BUCKET_NAME"
+      "bucketPublic": "MINIO_BUCKET_NAME_PUBLIC",
+      "bucketPrivate": "MINIO_BUCKET_NAME_PRIVATE"
     },
     "local": "",
     "default": "FILESYSTEM_DEFAULT"
@@ -63,7 +64,7 @@
     "port": "SMTP_PORT",
     "username": "SMTP_USERNAME",
     "password": "SMTP_PASSWORD",
-    "senderName": "SMTP_SENDERNAME",
+    "senderName": "SMTP_SENDER_NAME",
     "senderEmailDefault": "SMTP_SENDER_EMAIL_DEFAULT"
   },
   "push": {

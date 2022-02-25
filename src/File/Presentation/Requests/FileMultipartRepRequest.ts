@@ -1,13 +1,15 @@
 import FileMultipartRepPayload from '../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
 import { IsDefined } from 'class-validator';
+import FileOptionsQueryRequest from './FileOptionsQueryRequest';
 
-class FileMultipartRepRequest implements FileMultipartRepPayload
+class FileMultipartRepRequest extends FileOptionsQueryRequest implements FileMultipartRepPayload
 {
     @IsDefined()
     file: any;
 
-    constructor(file: any)
+    constructor({ file, query }: any)
     {
+        super({ query });
         this.file = file;
     }
 

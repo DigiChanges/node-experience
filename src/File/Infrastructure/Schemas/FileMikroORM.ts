@@ -6,7 +6,15 @@ const FileSchema = new EntitySchema<File>({
     tableName: 'files',
     class: File,
     indexes: [{ name: 'id_file_1', properties: '_id' }],
-    uniques: [{ name: 'unq_file_1', properties: ['_id'] }],
+    uniques: [
+        {
+            name: 'unq_file_1',
+            properties: ['_id']
+        },
+        {
+            name: 'unq_path_name_is_public',
+            properties: ['name', 'path', 'isPublic']
+        }],
     properties: {
         _id: {
             type: 'uuid',
@@ -34,6 +42,9 @@ const FileSchema = new EntitySchema<File>({
         },
         version: {
             type: 'number'
+        },
+        isPublic: {
+            type: 'boolean'
         },
         createdAt: {
             type: 'Date',

@@ -10,12 +10,29 @@ class File extends Base implements IFileDomain
     extension: string;
     size: number;
     version: number;
+    isPublic: boolean;
 
-    constructor()
+    constructor({ originalName = 'empty.jpg', isOriginalName = false })
     {
         super();
-        this.name = this._id;
         this.version = 1;
+        this.isPublic = false;
+        this.originalName = originalName;
+        this.setName(isOriginalName);
+    }
+
+    private setName(isOriginalName: boolean)
+    {
+        this.name = this._id;
+
+        if (isOriginalName)
+        {
+            this.name = this.originalName
+                .toLowerCase()
+                .replace(/^\s+|\s+$/gm, '')
+                .replace(/\s+/g, ' ')
+                .replace(/ /g, '_');
+        }
     }
 }
 

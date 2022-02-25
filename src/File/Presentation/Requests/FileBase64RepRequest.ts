@@ -1,7 +1,8 @@
 import FileBase64RepPayload from '../../InterfaceAdapters/Payloads/FileBase64RepPayload';
 import { IsBase64, IsMimeType, IsString } from 'class-validator';
+import FileOptionsQueryRequest from './FileOptionsQueryRequest';
 
-class FileBase64RepRequest implements FileBase64RepPayload
+class FileBase64RepRequest extends FileOptionsQueryRequest implements FileBase64RepPayload
 {
     @IsMimeType()
     mimeType: string;
@@ -12,8 +13,9 @@ class FileBase64RepRequest implements FileBase64RepPayload
     @IsBase64()
     base64: string;
 
-    constructor(data: Record<string, any>)
+    constructor({ data, query }: any)
     {
+        super({ query });
         this.filename = data.filename;
         this.base64 = data.base64.split(';base64,').pop();
         this.mimeType = data.base64.split(';base64').shift().split('data:').pop();
@@ -21,7 +23,7 @@ class FileBase64RepRequest implements FileBase64RepPayload
 
     getOriginalName(): string
     {
-        return this.filename.split('.').shift();
+        return this.filename;
     }
 
     getMimeType(): string

@@ -9,6 +9,7 @@ interface IFileDomain extends IBaseDomain
     extension: string;
     size: number;
     version: number;
+    isPublic: boolean;
 }
 
 export default IFileDomain;

@@ -27,17 +27,17 @@ class LoginUseCase
         const password = payload.getPassword();
         const user =  await this.repository.getOneByEmail(email);
 
-        if (user.verify === false)
+        if (!user.verify)
         {
             throw new UnverifiedUserException();
         }
 
-        if (user.enable === false)
+        if (!user.enable)
         {
             throw new UserDisabledException();
         }
 
-        const roleDisabled = user.getRoles().find(role => role.enable === false);
+        const roleDisabled = user.getRoles().find(role => !role.enable);
 
         if (roleDisabled)
         {

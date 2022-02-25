@@ -1,6 +1,6 @@
 import MainConfig from '../../Config/mainConfig';
 import MinioStrategy from '../Filesystem/MinioStrategy';
-import { IFilesystem } from '@digichanges/shared-experience';
+import IFilesystem from '../InterfaceAdapters/IFilesystem';
 
 class FilesystemFactory
 {

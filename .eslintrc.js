@@ -144,7 +144,7 @@ module.exports = {
         '@typescript-eslint/no-unsafe-call': 0,
         '@typescript-eslint/require-await': 0,
         "@typescript-eslint/type-annotation-spacing": "warn",
-        "@typescript-eslint/no-unsafe-argument": "warn",
+        "@typescript-eslint/no-unsafe-argument": 0,
         'no-mixed-spaces-and-tabs': 0
     }
 };

@@ -47,14 +47,15 @@ type RedisConfig = {
     password: string;
 };
 
-type MinioConfig = {
+export type MinioConfig = {
     endPoint: string;
     accessKey: string;
     secretKey: string;
     useSSL: boolean;
     port: number;
     region: string;
-    bucket: string;
+    bucketPublic: string;
+    bucketPrivate: string;
 };
 
 type JwtConfig = {
