@@ -18,7 +18,7 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
 
     async save(entity: T): Promise<T>
     {
-        return await this.repository.save(entity);
+        return await this.repository.save(entity as any);
     }
 
     async getOne(id: string): Promise<T>
@@ -35,7 +35,7 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
 
     async update(entity: T): Promise<T>
     {
-        return await this.repository.save(entity);
+        return await this.repository.save(entity as any);
     }
 
     async delete(id: string): Promise<T>
