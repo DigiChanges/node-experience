@@ -1,23 +1,22 @@
 import { IsString } from 'class-validator';
-import CreateBucketPayload from '../../InterfaceAdapters/Payloads/CreateBucketPayload';
+import CreateBucketPayload from '../../Domain/Payloads/CreateBucketPayload';
 
 class CreateBucketCommandRequest implements CreateBucketPayload
 {
     @IsString()
-    bucketName: string;
+    name: string;
 
-    bucketPublicPolicy: any;
-
-    bucketPrivatePolicy: any;
+    publicBucketPolicy: any;
+    privateBucketPolicy: any;
 
     @IsString()
     region: string;
 
     constructor(env: any)
     {
-        this.bucketName = env.bucketName;
+        this.name = env.name;
         this.region = env.region;
-        this.bucketPrivatePolicy = {
+        this.privateBucketPolicy = {
             Version: '2012-10-17',
             Statement: [
                 {
@@ -31,7 +30,7 @@ class CreateBucketCommandRequest implements CreateBucketPayload
             ]
         };
 
-        this.bucketPublicPolicy = {
+        this.publicBucketPolicy = {
             Version: '2012-10-17',
             Statement: [
                 {
@@ -50,19 +49,19 @@ class CreateBucketCommandRequest implements CreateBucketPayload
         };
     }
 
-    getBucketName(): string
+    getName(): string
     {
-        return this.bucketName;
+        return this.name;
     }
 
-    getBucketPublicPolicy(): string
+    getPublicBucketPolicy(): string
     {
-        return JSON.stringify(this.bucketPublicPolicy);
+        return JSON.stringify(this.publicBucketPolicy);
     }
 
-    getBucketPrivatePolicy(): string
+    getPrivateBucketPolicy(): string
     {
-        return JSON.stringify(this.bucketPrivatePolicy);
+        return JSON.stringify(this.privateBucketPolicy);
     }
 
     getRegion(): string

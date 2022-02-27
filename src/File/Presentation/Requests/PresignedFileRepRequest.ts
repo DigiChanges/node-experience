@@ -1,4 +1,4 @@
-import PresignedFileRepPayload from '../../InterfaceAdapters/Payloads/PresignedFileRepPayload';
+import PresignedFileRepPayload from '../../Domain/Payloads/PresignedFileRepPayload';
 import { IsOptional, IsString } from 'class-validator';
 import FileOptionsQueryRequest from './FileOptionsQueryRequest';
 

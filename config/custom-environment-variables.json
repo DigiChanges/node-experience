@@ -47,8 +47,8 @@
       "useSSL": "MINIO_USE_SSL",
       "port": "MINIO_PORT",
       "region": "MINIO_REGION",
-      "bucketPublic": "MINIO_BUCKET_NAME_PUBLIC",
-      "bucketPrivate": "MINIO_BUCKET_NAME_PRIVATE"
+      "publicBucket": "MINIO_PUBLIC_BUCKET",
+      "privateBucket": "MINIO_PRIVATE_BUCKET"
     },
     "local": "",
     "default": "FILESYSTEM_DEFAULT"

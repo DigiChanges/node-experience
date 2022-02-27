@@ -2,21 +2,21 @@ import { Client } from 'minio';
 import internal from 'stream';
 import { MinioConfig } from '../../Config/mainConfig';
 import IFilesystem from '../InterfaceAdapters/IFilesystem';
-import IFileDomain from '../../File/InterfaceAdapters/IFileDomain';
-import ListObjectsPayload from '../../File/InterfaceAdapters/Payloads/ListObjectsPayload';
+import IFileDomain from '../../File/Domain/Entities/IFileDomain';
+import ListObjectsPayload from '../../File/Domain/Payloads/ListObjectsPayload';
 
 class MinioStrategy implements IFilesystem
 {
     readonly #filesystem: Client = null;
-    readonly #bucketPublic: string;
-    readonly #bucketPrivate: string;
+    readonly #publicBucket: string;
+    readonly #privateBucket: string;
     readonly #pathTemp: string;
     readonly #region: string;
 
     constructor(config: MinioConfig)
     {
-        this.#bucketPublic = config.bucketPublic;
-        this.#bucketPrivate = config.bucketPrivate;
+        this.#publicBucket = config.publicBucket;
+        this.#privateBucket = config.privateBucket;
         this.#region = config.region;
         this.#pathTemp = '/tmp/';
 
@@ -43,12 +43,12 @@ class MinioStrategy implements IFilesystem
 
     async createBucket(bucketPrivate: string, region?: string): Promise<void>
     {
-        return await this.#filesystem.makeBucket(bucketPrivate || this.#bucketPrivate, region || this.#region);
+        return await this.#filesystem.makeBucket(bucketPrivate || this.#privateBucket, region || this.#region);
     }
 
     async setBucketPolicy(bucketPolicy: string, bucketPrivate?: string): Promise<void>
     {
-        return await this.#filesystem.setBucketPolicy(bucketPrivate || this.#bucketPrivate, bucketPolicy);
+        return await this.#filesystem.setBucketPolicy(bucketPrivate || this.#privateBucket, bucketPolicy);
     }
 
     async uploadFile(object: IFileDomain, path: string)
@@ -112,7 +112,7 @@ class MinioStrategy implements IFilesystem
     private getBucket(object?: IFileDomain, isPublic = false): string
     {
         const _isPrivate = object?.isPublic ?? isPublic;
-        return _isPrivate ? this.#bucketPrivate : this.#bucketPublic;
+        return _isPrivate ? this.#privateBucket : this.#publicBucket;
     }
 
     getClient(): any

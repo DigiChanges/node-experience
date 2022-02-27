@@ -1,4 +1,4 @@
-import PresignedFileRepPayload from '../../InterfaceAdapters/Payloads/PresignedFileRepPayload';
+import PresignedFileRepPayload from '../Payloads/PresignedFileRepPayload';
 import FileService from '../Services/FileService';
 
 class GetPresignedGetObjectUseCase

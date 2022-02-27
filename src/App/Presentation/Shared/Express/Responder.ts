@@ -7,7 +7,7 @@ import {
     Transformer
 } from '@digichanges/shared-experience';
 import { TYPES } from '../../../../Config/Injects/types';
-import IFileDTO from '../../../../File/InterfaceAdapters/Payloads/IFileDTO';
+import IFileDTO from '../../../../File/Domain/Payloads/IFileDTO';
 import IFormatResponder from '../../../../Shared/InterfaceAdapters/IFormatResponder';
 
 @injectable()

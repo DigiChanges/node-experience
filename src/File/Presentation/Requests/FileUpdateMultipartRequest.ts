@@ -1,5 +1,5 @@
 import IdRequest from '../../../App/Presentation/Requests/IdRequest';
-import FileUpdateMultipartPayload from '../../InterfaceAdapters/Payloads/FileUpdateMultipartPayload';
+import FileUpdateMultipartPayload from '../../Domain/Payloads/FileUpdateMultipartPayload';
 import FileMultipartRepRequest from './FileMultipartRepRequest';
 import { Mixin } from 'ts-mixer';
 

@@ -10,16 +10,16 @@ import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest'
 import UpdateFileMultipartUseCase from '../../Domain/UseCases/UpdateFileMultipartUseCase';
 import UpdateFileBase64UseCase from '../../Domain/UseCases/UpdateFileBase64UseCase';
 import GetFileMetadataUserCase from '../../Domain/UseCases/GetFileMetadataUseCase';
-import ListObjectsPayload from '../../InterfaceAdapters/Payloads/ListObjectsPayload';
+import ListObjectsPayload from '../../Domain/Payloads/ListObjectsPayload';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import FileBase64RepPayload from '../../InterfaceAdapters/Payloads/FileBase64RepPayload';
-import FileMultipartRepPayload from '../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
-import PresignedFileRepPayload from '../../InterfaceAdapters/Payloads/PresignedFileRepPayload';
-import FileUpdateBase64Payload from '../../InterfaceAdapters/Payloads/FileUpdateBase64Payload';
-import FileUpdateMultipartPayload from '../../InterfaceAdapters/Payloads/FileUpdateMultipartPayload';
+import FileBase64RepPayload from '../../Domain/Payloads/FileBase64RepPayload';
+import FileMultipartRepPayload from '../../Domain/Payloads/FileMultipartRepPayload';
+import PresignedFileRepPayload from '../../Domain/Payloads/PresignedFileRepPayload';
+import FileUpdateBase64Payload from '../../Domain/Payloads/FileUpdateBase64Payload';
+import FileUpdateMultipartPayload from '../../Domain/Payloads/FileUpdateMultipartPayload';
 import RemoveFileUseCase from '../../Domain/UseCases/RemoveFileUseCase';
-import IFileDomain from '../../InterfaceAdapters/IFileDomain';
-import IFileDTO from '../../InterfaceAdapters/Payloads/IFileDTO';
+import IFileDomain from '../../Domain/Entities/IFileDomain';
+import IFileDTO from '../../Domain/Payloads/IFileDTO';
 
 class FileController
 {

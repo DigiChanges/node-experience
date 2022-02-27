@@ -1,12 +1,12 @@
 import { IsBoolean, IsOptional } from 'class-validator';
-import FileOptionsQueryPayload from '../../InterfaceAdapters/Payloads/FileOptionsQueryPayload';
+import FileOptionsQueryPayload from '../../Domain/Payloads/FileOptionsQueryPayload';
 import { decorate } from 'ts-mixer';
 
 class FileOptionsQueryRequest implements FileOptionsQueryPayload
 {
     @decorate(IsBoolean())
     @decorate(IsOptional())
-    isOriginalName: boolean;
+    hasOriginalName: boolean;
 
     @decorate(IsBoolean())
     @decorate(IsOptional())
@@ -18,14 +18,14 @@ class FileOptionsQueryRequest implements FileOptionsQueryPayload
 
     constructor({ query }: any)
     {
-        this.isOriginalName = query?.isOriginalName === 'true';
+        this.hasOriginalName = query?.hasOriginalName === 'true';
         this.isPublic = query?.isPublic === 'true';
         this.isOverwrite = query?.isOverwrite === 'true';
     }
 
     getIsOriginalName(): boolean
     {
-        return this.isOriginalName;
+        return this.hasOriginalName;
     }
 
     getIsPublic(): boolean

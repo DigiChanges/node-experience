@@ -5,4 +5,4 @@ yarn command addUserRole --role SuperAdmin --email superadmin@node.com --firstNa
 yarn command activeUser --email superadmin@node.com
 yarn command activeUser --email user@node.com
 yarn command syncRolesPermission
-yarn command createBucket --bucketName experience --region us-east-1
+yarn command createBucket --name experience --region us-east-1

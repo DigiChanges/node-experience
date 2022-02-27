@@ -1,4 +1,4 @@
-import FileBase64RepPayload from '../../InterfaceAdapters/Payloads/FileBase64RepPayload';
+import FileBase64RepPayload from '../../Domain/Payloads/FileBase64RepPayload';
 import { IsBase64, IsMimeType, IsString } from 'class-validator';
 import FileOptionsQueryRequest from './FileOptionsQueryRequest';
 
@@ -38,7 +38,7 @@ class FileBase64RepRequest extends FileOptionsQueryRequest implements FileBase64
 
     getExtension(): string
     {
-        return this.filename.split('.').pop();
+        return this.filename.includes('.') ? this.filename.split('.').pop() : null;
     }
 
     getSize(): number

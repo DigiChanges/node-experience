@@ -1,6 +1,6 @@
-import IFileDomain from '../../File/InterfaceAdapters/IFileDomain';
+import IFileDomain from '../../File/Domain/Entities/IFileDomain';
 import { Readable } from 'stream';
-import ListObjectsPayload from '../../File/InterfaceAdapters/Payloads/ListObjectsPayload';
+import ListObjectsPayload from '../../File/Domain/Payloads/ListObjectsPayload';
 
 interface IFilesystem
 {

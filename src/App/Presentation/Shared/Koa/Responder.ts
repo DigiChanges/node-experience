@@ -2,7 +2,7 @@ import Koa from 'koa';
 import { IHttpStatusCode, IPaginator, PaginatorTransformer, Transformer } from '@digichanges/shared-experience';
 
 import IFormatResponder from '../../../../Shared/InterfaceAdapters/IFormatResponder';
-import IFileDTO from '../../../../File/InterfaceAdapters/Payloads/IFileDTO';
+import IFileDTO from '../../../../File/Domain/Payloads/IFileDTO';
 import FormatResponder from '../FormatResponder';
 import FormatError from '../FormatError';
 import ErrorHttpException from '../ErrorHttpException';

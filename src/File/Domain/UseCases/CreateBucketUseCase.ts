@@ -1,4 +1,4 @@
-import CreateBucketPayload from '../../InterfaceAdapters/Payloads/CreateBucketPayload';
+import CreateBucketPayload from '../Payloads/CreateBucketPayload';
 import FileService from '../Services/FileService';
 
 class CreateBucketUseCase

@@ -49,8 +49,8 @@
       "useSSL": false,
       "port": 9000,
       "region": "us-east-1",
-      "bucketPublic": "experience",
-      "bucketPrivate": "experience"
+      "publicBucket": "experience",
+      "privateBucket": "experience"
     },
     "local": {
       "type": "local"

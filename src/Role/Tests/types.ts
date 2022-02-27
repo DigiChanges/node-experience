@@ -1,6 +1,6 @@
 import { IBodyResponse } from '../../Shared/InterfaceAdapters/Tests/IBodyResponse';
 import { IFetchResponse } from '../../Shared/InterfaceAdapters/Tests/IFetchResponse';
-import IRoleTransformer from '../InterfaceAdapters/IRoleTransformer';
+import IRoleTransformer from '../Presentation/Transformers/IRoleTransformer';
 
 interface IRoleBody extends IBodyResponse
 {

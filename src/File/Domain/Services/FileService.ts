@@ -1,18 +1,18 @@
-import IFileDomain from '../../InterfaceAdapters/IFileDomain';
+import IFileDomain from '../Entities/IFileDomain';
 import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
-import IFileRepository from '../../InterfaceAdapters/IFileRepository';
-import PresignedFileRepPayload from 'File/InterfaceAdapters/Payloads/PresignedFileRepPayload';
+import IFileRepository from '../../Infrastructure/Repositories/IFileRepository';
+import PresignedFileRepPayload from 'File/Domain/Payloads/PresignedFileRepPayload';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
-import ListObjectsPayload from 'File/InterfaceAdapters/Payloads/ListObjectsPayload';
-import FileBase64RepPayload from '../../InterfaceAdapters/Payloads/FileBase64RepPayload';
-import FileMultipartRepPayload from '../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
-import FileRepPayload from '../../InterfaceAdapters/Payloads/FileRepPayload';
-import CreateBucketPayload from '../../InterfaceAdapters/Payloads/CreateBucketPayload';
+import ListObjectsPayload from 'File/Domain/Payloads/ListObjectsPayload';
+import FileBase64RepPayload from '../Payloads/FileBase64RepPayload';
+import FileMultipartRepPayload from '../Payloads/FileMultipartRepPayload';
+import FileRepPayload from '../Payloads/FileRepPayload';
+import CreateBucketPayload from '../Payloads/CreateBucketPayload';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import FileDTO from '../../InterfaceAdapters/Payloads/FileDTO';
-import IFileDTO from '../../InterfaceAdapters/Payloads/IFileDTO';
+import FileDTO from '../Payloads/FileDTO';
+import IFileDTO from '../Payloads/IFileDTO';
 import { validate } from 'uuid';
 
 class FileService
@@ -83,13 +83,13 @@ class FileService
 
     async createBucket(payload: CreateBucketPayload): Promise<void>
     {
-        const name = payload.getBucketName();
+        const name = payload.getName();
         const bucketNamePrivate = `${name}.private`;
         const bucketNamePublic = `${name}.public`;
 
         const region = payload.getRegion();
-        const bucketPrivatePolicy = payload.getBucketPrivatePolicy();
-        const bucketPublicPolicy = payload.getBucketPublicPolicy();
+        const bucketPrivatePolicy = payload.getPrivateBucketPolicy();
+        const bucketPublicPolicy = payload.getPublicBucketPolicy();
 
         await this.fileSystem.createBucket(bucketNamePrivate, region);
         await this.fileSystem.setBucketPolicy(bucketPrivatePolicy, bucketNamePrivate);

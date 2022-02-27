@@ -1,4 +1,4 @@
-import ListObjectsPayload from '../../InterfaceAdapters/Payloads/ListObjectsPayload';
+import ListObjectsPayload from '../../Domain/Payloads/ListObjectsPayload';
 import { IsBoolean, IsOptional } from 'class-validator';
 import FileOptionsQueryRequest from './FileOptionsQueryRequest';
 

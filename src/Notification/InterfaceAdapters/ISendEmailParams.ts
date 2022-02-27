@@ -1,6 +1,6 @@
 import TypeNotificationEnum from '../Domain/Enum/TypeNotificationEnum';
 import IEmailNotificationData from './IEmailNotificationData';
-import IFileDomain from '../../File/InterfaceAdapters/IFileDomain';
+import IFileDomain from '../../File/Domain/Entities/IFileDomain';
 
 interface ISendEmailParams
 {

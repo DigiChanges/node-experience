@@ -1,7 +1,7 @@
 import internal from 'stream';
 import IFilesystem from '../../Shared/InterfaceAdapters/IFilesystem';
-import IFileDomain from '../InterfaceAdapters/IFileDomain';
-import ListObjectsPayload from '../InterfaceAdapters/Payloads/ListObjectsPayload';
+import IFileDomain from '../Domain/Entities/IFileDomain';
+import ListObjectsPayload from '../Domain/Payloads/ListObjectsPayload';
 
 class MockMinioStrategy implements IFilesystem
 {

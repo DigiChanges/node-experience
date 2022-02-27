@@ -5,7 +5,7 @@ import { ICreateConnection } from '@digichanges/shared-experience';
 import IUserDocument from '../../User/InterfaceAdapters/IUserDocument';
 import IRoleDocument from '../../Role/InterfaceAdapters/IRoleDocument';
 import IItemDocument from '../../Item/InterfaceAdapters/IItemDocument';
-import IFileDocument from '../../File/InterfaceAdapters/IFileDocument';
+import IFileDocument from '../../File/Infrastructure/Schemas/IFileDocument';
 import INotificationDocument from '../../Notification/InterfaceAdapters/INotificationDocument';
 import ITokenDocument from '../../Auth/InterfaceAdapters/ITokenDocument';
 

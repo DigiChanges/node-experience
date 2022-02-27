@@ -1,6 +1,6 @@
 import { IBodyResponse } from '../../Shared/InterfaceAdapters/Tests/IBodyResponse';
 import { IFetchResponse } from '../../Shared/InterfaceAdapters/Tests/IFetchResponse';
-import IFileTransformer from '../InterfaceAdapters/IFileTransformer';
+import IFileTransformer from '../Presentation/Transformers/IFileTransformer';
 
 interface IFileBody extends IBodyResponse
 {

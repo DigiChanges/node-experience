@@ -1,5 +1,5 @@
-import FileBase64RepPayload from '../../InterfaceAdapters/Payloads/FileBase64RepPayload';
-import IFileDomain from '../../InterfaceAdapters/IFileDomain';
+import FileBase64RepPayload from '../Payloads/FileBase64RepPayload';
+import IFileDomain from '../Entities/IFileDomain';
 import File from '../Entities/File';
 import FileService from '../Services/FileService';
 
@@ -10,7 +10,7 @@ class UploadBase64UseCase
     async handle(payload: FileBase64RepPayload): Promise<any>
     {
         const build = {
-            isOriginalName: payload.getIsOriginalName(),
+            hasOriginalName: payload.getIsOriginalName(),
             originalName: payload.getOriginalName()
         };
 

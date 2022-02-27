@@ -1,8 +1,8 @@
 import moment from 'moment';
 import { Transformer } from '@digichanges/shared-experience';
 
-import IFileDomain from '../../InterfaceAdapters/IFileDomain';
-import IFileTransformer from '../../InterfaceAdapters/IFileTransformer';
+import IFileDomain from '../../Domain/Entities/IFileDomain';
+import IFileTransformer from './IFileTransformer';
 
 class FileTransformer extends Transformer
 {
