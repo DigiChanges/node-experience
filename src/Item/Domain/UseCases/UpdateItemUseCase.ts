@@ -1,15 +1,22 @@
-import ItemUpdatePayload from '../../InterfaceAdapters/Payloads/ItemUpdatePayload';
-import IItemDomain from '../../InterfaceAdapters/IItemDomain';
+import ItemUpdatePayload from '../Payloads/ItemUpdatePayload';
+import IItemDomain from '../Entities/IItemDomain';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
-import ItemService from '../Services/ItemService';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
 
 class UpdateItemUseCase
 {
-    private itemService = new ItemService();
+    @containerFactory(REPOSITORIES.IItemRepository)
+    private repository: IItemRepository;
 
     async handle(payload: ItemUpdatePayload, authUser: IUserDomain): Promise<IItemDomain>
     {
-        return await this.itemService.update(payload, authUser);
+        const item: IItemDomain = await this.repository.getOne(payload.getId());
+        item.updateBuild(payload);
+        item.lastModifiedBy = authUser;
+
+        return await this.repository.update(item);
     }
 }
 

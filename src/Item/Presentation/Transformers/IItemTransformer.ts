@@ -1,4 +1,4 @@
-import IUserMinimalDataTransformer from '../../User/InterfaceAdapters/IUserMinimalDataTransformer';
+import IUserMinimalDataTransformer from '../../../User/InterfaceAdapters/IUserMinimalDataTransformer';
 
 interface IItemTransformer
 {

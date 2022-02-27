@@ -1,4 +1,4 @@
-import IItemRepository from '../../InterfaceAdapters/IItemRepository';
+import IItemRepository from './IItemRepository';
 import Item from '../../Domain/Entities/Item';
 import { injectable } from 'inversify';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';

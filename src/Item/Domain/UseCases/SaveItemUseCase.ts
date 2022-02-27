@@ -1,15 +1,22 @@
-import ItemRepPayload from '../../InterfaceAdapters/Payloads/ItemRepPayload';
-import IItemDomain from '../../InterfaceAdapters/IItemDomain';
+import ItemRepPayload from '../Payloads/ItemRepPayload';
+import IItemDomain from '../Entities/IItemDomain';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
-import ItemService from '../Services/ItemService';
+import Item from '../Entities/Item';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
 
 class SaveItemUseCase
 {
-    private itemService = new ItemService();
+    @containerFactory(REPOSITORIES.IItemRepository)
+    private repository: IItemRepository;
 
     async handle(payload: ItemRepPayload, authUser: IUserDomain): Promise<IItemDomain>
     {
-        return await this.itemService.create(payload, authUser);
+        const item = new Item(payload);
+        item.createdBy = authUser;
+
+        return await this.repository.save(item);
     }
 }
 

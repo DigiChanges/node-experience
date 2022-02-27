@@ -1,15 +1,17 @@
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import IItemDomain from '../../InterfaceAdapters/IItemDomain';
-import ItemService from '../Services/ItemService';
+import IItemDomain from '../Entities/IItemDomain';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
 
 class GetItemUseCase
 {
-    private itemService = new ItemService();
+    @containerFactory(REPOSITORIES.IItemRepository)
+    private repository: IItemRepository;
 
     async handle(payload: IdPayload): Promise<IItemDomain>
     {
-        const id = payload.getId();
-        return await this.itemService.getOne(id);
+        return await this.repository.getOne(payload.getId());
     }
 }
 

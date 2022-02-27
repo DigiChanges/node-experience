@@ -1,5 +1,5 @@
 import faker from 'faker';
-import IItemRepository from '../../InterfaceAdapters/IItemRepository';
+import IItemRepository from '../Repositories/IItemRepository';
 import Item from '../../Domain/Entities/Item';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
@@ -26,13 +26,11 @@ class ItemSeed implements ISeed
 
         for await (const index of indexes)
         {
-            const title = faker.name.title();
+            const name = faker.name.title();
             const type = faker.datatype.number();
 
-            const item = new Item();
+            const item = new Item({ name, type });
 
-            item.name = title;
-            item.type = type;
             item.createdBy = user;
             item.lastModifiedBy = user;
 
@@ -59,10 +57,7 @@ class ItemSeed implements ISeed
         const min = config.getConfig().validationSettings.password.minLength;
         const max = config.getConfig().validationSettings.password.maxLength;
 
-        const password = new Password('123456789', min, max);
-        await password.ready();
-        user.password = password;
-
+        user.password = await (new Password('123456789', min, max)).ready();
         user.enable = true;
         user.confirmationToken = null;
         user.passwordRequestedAt = null;

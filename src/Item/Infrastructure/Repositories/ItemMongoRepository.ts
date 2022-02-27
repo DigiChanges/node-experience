@@ -2,13 +2,13 @@ import { Query } from 'mongoose';
 import { injectable } from 'inversify';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
-import IItemRepository from '../../InterfaceAdapters/IItemRepository';
+import IItemRepository from './IItemRepository';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
-import IItem from '../../InterfaceAdapters/IItemDocument';
+import IItem from '../Schemas/IItemDocument';
 
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
-import IItemDomain from '../../InterfaceAdapters/IItemDomain';
+import IItemDomain from '../../Domain/Entities/IItemDomain';
 import Item from '../../Domain/Entities/Item';
 
 @injectable()

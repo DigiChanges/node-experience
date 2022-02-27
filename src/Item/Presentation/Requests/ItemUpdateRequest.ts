@@ -1,4 +1,4 @@
-import ItemUpdatePayload from '../../InterfaceAdapters/Payloads/ItemUpdatePayload';
+import ItemUpdatePayload from '../../Domain/Payloads/ItemUpdatePayload';
 import IdRequest from '../../../App/Presentation/Requests/IdRequest';
 import ItemRepRequest from './ItemRepRequest';
 import { Mixin } from 'ts-mixer';
