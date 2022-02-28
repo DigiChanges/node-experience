@@ -1,4 +1,4 @@
-import IFileDomain from '../../InterfaceAdapters/IFileDomain';
+import IFileDomain from './IFileDomain';
 import Base from '../../../App/Domain/Entities/Base';
 
 class File extends Base implements IFileDomain
@@ -10,12 +10,29 @@ class File extends Base implements IFileDomain
     extension: string;
     size: number;
     version: number;
+    isPublic: boolean;
 
-    constructor()
+    constructor({ originalName = 'empty.jpg', hasOriginalName = false })
     {
         super();
-        this.name = this._id;
         this.version = 1;
+        this.isPublic = false;
+        this.originalName = originalName;
+        this.setName(hasOriginalName);
+    }
+
+    private setName(hasOriginalName: boolean)
+    {
+        this.name = this._id;
+
+        if (hasOriginalName)
+        {
+            this.name = this.originalName
+                .toLowerCase()
+                .replace(/^\s+|\s+$/gm, '')
+                .replace(/\s+/g, ' ')
+                .replace(/ /g, '_');
+        }
     }
 }
 

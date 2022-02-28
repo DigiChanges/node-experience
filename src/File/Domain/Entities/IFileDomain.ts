@@ -1,4 +1,4 @@
-import IBaseDomain from '../../App/InterfaceAdapters/IBaseDomain';
+import IBaseDomain from '../../../App/InterfaceAdapters/IBaseDomain';
 
 interface IFileDomain extends IBaseDomain
 {
@@ -9,6 +9,7 @@ interface IFileDomain extends IBaseDomain
     extension: string;
     size: number;
     version: number;
+    isPublic: boolean;
 }
 
 export default IFileDomain;

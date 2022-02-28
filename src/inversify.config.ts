@@ -9,7 +9,7 @@ import Responder from './App/Presentation/Shared/Express/Responder';
 import IItemRepository from './Item/InterfaceAdapters/IItemRepository';
 import IUserRepository from './User/InterfaceAdapters/IUserRepository';
 import IRoleRepository from './Role/InterfaceAdapters/IRoleRepository';
-import IFileRepository from './File/InterfaceAdapters/IFileRepository';
+import IFileRepository from './File/Infrastructure/Repositories/IFileRepository';
 
 import { REPOSITORIES } from './Config/Injects/repositories';
 import { TYPES } from './Config/Injects/types';

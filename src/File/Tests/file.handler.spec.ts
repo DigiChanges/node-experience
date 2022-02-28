@@ -63,18 +63,20 @@ describe('Start File Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_CREATED');
 
-            expect(data.originalName).toStrictEqual('photo');
+            expect(data.originalName).toStrictEqual('photo.jpg');
             expect(data.extension).toStrictEqual('jpg');
             expect(data.mimeType).toStrictEqual('image/jpeg');
+            expect(data.isPublic).toStrictEqual(false);
             file_id = data.id;
         });
 
         test('Get File /files/metadata/:id', async() =>
         {
             const payload = {
-                originalName: 'photo',
+                originalName: 'photo.jpg',
                 extension: 'jpg',
-                mimeType: 'image/jpeg'
+                mimeType: 'image/jpeg',
+                isPublic: false
             };
 
             const response: IFileResponse = await request
@@ -92,6 +94,7 @@ describe('Start File Test', () =>
             expect(data.originalName).toStrictEqual(payload.originalName);
             expect(data.extension).toStrictEqual(payload.extension);
             expect(data.mimeType).toStrictEqual(payload.mimeType);
+            expect(data.isPublic).toStrictEqual(payload.isPublic);
         });
 
         // test('Get File /files/:id', async () =>

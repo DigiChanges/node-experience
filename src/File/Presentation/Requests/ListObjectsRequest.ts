@@ -1,7 +1,8 @@
-import ListObjectsPayload from '../../InterfaceAdapters/Payloads/ListObjectsPayload';
+import ListObjectsPayload from '../../Domain/Payloads/ListObjectsPayload';
 import { IsBoolean, IsOptional } from 'class-validator';
+import FileOptionsQueryRequest from './FileOptionsQueryRequest';
 
-class ListObjectsRequest implements ListObjectsPayload
+class ListObjectsRequest extends FileOptionsQueryRequest implements ListObjectsPayload
 {
     @IsOptional()
     @IsBoolean()
@@ -11,10 +12,11 @@ class ListObjectsRequest implements ListObjectsPayload
     @IsBoolean()
     prefix: string;
 
-    constructor(data: Record<string, any>)
+    constructor(query: Record<string, any>)
     {
-        this.recursive = data.recursive ? String(data.recursive) : undefined;
-        this.prefix = data.prefix ? String(data.prefix) : undefined;
+        super({ query });
+        this.recursive = query.recursive ? String(query.recursive) : undefined;
+        this.prefix = query.prefix ? String(query.prefix) : undefined;
     }
 
     getRecursive(): boolean

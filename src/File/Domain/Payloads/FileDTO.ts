@@ -1,5 +1,5 @@
 import internal from 'stream';
-import IFileDomain from '../IFileDomain';
+import IFileDomain from '../Entities/IFileDomain';
 import IFileDTO from './IFileDTO';
 
 class FileDTO implements IFileDTO

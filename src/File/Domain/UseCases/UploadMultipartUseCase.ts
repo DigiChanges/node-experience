@@ -1,5 +1,5 @@
-import FileMultipartRepPayload from '../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
-import IFileDomain from '../../InterfaceAdapters/IFileDomain';
+import FileMultipartRepPayload from '../Payloads/FileMultipartRepPayload';
+import IFileDomain from '../Entities/IFileDomain';
 import File from '../Entities/File';
 import FileService from '../Services/FileService';
 
@@ -9,7 +9,12 @@ class UploadMultipartUseCase
 
     async handle(payload: FileMultipartRepPayload): Promise<any>
     {
-        let file: IFileDomain = new File();
+        const build = {
+            hasOriginalName: payload.getIsOriginalName(),
+            originalName: payload.getOriginalName()
+        };
+
+        let file: IFileDomain = new File(build);
         file = await this.fileService.persist(file, payload);
         return await this.fileService.uploadFileMultipart(file, payload);
     }

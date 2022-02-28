@@ -1,5 +1,5 @@
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import IFileDomain from '../../InterfaceAdapters/IFileDomain';
+import IFileDomain from '../Entities/IFileDomain';
 import FileService from '../Services/FileService';
 
 class GetFileMetadataUserCase

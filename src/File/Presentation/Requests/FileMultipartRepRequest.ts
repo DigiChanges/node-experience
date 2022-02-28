@@ -1,13 +1,15 @@
-import FileMultipartRepPayload from '../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
+import FileMultipartRepPayload from '../../Domain/Payloads/FileMultipartRepPayload';
 import { IsDefined } from 'class-validator';
+import FileOptionsQueryRequest from './FileOptionsQueryRequest';
 
-class FileMultipartRepRequest implements FileMultipartRepPayload
+class FileMultipartRepRequest extends FileOptionsQueryRequest implements FileMultipartRepPayload
 {
     @IsDefined()
     file: any;
 
-    constructor(file: any)
+    constructor({ file, query }: any)
     {
+        super({ query });
         this.file = file;
     }
 
@@ -26,9 +28,9 @@ class FileMultipartRepRequest implements FileMultipartRepPayload
         return '/';
     }
 
-    getExtension(): string
+    getExtension(): string | null
     {
-        return this.file.originalname.split('.').pop();
+        return this.file.originalname.includes('.') ? this.file.originalname.split('.').pop() : null;
     }
 
     getSize(): number

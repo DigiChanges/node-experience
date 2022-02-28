@@ -1,5 +1,5 @@
-import FileUpdateBase64Payload from '../../InterfaceAdapters/Payloads/FileUpdateBase64Payload';
-import IFileDomain from '../../InterfaceAdapters/IFileDomain';
+import FileUpdateBase64Payload from '../Payloads/FileUpdateBase64Payload';
+import IFileDomain from '../Entities/IFileDomain';
 import FileService from '../Services/FileService';
 
 class UpdateFileBase64UseCase

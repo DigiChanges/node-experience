@@ -53,7 +53,7 @@ class ItemHandler
     @httpGet('/:id', AuthorizeMiddleware(Permissions.ITEMS_SHOW))
     public async getOne(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest(req.params.id);
+        const _request = new IdRequest({ id: req.params.id });
 
         const item: IItemDomain = await this.controller.getOne(_request);
 
@@ -73,7 +73,7 @@ class ItemHandler
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.ITEMS_DELETE))
     public async remove(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest(req.params.id);
+        const _request = new IdRequest({ id: req.params.id });
 
         const item: IItemDomain = await this.controller.remove(_request);
 

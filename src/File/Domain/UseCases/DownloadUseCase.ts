@@ -1,4 +1,4 @@
-import IFileDTO from '../../InterfaceAdapters/Payloads/IFileDTO';
+import IFileDTO from '../Payloads/IFileDTO';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import FileService from '../Services/FileService';
 

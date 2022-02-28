@@ -13,7 +13,7 @@ class AttachmentsFilesService
 
         emailNotification.tempFilesAttachments =  await Promise.all(emailNotification.attachedFiles.map(async(_file) =>
         {
-            const stream = await filesystem.downloadStreamFile(_file.getId());
+            const stream = await filesystem.downloadStreamFile(_file);
             const fileName = `${_file.originalName}.${_file.extension}`;
             const uqFileName = `${_file.name}.${_file.extension}`;
             const tempDir = PATH.join(`${__dirname}/../../../temp`);

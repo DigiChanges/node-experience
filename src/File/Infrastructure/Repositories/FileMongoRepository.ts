@@ -2,12 +2,12 @@ import { Query } from 'mongoose';
 import { injectable } from 'inversify';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
-import IFileRepository from '../../InterfaceAdapters/IFileRepository';
+import IFileRepository from './IFileRepository';
 
 import FileFilter from '../../Presentation/Criterias/FileFilter';
 import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
-import IFile from '../../InterfaceAdapters/IFileDocument';
-import IFileDomain from '../../InterfaceAdapters/IFileDomain';
+import IFile from '../Schemas/IFileDocument';
+import IFileDomain from '../../Domain/Entities/IFileDomain';
 
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
 import File from '../../Domain/Entities/File';

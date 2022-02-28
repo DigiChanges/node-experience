@@ -1,6 +1,6 @@
 import { IBodyResponse } from '../../Shared/InterfaceAdapters/Tests/IBodyResponse';
 import { IFetchResponse } from '../../Shared/InterfaceAdapters/Tests/IFetchResponse';
-import IUserTransformer from '../InterfaceAdapters/IUserTransformer';
+import IUserTransformer from '../Presentation/Transformers/IUserTransformer';
 
 interface IUserBody extends IBodyResponse
 {

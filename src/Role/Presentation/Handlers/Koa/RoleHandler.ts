@@ -40,7 +40,7 @@ RoleHandler.get('/', AuthorizeMiddleware(Permissions.ROLES_LIST), async(ctx: Koa
 
 RoleHandler.get('/:id', AuthorizeMiddleware(Permissions.ROLES_SHOW), async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new IdRequest(ctx.params.id);
+    const _request = new IdRequest({ id: ctx.params.id });
 
     const role: IRoleDomain = await controller.getOne(_request);
 
@@ -58,7 +58,7 @@ RoleHandler.put('/:id', AuthorizeMiddleware(Permissions.ROLES_UPDATE), async(ctx
 
 RoleHandler.delete('/:id', AuthorizeMiddleware(Permissions.ROLES_DELETE), async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new IdRequest(ctx.params.id);
+    const _request = new IdRequest({ id: ctx.params.id });
 
     const role: IRoleDomain = await controller.remove(_request);
 

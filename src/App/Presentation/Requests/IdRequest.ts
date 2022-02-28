@@ -7,7 +7,7 @@ class IdRequest implements IdPayload
     @decorate(IsUUID('4'))
     id: string;
 
-    constructor(id: string)
+    constructor({ id }: { id: string })
     {
         this.id = id;
     }

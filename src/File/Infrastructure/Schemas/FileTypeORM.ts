@@ -32,6 +32,9 @@ const FileSchema = new EntitySchema<File>({
         version: {
             type: Number
         },
+        isPublic: {
+            type: Boolean
+        },
         createdAt: {
             name: 'createdAt',
             type: 'timestamp with time zone',

@@ -1,18 +1,19 @@
-import IFileDomain from '../../InterfaceAdapters/IFileDomain';
+import IFileDomain from '../Entities/IFileDomain';
 import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
-import IFileRepository from '../../InterfaceAdapters/IFileRepository';
-import PresignedFileRepPayload from 'File/InterfaceAdapters/Payloads/PresignedFileRepPayload';
+import IFileRepository from '../../Infrastructure/Repositories/IFileRepository';
+import PresignedFileRepPayload from 'File/Domain/Payloads/PresignedFileRepPayload';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
-import ListObjectsPayload from 'File/InterfaceAdapters/Payloads/ListObjectsPayload';
-import FileBase64RepPayload from '../../InterfaceAdapters/Payloads/FileBase64RepPayload';
-import FileMultipartRepPayload from '../../InterfaceAdapters/Payloads/FileMultipartRepPayload';
-import FileRepPayload from '../../InterfaceAdapters/Payloads/FileRepPayload';
-import CreateBucketPayload from '../../InterfaceAdapters/Payloads/CreateBucketPayload';
+import ListObjectsPayload from 'File/Domain/Payloads/ListObjectsPayload';
+import FileBase64RepPayload from '../Payloads/FileBase64RepPayload';
+import FileMultipartRepPayload from '../Payloads/FileMultipartRepPayload';
+import FileRepPayload from '../Payloads/FileRepPayload';
+import CreateBucketPayload from '../Payloads/CreateBucketPayload';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import FileDTO from '../../InterfaceAdapters/Payloads/FileDTO';
-import IFileDTO from '../../InterfaceAdapters/Payloads/IFileDTO';
+import FileDTO from '../Payloads/FileDTO';
+import IFileDTO from '../Payloads/IFileDTO';
+import { validate } from 'uuid';
 
 class FileService
 {
@@ -25,7 +26,17 @@ class FileService
     {
         const filename = payload.getName();
         const expiry = payload.getExpiry();
-        const file: IFileDomain = await this.getOne(filename);
+        const isPublic = payload.getIsPublic();
+        let file: IFileDomain;
+
+        if (validate(filename))
+        {
+            file = await this.getOne(filename);
+        }
+        else
+        {
+            file = await this.repository.getOneBy({ filename, isPublic });
+        }
 
         return await this.getFileUrl(file, expiry);
     }
@@ -33,24 +44,24 @@ class FileService
     async persist(file: IFileDomain, payload: FileRepPayload): Promise<IFileDomain>
     {
         file.extension = payload.getExtension();
-        file.originalName = payload.getOriginalName();
         file.path = payload.getPath();
         file.mimeType = payload.getMimeType();
         file.size = payload.getSize();
+        file.isPublic = payload.getIsPublic();
 
         return await this.repository.save(file);
     }
 
     async uploadFileBase64(file: IFileDomain, payload: FileBase64RepPayload): Promise<any>
     {
-        await this.fileSystem.uploadFileByBuffer(file.name, payload.getBase64());
+        await this.fileSystem.uploadFileByBuffer(file, payload.getBase64());
 
         return file;
     }
 
     async uploadFileMultipart(file: IFileDomain, payload: FileMultipartRepPayload): Promise<any>
     {
-        await this.fileSystem.uploadFile(file.name, payload.getFile().path);
+        await this.fileSystem.uploadFile(file, payload.getFile().path);
 
         return file;
     }
@@ -62,7 +73,7 @@ class FileService
 
     async listObjects(payload: ListObjectsPayload): Promise<any>
     {
-        return await this.fileSystem.listObjects(payload.getPrefix(), payload.getRecursive());
+        return await this.fileSystem.listObjects(payload);
     }
 
     async getOne(id: string): Promise<IFileDomain>
@@ -72,21 +83,28 @@ class FileService
 
     async createBucket(payload: CreateBucketPayload): Promise<void>
     {
-        const bucketName = payload.getBucketName();
-        const region = payload.getRegion();
-        const bucketPolicy = payload.getBucketPolicy();
+        const name = payload.getName();
+        const bucketNamePrivate = `${name}.private`;
+        const bucketNamePublic = `${name}.public`;
 
-        await this.fileSystem.createBucket(bucketName, region);
-        await this.fileSystem.setBucketPolicy(bucketPolicy, bucketName);
+        const region = payload.getRegion();
+        const bucketPrivatePolicy = payload.getPrivateBucketPolicy();
+        const bucketPublicPolicy = payload.getPublicBucketPolicy();
+
+        await this.fileSystem.createBucket(bucketNamePrivate, region);
+        await this.fileSystem.setBucketPolicy(bucketPrivatePolicy, bucketNamePrivate);
+
+        await this.fileSystem.createBucket(bucketNamePublic, region);
+        await this.fileSystem.setBucketPolicy(bucketPublicPolicy, bucketNamePublic);
     }
 
     async download(payload: IdPayload): Promise<IFileDTO>
     {
         const id = payload.getId();
-        const metadata: IFileDomain = await this.getOne(id);
-        const stream = await this.fileSystem.downloadStreamFile(id);
+        const file: IFileDomain = await this.getOne(id);
+        const stream = await this.fileSystem.downloadStreamFile(file);
 
-        return new FileDTO(metadata, stream);
+        return new FileDTO(file, stream);
     }
 
     async getFileUrl(file: IFileDomain, expiry: number): Promise<string>
@@ -96,13 +114,13 @@ class FileService
             'Content-Length': file.size
         };
 
-        return await this.fileSystem.presignedGetObject(file.getId(), expiry, metadata);
+        return await this.fileSystem.presignedGetObject(file, expiry, metadata);
     }
 
     async removeFile(id: string): Promise<IFileDomain>
     {
         const file = await this.repository.delete(id);
-        void await this.fileSystem.removeObjects(file.name);
+        void await this.fileSystem.removeObjects(file);
         return file;
     }
 }

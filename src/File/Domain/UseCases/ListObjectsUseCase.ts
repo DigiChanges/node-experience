@@ -1,4 +1,4 @@
-import ListObjectsPayload from '../../InterfaceAdapters/Payloads/ListObjectsPayload';
+import ListObjectsPayload from '../Payloads/ListObjectsPayload';
 import FileService from '../Services/FileService';
 
 class ListObjectsUseCase

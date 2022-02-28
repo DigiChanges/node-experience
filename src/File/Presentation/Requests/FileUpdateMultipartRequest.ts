@@ -1,46 +1,13 @@
 import IdRequest from '../../../App/Presentation/Requests/IdRequest';
-import FileUpdateMultipartPayload from '../../InterfaceAdapters/Payloads/FileUpdateMultipartPayload';
-import { IsDefined } from 'class-validator';
+import FileUpdateMultipartPayload from '../../Domain/Payloads/FileUpdateMultipartPayload';
+import FileMultipartRepRequest from './FileMultipartRepRequest';
+import { Mixin } from 'ts-mixer';
 
-class FileUpdateMultipartRequest extends IdRequest implements FileUpdateMultipartPayload
+class FileUpdateMultipartRequest extends Mixin(FileMultipartRepRequest, IdRequest) implements FileUpdateMultipartPayload
 {
-    @IsDefined()
-        file: any;
-
-    constructor(data: Record<string, any>, id: string)
+    constructor(data: Record<string, any>)
     {
-        super(id);
-        this.file = data.file;
-    }
-
-    getOriginalName(): string
-    {
-        return this.file.originalname;
-    }
-
-    getMimeType(): string
-    {
-        return this.file.mimetype;
-    }
-
-    getPath(): string
-    {
-        return '/';
-    }
-
-    getExtension(): string
-    {
-        return this.file.originalname.split('.').pop();
-    }
-
-    getFile(): any
-    {
-        return this.file;
-    }
-
-    getSize(): number
-    {
-        return this.file.size;
+        super(data);
     }
 }
 

@@ -1,7 +1,8 @@
-import PresignedFileRepPayload from '../../InterfaceAdapters/Payloads/PresignedFileRepPayload';
+import PresignedFileRepPayload from '../../Domain/Payloads/PresignedFileRepPayload';
 import { IsOptional, IsString } from 'class-validator';
+import FileOptionsQueryRequest from './FileOptionsQueryRequest';
 
-class PresignedFileRepRequest implements PresignedFileRepPayload
+class PresignedFileRepRequest extends FileOptionsQueryRequest implements PresignedFileRepPayload
 {
     @IsString()
     filename: string;
@@ -10,8 +11,9 @@ class PresignedFileRepRequest implements PresignedFileRepPayload
     @IsString()
     expiry: number;
 
-    constructor(data: Record<string, any>)
+    constructor({ data, query }: any)
     {
+        super({ query });
         this.filename = data.filename;
         this.expiry = data.expiry;
     }

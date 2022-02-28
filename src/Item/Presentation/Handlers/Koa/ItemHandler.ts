@@ -40,7 +40,7 @@ ItemHandler.get('/', AuthorizeMiddleware(Permissions.ITEMS_LIST), async(ctx: Koa
 
 ItemHandler.get('/:id', AuthorizeMiddleware(Permissions.ITEMS_SHOW), async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new IdRequest(ctx.params.id);
+    const _request = new IdRequest({ id: ctx.params.id });
 
     const item = await controller.getOne(_request);
 
@@ -58,7 +58,7 @@ ItemHandler.put('/:id', AuthorizeMiddleware(Permissions.ITEMS_UPDATE), async(ctx
 
 ItemHandler.delete('/:id', AuthorizeMiddleware(Permissions.ITEMS_DELETE), async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new IdRequest(ctx.params.id);
+    const _request = new IdRequest({ id: ctx.params.id });
 
     const item = await controller.remove(_request);
 

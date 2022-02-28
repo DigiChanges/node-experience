@@ -1,5 +1,5 @@
-import FileUpdateMultipartPayload from '../../InterfaceAdapters/Payloads/FileUpdateMultipartPayload';
-import IFileDomain from '../../InterfaceAdapters/IFileDomain';
+import FileUpdateMultipartPayload from '../Payloads/FileUpdateMultipartPayload';
+import IFileDomain from '../Entities/IFileDomain';
 import FileService from '../Services/FileService';
 
 class UpdateFileMultipartUseCase

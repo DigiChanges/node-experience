@@ -1,7 +1,7 @@
 import Notification from './Notification';
 import StatusNotificationEnum from '../Enum/StatusNotificationEnum';
 import TypeNotificationEnum from '../Enum/TypeNotificationEnum';
-import IFileDomain from '../../../File/InterfaceAdapters/IFileDomain';
+import IFileDomain from '../../../File/Domain/Entities/IFileDomain';
 import IEmailNotificationData from '../../InterfaceAdapters/IEmailNotificationData';
 import IFilesAttachments from '../../InterfaceAdapters/IFilesAttachments';
 

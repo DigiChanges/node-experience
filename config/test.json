@@ -63,7 +63,8 @@
       "useSSL": false,
       "port": 9000,
       "region": "us-east-1",
-      "bucket": "experience"
+      "publicBucket": "experience.public",
+      "privateBucket": "experience.private"
     },
     "local": {
       "type": "local"
