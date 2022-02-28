@@ -19,8 +19,8 @@ export function validateEnv()
         MINIO_SECRET_KEY: str(),
         MINIO_USE_SSL: bool(),
         MINIO_PORT: port(),
-        MINIO_BUCKET_NAME_PUBLIC: str(),
-        MINIO_BUCKET_NAME_PRIVATE: str(),
+        MINIO_PUBLIC_BUCKET: str(),
+        MINIO_PRIVATE_BUCKET: str(),
         MINIO_REGION: str(),
         FILESYSTEM_DEFAULT: str(),
 
