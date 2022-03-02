@@ -30,6 +30,8 @@ export function validateEnv()
         JWT_EXPIRES: num(),
         JWT_ISS: str(),
         JWT_AUD: str(),
+        SET_COOKIE_SECURE: bool(),
+        SET_COOKIE_SAME_SITE: str(),
 
         SMTP_HOST: str(),
         SMTP_PORT: num(),

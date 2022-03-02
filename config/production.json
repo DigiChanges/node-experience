@@ -2,6 +2,8 @@
   "env": "production",
   "nodePath": "/home/node/app",
   "serverPort": 80,
+  "setCookieSecure": true,
+  "setCookieSameSite": "none",
     "auth": {
       "authorization": true
   },

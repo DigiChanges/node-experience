@@ -69,8 +69,9 @@ class AuthHandler
                 expires: moment.unix(payload.getExpires()).toDate(),
                 maxAge: payload.getExpires(),
                 path: '/api/auth/refresh-token',
-                secure: MainConfig.getInstance().getConfig().env === 'production',
-                httpOnly: true
+                secure: MainConfig.getInstance().getConfig().setCookieSecure,
+                httpOnly: true,
+                sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
             });
 
         void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new AuthTransformer());
@@ -110,8 +111,9 @@ class AuthHandler
                 expires: moment.unix(payload.getExpires()).toDate(),
                 maxAge: payload.getExpires(),
                 path: '/api/auth/refresh-token',
-                secure: MainConfig.getInstance().getConfig().env === 'production',
-                httpOnly: true
+                secure: MainConfig.getInstance().getConfig().setCookieSecure,
+                httpOnly: true,
+                sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
             });
 
         void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new AuthTransformer());
