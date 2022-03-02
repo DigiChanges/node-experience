@@ -103,6 +103,8 @@ type ApiWhiteType = {
 type ConfigType = {
     env: string;
     nodePath: string;
+    setCookieSecure: boolean;
+    setCookieSameSite: boolean | 'none' | 'lax' | 'strict';
     serverPort: number;
     auth: {
         authorization: boolean;

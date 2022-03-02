@@ -19,6 +19,7 @@ import RegisterRequest from '../../Requests/RegisterRequest';
 import UpdateMeRequest from '../../Requests/UpdateMeRequest';
 import VerifyYourAccountRequest from '../../Requests/VerifyYourAccountRequest';
 import RefreshTokenMiddleware from '../../Middlewares/Koa/RefreshTokenMiddleware';
+import MainConfig from '../../../../Config/mainConfig';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/auth'
@@ -55,7 +56,9 @@ AuthHandler.post('/login', async(ctx: Koa.ParameterizedContext & any) =>
             expires: moment.unix(payload.getExpires()).toDate(),
             maxAge: payload.getExpires(),
             path: '/api/auth/refresh-token',
-            httpOnly: true
+            secure: MainConfig.getInstance().getConfig().setCookieSecure,
+            httpOnly: true,
+            sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
         });
 
     void await responder.send(payload, ctx, StatusCode.HTTP_CREATED, new AuthTransformer());
@@ -92,7 +95,9 @@ AuthHandler.post('/refresh-token', RefreshTokenMiddleware, async(ctx: Koa.Parame
             expires: moment.unix(payload.getExpires()).toDate(),
             maxAge: payload.getExpires(),
             path: '/api/auth/refresh-token',
-            httpOnly: true
+            secure: MainConfig.getInstance().getConfig().setCookieSecure,
+            httpOnly: true,
+            sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
         });
 
     void await responder.send(payload, ctx, StatusCode.HTTP_OK, new AuthTransformer());
