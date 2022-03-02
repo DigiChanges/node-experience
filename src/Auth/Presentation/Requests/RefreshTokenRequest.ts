@@ -1,4 +1,4 @@
-import RefreshTokenPayload from '../../InterfaceAdapters/Payloads/RefreshTokenPayload';
+import RefreshTokenPayload from '../../Domain/Payloads/RefreshTokenPayload';
 import { IsString } from 'class-validator';
 
 class RefreshTokenRequest implements RefreshTokenPayload

@@ -1,7 +1,7 @@
 import { IsEmail } from 'class-validator';
 import { IEncryption } from '@digichanges/shared-experience';
 
-import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
+import ForgotPasswordPayload from '../../Domain/Payloads/ForgotPasswordPayload';
 import moment from 'moment';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 

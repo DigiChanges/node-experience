@@ -1,5 +1,5 @@
 import { ITokenRepository } from '@digichanges/shared-experience';
-import RefreshTokenPayload from '../../InterfaceAdapters/Payloads/RefreshTokenPayload';
+import RefreshTokenPayload from '../Payloads/RefreshTokenPayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import TokenFactory from '../../../Shared/Factories/TokenFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';

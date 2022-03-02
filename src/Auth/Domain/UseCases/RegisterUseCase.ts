@@ -3,7 +3,7 @@ import SendEmailService from '../../../Notification/Domain/Services/SendEmailSer
 import RegisterEvent from '../../../Shared/Events/RegisterEvent';
 import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../App/Presentation/Shared/Locales';
-import RegisterPayload from '../../InterfaceAdapters/Payloads/RegisterPayload';
+import RegisterPayload from '../Payloads/RegisterPayload';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
 import MainConfig from '../../../Config/mainConfig';
 

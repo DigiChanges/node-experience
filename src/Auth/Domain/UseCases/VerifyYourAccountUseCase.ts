@@ -1,4 +1,4 @@
-import VerifyYourAccountPayload from '../../InterfaceAdapters/Payloads/VerifyYourAccountPayload';
+import VerifyYourAccountPayload from '../Payloads/VerifyYourAccountPayload';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';

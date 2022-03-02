@@ -1,7 +1,7 @@
 import MainConfig from '../../../Config/mainConfig';
 import { IsString, Length } from 'class-validator';
 
-import ChangeForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
+import ChangeForgotPasswordPayload from '../../Domain/Payloads/ChangeForgotPasswordPayload';
 import { Match } from '../../../Shared/Decorators/match';
 
 class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload

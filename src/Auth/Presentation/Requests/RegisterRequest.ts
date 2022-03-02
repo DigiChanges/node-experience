@@ -1,6 +1,6 @@
 import { Mixin } from 'ts-mixer';
 import UserRepPasswordRequest from '../../../User/Presentation/Requests/UserRepPasswordRequest';
-import RegisterPayload from '../../InterfaceAdapters/Payloads/RegisterPayload';
+import RegisterPayload from '../../Domain/Payloads/RegisterPayload';
 import UserWithoutPermissionsRequest
     from '../../../User/Presentation/Requests/UserWithoutPermissionsRequest';
 import moment from 'moment';

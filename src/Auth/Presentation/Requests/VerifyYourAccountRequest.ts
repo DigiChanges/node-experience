@@ -1,5 +1,5 @@
 import { IsString } from 'class-validator';
-import VerifyYourAccountPayload from '../../InterfaceAdapters/Payloads/VerifyYourAccountPayload';
+import VerifyYourAccountPayload from '../../Domain/Payloads/VerifyYourAccountPayload';
 
 class VerifyYourAccountRequest implements VerifyYourAccountPayload
 {

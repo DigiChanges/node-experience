@@ -1,5 +1,5 @@
 import MainConfig from '../../../Config/mainConfig';
-import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
+import ForgotPasswordPayload from '../Payloads/ForgotPasswordPayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';

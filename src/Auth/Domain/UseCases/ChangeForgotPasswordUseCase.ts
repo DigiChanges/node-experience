@@ -1,4 +1,4 @@
-import ChangeForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
+import ChangeForgotPasswordPayload from '../Payloads/ChangeForgotPasswordPayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';

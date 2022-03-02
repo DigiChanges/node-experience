@@ -1,4 +1,4 @@
-import AuthPayload from '../../InterfaceAdapters/Payloads/AuthPayload';
+import AuthPayload from '../Payloads/AuthPayload';
 import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import TokenFactory from '../../../Shared/Factories/TokenFactory';
