@@ -26,6 +26,7 @@ import RegisterRequest from '../../Requests/RegisterRequest';
 import UpdateMeRequest from '../../Requests/UpdateMeRequest';
 import VerifyYourAccountRequest from '../../Requests/VerifyYourAccountRequest';
 import RefreshTokenMiddleware from '../../Middlewares/Express/RefreshTokenMiddleware';
+import MainConfig from '../../../../Config/mainConfig';
 
 @controller('/api/auth')
 class AuthHandler
@@ -68,6 +69,7 @@ class AuthHandler
                 expires: moment.unix(payload.getExpires()).toDate(),
                 maxAge: payload.getExpires(),
                 path: '/api/auth/refresh-token',
+                secure: MainConfig.getInstance().getConfig().env === 'production',
                 httpOnly: true
             });
 
@@ -108,6 +110,7 @@ class AuthHandler
                 expires: moment.unix(payload.getExpires()).toDate(),
                 maxAge: payload.getExpires(),
                 path: '/api/auth/refresh-token',
+                secure: MainConfig.getInstance().getConfig().env === 'production',
                 httpOnly: true
             });
 

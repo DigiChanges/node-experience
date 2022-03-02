@@ -44,7 +44,10 @@ class AppKoa implements IApp
 
     public initConfig()
     {
-        this.app.use(cors());
+        this.app.use(cors({
+            credentials: true
+        }));
+        this.app.proxy = MainConfig.getInstance().getConfig().env === 'production';
         this.app.use(helmet());
         this.app.use(hbshbs.middleware({
             viewPath: this.config.viewRouteEngine
