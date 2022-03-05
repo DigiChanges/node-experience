@@ -8,7 +8,7 @@ import Responder from './App/Presentation/Shared/Express/Responder';
 
 import IItemRepository from './Item/Infrastructure/Repositories/IItemRepository';
 import IUserRepository from './User/InterfaceAdapters/IUserRepository';
-import IRoleRepository from './Role/InterfaceAdapters/IRoleRepository';
+import IRoleRepository from './Role/Infrastructure/Repositories/IRoleRepository';
 import IFileRepository from './File/Infrastructure/Repositories/IFileRepository';
 
 import { REPOSITORIES } from './Config/Injects/repositories';

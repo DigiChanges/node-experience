@@ -1,4 +1,4 @@
-import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 import { ArrayMinSize, IsArray, IsBoolean, IsString, Length } from 'class-validator';
 import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
 

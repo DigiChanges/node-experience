@@ -1,8 +1,5 @@
 import jwt, { TAlgorithm } from 'jwt-simple';
-import _ from 'lodash';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
-import Permissions from '../../../Config/Permissions';
-import WrongPermissionsException from '../Exceptions/WrongPermissionsException';
 import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
@@ -37,14 +34,6 @@ class AuthService
         }, []);
 
         return [...new Set([...auth_user.permissions, ...rolePermissions])];
-    }
-
-    public validatePermissions(permissions: string[]): void
-    {
-        if (!_.isEmpty(permissions) && _.isEmpty(_.intersection(permissions, Permissions.permissions())))
-        {
-            throw new WrongPermissionsException();
-        }
     }
 
     public getByEmail(email: string): Promise<Auth>

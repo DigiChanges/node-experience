@@ -52,7 +52,7 @@ module.exports = {
     "<rootDir>/src/User/Infrastructure/Repositories/UserSqlRepository.ts",
     "<rootDir>/src/Role/Infrastructure/Repositories/RoleSqlRepository.ts",
     "<rootDir>/src/Item/Infrastructure/Repositories/ItemSqlRepository.ts",
-    "<rootDir>/src/Auth/Infrastructure/Repositories/TokenRedisRepository.ts",
+    "<rootDir>/src/AuthHelper/Infrastructure/Repositories/TokenRedisRepository.ts",
     "<rootDir>/src/AppExpress/Domain/UseCases/GetLogViewUseCase.ts",
   ],
 

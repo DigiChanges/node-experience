@@ -236,7 +236,7 @@ describe('Start Role Test', () =>
             expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(data.length).toStrictEqual(5);
-            expect(pagination.total).toStrictEqual(6);
+            expect(pagination.total).toStrictEqual(7);
             expect(pagination.perPage).toStrictEqual(5);
             expect(pagination.currentPage).toStrictEqual(1);
             expect(pagination.lastPage).toStrictEqual(2);
@@ -264,7 +264,7 @@ describe('Start Role Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(data.length).toStrictEqual(6);
+            expect(data.length).toStrictEqual(7);
             expect(pagination).not.toBeDefined();
         });
 
@@ -300,8 +300,8 @@ describe('Start Role Test', () =>
             expect(status).toStrictEqual('success');
             expect(statusCode).toStrictEqual('HTTP_OK');
 
-            expect(role1.slug).toStrictEqual('role3testupdate');
-            expect(role2.slug).toStrictEqual('role2test');
+            expect(role1.slug).toStrictEqual('superAdmin');
+            expect(role2.slug).toStrictEqual('role3testupdate');
         });
 
         test('Sync roles permissions /sync-roles-permissions', async() =>
@@ -341,8 +341,7 @@ describe('Start Role Test', () =>
         test('Add Role /roles', async() =>
         {
             const payload = {
-                name: 'Role 2',
-                type: 'Role 1'
+                firstName: 'Role 2'
             };
 
             const response: IRoleResponse = await request
@@ -358,9 +357,9 @@ describe('Start Role Test', () =>
             expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
-            expect(error.property).toStrictEqual('slug');
+            expect(error.property).toStrictEqual('name');
             expect(error.constraints.isString).toBeDefined();
-            expect(error.constraints.isString).toStrictEqual('slug must be a string');
+            expect(error.constraints.isString).toStrictEqual('name must be a string');
         });
 
         test('Get Role /roles/:id', async() =>
@@ -404,13 +403,13 @@ describe('Start Role Test', () =>
             expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
-            expect(error1.property).toStrictEqual('name');
-            expect(error1.constraints.isString).toBeDefined();
-            expect(error1.constraints.isString).toStrictEqual('name must be a string');
+            expect(error1.property).toStrictEqual('permissions');
+            expect(error1.constraints.isArray).toBeDefined();
+            expect(error1.constraints.isArray).toStrictEqual('permissions must be an array');
 
-            expect(error2.property).toStrictEqual('permissions');
-            expect(error2.constraints.isArray).toBeDefined();
-            expect(error2.constraints.isArray).toStrictEqual('permissions must be an array');
+            expect(error2.property).toStrictEqual('name');
+            expect(error2.constraints.isString).toBeDefined();
+            expect(error2.constraints.isString).toStrictEqual('name must be a string');
         });
 
         test('Delete Role error /roles/:id', async() =>

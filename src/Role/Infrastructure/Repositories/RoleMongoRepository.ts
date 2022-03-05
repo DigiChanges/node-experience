@@ -1,12 +1,12 @@
-import IRoleRepository from '../../InterfaceAdapters/IRoleRepository';
+import IRoleRepository from './IRoleRepository';
 import { injectable } from 'inversify';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
 import RoleFilter from '../../Presentation/Criterias/RoleFilter';
 import { Query } from 'mongoose';
-import IRole from '../../InterfaceAdapters/IRoleDocument';
-import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
+import IRole from '../Schemas/IRoleDocument';
+import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 
 import Roles from '../../../Config/Roles';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';

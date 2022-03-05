@@ -1,4 +1,5 @@
-import IBaseDomain from '../../App/InterfaceAdapters/IBaseDomain';
+import IBaseDomain from '../../../App/InterfaceAdapters/IBaseDomain';
+import RoleRepPayload from '../Payloads/RoleRepPayload';
 
 interface IRoleDomain extends IBaseDomain
 {
@@ -7,6 +8,8 @@ interface IRoleDomain extends IBaseDomain
     enable: boolean;
     ofSystem: boolean;
     permissions: string[];
+
+    updateBuild(payload: RoleRepPayload): void
 }
 
 export default IRoleDomain;

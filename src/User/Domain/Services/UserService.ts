@@ -8,8 +8,8 @@ import IUserRepository from '../../InterfaceAdapters/IUserRepository';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import CheckUserRolePayload from '../../InterfaceAdapters/Payloads/CheckUserRolePayload';
-import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
-import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
+import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
+import IRoleRepository from '../../../Role/Infrastructure/Repositories/IRoleRepository';
 import ChangeUserPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeUserPasswordPayload';
 import UserAssignRolePayload from '../../InterfaceAdapters/Payloads/UserAssignRolePayload';
 import UserAssignRoleBySlug from 'User/InterfaceAdapters/Payloads/UserAssignRoleBySlug';
@@ -18,6 +18,7 @@ import UniqueService from '../../../App/Domain/Services/UniqueService';
 import MainConfig from '../../../Config/mainConfig';
 import AuthService from '../../../Auth/Domain/Services/AuthService';
 import UserActivePayload from '../../InterfaceAdapters/Payloads/UserActivePayload';
+import AuthHelper from '../../../Shared/Helpers/AuthHelper';
 
 class UserService
 {
@@ -33,7 +34,7 @@ class UserService
 
     async persist(user: IUserDomain, payload: UserRepPayload): Promise<IUserDomain>
     {
-        this.authService.validatePermissions(payload.getPermissions());
+        AuthHelper.validatePermissions(payload.getPermissions());
 
         void await UniqueService.validate<IUserDomain>({
             repository: REPOSITORIES.IUserRepository,

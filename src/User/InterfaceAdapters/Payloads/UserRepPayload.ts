@@ -1,4 +1,4 @@
-import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 
 interface UserRepPayload
 {

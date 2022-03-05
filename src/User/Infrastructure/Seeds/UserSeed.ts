@@ -1,9 +1,9 @@
-import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 import Role from '../../../Role/Domain/Entities/Role';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import User from '../../Domain/Entities/User';
 import IUserRepository from '../../InterfaceAdapters/IUserRepository';
-import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
+import IRoleRepository from '../../../Role/Infrastructure/Repositories/IRoleRepository';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
@@ -26,36 +26,44 @@ class UserSeed implements ISeed
         const min = config.getConfig().validationSettings.password.minLength;
         const max = config.getConfig().validationSettings.password.maxLength;
 
-        const roleSuperAdmin: IRoleDomain = new Role();
-        roleSuperAdmin.name = 'SuperAdmin';
-        roleSuperAdmin.slug = 'superadmin';
-        roleSuperAdmin.permissions = [];
-        roleSuperAdmin.enable = true;
+        const payloadSuperAdmin = {
+            name: 'SuperAdmin',
+            slug: 'superAdmin',
+            permissions: ['rolesSave'],
+            enable: true
+        };
 
+        const roleSuperAdmin: IRoleDomain = new Role(payloadSuperAdmin);
         await this.roleRepository.save(roleSuperAdmin);
 
-        const roleAdmin: IRoleDomain = new Role();
-        roleAdmin.name = 'Admin';
-        roleAdmin.slug = 'admin';
-        roleAdmin.permissions = Permissions.permissions();
-        roleAdmin.enable = true;
+        const payloadAdmin = {
+            name: 'Admin',
+            slug: 'admin',
+            permissions: Permissions.permissions(),
+            enable: true
+        };
 
+        const roleAdmin: IRoleDomain = new Role(payloadAdmin);
         await this.roleRepository.save(roleAdmin);
 
-        const roleOperator: IRoleDomain = new Role();
-        roleOperator.name = 'Operator';
-        roleOperator.slug = 'operator';
-        roleOperator.permissions = [];
-        roleOperator.enable = true;
+        const payloadOperator = {
+            name: 'Operator',
+            slug: 'operator',
+            permissions: ['rolesSave'],
+            enable: true
+        };
 
+        const roleOperator: IRoleDomain = new Role(payloadOperator);
         await this.roleRepository.save(roleOperator);
 
-        const roleOperatorDisabled: IRoleDomain = new Role();
-        roleOperatorDisabled.name = 'OperatorDisabled';
-        roleOperatorDisabled.slug = 'operatordisabled';
-        roleOperatorDisabled.permissions = [];
-        roleOperatorDisabled.enable = false;
+        const payloadOperatorDisabled = {
+            name: 'OperatorDisabled',
+            slug: 'operatordisabled',
+            permissions: ['rolesSave'],
+            enable: false
+        };
 
+        const roleOperatorDisabled: IRoleDomain = new Role(payloadOperatorDisabled);
         await this.roleRepository.save(roleOperatorDisabled);
 
         const userSuperAdmin: IUserDomain = new User();

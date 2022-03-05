@@ -4,12 +4,12 @@ import SaveRoleUseCase from '../../Domain/UseCases/SaveRoleUseCase';
 import ListRolesUseCase from '../../Domain/UseCases/ListRolesUseCase';
 import GetRoleUseCase from '../../Domain/UseCases/GetRoleUseCase';
 import RemoveRoleUseCase from '../../Domain/UseCases/RemoveRoleUseCase';
-import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 import UpdateRoleUseCase from '../../Domain/UseCases/UpdateRoleUseCase';
 import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
-import RoleRepPayload from '../../InterfaceAdapters/Payloads/RoleRepPayload';
+import RoleRepPayload from '../../Domain/Payloads/RoleRepPayload';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import RoleUpdatePayload from '../../InterfaceAdapters/Payloads/RoleUpdatePayload';
+import RoleUpdatePayload from '../../Domain/Payloads/RoleUpdatePayload';
 
 class RoleController
 {

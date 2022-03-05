@@ -13,7 +13,7 @@ import RoleUpdateRequest from '../../Requests/RoleUpdateRequest';
 import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Express/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
 
-import IRoleDomain from '../../../InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../../Domain/Entities/IRoleDomain';
 import RoleController from '../../Controllers/RoleController';
 
 @controller('/api/roles')

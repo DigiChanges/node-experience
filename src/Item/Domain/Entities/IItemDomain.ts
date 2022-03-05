@@ -1,6 +1,6 @@
 import IBaseDomain from '../../../App/InterfaceAdapters/IBaseDomain';
 import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
-import ItemUpdatePayload from '../Payloads/ItemUpdatePayload';
+import ItemRepPayload from '../Payloads/ItemRepPayload';
 
 interface IItemDomain extends IBaseDomain
 {
@@ -11,7 +11,7 @@ interface IItemDomain extends IBaseDomain
 
     getCreatedBy(): IUserDomain;
     getLastModifiedBy(): IUserDomain;
-    updateBuild(payload: ItemUpdatePayload): void;
+    updateBuild(payload: ItemRepPayload): void;
 }
 
 export default IItemDomain;

@@ -1,4 +1,4 @@
-import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 import IUserDomain from '../../InterfaceAdapters/IUserDomain';
 import Base from '../../../App/Domain/Entities/Base';
 import Password from '../../../App/Domain/ValueObjects/Password';

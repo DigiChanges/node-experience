@@ -9,7 +9,7 @@ Hello! **NExp** *(Node Experience)* is a boilerplate for [**Node**](https://node
 Each module is divided by business domain:
 
 - App
-- Auth
+- AuthHelper
 - File
 - Item
 - Notification

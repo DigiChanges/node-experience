@@ -5,7 +5,7 @@ import Role from '../../Role/Infrastructure/Schemas/RoleMikroORM';
 import Item from '../../Item/Infrastructure/Schemas/ItemMikroORM';
 import File from '../../File/Infrastructure/Schemas/FileMikroORM';
 // import Notification from '../../Notification/Infrastructure/Schemas/NotificationMikroORM';
-// import TokenSchema from '../../Auth/Infrastructure/Schemas/TokenMikroORM';
+// import TokenSchema from '../../AuthHelper/Infrastructure/Schemas/TokenMikroORM';
 
 export let orm: MikroORM = null;
 

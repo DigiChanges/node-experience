@@ -1,6 +1,6 @@
 import { decorate } from 'ts-mixer';
 import { IsEmail, IsString, Length } from 'class-validator';
-import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 import UserRepPayload from '../../InterfaceAdapters/Payloads/UserRepPayload';
 
 class UserWithoutPermissionsRequest implements UserRepPayload

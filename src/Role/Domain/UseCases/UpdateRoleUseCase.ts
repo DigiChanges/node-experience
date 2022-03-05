@@ -1,14 +1,20 @@
-import RoleUpdatePayload from '../../InterfaceAdapters/Payloads/RoleUpdatePayload';
-import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
-import RoleService from '../Services/RoleService';
+import RoleUpdatePayload from '../Payloads/RoleUpdatePayload';
+import IRoleDomain from '../Entities/IRoleDomain';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import IRoleRepository from '../../Infrastructure/Repositories/IRoleRepository';
 
 class UpdateRoleUseCase
 {
-    private roleService = new RoleService();
+    @containerFactory(REPOSITORIES.IRoleRepository)
+    private repository: IRoleRepository;
 
     async handle(payload: RoleUpdatePayload): Promise<IRoleDomain>
     {
-        return await this.roleService.update(payload);
+        const role: IRoleDomain = await this.repository.getOne(payload.getId());
+        role.updateBuild(payload);
+
+        return await this.repository.update(role);
     }
 }
 

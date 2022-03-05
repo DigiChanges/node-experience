@@ -3,7 +3,7 @@ import MainConfig from '../../Config/mainConfig';
 import { ICreateConnection } from '@digichanges/shared-experience';
 
 import IUserDocument from '../../User/InterfaceAdapters/IUserDocument';
-import IRoleDocument from '../../Role/InterfaceAdapters/IRoleDocument';
+import IRoleDocument from '../../Role/Infrastructure/Schemas/IRoleDocument';
 import IItemDocument from '../../Item/Infrastructure/Schemas/IItemDocument';
 import IFileDocument from '../../File/Infrastructure/Schemas/IFileDocument';
 import INotificationDocument from '../../Notification/InterfaceAdapters/INotificationDocument';
