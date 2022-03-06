@@ -3,13 +3,12 @@ import IdRequest from '../../../App/Presentation/Requests/IdRequest';
 import ItemRepRequest from './ItemRepRequest';
 import { Mixin } from 'ts-mixer';
 
-
 class ItemUpdateRequest extends Mixin(ItemRepRequest, IdRequest) implements ItemUpdatePayload
 {
     constructor(data: Record<string, any>, id: string)
     {
         super(data);
-        this.id = id;
+        this._id = id;
     }
 }
 

@@ -1,4 +1,4 @@
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 
 interface IToken
 {

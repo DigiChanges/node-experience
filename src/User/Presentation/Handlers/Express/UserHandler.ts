@@ -18,7 +18,7 @@ import UserAssignRoleRequest from '../../Requests/UserAssignRoleRequest';
 import ChangeUserPasswordRequest from '../../Requests/ChangeUserPasswordRequest';
 import ChangeMyPasswordRequest from '../../Requests/ChangeMyPasswordRequest';
 
-import IUserDomain from '../../../InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../../Domain/Entities/IUserDomain';
 import UserController from '../../Controllers/UserControllers';
 import UserSaveRequest from '../../Requests/UserSaveRequest';
 import { AuthUser } from '../../../../Auth/Presentation/Helpers/AuthUser';

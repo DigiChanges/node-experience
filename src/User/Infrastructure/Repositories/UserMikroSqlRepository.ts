@@ -2,10 +2,10 @@ import { injectable } from 'inversify';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import UserFilter from '../../Presentation/Criterias/UserFilter';
-import IUserDomain from '../../InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../Domain/Entities/IUserDomain';
 import User from '../../Domain/Entities/User';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
-import IUserRepository from '../../InterfaceAdapters/IUserRepository';
+import IUserRepository from './IUserRepository';
 import BaseMikroSqlRepository from '../../../App/Infrastructure/Repositories/BaseMikroSqlRepository';
 import UserSchema from '../Schemas/UserMikroORM';
 import { QueryBuilder } from '@mikro-orm/postgresql';

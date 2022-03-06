@@ -1,8 +1,8 @@
-import IUserDomain from '../IUserDomain';
+import IUserDomain from '../Entities/IUserDomain';
 
 interface CheckUserRolePayload
 {
-    role_to_check: string;
+    roleToCheck: string;
     user:  IUserDomain;
 }
 

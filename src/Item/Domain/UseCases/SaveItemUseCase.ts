@@ -1,6 +1,6 @@
 import ItemRepPayload from '../Payloads/ItemRepPayload';
 import IItemDomain from '../Entities/IItemDomain';
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import Item from '../Entities/Item';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';

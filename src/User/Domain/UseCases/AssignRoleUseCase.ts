@@ -1,5 +1,5 @@
-import UserAssignRolePayload from '../../InterfaceAdapters/Payloads/UserAssignRolePayload';
-import IUserDomain from '../../InterfaceAdapters/IUserDomain';
+import UserAssignRolePayload from '../Payloads/UserAssignRolePayload';
+import IUserDomain from '../Entities/IUserDomain';
 import UserService from '../Services/UserService';
 
 class AssignRoleUseCase

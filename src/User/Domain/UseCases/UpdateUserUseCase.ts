@@ -1,6 +1,6 @@
-import UserUpdatePayload from '../../InterfaceAdapters/Payloads/UserUpdatePayload';
-import IUserDomain from '../../InterfaceAdapters/IUserDomain';
-import CheckUserRolePayload from '../../InterfaceAdapters/Payloads/CheckUserRolePayload';
+import UserUpdatePayload from '../Payloads/UserUpdatePayload';
+import IUserDomain from '../Entities/IUserDomain';
+import CheckUserRolePayload from '../Payloads/CheckUserRolePayload';
 import Roles from '../../../Config/Roles';
 import CantDisabledException from '../../../Auth/Domain/Exceptions/CantDisabledException';
 import UserService from '../Services/UserService';
@@ -11,11 +11,11 @@ class UpdateUserUseCase
 
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {
-        const id = payload.getId();
+        const id = payload.id;
         const user: IUserDomain = await this.userService.getOne(id);
-        let enable = payload.getEnable();
+        let enable = payload.enable;
 
-        if (payload.getTokenUserId() === user.getId())
+        if (payload.tokenUserId === user.getId())
         {
             enable = true;
         }
@@ -23,7 +23,7 @@ class UpdateUserUseCase
         if (typeof user.roles !== 'undefined' && enable !== null) // TODO: Refactoring
         {
             const checkRole: CheckUserRolePayload = {
-                role_to_check: Roles.SUPER_ADMIN.toLocaleLowerCase(),
+                roleToCheck: Roles.SUPER_ADMIN.toLocaleLowerCase(),
                 user
             };
 

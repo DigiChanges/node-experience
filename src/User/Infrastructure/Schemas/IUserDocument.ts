@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import IUserDomain from './IUserDomain';
+import IUserDomain from '../../Domain/Entities/IUserDomain';
 
 interface IUserDocument extends Document, IUserDomain {}
 

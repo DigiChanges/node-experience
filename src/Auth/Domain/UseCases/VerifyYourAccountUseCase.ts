@@ -1,7 +1,7 @@
 import VerifyYourAccountPayload from '../Payloads/VerifyYourAccountPayload';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
-import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
+import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 import SendEmailService from '../../../Notification/Domain/Services/SendEmailService';
 import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../App/Presentation/Shared/Locales';

@@ -4,17 +4,17 @@ import { decorate } from 'ts-mixer';
 
 class IdRequest implements IdPayload
 {
-    @decorate(IsUUID('4'))
-    id: string;
+    protected _id: string;
 
     constructor({ id }: { id: string })
     {
-        this.id = id;
+        this._id = id;
     }
 
-    getId(): string
+    @decorate(IsUUID('4'))
+    get id(): string
     {
-        return this.id;
+        return this._id;
     }
 }
 

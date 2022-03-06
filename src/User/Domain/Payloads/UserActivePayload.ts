@@ -1,7 +1,7 @@
 
 interface UserActivePayload
 {
-    getEmail(): string;
+    email: string;
 }
 
 export default UserActivePayload;

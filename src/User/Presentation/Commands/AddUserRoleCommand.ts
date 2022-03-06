@@ -2,7 +2,7 @@ import UserCommandSaveRequest from '../Requests/UserCommandSaveRequest';
 import commander from 'commander';
 import SaveUserUseCase from '../../Domain/UseCases/SaveUserUseCase';
 import SaveRoleUseCase from '../../../Role/Domain/UseCases/SaveRoleUseCase';
-import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
+import UserSavePayload from '../../Domain/Payloads/UserSavePayload';
 import Logger from '../../../Shared/Logger/Logger';
 import RoleRepRequest from '../../../Role/Presentation/Requests/RoleRepRequest';
 import RoleRepPayload from '../../../Role/Domain/Payloads/RoleRepPayload';

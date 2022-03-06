@@ -1,6 +1,6 @@
 import { ITokenRepository } from '@digichanges/shared-experience';
 import RefreshTokenPayload from '../Payloads/RefreshTokenPayload';
-import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
+import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 import TokenFactory from '../../../Shared/Factories/TokenFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import SetTokenBlacklistUseCase from './SetTokenBlacklistUseCase';

@@ -1,8 +1,8 @@
 
 interface UserPasswordRepPayload
 {
-    getPassword(): string;
-    getPasswordConfirmation(): string;
+    password: string;
+    passwordConfirmation: string;
 }
 
 export default UserPasswordRepPayload;

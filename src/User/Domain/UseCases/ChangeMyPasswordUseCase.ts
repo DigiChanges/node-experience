@@ -1,5 +1,5 @@
-import ChangeMyPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeMyPasswordPayload';
-import IUserDomain from '../../InterfaceAdapters/IUserDomain';
+import ChangeMyPasswordPayload from '../Payloads/ChangeMyPasswordPayload';
+import IUserDomain from '../Entities/IUserDomain';
 import PasswordWrongException from '../../../Auth/Domain/Exceptions/PasswordWrongException';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
@@ -16,10 +16,10 @@ class ChangeMyPasswordUseCase
     {
         const config = MainConfig.getInstance();
 
-        const id = payload.getId();
+        const id = payload.id;
         const user: IUserDomain = await this.userService.getOne(id);
 
-        if (! await this.encryption.compare(payload.getCurrentPassword(), user.password.toString()))
+        if (! await this.encryption.compare(payload.currentPassword, user.password.toString()))
         {
             throw new PasswordWrongException();
         }
@@ -27,9 +27,7 @@ class ChangeMyPasswordUseCase
         const min = config.getConfig().validationSettings.password.minLength;
         const max = config.getConfig().validationSettings.password.maxLength;
 
-        const password = new Password(payload.getPassword(), min, max);
-        await password.ready();
-        user.password = password;
+        user.password = await (new Password(payload.password, min, max)).ready();
 
         return await this.userService.persistPassword(user, payload);
     }

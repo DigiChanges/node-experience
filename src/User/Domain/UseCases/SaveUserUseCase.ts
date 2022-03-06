@@ -1,7 +1,7 @@
-import IUserDomain from '../../InterfaceAdapters/IUserDomain';
+import IUserDomain from '../Entities/IUserDomain';
 import EventHandler from '../../../Shared/Events/EventHandler';
 import UserCreatedEvent from '../../../Shared/Events/UserCreatedEvent';
-import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
+import UserSavePayload from '../Payloads/UserSavePayload';
 import UserService from '../Services/UserService';
 
 class SaveUserUseCase

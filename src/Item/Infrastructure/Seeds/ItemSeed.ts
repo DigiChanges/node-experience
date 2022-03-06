@@ -4,9 +4,9 @@ import Item from '../../Domain/Entities/Item';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import User from '../../../User/Domain/Entities/User';
-import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
+import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import MainConfig from '../../../Config/mainConfig';
 

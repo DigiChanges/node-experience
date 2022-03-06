@@ -1,4 +1,4 @@
-import UserActivePayload from '../../InterfaceAdapters/Payloads/UserActivePayload';
+import UserActivePayload from '../Payloads/UserActivePayload';
 import UserService from '../Services/UserService';
 
 class ActiveUserUseCase

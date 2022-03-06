@@ -11,7 +11,7 @@ class UpdateRoleUseCase
 
     async handle(payload: RoleUpdatePayload): Promise<IRoleDomain>
     {
-        const role: IRoleDomain = await this.repository.getOne(payload.getId());
+        const role: IRoleDomain = await this.repository.getOne(payload.id);
         role.updateBuild(payload);
 
         return await this.repository.update(role);

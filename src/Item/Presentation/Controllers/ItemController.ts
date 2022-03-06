@@ -10,7 +10,7 @@ import ItemRepPayload from '../../Domain/Payloads/ItemRepPayload';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import ItemUpdatePayload from '../../Domain/Payloads/ItemUpdatePayload';
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 
 class ItemController
 {

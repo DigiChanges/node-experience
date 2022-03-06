@@ -1,6 +1,6 @@
 import IItemDomain from './IItemDomain';
 import Base from '../../../App/Domain/Entities/Base';
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import ItemRepPayload from '../Payloads/ItemRepPayload';
 
 class Item extends Base implements IItemDomain

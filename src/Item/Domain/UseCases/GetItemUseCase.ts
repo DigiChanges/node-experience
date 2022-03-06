@@ -11,7 +11,7 @@ class GetItemUseCase
 
     async handle(payload: IdPayload): Promise<IItemDomain>
     {
-        return await this.repository.getOne(payload.getId());
+        return await this.repository.getOne(payload.id);
     }
 }
 

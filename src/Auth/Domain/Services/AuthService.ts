@@ -1,9 +1,9 @@
 import jwt, { TAlgorithm } from 'jwt-simple';
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
-import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
+import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 import TokenExpiredHttpException from '../../Presentation/Exceptions/TokenExpiredHttpException';
 import TokenNotFoundHttpException from '../../Presentation/Exceptions/TokenNotFoundHttpException';
 import Auth from '../Types/Auth';

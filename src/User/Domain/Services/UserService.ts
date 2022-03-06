@@ -1,23 +1,22 @@
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
-import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
-import UserRepPayload from '../../InterfaceAdapters/Payloads/UserRepPayload';
-import IUserDomain from '../../InterfaceAdapters/IUserDomain';
+import UserSavePayload from '../Payloads/UserSavePayload';
+import UserRepPayload from '../Payloads/UserRepPayload';
+import IUserDomain from '../Entities/IUserDomain';
 import User from '../Entities/User';
-import IUserRepository from '../../InterfaceAdapters/IUserRepository';
+import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import CheckUserRolePayload from '../../InterfaceAdapters/Payloads/CheckUserRolePayload';
+import CheckUserRolePayload from '../Payloads/CheckUserRolePayload';
 import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 import IRoleRepository from '../../../Role/Infrastructure/Repositories/IRoleRepository';
-import ChangeUserPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeUserPasswordPayload';
-import UserAssignRolePayload from '../../InterfaceAdapters/Payloads/UserAssignRolePayload';
-import UserAssignRoleBySlug from 'User/InterfaceAdapters/Payloads/UserAssignRoleBySlug';
+import ChangeUserPasswordPayload from '../Payloads/ChangeUserPasswordPayload';
+import UserAssignRolePayload from '../Payloads/UserAssignRolePayload';
+import UserAssignRoleBySlug from 'User/Domain/Payloads/UserAssignRoleBySlug';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import UniqueService from '../../../App/Domain/Services/UniqueService';
 import MainConfig from '../../../Config/mainConfig';
-import AuthService from '../../../Auth/Domain/Services/AuthService';
-import UserActivePayload from '../../InterfaceAdapters/Payloads/UserActivePayload';
+import UserActivePayload from '../Payloads/UserActivePayload';
 import AuthHelper from '../../../Shared/Helpers/AuthHelper';
 
 class UserService
@@ -28,35 +27,33 @@ class UserService
     @containerFactory(REPOSITORIES.IRoleRepository)
     private roleRepository: IRoleRepository;
 
-    private authService = new AuthService();
-
     private config = MainConfig.getInstance();
 
     async persist(user: IUserDomain, payload: UserRepPayload): Promise<IUserDomain>
     {
-        AuthHelper.validatePermissions(payload.getPermissions());
+        AuthHelper.validatePermissions(payload.permissions);
 
         void await UniqueService.validate<IUserDomain>({
             repository: REPOSITORIES.IUserRepository,
             validate: {
-                email: payload.getEmail(),
-                documentNumber: payload.getDocumentNumber()
+                email: payload.email,
+                documentNumber: payload.documentNumber
             },
             refValue: user.getId()
         });
 
-        user.firstName = payload.getFirstName();
-        user.lastName = payload.getLastName();
-        user.enable = payload.getEnable();
-        user.email = payload.getEmail();
-        user.birthday = payload.getBirthday();
-        user.documentType = payload.getDocumentType();
-        user.documentNumber = payload.getDocumentNumber();
-        user.gender = payload.getGender();
-        user.phone = payload.getPhone();
-        user.country = payload.getCountry();
-        user.address = payload.getAddress();
-        user.permissions = payload.getPermissions();
+        user.firstName = payload.firstName;
+        user.lastName = payload.lastName;
+        user.enable = payload.enable;
+        user.email = payload.email;
+        user.birthday = payload.birthday;
+        user.documentType = payload.documentType;
+        user.documentNumber = payload.documentNumber;
+        user.gender = payload.gender;
+        user.phone = payload.phone;
+        user.country = payload.country;
+        user.address = payload.address;
+        user.permissions = payload.permissions;
 
         return await this.repository.save(user);
     }
@@ -68,8 +65,8 @@ class UserService
         void await UniqueService.validate<IUserDomain>({
             repository: REPOSITORIES.IUserRepository,
             validate: {
-                email: payload.getEmail(),
-                documentNumber: payload.getDocumentNumber()
+                email: payload.email,
+                documentNumber: payload.documentNumber
             }
         });
 
@@ -79,18 +76,16 @@ class UserService
         void await UniqueService.validate<IUserDomain>({
             repository: REPOSITORIES.IUserRepository,
             validate: {
-                email: payload.getEmail(),
-                documentNumber: payload.getDocumentNumber()
+                email: payload.email,
+                documentNumber: payload.documentNumber
             }
         });
 
-        const password = new Password(payload.getPassword(), min, max);
-        user.password = await password.ready();
-
-        user.confirmationToken = await payload.getConfirmationToken();
-        user.passwordRequestedAt = payload.getPasswordRequestedAt();
-        user.roles = payload.getRoles();
-        user.isSuperAdmin = payload.getIsSuperAdmin();
+        user.password = await (new Password(payload.password, min, max)).ready();
+        user.confirmationToken = payload.confirmationToken;
+        user.passwordRequestedAt = payload.passwordRequestedAt;
+        user.roles = payload.roles;
+        user.isSuperAdmin = payload.isSuperAdmin;
 
         return await this.persist(user, payload);
     }
@@ -115,20 +110,19 @@ class UserService
         const min = this.config.getConfig().validationSettings.password.minLength;
         const max = this.config.getConfig().validationSettings.password.maxLength;
 
-        const password = new Password(payload.getPassword(), min, max);
-        user.password = await password.ready();
+        user.password = await (new Password(payload.password, min, max)).ready();
 
         return await this.repository.update(user);
     }
 
     async assignRole(payload: UserAssignRolePayload): Promise<IUserDomain>
     {
-        const id = payload.getId();
+        const id = payload.id;
         const user: IUserDomain = await this.getOne(id);
 
         user.clearRoles();
 
-        const roles = await this.roleRepository.getInBy({ _id: payload.getRolesId() });
+        const roles = await this.roleRepository.getInBy({ _id: payload.rolesId });
 
         roles.forEach(role => user.setRole(role));
 
@@ -137,8 +131,8 @@ class UserService
 
     async assignRoleBySlug(payload: UserAssignRoleBySlug): Promise<IUserDomain>
     {
-        const email = payload.getEmail();
-        const slug = payload.getSlugRole();
+        const email = payload.email;
+        const slug = payload.slugRole;
 
         const user: IUserDomain = await this.repository.getOneByEmail(email);
         const role: IRoleDomain = await this.roleRepository.getBySlug(slug);
@@ -154,7 +148,7 @@ class UserService
 
         roles.forEach((role) =>
         {
-            if (role.slug === payload.role_to_check)
+            if (role.slug === payload.roleToCheck)
             {
                 return true;
             }
@@ -165,7 +159,7 @@ class UserService
 
     async activeUser(payload: UserActivePayload): Promise<void>
     {
-        const email = payload.getEmail();
+        const email = payload.email;
         const user = await this.repository.getOneByEmail(email);
 
         user.enable = true;

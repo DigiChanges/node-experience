@@ -4,7 +4,7 @@ import { ITokenRepository } from '@digichanges/shared-experience';
 
 import JWTToken from '../../Auth/Domain/Models/JWTToken';
 import IToken from '../../Auth/Domain/Models/IToken';
-import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../User/Domain/Entities/IUserDomain';
 import { REPOSITORIES } from '../../Config/Injects/repositories';
 import ITokenDomain from '../../Auth/Domain/Entities/ITokenDomain';
 import Token from '../../Auth/Domain/Entities/Token';

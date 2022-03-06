@@ -3,7 +3,7 @@ import UserRepPayload from './UserRepPayload';
 
 interface UserUpdatePayload extends IdPayload, UserRepPayload
 {
-    getTokenUserId(): string;
+    tokenUserId: string;
 }
 
 export default UserUpdatePayload;

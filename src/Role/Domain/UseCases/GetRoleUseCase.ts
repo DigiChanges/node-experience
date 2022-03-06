@@ -11,7 +11,7 @@ class GetRoleUseCase
 
     async handle(payload: IdPayload): Promise<IRoleDomain>
     {
-        return await this.repository.getOne(payload.getId());
+        return await this.repository.getOne(payload.id);
     }
 }
 

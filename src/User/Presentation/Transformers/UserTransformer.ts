@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { Transformer } from '@digichanges/shared-experience';
 
-import IUserDomain from '../../InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../Domain/Entities/IUserDomain';
 import RoleTransformer from '../../../Role/Presentation/Transformers/RoleTransformer';
 import IUserTransformer from './IUserTransformer';
 

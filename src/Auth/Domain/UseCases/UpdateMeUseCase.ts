@@ -1,5 +1,5 @@
-import UserRepPayload from '../../../User/InterfaceAdapters/Payloads/UserRepPayload';
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
+import UserRepPayload from '../../../User/Domain/Payloads/UserRepPayload';
+import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import UserService from '../../../User/Domain/Services/UserService';
 
 class UpdateMeUseCase

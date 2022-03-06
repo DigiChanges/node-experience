@@ -1,139 +1,131 @@
 import { decorate } from 'ts-mixer';
-import { IsEmail, IsString, Length } from 'class-validator';
+import { IsBoolean, IsEmail, IsString, Length } from 'class-validator';
 import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
-import UserRepPayload from '../../InterfaceAdapters/Payloads/UserRepPayload';
+import UserRepPayload from '../../Domain/Payloads/UserRepPayload';
 
 class UserWithoutPermissionsRequest implements UserRepPayload
 {
-    @decorate(Length(3, 50))
-    @decorate(IsString())
-    firstName: string;
-
-    @decorate(Length(3, 50))
-    @decorate(IsString())
-    lastName: string;
-
-    @decorate(IsEmail())
-    email: string;
-
-    @decorate(Length(3, 10))
-    @decorate(IsString())
-    birthday: string;
-
-    @decorate(Length(2, 20))
-    @decorate(IsString())
-    documentType: string;
-
-    @decorate(Length(3, 16))
-    @decorate(IsString())
-    documentNumber: string;
-
-    @decorate(Length(3, 20))
-    @decorate(IsString())
-    gender: string;
-
-    @decorate(Length(3, 20))
-    @decorate(IsString())
-    phone: string;
-
-    @decorate(Length(2, 2))
-    @decorate(IsString())
-    country: string;
-
-    @decorate(Length(10, 60))
-    @decorate(IsString())
-    address: string;
+    private readonly _firstName: string;
+    private readonly _lastName: string;
+    private readonly _email: string;
+    private readonly _birthday: string;
+    private readonly _documentType: string;
+    private readonly _documentNumber: string;
+    private readonly _gender: string;
+    private readonly _phone: string;
+    private readonly _country: string;
+    private readonly _address: string;
 
     constructor(data: Record<string, any>)
     {
-        this.firstName = data.firstName;
-        this.lastName = data.lastName;
-        this.email = data.email;
-        this.birthday = data.birthday;
-        this.documentType = data.documentType;
-        this.documentNumber = data.documentNumber;
-        this.gender = data.gender;
-        this.phone = data.phone;
-        this.country = data.country;
-        this.address = data.address;
+        this._firstName = data.firstName;
+        this._lastName = data.lastName;
+        this._email = data.email;
+        this._birthday = data.birthday;
+        this._documentType = data.documentType;
+        this._documentNumber = data.documentNumber;
+        this._gender = data.gender;
+        this._phone = data.phone;
+        this._country = data.country;
+        this._address = data.address;
     }
 
-    getFirstName(): string
+    @decorate(Length(3, 50))
+    @decorate(IsString())
+    get firstName(): string
     {
-        return this.firstName;
+        return this._firstName;
     }
 
-    getLastName(): string
+    @decorate(Length(3, 50))
+    @decorate(IsString())
+    get lastName(): string
     {
-        return this.lastName;
+        return this._lastName;
     }
 
-    getEmail(): string
+    @decorate(IsEmail())
+    get email(): string
     {
-        return this.email;
+        return this._email;
     }
 
-    getBirthday(): string
+    @decorate(Length(3, 10))
+    @decorate(IsString())
+    get birthday(): string
     {
-        return this.birthday;
+        return this._birthday;
     }
 
-    getDocumentType(): string
+    @decorate(Length(2, 20))
+    @decorate(IsString())
+    get documentType(): string
     {
-        return this.documentType;
+        return this._documentType;
     }
 
-    getDocumentNumber(): string
+    @decorate(Length(3, 16))
+    @decorate(IsString())
+    get documentNumber(): string
     {
-        return this.documentNumber;
+        return this._documentNumber;
     }
 
-    getGender(): string
+    @decorate(Length(3, 20))
+    @decorate(IsString())
+    get gender(): string
     {
-        return this.gender;
+        return this._gender;
     }
 
-    getPhone(): string
+    @decorate(Length(3, 20))
+    @decorate(IsString())
+    get phone(): string
     {
-        return this.phone;
+        return this._phone;
     }
 
-    getCountry(): string
+    @decorate(Length(2, 2))
+    @decorate(IsString())
+    get country(): string
     {
-        return this.country;
+        return this._country;
     }
 
-    getAddress(): string
+    @decorate(Length(10, 60))
+    @decorate(IsString())
+    get address(): string
     {
-        return this.address;
+        return this._address;
     }
 
-    getEnable(): boolean
+    @decorate(IsBoolean())
+    get enable(): boolean
     {
         return false;
     }
 
-    getConfirmationToken(): Promise<string>
+    get confirmationToken(): string | null
     {
         return null;
     }
 
-    getPasswordRequestedAt(): null
+    get passwordRequestedAt(): null
     {
         return null;
     }
 
-    getRoles(): IRoleDomain[]
+    get roles(): IRoleDomain[]
     {
         return [];
     }
 
-    getPermissions(): string[]
+    get permissions(): string[]
     {
         return [];
     }
 
-    getIsSuperAdmin(): boolean
+    get isSuperAdmin(): boolean
     {
         return false;
     }

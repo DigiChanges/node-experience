@@ -1,6 +1,6 @@
 import MainConfig from '../../../Config/mainConfig';
 import ForgotPasswordPayload from '../Payloads/ForgotPasswordPayload';
-import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
+import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ForgotPasswordEvent from '../../../Shared/Events/ForgotPasswordEvent';

@@ -1,6 +1,6 @@
 import commander from 'commander';
 import UserAssignRoleByCommandRequest from '../Requests/UserAssignRoleByCommandRequest';
-import UserAssignRoleBySlug from '../../InterfaceAdapters/Payloads/UserAssignRoleBySlug';
+import UserAssignRoleBySlug from '../../Domain/Payloads/UserAssignRoleBySlug';
 import AssignRoleBySlugUseCase from '../../Domain/UseCases/AssignRoleBySlugUseCase';
 import Logger from '../../../Shared/Logger/Logger';
 

@@ -8,7 +8,7 @@ class UpdateFileMultipartUseCase
 
     async handle(payload: FileUpdateMultipartPayload): Promise<any>
     {
-        const id = payload.getId();
+        const id = payload.id;
         let file: IFileDomain = await this.fileService.getOne(id);
         file = await this.fileService.persist(file, payload);
         return await this.fileService.uploadFileMultipart(file, payload);

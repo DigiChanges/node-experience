@@ -1,5 +1,5 @@
-import UserAssignRoleBySlug from '../../InterfaceAdapters/Payloads/UserAssignRoleBySlug';
-import IUserDomain from '../../InterfaceAdapters/IUserDomain';
+import UserAssignRoleBySlug from '../Payloads/UserAssignRoleBySlug';
+import IUserDomain from '../Entities/IUserDomain';
 import UserService from '../Services/UserService';
 
 class AssignRoleBySlugUseCase

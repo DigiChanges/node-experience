@@ -9,7 +9,7 @@ class RoleUpdateRequest extends Mixin(RoleRepRequest, IdRequest) implements Role
     constructor(data: Record<string, any>, id: string)
     {
         super(data);
-        this.id = id;
+        this._id = id;
         this._permissions = data.permissions;
     }
 

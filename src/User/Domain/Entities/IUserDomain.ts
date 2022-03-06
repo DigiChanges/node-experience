@@ -1,6 +1,6 @@
-import IRoleDomain from '../../Role/Domain/Entities/IRoleDomain';
-import IBaseDomain from '../../App/InterfaceAdapters/IBaseDomain';
-import Password from '../../App/Domain/ValueObjects/Password';
+import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
+import IBaseDomain from '../../../App/InterfaceAdapters/IBaseDomain';
+import Password from '../../../App/Domain/ValueObjects/Password';
 
 interface IUserDomain extends IBaseDomain
 {

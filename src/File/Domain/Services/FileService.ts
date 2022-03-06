@@ -100,7 +100,7 @@ class FileService
 
     async download(payload: IdPayload): Promise<IFileDTO>
     {
-        const id = payload.getId();
+        const id = payload.id;
         const file: IFileDomain = await this.getOne(id);
         const stream = await this.fileSystem.downloadStreamFile(file);
 

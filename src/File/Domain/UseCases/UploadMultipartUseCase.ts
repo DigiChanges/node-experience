@@ -10,8 +10,8 @@ class UploadMultipartUseCase
     async handle(payload: FileMultipartRepPayload): Promise<any>
     {
         const build = {
-            hasOriginalName: payload.isOriginalName(),
-            originalName: payload.originalName()
+            hasOriginalName: payload.isOriginalName,
+            originalName: payload.originalName
         };
 
         let file: IFileDomain = new File(build);

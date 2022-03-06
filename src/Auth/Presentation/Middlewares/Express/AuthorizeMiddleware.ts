@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import MainConfig from '../../../../Config/mainConfig';
 
-import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../../../User/Domain/Entities/IUserDomain';
 import ForbiddenHttpException from '../../Exceptions/ForbiddenHttpException';
 import AuthService from '../../../Domain/Services/AuthService';
 

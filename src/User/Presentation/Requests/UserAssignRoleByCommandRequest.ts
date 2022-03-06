@@ -1,28 +1,27 @@
 import { IsString } from 'class-validator';
-import UserAssignRoleBySlug from '../../InterfaceAdapters/Payloads/UserAssignRoleBySlug';
+import UserAssignRoleBySlug from '../../Domain/Payloads/UserAssignRoleBySlug';
 
 class UserAssignRoleByCommandRequest implements UserAssignRoleBySlug
 {
-    @IsString()
-    private readonly slug: string;
-
-    @IsString()
-    private readonly email: string;
+    private readonly _slug: string;
+    private readonly _email: string;
 
     constructor(env: any)
     {
-        this.slug = env.slug;
-        this.email = env.email;
+        this._slug = env.slug;
+        this._email = env.email;
     }
 
-    getSlugRole(): string
+    @IsString()
+    get slugRole(): string
     {
-        return this.slug;
+        return this._slug;
     }
 
-    getEmail(): string
+    @IsString()
+    get email(): string
     {
-        return this.email;
+        return this._email;
     }
 }
 

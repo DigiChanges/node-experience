@@ -7,7 +7,7 @@ import IFormatResponder from './Shared/InterfaceAdapters/IFormatResponder';
 import Responder from './App/Presentation/Shared/Express/Responder';
 
 import IItemRepository from './Item/Infrastructure/Repositories/IItemRepository';
-import IUserRepository from './User/InterfaceAdapters/IUserRepository';
+import IUserRepository from './User/Infrastructure/Repositories/IUserRepository';
 import IRoleRepository from './Role/Infrastructure/Repositories/IRoleRepository';
 import IFileRepository from './File/Infrastructure/Repositories/IFileRepository';
 

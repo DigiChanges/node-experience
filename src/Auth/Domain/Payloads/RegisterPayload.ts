@@ -1,5 +1,5 @@
-import UserPasswordRepPayload from '../../../User/InterfaceAdapters/Payloads/UserPasswordPayload';
-import UserRepPayload from '../../../User/InterfaceAdapters/Payloads/UserRepPayload';
+import UserPasswordRepPayload from '../../../User/Domain/Payloads/UserPasswordPayload';
+import UserRepPayload from '../../../User/Domain/Payloads/UserRepPayload';
 
 interface RegisterPayload extends UserPasswordRepPayload, UserRepPayload {}
 

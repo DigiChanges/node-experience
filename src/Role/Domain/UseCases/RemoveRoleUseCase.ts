@@ -11,7 +11,7 @@ class RemoveRoleUseCase
 
     async handle(payload: IdPayload): Promise<IRoleDomain>
     {
-        return await this.repository.delete(payload.getId());
+        return await this.repository.delete(payload.id);
     }
 }
 

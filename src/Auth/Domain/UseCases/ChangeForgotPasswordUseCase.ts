@@ -1,5 +1,5 @@
 import ChangeForgotPasswordPayload from '../Payloads/ChangeForgotPasswordPayload';
-import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
+import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
@@ -25,9 +25,7 @@ class ChangeForgotPasswordUseCase
         const min = config.getConfig().validationSettings.password.minLength;
         const max = config.getConfig().validationSettings.password.maxLength;
 
-        const password = new Password(payload.password, min, max);
-        await password.ready();
-        user.password = password;
+        user.password = await (new Password(payload.password, min, max)).ready();
 
         await this.repository.update(user);
 

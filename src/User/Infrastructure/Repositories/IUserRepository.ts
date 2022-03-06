@@ -1,5 +1,5 @@
-import IBaseRepository from '../../App/InterfaceAdapters/IBaseRepository';
-import IUserDomain from './IUserDomain';
+import IBaseRepository from '../../../App/InterfaceAdapters/IBaseRepository';
+import IUserDomain from '../../Domain/Entities/IUserDomain';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 interface IUserRepository extends IBaseRepository<IUserDomain>

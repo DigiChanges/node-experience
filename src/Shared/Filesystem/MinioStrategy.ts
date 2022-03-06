@@ -81,9 +81,9 @@ class MinioStrategy implements IFilesystem
 
     async listObjects(payload: ListObjectsPayload)
     {
-        const prefix = payload.prefix();
-        const recursive = payload.recursive();
-        const isPrivate = payload.isPublic();
+        const prefix = payload.prefix;
+        const recursive = payload.recursive;
+        const isPrivate = payload.isPublic;
 
         const stream = this.#filesystem.listObjectsV2(this.getBucket(null, isPrivate), prefix, recursive);
 

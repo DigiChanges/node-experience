@@ -1,5 +1,5 @@
 import IBaseDomain from '../../../App/InterfaceAdapters/IBaseDomain';
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import ItemRepPayload from '../Payloads/ItemRepPayload';
 
 interface IItemDomain extends IBaseDomain

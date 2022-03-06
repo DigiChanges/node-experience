@@ -1,8 +1,8 @@
 import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 import Role from '../../../Role/Domain/Entities/Role';
-import IUserDomain from '../../InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../Domain/Entities/IUserDomain';
 import User from '../../Domain/Entities/User';
-import IUserRepository from '../../InterfaceAdapters/IUserRepository';
+import IUserRepository from '../Repositories/IUserRepository';
 import IRoleRepository from '../../../Role/Infrastructure/Repositories/IRoleRepository';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
