@@ -1,7 +1,7 @@
 
 interface VerifyYourAccountPayload
 {
-    getConfirmationToken(): string;
+    confirmationToken: string;
 }
 
 export default VerifyYourAccountPayload;

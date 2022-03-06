@@ -19,9 +19,9 @@ import UpdateMeUseCase from '../../Domain/UseCases/UpdateMeUseCase';
 import UserRepPayload from '../../../User/InterfaceAdapters/Payloads/UserRepPayload';
 import VerifyYourAccountPayload from '../../Domain/Payloads/VerifyYourAccountPayload';
 import VerifyYourAccountUseCase from '../../Domain/UseCases/VerifyYourAccountUseCase';
-import IToken from '../../InterfaceAdapters/IToken';
+import IToken from '../../Domain/Models/IToken';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
-import IGroupPermission from '../../InterfaceAdapters/IGroupPermission';
+import IGroupPermission from '../../../Config/IGroupPermission';
 
 class AuthController
 {

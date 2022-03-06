@@ -2,8 +2,8 @@ import FileOptionsQueryPayload from './FileOptionsQueryPayload';
 
 interface ListObjectsPayload extends FileOptionsQueryPayload
 {
-    getRecursive(): boolean,
-    getPrefix(): string,
+    recursive: boolean,
+    prefix: string,
 }
 
 export default ListObjectsPayload;

@@ -2,7 +2,7 @@ import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { ITokenRepository } from '@digichanges/shared-experience';
-import ITokenDomain from '../../InterfaceAdapters/ITokenDomain';
+import ITokenDomain from '../Entities/ITokenDomain';
 import SetTokenBlacklistUseCase from './SetTokenBlacklistUseCase';
 import Locales from '../../../App/Presentation/Shared/Locales';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';

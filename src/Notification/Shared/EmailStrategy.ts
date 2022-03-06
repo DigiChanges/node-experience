@@ -73,14 +73,14 @@ class EmailStrategy implements INotifierStrategy
             throw new ErrorException({ message: 'You need set an emailNotification, templatePathNameFile and data' }, 'NotificatorException');
         }
 
-        const config = MainConfig.getInstance();
+        const config = MainConfig.getInstance().getConfig();
 
         try
         {
-            const host: string = config.getConfig().mail.host;
-            const port: number = config.getConfig().mail.port;
-            const secure: boolean = config.getConfig().mail.secure === true;
-            const templateRoot: string = config.getConfig().mail.templateDir;
+            const host: string = config.mail.host;
+            const port: number = config.mail.port;
+            const secure: boolean = config.mail.secure === true;
+            const templateRoot: string = config.mail.templateDir;
             const templateDir = `${process.cwd()}/${templateRoot}/${this._templatePathNameFile}`;
 
             const smtp_config = { host, port, secure };
@@ -89,15 +89,15 @@ class EmailStrategy implements INotifierStrategy
             {
                 const auth = {
                     auth: {
-                        user: String(config.getConfig().mail.username),
-                        pass: String(config.getConfig().mail.password)
+                        user: String(config.mail.username),
+                        pass: String(config.mail.password)
                     }
                 };
                 Object.assign(smtp_config, auth);
             }
 
-            this._emailNotification.senderName = config.getConfig().mail.senderName;
-            this._emailNotification.from = config.getConfig().mail.senderEmailDefault;
+            this._emailNotification.senderName = config.mail.senderName;
+            this._emailNotification.from = config.mail.senderEmailDefault;
             this._emailNotification.emailTemplatePath = templateDir;
 
             const transporter = nodemailer.createTransport(smtp_config);

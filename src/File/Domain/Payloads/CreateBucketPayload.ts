@@ -1,10 +1,10 @@
 
 interface CreateBucketPayload
 {
-    getName(): string;
-    getRegion(): string;
-    getPublicBucketPolicy(): string;
-    getPrivateBucketPolicy(): string;
+    name: string;
+    region: string;
+    publicBucketPolicy: string;
+    privateBucketPolicy: string;
 }
 
 export default CreateBucketPayload;

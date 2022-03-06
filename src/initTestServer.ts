@@ -11,7 +11,7 @@ import TokenMongoRepository from './Auth/Infrastructure/Repositories/TokenMongoR
 import TokenSqlRepository from './Auth/Infrastructure/Repositories/TokenSqlRepository';
 import { validateEnv } from './Config/validateEnv';
 import container from './inversify.config';
-import ITokenDomain from './Auth/InterfaceAdapters/ITokenDomain';
+import ITokenDomain from './Auth/Domain/Entities/ITokenDomain';
 import SeedFactory from './Shared/Factories/SeedFactory';
 import AppFactory from './App/Presentation/Factories/AppFactory';
 import Locales from './App/Presentation/Shared/Locales';
@@ -35,10 +35,10 @@ const initTestServer = async(): Promise<any> =>
 
     void Locales.getInstance();
 
-    const mainConfig = MainConfig.getInstance();
+    const mainConfig = MainConfig.getInstance().getConfig();
 
     container.unbind(REPOSITORIES.ITokenRepository);
-    container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(mainConfig.getConfig().dbConfig.default === 'Mongoose'
+    container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(mainConfig.dbConfig.default === 'Mongoose'
         ? TokenMongoRepository
         : TokenSqlRepository
     );

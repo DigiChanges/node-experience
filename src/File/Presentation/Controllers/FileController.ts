@@ -19,7 +19,7 @@ import FileUpdateBase64Payload from '../../Domain/Payloads/FileUpdateBase64Paylo
 import FileUpdateMultipartPayload from '../../Domain/Payloads/FileUpdateMultipartPayload';
 import RemoveFileUseCase from '../../Domain/UseCases/RemoveFileUseCase';
 import IFileDomain from '../../Domain/Entities/IFileDomain';
-import IFileDTO from '../../Domain/Payloads/IFileDTO';
+import IFileDTO from '../../Domain/Models/IFileDTO';
 
 class FileController
 {

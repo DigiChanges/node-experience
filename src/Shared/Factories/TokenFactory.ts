@@ -2,11 +2,11 @@ import MainConfig from '../../Config/mainConfig';
 import { v4 as uuidv4 } from 'uuid';
 import { ITokenRepository } from '@digichanges/shared-experience';
 
-import JWTToken from '../../Auth/Shared/JWTToken';
-import IToken from '../../Auth/InterfaceAdapters/IToken';
+import JWTToken from '../../Auth/Domain/Models/JWTToken';
+import IToken from '../../Auth/Domain/Models/IToken';
 import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
 import { REPOSITORIES } from '../../Config/Injects/repositories';
-import ITokenDomain from '../../Auth/InterfaceAdapters/ITokenDomain';
+import ITokenDomain from '../../Auth/Domain/Entities/ITokenDomain';
 import Token from '../../Auth/Domain/Entities/Token';
 import { containerFactory } from '../Decorators/ContainerFactory';
 

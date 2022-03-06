@@ -5,8 +5,8 @@ import TokenFactory from '../../../Shared/Factories/TokenFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import SetTokenBlacklistUseCase from './SetTokenBlacklistUseCase';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import ITokenDomain from '../../../Auth/InterfaceAdapters/ITokenDomain';
-import IToken from '../../InterfaceAdapters/IToken';
+import ITokenDomain from '../Entities/ITokenDomain';
+import IToken from '../Models/IToken';
 import AuthService from '../Services/AuthService';
 
 class RefreshTokenUseCase
@@ -23,7 +23,7 @@ class RefreshTokenUseCase
 
     async handle(payload: RefreshTokenPayload): Promise<IToken>
     {
-        const tokenDecode = this.authService.decodeToken(payload.getRefreshToken(), false);
+        const tokenDecode = this.authService.decodeToken(payload.refreshToken, false);
 
         const email = tokenDecode.email;
         const tokenId = tokenDecode.id;

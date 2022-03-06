@@ -3,17 +3,17 @@ import { IsString } from 'class-validator';
 
 class RefreshTokenRequest implements RefreshTokenPayload
 {
-    @IsString()
-    refreshToken: string;
+    private readonly _refreshToken: string;
 
     constructor(refreshToken: string)
     {
-        this.refreshToken = refreshToken;
+        this._refreshToken = refreshToken;
     }
 
-    getRefreshToken(): string
+    @IsString()
+    get refreshToken(): string
     {
-        return this.refreshToken;
+        return this._refreshToken;
     }
 }
 

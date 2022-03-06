@@ -1,7 +1,7 @@
 
 interface RefreshTokenPayload
 {
-    getRefreshToken(): string;
+    refreshToken: string;
 }
 
 export default RefreshTokenPayload;

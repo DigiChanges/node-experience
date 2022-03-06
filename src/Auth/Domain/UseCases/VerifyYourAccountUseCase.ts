@@ -15,7 +15,7 @@ class VerifyYourAccountUseCase
 
     async handle(payload: VerifyYourAccountPayload): Promise<ILocaleMessage>
     {
-        const confirmationToken = payload.getConfirmationToken();
+        const confirmationToken = payload.confirmationToken;
 
         const user = await this.repository.getOneByConfirmationToken(confirmationToken);
 

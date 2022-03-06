@@ -1,4 +1,4 @@
-import IGroupPermission from '../Auth/InterfaceAdapters/IGroupPermission';
+import IGroupPermission from './IGroupPermission';
 
 class Permissions
 {

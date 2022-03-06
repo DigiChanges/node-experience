@@ -4,29 +4,28 @@ import FileOptionsQueryRequest from './FileOptionsQueryRequest';
 
 class ListObjectsRequest extends FileOptionsQueryRequest implements ListObjectsPayload
 {
-    @IsOptional()
-    @IsBoolean()
-    recursive: string;
-
-    @IsOptional()
-    @IsBoolean()
-    prefix: string;
+    private readonly _recursive: string;
+    private readonly _prefix: string;
 
     constructor(query: Record<string, any>)
     {
         super({ query });
-        this.recursive = query.recursive ? String(query.recursive) : undefined;
-        this.prefix = query.prefix ? String(query.prefix) : undefined;
+        this._recursive = query.recursive ? String(query.recursive) : undefined;
+        this._prefix = query.prefix ? String(query.prefix) : undefined;
     }
 
-    getRecursive(): boolean
+    @IsOptional()
+    @IsBoolean()
+    get recursive(): boolean
     {
-        return (this.recursive?.toLowerCase() === 'true');
+        return (this._recursive?.toLowerCase() === 'true');
     }
 
-    getPrefix(): string
+    @IsOptional()
+    @IsBoolean()
+    get prefix(): string
     {
-        return this.prefix;
+        return this._prefix;
     }
 }
 

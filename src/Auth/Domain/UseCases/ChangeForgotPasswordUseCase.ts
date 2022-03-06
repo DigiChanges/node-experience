@@ -16,7 +16,7 @@ class ChangeForgotPasswordUseCase
     async handle(payload: ChangeForgotPasswordPayload): Promise<ILocaleMessage>
     {
         const config = MainConfig.getInstance();
-        const confirmationToken = payload.getConfirmationToken();
+        const confirmationToken = payload.confirmationToken;
 
         const user = await this.repository.getOneByConfirmationToken(confirmationToken);
         user.confirmationToken = null;
@@ -25,7 +25,7 @@ class ChangeForgotPasswordUseCase
         const min = config.getConfig().validationSettings.password.minLength;
         const max = config.getConfig().validationSettings.password.maxLength;
 
-        const password = new Password(payload.getPassword(), min, max);
+        const password = new Password(payload.password, min, max);
         await password.ready();
         user.password = password;
 

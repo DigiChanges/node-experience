@@ -1,9 +1,9 @@
 import moment from 'moment';
 import jwt from 'jwt-simple';
-import IToken from '../InterfaceAdapters/IToken';
-import MainConfig from '../../Config/mainConfig';
-import IUserDomain from '../../User/InterfaceAdapters/IUserDomain';
-import ITokenDecode from '../../Shared/InterfaceAdapters/ITokenDecode';
+import IToken from './IToken';
+import MainConfig from '../../../Config/mainConfig';
+import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
+import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
 
 class JWTToken implements IToken
 {

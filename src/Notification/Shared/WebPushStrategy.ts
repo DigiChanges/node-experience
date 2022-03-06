@@ -54,7 +54,7 @@ class WebPushStrategy implements INotifierStrategy
             const privateKey: string = config.getConfig().push.privateKey;
             const subject: string = config.getConfig().url.urlWeb;
 
-            const pushSubscription = this._pushNotification.get_subscription();
+            const pushSubscription = this._pushNotification.getSubscription();
 
             const payload = JSON.stringify({
                 name: this._pushNotification.name,

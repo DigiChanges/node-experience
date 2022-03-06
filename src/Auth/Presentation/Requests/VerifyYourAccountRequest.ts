@@ -3,17 +3,17 @@ import VerifyYourAccountPayload from '../../Domain/Payloads/VerifyYourAccountPay
 
 class VerifyYourAccountRequest implements VerifyYourAccountPayload
 {
-    @IsString()
-    confirmationToken: string;
+    private readonly _confirmationToken: string;
 
     constructor(confirmationToken: string)
     {
-        this.confirmationToken = confirmationToken;
+        this._confirmationToken = confirmationToken;
     }
 
-    getConfirmationToken(): string
+    @IsString()
+    get confirmationToken(): string
     {
-        return this.confirmationToken;
+        return this._confirmationToken;
     }
 }
 
