@@ -116,7 +116,7 @@ describe('Start File Test', () =>
         // test('Update Item /items/:id', async () =>
         // {
         //     const payload = {
-        //         name: 'Item 1 update',
+        //         name: 'Item 1 updateRep',
         //         type: 11
         //     };
         //

@@ -1,14 +1,20 @@
-import UserRepPayload from '../../../User/Domain/Payloads/UserRepPayload';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
-import UserService from '../../../User/Domain/Services/UserService';
+import UpdateMePayload from '../Payloads/UpdateMePayload';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 
 class UpdateMeUseCase
 {
-    private userService = new UserService();
+    @containerFactory(REPOSITORIES.IUserRepository)
+    private repository: IUserRepository;
 
-    async handle(payload: UserRepPayload, authUser: IUserDomain): Promise<IUserDomain>
+    async handle(payload: UpdateMePayload): Promise<IUserDomain>
     {
-        return await this.userService.persist(authUser, payload);
+        const authUser = payload.authUser;
+        authUser.updateRep(payload);
+
+        return await this.repository.update(authUser);
     }
 }
 

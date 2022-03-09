@@ -6792,7 +6792,7 @@ listr2@^3.12.2:
   dependencies:
     cli-truncate "^2.1.0"
     colorette "^2.0.16"
-    log-update "^4.0.0"
+    log-updateRep "^4.0.0"
     p-map "^4.0.0"
     rfdc "^1.3.0"
     rxjs "^7.4.0"
@@ -6902,9 +6902,9 @@ lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.7.
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
-log-update@^4.0.0:
+log-updateRep@^4.0.0:
   version "4.0.0"
-  resolved "https://registry.npmjs.org/log-update/-/log-update-4.0.0.tgz"
+  resolved "https://registry.npmjs.org/log-updateRep/-/log-updateRep-4.0.0.tgz"
   integrity sha512-9fkkDevMefjg0mmzWFBW8YkFP91OrizzkW3diF7CpG+S2EYdy4+TVfGwz1zeF8x7hCx1ovSPTOE9Ngib74qqUg==
   dependencies:
     ansi-escapes "^4.3.0"
@@ -7609,7 +7609,7 @@ nodemon@^2.0.7:
     supports-color "^5.5.0"
     touch "^3.1.0"
     undefsafe "^2.0.5"
-    update-notifier "^5.1.0"
+    updateRep-notifier "^5.1.0"
 
 nopt@^5.0.0:
   version "5.0.0"
@@ -10293,9 +10293,9 @@ unset-value@^1.0.0:
     has-value "^0.3.1"
     isobject "^3.0.0"
 
-update-notifier@^5.1.0:
+updateRep-notifier@^5.1.0:
   version "5.1.0"
-  resolved "https://registry.npmjs.org/update-notifier/-/update-notifier-5.1.0.tgz"
+  resolved "https://registry.npmjs.org/updateRep-notifier/-/updateRep-notifier-5.1.0.tgz"
   integrity sha512-ItnICHbeMh9GqUy31hFPrD1kcuZ3rpxDZbf4KUDavXwS0bW5m7SLbDQpGX3UYr072cbrF5hFUs3r5tUsPwjfHw==
   dependencies:
     boxen "^5.0.0"

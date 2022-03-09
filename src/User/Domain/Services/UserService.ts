@@ -1,23 +1,16 @@
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
-
-import UserSavePayload from '../Payloads/UserSavePayload';
-import UserRepPayload from '../Payloads/UserRepPayload';
 import IUserDomain from '../Entities/IUserDomain';
-import User from '../Entities/User';
 import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import CheckUserRolePayload from '../Payloads/CheckUserRolePayload';
-import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 import IRoleRepository from '../../../Role/Infrastructure/Repositories/IRoleRepository';
-import ChangeUserPasswordPayload from '../Payloads/ChangeUserPasswordPayload';
-import UserAssignRolePayload from '../Payloads/UserAssignRolePayload';
-import UserAssignRoleBySlug from 'User/Domain/Payloads/UserAssignRoleBySlug';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import UniqueService from '../../../App/Domain/Services/UniqueService';
 import MainConfig from '../../../Config/mainConfig';
-import UserActivePayload from '../Payloads/UserActivePayload';
 import AuthHelper from '../../../Shared/Helpers/AuthHelper';
+import ChangeMyPasswordPayload from '../Payloads/ChangeMyPasswordPayload';
+import User from '../Entities/User';
+import UserSavePayload from '../Payloads/UserSavePayload';
 
 class UserService
 {
@@ -27,119 +20,38 @@ class UserService
     @containerFactory(REPOSITORIES.IRoleRepository)
     private roleRepository: IRoleRepository;
 
-    private config = MainConfig.getInstance();
-
-    async persist(user: IUserDomain, payload: UserRepPayload): Promise<IUserDomain>
+    async create(payload: UserSavePayload)
     {
-        AuthHelper.validatePermissions(payload.permissions);
+        const { minLength, maxLength } = MainConfig.getInstance().getConfig().validationSettings.password;
 
-        void await UniqueService.validate<IUserDomain>({
-            repository: REPOSITORIES.IUserRepository,
-            validate: {
-                email: payload.email,
-                documentNumber: payload.documentNumber
-            },
-            refValue: user.getId()
-        });
+        const password = await (new Password(payload.password, minLength, maxLength)).ready();
 
-        user.firstName = payload.firstName;
-        user.lastName = payload.lastName;
-        user.enable = payload.enable;
-        user.email = payload.email;
-        user.birthday = payload.birthday;
-        user.documentType = payload.documentType;
-        user.documentNumber = payload.documentNumber;
-        user.gender = payload.gender;
-        user.phone = payload.phone;
-        user.country = payload.country;
-        user.address = payload.address;
-        user.permissions = payload.permissions;
+        const user = new User({ ...payload, password });
 
-        return await this.repository.save(user);
-    }
+        await this.validate(user);
 
-    async create(payload: UserSavePayload): Promise<IUserDomain>
-    {
-        const user = new User();
+        await this.repository.save(user);
 
-        void await UniqueService.validate<IUserDomain>({
-            repository: REPOSITORIES.IUserRepository,
-            validate: {
-                email: payload.email,
-                documentNumber: payload.documentNumber
-            }
-        });
-
-        const min = this.config.getConfig().validationSettings.password.minLength;
-        const max = this.config.getConfig().validationSettings.password.maxLength;
-
-        void await UniqueService.validate<IUserDomain>({
-            repository: REPOSITORIES.IUserRepository,
-            validate: {
-                email: payload.email,
-                documentNumber: payload.documentNumber
-            }
-        });
-
-        user.password = await (new Password(payload.password, min, max)).ready();
-        user.confirmationToken = payload.confirmationToken;
-        user.passwordRequestedAt = payload.passwordRequestedAt;
-        user.roles = payload.roles;
-        user.isSuperAdmin = payload.isSuperAdmin;
-
-        return await this.persist(user, payload);
+        return user;
     }
 
     async getOne(id: string): Promise<IUserDomain>
     {
-        return await this.repository.getOneBy({ _id : id }, { populate: 'roles' });
+        return await this.repository.getOne(id);
     }
 
-    async remove(id: string): Promise<IUserDomain>
+    async validate(user: IUserDomain): Promise<void>
     {
-        return await this.repository.delete(id);
-    }
+        AuthHelper.validatePermissions(user.permissions);
 
-    async list(payload: ICriteria): Promise<IPaginator>
-    {
-        return await this.repository.list(payload);
-    }
-
-    async persistPassword(user: IUserDomain, payload: ChangeUserPasswordPayload): Promise<IUserDomain>
-    {
-        const min = this.config.getConfig().validationSettings.password.minLength;
-        const max = this.config.getConfig().validationSettings.password.maxLength;
-
-        user.password = await (new Password(payload.password, min, max)).ready();
-
-        return await this.repository.update(user);
-    }
-
-    async assignRole(payload: UserAssignRolePayload): Promise<IUserDomain>
-    {
-        const id = payload.id;
-        const user: IUserDomain = await this.getOne(id);
-
-        user.clearRoles();
-
-        const roles = await this.roleRepository.getInBy({ _id: payload.rolesId });
-
-        roles.forEach(role => user.setRole(role));
-
-        return await this.repository.save(user);
-    }
-
-    async assignRoleBySlug(payload: UserAssignRoleBySlug): Promise<IUserDomain>
-    {
-        const email = payload.email;
-        const slug = payload.slugRole;
-
-        const user: IUserDomain = await this.repository.getOneByEmail(email);
-        const role: IRoleDomain = await this.roleRepository.getBySlug(slug);
-
-        user.setRole(role);
-
-        return await this.repository.save(user);
+        void await UniqueService.validate<IUserDomain>({
+            repository: REPOSITORIES.IUserRepository,
+            validate: {
+                email: user.email,
+                documentNumber: user.documentNumber
+            },
+            refValue: user.getId()
+        });
     }
 
     async checkIfUserHasRole(payload: CheckUserRolePayload): Promise<boolean>
@@ -157,15 +69,13 @@ class UserService
         return false;
     }
 
-    async activeUser(payload: UserActivePayload): Promise<void>
+    async updatePassword(user: IUserDomain, payload: ChangeMyPasswordPayload)
     {
-        const email = payload.email;
-        const user = await this.repository.getOneByEmail(email);
+        const { minLength, maxLength } = MainConfig.getInstance().getConfig().validationSettings.password;
 
-        user.enable = true;
-        user.verify = true;
+        user.password = await (new Password(payload.password, minLength, maxLength)).ready();
 
-        await this.repository.save(user);
+        return await this.repository.update(user);
     }
 }
 

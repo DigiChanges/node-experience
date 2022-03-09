@@ -1,6 +1,5 @@
-import UserPasswordRepPayload from '../../../User/Domain/Payloads/UserPasswordPayload';
-import UserRepPayload from '../../../User/Domain/Payloads/UserRepPayload';
+import UserSavePayload from '../../../User/Domain/Payloads/UserSavePayload';
 
-interface RegisterPayload extends UserPasswordRepPayload, UserRepPayload {}
+interface RegisterPayload extends UserSavePayload {}
 
 export default RegisterPayload;

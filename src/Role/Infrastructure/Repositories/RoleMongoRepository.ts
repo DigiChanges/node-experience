@@ -42,16 +42,16 @@ class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implem
         if (filter.has(RoleFilter.NAME))
         {
             const name = filter.get(RoleFilter.NAME);
-            const rsearch = new RegExp(name, 'g');
+            const rSearch = new RegExp(name, 'g');
 
-            void queryBuilder.where(RoleFilter.NAME).regex(rsearch);
+            void queryBuilder.where(RoleFilter.NAME).regex(rSearch);
         }
         if (filter.has(RoleFilter.SLUG))
         {
             const slug = filter.get(RoleFilter.SLUG);
-            const rsearch = new RegExp(slug, 'g');
+            const rSearch = new RegExp(slug, 'g');
 
-            void queryBuilder.where(RoleFilter.SLUG).regex(rsearch);
+            void queryBuilder.where(RoleFilter.SLUG).regex(rSearch);
         }
 
         void queryBuilder.where(RoleFilter.SLUG).ne(Roles.SUPER_ADMIN.toLowerCase());

@@ -22,6 +22,7 @@ import VerifyYourAccountUseCase from '../../Domain/UseCases/VerifyYourAccountUse
 import IToken from '../../Domain/Models/IToken';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
 import IGroupPermission from '../../../Config/IGroupPermission';
+import UpdateMePayload from '../../Domain/Payloads/UpdateMePayload';
 
 class AuthController
 {
@@ -41,12 +42,12 @@ class AuthController
         return await useCase.handle(request);
     }
 
-    public async updateMe(request: UserRepPayload, authUser: IUserDomain): Promise<IUserDomain>
+    public async updateMe(request: UpdateMePayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(request);
 
         const useCase = new UpdateMeUseCase();
-        return await useCase.handle(request, authUser);
+        return await useCase.handle(request);
     }
 
     public async logout(tokenDecode: ITokenDecode): Promise<ILocaleMessage>

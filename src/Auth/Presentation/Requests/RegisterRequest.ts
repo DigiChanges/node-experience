@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import UserPasswordRequest from '../../../User/Presentation/Requests/UserPasswordRequest';
-import RegisterPayload from '../../Domain/Payloads/RegisterPayload';
 import UserWithoutPermissionsRequest
     from '../../../User/Presentation/Requests/UserWithoutPermissionsRequest';
 import moment from 'moment';
+import RegisterPayload from '../../Domain/Payloads/RegisterPayload';
 
 class RegisterRequest extends Mixin(UserWithoutPermissionsRequest, UserPasswordRequest) implements RegisterPayload
 {

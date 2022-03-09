@@ -7,7 +7,7 @@ COPY src /app
 COPY package.json /app
 COPY ecosystem.config.js /app
 
-RUN apt update && apt install jq original-awk -y
+RUN apt updateRep && apt install jq original-awk -y
 RUN npm install pm2 -g && npm install --global yarn cross-env --force
 RUN chown -R node:node /app
 

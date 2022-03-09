@@ -1,6 +1,7 @@
 import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 import IBaseDomain from '../../../App/InterfaceAdapters/IBaseDomain';
 import Password from '../../../App/Domain/ValueObjects/Password';
+import UserRepPayload from '../Payloads/UserRepPayload';
 
 interface IUserDomain extends IBaseDomain
 {
@@ -20,9 +21,10 @@ interface IUserDomain extends IBaseDomain
     enable: boolean;
     verify: boolean;
     isSuperAdmin: boolean;
-    confirmationToken: string;
-    passwordRequestedAt: Date;
+    confirmationToken?: string;
+    passwordRequestedAt?: Date;
 
+    updateRep(payload: UserRepPayload): void;
     getFullName(): string;
     setRole(role: IRoleDomain): void;
     getRoles(): IRoleDomain[];

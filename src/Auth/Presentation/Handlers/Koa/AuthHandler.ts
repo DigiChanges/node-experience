@@ -36,9 +36,9 @@ AuthHandler.get('/me', async(ctx: Koa.ParameterizedContext & any) =>
 
 AuthHandler.put('/me', async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new UpdateMeRequest(ctx.request.body);
+    const _request = new UpdateMeRequest(ctx.request.body, AuthUser(ctx));
 
-    const payload = await controller.updateMe(_request, AuthUser(ctx));
+    const payload = await controller.updateMe(_request);
 
     void await responder.send(payload, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
 });

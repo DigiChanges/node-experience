@@ -13,10 +13,10 @@ class RegisterUseCase
 
     async handle(payload: RegisterPayload): Promise<ILocaleMessage>
     {
-        const config = MainConfig.getInstance();
+        const { urlWeb } = MainConfig.getInstance().getConfig().url;
         const user = await this.userService.create(payload);
 
-        const urlConfirmationToken = `${config.getConfig().url.urlWeb}verify-your-account/${user.confirmationToken}`;
+        const urlConfirmationToken = `${urlWeb}verify-your-account/${user.confirmationToken}`;
 
         void await SendEmailService.handle({
             event: RegisterEvent.REGISTER_EVENT,

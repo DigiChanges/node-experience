@@ -66,129 +66,116 @@ class UserSeed implements ISeed
         const roleOperatorDisabled: IRoleDomain = new Role(payloadOperatorDisabled);
         await this.roleRepository.save(roleOperatorDisabled);
 
-        const userSuperAdmin: IUserDomain = new User();
-        userSuperAdmin.firstName = 'Super';
-        userSuperAdmin.lastName = 'Admin';
-        userSuperAdmin.email = 'superadmin@node.com';
-        userSuperAdmin.birthday = '04/07/1990';
-        userSuperAdmin.documentType = 'dni';
-        userSuperAdmin.documentNumber = '35319158';
-        userSuperAdmin.gender = 'male';
-        userSuperAdmin.phone = '2234456999';
-        userSuperAdmin.country = 'Argentina';
-        userSuperAdmin.address = 'New America 123';
+        const payloadUserSuperAdmin = {
+            firstName: 'Super',
+            lastName: 'Admin',
+            email: 'superadmin@node.com',
+            password: await (new Password('12345678', min, max)).ready(),
+            birthday: '04/07/1990',
+            documentType: 'dni',
+            documentNumber: '35319158',
+            gender: 'male',
+            phone: '2234456999',
+            country: 'Argentina',
+            address: 'New America 123',
+            enable: true,
+            verify: true,
+            permissions: ['itemsSave'],
+            roles: [roleSuperAdmin],
+            isSuperAdmin: true
+        };
 
-        const password = new Password('12345678', min, max);
-        await password.ready();
-        userSuperAdmin.password = password;
-
-        userSuperAdmin.enable = true;
-        userSuperAdmin.verify = true;
-        userSuperAdmin.confirmationToken = null;
-        userSuperAdmin.passwordRequestedAt = null;
-        userSuperAdmin.permissions = [];
-        userSuperAdmin.roles = [roleSuperAdmin];
-        userSuperAdmin.isSuperAdmin = true;
+        const userSuperAdmin: IUserDomain = new User(payloadUserSuperAdmin);
 
         await this.userRepository.save(userSuperAdmin);
 
-        const userAdmin: IUserDomain = new User();
-        userAdmin.firstName = 'user';
-        userAdmin.lastName = 'node';
-        userAdmin.email = 'user@node.com';
-        userAdmin.birthday = '04/07/1991';
-        userAdmin.documentType = 'dni';
-        userAdmin.documentNumber = '35319156';
-        userAdmin.gender = 'male';
-        userAdmin.phone = '2234456999';
-        userAdmin.country = 'Argentina';
-        userAdmin.address = 'New America 123';
+        const payloadUserAdmin = {
+            firstName: 'user',
+            lastName: 'node',
+            email: 'user@node.com',
+            birthday: '04/07/1991',
+            password: await (new Password('12345678', min, max)).ready(),
+            documentType: 'dni',
+            documentNumber: '35319156',
+            gender: 'male',
+            phone: '2234456999',
+            country: 'Argentina',
+            address: 'New America 123',
+            verify: true,
+            enable: true,
+            permissions: ['itemsSave'],
+            roles: [roleAdmin],
+            isSuperAdmin: false
+        };
 
-        const userAdminPassword = new Password('12345678', min, max);
-        userAdmin.password = await userAdminPassword.ready();
-
-        userAdmin.verify = true;
-        userAdmin.enable = true;
-        userAdmin.confirmationToken = null;
-        userAdmin.passwordRequestedAt = null;
-        userAdmin.permissions = [];
-        userAdmin.roles = [roleAdmin];
-        userAdmin.isSuperAdmin = false;
+        const userAdmin: IUserDomain = new User(payloadUserAdmin);
 
         await this.userRepository.save(userAdmin);
 
-        const userOperator: IUserDomain = new User();
-        userOperator.firstName = 'operator';
-        userOperator.lastName = 'enable';
-        userOperator.email = 'operator@enable.com';
-        userOperator.birthday = '04/07/1992';
-        userOperator.documentType = 'dni';
-        userOperator.documentNumber = '35319157';
-        userOperator.gender = 'male';
-        userOperator.phone = '2234456999';
-        userOperator.country = 'Argentina';
-        userOperator.address = 'New America 123';
+        const payloadUserOperator = {
+            firstName: 'operator',
+            lastName: 'enable',
+            email: 'operator@enable.com',
+            password: await (new Password('123456789', min, max)).ready(),
+            birthday: '04/07/1992',
+            documentType: 'dni',
+            documentNumber: '35319157',
+            gender: 'male',
+            phone: '2234456999',
+            country: 'Argentina',
+            address: 'New America 123',
+            permissions: ['itemsSave'],
+            verify: true,
+            enable: true,
+            roles: [roleOperator],
+            isSuperAdmin: false
+        };
 
-        const userOperatorPassword = new Password('123456789', min, max);
-        userOperator.password = await userOperatorPassword.ready();
-
-        userOperator.verify = true;
-        userOperator.enable = true;
-        userOperator.confirmationToken = null;
-        userOperator.passwordRequestedAt = null;
-        userOperator.permissions = [];
-        userOperator.roles = [roleOperator];
-        userOperator.isSuperAdmin = false;
+        const userOperator: IUserDomain = new User(payloadUserOperator);
 
         await this.userRepository.save(userOperator);
 
-        const userOperatorDisabled: IUserDomain = new User();
-        userOperatorDisabled.firstName = 'operator';
-        userOperatorDisabled.lastName = 'disabled';
-        userOperatorDisabled.email = 'operator@disabled.com';
-        userOperatorDisabled.birthday = '04/07/1994';
-        userOperatorDisabled.documentType = 'dni';
-        userOperatorDisabled.documentNumber = '35319151';
-        userOperatorDisabled.gender = 'female';
-        userOperatorDisabled.phone = '2234456999';
-        userOperatorDisabled.country = 'Argentina';
-        userOperatorDisabled.address = 'New America 123';
+        const payloadUserOperatorDisabled = {
+            firstName: 'operator',
+            lastName: 'disabled',
+            email: 'operator@disabled.com',
+            password: await (new Password('1234567901', min, max)).ready(),
+            birthday: '04/07/1994',
+            documentType: 'dni',
+            documentNumber: '35319151',
+            gender: 'female',
+            phone: '2234456999',
+            country: 'Argentina',
+            address: 'New America 123',
+            verify: false,
+            enable: false,
+            permissions: ['itemsSave'],
+            roles: [roleOperator],
+            isSuperAdmin: false
+        };
 
-        const userOperatorDisabledPassword = new Password('1234567901', min, max);
-        userOperatorDisabled.password = await userOperatorDisabledPassword.ready();
-
-        userOperatorDisabled.verify = false;
-        userOperatorDisabled.enable = false;
-        userOperatorDisabled.confirmationToken = null;
-        userOperatorDisabled.passwordRequestedAt = null;
-        userOperatorDisabled.permissions = [];
-        userOperatorDisabled.roles = [roleOperator];
-        userOperatorDisabled.isSuperAdmin = false;
+        const userOperatorDisabled: IUserDomain = new User(payloadUserOperatorDisabled);
 
         await this.userRepository.save(userOperatorDisabled);
-
-        const userOperatorRoleDisabled: IUserDomain = new User();
-        userOperatorRoleDisabled.firstName = 'operator';
-        userOperatorRoleDisabled.lastName = 'roleDisabled';
-        userOperatorRoleDisabled.email = 'operator@roleDisabled.com';
-        userOperatorRoleDisabled.birthday = '04/07/1995';
-        userOperatorRoleDisabled.documentType = 'dni';
-        userOperatorRoleDisabled.documentNumber = '35319150';
-        userOperatorRoleDisabled.gender = 'female';
-        userOperatorRoleDisabled.phone = '2234456999';
-        userOperatorRoleDisabled.country = 'Argentina';
-        userOperatorRoleDisabled.address = 'New America 123';
-
-        const userOperatorRoleDisabledPassword = new Password('1234567901', min, max);
-        userOperatorRoleDisabled.password = await userOperatorRoleDisabledPassword.ready();
-
-        userOperatorRoleDisabled.verify = true;
-        userOperatorRoleDisabled.enable = true;
-        userOperatorRoleDisabled.confirmationToken = null;
-        userOperatorRoleDisabled.passwordRequestedAt = null;
-        userOperatorRoleDisabled.permissions = [];
-        userOperatorRoleDisabled.roles = [roleOperatorDisabled];
-        userOperatorRoleDisabled.isSuperAdmin = false;
+        const payloadUserOperatorRoleDisabled = {
+            firstName: 'operator',
+            lastName: 'roleDisabled',
+            email: 'operator@roleDisabled.com',
+            password: await (new Password('1234567901', min, max)).ready(),
+            birthday: '04/07/1995',
+            documentType: 'dni',
+            documentNumber: '35319150',
+            gender: 'female',
+            phone: '2234456999',
+            country: 'Argentina',
+            address: 'New America 123',
+            verify: true,
+            enable: true,
+            permissions: ['itemsSave'],
+            roles: [roleOperatorDisabled],
+            isSuperAdmin: false
+        };
+        const userOperatorRoleDisabled: IUserDomain = new User(payloadUserOperatorRoleDisabled);
 
         await this.userRepository.save(userOperatorRoleDisabled);
     }

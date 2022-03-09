@@ -3,7 +3,7 @@ module.exports = {
         name: "node-experience",
         script: "./dist/src/index.js",
         error_file: "./dist/src/logs/err.log",
-        watch: true,
+        watch: false,
         instances: 1,
         ignore_watch: './dist/src/logs/*',
         instance_var: "0",

@@ -153,7 +153,7 @@ describe('Start User Test', () =>
             const payload: any = {
                 firstName: 'Jhon Update',
                 lastName: 'Doe Update',
-                email: 'user2@update.com',
+                email: 'user2@updateRep.com',
                 birthday: '04/08/1991',
                 documentType: 'dni',
                 documentNumber: '35319131',
@@ -352,7 +352,7 @@ describe('Start User Test', () =>
             expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(user1.email).toStrictEqual('user@node.com');
-            expect(user2.email).toStrictEqual('user2@update.com');
+            expect(user2.email).toStrictEqual('user2@updateRep.com');
         });
     });
 
@@ -423,7 +423,7 @@ describe('Start User Test', () =>
         test('Update User /users/:id', async() =>
         {
             const payload = {
-                email: 'aaaa1@update.com',
+                email: 'aaaa1@updateRep.com',
                 firstName: 150,
                 lastName: 'Doe 1',
                 birthday: '04/07/1990',

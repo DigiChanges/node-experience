@@ -2,8 +2,9 @@ import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 import IUserDomain from './IUserDomain';
 import Base from '../../../App/Domain/Entities/Base';
 import Password from '../../../App/Domain/ValueObjects/Password';
+import UserRepPayload from '../Payloads/UserRepPayload';
+import PasswordPayload from '../../../App/Domain/Payloads/PasswordPayload';
 
-// TODO: check if it is necessary to add a new attribute to know if the user is verified
 class User extends Base implements IUserDomain
 {
     firstName: string;
@@ -22,8 +23,35 @@ class User extends Base implements IUserDomain
     enable: boolean;
     verify: boolean;
     isSuperAdmin: boolean;
-    confirmationToken: string;
-    passwordRequestedAt: Date;
+    confirmationToken?: string;
+    passwordRequestedAt?: Date;
+
+    constructor(payload: UserRepPayload & PasswordPayload)
+    {
+        super();
+        this.updateRep(payload);
+    }
+
+    updateRep(payload: UserRepPayload & PasswordPayload)
+    {
+        this.firstName = payload.firstName;
+        this.lastName = payload.lastName;
+        this.email = payload.email;
+        this.password = payload.password;
+        this.birthday = payload.birthday;
+        this.documentType = payload.documentType;
+        this.documentNumber = payload.documentNumber;
+        this.gender = payload.gender;
+        this.phone = payload.phone;
+        this.country = payload.country;
+        this.address = payload.address;
+        this.enable = payload.enable;
+        this.roles = payload.roles;
+        this.permissions = payload.permissions;
+        this.confirmationToken = payload.confirmationToken ?? null;
+        this.passwordRequestedAt = payload.passwordRequestedAt ?? null;
+        this.isSuperAdmin = payload.isSuperAdmin;
+    }
 
     getFullName(): string
     {
