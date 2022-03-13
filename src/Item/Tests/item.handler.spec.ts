@@ -59,11 +59,9 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const { body: { status, statusCode, data } } = response;
+            const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
-            expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_CREATED');
 
             expect(data.name).toStrictEqual(payload.name);
             expect(data.type).toStrictEqual(payload.type);
@@ -83,11 +81,9 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, data } } = response;
+            const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
-            expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(data.name).toStrictEqual(payload.name);
             expect(data.type).toStrictEqual(payload.type);
@@ -106,11 +102,9 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const { body: { status, statusCode, data } } = response;
+            const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
-            expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_CREATED');
 
             expect(data.name).toStrictEqual(payload.name);
             expect(data.type).toStrictEqual(payload.type);
@@ -135,11 +129,9 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, data } } = deleteResponse;
+            const { body: { data } } = deleteResponse;
 
             expect(deleteResponse.statusCode).toStrictEqual(200);
-            expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(data.name).toStrictEqual(payload.name);
             expect(data.type).toStrictEqual(payload.type);
@@ -155,11 +147,9 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, data, pagination } } = response;
+            const { body: { data, pagination } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
-            expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(data.length).toStrictEqual(5);
             expect(pagination.total).toStrictEqual(11);
@@ -184,11 +174,9 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, data, pagination } } = response;
+            const { body: { data, pagination } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
-            expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(data.length).toStrictEqual(11);
             expect(pagination).not.toBeDefined();
@@ -202,11 +190,9 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, data, pagination } } = response;
+            const { body: { data, pagination } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
-            expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(data.length).toStrictEqual(1);
             expect(pagination.total).toStrictEqual(1);
@@ -222,11 +208,9 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, data: [item1, item2] } } = response;
+            const { body: { data: [item1, item2] } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
-            expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(item1.type).toBeGreaterThanOrEqual(item2.type);
         });
@@ -264,11 +248,9 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const { body: { status, statusCode, message, errors: [error] } } = response;
+            const { body: { message, errors: [error] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
-            expect(status).toStrictEqual('error');
-            expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
             expect(error.property).toStrictEqual('type');
@@ -283,11 +265,9 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, message, errors: [error] } } = response;
+            const { body: { message, errors: [error] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
-            expect(status).toStrictEqual('error');
-            expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
             expect(error.property).toStrictEqual('id');
@@ -308,11 +288,9 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const { body: { status, statusCode, message, errors: [errorName, errorType] } } = response;
+            const { body: { message, errors: [errorName, errorType] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
-            expect(status).toStrictEqual('error');
-            expect(statusCode).toStrictEqual('HTTP_UNPROCESSABLE_ENTITY');
             expect(message).toStrictEqual('Failed Request.');
 
             expect(errorName.property).toStrictEqual('name');
@@ -332,11 +310,9 @@ describe('Start Item Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, message } } = deleteErrorResponse;
+            const { body: { message } } = deleteErrorResponse;
 
             expect(deleteErrorResponse.statusCode).toStrictEqual(400);
-            expect(status).toStrictEqual('error');
-            expect(statusCode).toStrictEqual('HTTP_BAD_REQUEST');
             expect(message).toStrictEqual('Item not found.');
         });
     });

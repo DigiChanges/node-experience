@@ -34,7 +34,7 @@ class Responder
 
         data = await transformer.handle(data);
 
-        response.status(status.code).send(this.formatResponder.getFormatData(data, status, metadata));
+        response.status(status.code).send(this.formatResponder.getFormatData(data, metadata));
     }
 
     // TODO: Refactor to encapsulate this logic
@@ -42,7 +42,7 @@ class Responder
     {
         const data = await paginator.paginate();
         const metadata = paginator.getMetadata();
-        const result = this.formatResponder.getFormatData(data, status, metadata);
+        const result = this.formatResponder.getFormatData(data, metadata);
 
         if (!transformer)
         {

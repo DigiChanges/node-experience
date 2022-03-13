@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import express from 'express';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import compression from 'compression';

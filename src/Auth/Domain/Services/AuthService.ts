@@ -1,4 +1,4 @@
-import jwt, { TAlgorithm } from 'jwt-simple';
+import jwt from 'jwt-simple';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
@@ -20,8 +20,8 @@ class AuthService
     {
         const _token = bearer ? token.split(' ')[1] : token;
 
-        const secret: string = this.config.getConfig().jwt.secret;
-        const algorithm: TAlgorithm = this.config.getConfig().encryption.bcrypt.algorithm;
+        const { secret } = this.config.getConfig().jwt;
+        const { algorithm } = this.config.getConfig().encryption.bcrypt;
 
         return jwt.decode(_token, secret, false, algorithm);
     }
@@ -123,7 +123,7 @@ class AuthService
         };
 
         let existMethodAndUrl = false;
-        const apiWhitelist: { methods: string[], url: string, urlRegExp?: RegExp}[] = this.config.getConfig().apiWhitelist;
+        const { apiWhitelist } = this.config.getConfig();
 
         for (const conf of apiWhitelist)
         {

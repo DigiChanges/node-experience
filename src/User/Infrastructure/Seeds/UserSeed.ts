@@ -23,8 +23,7 @@ class UserSeed implements ISeed
     {
         const config = MainConfig.getInstance();
 
-        const min = config.getConfig().validationSettings.password.minLength;
-        const max = config.getConfig().validationSettings.password.maxLength;
+        const { minLength, maxLength } = config.getConfig().validationSettings.password;
 
         const payloadSuperAdmin = {
             name: 'SuperAdmin',
@@ -70,7 +69,6 @@ class UserSeed implements ISeed
             firstName: 'Super',
             lastName: 'Admin',
             email: 'superadmin@node.com',
-            password: await (new Password('12345678', min, max)).ready(),
             birthday: '04/07/1990',
             documentType: 'dni',
             documentNumber: '35319158',
@@ -86,6 +84,7 @@ class UserSeed implements ISeed
         };
 
         const userSuperAdmin: IUserDomain = new User(payloadUserSuperAdmin);
+        userSuperAdmin.password = await (new Password('12345678', minLength, maxLength)).ready();
 
         await this.userRepository.save(userSuperAdmin);
 
@@ -94,7 +93,6 @@ class UserSeed implements ISeed
             lastName: 'node',
             email: 'user@node.com',
             birthday: '04/07/1991',
-            password: await (new Password('12345678', min, max)).ready(),
             documentType: 'dni',
             documentNumber: '35319156',
             gender: 'male',
@@ -109,6 +107,7 @@ class UserSeed implements ISeed
         };
 
         const userAdmin: IUserDomain = new User(payloadUserAdmin);
+        userAdmin.password = await (new Password('12345678', minLength, maxLength)).ready();
 
         await this.userRepository.save(userAdmin);
 
@@ -116,7 +115,6 @@ class UserSeed implements ISeed
             firstName: 'operator',
             lastName: 'enable',
             email: 'operator@enable.com',
-            password: await (new Password('123456789', min, max)).ready(),
             birthday: '04/07/1992',
             documentType: 'dni',
             documentNumber: '35319157',
@@ -132,6 +130,7 @@ class UserSeed implements ISeed
         };
 
         const userOperator: IUserDomain = new User(payloadUserOperator);
+        userOperator.password = await (new Password('123456789', minLength, maxLength)).ready();
 
         await this.userRepository.save(userOperator);
 
@@ -139,7 +138,6 @@ class UserSeed implements ISeed
             firstName: 'operator',
             lastName: 'disabled',
             email: 'operator@disabled.com',
-            password: await (new Password('1234567901', min, max)).ready(),
             birthday: '04/07/1994',
             documentType: 'dni',
             documentNumber: '35319151',
@@ -155,13 +153,13 @@ class UserSeed implements ISeed
         };
 
         const userOperatorDisabled: IUserDomain = new User(payloadUserOperatorDisabled);
+        userOperatorDisabled.password = await (new Password('1234567901', minLength, maxLength)).ready();
 
         await this.userRepository.save(userOperatorDisabled);
         const payloadUserOperatorRoleDisabled = {
             firstName: 'operator',
             lastName: 'roleDisabled',
             email: 'operator@roleDisabled.com',
-            password: await (new Password('1234567901', min, max)).ready(),
             birthday: '04/07/1995',
             documentType: 'dni',
             documentNumber: '35319150',
@@ -176,6 +174,7 @@ class UserSeed implements ISeed
             isSuperAdmin: false
         };
         const userOperatorRoleDisabled: IUserDomain = new User(payloadUserOperatorRoleDisabled);
+        userOperatorRoleDisabled.password = await (new Password('1234567901', minLength, maxLength)).ready();
 
         await this.userRepository.save(userOperatorRoleDisabled);
     }

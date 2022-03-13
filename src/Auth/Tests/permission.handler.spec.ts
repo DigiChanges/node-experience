@@ -50,11 +50,9 @@ describe('Start Permission Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, data } } = response;
+            const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
-            expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_OK');
 
             const keepAlive = data.some(({ group, permissions }) => group === 'USERS' && permissions.some((permission) => permission === 'usersSave'));
 
@@ -82,11 +80,9 @@ describe('Start Permission Test', () =>
                 .set('Accept', 'application/json')
                 .send();
 
-            const { body: { status, statusCode, message } } = response;
+            const { body: { message } } = response;
 
             expect(response.statusCode).toStrictEqual(403);
-            expect(status).toStrictEqual('error');
-            expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
             expect(message).toStrictEqual('You must be authenticated.');
         });

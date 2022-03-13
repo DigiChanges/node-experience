@@ -33,11 +33,9 @@ describe('Start Login Test', () =>
             .set('Accept', 'application/json')
             .send(payload);
 
-        const { body: { status, statusCode, data } } = response;
+        const { body: { data } } = response;
 
         expect(response.statusCode).toStrictEqual(201);
-        expect(status).toStrictEqual('success');
-        expect(statusCode).toStrictEqual('HTTP_CREATED');
 
         expect(data.user.email).toStrictEqual('user@node.com');
         expect(data.user.firstName).toStrictEqual('user');
@@ -55,11 +53,9 @@ describe('Start Login Test', () =>
             .set('Accept', 'application/json')
             .send(payload);
 
-        const { body: { status, statusCode, data } } = response;
+        const { body: { data } } = response;
 
         expect(response.statusCode).toStrictEqual(201);
-        expect(status).toStrictEqual('success');
-        expect(statusCode).toStrictEqual('HTTP_CREATED');
 
         expect(data.user.email).toStrictEqual('superadmin@node.com');
         expect(data.user.firstName).toStrictEqual('Super');
@@ -77,11 +73,9 @@ describe('Start Login Test', () =>
             .set('Accept', 'application/json')
             .send(payload);
 
-        const { body: { status, statusCode, message } } = response;
+        const { body: { message } } = response;
 
         expect(response.statusCode).toStrictEqual(403);
-        expect(status).toStrictEqual('error');
-        expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
         expect(message).toStrictEqual('Error credentials.');
     });
@@ -98,11 +92,9 @@ describe('Start Login Test', () =>
             .set('Accept', 'application/json')
             .send(payload);
 
-        const { body: { status, statusCode, message } } = response;
+        const { body: { message } } = response;
 
         expect(response.statusCode).toStrictEqual(403);
-        expect(status).toStrictEqual('error');
-        expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
         expect(message).toStrictEqual('This user is not verified.');
     });
@@ -119,11 +111,9 @@ describe('Start Login Test', () =>
             .set('Accept', 'application/json')
             .send(payload);
 
-        const { body: { status, statusCode, message } } = response;
+        const { body: { message } } = response;
 
         expect(response.statusCode).toStrictEqual(403);
-        expect(status).toStrictEqual('error');
-        expect(statusCode).toStrictEqual('HTTP_FORBIDDEN');
 
         expect(message).toStrictEqual('Your role is disable.');
     });

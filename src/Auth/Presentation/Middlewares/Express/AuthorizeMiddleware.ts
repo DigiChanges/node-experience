@@ -12,9 +12,9 @@ const AuthorizeMiddleware = (...handlerPermissions: string[]) =>
         try
         {
             const authService = new AuthService();
-            const config = MainConfig.getInstance();
+            const { authorization } = MainConfig.getInstance().getConfig().auth;
 
-            let isAllowed: boolean = config.getConfig().auth.authorization !== true;
+            let isAllowed: boolean = authorization !== true;
             const authUser = req.authUser as IUserDomain;
 
             const authorize = await authService.authorize(authUser, handlerPermissions);

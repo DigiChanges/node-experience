@@ -12,6 +12,7 @@ interface UserRepPayload
     phone: string;
     country: string;
     address: string;
+    verify?: boolean;
     enable: boolean;
     roles: IRoleDomain[];
     permissions: string[];

@@ -49,11 +49,9 @@ describe('Start Keep Alive Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, metadata: { refreshToken } } } = response;
+            const { body: { metadata: { refreshToken } } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
-            expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_CREATED');
 
             token = refreshToken;
         });

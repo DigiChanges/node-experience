@@ -20,9 +20,6 @@ class FormatError
         }
 
         return {
-            status: statusCode.status,
-            code: statusCode.code,
-            statusCode: statusCode.statusCode,
             message: statusCode.code === StatusCode.HTTP_INTERNAL_SERVER_ERROR.code ? 'Internal Error Server' : message,
             errorCode,
             errors: _.isEmpty(validationModels) ? null : validationModels,

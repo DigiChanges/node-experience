@@ -16,7 +16,6 @@ import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import RegisterPayload from '../../Domain/Payloads/RegisterPayload';
 import RegisterUseCase from '../../Domain/UseCases/RegisterUseCase';
 import UpdateMeUseCase from '../../Domain/UseCases/UpdateMeUseCase';
-import UserRepPayload from '../../../User/Domain/Payloads/UserRepPayload';
 import VerifyYourAccountPayload from '../../Domain/Payloads/VerifyYourAccountPayload';
 import VerifyYourAccountUseCase from '../../Domain/UseCases/VerifyYourAccountUseCase';
 import IToken from '../../Domain/Models/IToken';

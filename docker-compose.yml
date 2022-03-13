@@ -4,11 +4,14 @@ services:
   node:
     container_name: experience_node_1
     restart: always
-    image: digichanges/nexp:1.0
-    working_dir: /usr/app
-    entrypoint: bash dev.build.sh
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    working_dir: /home/node/app
     volumes:
-     - .:/usr/app:cached
+     - .:/home/node/app:cached
+     - ./node_modules:/home/node/app/node_modules:cached
     ports:
       - "8089:8089"
     networks:

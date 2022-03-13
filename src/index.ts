@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import MainConfig from './Config/mainConfig';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 

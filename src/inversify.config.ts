@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import { Container } from 'inversify';
 import MainConfig from './Config/mainConfig';
 
@@ -46,26 +45,26 @@ container.bind<IFormatResponder>(TYPES.IFormatResponder).to(FormatResponder);
 /* Repositories */
 if (MainConfig.getInstance().getConfig().dbConfig.default === 'TypeORM')
 {
-    container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemSqlRepository);
-    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserSqlRepository);
-    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleSqlRepository);
-    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileSqlRepository);
+    container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemSqlRepository).inSingletonScope();
+    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserSqlRepository).inSingletonScope();
+    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleSqlRepository).inSingletonScope();
+    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileSqlRepository).inSingletonScope();
 }
 else if (MainConfig.getInstance().getConfig().dbConfig.default === 'Mongoose')
 {
-    container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMongoRepository);
-    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository);
-    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongoRepository);
-    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository);
-    container.bind<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository).to(NotificationMongoRepository);
+    container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMongoRepository).inSingletonScope();
+    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository).inSingletonScope();
+    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongoRepository).inSingletonScope();
+    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository).inSingletonScope();
+    // container.bind<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository).to(NotificationMongoRepository).inSingletonScope();
 }
 else if (MainConfig.getInstance().getConfig().dbConfig.default === 'MikroORM')
 {
-    container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMikroSqlRepository);
-    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMikroSqlRepository);
-    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMikroSqlRepository);
-    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMikroSqlRepository);
-    // container.bind<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository).to(NotificationMongoRepository);
+    container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMikroSqlRepository).inSingletonScope();
+    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMikroSqlRepository).inSingletonScope();
+    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMikroSqlRepository).inSingletonScope();
+    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMikroSqlRepository).inSingletonScope();
+    // container.bind<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository).to(NotificationMongoRepository).inSingletonScope();
 }
 
 container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(TokenRedisRepository);

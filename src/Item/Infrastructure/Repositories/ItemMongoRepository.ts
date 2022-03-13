@@ -34,9 +34,9 @@ class ItemMongoRepository extends BaseMongoRepository<IItemDomain, IItem> implem
         if (filter.has(ItemFilter.NAME))
         {
             const name: string = filter.get(ItemFilter.NAME);
-            const rsearch = new RegExp(name, 'g');
+            const rSearch = new RegExp(name, 'g');
 
-            void queryBuilder.where(ItemFilter.NAME).regex(rsearch);
+            void queryBuilder.where(ItemFilter.NAME).regex(rSearch);
         }
 
         void queryBuilder.populate(this.populate);

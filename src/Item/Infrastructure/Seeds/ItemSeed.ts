@@ -57,7 +57,6 @@ class ItemSeed implements ISeed
             phone: '2234456999',
             country: 'Argentina',
             address: 'New America 123',
-            password: await (new Password('123456789', minLength, maxLength)).ready(),
             enable: true,
             permissions,
             roles,
@@ -65,6 +64,7 @@ class ItemSeed implements ISeed
         };
 
         const user: IUserDomain = new User(payloadUser);
+        user.password = await (new Password('123456789', minLength, maxLength)).ready();
 
         return await this.userRepository.save(user);
     }

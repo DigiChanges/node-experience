@@ -26,18 +26,17 @@ class User extends Base implements IUserDomain
     confirmationToken?: string;
     passwordRequestedAt?: Date;
 
-    constructor(payload: UserRepPayload & PasswordPayload)
+    constructor(payload: UserRepPayload)
     {
         super();
         this.updateRep(payload);
     }
 
-    updateRep(payload: UserRepPayload & PasswordPayload)
+    updateRep(payload: UserRepPayload)
     {
         this.firstName = payload.firstName;
         this.lastName = payload.lastName;
         this.email = payload.email;
-        this.password = payload.password;
         this.birthday = payload.birthday;
         this.documentType = payload.documentType;
         this.documentNumber = payload.documentNumber;
@@ -45,12 +44,18 @@ class User extends Base implements IUserDomain
         this.phone = payload.phone;
         this.country = payload.country;
         this.address = payload.address;
+        this.verify = payload.verify ?? false;
         this.enable = payload.enable;
         this.roles = payload.roles;
         this.permissions = payload.permissions;
         this.confirmationToken = payload.confirmationToken ?? null;
         this.passwordRequestedAt = payload.passwordRequestedAt ?? null;
         this.isSuperAdmin = payload.isSuperAdmin;
+    }
+
+    setPassword(value: Password)
+    {
+        this.password = value;
     }
 
     getFullName(): string

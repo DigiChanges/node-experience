@@ -24,9 +24,8 @@ class UserService
     {
         const { minLength, maxLength } = MainConfig.getInstance().getConfig().validationSettings.password;
 
-        const password = await (new Password(payload.password, minLength, maxLength)).ready();
-
-        const user = new User({ ...payload, password });
+        const user = new User(payload);
+        user.setPassword(await (new Password(payload.password, minLength, maxLength)).ready());
 
         await this.validate(user);
 

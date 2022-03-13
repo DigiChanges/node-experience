@@ -22,10 +22,9 @@ class ChangeForgotPasswordUseCase
         user.confirmationToken = null;
         user.passwordRequestedAt = null;
 
-        const min = config.getConfig().validationSettings.password.minLength;
-        const max = config.getConfig().validationSettings.password.maxLength;
+        const { minLength, maxLength } = config.getConfig().validationSettings.password;
 
-        user.password = await (new Password(payload.password, min, max)).ready();
+        user.password = await (new Password(payload.password, minLength, maxLength)).ready();
 
         await this.repository.update(user);
 
