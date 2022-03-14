@@ -37,8 +37,6 @@ module.exports = {
   coveragePathIgnorePatterns: [
     "<rootDir>/node_modules/",
     "<rootDir>/.eslintrc.js",
-    "<rootDir>/src/app.ts",
-    "<rootDir>/src/Logger.ts",
     "<rootDir>/src/command.ts",
     "<rootDir>/src/File/*",
     "<rootDir>/src/AppExpress/Domain/*",
@@ -46,14 +44,12 @@ module.exports = {
     "<rootDir>/src/User/Presentation/Commands/*",
     "<rootDir>/src/Item/Presentation/Commands/*",
     "<rootDir>/src/Role/Presentation/Commands/*",
-    "<rootDir>/src/AppExpress/Presentation/Criterias/NotificationFilter.ts",
-    "<rootDir>/src/AppExpress/Presentation/Criterias/NotificationSort.ts",
+    "<rootDir>/src/AppExpress/Presentation/Criterias/*",
     "<rootDir>/src/File/Infrastructure/Repositories/FileSqlRepository.ts",
     "<rootDir>/src/User/Infrastructure/Repositories/UserSqlRepository.ts",
     "<rootDir>/src/Role/Infrastructure/Repositories/RoleSqlRepository.ts",
     "<rootDir>/src/Item/Infrastructure/Repositories/ItemSqlRepository.ts",
-    "<rootDir>/src/AuthHelper/Infrastructure/Repositories/TokenRedisRepository.ts",
-    "<rootDir>/src/AppExpress/Domain/UseCases/GetLogViewUseCase.ts",
+    "<rootDir>/src/Auth/Infrastructure/Repositories/TokenRedisRepository.ts"
   ],
 
   // Indicates which provider should be used to instrument code for coverage

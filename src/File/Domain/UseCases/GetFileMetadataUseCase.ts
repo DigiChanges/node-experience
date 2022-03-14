@@ -8,7 +8,7 @@ class GetFileMetadataUserCase
 
     async handle(payload: IdPayload): Promise<IFileDomain>
     {
-        const id = payload.id;
+        const { id } = payload;
         return await this.fileService.getOne(id);
     }
 }

@@ -24,7 +24,7 @@ import MainConfig from '../../../../Config/mainConfig';
 import { RequestContext } from '@mikro-orm/core';
 import { orm } from '../../../../Shared/Database/MikroORMCreateConnection';
 import LoggerMiddleware from '../../Middlewares/Koa/LoggerMiddleware';
-import { Logger } from 'tslog';
+import Logger from '../../../../Shared/Logger/Logger';
 
 class AppKoa implements IApp
 {
@@ -105,8 +105,7 @@ class AppKoa implements IApp
     {
         return this.app.listen(this.port, () =>
         {
-            const log: Logger = new Logger();
-            log.info(`Koa is listening to http://localhost:${this.port}`);
+            Logger.info(`Koa is listening to http://localhost:${this.port}`);
         });
     }
 

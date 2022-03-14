@@ -11,7 +11,7 @@ class RemoveItemUseCase
 
     async handle(payload: IdPayload): Promise<IItemDomain>
     {
-        const id = payload.id;
+        const { id } = payload;
         return await this.repository.delete(id);
     }
 }
