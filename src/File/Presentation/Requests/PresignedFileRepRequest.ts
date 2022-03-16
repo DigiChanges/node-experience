@@ -4,28 +4,27 @@ import FileOptionsQueryRequest from './FileOptionsQueryRequest';
 
 class PresignedFileRepRequest extends FileOptionsQueryRequest implements PresignedFileRepPayload
 {
-    @IsString()
-    filename: string;
-
-    @IsOptional()
-    @IsString()
-    expiry: number;
+    private readonly _filename: string;
+    private readonly _expiry: number;
 
     constructor({ data, query }: any)
     {
         super({ query });
-        this.filename = data.filename;
-        this.expiry = data.expiry;
+        this._filename = data.filename;
+        this._expiry = data.expiry;
     }
 
-    getName(): string
+    @IsString()
+    get name(): string
     {
-        return this.filename;
+        return this._filename;
     }
 
-    getExpiry(): number
+    @IsOptional()
+    @IsString()
+    get expiry(): number
     {
-        return this.expiry || 60 * 24 * 24 * 7;
+        return this._expiry || 60 * 24 * 24 * 7;
     }
 }
 

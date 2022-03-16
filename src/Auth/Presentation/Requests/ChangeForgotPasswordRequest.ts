@@ -1,45 +1,43 @@
 import MainConfig from '../../../Config/mainConfig';
 import { IsString, Length } from 'class-validator';
 
-import ChangeForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
+import ChangeForgotPasswordPayload from '../../Domain/Payloads/ChangeForgotPasswordPayload';
 import { Match } from '../../../Shared/Decorators/match';
 
 class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
 {
+    private readonly _password: string;
+    private readonly _passwordConfirmation: string;
+    private readonly _confirmationToken: string;
+
+    constructor(data: Record<string, any>)
+    {
+        this._password = data.password;
+        this._passwordConfirmation = data.passwordConfirmation;
+        this._confirmationToken = data.confirmationToken;
+    }
+
     @IsString()
     @Length(MainConfig.getInstance().getConfig().validationSettings.password.minLength,
         MainConfig.getInstance().getConfig().validationSettings.password.maxLength)
-    password: string;
+    get confirmationToken(): string
+    {
+        return this._confirmationToken;
+    }
 
     @IsString()
     @Length(MainConfig.getInstance().getConfig().validationSettings.password.minLength,
         MainConfig.getInstance().getConfig().validationSettings.password.maxLength)
     @Match('password', { message: 'passwordConfirmation don\'t match' })
-    passwordConfirmation: string;
+    get password(): string
+    {
+        return this._password;
+    }
 
     @IsString()
-    confirmationToken: string;
-
-    constructor(data: Record<string, any>)
+    get passwordConfirmation(): string
     {
-        this.password = data.password;
-        this.passwordConfirmation = data.passwordConfirmation;
-        this.confirmationToken = data.confirmationToken;
-    }
-
-    getConfirmationToken(): string
-    {
-        return this.confirmationToken;
-    }
-
-    getPassword(): string
-    {
-        return this.password;
-    }
-
-    getPasswordConfirmation(): string
-    {
-        return this.passwordConfirmation;
+        return this._passwordConfirmation;
     }
 }
 

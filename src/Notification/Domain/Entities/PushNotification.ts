@@ -12,7 +12,7 @@ class PushNotification extends Notification
         this.url = null;
     }
 
-    get_subscription()
+    getSubscription()
     {
         return this.subscription;
     }

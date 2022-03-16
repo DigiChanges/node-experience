@@ -1,9 +1,9 @@
 import moment from 'moment';
 import { Transformer } from '@digichanges/shared-experience';
 
-import IToken from '../../InterfaceAdapters/IToken';
+import IToken from '../../Domain/Models/IToken';
 import RoleUserTransformer from '../../../Role/Presentation/Transformers/RoleUserTransformer';
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import AuthService from '../../Domain/Services/AuthService';
 
 class AuthTransformer extends Transformer

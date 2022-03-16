@@ -1,9 +1,9 @@
 
 interface FileOptionsQueryPayload
 {
-    getIsOriginalName(): boolean;
-    getIsPublic(): boolean;
-    getIsOverwrite(): boolean;
+    isOriginalName: boolean;
+    isPublic: boolean;
+    isOverwrite: boolean;
 }
 
 export default FileOptionsQueryPayload;

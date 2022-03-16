@@ -1,5 +1,5 @@
 import Permissions from '../../../Config/Permissions';
-import IGroupPermission from '../../InterfaceAdapters/IGroupPermission';
+import IGroupPermission from '../../../Config/IGroupPermission';
 
 class PermissionUseCase
 {

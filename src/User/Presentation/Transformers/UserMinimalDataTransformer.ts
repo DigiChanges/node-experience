@@ -1,7 +1,7 @@
 import { Transformer } from '@digichanges/shared-experience';
 
-import IUserDomain from '../../InterfaceAdapters/IUserDomain';
-import IUserMinimalDataTransformer from '../../InterfaceAdapters/IUserMinimalDataTransformer';
+import IUserDomain from '../../Domain/Entities/IUserDomain';
+import IUserMinimalDataTransformer from './IUserMinimalDataTransformer';
 
 class UserMinimalDataTransformer extends Transformer
 {

@@ -3,9 +3,9 @@ import _ from 'lodash';
 import Permissions from '../../../Config/Permissions';
 import Roles from '../../../Config/Roles';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
-import IRoleRepository from '../../../Role/InterfaceAdapters/IRoleRepository';
+import IRoleRepository from '../../../Role/Infrastructure/Repositories/IRoleRepository';
 import Role from '../../../Role/Domain/Entities/Role';
-import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 
 class SyncRolesPermissionUseCase
@@ -33,14 +33,15 @@ class SyncRolesPermissionUseCase
             }
             else
             {
-                const newRole: IRoleDomain = new Role();
+                const payload = {
+                    name: key,
+                    slug: key.toLowerCase(),
+                    permissions,
+                    enable: true,
+                    ofSystem: true
+                };
 
-                newRole.name = key;
-                newRole.slug = key.toLowerCase();
-                newRole.permissions = permissions;
-                newRole.enable = true;
-                newRole.ofSystem = true;
-
+                const newRole: IRoleDomain = new Role(payload);
                 await this.repository.save(newRole);
             }
         });

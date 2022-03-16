@@ -1,8 +1,8 @@
 import moment from 'moment';
 import { Transformer } from '@digichanges/shared-experience';
 
-import IItemDomain from '../../InterfaceAdapters/IItemDomain';
-import IItemTransformer from '../../InterfaceAdapters/IItemTransformer';
+import IItemDomain from '../../Domain/Entities/IItemDomain';
+import IItemTransformer from './IItemTransformer';
 import UserMinimalDataTransformer from '../../../User/Presentation/Transformers/UserMinimalDataTransformer';
 
 class ItemTransformer extends Transformer

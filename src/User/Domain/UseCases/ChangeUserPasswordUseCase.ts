@@ -1,28 +1,26 @@
-import ChangeUserPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeUserPasswordPayload';
-import IUserDomain from '../../InterfaceAdapters/IUserDomain';
+import ChangeUserPasswordPayload from '../Payloads/ChangeUserPasswordPayload';
+import IUserDomain from '../Entities/IUserDomain';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import MainConfig from '../../../Config/mainConfig';
-import UserService from '../Services/UserService';
+import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
 
 class ChangeUserPasswordUseCase
 {
-    private userService = new UserService();
+    @containerFactory(REPOSITORIES.IUserRepository)
+    private repository: IUserRepository;
 
     async handle(payload: ChangeUserPasswordPayload): Promise<IUserDomain>
     {
-        const config = MainConfig.getInstance();
+        const { id } = payload;
+        const user: IUserDomain = await this.repository.getOne(id);
 
-        const id = payload.getId();
-        const user: IUserDomain = await this.userService.getOne(id);
+        const { minLength, maxLength } = MainConfig.getInstance().getConfig().validationSettings.password;
 
-        const min = config.getConfig().validationSettings.password.minLength;
-        const max = config.getConfig().validationSettings.password.maxLength;
+        user.password = await (new Password(payload.password, minLength, maxLength)).ready();
 
-        const password = new Password(payload.getPassword(), min, max);
-        await password.ready();
-        user.password = password;
-
-        return await this.userService.persistPassword(user, payload);
+        return await this.repository.update(user);
     }
 }
 

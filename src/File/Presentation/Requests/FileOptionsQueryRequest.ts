@@ -4,38 +4,36 @@ import { decorate } from 'ts-mixer';
 
 class FileOptionsQueryRequest implements FileOptionsQueryPayload
 {
-    @decorate(IsBoolean())
-    @decorate(IsOptional())
-    hasOriginalName: boolean;
-
-    @decorate(IsBoolean())
-    @decorate(IsOptional())
-    isPublic: boolean;
-
-    @decorate(IsBoolean())
-    @decorate(IsOptional())
-    isOverwrite: boolean;
+    private readonly _hasOriginalName: boolean;
+    private readonly _isPublic: boolean;
+    private readonly _isOverwrite: boolean;
 
     constructor({ query }: any)
     {
-        this.hasOriginalName = query?.hasOriginalName === 'true';
-        this.isPublic = query?.isPublic === 'true';
-        this.isOverwrite = query?.isOverwrite === 'true';
+        this._hasOriginalName = query?.hasOriginalName === 'true';
+        this._isPublic = query?.isPublic === 'true';
+        this._isOverwrite = query?.isOverwrite === 'true';
     }
 
-    getIsOriginalName(): boolean
+    @decorate(IsBoolean())
+    @decorate(IsOptional())
+    get isOriginalName(): boolean
     {
-        return this.hasOriginalName;
+        return this._hasOriginalName;
     }
 
-    getIsPublic(): boolean
+    @decorate(IsBoolean())
+    @decorate(IsOptional())
+    get isPublic(): boolean
     {
-        return this.isPublic;
+        return this._isPublic;
     }
 
-    getIsOverwrite(): boolean
+    @decorate(IsBoolean())
+    @decorate(IsOptional())
+    get isOverwrite(): boolean
     {
-        return this.isOverwrite;
+        return this._isOverwrite;
     }
 }
 

@@ -57,11 +57,9 @@ describe('Start File Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(UploadFileBase64);
 
-            const { body: { status, statusCode, data } } = response;
+            const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
-            expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_CREATED');
 
             expect(data.originalName).toStrictEqual('photo.jpg');
             expect(data.extension).toStrictEqual('jpg');
@@ -85,11 +83,9 @@ describe('Start File Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send();
 
-            const { body: { status, statusCode, data } } = response;
+            const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
-            expect(status).toStrictEqual('success');
-            expect(statusCode).toStrictEqual('HTTP_OK');
 
             expect(data.originalName).toStrictEqual(payload.originalName);
             expect(data.extension).toStrictEqual(payload.extension);
@@ -116,7 +112,7 @@ describe('Start File Test', () =>
         // test('Update Item /items/:id', async () =>
         // {
         //     const payload = {
-        //         name: 'Item 1 update',
+        //         name: 'Item 1 updateRep',
         //         type: 11
         //     };
         //
@@ -126,7 +122,7 @@ describe('Start File Test', () =>
         //         .set('Authorization', `Bearer ${token}`)
         //         .send(payload);
         //
-        //     const {body: {status, statusCode, data}} = response;
+        //     const {body: {data}} = response;
         //
         //     expect(response.statusCode).toStrictEqual(201);
         //     expect(status).toStrictEqual('success');
@@ -156,7 +152,7 @@ describe('Start File Test', () =>
         //         .set('Authorization', `Bearer ${createResponse.body.metadata.refreshToken}`)
         //         .send();
         //
-        //     const {body: {status, statusCode, data}} = deleteResponse;
+        //     const {body: {data}} = deleteResponse;
         //
         //     expect(deleteResponse.statusCode).toStrictEqual(200);
         //     expect(status).toStrictEqual('success');
@@ -176,7 +172,7 @@ describe('Start File Test', () =>
         //         .set('Authorization', `Bearer ${token}`)
         //         .send();
         //
-        //     const {body: {status, statusCode, data, pagination}} = response;
+        //     const {body: {data, pagination}} = response;
         //
         //     expect(response.statusCode).toStrictEqual(200);
         //     expect(status).toStrictEqual('success');
@@ -198,7 +194,7 @@ describe('Start File Test', () =>
         //         .set('Authorization', `Bearer ${token}`)
         //         .send();
         //
-        //     const {body: {status, statusCode, data, pagination}} = response;
+        //     const {body: {data, pagination}} = response;
         //
         //     expect(response.statusCode).toStrictEqual(200);
         //     expect(status).toStrictEqual('success');
@@ -218,7 +214,7 @@ describe('Start File Test', () =>
         //         .set('Authorization', `Bearer ${token}`)
         //         .send();
         //
-        //     const {body: {status, statusCode, data, pagination}} = response;
+        //     const {body: {data, pagination}} = response;
         //
         //     expect(response.statusCode).toStrictEqual(200);
         //     expect(status).toStrictEqual('success');
@@ -240,7 +236,7 @@ describe('Start File Test', () =>
         //         .set('Authorization', `Bearer ${token}`)
         //         .send();
         //
-        //     const {body: {status, statusCode, data: [item1, item2]}} = response;
+        //     const {body: {data: [item1, item2]}} = response;
         //
         //     expect(response.statusCode).toStrictEqual(200);
         //     expect(status).toStrictEqual('success');
@@ -279,7 +275,7 @@ describe('Start File Test', () =>
     //             .set('Authorization', `Bearer ${token}`)
     //             .send(UploadFileBase64);
     //
-    //         const {body: {status, statusCode, message, errors: [error]}} = response;
+    //         const {body: {message, errors: [error]}} = response;
     //
     //         expect(response.statusCode).toStrictEqual(422);
     //         expect(status).toStrictEqual('error');
@@ -300,7 +296,7 @@ describe('Start File Test', () =>
     //             .set('Authorization', `Bearer ${token}`)
     //             .send();
     //
-    //         const {body: {status, statusCode, message, errors: [error]}} = response;
+    //         const {body: {message, errors: [error]}} = response;
     //
     //         expect(response.statusCode).toStrictEqual(422);
     //         expect(status).toStrictEqual('error');
@@ -326,7 +322,7 @@ describe('Start File Test', () =>
     //             .set('Authorization', `Bearer ${token}`)
     //             .send(payload);
     //
-    //         const {body: {status, statusCode, message, errors: [errorName, errorType]}} = response;
+    //         const {body: {message, errors: [errorName, errorType]}} = response;
     //
     //         expect(response.statusCode).toStrictEqual(422);
     //         expect(status).toStrictEqual('error');
@@ -352,7 +348,7 @@ describe('Start File Test', () =>
     //             .set('Authorization', `Bearer ${token}`)
     //             .send();
     //
-    //         const {body: {status, statusCode, message}} = deleteErrorResponse;
+    //         const {body: {message}} = deleteErrorResponse;
     //
     //         expect(deleteErrorResponse.statusCode).toStrictEqual(400);
     //         expect(status).toStrictEqual('error');

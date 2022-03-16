@@ -2,7 +2,7 @@ import MainConfig from '../../../Config/mainConfig';
 import { injectable } from 'inversify';
 import { ICacheRepository, ITokenRepository } from '@digichanges/shared-experience';
 
-import ITokenDomain from '../../InterfaceAdapters/ITokenDomain';
+import ITokenDomain from '../../Domain/Entities/ITokenDomain';
 
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import CacheFactory from '../../../Shared/Factories/CacheFactory';

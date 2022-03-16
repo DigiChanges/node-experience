@@ -2,12 +2,12 @@ import mongoose from 'mongoose';
 import MainConfig from '../../Config/mainConfig';
 import { ICreateConnection } from '@digichanges/shared-experience';
 
-import IUserDocument from '../../User/InterfaceAdapters/IUserDocument';
-import IRoleDocument from '../../Role/InterfaceAdapters/IRoleDocument';
-import IItemDocument from '../../Item/InterfaceAdapters/IItemDocument';
+import IUserDocument from '../../User/Infrastructure/Schemas/IUserDocument';
+import IRoleDocument from '../../Role/Infrastructure/Schemas/IRoleDocument';
+import IItemDocument from '../../Item/Infrastructure/Schemas/IItemDocument';
 import IFileDocument from '../../File/Infrastructure/Schemas/IFileDocument';
 import INotificationDocument from '../../Notification/InterfaceAdapters/INotificationDocument';
-import ITokenDocument from '../../Auth/InterfaceAdapters/ITokenDocument';
+import ITokenDocument from '../../Auth/Infrastructure/Schemas/ITokenDocument';
 
 import ItemSchema from '../../Item/Infrastructure/Schemas/ItemMongoose';
 

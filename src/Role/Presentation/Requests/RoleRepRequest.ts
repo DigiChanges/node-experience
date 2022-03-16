@@ -1,53 +1,50 @@
-import RoleRepPayload from '../../InterfaceAdapters/Payloads/RoleRepPayload';
+import RoleRepPayload from '../../Domain/Payloads/RoleRepPayload';
 import { IsArray, IsBoolean, IsOptional, IsString, Length } from 'class-validator';
 import { decorate } from 'ts-mixer';
 
 class RoleRepRequest implements RoleRepPayload
 {
-    @decorate(Length(3, 30))
-    @decorate(IsString())
-    name: string;
+    private readonly _name: string;
+    private readonly _slug: string;
+    protected _permissions: string[];
+    private readonly _enable: boolean;
+
+    constructor(data: Record<string, any>)
+    {
+        this._name = data.name;
+        this._slug = data?.slug?.toLowerCase() ?? data?.name?.toLowerCase();
+        this._permissions = data.permissions ?? [];
+        this._enable = data.enable ?? true;
+    }
 
     @decorate(Length(3, 30))
     @decorate(IsString())
-    slug: string;
+    get name(): string
+    {
+        return this._name;
+    }
+
+    @decorate(Length(3, 30))
+    @decorate(IsString())
+    get slug(): string
+    {
+        return this._slug;
+    }
 
     @decorate(IsArray())
     @decorate(IsString({
         each: true
     }))
-    permissions: string[];
+    get permissions(): string[]
+    {
+        return this._permissions;
+    }
 
     @decorate(IsOptional())
     @decorate(IsBoolean())
-    enable: boolean;
-
-    constructor(data: Record<string, any>)
+    get enable(): boolean
     {
-        this.name = data.name;
-        this.slug = data.slug;
-        this.permissions = data.permissions;
-        this.enable = data.enable ?? true;
-    }
-
-    getName(): string
-    {
-        return this.name;
-    }
-
-    getSlug(): string
-    {
-        return this.slug;
-    }
-
-    getPermissions(): string[]
-    {
-        return this.permissions;
-    }
-
-    getEnable(): boolean
-    {
-        return this.enable;
+        return this._enable;
     }
 }
 

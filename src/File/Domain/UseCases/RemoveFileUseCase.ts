@@ -8,7 +8,7 @@ class RemoveFileUseCase
 
     async handle(payload: IdPayload): Promise<IFileDomain>
     {
-        const id = payload.getId();
+        const { id } = payload;
         return this.fileService.removeFile(id);
     }
 }

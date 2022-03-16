@@ -4,7 +4,7 @@ import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 import Responder from '../../../../App/Presentation/Shared/Koa/Responder';
 import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import RoleRepRequest from '../../Requests/RoleRepRequest';
-import IRoleDomain from '../../../InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../../Domain/Entities/IRoleDomain';
 import RoleTransformer from '../../Transformers/RoleTransformer';
 import RoleRequestCriteria from '../../Requests/RoleRequestCriteria';
 import RoleUpdateRequest from '../../Requests/RoleUpdateRequest';

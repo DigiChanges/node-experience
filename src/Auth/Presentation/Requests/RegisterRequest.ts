@@ -1,25 +1,20 @@
 import { Mixin } from 'ts-mixer';
-import UserRepPasswordRequest from '../../../User/Presentation/Requests/UserRepPasswordRequest';
-import RegisterPayload from '../../InterfaceAdapters/Payloads/RegisterPayload';
+import UserPasswordRequest from '../../../User/Presentation/Requests/UserPasswordRequest';
 import UserWithoutPermissionsRequest
     from '../../../User/Presentation/Requests/UserWithoutPermissionsRequest';
 import moment from 'moment';
-import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
+import RegisterPayload from '../../Domain/Payloads/RegisterPayload';
 
-class RegisterRequest extends Mixin(UserWithoutPermissionsRequest, UserRepPasswordRequest) implements RegisterPayload
+class RegisterRequest extends Mixin(UserWithoutPermissionsRequest, UserPasswordRequest) implements RegisterPayload
 {
     constructor(data: Record<string, any>)
     {
         super(data);
     }
 
-    async getConfirmationToken(): Promise<string>
+    get confirmationToken(): string
     {
-        const encryption = EncryptionFactory.create('md5');
-
-        const stringToEncrypt = `${this.email}${moment().utc().unix()}`;
-
-        return await encryption.encrypt(stringToEncrypt);
+        return `${this.email}${moment().utc().unix()}`;
     }
 }
 

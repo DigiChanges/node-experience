@@ -1,12 +1,12 @@
-import IRoleRepository from '../../InterfaceAdapters/IRoleRepository';
+import IRoleRepository from './IRoleRepository';
 import { injectable } from 'inversify';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
 import RoleFilter from '../../Presentation/Criterias/RoleFilter';
 import { Query } from 'mongoose';
-import IRole from '../../InterfaceAdapters/IRoleDocument';
-import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
+import IRole from '../Schemas/IRoleDocument';
+import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 
 import Roles from '../../../Config/Roles';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
@@ -42,16 +42,16 @@ class RoleMongoRepository extends BaseMongoRepository<IRoleDomain, IRole> implem
         if (filter.has(RoleFilter.NAME))
         {
             const name = filter.get(RoleFilter.NAME);
-            const rsearch = new RegExp(name, 'g');
+            const rSearch = new RegExp(name, 'g');
 
-            void queryBuilder.where(RoleFilter.NAME).regex(rsearch);
+            void queryBuilder.where(RoleFilter.NAME).regex(rSearch);
         }
         if (filter.has(RoleFilter.SLUG))
         {
             const slug = filter.get(RoleFilter.SLUG);
-            const rsearch = new RegExp(slug, 'g');
+            const rSearch = new RegExp(slug, 'g');
 
-            void queryBuilder.where(RoleFilter.SLUG).regex(rsearch);
+            void queryBuilder.where(RoleFilter.SLUG).regex(rSearch);
         }
 
         void queryBuilder.where(RoleFilter.SLUG).ne(Roles.SUPER_ADMIN.toLowerCase());

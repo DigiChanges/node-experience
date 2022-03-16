@@ -1,7 +1,7 @@
 FROM node:16-alpine as node
 
 # Builder stage
-FROM node AS builder
+FROM node AS dev
 
 WORKDIR /home/node/app
 
@@ -19,7 +19,7 @@ EXPOSE ${PORT}
 ENTRYPOINT [ "yarn", "dev:watch" ]
 
 # Final stage
-FROM node AS final
+FROM node AS prod
 
 ENV NODE_ENV production
 

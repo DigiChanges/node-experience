@@ -1,4 +1,4 @@
-import ITokenDomain from '../../InterfaceAdapters/ITokenDomain';
+import ITokenDomain from './ITokenDomain';
 import Base from '../../../App/Domain/Entities/Base';
 
 class Token extends Base implements ITokenDomain

@@ -1,12 +1,9 @@
-import 'reflect-metadata';
 import express from 'express';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 import exphbs from 'express-handlebars';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const pinoExpress = require('pino-express');
 
 import '../../Handlers/Express/IndexHandler';
 import '../../../../Item/Presentation/Handlers/Express/ItemHandler';
@@ -30,6 +27,7 @@ import Logger from '../../../../Shared/Logger/Logger';
 import MainConfig from '../../../../Config/mainConfig';
 import { RequestContext } from '@mikro-orm/core';
 import { orm } from '../../../../Shared/Database/MikroORMCreateConnection';
+import LoggerMiddleware from '../../Middlewares/Express/LoggerMiddleware';
 
 class AppExpress implements IApp
 {
@@ -79,7 +77,7 @@ class AppExpress implements IApp
                 });
             }
 
-            app.use(pinoExpress(Logger));
+            app.use(LoggerMiddleware);
             app.use('/api/', Throttle);
             app.use(AuthenticationMiddleware);
             app.use(VerifyTokenMiddleware);

@@ -3,8 +3,8 @@ import { injectable } from 'inversify';
 import { ICriteria, IPaginator, ITokenRepository } from '@digichanges/shared-experience';
 
 import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
-import ITokenDocument from '../../InterfaceAdapters/ITokenDocument';
-import ITokenDomain from '../../InterfaceAdapters/ITokenDomain';
+import ITokenDocument from '../Schemas/ITokenDocument';
+import ITokenDomain from '../../Domain/Entities/ITokenDomain';
 
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
 import Token from '../../Domain/Entities/Token';

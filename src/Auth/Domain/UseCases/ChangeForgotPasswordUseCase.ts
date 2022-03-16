@@ -1,5 +1,5 @@
-import ChangeForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
-import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
+import ChangeForgotPasswordPayload from '../Payloads/ChangeForgotPasswordPayload';
+import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
@@ -16,18 +16,15 @@ class ChangeForgotPasswordUseCase
     async handle(payload: ChangeForgotPasswordPayload): Promise<ILocaleMessage>
     {
         const config = MainConfig.getInstance();
-        const confirmationToken = payload.getConfirmationToken();
+        const confirmationToken = payload.confirmationToken;
 
         const user = await this.repository.getOneByConfirmationToken(confirmationToken);
         user.confirmationToken = null;
         user.passwordRequestedAt = null;
 
-        const min = config.getConfig().validationSettings.password.minLength;
-        const max = config.getConfig().validationSettings.password.maxLength;
+        const { minLength, maxLength } = config.getConfig().validationSettings.password;
 
-        const password = new Password(payload.getPassword(), min, max);
-        await password.ready();
-        user.password = password;
+        user.password = await (new Password(payload.password, minLength, maxLength)).ready();
 
         await this.repository.update(user);
 

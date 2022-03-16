@@ -3,7 +3,7 @@ import SendEmailService from '../../../Notification/Domain/Services/SendEmailSer
 import RegisterEvent from '../../../Shared/Events/RegisterEvent';
 import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../App/Presentation/Shared/Locales';
-import RegisterPayload from '../../InterfaceAdapters/Payloads/RegisterPayload';
+import RegisterPayload from '../Payloads/RegisterPayload';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
 import MainConfig from '../../../Config/mainConfig';
 
@@ -13,10 +13,10 @@ class RegisterUseCase
 
     async handle(payload: RegisterPayload): Promise<ILocaleMessage>
     {
-        const config = MainConfig.getInstance();
+        const { urlWeb } = MainConfig.getInstance().getConfig().url;
         const user = await this.userService.create(payload);
 
-        const urlConfirmationToken = `${config.getConfig().url.urlWeb}verify-your-account/${user.confirmationToken}`;
+        const urlConfirmationToken = `${urlWeb}verify-your-account/${user.confirmationToken}`;
 
         void await SendEmailService.handle({
             event: RegisterEvent.REGISTER_EVENT,

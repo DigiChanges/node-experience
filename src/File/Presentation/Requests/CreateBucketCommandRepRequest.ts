@@ -3,20 +3,16 @@ import CreateBucketPayload from '../../Domain/Payloads/CreateBucketPayload';
 
 class CreateBucketCommandRequest implements CreateBucketPayload
 {
-    @IsString()
-    name: string;
-
-    publicBucketPolicy: any;
-    privateBucketPolicy: any;
-
-    @IsString()
-    region: string;
+    private readonly _name: string;
+    private readonly _publicBucketPolicy: any;
+    private readonly _privateBucketPolicy: any;
+    private readonly _region: string;
 
     constructor(env: any)
     {
-        this.name = env.name;
-        this.region = env.region;
-        this.privateBucketPolicy = {
+        this._name = env.name;
+        this._region = env.region;
+        this._privateBucketPolicy = {
             Version: '2012-10-17',
             Statement: [
                 {
@@ -29,8 +25,7 @@ class CreateBucketCommandRequest implements CreateBucketPayload
                 }
             ]
         };
-
-        this.publicBucketPolicy = {
+        this._publicBucketPolicy = {
             Version: '2012-10-17',
             Statement: [
                 {
@@ -49,24 +44,26 @@ class CreateBucketCommandRequest implements CreateBucketPayload
         };
     }
 
-    getName(): string
+    @IsString()
+    get name(): string
     {
-        return this.name;
+        return this._name;
     }
 
-    getPublicBucketPolicy(): string
+    get publicBucketPolicy(): string
     {
-        return JSON.stringify(this.publicBucketPolicy);
+        return JSON.stringify(this._publicBucketPolicy);
     }
 
-    getPrivateBucketPolicy(): string
+    get privateBucketPolicy(): string
     {
-        return JSON.stringify(this.privateBucketPolicy);
+        return JSON.stringify(this._privateBucketPolicy);
     }
 
-    getRegion(): string
+    @IsString()
+    get region(): string
     {
-        return this.region;
+        return this._region;
     }
 }
 

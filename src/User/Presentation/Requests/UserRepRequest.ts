@@ -1,35 +1,34 @@
-import UserRepPayload from '../../InterfaceAdapters/Payloads/UserRepPayload';
+import UserRepPayload from '../../Domain/Payloads/UserRepPayload';
 import { ArrayMinSize, IsArray, IsBoolean, IsString } from 'class-validator';
 import { decorate, Mixin } from 'ts-mixer';
 import UserWithoutPermissionsRequest from './UserWithoutPermissionsRequest';
 
 class UserRepRequest extends Mixin(UserWithoutPermissionsRequest) implements UserRepPayload
 {
-    @decorate(IsBoolean())
-    enable: boolean;
+    private readonly _enable: boolean;
+    private readonly _permissions: string[];
+
+    constructor(data: Record<string, any>)
+    {
+        super(data);
+        this._permissions = data.permissions;
+        this._enable = data?.enable ?? true;
+    }
 
     @decorate(IsArray())
     @decorate(ArrayMinSize(0))
     @decorate(IsString({
         each: true
     }))
-    permissions: string[];
-
-    constructor(data: Record<string, any>)
+    get permissions(): string[]
     {
-        super(data);
-        this.permissions = data.permissions;
-        this.enable = data?.enable ?? true;
+        return this._permissions;
     }
 
-    getPermissions(): string[]
+    @decorate(IsBoolean())
+    get enable(): boolean
     {
-        return this.permissions;
-    }
-
-    getEnable(): boolean
-    {
-        return this.enable;
+        return this._enable;
     }
 }
 

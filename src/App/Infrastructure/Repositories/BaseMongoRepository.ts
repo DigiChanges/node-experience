@@ -39,7 +39,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
 
     async update(entity: T): Promise<T>
     {
-        return this.repository.findOneAndUpdate({ _id: entity.getId() } as FilterQuery<T>, { $set: entity } as UpdateQuery<T>, { new: true }).populate(this.populate);
+        return this.repository.findOneAndUpdate({ _id: entity.getId() } as FilterQuery<T>, { $set: entity } as UpdateQuery<T>, { new: true }).populate(this.populate  as string | string[]) as any;
     }
 
     async delete(id: string): Promise<T>
@@ -58,7 +58,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
     {
         const { initThrow = true, populate = null } = options;
 
-        const entity = await this.repository.findOne(condition as FilterQuery<T>).populate(populate).exec();
+        const entity = await this.repository.findOne(condition as FilterQuery<T>).populate(populate as string | string[]).exec();
 
         if (initThrow && !entity)
         {
@@ -75,7 +75,7 @@ abstract class BaseMongoRepository<T extends IBaseDomain, D extends Document & T
         initThrow = initThrow ?? false;
         populate = populate ?? null;
 
-        const entities = await this.repository.find(condition as FilterQuery<T>).populate(populate).exec();
+        const entities = await this.repository.find(condition as FilterQuery<T>).populate(populate as string | string[]).exec();
 
         if (initThrow && entities.length === 0)
         {

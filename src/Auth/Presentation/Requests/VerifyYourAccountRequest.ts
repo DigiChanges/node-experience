@@ -1,19 +1,19 @@
 import { IsString } from 'class-validator';
-import VerifyYourAccountPayload from '../../InterfaceAdapters/Payloads/VerifyYourAccountPayload';
+import VerifyYourAccountPayload from '../../Domain/Payloads/VerifyYourAccountPayload';
 
 class VerifyYourAccountRequest implements VerifyYourAccountPayload
 {
-    @IsString()
-    confirmationToken: string;
+    private readonly _confirmationToken: string;
 
     constructor(confirmationToken: string)
     {
-        this.confirmationToken = confirmationToken;
+        this._confirmationToken = confirmationToken;
     }
 
-    getConfirmationToken(): string
+    @IsString()
+    get confirmationToken(): string
     {
-        return this.confirmationToken;
+        return this._confirmationToken;
     }
 }
 

@@ -1,4 +1,4 @@
-import IItemDomain from '../../InterfaceAdapters/IItemDomain';
+import IItemDomain from '../../Domain/Entities/IItemDomain';
 
 import SaveItemUseCase from '../../Domain/UseCases/SaveItemUseCase';
 import ListItemsUseCase from '../../Domain/UseCases/ListItemsUseCase';
@@ -6,11 +6,11 @@ import GetItemUseCase from '../../Domain/UseCases/GetItemUseCase';
 import RemoveItemUseCase from '../../Domain/UseCases/RemoveItemUseCase';
 import UpdateItemUseCase from '../../Domain/UseCases/UpdateItemUseCase';
 import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
-import ItemRepPayload from '../../InterfaceAdapters/Payloads/ItemRepPayload';
+import ItemRepPayload from '../../Domain/Payloads/ItemRepPayload';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import ItemUpdatePayload from '../../InterfaceAdapters/Payloads/ItemUpdatePayload';
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
+import ItemUpdatePayload from '../../Domain/Payloads/ItemUpdatePayload';
+import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 
 class ItemController
 {

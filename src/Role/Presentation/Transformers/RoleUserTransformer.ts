@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { Transformer } from '@digichanges/shared-experience';
 
-import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 import IRoleTransformer from './IRoleTransformer';
 
 class RoleUserTransformer extends Transformer

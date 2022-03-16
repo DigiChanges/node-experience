@@ -19,7 +19,7 @@ export class ErrorHandler
 
             if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test')
             {
-                Logger.debug(err.stack);
+                Logger.trace(err.stack);
             }
 
             responder.error(exception, ctx, exception.statusCode);

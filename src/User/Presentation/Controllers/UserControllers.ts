@@ -11,13 +11,13 @@ import UpdateUserUseCase from '../../Domain/UseCases/UpdateUserUseCase';
 
 import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
 
-import IUserDomain from '../../InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../Domain/Entities/IUserDomain';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import UserUpdatePayload from '../../InterfaceAdapters/Payloads/UserUpdatePayload';
-import UserAssignRolePayload from '../../InterfaceAdapters/Payloads/UserAssignRolePayload';
-import ChangeMyPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeMyPasswordPayload';
-import ChangeUserPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeUserPasswordPayload';
-import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
+import UserUpdatePayload from '../../Domain/Payloads/UserUpdatePayload';
+import UserAssignRolePayload from '../../Domain/Payloads/UserAssignRolePayload';
+import ChangeMyPasswordPayload from '../../Domain/Payloads/ChangeMyPasswordPayload';
+import ChangeUserPasswordPayload from '../../Domain/Payloads/ChangeUserPasswordPayload';
+import UserSavePayload from '../../Domain/Payloads/UserSavePayload';
 
 
 class UserController

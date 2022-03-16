@@ -4,7 +4,7 @@ import { IPaginator, StatusCode } from '@digichanges/shared-experience';
 import Responder from '../../../../App/Presentation/Shared/Koa/Responder';
 import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import UserController from '../../Controllers/UserControllers';
-import IUserDomain from '../../../InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../../Domain/Entities/IUserDomain';
 import UserRequestCriteria from '../../Requests/UserRequestCriteria';
 import UserUpdateRequest from '../../Requests/UserUpdateRequest';
 import UserSaveRequest from '../../Requests/UserSaveRequest';

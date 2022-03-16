@@ -13,7 +13,7 @@ import ItemRepRequest from '../../Requests/ItemRepRequest';
 import IdRequest from '../../../../App/Presentation/Requests/IdRequest';
 import ItemRequestCriteria from '../../Requests/ItemRequestCriteria';
 import ItemUpdateRequest from '../../Requests/ItemUpdateRequest';
-import IItemDomain from '../../../InterfaceAdapters/IItemDomain';
+import IItemDomain from '../../../Domain/Entities/IItemDomain';
 
 import ItemController from '../../Controllers/ItemController';
 import { AuthUser } from '../../../../Auth/Presentation/Helpers/AuthUser';

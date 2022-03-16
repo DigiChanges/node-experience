@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidV4 } from 'uuid';
 import IBaseDomain from '../../../App/InterfaceAdapters/IBaseDomain';
 
 abstract class Base implements IBaseDomain
@@ -10,7 +10,7 @@ abstract class Base implements IBaseDomain
 
     constructor()
     {
-        this._id = uuidv4();
+        this._id = uuidV4();
     }
 
     getId(): string
@@ -25,7 +25,7 @@ abstract class Base implements IBaseDomain
 
     clone(): void
     {
-        this._id = uuidv4();
+        this._id = uuidV4();
     }
 }
 

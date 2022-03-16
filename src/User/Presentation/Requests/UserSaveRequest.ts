@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
-import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
-import UserRepPasswordRequest from './UserRepPasswordRequest';
+import UserSavePayload from '../../Domain/Payloads/UserSavePayload';
+import UserPasswordRequest from './UserPasswordRequest';
 import UserRepRequest from './UserRepRequest';
 
-class UserSaveRequest extends Mixin(UserRepRequest, UserRepPasswordRequest) implements UserSavePayload
+class UserSaveRequest extends Mixin(UserRepRequest, UserPasswordRequest) implements UserSavePayload
 {
     constructor(data: Record<string, any>)
     {

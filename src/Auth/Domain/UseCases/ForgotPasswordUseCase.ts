@@ -1,6 +1,6 @@
 import MainConfig from '../../../Config/mainConfig';
-import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
-import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
+import ForgotPasswordPayload from '../Payloads/ForgotPasswordPayload';
+import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ForgotPasswordEvent from '../../../Shared/Events/ForgotPasswordEvent';
@@ -8,6 +8,8 @@ import SendEmailService from '../../../Notification/Domain/Services/SendEmailSer
 import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../App/Presentation/Shared/Locales';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
+import { IEncryption } from '@digichanges/shared-experience';
+import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 
 class ForgotPasswordUseCase
 {
@@ -17,10 +19,15 @@ class ForgotPasswordUseCase
     async handle(payload: ForgotPasswordPayload): Promise<ILocaleMessage>
     {
         const config = MainConfig.getInstance();
-        const user = await this.repository.getOneByEmail(payload.getEmail());
+        const encryption: IEncryption = EncryptionFactory.create('md5');
 
-        user.confirmationToken = String(await payload.getConfirmationToken());
-        user.passwordRequestedAt = payload.getPasswordRequestedAt();
+        const [user, confirmationToken] = await Promise.all([
+            this.repository.getOneByEmail(payload.email),
+            encryption.encrypt(payload.confirmationToken)
+        ]);
+
+        user.confirmationToken = confirmationToken;
+        user.passwordRequestedAt = payload.passwordRequestedAt;
 
         await this.repository.save(user);
 

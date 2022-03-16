@@ -1,12 +1,9 @@
-import jwt, { TAlgorithm } from 'jwt-simple';
-import _ from 'lodash';
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
-import Permissions from '../../../Config/Permissions';
-import WrongPermissionsException from '../Exceptions/WrongPermissionsException';
+import jwt from 'jwt-simple';
+import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
-import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
+import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 import TokenExpiredHttpException from '../../Presentation/Exceptions/TokenExpiredHttpException';
 import TokenNotFoundHttpException from '../../Presentation/Exceptions/TokenNotFoundHttpException';
 import Auth from '../Types/Auth';
@@ -23,8 +20,8 @@ class AuthService
     {
         const _token = bearer ? token.split(' ')[1] : token;
 
-        const secret: string = this.config.getConfig().jwt.secret;
-        const algorithm: TAlgorithm = this.config.getConfig().encryption.bcrypt.algorithm;
+        const { secret } = this.config.getConfig().jwt;
+        const { algorithm } = this.config.getConfig().encryption.bcrypt;
 
         return jwt.decode(_token, secret, false, algorithm);
     }
@@ -37,14 +34,6 @@ class AuthService
         }, []);
 
         return [...new Set([...auth_user.permissions, ...rolePermissions])];
-    }
-
-    public validatePermissions(permissions: string[]): void
-    {
-        if (!_.isEmpty(permissions) && _.isEmpty(_.intersection(permissions, Permissions.permissions())))
-        {
-            throw new WrongPermissionsException();
-        }
     }
 
     public getByEmail(email: string): Promise<Auth>
@@ -134,7 +123,7 @@ class AuthService
         };
 
         let existMethodAndUrl = false;
-        const apiWhitelist: { methods: string[], url: string, urlRegExp?: RegExp}[] = this.config.getConfig().apiWhitelist;
+        const { apiWhitelist } = this.config.getConfig();
 
         for (const conf of apiWhitelist)
         {

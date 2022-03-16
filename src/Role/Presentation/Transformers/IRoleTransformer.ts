@@ -1,5 +1,5 @@
 import BaseTransformer, { BasePropertiesTransformer } from '../../../App/Presentation/Transformers/BaseTransformer';
-import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 
 type IRoleTransformer = BaseTransformer<IRoleDomain> & BasePropertiesTransformer;
 

@@ -1,8 +1,8 @@
-import Koa from 'koa';
+import { ParameterizedContext, Context } from 'koa';
 import { IHttpStatusCode, IPaginator, PaginatorTransformer, Transformer } from '@digichanges/shared-experience';
 
 import IFormatResponder from '../../../../Shared/InterfaceAdapters/IFormatResponder';
-import IFileDTO from '../../../../File/Domain/Payloads/IFileDTO';
+import IFileDTO from '../../../../File/Domain/Models/IFileDTO';
 import FormatResponder from '../FormatResponder';
 import FormatError from '../FormatError';
 import ErrorHttpException from '../ErrorHttpException';
@@ -18,7 +18,7 @@ class Responder
         this.formatError = new FormatError();
     }
 
-    public async send(data: any, ctx: Koa.ParameterizedContext, status: IHttpStatusCode, transformer: Transformer = null)
+    public async send(data: any, ctx: ParameterizedContext, status: IHttpStatusCode, transformer: Transformer = null)
     {
         if (!transformer)
         {
@@ -31,14 +31,14 @@ class Responder
         data = await transformer.handle(data);
 
         ctx.status = status.code;
-        return ctx.body = this.formatResponder.getFormatData(data, status, null);
+        return ctx.body = this.formatResponder.getFormatData(data, null);
     }
 
-    public async paginate(paginator: IPaginator, ctx: Koa.ParameterizedContext, status: IHttpStatusCode, transformer: Transformer = null)
+    public async paginate(paginator: IPaginator, ctx: ParameterizedContext, status: IHttpStatusCode, transformer: Transformer = null)
     {
         const data = await paginator.paginate();
         const metadata = paginator.getMetadata();
-        const result = this.formatResponder.getFormatData(data, status, metadata);
+        const result = this.formatResponder.getFormatData(data, metadata);
 
         if (!transformer)
         {
@@ -65,7 +65,7 @@ class Responder
         return ctx.body = result;
     }
 
-    public sendStream(fileDto: IFileDTO, ctx: Koa.Context & any, status: IHttpStatusCode)
+    public sendStream(fileDto: IFileDTO, ctx: Context & any, status: IHttpStatusCode)
     {
         ctx.status = status.code;
         ctx.response.set('Content-Type', fileDto.metadata.mimeType);
@@ -73,7 +73,7 @@ class Responder
         return ctx.body = fileDto.stream;
     }
 
-    public error(error: ErrorHttpException, ctx: Koa.ParameterizedContext, status: IHttpStatusCode)
+    public error(error: ErrorHttpException, ctx: ParameterizedContext, status: IHttpStatusCode)
     {
         ctx.status = status.code;
         return ctx.body = this.formatError.getFormat(error);

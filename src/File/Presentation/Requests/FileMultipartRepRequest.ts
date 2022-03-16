@@ -1,46 +1,50 @@
 import FileMultipartRepPayload from '../../Domain/Payloads/FileMultipartRepPayload';
-import { IsDefined } from 'class-validator';
+import { IsDefined, IsNumber, IsString } from 'class-validator';
 import FileOptionsQueryRequest from './FileOptionsQueryRequest';
 
 class FileMultipartRepRequest extends FileOptionsQueryRequest implements FileMultipartRepPayload
 {
-    @IsDefined()
-    file: any;
+    private readonly _file: any;
 
     constructor({ file, query }: any)
     {
         super({ query });
-        this.file = file;
+        this._file = file;
     }
 
-    getOriginalName(): string
+    @IsString()
+    get originalName(): string
     {
-        return this.file.originalname;
+        return this._file.originalname;
     }
 
-    getMimeType(): string
+    @IsString()
+    get mimeType(): string
     {
-        return this.file.mimetype;
+        return this._file.mimetype;
     }
 
-    getPath(): string
+    @IsString()
+    get path(): string
     {
         return '/';
     }
 
-    getExtension(): string | null
+    get extension(): string | null
     {
-        return this.file.originalname.includes('.') ? this.file.originalname.split('.').pop() : null;
+        return this._file.originalname.includes('.') ? this._file.originalname.split('.').pop() : null;
     }
 
-    getSize(): number
+    @IsNumber()
+    get size(): number
     {
-        return this.file.size;
+        return this._file.size;
     }
 
-    getFile(): any
+    @IsDefined()
+    file(): any
     {
-        return this.file;
+        return this._file;
     }
 }
 

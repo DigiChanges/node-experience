@@ -1,177 +1,163 @@
-import IRoleDomain from '../../../Role/InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 import { ArrayMinSize, IsArray, IsBoolean, IsString, Length } from 'class-validator';
-import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
+import UserSavePayload from '../../Domain/Payloads/UserSavePayload';
 
 class UserCommandSaveRequest implements UserSavePayload
 {
-    @IsString()
-    firstName: string;
+    private readonly _firstName: string;
+    private readonly _lastName: string;
+    private readonly _email: string;
+    private readonly _birthday: string;
+    private readonly _documentType: string;
+    private readonly _documentNumber: string;
+    private readonly _gender: string;
+    private readonly _phone: string;
+    private readonly _country: string;
+    private readonly _address: string;
+    private readonly _password: string;
+    private readonly _passwordConfirmation: string;
+    private readonly _enable: boolean;
+    private readonly _permissions: string[];
+    private readonly _roles: IRoleDomain[];
+    private readonly _isSuperAdmin: boolean;
+
+    constructor(env: any, role: any = null)
+    {
+        this._email = env.email;
+        this._firstName = env.firstName;
+        this._lastName = env.lastName;
+        this._birthday = env.birthday;
+        this._documentType = env.documentType;
+        this._documentNumber = env.documentNumber;
+        this._password = env.password;
+        this._passwordConfirmation = env.passwordConfirmation;
+        this._gender = env.gender;
+        this._phone = env.phone;
+        this._country = env.country;
+        this._address = env.address;
+        this._enable = true;
+        this._roles = role ? [role] : [];
+        this._permissions = [];
+        this._isSuperAdmin = env.isSuperAdmin === 'true';
+    }
 
     @IsString()
-    lastName: string;
+    get firstName(): string
+    {
+        return this._firstName;
+    }
 
     @IsString()
-    email: string;
+    get lastName(): string
+    {
+        return this._lastName;
+    }
+
+    @IsString()
+    get email(): string
+    {
+        return this._email;
+    }
 
     @Length(3, 10)
     @IsString()
-    birthday: string;
+    get birthday(): string
+    {
+        return this._birthday;
+    }
 
     @Length(2, 3)
     @IsString()
-    documentType: string;
+    get documentNumber(): string
+    {
+        return this._documentNumber;
+    }
 
     @Length(3, 16)
     @IsString()
-    documentNumber: string;
+    get documentType(): string
+    {
+        return this._documentType;
+    }
 
     @Length(1, 20)
     @IsString()
-    gender: string;
+    get gender(): string
+    {
+        return this._gender;
+    }
 
     @Length(3, 20)
     @IsString()
-    phone: string;
+    get phone(): string
+    {
+        return this._phone;
+    }
 
     @Length(2, 20)
     @IsString()
-    country: string;
+    get country(): string
+    {
+        return this._country;
+    }
 
     @Length(3, 60)
     @IsString()
-    address: string;
+    get address(): string
+    {
+        return this._address;
+    }
 
     @IsString()
-    password: string;
+    get password(): string
+    {
+        return this._password;
+    }
 
     @IsString()
-    passwordConfirmation: string;
+    get passwordConfirmation(): string
+    {
+        return this._password;
+    }
 
     @IsBoolean()
-    enable: boolean;
+    get enable(): boolean
+    {
+        return this._enable;
+    }
 
     @IsArray()
     @ArrayMinSize(0)
     @IsString({
         each: true
     })
-    permissions: string[];
+    get confirmationToken(): null
+    {
+        return null;
+    }
 
     @IsArray()
-    roles: IRoleDomain[];
+    get passwordRequestedAt(): null
+    {
+        return null;
+    }
 
     @IsBoolean()
-    isSuperAdmin: boolean;
-
-    constructor(env: any, role: any = null)
+    get roles(): IRoleDomain[]
     {
-        this.email = env.email;
-        this.firstName = env.firstName;
-        this.lastName = env.lastName;
-        this.password = env.password;
-        this.birthday = env.birthday;
-        this.documentType = env.documentType;
-        this.documentNumber = env.documentNumber;
-        this.password = env.password;
-        this.passwordConfirmation = env.passwordConfirmation;
-        this.gender = env.gender;
-        this.phone = env.phone;
-        this.country = env.country;
-        this.address = env.address;
-        this.enable = true;
-        this.roles = role ? [role] : [];
-        this.permissions = [];
-        this.isSuperAdmin = env.isSuperAdmin === 'true';
+        return this._roles;
     }
 
-    getFirstName(): string
+    @IsArray()
+    get permissions(): string[]
     {
-        return this.firstName;
+        return this._permissions;
     }
 
-    getLastName(): string
+    @IsBoolean()
+    get isSuperAdmin(): boolean
     {
-        return this.lastName;
-    }
-
-    getEmail(): string
-    {
-        return this.email;
-    }
-
-    getBirthday(): string
-    {
-        return this.birthday;
-    }
-
-    getDocumentNumber(): string
-    {
-        return this.documentNumber;
-    }
-
-    getDocumentType(): string
-    {
-        return this.documentType;
-    }
-
-    getGender(): string
-    {
-        return this.gender;
-    }
-
-    getPhone(): string
-    {
-        return this.phone;
-    }
-
-    getCountry(): string
-    {
-        return this.country;
-    }
-
-    getAddress(): string
-    {
-        return this.address;
-    }
-
-    getPassword(): string
-    {
-        return this.password;
-    }
-
-    getPasswordConfirmation(): string
-    {
-        return this.password;
-    }
-
-    getEnable(): boolean
-    {
-        return this.enable;
-    }
-
-    getConfirmationToken(): null
-    {
-        return null;
-    }
-
-    getPasswordRequestedAt(): null
-    {
-        return null;
-    }
-
-    getRoles(): IRoleDomain[]
-    {
-        return this.roles;
-    }
-
-    getPermissions(): string[]
-    {
-        return this.permissions;
-    }
-
-    getIsSuperAdmin(): boolean
-    {
-        return this.isSuperAdmin;
+        return this._isSuperAdmin;
     }
 }
 

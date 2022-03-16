@@ -1,33 +1,34 @@
 import { IsString, IsUUID, Length } from 'class-validator';
 import MainConfig from '../../../Config/mainConfig';
-import ChangeMyPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeMyPasswordPayload';
-import UserRepPasswordRequest from './UserRepPasswordRequest';
+import ChangeMyPasswordPayload from '../../Domain/Payloads/ChangeMyPasswordPayload';
+import UserPasswordRequest from './UserPasswordRequest';
 
-class ChangeMyPasswordRequest extends UserRepPasswordRequest implements ChangeMyPasswordPayload
+class ChangeMyPasswordRequest extends UserPasswordRequest implements ChangeMyPasswordPayload
 {
-    @IsString()
-    @Length(MainConfig.getInstance().getConfig().validationSettings.password.minLength,
-        MainConfig.getInstance().getConfig().validationSettings.password.maxLength)
-    currentPassword: string;
-
-    @IsUUID('4')
-    userId: string;
+    private readonly _currentPassword: string;
+    private readonly _id: string;
 
     constructor(data: Record<string, any>, userId: string)
     {
         super(data);
-        this.currentPassword = data.currentPassword;
-        this.userId = userId;
+        this._currentPassword = data.currentPassword;
+        this._id = userId;
     }
 
-    getCurrentPassword(): string
+    @IsString()
+    @Length(
+        MainConfig.getInstance().getConfig().validationSettings.password.minLength,
+        MainConfig.getInstance().getConfig().validationSettings.password.maxLength
+    )
+    get currentPassword(): string
     {
-        return this.currentPassword;
+        return this._currentPassword;
     }
 
-    getId(): any
+    @IsUUID('4')
+    get id(): string
     {
-        return this.userId;
+        return this._id;
     }
 }
 

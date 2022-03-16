@@ -1,12 +1,12 @@
-import IUserRepository from '../../InterfaceAdapters/IUserRepository';
+import IUserRepository from './IUserRepository';
 import { injectable } from 'inversify';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
 import UserFilter from '../../Presentation/Criterias/UserFilter';
-import IUser from '../../InterfaceAdapters/IUserDocument';
+import IUser from '../Schemas/IUserDocument';
 import { Query } from 'mongoose';
-import IUserDomain from '../../InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../Domain/Entities/IUserDomain';
 
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';

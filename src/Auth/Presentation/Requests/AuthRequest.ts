@@ -1,31 +1,30 @@
-import AuthPayload from '../../InterfaceAdapters/Payloads/AuthPayload';
+import AuthPayload from '../../Domain/Payloads/AuthPayload';
 import MainConfig from '../../../Config/mainConfig';
 import { IsString, IsEmail, Length } from 'class-validator';
 
 class AuthRequest implements AuthPayload
 {
+    private readonly _email: string;
+    private readonly _password: string;
+
+    constructor(data: Record<string, any>)
+    {
+        this._email = data.email;
+        this._password = data.password;
+    }
+
     @IsEmail()
-    email: string;
+    get email(): string
+    {
+        return this._email;
+    }
 
     @IsString()
     @Length(MainConfig.getInstance().getConfig().validationSettings.password.minLength,
         MainConfig.getInstance().getConfig().validationSettings.password.maxLength)
-    password: string;
-
-    constructor(data: Record<string, any>)
+    get password(): string
     {
-        this.email = data.email;
-        this.password = data.password;
-    }
-
-    getEmail(): string
-    {
-        return this.email;
-    }
-
-    getPassword(): string
-    {
-        return this.password;
+        return this._password;
     }
 }
 

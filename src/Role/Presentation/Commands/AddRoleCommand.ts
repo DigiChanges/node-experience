@@ -1,8 +1,8 @@
 import Logger from '../../../Shared/Logger/Logger';
 import commander from 'commander';
-import RoleRepPayload from '../../InterfaceAdapters/Payloads/RoleRepPayload';
-import RoleCommandRepRequest from '../Requests/RoleUserCommandRepRequest';
+import RoleRepPayload from '../../Domain/Payloads/RoleRepPayload';
 import SaveRoleUseCase from '../../Domain/UseCases/SaveRoleUseCase';
+import RoleRepRequest from '../Requests/RoleRepRequest';
 
 const AddRoleCommand = new commander.Command('addRole');
 
@@ -15,7 +15,7 @@ AddRoleCommand
     {
         const saveRoleUseCase = new SaveRoleUseCase();
 
-        const roleCommandRepRequest: RoleRepPayload = new RoleCommandRepRequest(env);
+        const roleCommandRepRequest: RoleRepPayload = new RoleRepRequest(env);
         const role = await saveRoleUseCase.handle(roleCommandRepRequest);
 
         if (role)

@@ -10,8 +10,8 @@ class UploadBase64UseCase
     async handle(payload: FileBase64RepPayload): Promise<any>
     {
         const build = {
-            hasOriginalName: payload.getIsOriginalName(),
-            originalName: payload.getOriginalName()
+            hasOriginalName: payload.isOriginalName,
+            originalName: payload.originalName
         };
 
         let file: IFileDomain = new File(build);

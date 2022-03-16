@@ -13,7 +13,7 @@ ActiveUserCommand
         const activeUserUseCase = new ActiveUserUseCase();
 
         const request = {
-            getEmail: () => env.email
+            email: env.email
         };
 
         await activeUserUseCase.handle(request);

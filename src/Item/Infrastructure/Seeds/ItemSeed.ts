@@ -1,14 +1,15 @@
 import faker from 'faker';
-import IItemRepository from '../../InterfaceAdapters/IItemRepository';
+import IItemRepository from '../Repositories/IItemRepository';
 import Item from '../../Domain/Entities/Item';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import { REPOSITORIES } from '../../../Config/Injects/repositories';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import User from '../../../User/Domain/Entities/User';
-import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
+import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import MainConfig from '../../../Config/mainConfig';
+import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 
 class ItemSeed implements ISeed
 {
@@ -26,13 +27,11 @@ class ItemSeed implements ISeed
 
         for await (const index of indexes)
         {
-            const title = faker.name.title();
+            const name = faker.name.title();
             const type = faker.datatype.number();
 
-            const item = new Item();
+            const item = new Item({ name, type });
 
-            item.name = title;
-            item.type = type;
             item.createdBy = user;
             item.lastModifiedBy = user;
 
@@ -42,33 +41,30 @@ class ItemSeed implements ISeed
 
     private async createUser(): Promise<IUserDomain>
     {
-        const config = MainConfig.getInstance();
-        const user: IUserDomain = new User();
+        const { minLength, maxLength } = MainConfig.getInstance().getConfig().validationSettings.password;
 
-        user.firstName = 'test';
-        user.lastName = 'item';
-        user.email = 'testitem@node.com';
-        user.birthday = '05/07/1992';
-        user.documentType = 'dni';
-        user.documentNumber = '3531915736';
-        user.gender = 'male';
-        user.phone = '2234456999';
-        user.country = 'Argentina';
-        user.address = 'New America 123';
+        const roles: IRoleDomain[] = [];
+        const permissions: string[] = [];
 
-        const min = config.getConfig().validationSettings.password.minLength;
-        const max = config.getConfig().validationSettings.password.maxLength;
+        const payloadUser = {
+            firstName: 'test',
+            lastName: 'item',
+            email: 'testitem@node.com',
+            birthday: '05/07/1992',
+            documentType: 'dni',
+            documentNumber: '3531915736',
+            gender: 'male',
+            phone: '2234456999',
+            country: 'Argentina',
+            address: 'New America 123',
+            enable: true,
+            permissions,
+            roles,
+            isSuperAdmin: false
+        };
 
-        const password = new Password('123456789', min, max);
-        await password.ready();
-        user.password = password;
-
-        user.enable = true;
-        user.confirmationToken = null;
-        user.passwordRequestedAt = null;
-        user.permissions = [];
-        user.roles = [];
-        user.isSuperAdmin = false;
+        const user: IUserDomain = new User(payloadUser);
+        user.password = await (new Password('123456789', minLength, maxLength)).ready();
 
         return await this.userRepository.save(user);
     }

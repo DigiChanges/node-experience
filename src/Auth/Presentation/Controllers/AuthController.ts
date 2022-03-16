@@ -6,22 +6,22 @@ import PermissionUseCase from '../../Domain/UseCases/PermissionUseCase';
 import SyncRolesPermissionUseCase from '../../Domain/UseCases/SyncRolesPermissionUseCase';
 
 import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
-import ChangeForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ChangeForgotPasswordPayload';
-import AuthPayload from '../../InterfaceAdapters/Payloads/AuthPayload';
-import RefreshTokenPayload from '../../InterfaceAdapters/Payloads/RefreshTokenPayload';
-import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
+import ChangeForgotPasswordPayload from '../../Domain/Payloads/ChangeForgotPasswordPayload';
+import AuthPayload from '../../Domain/Payloads/AuthPayload';
+import RefreshTokenPayload from '../../Domain/Payloads/RefreshTokenPayload';
+import ForgotPasswordPayload from '../../Domain/Payloads/ForgotPasswordPayload';
 import LogoutUseCase from '../../Domain/UseCases/LogoutUseCase';
 import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
-import IUserDomain from '../../../User/InterfaceAdapters/IUserDomain';
-import RegisterPayload from '../../InterfaceAdapters/Payloads/RegisterPayload';
+import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
+import RegisterPayload from '../../Domain/Payloads/RegisterPayload';
 import RegisterUseCase from '../../Domain/UseCases/RegisterUseCase';
 import UpdateMeUseCase from '../../Domain/UseCases/UpdateMeUseCase';
-import UserRepPayload from '../../../User/InterfaceAdapters/Payloads/UserRepPayload';
-import VerifyYourAccountPayload from '../../InterfaceAdapters/Payloads/VerifyYourAccountPayload';
+import VerifyYourAccountPayload from '../../Domain/Payloads/VerifyYourAccountPayload';
 import VerifyYourAccountUseCase from '../../Domain/UseCases/VerifyYourAccountUseCase';
-import IToken from '../../InterfaceAdapters/IToken';
+import IToken from '../../Domain/Models/IToken';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
-import IGroupPermission from '../../InterfaceAdapters/IGroupPermission';
+import IGroupPermission from '../../../Config/IGroupPermission';
+import UpdateMePayload from '../../Domain/Payloads/UpdateMePayload';
 
 class AuthController
 {
@@ -41,12 +41,12 @@ class AuthController
         return await useCase.handle(request);
     }
 
-    public async updateMe(request: UserRepPayload, authUser: IUserDomain): Promise<IUserDomain>
+    public async updateMe(request: UpdateMePayload): Promise<IUserDomain>
     {
         await ValidatorRequest.handle(request);
 
         const useCase = new UpdateMeUseCase();
-        return await useCase.handle(request, authUser);
+        return await useCase.handle(request);
     }
 
     public async logout(tokenDecode: ITokenDecode): Promise<ILocaleMessage>

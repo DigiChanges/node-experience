@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import MainConfig from '../../../../Config/mainConfig';
 
-import IUserDomain from '../../../../User/InterfaceAdapters/IUserDomain';
+import IUserDomain from '../../../../User/Domain/Entities/IUserDomain';
 import ForbiddenHttpException from '../../Exceptions/ForbiddenHttpException';
 import AuthService from '../../../Domain/Services/AuthService';
 
@@ -12,9 +12,9 @@ const AuthorizeMiddleware = (...handlerPermissions: string[]) =>
         try
         {
             const authService = new AuthService();
-            const config = MainConfig.getInstance();
+            const { authorization } = MainConfig.getInstance().getConfig().auth;
 
-            let isAllowed: boolean = config.getConfig().auth.authorization !== true;
+            let isAllowed: boolean = authorization !== true;
             const authUser = req.authUser as IUserDomain;
 
             const authorize = await authService.authorize(authUser, handlerPermissions);

@@ -1,5 +1,5 @@
-import AuthPayload from '../../InterfaceAdapters/Payloads/AuthPayload';
-import IUserRepository from '../../../User/InterfaceAdapters/IUserRepository';
+import AuthPayload from '../Payloads/AuthPayload';
+import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import TokenFactory from '../../../Shared/Factories/TokenFactory';
 
@@ -9,7 +9,7 @@ import BadCredentialsException from '../Exceptions/BadCredentialsException';
 import UserDisabledException from '../../../User/Domain/Exceptions/UserDisabledException';
 import RoleDisabledException from '../../../Role/Domain/Exceptions/RoleDisabledException';
 import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import IToken from '../../InterfaceAdapters/IToken';
+import IToken from '../Models/IToken';
 import UnverifiedUserException from '../../../User/Domain/Exceptions/UnverifiedUserException';
 
 class LoginUseCase
@@ -23,8 +23,8 @@ class LoginUseCase
 
     async handle(payload: AuthPayload): Promise<IToken>
     {
-        const email = payload.getEmail();
-        const password = payload.getPassword();
+        const email = payload.email;
+        const password = payload.password;
         const user =  await this.repository.getOneByEmail(email);
 
         if (!user.verify)

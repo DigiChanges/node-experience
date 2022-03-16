@@ -1,35 +1,29 @@
 import { IsEmail } from 'class-validator';
-import { IEncryption } from '@digichanges/shared-experience';
 
-import ForgotPasswordPayload from '../../InterfaceAdapters/Payloads/ForgotPasswordPayload';
+import ForgotPasswordPayload from '../../Domain/Payloads/ForgotPasswordPayload';
 import moment from 'moment';
-import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 
 class ForgotPasswordRequest implements ForgotPasswordPayload
 {
-    @IsEmail()
-    email: string;
+    private readonly _email: string;
 
     constructor(data: Record<string, any>)
     {
-        this.email = data.email;
+        this._email = data.email;
     }
 
-    getEmail(): string
+    @IsEmail()
+    get email(): string
     {
-        return this.email;
+        return this._email;
     }
 
-    async getConfirmationToken(): Promise<string>
+    get confirmationToken(): string
     {
-        const encryption: IEncryption = EncryptionFactory.create('md5');
-
-        const stringToEncrypt = `${this.email}${moment().utc().unix()}`;
-
-        return await encryption.encrypt(stringToEncrypt);
+        return `${this.email}${moment().utc().unix()}`;
     }
 
-    getPasswordRequestedAt(): Date
+    get passwordRequestedAt(): Date
     {
         return moment().toDate();
     }

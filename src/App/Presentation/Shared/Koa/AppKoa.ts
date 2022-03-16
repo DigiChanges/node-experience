@@ -1,7 +1,6 @@
 import cors from 'koa-cors';
 import helmet from 'koa-helmet';
 import hbshbs from 'koa-hbs';
-import koaPino from 'koa-pino-logger';
 
 import AuthenticationMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/AuthenticationMiddleware';
 import RedirectRouteNotFoundMiddleware from '../../Middlewares/Koa/RedirectRouteNotFoundMiddleware';
@@ -21,10 +20,11 @@ import AuthHandler from '../../../../Auth/Presentation/Handlers/Koa/AuthHandler'
 import IAppConfig from '../../../InterfaceAdapters/IAppConfig';
 import WhiteListHandler from '../../../Tests/Koa/WhiteListHandler';
 import { ErrorHandler } from './ErrorHandler';
-import Logger from '../../../../Shared/Logger/Logger';
 import MainConfig from '../../../../Config/mainConfig';
 import { RequestContext } from '@mikro-orm/core';
 import { orm } from '../../../../Shared/Database/MikroORMCreateConnection';
+import LoggerMiddleware from '../../Middlewares/Koa/LoggerMiddleware';
+import Logger from '../../../../Shared/Logger/Logger';
 
 class AppKoa implements IApp
 {
@@ -65,8 +65,7 @@ class AppKoa implements IApp
             this.app.use((ctx, next) => RequestContext.createAsync(orm.em, next));
         }
 
-        this.app.use(koaPino({ logger: <any>Logger }));
-
+        this.app.use(LoggerMiddleware);
         this.app.use(Throttle);
         this.app.use(AuthenticationMiddleware);
         this.app.use(VerifyTokenMiddleware);
@@ -106,7 +105,7 @@ class AppKoa implements IApp
     {
         return this.app.listen(this.port, () =>
         {
-            Logger.debug(`Koa is listening to http://localhost:${this.port}`);
+            Logger.info(`Koa is listening to http://localhost:${this.port}`);
         });
     }
 

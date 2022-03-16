@@ -11,8 +11,8 @@ import FileMultipartRepPayload from '../Payloads/FileMultipartRepPayload';
 import FileRepPayload from '../Payloads/FileRepPayload';
 import CreateBucketPayload from '../Payloads/CreateBucketPayload';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
-import FileDTO from '../Payloads/FileDTO';
-import IFileDTO from '../Payloads/IFileDTO';
+import FileDTO from '../Models/FileDTO';
+import IFileDTO from '../Models/IFileDTO';
 import { validate } from 'uuid';
 
 class FileService
@@ -24,9 +24,9 @@ class FileService
 
     async getPresignedGetObject(payload: PresignedFileRepPayload): Promise<string>
     {
-        const filename = payload.getName();
-        const expiry = payload.getExpiry();
-        const isPublic = payload.getIsPublic();
+        const filename = payload.name;
+        const expiry = payload.expiry;
+        const isPublic = payload.isPublic;
         let file: IFileDomain;
 
         if (validate(filename))
@@ -43,25 +43,25 @@ class FileService
 
     async persist(file: IFileDomain, payload: FileRepPayload): Promise<IFileDomain>
     {
-        file.extension = payload.getExtension();
-        file.path = payload.getPath();
-        file.mimeType = payload.getMimeType();
-        file.size = payload.getSize();
-        file.isPublic = payload.getIsPublic();
+        file.extension = payload.extension;
+        file.path = payload.path;
+        file.mimeType = payload.mimeType;
+        file.size = payload.size;
+        file.isPublic = payload.isPublic;
 
         return await this.repository.save(file);
     }
 
     async uploadFileBase64(file: IFileDomain, payload: FileBase64RepPayload): Promise<any>
     {
-        await this.fileSystem.uploadFileByBuffer(file, payload.getBase64());
+        await this.fileSystem.uploadFileByBuffer(file, payload.base64);
 
         return file;
     }
 
     async uploadFileMultipart(file: IFileDomain, payload: FileMultipartRepPayload): Promise<any>
     {
-        await this.fileSystem.uploadFile(file, payload.getFile().path);
+        await this.fileSystem.uploadFile(file, payload.file.path);
 
         return file;
     }
@@ -83,13 +83,13 @@ class FileService
 
     async createBucket(payload: CreateBucketPayload): Promise<void>
     {
-        const name = payload.getName();
+        const name = payload.name;
         const bucketNamePrivate = `${name}.private`;
         const bucketNamePublic = `${name}.public`;
 
-        const region = payload.getRegion();
-        const bucketPrivatePolicy = payload.getPrivateBucketPolicy();
-        const bucketPublicPolicy = payload.getPublicBucketPolicy();
+        const region = payload.region;
+        const bucketPrivatePolicy = payload.privateBucketPolicy;
+        const bucketPublicPolicy = payload.publicBucketPolicy;
 
         await this.fileSystem.createBucket(bucketNamePrivate, region);
         await this.fileSystem.setBucketPolicy(bucketPrivatePolicy, bucketNamePrivate);
@@ -100,7 +100,7 @@ class FileService
 
     async download(payload: IdPayload): Promise<IFileDTO>
     {
-        const id = payload.getId();
+        const id = payload.id;
         const file: IFileDomain = await this.getOne(id);
         const stream = await this.fileSystem.downloadStreamFile(file);
 

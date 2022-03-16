@@ -1,10 +1,10 @@
-import IRoleRepository from '../../InterfaceAdapters/IRoleRepository';
+import IRoleRepository from './IRoleRepository';
 import { injectable } from 'inversify';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import Paginator from '../../../App/Presentation/Shared/Paginator';
 import RoleFilter from '../../Presentation/Criterias/RoleFilter';
-import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 import BaseSqlRepository from '../../../App/Infrastructure/Repositories/BaseSqlRepository';
 import Role from '../../Domain/Entities/Role';
 import RoleSchema from '../Schemas/RoleTypeORM';

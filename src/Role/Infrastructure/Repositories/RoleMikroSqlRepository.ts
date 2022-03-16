@@ -2,11 +2,11 @@ import { injectable } from 'inversify';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import RoleFilter from '../../Presentation/Criterias/RoleFilter';
-import IRoleDomain from '../../InterfaceAdapters/IRoleDomain';
+import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 import Role from '../../Domain/Entities/Role';
 import RoleOfSystemNotDeletedException from '../../Domain/Exceptions/RoleOfSystemNotDeletedException';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
-import IRoleRepository from '../../InterfaceAdapters/IRoleRepository';
+import IRoleRepository from './IRoleRepository';
 import BaseMikroSqlRepository from '../../../App/Infrastructure/Repositories/BaseMikroSqlRepository';
 import RoleSchema from '../Schemas/RoleMikroORM';
 import MikroPaginator from '../../../App/Presentation/Shared/MikroPaginator';

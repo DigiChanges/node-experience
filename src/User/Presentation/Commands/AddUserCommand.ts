@@ -1,7 +1,7 @@
 import UserCommandSaveRequest from '../Requests/UserCommandSaveRequest';
 import commander from 'commander';
 import SaveUserUseCase from '../../Domain/UseCases/SaveUserUseCase';
-import UserSavePayload from '../../InterfaceAdapters/Payloads/UserSavePayload';
+import UserSavePayload from '../../Domain/Payloads/UserSavePayload';
 import Logger from '../../../Shared/Logger/Logger';
 
 const AddUserCommand = new commander.Command('addUser');

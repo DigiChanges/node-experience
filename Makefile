@@ -10,6 +10,12 @@ down:
 	@echo '************                               ************'
 	docker-compose down
 
+stop:
+	@echo '************                               ************'
+	@echo '************           STOP CONTAINERS     ************'
+	@echo '************                               ************'
+	docker-compose stop
+
 dev:
 	@echo '************                               ************'
 	@echo '************           DEV INIT    	      ************'
