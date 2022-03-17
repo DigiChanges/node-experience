@@ -23,7 +23,7 @@ const exceptions = {
     [NotFoundException.name]: StatusCode.HTTP_BAD_REQUEST,
     [WrongPermissionsException.name]: StatusCode.HTTP_BAD_REQUEST,
     [InvalidPasswordException.name]: StatusCode.HTTP_UNPROCESSABLE_ENTITY,
-    [UniqueAttributeException.name]: StatusCode.HTTP_FORBIDDEN,
+    [UniqueAttributeException.name]: StatusCode.HTTP_BAD_REQUEST,
     [UnverifiedUserException.name]: StatusCode.HTTP_FORBIDDEN
 };
 
