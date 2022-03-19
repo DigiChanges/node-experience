@@ -29,7 +29,7 @@ UserHandler.post('/', AuthorizeMiddleware(Permissions.USERS_SAVE), async(ctx: Ko
 
     const user: IUserDomain = await controller.save(_request);
 
-    void await responder.send(user, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
+    void await responder.send(null, ctx, StatusCode.HTTP_CREATED);
 });
 
 UserHandler.get('/', AuthorizeMiddleware(Permissions.USERS_LIST), async(ctx: Koa.ParameterizedContext & any) =>
@@ -56,7 +56,7 @@ UserHandler.put('/:id', AuthorizeMiddleware(Permissions.USERS_UPDATE), async(ctx
 
     const user: IUserDomain = await controller.update(_request);
 
-    void await responder.send(user, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
+    void await responder.send(null, ctx, StatusCode.HTTP_CREATED);
 });
 
 UserHandler.put('/assign-role/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN_ROLE), async(ctx: Koa.ParameterizedContext & any) =>
@@ -65,7 +65,7 @@ UserHandler.put('/assign-role/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN
 
     const user: IUserDomain = await controller.assignRole(_request);
 
-    void await responder.send(user, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
+    void await responder.send(null, ctx, StatusCode.HTTP_CREATED);
 });
 
 UserHandler.delete('/:id', AuthorizeMiddleware(Permissions.USERS_DELETE), async(ctx: Koa.ParameterizedContext & any) =>
@@ -83,7 +83,7 @@ UserHandler.post('/change-my-password', AuthorizeMiddleware(Permissions.USERS_CH
 
     const user: IUserDomain = await controller.changeMyPassword(_request);
 
-    void await responder.send(user, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
+    void await responder.send(null, ctx, StatusCode.HTTP_CREATED);
 });
 
 UserHandler.put('/change-user-password/:id', AuthorizeMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD), async(ctx: Koa.ParameterizedContext & any) =>
@@ -92,7 +92,7 @@ UserHandler.put('/change-user-password/:id', AuthorizeMiddleware(Permissions.USE
 
     const user: IUserDomain = await controller.changeUserPassword(_request);
 
-    void await responder.send(user, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
+    void await responder.send(null, ctx, StatusCode.HTTP_CREATED);
 });
 
 export default UserHandler;

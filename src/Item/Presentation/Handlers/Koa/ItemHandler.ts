@@ -26,7 +26,7 @@ ItemHandler.post('/', AuthorizeMiddleware(Permissions.ITEMS_SAVE), async(ctx: Ko
 
     const item = await controller.save(request, AuthUser(ctx));
 
-    void await responder.send(item, ctx, StatusCode.HTTP_CREATED, new ItemTransformer());
+    void await responder.send(null, ctx, StatusCode.HTTP_CREATED);
 });
 
 ItemHandler.get('/', AuthorizeMiddleware(Permissions.ITEMS_LIST), async(ctx: Koa.ParameterizedContext & any) =>
@@ -53,7 +53,7 @@ ItemHandler.put('/:id', AuthorizeMiddleware(Permissions.ITEMS_UPDATE), async(ctx
 
     const item = await controller.update(_request, AuthUser(ctx));
 
-    void await responder.send(item, ctx, StatusCode.HTTP_CREATED, new ItemTransformer());
+    void await responder.send(null, ctx, StatusCode.HTTP_CREATED);
 });
 
 ItemHandler.delete('/:id', AuthorizeMiddleware(Permissions.ITEMS_DELETE), async(ctx: Koa.ParameterizedContext & any) =>

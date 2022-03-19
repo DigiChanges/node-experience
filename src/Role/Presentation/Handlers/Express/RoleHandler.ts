@@ -35,7 +35,7 @@ class RoleHandler
 
         const role: IRoleDomain = await this.controller.save(_request);
 
-        void await this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
+        void await this.responder.send(null, req, res, StatusCode.HTTP_CREATED);
     }
 
     @httpGet('/', AuthorizeMiddleware(Permissions.ROLES_LIST))
@@ -65,7 +65,7 @@ class RoleHandler
 
         const role: IRoleDomain = await this.controller.update(_request);
 
-        void await this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
+        void await this.responder.send(null, req, res, StatusCode.HTTP_CREATED);
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.ROLES_DELETE))

@@ -28,7 +28,7 @@ class NotificationHandler
 
         const notification = this.controller.uploadTestNotificationBase64(_request);
 
-        void await this.responder.send(notification, req, res, StatusCode.HTTP_CREATED, null);
+        void await this.responder.send(null, req, res, StatusCode.HTTP_CREATED, null);
     }
 
     @httpPost('/message')
@@ -38,7 +38,7 @@ class NotificationHandler
 
         const notification = this.controller.sendPushNotification(_request);
 
-        void await this.responder.send(notification, req, res, StatusCode.HTTP_CREATED, null);
+        void await this.responder.send(null, req, res, StatusCode.HTTP_CREATED, null);
     }
 }
 

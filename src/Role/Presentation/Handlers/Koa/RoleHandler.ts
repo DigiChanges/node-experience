@@ -26,7 +26,7 @@ RoleHandler.post('/', AuthorizeMiddleware(Permissions.ROLES_SAVE), async(ctx: Ko
 
     const role: IRoleDomain = await controller.save(_request);
 
-    void await responder.send(role, ctx, StatusCode.HTTP_CREATED, new RoleTransformer());
+    void await responder.send(null, ctx, StatusCode.HTTP_CREATED);
 });
 
 RoleHandler.get('/', AuthorizeMiddleware(Permissions.ROLES_LIST), async(ctx: Koa.ParameterizedContext & any) =>
@@ -53,7 +53,7 @@ RoleHandler.put('/:id', AuthorizeMiddleware(Permissions.ROLES_UPDATE), async(ctx
 
     const role: IRoleDomain = await controller.update(_request);
 
-    void await responder.send(role, ctx, StatusCode.HTTP_CREATED, new RoleTransformer());
+    void await responder.send(null, ctx, StatusCode.HTTP_CREATED);
 });
 
 RoleHandler.delete('/:id', AuthorizeMiddleware(Permissions.ROLES_DELETE), async(ctx: Koa.ParameterizedContext & any) =>
