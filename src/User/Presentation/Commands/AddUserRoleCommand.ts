@@ -1,11 +1,11 @@
-import UserCommandSaveRequest from '../Requests/UserCommandSaveRequest';
 import commander from 'commander';
-import SaveUserUseCase from '../../Domain/UseCases/SaveUserUseCase';
-import SaveRoleUseCase from '../../../Role/Domain/UseCases/SaveRoleUseCase';
-import UserSavePayload from '../../Domain/Payloads/UserSavePayload';
-import Logger from '../../../Shared/Logger/Logger';
-import RoleRepRequest from '../../../Role/Presentation/Requests/RoleRepRequest';
 import RoleRepPayload from '../../../Role/Domain/Payloads/RoleRepPayload';
+import SaveRoleUseCase from '../../../Role/Domain/UseCases/SaveRoleUseCase';
+import RoleCommandSaveRequest from '../../../Role/Presentation/Requests/RoleCommandSaveRequest';
+import Logger from '../../../Shared/Logger/Logger';
+import UserSavePayload from '../../Domain/Payloads/UserSavePayload';
+import SaveUserUseCase from '../../Domain/UseCases/SaveUserUseCase';
+import UserCommandSaveRequest from '../Requests/UserCommandSaveRequest';
 
 const AddUserRoleCommand = new commander.Command('addUserRole');
 
@@ -18,7 +18,7 @@ AddUserRoleCommand
     .option('-ln, --lastName <lastName>', 'Last Name of the user')
     .option('-p, --password <password>', 'Password of the user')
     .option('-dt, --documentType <documentType>', 'Document Type of the user')
-    .option('-dn, --documentNumber <documentNumer>', 'Document Number of the user')
+    .option('-dn, --documentNumber <documentNumber>', 'Document Number of the user')
     .option('-g, --gender <gender>', 'Gender of the user')
     .option('-ph, --phone <phone>', 'Phone of the user')
     .option('-c, --country <country>', 'Country of the user')
@@ -30,7 +30,7 @@ AddUserRoleCommand
         const saveUserUseCase = new SaveUserUseCase();
         const saveRoleUseCase = new SaveRoleUseCase();
 
-        const roleCommandRepRequest: RoleRepPayload = new RoleRepRequest(env);
+        const roleCommandRepRequest: RoleRepPayload = new RoleCommandSaveRequest(env);
         const role = await saveRoleUseCase.handle(roleCommandRepRequest);
 
         const userCommandRepRequest: UserSavePayload = new UserCommandSaveRequest(env, role);

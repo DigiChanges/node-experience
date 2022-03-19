@@ -1,20 +1,20 @@
-import RoleRepPayload from '../../Domain/Payloads/RoleRepPayload';
 import { IsArray, IsBoolean, IsOptional, IsString, Length } from 'class-validator';
 import { decorate } from 'ts-mixer';
+import RoleRepPayload from '../../Domain/Payloads/RoleRepPayload';
 
-class RoleRepRequest implements RoleRepPayload
+class RoleCommandSaveRequest implements RoleRepPayload
 {
     private readonly _name: string;
     private readonly _slug: string;
-    protected _permissions: string[];
     private readonly _enable: boolean;
+    private readonly _permissions: string[];
 
-    constructor(data: Record<string, any>)
+    constructor(env: any, role: any = null)
     {
-        this._name = data.name;
-        this._slug = data.slug?.toLowerCase() ?? data.name?.toLowerCase();
-        this._permissions = data.permissions ?? [];
-        this._enable = data.enable ?? true;
+        this._name = env.role;
+        this._slug = env.slug?.toLowerCase() ?? env.role?.toLowerCase();
+        this._enable = env.enable ?? true;
+        this._permissions = [];
     }
 
     @decorate(Length(3, 30))
@@ -31,6 +31,13 @@ class RoleRepRequest implements RoleRepPayload
         return this._slug;
     }
 
+    @decorate(IsOptional())
+    @decorate(IsBoolean())
+    get enable(): boolean
+    {
+        return this._enable;
+    }
+
     @decorate(IsArray())
     @decorate(IsString({
         each: true
@@ -39,13 +46,6 @@ class RoleRepRequest implements RoleRepPayload
     {
         return this._permissions;
     }
-
-    @decorate(IsOptional())
-    @decorate(IsBoolean())
-    get enable(): boolean
-    {
-        return this._enable;
-    }
 }
 
-export default RoleRepRequest;
+export default RoleCommandSaveRequest;
