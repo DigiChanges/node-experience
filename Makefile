@@ -46,6 +46,12 @@ exec:
 	@echo '************                               ************'
 	docker-compose exec node bash
 
+sh:
+	@echo '************                               ************'
+	@echo '************           Exec NODE    	      ************'
+	@echo '************                               ************'
+	docker-compose exec node sh
+
 test:
 	@echo '************                               ************'
 	@echo '************           Exec NODE TEST      ************'
@@ -62,7 +68,7 @@ init:
 	@echo '************                               ************'
 	@echo '************           Init NODE    	      ************'
 	@echo '************                               ************'
-	docker-compose exec node bash dev.init.sh
+	docker-compose exec node sh dev.init.sh
 
 clean:
 	docker-compose down -v --remove-orphans
