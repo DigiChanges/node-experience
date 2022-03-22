@@ -1,6 +1,6 @@
 {
   "name": "node-experience",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "",
   "scripts": {
     "build": "npm-run-all clean lint pre-build tsc",
