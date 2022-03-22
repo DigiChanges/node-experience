@@ -1,7 +1,7 @@
 enum ResponseMessageEnum
     {
-    CREATED= 'created susscesfully',
-    UPDATED = 'Updated susscesfully'
+    CREATED= 'created successfully',
+    UPDATED = 'Updated successfully'
 }
 
 export default ResponseMessageEnum;
