@@ -2,7 +2,7 @@ import { ICriteria, IFilter, IPagination, IPaginator, ISort } from '@digichanges
 import { QueryBuilder } from '@mikro-orm/postgresql';
 import IPaginatorConfig from '../../../Shared/InterfaceAdapters/IPaginatorConfig';
 
-class Paginator implements IPaginator
+class MikroPaginator implements IPaginator
 {
     private queryBuilder: QueryBuilder<any>;
     private filter: IFilter;
@@ -38,19 +38,17 @@ class Paginator implements IPaginator
 
     public async paginate(): Promise<any>
     {
+        this.total = await this.queryBuilder.getCount();
         this.addOrderBy();
         this.addPagination();
 
+        let data = await this.queryBuilder.getResultList();
+        this._perPage = await this.queryBuilder.getCount();
         this.setPerPage(this._perPage);
         this.setCurrentPage();
         this.setLasPage();
         this.setFrom();
         this.setTo();
-
-        let data = await this.queryBuilder.getResultList();
-
-        this._perPage = data.length;
-        this.total = data.length;
 
         if (this.helper)
         {
@@ -225,4 +223,4 @@ class Paginator implements IPaginator
     }
 }
 
-export default Paginator;
+export default MikroPaginator;
