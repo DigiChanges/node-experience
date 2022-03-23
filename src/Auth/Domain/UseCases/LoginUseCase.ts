@@ -25,7 +25,12 @@ class LoginUseCase
     {
         const email = payload.email;
         const password = payload.password;
-        const user =  await this.repository.getOneByEmail(email);
+        const user = await this.repository.getOneBy({ email }, { populate: 'roles', initThrow: false });
+
+        if (!user)
+        {
+            throw new BadCredentialsException();
+        }
 
         if (!user.verify)
         {
