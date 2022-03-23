@@ -63,8 +63,6 @@ describe('Start Item Test', () =>
 
             expect(response.statusCode).toStrictEqual(201);
 
-            expect(data.name).toStrictEqual(payload.name);
-            expect(data.type).toStrictEqual(payload.type);
             itemId = data.id;
         });
 
@@ -105,9 +103,6 @@ describe('Start Item Test', () =>
             const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
-
-            expect(data.name).toStrictEqual(payload.name);
-            expect(data.type).toStrictEqual(payload.type);
         });
 
         test('Delete Item /items/:id', async() =>

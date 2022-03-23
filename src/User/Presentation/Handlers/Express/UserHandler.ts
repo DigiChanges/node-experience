@@ -23,7 +23,9 @@ import UserController from '../../Controllers/UserControllers';
 import UserSaveRequest from '../../Requests/UserSaveRequest';
 import { AuthUser } from '../../../../Auth/Presentation/Helpers/AuthUser';
 import ITokenDecode from '../../../../Shared/InterfaceAdapters/ITokenDecode';
-
+import ResponseData from '../../../../App/Presentation/Transformers/Response/Response';
+import ResponseMessageEnum from '../../../../App/Domain/Enum/ResponseMessageEnum';
+import ResponseTransformer from '../../../../App/Presentation/Transformers/ResponseTransformer';
 @controller('/api/users')
 class UserHandler
 {
@@ -42,8 +44,8 @@ class UserHandler
         const _request = new UserSaveRequest(req.body);
 
         const user: IUserDomain = await this.controller.save(_request);
-
-        void await this.responder.send(null, req, res, StatusCode.HTTP_CREATED);
+        const responseData = new ResponseData(user.getId(), ResponseMessageEnum.CREATED);
+        void await this.responder.send(responseData, req, res, StatusCode.HTTP_CREATED, new ResponseTransformer());
     }
 
     @httpGet('/', AuthorizeMiddleware(Permissions.USERS_LIST))
@@ -72,8 +74,8 @@ class UserHandler
         const _request = new UserUpdateRequest(req.body, req.params.id, AuthUser<ITokenDecode>(req, 'tokenDecode').userId);
 
         const user: IUserDomain = await this.controller.update(_request);
-
-        void await this.responder.send(null, req, res, StatusCode.HTTP_CREATED);
+        const responseData = new ResponseData(user.getId(), ResponseMessageEnum.CREATED);
+        void await this.responder.send(responseData, req, res, StatusCode.HTTP_CREATED, new ResponseTransformer());
     }
 
     @httpPut('/assign-role/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN_ROLE))
@@ -82,8 +84,8 @@ class UserHandler
         const _request = new UserAssignRoleRequest(req.body, req.params.id);
 
         const _response: IUserDomain = await this.controller.assignRole(_request);
-
-        void await this.responder.send(_response, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
+        const responseData = new ResponseData(_response.getId(), ResponseMessageEnum.UPDATED);
+        void await this.responder.send(responseData, req, res, StatusCode.HTTP_CREATED, new ResponseTransformer());
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.USERS_DELETE))
@@ -102,8 +104,7 @@ class UserHandler
         const _request = new ChangeMyPasswordRequest(req.body, AuthUser<ITokenDecode>(req, 'tokenDecode').userId);
 
         const user: IUserDomain = await this.controller.changeMyPassword(_request);
-
-        void await this.responder.send(null, req, res, StatusCode.HTTP_CREATED);
+        void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
     @httpPut('/change-user-password/:id', AuthorizeMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD))
@@ -112,8 +113,8 @@ class UserHandler
         const _request = new ChangeUserPasswordRequest(req.body, req.params.id);
 
         const user: IUserDomain = await this.controller.changeUserPassword(_request);
-
-        void await this.responder.send(null, req, res, StatusCode.HTTP_CREATED);
+        const responseData = new ResponseData(user.getId(), ResponseMessageEnum.UPDATED);
+        void await this.responder.send(responseData, req, res, StatusCode.HTTP_CREATED, new ResponseTransformer());
     }
 }
 

@@ -17,6 +17,9 @@ import IItemDomain from '../../../Domain/Entities/IItemDomain';
 
 import ItemController from '../../Controllers/ItemController';
 import { AuthUser } from '../../../../Auth/Presentation/Helpers/AuthUser';
+import ResponseMessageEnum from '../../../../App/Domain/Enum/ResponseMessageEnum';
+import ResponseData from '../../../../App/Presentation/Transformers/Response/Response';
+import ResponseTransformer from '../../../../App/Presentation/Transformers/ResponseTransformer';
 
 @controller('/api/items')
 class ItemHandler
@@ -37,7 +40,9 @@ class ItemHandler
 
         const item: IItemDomain = await this.controller.save(_request, AuthUser(req));
 
-        void await this.responder.send(null, req, res, StatusCode.HTTP_CREATED);
+        const responseData = new ResponseData(item.getId(), ResponseMessageEnum.CREATED);
+
+        void await this.responder.send(responseData, req, res, StatusCode.HTTP_CREATED, new ResponseTransformer());
     }
 
     @httpGet('/', AuthorizeMiddleware(Permissions.ITEMS_LIST))
@@ -66,8 +71,8 @@ class ItemHandler
         const _request = new ItemUpdateRequest(req.body, req.params.id);
 
         const item: IItemDomain = await this.controller.update(_request, AuthUser(req));
-
-        void await this.responder.send(null, req, res, StatusCode.HTTP_CREATED);
+        const responseData = new ResponseData(item.getId(), ResponseMessageEnum.UPDATED);
+        void await this.responder.send(responseData, req, res, StatusCode.HTTP_CREATED, new ResponseTransformer());
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.ITEMS_DELETE))

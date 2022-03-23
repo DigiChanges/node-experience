@@ -160,7 +160,6 @@ describe('Start User Test', () =>
             const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
-
         });
 
         test('Change my Password /users/change-my-password', async() =>
