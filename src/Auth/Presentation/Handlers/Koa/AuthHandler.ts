@@ -55,7 +55,7 @@ AuthHandler.post('/login', async(ctx: Koa.ParameterizedContext & any) =>
         {
             expires: moment.unix(payload.getExpires()).toDate(),
             maxAge: payload.getExpires(),
-            path: '/api/auth/refresh-token',
+            path: '/api/auth',
             secure: MainConfig.getInstance().getConfig().setCookieSecure,
             httpOnly: true,
             sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
@@ -75,7 +75,9 @@ AuthHandler.post('/signup', async(ctx: Koa.ParameterizedContext & any) =>
 
 AuthHandler.post('/logout', async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const payload = await controller.logout(AuthUser(ctx, 'tokenDecode'));
+    const _request = new RefreshTokenRequest(ctx.refreshToken);
+
+    const payload = await controller.logout(_request, AuthUser(ctx, 'tokenDecode'));
 
     ctx.cookies.set('refreshToken', null);
 
@@ -94,7 +96,7 @@ AuthHandler.post('/refresh-token', RefreshTokenMiddleware, async(ctx: Koa.Parame
         {
             expires: moment.unix(payload.getExpires()).toDate(),
             maxAge: payload.getExpires(),
-            path: '/api/auth/refresh-token',
+            path: '/api/auth',
             secure: MainConfig.getInstance().getConfig().setCookieSecure,
             httpOnly: true,
             sameSite: MainConfig.getInstance().getConfig().setCookieSameSite

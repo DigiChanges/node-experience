@@ -68,7 +68,7 @@ class AuthHandler
             {
                 expires: moment.unix(payload.getExpires()).toDate(),
                 maxAge: payload.getExpires(),
-                path: '/api/auth/refresh-token',
+                path: '/api/auth',
                 secure: MainConfig.getInstance().getConfig().setCookieSecure,
                 httpOnly: true,
                 sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
@@ -88,9 +88,11 @@ class AuthHandler
     }
 
     @httpPost('/logout')
-    public async logout(@request() req: Request, @response() res: Response)
+    public async logout(@request() req: any, @response() res: Response)
     {
-        const payload = await this.controller.logout(AuthUser(req, 'tokenDecode'));
+        const _request = new RefreshTokenRequest(req.refreshToken);
+
+        const payload = await this.controller.logout(_request, AuthUser(req, 'tokenDecode'));
 
         res.cookie('refreshToken', null);
 
@@ -110,7 +112,7 @@ class AuthHandler
             {
                 expires: moment.unix(payload.getExpires()).toDate(),
                 maxAge: payload.getExpires(),
-                path: '/api/auth/refresh-token',
+                path: '/api/auth',
                 secure: MainConfig.getInstance().getConfig().setCookieSecure,
                 httpOnly: true,
                 sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
