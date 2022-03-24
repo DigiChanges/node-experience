@@ -22,7 +22,7 @@ class RoleSqlRepository extends BaseSqlRepository<IRoleDomain> implements IRoleR
 
     async getBySlug(slug: string): Promise<IRoleDomain>
     {
-        return await this.repository.findOne({ slug });
+        return await this.repository.findOneBy({ slug });
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -72,7 +72,7 @@ class RoleSqlRepository extends BaseSqlRepository<IRoleDomain> implements IRoleR
             throw new RoleOfSystemNotDeletedException();
         }
 
-        const entity = await this.repository.findOne(id);
+        const entity = await this.repository.findOneById(id);
 
         if (!entity)
         {

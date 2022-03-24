@@ -21,7 +21,7 @@ class UserSqlRepository extends BaseSqlRepository<IUserDomain> implements IUserR
 
     async getOneByEmail(email: string): Promise<IUserDomain>
     {
-        const user = await this.repository.findOne({ email });
+        const user = await this.repository.findOneBy({ email });
 
         if (!user)
         {
@@ -33,7 +33,7 @@ class UserSqlRepository extends BaseSqlRepository<IUserDomain> implements IUserR
 
     async getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>
     {
-        const user = await this.repository.findOne({ confirmationToken });
+        const user = await this.repository.findOneBy({ confirmationToken });
 
         if (!user)
         {

@@ -3,6 +3,8 @@ FROM node:16 as node
 # Builder stage
 FROM node AS dev
 
+USER node
+
 RUN mkdir /home/node/cache
 WORKDIR /home/node/cache
 

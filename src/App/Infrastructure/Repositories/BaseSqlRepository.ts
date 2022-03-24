@@ -23,7 +23,7 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
 
     async getOne(id: string): Promise<T>
     {
-        const entity = await this.repository.findOne(id);
+        const entity = await this.repository.findOneById(id);
 
         if (!entity)
         {
@@ -40,7 +40,7 @@ abstract class BaseSqlRepository<T> implements IBaseRepository<T>
 
     async delete(id: string): Promise<T>
     {
-        const entity = await this.repository.findOne(id);
+        const entity = await this.repository.findOneById(id);
 
         if (!entity)
         {
