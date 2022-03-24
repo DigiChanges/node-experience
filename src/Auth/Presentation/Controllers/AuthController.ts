@@ -49,10 +49,10 @@ class AuthController
         return await useCase.handle(request);
     }
 
-    public async logout(tokenDecode: ITokenDecode): Promise<ILocaleMessage>
+    public async logout(refreshTokenRequest: RefreshTokenPayload, tokenDecode: ITokenDecode): Promise<ILocaleMessage>
     {
         const useCase = new LogoutUseCase();
-        return await useCase.handle(tokenDecode);
+        return await useCase.handle(refreshTokenRequest, tokenDecode);
     }
 
     public async refreshToken(request: RefreshTokenPayload): Promise<IToken>
