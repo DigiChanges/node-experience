@@ -82,7 +82,6 @@ describe('Start File Test', () =>
             const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
-
         });
 
         // test('Get File /files/:id', async () =>
