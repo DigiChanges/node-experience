@@ -16,8 +16,8 @@ import Permissions from '../../../../Config/Permissions';
 import IRoleDomain from '../../../Domain/Entities/IRoleDomain';
 import RoleController from '../../Controllers/RoleController';
 import ResponseMessageEnum from '../../../../App/Domain/Enum/ResponseMessageEnum';
-import ResponseTransformer from '../../../../App/Presentation/Transformers/ResponseTransformer';
-import ResponseData from '../../../../App/Presentation/Transformers/Response/Response';
+import ResponseTransformer from '../../../../App/Presentation/Transformers/DefaultMessageTransformer';
+import ResponseData from '../../../../App/Presentation/Transformers/Response/DataResponseMessage';
 @controller('/api/roles')
 class RoleHandler
 {

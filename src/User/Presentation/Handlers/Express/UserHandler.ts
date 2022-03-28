@@ -23,9 +23,9 @@ import UserController from '../../Controllers/UserControllers';
 import UserSaveRequest from '../../Requests/UserSaveRequest';
 import { AuthUser } from '../../../../Auth/Presentation/Helpers/AuthUser';
 import ITokenDecode from '../../../../Shared/InterfaceAdapters/ITokenDecode';
-import ResponseData from '../../../../App/Presentation/Transformers/Response/Response';
+import ResponseData from '../../../../App/Presentation/Transformers/Response/DataResponseMessage';
 import ResponseMessageEnum from '../../../../App/Domain/Enum/ResponseMessageEnum';
-import ResponseTransformer from '../../../../App/Presentation/Transformers/ResponseTransformer';
+import ResponseTransformer from '../../../../App/Presentation/Transformers/DefaultMessageTransformer';
 @controller('/api/users')
 class UserHandler
 {
