@@ -64,11 +64,6 @@ describe('Start Role Test', () =>
 
             expect(response.statusCode).toStrictEqual(201);
 
-            expect(data.name).toStrictEqual(payload.name);
-            expect(data.slug).toStrictEqual(payload.slug);
-            expect(data.permissions).toStrictEqual(payload.permissions);
-            expect(data.enable).toStrictEqual(true);
-
             roleId = data.id;
         });
 
@@ -91,11 +86,6 @@ describe('Start Role Test', () =>
 
             expect(response.statusCode).toStrictEqual(201);
 
-            expect(data.name).toStrictEqual(payload.name);
-            expect(data.slug).toStrictEqual(payload.slug);
-            expect(data.permissions).toStrictEqual(payload.permissions);
-            expect(data.enable).toStrictEqual(payload.enable);
-
             roleId = data.id;
         });
 
@@ -117,11 +107,6 @@ describe('Start Role Test', () =>
             const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
-
-            expect(data.name).toStrictEqual(payload.name);
-            expect(data.slug).toStrictEqual(payload.slug);
-            expect(data.permissions).toStrictEqual(payload.permissions);
-            expect(data.enable).toStrictEqual(payload.enable);
 
             roleId = data.id;
         });
@@ -169,11 +154,6 @@ describe('Start Role Test', () =>
             const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
-
-            expect(data.name).toStrictEqual(payload.name);
-            expect(data.slug).toStrictEqual(payload.slug);
-            expect(data.permissions).toStrictEqual(payload.permissions);
-            expect(data.enable).toStrictEqual(payload.enable);
         });
 
         test('Delete Role /roles/:id', async() =>

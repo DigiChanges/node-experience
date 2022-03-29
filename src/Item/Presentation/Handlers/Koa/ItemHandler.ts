@@ -11,6 +11,9 @@ import ItemRequestCriteria from '../../Requests/ItemRequestCriteria';
 import ItemUpdateRequest from '../../Requests/ItemUpdateRequest';
 import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';
+import ResponseMessageEnum from '../../../../App/Domain/Enum/ResponseMessageEnum';
+import DefaultMessageTransformer from '../../../../App/Presentation/Transformers/DefaultMessageTransformer';
+import DataResponseMessage from '../../../../App/Presentation/Transformers/Response/DataResponseMessage';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/items'
@@ -25,8 +28,8 @@ ItemHandler.post('/', AuthorizeMiddleware(Permissions.ITEMS_SAVE), async(ctx: Ko
     const request = new ItemRepRequest(ctx.request.body);
 
     const item = await controller.save(request, AuthUser(ctx));
-
-    void await responder.send(item, ctx, StatusCode.HTTP_CREATED, new ItemTransformer());
+    const responseData = new DataResponseMessage(item.getId(), ResponseMessageEnum.CREATED);
+    void await responder.send(responseData, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer());
 });
 
 ItemHandler.get('/', AuthorizeMiddleware(Permissions.ITEMS_LIST), async(ctx: Koa.ParameterizedContext & any) =>
@@ -52,8 +55,8 @@ ItemHandler.put('/:id', AuthorizeMiddleware(Permissions.ITEMS_UPDATE), async(ctx
     const _request = new ItemUpdateRequest(ctx.request.body, ctx.params.id);
 
     const item = await controller.update(_request, AuthUser(ctx));
-
-    void await responder.send(item, ctx, StatusCode.HTTP_CREATED, new ItemTransformer());
+    const responseData = new DataResponseMessage(item.getId(), ResponseMessageEnum.UPDATED);
+    void await responder.send(responseData, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer());
 });
 
 ItemHandler.delete('/:id', AuthorizeMiddleware(Permissions.ITEMS_DELETE), async(ctx: Koa.ParameterizedContext & any) =>

@@ -61,10 +61,6 @@ describe('Start File Test', () =>
 
             expect(response.statusCode).toStrictEqual(201);
 
-            expect(data.originalName).toStrictEqual('photo.jpg');
-            expect(data.extension).toStrictEqual('jpg');
-            expect(data.mimeType).toStrictEqual('image/jpeg');
-            expect(data.isPublic).toStrictEqual(false);
             file_id = data.id;
         });
 
@@ -86,11 +82,6 @@ describe('Start File Test', () =>
             const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
-
-            expect(data.originalName).toStrictEqual(payload.originalName);
-            expect(data.extension).toStrictEqual(payload.extension);
-            expect(data.mimeType).toStrictEqual(payload.mimeType);
-            expect(data.isPublic).toStrictEqual(payload.isPublic);
         });
 
         // test('Get File /files/:id', async () =>

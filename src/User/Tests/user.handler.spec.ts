@@ -74,10 +74,6 @@ describe('Start User Test', () =>
 
             expect(response.statusCode).toStrictEqual(201);
 
-            expect(data.firstName).toStrictEqual(payload.firstName);
-            expect(data.email).toStrictEqual(payload.email);
-            expect(data.enable).toStrictEqual(true);
-
             userId = data.id;
         });
 
@@ -109,10 +105,6 @@ describe('Start User Test', () =>
             const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
-
-            expect(data.firstName).toStrictEqual(payload.firstName);
-            expect(data.email).toStrictEqual(payload.email);
-            expect(data.enable).toStrictEqual(payload.enable);
 
             userId = data.id;
         });
@@ -168,17 +160,6 @@ describe('Start User Test', () =>
             const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
-
-            expect(data.email).toStrictEqual(payload.email);
-            expect(data.firstName).toStrictEqual(payload.firstName);
-            expect(data.lastName).toStrictEqual(payload.lastName);
-            expect(data.enable).toStrictEqual(payload.enable);
-            expect(data.birthday).toStrictEqual(payload.birthday);
-            expect(data.documentType).toStrictEqual(payload.documentType);
-            expect(data.documentNumber).toStrictEqual(payload.documentNumber);
-            expect(data.gender).toStrictEqual(payload.gender);
-            expect(data.phone).toStrictEqual(payload.phone);
-            expect(data.country).toStrictEqual(payload.country);
         });
 
         test('Change my Password /users/change-my-password', async() =>
@@ -208,9 +189,6 @@ describe('Start User Test', () =>
                 .send(payload);
 
             expect(response.statusCode).toStrictEqual(201);
-
-            expect(response.body.data.user.email).toStrictEqual('user@node.com');
-            expect(response.body.data.user.firstName).toStrictEqual('user');
 
             token = response.body.data.token;
         });
