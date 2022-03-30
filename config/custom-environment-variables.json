@@ -46,9 +46,10 @@
       "secretKey": "MINIO_SECRET_KEY",
       "useSSL": "MINIO_USE_SSL",
       "port": "MINIO_PORT",
-      "region": "MINIO_REGION",
       "publicBucket": "MINIO_PUBLIC_BUCKET",
-      "privateBucket": "MINIO_PRIVATE_BUCKET"
+      "privateBucket": "MINIO_PRIVATE_BUCKET",
+      "rootPath": "MINIO_ROOT_PATH",
+      "region": "MINIO_REGION"
     },
     "local": "",
     "default": "FILESYSTEM_DEFAULT"

@@ -53,9 +53,10 @@ export type MinioConfig = {
     secretKey: string;
     useSSL: boolean;
     port: number;
-    region: string;
     publicBucket: string;
     privateBucket: string;
+    rootPath: string;
+    region: string;
 };
 
 type JwtConfig = {

@@ -10,6 +10,7 @@ class MinioStrategy implements IFilesystem
     readonly #filesystem: Client = null;
     readonly #publicBucket: string;
     readonly #privateBucket: string;
+    readonly #rootPath: string;
     readonly #pathTemp: string;
     readonly #region: string;
 
@@ -17,6 +18,7 @@ class MinioStrategy implements IFilesystem
     {
         this.#publicBucket = config.publicBucket;
         this.#privateBucket = config.privateBucket;
+        this.#rootPath = config.rootPath;
         this.#region = config.region;
         this.#pathTemp = '/tmp/';
 
@@ -53,14 +55,14 @@ class MinioStrategy implements IFilesystem
 
     async uploadFile(object: IFileDomain, path: string)
     {
-        return await this.#filesystem.fPutObject(this.getBucket(object), object.name, path, {});
+        return await this.#filesystem.fPutObject(this.getBucket(object), `${this.#rootPath}/${object.name}`, path, {});
     }
 
     async uploadFileByBuffer(object: IFileDomain, base64Data: string)
     {
         const buffer = Buffer.from(base64Data, 'base64');
 
-        return await this.#filesystem.putObject(this.getBucket(object), object.name, buffer, object.size, {
+        return await this.#filesystem.putObject(this.getBucket(object), `${this.#rootPath}/${object.name}`, buffer, object.size, {
             'content-type': object.mimeType
         });
     }
@@ -69,14 +71,14 @@ class MinioStrategy implements IFilesystem
     {
         const filePath = `${this.#pathTemp}${objectName}`;
 
-        await this.#filesystem.fGetObject(this.getBucket(null, isPrivate), objectName, filePath);
+        await this.#filesystem.fGetObject(this.getBucket(null, isPrivate), `${this.#rootPath}/${objectName}`, filePath);
 
         return filePath;
     }
 
     async downloadStreamFile(object: IFileDomain, isPrivate = true): Promise<internal.Readable>
     {
-        return await this.#filesystem.getObject(this.getBucket(object), object.name);
+        return await this.#filesystem.getObject(this.getBucket(object), `${this.#rootPath}/${object.name}`);
     }
 
     async listObjects(payload: ListObjectsPayload)

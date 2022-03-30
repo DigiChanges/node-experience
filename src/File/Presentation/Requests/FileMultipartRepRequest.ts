@@ -42,7 +42,7 @@ class FileMultipartRepRequest extends FileOptionsQueryRequest implements FileMul
     }
 
     @IsDefined()
-    file(): any
+    get file(): any
     {
         return this._file;
     }

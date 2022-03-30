@@ -50,9 +50,10 @@
       "secretKey": "12345678",
       "useSSL": false,
       "port": 9000,
-      "region": "us-east-1",
       "publicBucket": "experience",
-      "privateBucket": "experience"
+      "privateBucket": "experience",
+      "rootPath": "",
+      "region": "us-east-1"
     },
     "local": {
       "type": "local"
