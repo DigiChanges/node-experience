@@ -84,7 +84,7 @@ describe('Start Permission Test', () =>
 
             expect(response.statusCode).toStrictEqual(403);
 
-            expect(message).toStrictEqual('You must be authenticated.');
+            expect(message).toStrictEqual('Invalid token.');
         });
     });
 });
