@@ -4,7 +4,6 @@ import ForgotPasswordPayload from '../../Domain/Payloads/ForgotPasswordPayload';
 import moment from 'moment';
 import jwt from 'jwt-simple';
 import MainConfig from '../../../Config/mainConfig';
-import { v4 as uuidV4 } from 'uuid';
 
 class ForgotPasswordRequest implements ForgotPasswordPayload
 {
@@ -20,7 +19,6 @@ class ForgotPasswordRequest implements ForgotPasswordPayload
         this._email = data.email;
         this._secret = secret;
         this._payload = {
-            id: uuidV4,
             iss,
             aud,
             sub: this._email,
