@@ -8,8 +8,6 @@ import SendEmailService from '../../../Notification/Domain/Services/SendEmailSer
 import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../App/Presentation/Shared/Locales';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
-import { IEncryption } from '@digichanges/shared-experience';
-import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 
 class ForgotPasswordUseCase
 {
@@ -18,20 +16,16 @@ class ForgotPasswordUseCase
 
     async handle(payload: ForgotPasswordPayload): Promise<ILocaleMessage>
     {
-        const config = MainConfig.getInstance();
-        const encryption: IEncryption = EncryptionFactory.create('md5');
-
-        const [user, confirmationToken] = await Promise.all([
-            this.repository.getOneByEmail(payload.email),
-            encryption.encrypt(payload.confirmationToken)
-        ]);
+        const { urlWeb } = MainConfig.getInstance().getConfig().url;
+        const { confirmationToken, passwordRequestedAt, email } = payload;
+        const user = await this.repository.getOneByEmail(email);
 
         user.confirmationToken = confirmationToken;
-        user.passwordRequestedAt = payload.passwordRequestedAt;
+        user.passwordRequestedAt = passwordRequestedAt;
 
         await this.repository.save(user);
 
-        const urlConfirmationToken = `${config.getConfig().url.urlWeb}/changeForgotPassword/${user.confirmationToken}`;
+        const urlConfirmationToken = `${urlWeb}/changeForgotPassword/${confirmationToken}`;
 
         void await SendEmailService.handle({
             event: ForgotPasswordEvent.FORGOT_PASSWORD_EVENT,

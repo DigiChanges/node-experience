@@ -1,9 +1,9 @@
 import moment from 'moment';
 import jwt from 'jwt-simple';
 import IToken from './IToken';
-import MainConfig from '../../../Config/mainConfig';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
+import { JwtConfig } from '../../../Config/mainConfig';
 
 class JWTToken implements IToken
 {
@@ -14,15 +14,15 @@ class JWTToken implements IToken
     private readonly payload: ITokenDecode;
     private readonly payloadRefreshToken: ITokenDecode;
 
-    constructor(id: string, expires: number, user: IUserDomain, secret: string)
+    constructor(id: string, user: IUserDomain, jwtConfig: JwtConfig)
     {
-        const config = MainConfig.getInstance();
+        const { secret, expires, iss, aud } = jwtConfig;
         this.user = user;
         this.expires = moment().utc().add({ minutes: expires }).unix();
         this.payload = {
             id,
-            iss: config.getConfig().jwt.iss,
-            aud: config.getConfig().jwt.aud,
+            iss,
+            aud,
             sub: user.email,
             iat: this.expires,
             exp: this.expires,

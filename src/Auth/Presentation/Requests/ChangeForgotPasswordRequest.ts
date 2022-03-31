@@ -18,11 +18,9 @@ class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
     }
 
     @IsString()
-    @Length(MainConfig.getInstance().getConfig().validationSettings.password.minLength,
-        MainConfig.getInstance().getConfig().validationSettings.password.maxLength)
     get confirmationToken(): string
     {
-        return this._confirmationToken;
+        return `Bearer ${this._confirmationToken}`;
     }
 
     @IsString()
@@ -35,6 +33,8 @@ class ChangeForgotPasswordRequest implements ChangeForgotPasswordPayload
     }
 
     @IsString()
+    @Length(MainConfig.getInstance().getConfig().validationSettings.password.minLength,
+        MainConfig.getInstance().getConfig().validationSettings.password.maxLength)
     get passwordConfirmation(): string
     {
         return this._passwordConfirmation;

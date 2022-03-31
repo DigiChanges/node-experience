@@ -59,7 +59,7 @@ export type MinioConfig = {
     region: string;
 };
 
-type JwtConfig = {
+export type JwtConfig = {
     secret: string;
     expires: number;
     iss: string;

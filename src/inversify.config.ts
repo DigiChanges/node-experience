@@ -56,7 +56,7 @@ else if (MainConfig.getInstance().getConfig().dbConfig.default === 'Mongoose')
     container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository).inSingletonScope();
     container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongoRepository).inSingletonScope();
     container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository).inSingletonScope();
-    // container.bind<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository).to(NotificationMongoRepository).inSingletonScope();
+    container.bind<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository).to(NotificationMongoRepository).inSingletonScope();
 }
 else if (MainConfig.getInstance().getConfig().dbConfig.default === 'MikroORM')
 {
