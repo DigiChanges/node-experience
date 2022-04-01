@@ -7,24 +7,26 @@ import Password from '../../../App/Domain/ValueObjects/Password';
 import MainConfig from '../../../Config/mainConfig';
 import Locales from '../../../App/Presentation/Shared/Locales';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
+import AuthService from '../Services/AuthService';
 
 class ChangeForgotPasswordUseCase
 {
     @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
+    private authService = new AuthService();
 
     async handle(payload: ChangeForgotPasswordPayload): Promise<ILocaleMessage>
     {
-        const config = MainConfig.getInstance();
-        const confirmationToken = payload.confirmationToken;
+        const { minLength, maxLength } = MainConfig.getInstance().getConfig().validationSettings.password;
+        const { password, confirmationToken } = payload;
 
-        const user = await this.repository.getOneByConfirmationToken(confirmationToken);
+        const decodeToken = this.authService.validateToken(confirmationToken);
+
+        const user = await this.repository.getOneByEmail(decodeToken.email);
         user.confirmationToken = null;
         user.passwordRequestedAt = null;
 
-        const { minLength, maxLength } = config.getConfig().validationSettings.password;
-
-        user.password = await (new Password(payload.password, minLength, maxLength)).ready();
+        user.password = await (new Password(password, minLength, maxLength)).ready();
 
         await this.repository.update(user);
 

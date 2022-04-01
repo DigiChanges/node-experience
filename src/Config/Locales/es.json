@@ -32,7 +32,7 @@
 			"exceptions": {
 				"forbidden": "Acceso prohibido.",
 				"tokenBlackListed": "Token no permitido.",
-				"tokenExpired": "Debes estar autenticado.",
+				"tokenExpired": "Token invalido.",
 				"tokenNotFound": "Token no encontrado."
 			}
 		}

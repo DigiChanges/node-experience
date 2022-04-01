@@ -115,10 +115,6 @@
     },
     {
       "methods": ["POST"],
-      "url": "/api/auth/forgotPassword"
-    },
-    {
-      "methods": ["POST"],
       "url": "/api/auth/forgot-password"
     },
     {
