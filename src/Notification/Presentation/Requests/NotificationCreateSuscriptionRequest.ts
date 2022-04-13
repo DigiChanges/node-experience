@@ -1,5 +1,5 @@
 import webPush from 'web-push';
-import NotificationRepPayload from '../../InterfaceAdapters/Payloads/NotificationRepPayload';
+import NotificationRepPayload from '../../Domain/Payloads/NotificationRepPayload';
 
 class NotificationSubscriptionRequest implements NotificationRepPayload
 {

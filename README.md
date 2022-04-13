@@ -29,14 +29,14 @@ The directory structures for business domains are as follows:
 ├── Domain
 │   ├── Entities
 │   ├── Exceptions
-│   └── Services
+│   ├── Payloads
+│   ├── Services
 │   └── UseCases
 ├── Infrastructure
 │   ├── Repositories
 │   ├── Schema
 │   └── Seeds
 ├── InterfaceAdapters
-│   └── Payloads
 ├── Presentation
 │   ├── Commands
 │   ├── Controllers

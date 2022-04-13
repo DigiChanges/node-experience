@@ -1,4 +1,4 @@
-import NotificationSendMessagePayload from '../../InterfaceAdapters/Payloads/NotificationSendMessagePayload';
+import NotificationSendMessagePayload from '../Payloads/NotificationSendMessagePayload';
 import NotificationService from '../Services/NotificationService';
 
 class SendPushNotificationUseCase

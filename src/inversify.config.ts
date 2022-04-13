@@ -25,8 +25,8 @@ import RoleSqlRepository from './Role/Infrastructure/Repositories/RoleSqlReposit
 import TokenRedisRepository from './Auth/Infrastructure/Repositories/TokenRedisRepository';
 import { ITokenRepository } from '@digichanges/shared-experience';
 import ITokenDomain from './Auth/Domain/Entities/ITokenDomain';
-import INotificationRepository from './Notification/InterfaceAdapters/INotificationRepository';
-import INotificationDomain from './Notification/InterfaceAdapters/INotificationDomain';
+import INotificationRepository from './Notification/Infrastructure/Repositories/INotificationRepository';
+import INotificationDomain from './Notification/Domain/Entities/INotificationDomain';
 import NotificationMongoRepository from './Notification/Infrastructure/Repositories/NotificationMongoRepository';
 import INotificationFactory from './Notification/Shared/INotificationFactory';
 import { FACTORIES } from './Config/Injects/factories';
