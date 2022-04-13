@@ -6,7 +6,7 @@ import IUserDocument from '../../User/Infrastructure/Schemas/IUserDocument';
 import IRoleDocument from '../../Role/Infrastructure/Schemas/IRoleDocument';
 import IItemDocument from '../../Item/Infrastructure/Schemas/IItemDocument';
 import IFileDocument from '../../File/Infrastructure/Schemas/IFileDocument';
-import INotificationDocument from '../../Notification/InterfaceAdapters/INotificationDocument';
+import INotificationDocument from '../../Notification/Infrastructure/Schemas/INotificationDocument';
 import ITokenDocument from '../../Auth/Infrastructure/Schemas/ITokenDocument';
 
 import ItemSchema from '../../Item/Infrastructure/Schemas/ItemMongoose';

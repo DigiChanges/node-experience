@@ -1,5 +1,5 @@
-import NotificationRepPayload from '../../InterfaceAdapters/Payloads/NotificationRepPayload';
-import NotificationSendMessagePayload from '../../InterfaceAdapters/Payloads/NotificationSendMessagePayload';
+import NotificationRepPayload from '../../Domain/Payloads/NotificationRepPayload';
+import NotificationSendMessagePayload from '../../Domain/Payloads/NotificationSendMessagePayload';
 import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
 import CreateSubscriptionUseCase from '../../Domain/UseCases/CreateSubscriptionUseCase';
 import SendPushNotificationUseCase from '../../Domain/UseCases/SendPushNotificationUseCase';

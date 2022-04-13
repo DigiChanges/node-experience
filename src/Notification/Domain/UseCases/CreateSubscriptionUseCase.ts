@@ -1,4 +1,4 @@
-import NotificationRepPayload from '../../InterfaceAdapters/Payloads/NotificationRepPayload';
+import NotificationRepPayload from '../Payloads/NotificationRepPayload';
 import INotificationResponse from '../../InterfaceAdapters/INotificationResponse';
 import NotificationService from '../Services/NotificationService';
 

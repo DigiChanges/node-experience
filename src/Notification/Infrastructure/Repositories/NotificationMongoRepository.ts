@@ -2,12 +2,12 @@ import { Query, Model } from 'mongoose';
 import { injectable } from 'inversify';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
-import INotificationRepository from '../../InterfaceAdapters/INotificationRepository';
+import INotificationRepository from './INotificationRepository';
 
 import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
-import INotification from '../../InterfaceAdapters/INotificationDocument';
+import INotification from '../Schemas/INotificationDocument';
 import { connection } from '../../../Shared/Database/MongooseCreateConnection';
-import INotificationDomain from '../../InterfaceAdapters/INotificationDomain';
+import INotificationDomain from '../../Domain/Entities/INotificationDomain';
 import EmailNotification from '../../Domain/Entities/EmailNotification';
 import PushNotification from '../../Domain/Entities/PushNotification';
 import NotificationFilter from '../../Presentation/Criterias/NotificationFilter';

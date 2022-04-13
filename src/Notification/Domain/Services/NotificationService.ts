@@ -1,8 +1,8 @@
-import NotificationRepPayload from '../../InterfaceAdapters/Payloads/NotificationRepPayload';
+import NotificationRepPayload from '../Payloads/NotificationRepPayload';
 import PushNotification from '../Entities/PushNotification';
 import EventHandler from '../../../Shared/Events/EventHandler';
 import SendMessageEvent from '../../../Shared/Events/SendMessageEvent';
-import NotificationSendMessagePayload from '../../InterfaceAdapters/Payloads/NotificationSendMessagePayload';
+import NotificationSendMessagePayload from '../Payloads/NotificationSendMessagePayload';
 import INotificationResponse from '../../InterfaceAdapters/INotificationResponse';
 
 class NotificationService
