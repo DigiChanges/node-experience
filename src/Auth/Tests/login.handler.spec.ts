@@ -61,6 +61,27 @@ describe('Start Login Test', () =>
         expect(data.user.firstName).toStrictEqual('Super');
     });
 
+    test('Login User with Refresh Token', async() =>
+    {
+        const payload = {
+            email: 'user@node.com',
+            password: '12345678'
+        };
+
+        const response: any = await request
+            .post('/api/auth/login?provider=local')
+            .set('Accept', 'application/json')
+            .send(payload);
+
+        const { body: { data } } = response;
+
+        expect(response.statusCode).toStrictEqual(201);
+
+        const loginCookie = response.header['set-cookie'];
+        expect(loginCookie).toHaveLength(1);
+        expect(loginCookie[0].split('=')[0]).toStrictEqual('refreshToken');
+    });
+
     test('Login SuperAdmin Wrong Credentials', async() =>
     {
         const payload = {
