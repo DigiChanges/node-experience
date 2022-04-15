@@ -12,6 +12,7 @@ import '../../../../Auth/Presentation/Handlers/Express/AuthHandler';
 import '../../../../Role/Presentation/Handlers/Express/RoleHandler';
 import '../../../../File/Presentation/Handlers/Express/FileHandler';
 import '../../../../Notification/Presentation/Handlers/Express/NotificationHandler';
+import '../../../Tests/Express/WhiteListHandler';
 import '../../Handlers/Express/LogHandler';
 
 import AuthenticationMiddleware from '../../../../Auth/Presentation/Middlewares/Express/AuthenticationMiddleware';
