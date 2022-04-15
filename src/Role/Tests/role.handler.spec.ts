@@ -94,7 +94,7 @@ describe('Start Role Test', () =>
             const payload: any = {
                 name: 'Role3 Test',
                 slug: 'role3test',
-                permissions: ['itemsSave'],
+                permissions: ['usersSave'],
                 enable: true
             };
 
@@ -116,7 +116,7 @@ describe('Start Role Test', () =>
             const payload: any = {
                 name: 'Role3 Test',
                 slug: 'role3test',
-                permissions: ['itemsSave'],
+                permissions: ['usersSave'],
                 enable: true
             };
 
@@ -141,7 +141,7 @@ describe('Start Role Test', () =>
             const payload: any = {
                 name: 'Role3 Test Update',
                 slug: 'role3testupdate',
-                permissions: ['itemsDelete'],
+                permissions: ['usersDelete'],
                 enable: false
             };
 
@@ -151,8 +151,6 @@ describe('Start Role Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const { body: { data } } = response;
-
             expect(response.statusCode).toStrictEqual(201);
         });
 
@@ -161,7 +159,7 @@ describe('Start Role Test', () =>
             const payload: any = {
                 name: 'Role4 Test',
                 slug: 'role4test',
-                permissions: ['itemsSave'],
+                permissions: ['usersSave'],
                 enable: true
             };
 
