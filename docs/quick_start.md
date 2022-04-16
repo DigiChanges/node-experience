@@ -39,17 +39,21 @@ yarn docker:command createVapID
 
 
 ## Execute TEST Environment
-```
+```bash
 yarn test
 ```
 
 ## Test and watch one file
 
-```yarn test-watch src/[Module]/Tests/[test-name].spec.ts```
+```bash
+yarn test-watch src/[Module]/Tests/[test-name].spec.ts
+```
 
 Example Unique Test
 
-- ```yarn test-watch src/Item/Tests/item.handler.spec.ts```
+```bash
+yarn test-watch src/Item/Tests/item.handler.spec.ts
+```
 
 ## How to use TypeORM:
 
@@ -63,6 +67,7 @@ To change from Mongoose to TypeORM the following steps must be followed:
      1. Environment variables have to be changed.
         a. DB_PORT=27017 -> DB_PORT=5432
         b. DB_TYPE_DEFAULT=Mongoose -> DB_TYPE_DEFAULT=TypeORM
+        c. DB_TYPE=postgresql -> DB_TYPE=postgres
     
     2. Important note. The filters and sorting files of each entity should also have a change depending on the relationship.
         For example UserSort has
@@ -90,3 +95,33 @@ To change from Mongoose to TypeORM the following steps must be followed:
                 docker-compose -f docker-compose.yml -f docker-compose.sql.yml up --build -d
            
            This above command replaces the mongo container with the postgres container.
+
+
+## How to use Mikro-ORM:
+
+To change to Mikro-ORM the following steps must be followed:
+     
+     To take an example we are going to use Postgres.
+     
+     1. Environment variables have to be changed.
+        a. DB_PORT=27017 -> DB_PORT=5432
+        b. DB_TYPE_DEFAULT=Mongoose -> DB_TYPE_DEFAULT=MikroORM
+        c. DB_TYPE=postgresql
+    
+     2. Finally, we have a command with Makefile to lift the corresponding containers.
+        a. make dev_sql
+        b. The command with docker compose would be:
+                
+                docker-compose -f docker-compose.yml -f docker-compose.sql.yml up --build -d
+           
+           This above command replaces the mongo container with the postgres container.
+
+```bash
+docker-compose exec db psql -d experience -U experience -W
+create extension "uuid-ossp";
+```
+
+```bash
+docker-compose exec node bash
+yarn run sync-db
+```

@@ -11,11 +11,13 @@ abstract class BaseMikroSqlRepository<T> implements IBaseRepository<T>
     protected readonly entityName: string;
     protected repository: EntityRepository<any>;
     protected em = EntityManagerFactory.getEntityFactory();
+    protected populate: string[];
 
-    constructor(@unmanaged() entityName: string, @unmanaged() entitySchema: EntitySchema<any>)
+    constructor(@unmanaged() entityName: string, @unmanaged() entitySchema: EntitySchema<any>, @unmanaged() populate: string[] = [])
     {
         this.entityName = entityName;
         this.repository = this.em.getRepository(entitySchema);
+        this.populate = populate;
     }
 
     async save(entity: T): Promise<T>
@@ -26,7 +28,8 @@ abstract class BaseMikroSqlRepository<T> implements IBaseRepository<T>
 
     async getOne(id: string): Promise<T>
     {
-        const entity = await this.repository.findOne(id);
+        const options = { populate: this.populate };
+        const entity = await this.repository.findOne(id, (options as any));
 
         if (!entity)
         {
@@ -44,7 +47,8 @@ abstract class BaseMikroSqlRepository<T> implements IBaseRepository<T>
 
     async delete(id: string): Promise<T>
     {
-        const entity = await this.repository.findOne(id);
+        const options = { populate: this.populate };
+        const entity = await this.repository.findOne(id, (options as any));
 
         if (!entity)
         {
@@ -70,13 +74,14 @@ abstract class BaseMikroSqlRepository<T> implements IBaseRepository<T>
         return entity;
     }
 
-    async getBy(condition: Record<string, any>, options: IByOptions = { initThrow: false }): Promise<T[]>
+    async getBy(condition: Record<string, any>, options: IByOptions = { initThrow: false, populate: null }): Promise<T[]>
     {
-        let { initThrow } = options;
+        let { initThrow, populate } = options;
 
         initThrow = initThrow ?? false;
+        populate = populate ?? null;
 
-        const entities = await this.repository.find(condition);
+        const entities = await this.repository.find(condition, { populate } as any);
 
         if (initThrow && entities.length === 0)
         {
