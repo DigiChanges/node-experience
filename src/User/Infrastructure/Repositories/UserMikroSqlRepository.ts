@@ -16,7 +16,7 @@ class UserMikroSqlRepository extends BaseMikroSqlRepository<IUserDomain> impleme
 {
     constructor()
     {
-        super('User', UserSchema);
+        super('User', UserSchema, ['roles']);
     }
 
     async getOneByEmail(email: string): Promise<IUserDomain>
@@ -59,6 +59,8 @@ class UserMikroSqlRepository extends BaseMikroSqlRepository<IUserDomain> impleme
         {
             void queryBuilder.andWhere(`i.${UserFilter.EMAIL} like ?`, [`%${filter.get(UserFilter.EMAIL)}%`]);
         }
+
+        void await queryBuilder.joinAndSelect('roles', 'r');
 
         return new MikroPaginator(queryBuilder, criteria);
     }

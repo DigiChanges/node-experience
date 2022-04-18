@@ -47,8 +47,8 @@
   "dependencies": {
     "@digichanges/shared-experience": "^0.8.0",
     "@koa/multer": "^3.0.0",
-    "@mikro-orm/core": "^5.1.1",
-    "@mikro-orm/postgresql": "^5.1.1",
+    "@mikro-orm/core": "^5.1.2",
+    "@mikro-orm/postgresql": "^5.1.2",
     "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
     "catch-decorator": "^2.0.0",
