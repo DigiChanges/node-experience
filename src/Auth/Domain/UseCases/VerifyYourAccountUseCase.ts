@@ -7,21 +7,25 @@ import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotifica
 import Locales from '../../../App/Presentation/Shared/Locales';
 import VerifiedAccountEvent from '../../../Shared/Events/VerifiedAccountEvent';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
+import AuthService from '../Services/AuthService';
 
 class VerifyYourAccountUseCase
 {
     @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
 
+    private authService = new AuthService();
+
     async handle(payload: VerifyYourAccountPayload): Promise<ILocaleMessage>
     {
-        const confirmationToken = payload.confirmationToken;
+        const { confirmationToken } = payload;
 
-        const user = await this.repository.getOneByConfirmationToken(confirmationToken);
+        const { email } = this.authService.validateToken(confirmationToken);
+
+        const user = await this.repository.getOneByEmail(email);
 
         user.verify = true;
         user.enable = true;
-        user.confirmationToken = null;
 
         await this.repository.update(user);
 

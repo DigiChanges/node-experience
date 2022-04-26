@@ -3,7 +3,6 @@ import IUserDomain from './IUserDomain';
 import Base from '../../../App/Domain/Entities/Base';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import UserRepPayload from '../Payloads/UserRepPayload';
-import PasswordPayload from '../../../App/Domain/Payloads/PasswordPayload';
 
 class User extends Base implements IUserDomain
 {
@@ -23,7 +22,6 @@ class User extends Base implements IUserDomain
     enable: boolean;
     verify: boolean;
     isSuperAdmin: boolean;
-    confirmationToken?: string;
     passwordRequestedAt?: Date;
 
     constructor(payload: UserRepPayload)
@@ -48,7 +46,6 @@ class User extends Base implements IUserDomain
         this.enable = payload.enable;
         this.roles = payload.roles;
         this.permissions = payload.permissions;
-        this.confirmationToken = payload.confirmationToken ?? null;
         this.passwordRequestedAt = payload.passwordRequestedAt ?? null;
         this.isSuperAdmin = payload.isSuperAdmin;
     }

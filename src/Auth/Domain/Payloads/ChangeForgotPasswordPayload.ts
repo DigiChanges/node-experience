@@ -1,9 +1,8 @@
+import UserPasswordRepPayload from '../../../User/Domain/Payloads/UserPasswordPayload';
 
-interface ChangeForgotPasswordPayload
+interface ChangeForgotPasswordPayload extends UserPasswordRepPayload
 {
     confirmationToken: string;
-    password: string;
-    passwordConfirmation: string;
 }
 
 export default ChangeForgotPasswordPayload;

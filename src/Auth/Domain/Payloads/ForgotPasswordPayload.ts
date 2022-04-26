@@ -1,8 +1,8 @@
+import ConfirmationTokenPayload from './ConfirmationTokenPayload';
 
-interface ForgotPasswordPayload
+interface ForgotPasswordPayload extends ConfirmationTokenPayload
 {
     email: string;
-    confirmationToken: string;
     passwordRequestedAt: Date;
 }
 

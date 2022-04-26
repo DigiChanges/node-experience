@@ -32,18 +32,6 @@ class UserMongoRepository extends BaseMongoRepository<IUserDomain, IUser> implem
         return user;
     }
 
-    async getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>
-    {
-        const user = await this.repository.findOne({ confirmationToken }).populate(this.populate);
-
-        if (!user)
-        {
-            throw new NotFoundException('User');
-        }
-
-        return user;
-    }
-
     async list(criteria: ICriteria): Promise<IPaginator>
     {
         const queryBuilder: Query<IUser[], IUser> = this.repository.find({});

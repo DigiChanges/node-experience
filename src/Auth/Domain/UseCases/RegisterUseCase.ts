@@ -16,7 +16,9 @@ class RegisterUseCase
         const { urlWeb } = MainConfig.getInstance().getConfig().url;
         const user = await this.userService.create(payload);
 
-        const urlConfirmationToken = `${urlWeb}verify-your-account/${user.confirmationToken}`;
+        const confirmationToken = payload.confirmationToken;
+
+        const urlConfirmationToken = `${urlWeb}verify-your-account?token=${confirmationToken}`;
 
         void await SendEmailService.handle({
             event: RegisterEvent.REGISTER_EVENT,

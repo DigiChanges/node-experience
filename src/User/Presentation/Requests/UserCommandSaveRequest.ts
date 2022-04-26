@@ -1,5 +1,5 @@
+import { IsArray, IsBoolean, IsString, Length } from 'class-validator';
 import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
-import { ArrayMinSize, IsArray, IsBoolean, IsString, Length } from 'class-validator';
 import UserSavePayload from '../../Domain/Payloads/UserSavePayload';
 
 class UserCommandSaveRequest implements UserSavePayload
@@ -15,7 +15,6 @@ class UserCommandSaveRequest implements UserSavePayload
     private readonly _country: string;
     private readonly _address: string;
     private readonly _password: string;
-    private readonly _passwordConfirmation: string;
     private readonly _enable: boolean;
     private readonly _permissions: string[];
     private readonly _roles: IRoleDomain[];
@@ -30,7 +29,6 @@ class UserCommandSaveRequest implements UserSavePayload
         this._documentType = env.documentType;
         this._documentNumber = env.documentNumber;
         this._password = env.password;
-        this._passwordConfirmation = env.passwordConfirmation;
         this._gender = env.gender;
         this._phone = env.phone;
         this._country = env.country;
@@ -124,16 +122,6 @@ class UserCommandSaveRequest implements UserSavePayload
     get enable(): boolean
     {
         return this._enable;
-    }
-
-    @IsArray()
-    @ArrayMinSize(0)
-    @IsString({
-        each: true
-    })
-    get confirmationToken(): null
-    {
-        return null;
     }
 
     @IsArray()

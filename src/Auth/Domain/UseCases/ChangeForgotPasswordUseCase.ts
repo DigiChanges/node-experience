@@ -23,7 +23,6 @@ class ChangeForgotPasswordUseCase
         const decodeToken = this.authService.validateToken(confirmationToken);
 
         const user = await this.repository.getOneByEmail(decodeToken.email);
-        user.confirmationToken = null;
         user.passwordRequestedAt = null;
 
         user.password = await (new Password(password, minLength, maxLength)).ready();

@@ -13,7 +13,7 @@ class VerifyYourAccountRequest implements VerifyYourAccountPayload
     @IsString()
     get confirmationToken(): string
     {
-        return this._confirmationToken;
+        return `Bearer ${this._confirmationToken}`;
     }
 }
 

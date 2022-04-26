@@ -31,18 +31,6 @@ class UserMikroSqlRepository extends BaseMikroSqlRepository<IUserDomain> impleme
         return user as IUserDomain;
     }
 
-    async getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>
-    {
-        const user = await this.repository.findOne({ confirmationToken }, { populate: true });
-
-        if (!user)
-        {
-            throw new NotFoundException(User.name);
-        }
-
-        return user as IUserDomain;
-    }
-
     async list(criteria: ICriteria): Promise<IPaginator>
     {
         const queryBuilder: QueryBuilder = this.em.createQueryBuilder('User', 'i');
