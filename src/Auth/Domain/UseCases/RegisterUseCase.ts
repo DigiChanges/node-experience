@@ -18,7 +18,7 @@ class RegisterUseCase
 
         const confirmationToken = payload.confirmationToken;
 
-        const urlConfirmationToken = `${urlWeb}verify-your-account?token=${confirmationToken}`;
+        const urlConfirmationToken = `${urlWeb}/verify-your-account?token=${confirmationToken}`;
 
         void await SendEmailService.handle({
             event: RegisterEvent.REGISTER_EVENT,

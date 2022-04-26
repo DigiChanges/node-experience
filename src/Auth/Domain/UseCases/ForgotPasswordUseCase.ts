@@ -24,7 +24,7 @@ class ForgotPasswordUseCase
 
         await this.repository.save(user);
 
-        const urlConfirmationToken = `${urlWeb}change-forgot-password?token=${confirmationToken}`;
+        const urlConfirmationToken = `${urlWeb}/change-forgot-password?token=${confirmationToken}`;
 
         void await SendEmailService.handle({
             event: ForgotPasswordEvent.FORGOT_PASSWORD_EVENT,
