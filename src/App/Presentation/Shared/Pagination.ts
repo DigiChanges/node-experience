@@ -39,7 +39,7 @@ class Pagination implements IPagination
 
     getCurrentUrl(): string
     {
-        return this.exist ? `${this.host}${this.url.replace('/api/', '')}` : '';
+        return this.exist ? `${this.host}/${this.url.replace('/api/', '')}` : '';
     }
 
     // TODO: Refactoring with querystrings to reform query without harcoding URI
@@ -51,7 +51,7 @@ class Pagination implements IPagination
         {
             const offset = this.offset + this.limit;
 
-            url = `${this.host}${this.url.replace('/api/', '')}`;
+            url = `${this.host}/${this.url.replace('/api/', '')}`;
             const searchValue = `pagination[offset]=${this.pagination.offset}`;
             const newValue = `pagination[offset]=${offset}`;
 
