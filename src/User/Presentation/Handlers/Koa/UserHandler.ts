@@ -16,7 +16,6 @@ import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/A
 import Permissions from '../../../../Config/Permissions';
 import ResponseMessageEnum from '../../../../App/Domain/Enum/ResponseMessageEnum';
 import DefaultMessageTransformer from '../../../../App/Presentation/Transformers/DefaultMessageTransformer';
-import DataResponseMessage from '../../../../App/Presentation/Transformers/Response/DataResponseMessage';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/users'
@@ -31,8 +30,8 @@ UserHandler.post('/', AuthorizeMiddleware(Permissions.USERS_SAVE), async(ctx: Ko
     const _request = new UserSaveRequest(ctx.request.body);
 
     const user: IUserDomain = await controller.save(_request);
-    const responseData = new DataResponseMessage(user.getId(), ResponseMessageEnum.CREATED);
-    void await responder.send(responseData, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer());
+
+    void await responder.send(user, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
 });
 
 UserHandler.get('/', AuthorizeMiddleware(Permissions.USERS_LIST), async(ctx: Koa.ParameterizedContext & any) =>
@@ -58,8 +57,8 @@ UserHandler.put('/:id', AuthorizeMiddleware(Permissions.USERS_UPDATE), async(ctx
     const _request = new UserUpdateRequest(ctx.request.body, ctx.params.id, ctx.tokenDecode.userId);
 
     const user: IUserDomain = await controller.update(_request);
-    const responseData = new DataResponseMessage(user.getId(), ResponseMessageEnum.UPDATED);
-    void await responder.send(responseData, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer());
+
+    void await responder.send(user, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
 });
 
 UserHandler.put('/assign-role/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN_ROLE), async(ctx: Koa.ParameterizedContext & any) =>
@@ -67,8 +66,8 @@ UserHandler.put('/assign-role/:id', AuthorizeMiddleware(Permissions.USERS_ASSIGN
     const _request = new UserAssignRoleRequest(ctx.request.body, ctx.params.id);
 
     const user: IUserDomain = await controller.assignRole(_request);
-    const responseData = new DataResponseMessage(user.getId(), ResponseMessageEnum.UPDATED);
-    void await responder.send(responseData, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer());
+
+    void await responder.send(user, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
 });
 
 UserHandler.delete('/:id', AuthorizeMiddleware(Permissions.USERS_DELETE), async(ctx: Koa.ParameterizedContext & any) =>
@@ -85,8 +84,8 @@ UserHandler.post('/change-my-password', AuthorizeMiddleware(Permissions.USERS_CH
     const _request = new ChangeMyPasswordRequest(ctx.request.body, ctx.tokenDecode.userId);
 
     const user: IUserDomain = await controller.changeMyPassword(_request);
-    const responseData = new DataResponseMessage(user.getId(), ResponseMessageEnum.UPDATED);
-    void await responder.send(responseData, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer());
+
+    void await responder.send(user, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
 });
 
 UserHandler.put('/change-user-password/:id', AuthorizeMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD), async(ctx: Koa.ParameterizedContext & any) =>
@@ -94,8 +93,8 @@ UserHandler.put('/change-user-password/:id', AuthorizeMiddleware(Permissions.USE
     const _request = new ChangeUserPasswordRequest(ctx.request.body, ctx.params.id);
 
     const user: IUserDomain = await controller.changeUserPassword(_request);
-    const responseData = new DataResponseMessage(user.getId(), ResponseMessageEnum.UPDATED);
-    void await responder.send(responseData, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer());
+
+    void await responder.send(user, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
 });
 
 export default UserHandler;

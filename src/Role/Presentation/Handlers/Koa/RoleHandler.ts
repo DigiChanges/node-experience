@@ -13,7 +13,6 @@ import AuthorizeMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/A
 import Permissions from '../../../../Config/Permissions';
 import ResponseMessageEnum from '../../../../App/Domain/Enum/ResponseMessageEnum';
 import DefaultMessageTransformer from '../../../../App/Presentation/Transformers/DefaultMessageTransformer';
-import DataResponseMessage from '../../../../App/Presentation/Transformers/Response/DataResponseMessage';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/roles'
@@ -28,8 +27,8 @@ RoleHandler.post('/', AuthorizeMiddleware(Permissions.ROLES_SAVE), async(ctx: Ko
     const _request = new RoleRepRequest(ctx.request.body);
 
     const role: IRoleDomain = await controller.save(_request);
-    const responseData = new DataResponseMessage(role.getId(), ResponseMessageEnum.CREATED);
-    void await responder.send(responseData, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer());
+
+    void await responder.send(role, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
 });
 
 RoleHandler.get('/', AuthorizeMiddleware(Permissions.ROLES_LIST), async(ctx: Koa.ParameterizedContext & any) =>
@@ -55,8 +54,8 @@ RoleHandler.put('/:id', AuthorizeMiddleware(Permissions.ROLES_UPDATE), async(ctx
     const _request = new RoleUpdateRequest(ctx.request.body, ctx.params.id);
 
     const role: IRoleDomain = await controller.update(_request);
-    const responseData = new DataResponseMessage(role.getId(), ResponseMessageEnum.UPDATED);
-    void await responder.send(responseData, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer());
+
+    void await responder.send(role, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
 });
 
 RoleHandler.delete('/:id', AuthorizeMiddleware(Permissions.ROLES_DELETE), async(ctx: Koa.ParameterizedContext & any) =>

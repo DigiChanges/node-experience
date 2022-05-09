@@ -1,14 +1,23 @@
 import { Transformer } from '@digichanges/shared-experience';
 import IDefaultMessageTransformer from '../../InterfaceAdapters/IDefaultMessageTransformer';
-import Response from './Response/DataResponseMessage';
+import ResponseMessageEnum from '../../Domain/Enum/ResponseMessageEnum';
+import Base from '../../Domain/Entities/Base';
 
-class DefaultMessageTransformer extends Transformer
+class DefaultMessageTransformer<T extends Base> extends Transformer
 {
-    public async transform(data: Response): Promise<IDefaultMessageTransformer>
+    readonly #typeResponse: string;
+
+    constructor(response: ResponseMessageEnum)
+    {
+        super();
+        this.#typeResponse = response;
+    }
+
+    public async transform(data: T): Promise<IDefaultMessageTransformer>
     {
         return {
-            id: data.id,
-            message: data.message
+            id: data._id,
+            message: this.#typeResponse
         };
     }
 }

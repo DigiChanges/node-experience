@@ -3,7 +3,6 @@ import IUserDomain from './IUserDomain';
 import Base from '../../../App/Domain/Entities/Base';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import UserRepPayload from '../Payloads/UserRepPayload';
-import PasswordPayload from '../../../App/Domain/Payloads/PasswordPayload';
 
 class User extends Base implements IUserDomain
 {

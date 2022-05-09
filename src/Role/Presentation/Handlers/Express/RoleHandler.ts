@@ -16,8 +16,8 @@ import Permissions from '../../../../Config/Permissions';
 import IRoleDomain from '../../../Domain/Entities/IRoleDomain';
 import RoleController from '../../Controllers/RoleController';
 import ResponseMessageEnum from '../../../../App/Domain/Enum/ResponseMessageEnum';
-import ResponseTransformer from '../../../../App/Presentation/Transformers/DefaultMessageTransformer';
-import ResponseData from '../../../../App/Presentation/Transformers/Response/DataResponseMessage';
+import DefaultMessageTransformer from '../../../../App/Presentation/Transformers/DefaultMessageTransformer';
+
 @controller('/api/roles')
 class RoleHandler
 {
@@ -36,8 +36,8 @@ class RoleHandler
         const _request = new RoleRepRequest(req.body);
 
         const role: IRoleDomain = await this.controller.save(_request);
-        const responseData = new ResponseData(role.getId(), ResponseMessageEnum.CREATED);
-        void await this.responder.send(responseData, req, res, StatusCode.HTTP_CREATED, new ResponseTransformer());
+
+        void await this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
     }
 
     @httpGet('/', AuthorizeMiddleware(Permissions.ROLES_LIST))
@@ -66,8 +66,8 @@ class RoleHandler
         const _request = new RoleUpdateRequest(req.body, req.params.id);
 
         const role: IRoleDomain = await this.controller.update(_request);
-        const responseData = new ResponseData(role.getId(), ResponseMessageEnum.UPDATED);
-        void await this.responder.send(responseData, req, res, StatusCode.HTTP_CREATED, new ResponseTransformer());
+
+        void await this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     @httpDelete('/:id', AuthorizeMiddleware(Permissions.ROLES_DELETE))
