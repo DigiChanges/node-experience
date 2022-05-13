@@ -36,7 +36,7 @@ module.exports = {
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
     "<rootDir>/node_modules/",
-    "<rootDir>/.eslintrc.js",
+    "<rootDir>/.eslintrc.json",
     "<rootDir>/src/command.ts",
     "<rootDir>/src/File/*",
     "<rootDir>/src/AppExpress/Domain/*",

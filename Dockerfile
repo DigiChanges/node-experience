@@ -1,52 +1,49 @@
-FROM node:16 as node
+FROM node:16-alpine as dev
 
-# Builder stage
-FROM node AS dev
+RUN apk add bash
 
-USER node
+WORKDIR /app
 
-RUN mkdir /home/node/cache
-WORKDIR /home/node/cache
+# Install app dependencies
+COPY package.json ./
+COPY yarn.lock ./
 
-COPY --chown=node:node package.json yarn.lock ./
+RUN yarn install
 
-RUN yarn
+COPY src src/
 
-WORKDIR /home/node/app
+COPY tsconfig.json ./
+COPY babel.config.json ./
+COPY ecosystem.config.js ./
+COPY .env.dev ./
+COPY config config/
 
-COPY . .
+RUN yarn transpile
 
+FROM dev as prerelease
+
+RUN yarn --production=true
+RUN yarn pre-build
+
+FROM node:16-alpine as prod
+
+RUN apk add bash
+RUN yarn global add pm2
+
+WORKDIR /app
+
+RUN adduser -D -S limited-user
+
+COPY --from=prerelease /app/package.json ./
+COPY --from=prerelease /app/ecosystem.config.js/ ./
+COPY --from=prerelease /app/node_modules/ ./node_modules/
+COPY --from=prerelease /app/dist/ ./dist/
+COPY --from=prerelease /app/config/ ./config/
+COPY --from=prerelease /app/.env.dev/ ./.env
+
+USER limited-user
 EXPOSE ${PORT}
 
-# Run development server
-ENTRYPOINT [ "bash", "entrypoint.sh" ]
+# ENTRYPOINT ["pm2-runtime", "start", "ecosystem.config.js"]
 
-# Final stage
-FROM node AS prod
-
-ENV NODE_ENV production
-
-# Update the system
-RUN apk --no-cache -U upgrade
-
-# Prepare destination directory and ensure user node owns it
-RUN mkdir -p /home/node/app/dist && chown -R node:node /home/node/app
-
-# Set CWD
-WORKDIR /home/node/app
-
-RUN npm install -g pm2
-
-COPY --chown=node:node package.json yarn.lock ecosystem.config.js ./
-
-# Switch to user node
-USER node
-
-RUN yarn install --production
-
-# Copy js files and change ownership to user node
-COPY --chown=node:node --from=builder /home/node/app/dist ./dist
-COPY --chown=node:node --from=builder /home/node/app/config ./config
-
-# Use PM2 to run the application as stated in config file
-ENTRYPOINT ["pm2-runtime", "start", "ecosystem.config.js"]
+CMD ["yarn","start"]

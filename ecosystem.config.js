@@ -1,7 +1,7 @@
 module.exports = {
     apps : [{
         name: "node-experience",
-        script: "./dist/src/index.js",
+        script: "./dist/index.js",
         error_file: "./dist/src/logs/err.log",
         watch: false,
         instances: 1,

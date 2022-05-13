@@ -6,7 +6,6 @@ services:
     restart: always
     image: digichanges/nexp:1.0
     working_dir: /usr/app
-    entrypoint: bash prod.build.sh
     volumes:
       - .:/usr/app:cached
     ports:

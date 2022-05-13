@@ -9,7 +9,7 @@ class Locales
     {
         this.i18n.configure({
             locales: ['en', 'es'],
-            directory: `${process.cwd()}/dist/src/Config/Locales`,
+            directory: `${process.cwd()}/dist/Config/Locales`,
             defaultLocale: 'en',
             objectNotation: true
         });

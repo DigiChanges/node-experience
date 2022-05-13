@@ -7,10 +7,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: dev
-    working_dir: /home/node/app
+      target: prod
+    working_dir: /app
     volumes:
-     - .:/home/node/app:cached
+     - .:/app:cached
     ports:
       - "8089:8089"
     networks:
