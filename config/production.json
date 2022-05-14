@@ -3,7 +3,7 @@
   "nodePath": "/home/node/app",
   "serverPort": 80,
   "setCookieSecure": true,
-  "setCookieSameSite": "none",
+  "setCookieSameSite": "None",
     "auth": {
       "authorization": true
   },

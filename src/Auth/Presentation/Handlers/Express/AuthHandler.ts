@@ -71,7 +71,7 @@ class AuthHandler
                 path: '/api/auth',
                 secure: MainConfig.getInstance().getConfig().setCookieSecure,
                 httpOnly: true,
-                sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
+                sameSite: MainConfig.getInstance().getConfig().setCookieSameSite as any
             });
 
         void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new AuthTransformer());
@@ -115,7 +115,7 @@ class AuthHandler
                 path: '/api/auth',
                 secure: MainConfig.getInstance().getConfig().setCookieSecure,
                 httpOnly: true,
-                sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
+                sameSite: MainConfig.getInstance().getConfig().setCookieSameSite as any
             });
 
         void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new AuthTransformer());

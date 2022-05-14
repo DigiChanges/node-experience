@@ -105,7 +105,7 @@ type ConfigType = {
     env: string;
     nodePath: string;
     setCookieSecure: boolean;
-    setCookieSameSite: boolean | 'none' | 'lax' | 'strict';
+    setCookieSameSite: boolean | 'None' | 'Lax' | 'Strict';
     serverPort: number;
     auth: {
         authorization: boolean;
