@@ -71,5 +71,5 @@ init:
 	docker-compose exec node sh dev.init.sh
 
 clean:
-	docker-compose-down -v --remove-orphans
+	docker-compose down -v --remove-orphans
 	docker ps -a | grep _run_ | awk '{print $$1}' | xargs -I {} docker rm {}
