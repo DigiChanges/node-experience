@@ -7,7 +7,7 @@ import RedirectRouteNotFoundMiddleware from '../../Middlewares/Koa/RedirectRoute
 import Throttle from '../../Middlewares/Koa/Throttle';
 import VerifyTokenMiddleware from '../../../../Auth/Presentation/Middlewares/Koa/VerifyTokenMiddleware';
 import IApp from '../../../InterfaceAdapters/IApp';
-import Locales from '../Locales';
+// import Locales from '../Locales';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import IndexHandler from '../../Handlers/Koa/IndexHandler';
@@ -30,7 +30,7 @@ class AppKoa implements IApp
 {
     public port?: number;
     private readonly app: Koa;
-    private locales: Locales;
+    // private locales: Locales;
     private config: IAppConfig;
 
     constructor(config: IAppConfig)
@@ -38,7 +38,7 @@ class AppKoa implements IApp
         this.port = config.serverPort || 8090;
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         this.app = require('koa-qs')(new Koa());
-        this.locales = Locales.getInstance();
+        // this.locales = Locales.getInstance();
         this.config = config;
     }
 

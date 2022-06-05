@@ -5,12 +5,8 @@ services:
     container_name: experience_node_1
     restart: always
     build:
-      context: .
       dockerfile: Dockerfile
-      target: prod
-    working_dir: /app
-    volumes:
-     - .:/app:cached
+      target: ${STAGE}
     ports:
       - "8089:8089"
     networks:
