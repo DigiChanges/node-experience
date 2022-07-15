@@ -31,11 +31,20 @@ class EventHandler extends EventEmitter
 
     public async setListeners()
     {
-        await this.on(UserCreatedEvent.USER_CREATED_EVENT, UserCreatedEvent.userCreatedListener);
-        await this.on(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT, ForgotPasswordEvent.forgotPasswordListener);
-        await this.on(SendMessageEvent.SEND_MESSAGE_EVENT, SendMessageEvent.sendMessageListener);
-        await this.on(RegisterEvent.REGISTER_EVENT, RegisterEvent.sendEmailListener);
-        await this.on(VerifiedAccountEvent.VERIFIED_ACCOUNT_EVENT, VerifiedAccountEvent.sendEmailListener);
+        await this.on(UserCreatedEvent.USER_CREATED_EVENT, UserCreatedEvent.handle);
+        await this.on(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT, ForgotPasswordEvent.handle);
+        await this.on(SendMessageEvent.SEND_MESSAGE_EVENT, SendMessageEvent.handle);
+        await this.on(RegisterEvent.REGISTER_EVENT, RegisterEvent.handle);
+        await this.on(VerifiedAccountEvent.VERIFIED_ACCOUNT_EVENT, VerifiedAccountEvent.handle);
+    }
+
+    public async removeListeners()
+    {
+        await this.removeAllListeners(UserCreatedEvent.USER_CREATED_EVENT);
+        await this.removeAllListeners(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT);
+        await this.removeAllListeners(SendMessageEvent.SEND_MESSAGE_EVENT);
+        await this.removeAllListeners(RegisterEvent.REGISTER_EVENT);
+        await this.removeAllListeners(VerifiedAccountEvent.VERIFIED_ACCOUNT_EVENT);
     }
 }
 

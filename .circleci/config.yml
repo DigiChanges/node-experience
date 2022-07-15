@@ -9,6 +9,8 @@ jobs:
       - run: echo "Running tests"
       - run: npm install --force
       - run: npm run ci
+      - run: npm run cpy-ci
+      - run: npm run build
       - run: npm test
       - store_artifacts:
           path: ~/circleci/coverage

@@ -4,7 +4,7 @@ class UserCreatedEvent
 {
     public static USER_CREATED_EVENT = 'USER_CREATED_EVENT';
 
-    public static userCreatedListener = async(props: any) =>
+    public static handle = async(props: any) =>
     {
         const { email } = props;
 

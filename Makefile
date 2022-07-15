@@ -35,7 +35,7 @@ prod:
 	@echo '************                               ************'
 	@echo '************           PROD INIT    	      ************'
 	@echo '************                               ************'
-	STAGE=$(PROD_STAGE) docker-compose -f docker-compose.yml up --build -d
+	STAGE=$(PROD_STAGE) docker-compose up --build -d
 
 dev_sql:
 	@echo '************                               ************'

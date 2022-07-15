@@ -1,0 +1,16 @@
+{
+  "verbose": true,
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "watch": [
+    "src/*"
+  ],
+  "exec": "etsc && node ./dist/src/index.js",
+  "legacyWatch": true,
+  "ext": "js,ts,json,hbs"
+}

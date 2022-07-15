@@ -6,7 +6,7 @@ class VerifiedAccountEvent
 {
     public static VERIFIED_ACCOUNT_EVENT = 'VERIFIED_ACCOUNT_EVENT';
 
-    public static sendEmailListener = async(props: any) =>
+    public static handle = async(props: any) =>
     {
         const { emailNotification, args } = props;
 

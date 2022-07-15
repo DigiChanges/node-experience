@@ -112,7 +112,7 @@
           { "functions": true, "variables": true, "classes": false }
         ],
         "@typescript-eslint/ban-types": [
-          "warn", // <- OEP. Fix about use object
+          "warn",
           {
             "types": {
               "Object": {

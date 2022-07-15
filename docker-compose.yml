@@ -5,10 +5,13 @@ services:
     container_name: experience_node_1
     restart: always
     build:
+      context: .
       dockerfile: Dockerfile
       target: ${STAGE}
     ports:
       - "8089:8089"
+    volumes:
+      - .:/usr/app:cached
     networks:
      - experiencenet
 

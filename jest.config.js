@@ -23,13 +23,14 @@ module.exports = {
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: [
       "src/**/*.{js,jsx,ts,tsx}",
+      "dist/src/**/*.{js,jsx,ts,tsx}",
       "!<rootDir>/node_modules/"
   ],
 
   // transform: tsjPreset.transform,
-  transform: {
-    '^.+\\.ts?$': 'ts-jest',
-  },
+  // transform: {
+  //   '^.+\\.ts?$': 'ts-jest',
+  // },
   // The directory where Jest should output its coverage files
   coverageDirectory: "coverage",
 
@@ -149,7 +150,7 @@ module.exports = {
 
   // A list of paths to directories that Jest should use to search for files in
   roots: [
-    "<rootDir>/src"
+    "<rootDir>/dist/src"
   ],
 
   // Allows you to use a custom runner instead of Jest's default test runner
@@ -184,7 +185,7 @@ module.exports = {
   //   "**/?(*.)+(spec|test).[j]s?(x)"
   // ],
 
-  testRegex: '((\\.|/)(spec))\\.ts?$',
+  testRegex: '((\\.|/)(spec))\\.js?$',
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
