@@ -4,8 +4,10 @@ import getDecorators from 'inversify-inject-decorators';
 // setup the container...
 const { lazyInject: originalLazyInject } = getDecorators(container);
 
-// Additional function to make properties decorators compatible with babel.
-function fixPropertyDecorator<T extends Function>(decorator: T): T
+type MyFunction = (...args: any) => any;
+
+// Additional function to make properties decorators compatible with babel and esbuild.
+function fixPropertyDecorator<T extends MyFunction>(decorator: T): T
 {
     return ((...args: any[]) => (
         target: any,

@@ -4,6 +4,7 @@ import User from '../../../User/Infrastructure/Schemas/UserMikroORM';
 import Item from '../../../Item/Infrastructure/Schemas/ItemMikroORM';
 import File from '../../../File/Infrastructure/Schemas/FileMikroORM';
 import MainConfig from '../../../Config/mainConfig';
+import Logger from '../../../Shared/Logger/Logger';
 
 void (async() =>
 {
@@ -22,17 +23,17 @@ void (async() =>
     const generator = orm.getSchemaGenerator();
 
     const dropDump = await generator.getDropSchemaSQL();
-    console.log(dropDump);
+    Logger.debug(dropDump);
 
     const createDump = await generator.getCreateSchemaSQL();
-    console.log(createDump);
+    Logger.debug(createDump);
 
     const updateDump = await generator.getUpdateSchemaSQL();
-    console.log(updateDump);
+    Logger.debug(updateDump);
 
     // there is also `generate()` method that returns drop + create queries
     const dropAndCreateDump = await generator.generate();
-    console.log(dropAndCreateDump);
+    Logger.debug(dropAndCreateDump);
 
     // or you can run those queries directly, but be sure to check them first!
     await generator.dropSchema();
