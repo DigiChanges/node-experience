@@ -48,7 +48,6 @@ const initTestServer = async(): Promise<any> =>
 
     const app = AppFactory.create('AppKoa', {
         viewRouteEngine: `${process.cwd()}/dist/src/App/Presentation/Views`,
-        localesDirectory: `${process.cwd()}/dist/src/Config/Locales`,
         serverPort: 8088
     });
 

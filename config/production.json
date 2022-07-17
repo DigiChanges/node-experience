@@ -1,6 +1,6 @@
 {
   "env": "production",
-  "nodePath": "/home/node/app",
+  "nodePath": "/app",
   "serverPort": 80,
   "setCookieSecure": true,
   "setCookieSameSite": "none",

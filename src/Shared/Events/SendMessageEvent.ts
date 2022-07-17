@@ -6,7 +6,7 @@ class SendMessageEvent
 {
     public static SEND_MESSAGE_EVENT = 'SEND_MESSAGE_EVENT';
 
-    public static sendMessageListener = async(props: any) =>
+    public static handle = async(props: any) =>
     {
         const { pushNotification, message } = props;
 

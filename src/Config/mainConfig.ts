@@ -41,7 +41,7 @@ type MikroORMConfig = {
     password: string;
 };
 
-type RedisConfig = {
+export type CacheConfig = {
     host: string;
     port: number;
     password: string;
@@ -117,7 +117,7 @@ type ConfigType = {
         default: string;
     };
     cache: {
-        redis: RedisConfig;
+        redis: CacheConfig;
     };
     filesystem: {
         minio: MinioConfig;

@@ -6,7 +6,7 @@ class RegisterEvent
 {
     public static REGISTER_EVENT = 'REGISTER_EVENT';
 
-    public static sendEmailListener = async(props: any) =>
+    public static handle = async(props: any) =>
     {
         const { emailNotification, args } = props;
 
