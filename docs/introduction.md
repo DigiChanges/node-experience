@@ -31,12 +31,11 @@ The directory structures for business domains are as follows:
 │   ├── Exceptions
 │   └── Services
 │   └── UseCases
+│   └── Payloads
 ├── Infrastructure
 │   ├── Repositories
 │   ├── Schema
 │   └── Seeds
-├── InterfaceAdapters
-│   └── Payloads
 ├── Presentation
 │   ├── Commands
 │   ├── Controllers
@@ -51,7 +50,7 @@ The directory structures for business domains are as follows:
 
 ---
 
-?> **Tip** I know it may sound repetitive, but it is not a framework. NExp is a set of tools or libraries working together through a common structure. All structural code within this project is not fixed and can be changed freely.
+> **Tip** I know it may sound repetitive, but it is not a framework. NExp is a set of tools or libraries working together through a common structure. All structural code within this project is not fixed and can be changed freely.
 
 ## Advantages
 
@@ -67,4 +66,18 @@ Common structures found within this project are:
 - TypeORM and Mongoose Integration with a DatabaseFactory
 - Express and Koa integration with AppFactory
 - Business logic independent of the HTTP and persistence libraries. 
-- Parcel compiler. 
+- Esbuild compiler. 
+
+## Docs
+
+### Postman Documentation
+
+[API Documentation](https://documenter.getpostman.com/view/10426172/Tz5je15Z)
+
+### Boilerplate Documentation
+
+[Boilerplate Documentation](https://digichanges.github.io/node-experience)
+
+## License
+
+**NExp** is [MIT licensed](LICENSE).

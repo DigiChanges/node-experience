@@ -18,7 +18,7 @@
     "prepare": "husky install",
     "start": "node dist/index.js",
     "test": "jest --runInBand --coverage",
-    "test-watch": "npx jest --watch --silent --coverage=false",
+    "test-watch": "jest --watch --silent --coverage=false",
     "tsc": "tsc",
     "ts-check": "tsc -p tsconfig.json --noEmit",
     "transpile": "node build.js",
@@ -137,7 +137,6 @@
     "prettier": "^2.6.0",
     "rimraf": "^3.0.2",
     "supertest": "^6.2.4",
-    "ts-jest": "^28.0.6",
     "ts-node": "^10.9.1",
     "typescript": "^4.6.4"
   },

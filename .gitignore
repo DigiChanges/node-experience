@@ -8,6 +8,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 package-lock.json
+.nexp
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -238,7 +239,5 @@ extend.tsconfig.json
 .scannerwork
 
 .vscode
-
-.parcel-cache
 
 # End of https://www.gitignore.io/api/node,phpstorm+all

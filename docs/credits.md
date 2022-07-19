@@ -6,10 +6,6 @@
 
 * [bcrypt](https://www.npmjs.com/package/bcrypt) - A library to help you hash passwords.
 
-* [bcryptjs](https://www.npmjs.com/package/bcryptjs) - Optimized bcrypt in JavaScript with zero dependencies.
-
-* [catch-decorator](https://www.npmjs.com/package/catch-decorator) - Allows you to handle exceptions in class methods with only one annotation (decorator).
-
 * [class-validator](https://www.npmjs.com/package/class-validator) - Allows use of decorator and non-decorator based validation. Internally uses validator.js to perform validation. Class-validator works on both browser and node.js platforms.
 
 * [commander](https://www.npmjs.com/package/commander) - The complete solution for node.js command-line interfaces.
@@ -36,10 +32,6 @@
 
 * [express-rate-limit](https://www.npmjs.com/package/express-rate-limit) - Basic rate-limiting middleware for Express. Use to limit repeated requests to public APIs and/or endpoints such as password reset.
 
-* [express-throttle](https://www.npmjs.com/package/express-throttle) - Request throttling middleware for Express framework.
-
-* [express-winston](https://www.npmjs.com/package/express-winston) - Winston middleware for express.js.
-
 * [faker](https://www.npmjs.com/package/faker) - Generate massive amounts of fake data in the browser and node.js.
 
 * [handlebars](https://www.npmjs.com/package/handlebars) - Handlebars.js is an extension to the Mustache templating language created by Chris Wanstrath.
@@ -55,8 +47,6 @@
 * [inversify-express-utils](https://www.npmjs.com/package/inversify-express-utils) - Some utilities for the development of express applications with Inversify.
 
 * [inversify-inject-decorators](https://www.npmjs.com/package/inversify-inject-decorators) - Lazy evaluated property injection decorators.
-
-* [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - An implementation of JSON Web Tokens.
 
 * [jwt-simple](https://www.npmjs.com/package/jwt-simple) - JWT(JSON Web Token) encode and decode module for node.js.
 
@@ -74,8 +64,6 @@
 
 * [multer](https://www.npmjs.com/package/multer) - Multer is a node.js middleware for handling multipart/form-data, which is primarily used for uploading files.
 
-* [node-minio](https://www.npmjs.com/package/node-minio) - Async Minio(S3 compatible high performance object storage and retrieval) client for promises support in NodeJS An helper library which provides core promisified helper functions for using minio bucket from Node API.
-
 * [nodemailer](https://www.npmjs.com/package/nodemailer) - Sponsored by Forward Email – free email forwarding + custom domains + 100% open-source!
 
 * [pg](https://www.npmjs.com/package/pg) - Non-blocking PostgreSQL client for Node.js.
@@ -86,15 +74,11 @@
 
 * [tedis](https://www.npmjs.com/package/tedis) - Tedis write with typescript, it's the client of redis for nodejs, support async with ts and commonjs.
 
-* [ts-jest](https://www.npmjs.com/package/ts-jest) - A TypeScript preprocessor with source map support for Jest that lets you use Jest to test projects written in TypeScript.
-
 * [typeorm](https://www.npmjs.com/package/typeorm) - TypeORM is an ORM that can run in NodeJS, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, and Electron platforms and can be used with TypeScript and JavaScript (ES5, ES6, ES7, ES8). Its goal is to always support the latest JavaScript features and provide additional features that help you to develop any kind of application that uses databases - from small applications with a few tables to large scale enterprise applications with multiple databases.
 
 * [uuid](https://www.npmjs.com/package/uuid) - For the creation of RFC4122 UUIDs.
 
 * [web-push](https://www.npmjs.com/package/web-push) - Web push requires that push messages triggered from a backend be done via the Web Push Protocol and if you want to send data with your push message, you must also encrypt that data according to the Message Encryption for Web Push spec.
-
-* [winston](https://www.npmjs.com/package/winston) - A logger for just about everything.
 
 ## License
 
