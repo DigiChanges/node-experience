@@ -1,4 +1,34 @@
 {
   "http": ["Express", "Koa"],
-  "orm": ["Mongoose", "TypeORM", "MikroORM"]
+  "orm": ["Mongoose", "TypeORM", "MikroORM"],
+  "domains": [
+    {
+      "name": "App",
+      "fileInfra": "Base"
+    },
+    {
+      "name": "Auth",
+      "fileInfra": "Token"
+    },
+    {
+      "name": "File",
+      "fileInfra": "File"
+    },
+    {
+      "name": "Item",
+      "fileInfra": "Item"
+    },
+    {
+      "name": "Notification",
+      "fileInfra": "Notification"
+    },
+    {
+      "name": "Role",
+      "fileInfra": "Role"
+    },
+    {
+      "name": "User",
+      "fileInfra": "User"
+    }
+  ]
 }
