@@ -1,6 +1,6 @@
 {
   "name": "node-experience",
-  "version": "1.14.6",
+  "version": "1.14.7",
   "description": "",
   "scripts": {
     "build": "etsc",
