@@ -7,13 +7,13 @@ import { ICreateConnection, ITokenRepository } from '@digichanges/shared-experie
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 import EventHandler from './Shared/Events/EventHandler';
 import { REPOSITORIES } from './Config/Injects/repositories';
-import TokenMongoRepository from './Auth/Infrastructure/Repositories/TokenMongoRepository';
-import TokenSqlRepository from './Auth/Infrastructure/Repositories/TokenSqlRepository';
+import TokenMongooseRepository from './Auth/Infrastructure/Repositories/TokenMongooseRepository';
+import TokenTypeORMRepository from './Auth/Infrastructure/Repositories/TokenTypeORMRepository';
 import { validateEnv } from './Config/validateEnv';
 import container from './inversify.config';
 import ITokenDomain from './Auth/Domain/Entities/ITokenDomain';
 import SeedFactory from './Shared/Factories/SeedFactory';
-import AppFactory from './App/Presentation/Factories/AppFactory';
+import AppFactory from './Shared/Factories/AppFactory';
 import Locales from './App/Presentation/Shared/Locales';
 import { FACTORIES } from './Config/Injects/factories';
 import INotificationFactory from './Notification/Shared/INotificationFactory';
@@ -39,8 +39,8 @@ const initTestServer = async(): Promise<any> =>
 
     container.unbind(REPOSITORIES.ITokenRepository);
     container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(mainConfig.dbConfig.default === 'Mongoose'
-        ? TokenMongoRepository
-        : TokenSqlRepository
+        ? TokenMongooseRepository
+        : TokenTypeORMRepository
     );
 
     container.unbind(FACTORIES.INotificationFactory);

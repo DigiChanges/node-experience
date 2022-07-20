@@ -1,4 +1,4 @@
-import Responder from '../../Shared/Express/Responder';
+import Responder from '../../Shared/Http/Express/Responder';
 import FormatError from '../../Shared/FormatError';
 import { StatusCode } from '@digichanges/shared-experience';
 import RouteNotFoundHttpException from '../../Exceptions/RouteNotFoundHttpException';

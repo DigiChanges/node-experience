@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import Responder from '../../Shared/Koa/Responder';
+import Responder from '../../Shared/Http/Koa/Responder';
 import { StatusCode } from '@digichanges/shared-experience';
 
 const routerOpts: Router.IRouterOptions = {

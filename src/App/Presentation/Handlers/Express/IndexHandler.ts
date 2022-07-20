@@ -3,7 +3,7 @@ import { controller, httpGet, BaseHttpController } from 'inversify-express-utils
 import { StatusCode } from '@digichanges/shared-experience';
 
 import { TYPES } from '../../../../Config/Injects/types';
-import Responder from '../../Shared/Express/Responder';
+import Responder from '../../Shared/Http/Express/Responder';
 import Locales from '../../Shared/Locales';
 
 @controller('/')

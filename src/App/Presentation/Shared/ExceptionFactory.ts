@@ -6,16 +6,16 @@ import { StatusCode } from '@digichanges/shared-experience';
 
 class ExceptionFactory
 {
-    private exceptionsMapper = {
+    private static exceptionsMapper = {
         ...exceptions,
         Error: StatusCode.HTTP_INTERNAL_SERVER_ERROR,
         TypeError: StatusCode.HTTP_INTERNAL_SERVER_ERROR,
         [ErrorHttpException.name]: StatusCode.HTTP_INTERNAL_SERVER_ERROR
     };
 
-    public getException(err: any): ErrorHttpException
+    public static getException(err: any): ErrorHttpException
     {
-        const statusCode = this.exceptionsMapper[err?.name] ?? StatusCode.HTTP_INTERNAL_SERVER_ERROR;
+        const statusCode = ExceptionFactory.exceptionsMapper[err?.name] ?? StatusCode.HTTP_INTERNAL_SERVER_ERROR;
 
         let exception = new ErrorHttpException();
 

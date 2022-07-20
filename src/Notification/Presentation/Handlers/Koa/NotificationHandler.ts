@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import { StatusCode } from '@digichanges/shared-experience';
-import Responder from '../../../../App/Presentation/Shared/Koa/Responder';
+import Responder from '../../../../App/Presentation/Shared/Http/Koa/Responder';
 import NotificationController from '../../Controller/NotificationController';
 import NotificationSubscriptionRequest from '../../Requests/NotificationCreateSuscriptionRequest';
 import NotificationSendMessageRequest from '../../Requests/NotificationSendMessageRequest';

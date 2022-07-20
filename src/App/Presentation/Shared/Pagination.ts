@@ -15,8 +15,8 @@ class Pagination implements IPagination
     {
         this.url = url;
         this.pagination = query.pagination;
-        this.limit = query?.pagination ? Number(this.pagination.limit) : 10;
-        this.offset = query?.pagination ? Number(this.pagination.offset) : 0;
+        this.limit = query?.pagination ? +this.pagination.limit : 10;
+        this.offset = query?.pagination ? +this.pagination.offset : 0;
         this.exist = query?.pagination !== undefined;
         const config = MainConfig.getInstance();
         this.host = config.getConfig().url.urlApi;

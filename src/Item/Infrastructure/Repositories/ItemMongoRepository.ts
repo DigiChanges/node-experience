@@ -4,15 +4,15 @@ import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import IItemRepository from './IItemRepository';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
-import MongoPaginator from '../../../App/Presentation/Shared/MongoPaginator';
+import MongoosePaginator from '../../../App/Presentation/Shared/Orm/MongoosePaginator';
 import IItem from '../Schemas/IItemDocument';
 
-import BaseMongoRepository from '../../../App/Infrastructure/Repositories/BaseMongoRepository';
+import BaseMongooseRepository from '../../../App/Infrastructure/Repositories/BaseMongooseRepository';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 import Item from '../../Domain/Entities/Item';
 
 @injectable()
-class ItemMongoRepository extends BaseMongoRepository<IItemDomain, IItem> implements IItemRepository
+class ItemMongoRepository extends BaseMongooseRepository<IItemDomain, IItem> implements IItemRepository
 {
     constructor()
     {
@@ -41,7 +41,7 @@ class ItemMongoRepository extends BaseMongoRepository<IItemDomain, IItem> implem
 
         void queryBuilder.populate(this.populate);
 
-        return new MongoPaginator(queryBuilder, criteria);
+        return new MongoosePaginator(queryBuilder, criteria);
     }
 }
 

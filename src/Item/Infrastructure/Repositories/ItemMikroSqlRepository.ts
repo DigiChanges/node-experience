@@ -3,15 +3,15 @@ import Item from '../../Domain/Entities/Item';
 import { injectable } from 'inversify';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
-import Paginator from '../../../App/Presentation/Shared/MikroPaginator';
+import Paginator from '../../../App/Presentation/Shared/Orm/MikroORMPaginator';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import ItemSchema from '../Schemas/ItemMikroORM';
 
-import BaseMikroSqlRepository from '../../../App/Infrastructure/Repositories/BaseMikroSqlRepository';
+import BaseMikroORMRepository from '../../../App/Infrastructure/Repositories/BaseMikroORMRepository';
 import { QueryBuilder } from '@mikro-orm/postgresql';
 
 @injectable()
-class ItemMikroSqlRepository extends BaseMikroSqlRepository<Item> implements IItemRepository
+class ItemMikroSqlRepository extends BaseMikroORMRepository<Item> implements IItemRepository
 {
     constructor()
     {

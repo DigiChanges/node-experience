@@ -46,9 +46,9 @@ module.exports = {
     "<rootDir>/src/Item/Presentation/Commands/*",
     "<rootDir>/src/Role/Presentation/Commands/*",
     "<rootDir>/src/AppExpress/Presentation/Criterias/*",
-    "<rootDir>/src/File/Infrastructure/Repositories/FileSqlRepository.ts",
-    "<rootDir>/src/User/Infrastructure/Repositories/UserSqlRepository.ts",
-    "<rootDir>/src/Role/Infrastructure/Repositories/RoleSqlRepository.ts",
+    "<rootDir>/src/File/Infrastructure/Repositories/FileTypeORMRepository.ts",
+    "<rootDir>/src/User/Infrastructure/Repositories/UserTypeORMRepository.ts",
+    "<rootDir>/src/Role/Infrastructure/Repositories/RoleTypeORMRepository.ts",
     "<rootDir>/src/Item/Infrastructure/Repositories/ItemSqlRepository.ts",
     "<rootDir>/src/Auth/Infrastructure/Repositories/TokenRedisRepository.ts"
   ],

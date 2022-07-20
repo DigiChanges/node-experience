@@ -2,8 +2,8 @@ import Notification from './Notification';
 import StatusNotificationEnum from '../Enum/StatusNotificationEnum';
 import TypeNotificationEnum from '../Enum/TypeNotificationEnum';
 import IFileDomain from '../../../File/Domain/Entities/IFileDomain';
-import IEmailNotificationData from '../../InterfaceAdapters/IEmailNotificationData';
-import IFilesAttachments from '../../InterfaceAdapters/IFilesAttachments';
+import IEmailNotificationData from './IEmailNotificationData';
+import IFilesAttachments from './IFilesAttachments';
 
 class EmailNotification extends Notification
 {

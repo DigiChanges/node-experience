@@ -4,7 +4,7 @@ import { StatusCode } from '@digichanges/shared-experience';
 
 import { inject } from 'inversify';
 import { TYPES } from '../../../../Config/Injects/types';
-import Responder from '../../../../App/Presentation/Shared/Express/Responder';
+import Responder from '../../../../App/Presentation/Shared/Http/Express/Responder';
 
 import AuthorizeMiddleware from '../../Middlewares/Express/AuthorizeMiddleware';
 import Permissions from '../../../../Config/Permissions';

@@ -2,7 +2,6 @@ import { Schema } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 import Token from '../../Domain/Entities/Token';
 
-
 const TokenSchema: any = new Schema({
     _id: { type: Schema.Types.String, default: uuidv4 },
     hash: { type:Schema.Types.String, required: true },

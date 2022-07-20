@@ -1,4 +1,4 @@
-import Responder from '../../Shared/Koa/Responder';
+import Responder from '../../Shared/Http/Koa/Responder';
 import { StatusCode } from '@digichanges/shared-experience';
 import RouteNotFoundHttpException from '../../Exceptions/RouteNotFoundHttpException';
 

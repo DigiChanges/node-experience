@@ -6,7 +6,7 @@ import { StatusCode } from '@digichanges/shared-experience';
 import { TYPES } from '../../../../Config/Injects/types';
 import NotificationSubscriptionRequest from '../../Requests/NotificationCreateSuscriptionRequest';
 import NotificationSendMessageRequest from '../../Requests/NotificationSendMessageRequest';
-import Responder from '../../../../App/Presentation/Shared/Express/Responder';
+import Responder from '../../../../App/Presentation/Shared/Http/Express/Responder';
 import NotificationController from '../../Controller/NotificationController';
 
 @controller('/api/notifications')

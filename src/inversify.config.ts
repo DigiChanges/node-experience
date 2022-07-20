@@ -3,7 +3,7 @@ import MainConfig from './Config/mainConfig';
 
 import FormatResponder from './App/Presentation/Shared/FormatResponder';
 import IFormatResponder from './Shared/InterfaceAdapters/IFormatResponder';
-import Responder from './App/Presentation/Shared/Express/Responder';
+import Responder from './App/Presentation/Shared/Http/Express/Responder';
 
 import IItemRepository from './Item/Infrastructure/Repositories/IItemRepository';
 import IUserRepository from './User/Infrastructure/Repositories/IUserRepository';
@@ -14,27 +14,27 @@ import { REPOSITORIES } from './Config/Injects/repositories';
 import { TYPES } from './Config/Injects/types';
 
 import ItemMongoRepository from './Item/Infrastructure/Repositories/ItemMongoRepository';
-import UserMongoRepository from './User/Infrastructure/Repositories/UserMongoRepository';
-import RoleMongoRepository from './Role/Infrastructure/Repositories/RoleMongoRepository';
-import FileMongoRepository from './File/Infrastructure/Repositories/FileMongoRepository';
+import UserMongooseRepository from './User/Infrastructure/Repositories/UserMongooseRepository';
+import RoleMongooseRepository from './Role/Infrastructure/Repositories/RoleMongooseRepository';
+import FileMongooseRepository from './File/Infrastructure/Repositories/FileMongooseRepository';
 
 import ItemSqlRepository from './Item/Infrastructure/Repositories/ItemSqlRepository';
-import UserSqlRepository from './User/Infrastructure/Repositories/UserSqlRepository';
-import FileSqlRepository from './File/Infrastructure/Repositories/FileSqlRepository';
-import RoleSqlRepository from './Role/Infrastructure/Repositories/RoleSqlRepository';
+import UserTypeORMRepository from './User/Infrastructure/Repositories/UserTypeORMRepository';
+import FileTypeORMRepository from './File/Infrastructure/Repositories/FileTypeORMRepository';
+import RoleTypeORMRepository from './Role/Infrastructure/Repositories/RoleTypeORMRepository';
 import TokenRedisRepository from './Auth/Infrastructure/Repositories/TokenRedisRepository';
 import { ITokenRepository } from '@digichanges/shared-experience';
 import ITokenDomain from './Auth/Domain/Entities/ITokenDomain';
 import INotificationRepository from './Notification/Infrastructure/Repositories/INotificationRepository';
 import INotificationDomain from './Notification/Domain/Entities/INotificationDomain';
-import NotificationMongoRepository from './Notification/Infrastructure/Repositories/NotificationMongoRepository';
+import NotificationMongooseRepository from './Notification/Infrastructure/Repositories/NotificationMongooseRepository';
 import INotificationFactory from './Notification/Shared/INotificationFactory';
 import { FACTORIES } from './Config/Injects/factories';
 import NotificationFactory from './Notification/Shared/NotificationFactory';
-import RoleMikroSqlRepository from './Role/Infrastructure/Repositories/RoleMikroSqlRepository';
-import UserMikroSqlRepository from './User/Infrastructure/Repositories/UserMikroSqlRepository';
+import RoleMikroORMRepository from './Role/Infrastructure/Repositories/RoleMikroORMRepository';
+import UserMikroORMRepository from './User/Infrastructure/Repositories/UserMikroORMRepository';
 import ItemMikroSqlRepository from './Item/Infrastructure/Repositories/ItemMikroSqlRepository';
-import FileMikroSqlRepository from './File/Infrastructure/Repositories/FileMikroSqlRepository';
+import FileMikroORMRepository from './File/Infrastructure/Repositories/FileMikroORMRepository';
 
 const container = new Container();
 
@@ -46,25 +46,25 @@ container.bind<IFormatResponder>(TYPES.IFormatResponder).to(FormatResponder);
 if (MainConfig.getInstance().getConfig().dbConfig.default === 'TypeORM')
 {
     container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemSqlRepository).inSingletonScope();
-    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserSqlRepository).inSingletonScope();
-    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleSqlRepository).inSingletonScope();
-    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileSqlRepository).inSingletonScope();
+    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserTypeORMRepository).inSingletonScope();
+    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleTypeORMRepository).inSingletonScope();
+    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileTypeORMRepository).inSingletonScope();
 }
 else if (MainConfig.getInstance().getConfig().dbConfig.default === 'Mongoose')
 {
     container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMongoRepository).inSingletonScope();
-    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongoRepository).inSingletonScope();
-    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongoRepository).inSingletonScope();
-    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongoRepository).inSingletonScope();
-    container.bind<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository).to(NotificationMongoRepository).inSingletonScope();
+    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMongooseRepository).inSingletonScope();
+    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMongooseRepository).inSingletonScope();
+    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMongooseRepository).inSingletonScope();
+    container.bind<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository).to(NotificationMongooseRepository).inSingletonScope();
 }
 else if (MainConfig.getInstance().getConfig().dbConfig.default === 'MikroORM')
 {
     container.bind<IItemRepository>(REPOSITORIES.IItemRepository).to(ItemMikroSqlRepository).inSingletonScope();
-    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMikroSqlRepository).inSingletonScope();
-    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMikroSqlRepository).inSingletonScope();
-    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMikroSqlRepository).inSingletonScope();
-    // container.bind<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository).to(NotificationMongoRepository).inSingletonScope();
+    container.bind<IRoleRepository>(REPOSITORIES.IRoleRepository).to(RoleMikroORMRepository).inSingletonScope();
+    container.bind<IUserRepository>(REPOSITORIES.IUserRepository).to(UserMikroORMRepository).inSingletonScope();
+    container.bind<IFileRepository>(REPOSITORIES.IFileRepository).to(FileMikroORMRepository).inSingletonScope();
+    // container.bind<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository).to(NotificationMongooseRepository).inSingletonScope();
 }
 
 container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(TokenRedisRepository);

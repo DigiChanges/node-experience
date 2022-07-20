@@ -1,5 +1,5 @@
 import NotificationRepPayload from '../Payloads/NotificationRepPayload';
-import INotificationResponse from '../../InterfaceAdapters/INotificationResponse';
+import INotificationResponse from '../Entities/INotificationResponse';
 import NotificationService from '../Services/NotificationService';
 
 class CreateSubscriptionUseCase

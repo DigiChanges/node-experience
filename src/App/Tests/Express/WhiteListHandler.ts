@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { inject } from 'inversify';
 import { TYPES } from '../../../Config/Injects/types';
-import Responder from '../../Presentation/Shared/Express/Responder';
+import Responder from '../../Presentation/Shared/Http/Express/Responder';
 import { StatusCode } from '@digichanges/shared-experience';
 
 @controller('/test')

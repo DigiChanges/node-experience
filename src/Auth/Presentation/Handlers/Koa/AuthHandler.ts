@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import { StatusCode } from '@digichanges/shared-experience';
-import Responder from '../../../../App/Presentation/Shared/Koa/Responder';
+import Responder from '../../../../App/Presentation/Shared/Http/Koa/Responder';
 import AuthRequest from '../../Requests/AuthRequest';
 import AuthController from '../../Controllers/AuthController';
 import AuthTransformer from '../../Transformers/AuthTransformer';

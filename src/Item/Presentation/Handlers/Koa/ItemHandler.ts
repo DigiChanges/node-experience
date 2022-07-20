@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import { IPaginator, StatusCode } from '@digichanges/shared-experience';
-import Responder from '../../../../App/Presentation/Shared/Koa/Responder';
+import Responder from '../../../../App/Presentation/Shared/Http/Koa/Responder';
 import ItemController from '../../Controllers/ItemController';
 import ItemTransformer from '../../Transformers/ItemTransformer';
 import ItemRepRequest from '../../Requests/ItemRepRequest';

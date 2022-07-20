@@ -1,7 +1,7 @@
 import PATH from 'path';
 import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 import EmailNotification from '../Entities/EmailNotification';
-import IFilesAttachments from '../../InterfaceAdapters/IFilesAttachments';
+import IFilesAttachments from '../Entities/IFilesAttachments';
 import { createWriteStream, existsSync, mkdirSync, writeFile } from 'fs-extra';
 import { unlink } from 'fs';
 

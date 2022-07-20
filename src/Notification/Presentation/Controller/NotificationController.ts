@@ -3,7 +3,7 @@ import NotificationSendMessagePayload from '../../Domain/Payloads/NotificationSe
 import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
 import CreateSubscriptionUseCase from '../../Domain/UseCases/CreateSubscriptionUseCase';
 import SendPushNotificationUseCase from '../../Domain/UseCases/SendPushNotificationUseCase';
-import INotificationResponse from '../../InterfaceAdapters/INotificationResponse';
+import INotificationResponse from '../../Domain/Entities/INotificationResponse';
 
 class NotificationController
 {

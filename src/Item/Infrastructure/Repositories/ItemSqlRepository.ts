@@ -3,14 +3,14 @@ import Item from '../../Domain/Entities/Item';
 import { injectable } from 'inversify';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
-import Paginator from '../../../App/Presentation/Shared/Paginator';
+import TypeORMPaginator from '../../../App/Presentation/Shared/Orm/TypeORMPaginator';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import ItemSchema from '../Schemas/ItemTypeORM';
 
-import BaseSqlRepository from '../../../App/Infrastructure/Repositories/BaseSqlRepository';
+import BaseTypeORMRepository from '../../../App/Infrastructure/Repositories/BaseTypeORMRepository';
 
 @injectable()
-class ItemSqlRepository extends BaseSqlRepository<Item> implements IItemRepository
+class ItemSqlRepository extends BaseTypeORMRepository<Item> implements IItemRepository
 {
     constructor()
     {
@@ -44,7 +44,7 @@ class ItemSqlRepository extends BaseSqlRepository<Item> implements IItemReposito
         queryBuilder.leftJoinAndSelect('i.createdBy', 'createdBy');
         queryBuilder.leftJoinAndSelect('i.lastModifiedBy', 'lastModifiedBy');
 
-        return new Paginator(queryBuilder, criteria);
+        return new TypeORMPaginator(queryBuilder, criteria);
     }
 }
 

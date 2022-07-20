@@ -7,7 +7,7 @@ import CacheFactory from './Shared/Factories/CacheFactory';
 import { ICreateConnection } from '@digichanges/shared-experience';
 import ICacheRepository from './App/Infrastructure/Repositories/ICacheRepository';
 
-import AppFactory from './App/Presentation/Factories/AppFactory';
+import AppFactory from './Shared/Factories/AppFactory';
 import CronFactory from './Shared/Factories/CronFactory';
 import Logger from './Shared/Logger/Logger';
 
