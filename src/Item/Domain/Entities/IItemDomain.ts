@@ -1,4 +1,4 @@
-import IBaseDomain from '../../../App/InterfaceAdapters/IBaseDomain';
+import IBaseDomain from '../../../App/Domain/Entities/IBaseDomain';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import ItemRepPayload from '../Payloads/ItemRepPayload';
 

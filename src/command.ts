@@ -6,7 +6,7 @@ dotenv.config(); // Need before get config
 
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
 
-
+import './register';
 import AddUserRoleCommand from './User/Presentation/Commands/AddUserRoleCommand';
 import AddUserCommand from './User/Presentation/Commands/AddUserCommand';
 import AddRoleCommand from './Role/Presentation/Commands/AddRoleCommand';

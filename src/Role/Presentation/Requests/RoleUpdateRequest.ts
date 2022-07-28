@@ -6,10 +6,9 @@ import { ArrayMinSize, IsArray, IsString } from 'class-validator';
 
 class RoleUpdateRequest extends Mixin(RoleRepRequest, IdRequest) implements RoleUpdatePayload
 {
-    constructor(data: Record<string, any>, id: string)
+    constructor(data: Record<string, any>)
     {
         super(data);
-        this._id = id;
         this._permissions = data.permissions;
     }
 

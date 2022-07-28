@@ -1,21 +1,20 @@
 import Handlebars from 'handlebars';
 import nodemailer from 'nodemailer';
 import Fs from 'fs';
-import { REPOSITORIES } from '../../Config/Injects/repositories';
+import { REPOSITORIES } from '../../Config/Injects';
 import INotificationRepository from '../Infrastructure/Repositories/INotificationRepository';
 import INotificationDomain from '../Domain/Entities/INotificationDomain';
-import MainConfig from '../../Config/mainConfig';
+import MainConfig from '../../Config/MainConfig';
 import AttachmentsFilesService from '../Domain/Services/AttachmentsFilesService';
 import StatusNotificationEnum from '../Domain/Enum/StatusNotificationEnum';
 import { ErrorException } from '@digichanges/shared-experience';
 import EmailNotification from '../Domain/Entities/EmailNotification';
 import INotifierStrategy from './INotifierStrategy';
-import ContainerFactory from '../../Shared/Factories/ContainerFactory';
+import container from '../../register';
 
 class EmailStrategy implements INotifierStrategy
 {
-    private repository: INotificationRepository<INotificationDomain> = ContainerFactory.create<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository);
-
+    private repository: INotificationRepository<INotificationDomain>;
     private _emailNotification: EmailNotification;
     private _templatePathNameFile: string;
     private _data: Record<string, any>;
@@ -23,6 +22,7 @@ class EmailStrategy implements INotifierStrategy
 
     constructor()
     {
+        this.repository = container.resolve<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository);
         this._save = true;
     }
 

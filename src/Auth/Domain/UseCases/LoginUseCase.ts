@@ -1,30 +1,38 @@
 import AuthPayload from '../Payloads/AuthPayload';
 import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
-import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import TokenFactory from '../../../Shared/Factories/TokenFactory';
 
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import { FACTORIES, REPOSITORIES } from '../../../Config/Injects';
 
 import BadCredentialsException from '../Exceptions/BadCredentialsException';
 import UserDisabledException from '../../../User/Domain/Exceptions/UserDisabledException';
 import RoleDisabledException from '../../../Role/Domain/Exceptions/RoleDisabledException';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import IToken from '../Models/IToken';
 import UnverifiedUserException from '../../../User/Domain/Exceptions/UnverifiedUserException';
+import { IEncryption } from '@digichanges/shared-experience';
+import { DependencyContainer } from 'tsyringe';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class LoginUseCase
 {
-    @containerFactory(REPOSITORIES.IUserRepository)
-    private repository: IUserRepository;
+    private readonly repository: IUserRepository;
+    private encryption: IEncryption;
+    private tokenFactory: TokenFactory;
 
-    private encryption = EncryptionFactory.create();
+    constructor()
+    {
+        const { container } = getRequestContext();
 
-    private tokenFactory = new TokenFactory();
+        this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+        this.encryption = container.resolve<IEncryption>(FACTORIES.BcryptEncryptionStrategy);
+        this.tokenFactory = new TokenFactory();
+    }
 
     async handle(payload: AuthPayload): Promise<IToken>
     {
         const email = payload.email;
         const password = payload.password;
+
         const user = await this.repository.getOneBy({ email }, { populate: ['roles'], initThrow: false });
 
         if (!user)

@@ -54,7 +54,7 @@ The directory structures for business domains are as follows:
 
 ## Advantages
 
-The advantages of using this boilerplate is to save time thinking about certain basic structures common to any project to make an API without having to create everything from scratch. 
+The advantages of using this boilerplate is to save time thinking about certain basic structures common to any project to make an API without having to get everything from scratch. 
 
 As it is only a boilerplate, you have the freedom to structure the code whatever you want.
 

@@ -17,7 +17,7 @@ We can run the project directly with docker compose and then bash where the basi
 1. Install dependencies. `yarn`.
 2. Copy `.env.dev` file to `.env`. (**.env.dev** it's a environment example file)
 3. Then execute `STAGE=dev docker-compose up --build` to up all containers.
-4. Basically generates an admin user, add roles with permission and create a bucket for minIO. `docker-compose exec node bash dev.init.sh`
+4. Basically generates an admin user, add roles with permission and get a bucket for minIO. `docker-compose exec node bash dev.init.sh`
 
 ## Execute NEXP CLI
 
@@ -84,7 +84,7 @@ The directory structures for business domains are as follows:
 
 ## Advantages
 
-The advantages of using this boilerplate is to save time thinking about certain basic structures common to any project to make an API without having to create everything from scratch. 
+The advantages of using this boilerplate is to save time thinking about certain basic structures common to any project to make an API without having to get everything from scratch. 
 
 As it is only a boilerplate, you have the freedom to structure the code whatever you want.
 

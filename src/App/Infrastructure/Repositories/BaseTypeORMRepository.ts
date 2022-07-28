@@ -2,7 +2,7 @@ import { injectable, unmanaged } from 'inversify';
 import { EntitySchema, FindOneOptions, getRepository, In, Repository } from 'typeorm';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IByOptions from '../../InterfaceAdapters/IByOptions';
-import IBaseRepository from '../../InterfaceAdapters/IBaseRepository';
+import IBaseRepository from './IBaseRepository';
 
 @injectable()
 abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>

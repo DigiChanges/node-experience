@@ -5,10 +5,10 @@ import UserPasswordRequest from './UserPasswordRequest';
 
 class ChangeUserPasswordRequest extends Mixin(UserPasswordRequest, IdRequest) implements ChangeUserPasswordPayload
 {
-    constructor(data: Record<string, any>, id: string)
+    constructor(data: Record<string, any>)
     {
         super(data);
-        this._id = id;
+        this._id = data.id;
     }
 }
 

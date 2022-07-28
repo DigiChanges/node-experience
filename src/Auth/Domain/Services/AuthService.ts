@@ -1,27 +1,21 @@
 import jwt from 'jwt-simple';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
-import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
-import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
+import IDecodeToken from '../../../Shared/InterfaceAdapters/IDecodeToken';
 import TokenExpiredHttpException from '../../Presentation/Exceptions/TokenExpiredHttpException';
 import TokenNotFoundHttpException from '../../Presentation/Exceptions/TokenNotFoundHttpException';
 import Auth from '../Types/Auth';
-import MainConfig from '../../../Config/mainConfig';
+import MainConfig from '../../../Config/MainConfig';
 
 class AuthService
 {
-    @containerFactory(REPOSITORIES.IUserRepository)
-    private userRepository: IUserRepository;
+    private config = MainConfig.getInstance().getConfig();
 
-    private config = MainConfig.getInstance();
-
-    public decodeToken(token: string, bearer = true): ITokenDecode
+    public decodeToken(token: string, bearer = true): IDecodeToken
     {
         const _token = bearer ? token.split(' ')[1] : token;
 
-        const { secret } = this.config.getConfig().jwt;
-        const { algorithm } = this.config.getConfig().encryption.bcrypt;
+        const { secret } = this.config.jwt;
+        const { algorithm } = this.config.encryption.bcrypt;
 
         return jwt.decode(_token, secret, false, algorithm);
     }
@@ -36,11 +30,6 @@ class AuthService
         return [...new Set([...auth_user.permissions, ...rolePermissions])];
     }
 
-    public getByEmail(email: string): Promise<Auth>
-    {
-        return this.userRepository.getOneByEmail(email);
-    }
-
     public async authorize(authUser: Auth, handlerPermissions: string[]): Promise<boolean>
     {
         const totalPermissions = this.getPermissions(authUser as IUserDomain);
@@ -53,7 +42,7 @@ class AuthService
         return handlerPermissions.every((hp: string) => totalPermissions.some((permission) => hp === permission));
     }
 
-    public validateToken(token: string): ITokenDecode
+    public validateToken(token: string): IDecodeToken
     {
         if (!token || !token.includes('Bearer'))
         {
@@ -71,7 +60,7 @@ class AuthService
         return this.decodeToken(token);
     }
 
-    public validateRefreshToken(refreshToken: string): ITokenDecode
+    public validateRefreshToken(refreshToken: string): IDecodeToken
     {
         if (!refreshToken)
         {
@@ -123,7 +112,7 @@ class AuthService
         };
 
         let existMethodAndUrl = false;
-        const { apiWhitelist } = this.config.getConfig();
+        const { apiWhitelist } = this.config;
 
         for (const conf of apiWhitelist)
         {

@@ -1,4 +1,4 @@
-import { CacheConfig } from '../../../Config/mainConfig';
+import { CacheConfig } from '../../../Config/MainConfig';
 
 export interface ICacheRepository
 {

@@ -1,6 +1,6 @@
-import ContainerFactory from '../Factories/ContainerFactory';
-import INotificationFactory from '../../Notification/Shared/INotificationFactory';
-import { FACTORIES } from '../../Config/Injects/factories';
+import { FACTORIES } from '../../Config/Injects';
+import INotifierStrategy from '../../Notification/Shared/INotifierStrategy';
+import container from '../../register';
 
 class SendMessageEvent
 {
@@ -10,13 +10,12 @@ class SendMessageEvent
     {
         const { pushNotification, message } = props;
 
-        const notificationFactory = ContainerFactory.create<INotificationFactory>(FACTORIES.INotificationFactory);
+        const webPushNotifier: any = container.resolve<INotifierStrategy>(FACTORIES.WebPushStrategy);
 
-        const emailNotifier = notificationFactory.create('webPush');
-        emailNotifier.pushNotification = pushNotification;
-        emailNotifier.message = message;
+        webPushNotifier.pushNotification = pushNotification;
+        webPushNotifier.message = message;
 
-        await emailNotifier.send();
+        await webPushNotifier.send();
     };
 }
 

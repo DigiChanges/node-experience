@@ -2,24 +2,31 @@ import { ITokenRepository } from '@digichanges/shared-experience';
 import RefreshTokenPayload from '../Payloads/RefreshTokenPayload';
 import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 import TokenFactory from '../../../Shared/Factories/TokenFactory';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import { REPOSITORIES, SERVICES } from '../../../Config/Injects';
 import SetTokenBlacklistUseCase from './SetTokenBlacklistUseCase';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
 import ITokenDomain from '../Entities/ITokenDomain';
 import IToken from '../Models/IToken';
 import AuthService from '../Services/AuthService';
+import { DependencyContainer } from 'tsyringe';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class RefreshTokenUseCase
 {
-    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-
-    @containerFactory(REPOSITORIES.ITokenRepository)
     private tokenRepository: ITokenRepository<ITokenDomain>;
+    private authService: AuthService;
+    private tokenFactory: TokenFactory;
+    private readonly container: DependencyContainer;
 
-    private authService = new AuthService();
-
-    private tokenFactory = new TokenFactory();
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+        this.tokenRepository = container.resolve<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository);
+        this.authService = container.resolve<AuthService>(SERVICES.AuthService);
+        this.tokenFactory = new TokenFactory();
+        this.container = container;
+    }
 
     async handle(payload: RefreshTokenPayload): Promise<IToken>
     {
@@ -31,7 +38,7 @@ class RefreshTokenUseCase
         const user = await this.repository.getOneByEmail(email);
         const token: ITokenDomain = await this.tokenRepository.getOne(tokenId);
 
-        const useCase = new SetTokenBlacklistUseCase();
+        const useCase = new SetTokenBlacklistUseCase(this.container);
         await useCase.handle(token);
 
         return await this.tokenFactory.createToken(user);

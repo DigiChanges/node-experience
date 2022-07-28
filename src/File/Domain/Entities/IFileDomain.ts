@@ -1,4 +1,4 @@
-import IBaseDomain from '../../../App/InterfaceAdapters/IBaseDomain';
+import IBaseDomain from '../../../App/Domain/Entities/IBaseDomain';
 
 interface IFileDomain extends IBaseDomain
 {

@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { IEncryption } from '@digichanges/shared-experience';
-import MainConfig from '../../Config/mainConfig';
+import MainConfig from '../../Config/MainConfig';
 import DecryptForbiddenException from '../Exceptions/DecryptForbiddenException';
 
 class BcryptEncryptionStrategy implements IEncryption

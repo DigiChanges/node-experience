@@ -3,7 +3,7 @@ import initTestServer from '../../initTestServer';
 import { ICreateConnection } from '@digichanges/shared-experience';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IItemResponse, IListItemsResponse } from './types';
-import MainConfig from '../../Config/mainConfig';
+import MainConfig from '../../Config/MainConfig';
 
 describe('Start Item Test', () =>
 {

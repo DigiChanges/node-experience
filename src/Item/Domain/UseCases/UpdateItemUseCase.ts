@@ -1,20 +1,24 @@
 import ItemUpdatePayload from '../Payloads/ItemUpdatePayload';
 import IItemDomain from '../Entities/IItemDomain';
-import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import { REPOSITORIES } from '../../../Config/Injects';
 import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class UpdateItemUseCase
 {
-    @containerFactory(REPOSITORIES.IItemRepository)
     private repository: IItemRepository;
 
-    async handle(payload: ItemUpdatePayload, authUser: IUserDomain): Promise<IItemDomain>
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.repository = container.resolve<IItemRepository>(REPOSITORIES.IItemRepository);
+    }
+
+    async handle(payload: ItemUpdatePayload): Promise<IItemDomain>
     {
         const item: IItemDomain = await this.repository.getOne(payload.id);
         item.updateBuild(payload);
-        item.lastModifiedBy = authUser;
+        item.lastModifiedBy = payload.authUser;
 
         return await this.repository.update(item);
     }

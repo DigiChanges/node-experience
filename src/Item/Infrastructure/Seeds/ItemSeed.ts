@@ -1,23 +1,26 @@
 import faker from 'faker';
+import container from '../../../register';
 import IItemRepository from '../Repositories/IItemRepository';
 import Item from '../../Domain/Entities/Item';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import { REPOSITORIES } from '../../../Config/Injects';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import User from '../../../User/Domain/Entities/User';
 import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 import Password from '../../../App/Domain/ValueObjects/Password';
-import MainConfig from '../../../Config/mainConfig';
+import MainConfig from '../../../Config/MainConfig';
 import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 
 class ItemSeed implements ISeed
 {
-    @containerFactory(REPOSITORIES.IItemRepository)
     private repository: IItemRepository;
-
-    @containerFactory(REPOSITORIES.IUserRepository)
     private userRepository: IUserRepository;
+
+    constructor()
+    {
+        this.repository = container.resolve<IItemRepository>(REPOSITORIES.IItemRepository);
+        this.userRepository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+    }
 
     public async init()
     {

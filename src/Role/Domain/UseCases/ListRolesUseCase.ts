@@ -1,12 +1,17 @@
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import { REPOSITORIES } from '../../../Config/Injects';
 import IRoleRepository from '../../Infrastructure/Repositories/IRoleRepository';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class ListRolesUseCase
 {
-    @containerFactory(REPOSITORIES.IRoleRepository)
     private repository: IRoleRepository;
+
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.repository = container.resolve<IRoleRepository>(REPOSITORIES.IRoleRepository);
+    }
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {

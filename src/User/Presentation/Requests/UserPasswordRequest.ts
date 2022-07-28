@@ -1,6 +1,6 @@
 import { IsString, Length } from 'class-validator';
 import { decorate } from 'ts-mixer';
-import MainConfig from '../../../Config/mainConfig';
+import MainConfig from '../../../Config/MainConfig';
 import { Match } from '../../../Shared/Decorators/match';
 import UserPasswordRepPayload from '../../Domain/Payloads/UserPasswordPayload';
 

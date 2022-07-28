@@ -1,7 +1,6 @@
-import ContainerFactory from '../../../Shared/Factories/ContainerFactory';
-import IBaseRepository from '../../InterfaceAdapters/IBaseRepository';
 import IUniqueConfig from '../../InterfaceAdapters/IUniqueConfig';
 import UniqueAttributeException from '../Exceptions/UniqueAttributeException';
+import container from '../../../register';
 
 class UniqueService
 {
@@ -9,7 +8,7 @@ class UniqueService
     {
         const { repository, validate, refValue } = config;
 
-        const _repository = ContainerFactory.create<IBaseRepository<any>>(repository);
+        const _repository: any = container.resolve<T>(repository as any);
 
         const attrs = Object.keys(validate);
 

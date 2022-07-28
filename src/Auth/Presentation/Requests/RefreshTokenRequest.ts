@@ -1,19 +1,27 @@
-import RefreshTokenPayload from '../../Domain/Payloads/RefreshTokenPayload';
 import { IsString } from 'class-validator';
+import RefreshTokenPayload from '../../Domain/Payloads/RefreshTokenPayload';
+import IDecodeToken from '../../../Shared/InterfaceAdapters/IDecodeToken';
 
 class RefreshTokenRequest implements RefreshTokenPayload
 {
     private readonly _refreshToken: string;
+    private readonly _decodeToken: IDecodeToken;
 
-    constructor(refreshToken: string)
+    constructor(data: Record<string, any>)
     {
-        this._refreshToken = refreshToken;
+        this._refreshToken = data.refreshToken;
+        this._decodeToken = data.decodeToken;
     }
 
     @IsString()
     get refreshToken(): string
     {
         return this._refreshToken;
+    }
+
+    get decodeToken(): IDecodeToken
+    {
+        return this._decodeToken;
     }
 }
 

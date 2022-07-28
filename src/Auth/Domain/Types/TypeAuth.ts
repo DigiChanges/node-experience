@@ -1,4 +1,4 @@
 
-declare type TypeAuth = 'authUser' | 'tokenDecode';
+declare type TypeAuth = 'authUser' | 'decodeToken';
 
 export default TypeAuth;

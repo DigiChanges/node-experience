@@ -8,10 +8,10 @@ class UpdateMeRequest extends Mixin(UserWithoutPermissionsRequest) implements Us
 {
     private readonly _authUser: IUserDomain;
 
-    constructor(data: Record<string, any>, authUser: IUserDomain)
+    constructor(data: Record<string, any>)
     {
         super(data);
-        this._authUser = authUser;
+        this._authUser = data.authUser;
     }
 
     get authUser()

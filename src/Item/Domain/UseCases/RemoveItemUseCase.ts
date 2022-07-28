@@ -1,13 +1,18 @@
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import IItemDomain from '../Entities/IItemDomain';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import { REPOSITORIES } from '../../../Config/Injects';
 import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class RemoveItemUseCase
 {
-    @containerFactory(REPOSITORIES.IItemRepository)
     private repository: IItemRepository;
+
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.repository = container.resolve<IItemRepository>(REPOSITORIES.IItemRepository);
+    }
 
     async handle(payload: IdPayload): Promise<IItemDomain>
     {

@@ -3,8 +3,8 @@ import { injectable, unmanaged } from 'inversify';
 import { connection } from '../../../Shared/Database/MongooseCreateConnection';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IByOptions from '../../InterfaceAdapters/IByOptions';
-import IBaseRepository from '../../InterfaceAdapters/IBaseRepository';
-import IBaseDomain from '../../InterfaceAdapters/IBaseDomain';
+import IBaseRepository from './IBaseRepository';
+import IBaseDomain from '../../Domain/Entities/IBaseDomain';
 
 @injectable()
 abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document & T> implements IBaseRepository<T>

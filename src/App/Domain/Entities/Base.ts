@@ -1,5 +1,5 @@
 import { v4 as uuidV4 } from 'uuid';
-import IBaseDomain from '../../../App/InterfaceAdapters/IBaseDomain';
+import IBaseDomain from './IBaseDomain';
 
 abstract class Base implements IBaseDomain
 {

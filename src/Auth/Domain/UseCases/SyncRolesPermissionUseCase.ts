@@ -2,16 +2,21 @@ import _ from 'lodash';
 
 import Permissions from '../../../Config/Permissions';
 import Roles from '../../../Config/Roles';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import { REPOSITORIES } from '../../../Config/Injects';
 import IRoleRepository from '../../../Role/Infrastructure/Repositories/IRoleRepository';
 import Role from '../../../Role/Domain/Entities/Role';
 import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class SyncRolesPermissionUseCase
 {
-    @containerFactory(REPOSITORIES.IRoleRepository)
     private repository: IRoleRepository;
+
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.repository = container.resolve<IRoleRepository>(REPOSITORIES.IRoleRepository);
+    }
 
     handle(): string[]
     {

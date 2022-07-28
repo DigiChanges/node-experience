@@ -15,10 +15,10 @@ COPY --chown=node:node build.js ./
 COPY --chown=node:node nodemon.json ./
 COPY --chown=node:node .eslintrc.json ./
 
-USER node
-
 # Run development server
 ENTRYPOINT [ "dumb-init", "yarn", "dev" ]
+
+USER node
 
 FROM dev as build
 

@@ -5,11 +5,19 @@ import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotifica
 import Locales from '../../../App/Presentation/Shared/Locales';
 import RegisterPayload from '../Payloads/RegisterPayload';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
-import MainConfig from '../../../Config/mainConfig';
+import MainConfig from '../../../Config/MainConfig';
+import { SERVICES } from '../../../Config/Injects';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class RegisterUseCase
 {
     private userService = new UserService();
+
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.userService = container.resolve<UserService>(SERVICES.UserService);
+    }
 
     async handle(payload: RegisterPayload): Promise<ILocaleMessage>
     {

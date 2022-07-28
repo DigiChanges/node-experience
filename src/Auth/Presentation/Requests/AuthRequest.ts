@@ -1,5 +1,5 @@
 import AuthPayload from '../../Domain/Payloads/AuthPayload';
-import MainConfig from '../../../Config/mainConfig';
+import MainConfig from '../../../Config/MainConfig';
 import { IsString, IsEmail, Length } from 'class-validator';
 
 class AuthRequest implements AuthPayload

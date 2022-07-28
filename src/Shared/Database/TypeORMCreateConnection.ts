@@ -37,7 +37,7 @@ class TypeORMCreateConnection implements ICreateConnection
 
     initConfigTest(uri: string): any
     {
-        // ==== create a memory db
+        // ==== get a memory db
         const db = newDb({
             autoCreateForeignKeyIndices: true
         });

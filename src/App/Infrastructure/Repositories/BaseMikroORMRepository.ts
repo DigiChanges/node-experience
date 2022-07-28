@@ -2,7 +2,7 @@ import { injectable, unmanaged } from 'inversify';
 import { EntityRepository, EntitySchema, FindOneOptions } from '@mikro-orm/core';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IByOptions from '../../InterfaceAdapters/IByOptions';
-import IBaseRepository from '../../InterfaceAdapters/IBaseRepository';
+import IBaseRepository from './IBaseRepository';
 import EntityManagerFactory from '../../../Shared/Factories/EntityManagerFactory'; // TODO: Refactor
 
 @injectable()

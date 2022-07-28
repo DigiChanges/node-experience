@@ -7,10 +7,11 @@ import RemoveItemUseCase from '../../Domain/UseCases/RemoveItemUseCase';
 import UpdateItemUseCase from '../../Domain/UseCases/UpdateItemUseCase';
 import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
 import ItemRepPayload from '../../Domain/Payloads/ItemRepPayload';
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import { IPaginator } from '@digichanges/shared-experience';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import ItemUpdatePayload from '../../Domain/Payloads/ItemUpdatePayload';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
+import ICriteria from '../../../App/Domain/Payloads/ICriteria';
 
 class ItemController
 {
@@ -38,12 +39,12 @@ class ItemController
         return await useCase.handle(request);
     }
 
-    public async update(request: ItemUpdatePayload, authUser: IUserDomain): Promise<IItemDomain>
+    public async update(request: ItemUpdatePayload): Promise<IItemDomain>
     {
         await ValidatorRequest.handle(request);
 
         const useCase = new UpdateItemUseCase();
-        return await useCase.handle(request, authUser);
+        return await useCase.handle(request);
     }
 
     public async remove(request: IdPayload): Promise<IItemDomain>

@@ -1,4 +1,4 @@
-import MainConfig from '../../../Config/mainConfig';
+import MainConfig from '../../../Config/MainConfig';
 import { IsString, Length } from 'class-validator';
 
 import ChangeForgotPasswordPayload from '../../Domain/Payloads/ChangeForgotPasswordPayload';

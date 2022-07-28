@@ -12,7 +12,6 @@ export let orm: MikroORM = null;
 class MikroORMCreateConnection implements ICreateConnection
 {
     private readonly config: any;
-    private connection: any;
     private createInstanceConnection: any;
     private entities = [
         Role,
@@ -41,7 +40,7 @@ class MikroORMCreateConnection implements ICreateConnection
                 allowGlobalContext: true
             });
 
-            return this.connection;
+            return this.createInstanceConnection;
         };
     }
 
@@ -55,10 +54,9 @@ class MikroORMCreateConnection implements ICreateConnection
         return await this.createInstanceConnection();
     }
 
-    async close(): Promise<any>
+    async close(): Promise<void>
     {
-        await this.connection.close();
-        return this.connection;
+        await orm.close();
     }
 
     async drop(): Promise<any>

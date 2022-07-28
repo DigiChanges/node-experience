@@ -7,9 +7,7 @@ Seed
     .alias('sd')
     .arguments('[name]')
     .version('0.0.1')
-    .description('Run the seeds', {
-        name: 'name of the seed'
-    })
+    .description('Run the seeds')
     .option('-l, --list', 'seed list')
     .action(async(name, options) =>
     {

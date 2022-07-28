@@ -11,7 +11,7 @@ import AuthPayload from '../../Domain/Payloads/AuthPayload';
 import RefreshTokenPayload from '../../Domain/Payloads/RefreshTokenPayload';
 import ForgotPasswordPayload from '../../Domain/Payloads/ForgotPasswordPayload';
 import LogoutUseCase from '../../Domain/UseCases/LogoutUseCase';
-import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
+import IDecodeToken from '../../../Shared/InterfaceAdapters/IDecodeToken';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import RegisterPayload from '../../Domain/Payloads/RegisterPayload';
 import RegisterUseCase from '../../Domain/UseCases/RegisterUseCase';
@@ -49,10 +49,10 @@ class AuthController
         return await useCase.handle(request);
     }
 
-    public async logout(refreshTokenRequest: RefreshTokenPayload, tokenDecode: ITokenDecode): Promise<ILocaleMessage>
+    public async logout(request: RefreshTokenPayload): Promise<ILocaleMessage>
     {
         const useCase = new LogoutUseCase();
-        return await useCase.handle(refreshTokenRequest, tokenDecode);
+        return await useCase.handle(request);
     }
 
     public async refreshToken(request: RefreshTokenPayload): Promise<IToken>

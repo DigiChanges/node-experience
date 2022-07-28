@@ -2,8 +2,8 @@ import moment from 'moment';
 import jwt from 'jwt-simple';
 import IToken from './IToken';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
-import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
-import { JwtConfig } from '../../../Config/mainConfig';
+import IDecodeToken from '../../../Shared/InterfaceAdapters/IDecodeToken';
+import { JwtConfig } from '../../../Config/MainConfig';
 
 class JWTToken implements IToken
 {
@@ -11,8 +11,8 @@ class JWTToken implements IToken
     private readonly hash: string;
     private readonly refreshHash: string;
     private readonly user: IUserDomain;
-    private readonly payload: ITokenDecode;
-    private readonly payloadRefreshToken: ITokenDecode;
+    private readonly payload: IDecodeToken;
+    private readonly payloadRefreshToken: IDecodeToken;
 
     constructor(id: string, user: IUserDomain, jwtConfig: JwtConfig)
     {

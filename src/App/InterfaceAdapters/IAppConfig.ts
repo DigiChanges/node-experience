@@ -1,7 +1,6 @@
 
 interface IAppConfig
 {
-    viewRouteEngine: string;
     serverPort: number;
 }
 

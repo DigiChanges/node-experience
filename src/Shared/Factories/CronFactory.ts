@@ -1,5 +1,5 @@
 import crons from '../../crons';
-import MainConfig from '../../Config/mainConfig';
+import MainConfig from '../../Config/MainConfig';
 
 class CronFactory
 {

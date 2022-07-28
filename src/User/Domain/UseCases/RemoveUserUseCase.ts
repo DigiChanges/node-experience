@@ -1,13 +1,18 @@
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import IUserDomain from '../Entities/IUserDomain';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/Injects';
 import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
 
 class RemoveUserUseCase
 {
-    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
+
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+    }
 
     async handle(payload: IdPayload): Promise<IUserDomain>
     {

@@ -3,7 +3,7 @@ import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IListRolesResponse, IRoleResponse } from './types';
-import MainConfig from '../../Config/mainConfig';
+import MainConfig from '../../Config/MainConfig';
 
 describe('Start Role Test', () =>
 {

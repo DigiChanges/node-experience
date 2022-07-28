@@ -6,9 +6,9 @@ class IdRequest implements IdPayload
 {
     protected _id: string;
 
-    constructor({ id }: { id: string })
+    constructor(data: Record<string, any>)
     {
-        this._id = id;
+        this._id = data.id;
     }
 
     @decorate(IsUUID('4'))

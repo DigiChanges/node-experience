@@ -21,24 +21,24 @@ class UserCommandSaveRequest implements UserSavePayload
     private readonly _roles: IRoleDomain[];
     private readonly _isSuperAdmin: boolean;
 
-    constructor(env: any, role: any = null)
+    constructor(data: Record<string, any>, role: any = null)
     {
-        this._email = env.email;
-        this._firstName = env.firstName;
-        this._lastName = env.lastName;
-        this._birthday = env.birthday;
-        this._documentType = env.documentType;
-        this._documentNumber = env.documentNumber;
-        this._password = env.password;
-        this._passwordConfirmation = env.passwordConfirmation;
-        this._gender = env.gender;
-        this._phone = env.phone;
-        this._country = env.country;
-        this._address = env.address;
+        this._email = data.email;
+        this._firstName = data.firstName;
+        this._lastName = data.lastName;
+        this._birthday = data.birthday;
+        this._documentType = data.documentType;
+        this._documentNumber = data.documentNumber;
+        this._password = data.password;
+        this._passwordConfirmation = data.passwordConfirmation;
+        this._gender = data.gender;
+        this._phone = data.phone;
+        this._country = data.country;
+        this._address = data.address;
         this._enable = true;
         this._roles = role ? [role] : [];
         this._permissions = [];
-        this._isSuperAdmin = env.isSuperAdmin === 'true';
+        this._isSuperAdmin = data.isSuperAdmin === 'true';
     }
 
     @IsString()

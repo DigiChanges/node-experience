@@ -1,10 +1,10 @@
-import { injectable } from 'inversify';
+import { injectable } from 'tsyringe';
 import IFormatResponder from '../../../Shared/InterfaceAdapters/IFormatResponder';
 
 @injectable()
 class FormatResponder implements IFormatResponder
 {
-    getFormatData = (data: unknown, metadata: Record<string, any> = null): any =>
+    getFormatData = (data: unknown, metadata: Record<string, unknown> = null): any =>
     {
         return {
             data,

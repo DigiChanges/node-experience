@@ -1,5 +1,4 @@
 import IUserRepository from './IUserRepository';
-import { injectable } from 'inversify';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
 import MongoosePaginator from '../../../App/Presentation/Shared/Orm/MongoosePaginator';
@@ -12,7 +11,6 @@ import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import BaseMongooseRepository from '../../../App/Infrastructure/Repositories/BaseMongooseRepository';
 import User from '../../Domain/Entities/User';
 
-@injectable()
 class UserMongooseRepository extends BaseMongooseRepository<IUserDomain, IUser> implements IUserRepository
 {
     constructor()

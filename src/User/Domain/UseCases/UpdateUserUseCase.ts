@@ -4,16 +4,21 @@ import CheckUserRolePayload from '../Payloads/CheckUserRolePayload';
 import Roles from '../../../Config/Roles';
 import CantDisabledException from '../../../Auth/Domain/Exceptions/CantDisabledException';
 import UserService from '../Services/UserService';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import { REPOSITORIES, SERVICES } from '../../../Config/Injects';
 import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class UpdateUserUseCase
 {
-    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
+    private userService: UserService;
 
-    private userService = new UserService();
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+        this.userService = container.resolve<UserService>(SERVICES.UserService);
+    }
 
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {

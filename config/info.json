@@ -1,6 +1,13 @@
 {
-  "http": ["Express", "Koa"],
-  "orm": ["Mongoose", "TypeORM", "MikroORM"],
+  "http": [
+    "Express",
+    "Koa"
+  ],
+  "orm": [
+    "Mongoose",
+    "TypeORM",
+    "MikroORM"
+  ],
   "domains": [
     {
       "name": "App",

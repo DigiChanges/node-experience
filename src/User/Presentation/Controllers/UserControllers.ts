@@ -1,4 +1,4 @@
-import { IPaginator, ICriteria } from '@digichanges/shared-experience';
+import { IPaginator } from '@digichanges/shared-experience';
 
 import GetUserUseCase from '../../Domain/UseCases/GetUserUseCase';
 import ListUsersUseCase from '../../Domain/UseCases/ListUsersUseCase';
@@ -18,7 +18,7 @@ import UserAssignRolePayload from '../../Domain/Payloads/UserAssignRolePayload';
 import ChangeMyPasswordPayload from '../../Domain/Payloads/ChangeMyPasswordPayload';
 import ChangeUserPasswordPayload from '../../Domain/Payloads/ChangeUserPasswordPayload';
 import UserSavePayload from '../../Domain/Payloads/UserSavePayload';
-
+import ICriteria from '../../../App/Domain/Payloads/ICriteria';
 
 class UserController
 {

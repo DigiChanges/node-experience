@@ -4,8 +4,11 @@
   "serverPort": 80,
   "setCookieSecure": true,
   "setCookieSameSite": "none",
-    "auth": {
+  "auth": {
       "authorization": true
+  },
+  "app": {
+    "default": "AppKoa"
   },
   "dbConfig": {
     "TypeORM": {

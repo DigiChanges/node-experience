@@ -1,7 +1,6 @@
 import IFileDomain from '../Entities/IFileDomain';
 import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import { REPOSITORIES } from '../../../Config/Injects';
 import IFileRepository from '../../Infrastructure/Repositories/IFileRepository';
 import PresignedFileRepPayload from 'File/Domain/Payloads/PresignedFileRepPayload';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
@@ -14,13 +13,20 @@ import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import FileDTO from '../Models/FileDTO';
 import IFileDTO from '../Models/IFileDTO';
 import { validate } from 'uuid';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import IFilesystem from '../../../Shared/InterfaceAdapters/IFilesystem';
 
 class FileService
 {
-    @containerFactory(REPOSITORIES.IFileRepository)
     private repository: IFileRepository;
+    private fileSystem: IFilesystem;
 
-    private fileSystem = FilesystemFactory.create();
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.repository = container.resolve<IFileRepository>(REPOSITORIES.IFileRepository);
+        this.fileSystem = FilesystemFactory.create();
+    }
 
     async getPresignedGetObject(payload: PresignedFileRepPayload): Promise<string>
     {

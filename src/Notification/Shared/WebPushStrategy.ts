@@ -1,5 +1,5 @@
 import webPush from 'web-push';
-import MainConfig from '../../Config/mainConfig';
+import MainConfig from '../../Config/MainConfig';
 import INotifierStrategy from './INotifierStrategy';
 import PushNotification from '../Domain/Entities/PushNotification';
 

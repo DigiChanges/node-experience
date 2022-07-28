@@ -43,13 +43,13 @@ class User extends Base implements IUserDomain
         this.phone = payload.phone;
         this.country = payload.country;
         this.address = payload.address;
-        this.verify = payload.verify ?? false;
-        this.enable = payload.enable;
+        this.verify = this.verify ?? payload.verify ?? false;
+        this.enable = this.enable ?? payload.enable;
         this.roles = payload.roles;
         this.permissions = payload.permissions;
         this.confirmationToken = payload.confirmationToken ?? null;
         this.passwordRequestedAt = payload.passwordRequestedAt ?? null;
-        this.isSuperAdmin = payload.isSuperAdmin;
+        this.isSuperAdmin = this.isSuperAdmin ?? payload.isSuperAdmin;
     }
 
     setPassword(value: Password)

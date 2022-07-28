@@ -8,11 +8,10 @@ class UserUpdateRequest extends Mixin(UserRepRequest, IdRequest) implements User
 {
     private readonly _tokenUserId: string;
 
-    constructor(data: Record<string, any>, id: string, userId: string)
+    constructor(data: Record<string, any>)
     {
         super(data);
-        this._id = id;
-        this._tokenUserId = userId;
+        this._tokenUserId = data.userId;
     }
 
     @decorate(IsUUID('4'))

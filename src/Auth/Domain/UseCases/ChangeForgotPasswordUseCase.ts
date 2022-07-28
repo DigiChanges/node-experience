@@ -1,19 +1,26 @@
+import { DependencyContainer } from 'tsyringe';
 import ChangeForgotPasswordPayload from '../Payloads/ChangeForgotPasswordPayload';
 import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import { REPOSITORIES, SERVICES } from '../../../Config/Injects';
 import Password from '../../../App/Domain/ValueObjects/Password';
-import MainConfig from '../../../Config/mainConfig';
+import MainConfig from '../../../Config/MainConfig';
 import Locales from '../../../App/Presentation/Shared/Locales';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
 import AuthService from '../Services/AuthService';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class ChangeForgotPasswordUseCase
 {
-    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-    private authService = new AuthService();
+    private authService: AuthService;
+
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.authService = container.resolve(SERVICES.AuthService);
+        this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+    }
 
     async handle(payload: ChangeForgotPasswordPayload): Promise<ILocaleMessage>
     {

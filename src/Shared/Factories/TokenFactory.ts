@@ -1,20 +1,25 @@
-import MainConfig from '../../Config/mainConfig';
+import MainConfig from '../../Config/MainConfig';
 import { v4 as uuidv4 } from 'uuid';
 import { ITokenRepository } from '@digichanges/shared-experience';
 
 import JWTToken from '../../Auth/Domain/Models/JWTToken';
 import IToken from '../../Auth/Domain/Models/IToken';
 import IUserDomain from '../../User/Domain/Entities/IUserDomain';
-import { REPOSITORIES } from '../../Config/Injects/repositories';
+import { REPOSITORIES } from '../../Config/Injects';
 import ITokenDomain from '../../Auth/Domain/Entities/ITokenDomain';
 import Token from '../../Auth/Domain/Entities/Token';
-import { containerFactory } from '../Decorators/ContainerFactory';
+import { getRequestContext } from '../../App/Presentation/Shared/RequestContext';
 
 // TODO: Change logic with payload to extend and add new payload
 class TokenFactory
 {
-    @containerFactory(REPOSITORIES.ITokenRepository)
     private repository: ITokenRepository<ITokenDomain>;
+
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.repository = container.resolve<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository);
+    }
 
     public async createToken(user: IUserDomain): Promise<IToken>
     {

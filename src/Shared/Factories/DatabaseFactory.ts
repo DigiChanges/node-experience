@@ -1,4 +1,4 @@
-import MainConfig from '../../Config/mainConfig';
+import MainConfig from '../../Config/MainConfig';
 import TypeORMCreateConnection from '../Database/TypeORMCreateConnection';
 import MongooseCreateConnection from '../Database/MongooseCreateConnection';
 import { ICreateConnection } from '@digichanges/shared-experience';

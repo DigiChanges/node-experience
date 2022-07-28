@@ -6,7 +6,7 @@ abstract class RequestCriteria implements ICriteria
     private readonly filter: IFilter;
     private readonly pagination: IPagination;
 
-    protected constructor(sort: ISort, filter: IFilter, pagination: IPagination)
+    constructor(sort: ISort, filter: IFilter, pagination: IPagination)
     {
         this.sort = sort;
         this.filter = filter;

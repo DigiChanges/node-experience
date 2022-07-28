@@ -25,6 +25,7 @@
 			"messages": {
 				"logout": "Has cerrado tu sesion correctamente.",
                 "forgotPassword": "Te hemos enviado un email.",
+				"changeForgotPassword": "Has cambiado tu contraseña correctamente.",
                 "register": "Te has registrado correctamente."
 			}
 		},

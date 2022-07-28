@@ -49,7 +49,7 @@ module.exports = {
     "<rootDir>/src/File/Infrastructure/Repositories/FileTypeORMRepository.ts",
     "<rootDir>/src/User/Infrastructure/Repositories/UserTypeORMRepository.ts",
     "<rootDir>/src/Role/Infrastructure/Repositories/RoleTypeORMRepository.ts",
-    "<rootDir>/src/Item/Infrastructure/Repositories/ItemSqlRepository.ts",
+    "<rootDir>/src/Item/Infrastructure/Repositories/ItemTypeORMRepository.ts",
     "<rootDir>/src/Auth/Infrastructure/Repositories/TokenRedisRepository.ts"
   ],
 

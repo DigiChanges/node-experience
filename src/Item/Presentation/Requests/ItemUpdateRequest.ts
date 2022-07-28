@@ -1,14 +1,23 @@
+import { Mixin } from 'ts-mixer';
 import ItemUpdatePayload from '../../Domain/Payloads/ItemUpdatePayload';
 import IdRequest from '../../../App/Presentation/Requests/IdRequest';
 import ItemRepRequest from './ItemRepRequest';
-import { Mixin } from 'ts-mixer';
+import IUserDomain from 'User/Domain/Entities/IUserDomain';
 
 class ItemUpdateRequest extends Mixin(ItemRepRequest, IdRequest) implements ItemUpdatePayload
 {
-    constructor(data: Record<string, any>, id: string)
+    private readonly _authUser: IUserDomain;
+
+    constructor(data: Record<string, any>)
     {
         super(data);
-        this._id = id;
+        this._id = data.id;
+        this._authUser = data.authUser;
+    }
+
+    get authUser(): IUserDomain
+    {
+        return this._authUser;
     }
 }
 

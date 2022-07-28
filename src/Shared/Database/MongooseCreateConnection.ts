@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import MainConfig from '../../Config/mainConfig';
+import MainConfig from '../../Config/MainConfig';
 import { ICreateConnection } from '@digichanges/shared-experience';
 
 import IUserDocument from '../../User/Infrastructure/Schemas/IUserDocument';

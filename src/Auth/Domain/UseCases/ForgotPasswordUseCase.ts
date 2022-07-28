@@ -1,18 +1,23 @@
-import MainConfig from '../../../Config/mainConfig';
+import MainConfig from '../../../Config/MainConfig';
 import ForgotPasswordPayload from '../Payloads/ForgotPasswordPayload';
 import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/Injects';
 import ForgotPasswordEvent from '../../../Shared/Events/ForgotPasswordEvent';
 import SendEmailService from '../../../Notification/Domain/Services/SendEmailService';
 import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../App/Presentation/Shared/Locales';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class ForgotPasswordUseCase
 {
-    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
+
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+    }
 
     async handle(payload: ForgotPasswordPayload): Promise<ILocaleMessage>
     {

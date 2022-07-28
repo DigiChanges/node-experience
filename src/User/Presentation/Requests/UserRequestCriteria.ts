@@ -1,6 +1,4 @@
-import { ParsedQs } from 'qs';
-import { ICriteria } from '@digichanges/shared-experience';
-
+import ICriteria from '../../../App/Domain/Payloads/ICriteria';
 import UserSort from '../Criterias/UserSort';
 import UserFilter from '../Criterias/UserFilter';
 import Pagination from '../../../App/Presentation/Shared/Pagination';
@@ -8,9 +6,9 @@ import RequestCriteria from '../../../App/Presentation/Requests/RequestCriteria'
 
 class UserRequestCriteria extends RequestCriteria implements ICriteria
 {
-    constructor(query: ParsedQs, url: string)
+    constructor(data: Record<string, any>)
     {
-        super(new UserSort(query), new UserFilter(query), new Pagination(query, url));
+        super(new UserSort(data.query), new UserFilter(data.query), new Pagination(data.query, data.url));
     }
 }
 

@@ -1,6 +1,6 @@
 import { ICreateConnection } from '@digichanges/shared-experience';
 import { SuperAgentTest } from 'supertest';
-import MainConfig from '../../Config/mainConfig';
+import MainConfig from '../../Config/MainConfig';
 import initTestServer from '../../initTestServer';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IListUsersResponse, IUserResponse } from './types';

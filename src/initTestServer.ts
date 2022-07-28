@@ -1,4 +1,6 @@
 import 'reflect-metadata';
+import './inversify.config';
+import container from './register';
 
 import supertest from 'supertest';
 
@@ -6,23 +8,25 @@ import { ICreateConnection, ITokenRepository } from '@digichanges/shared-experie
 
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 import EventHandler from './Shared/Events/EventHandler';
-import { REPOSITORIES } from './Config/Injects/repositories';
+import { FACTORIES, REPOSITORIES } from './Config/Injects';
 import TokenMongooseRepository from './Auth/Infrastructure/Repositories/TokenMongooseRepository';
 import TokenTypeORMRepository from './Auth/Infrastructure/Repositories/TokenTypeORMRepository';
 import { validateEnv } from './Config/validateEnv';
-import container from './inversify.config';
 import ITokenDomain from './Auth/Domain/Entities/ITokenDomain';
 import SeedFactory from './Shared/Factories/SeedFactory';
-import AppFactory from './Shared/Factories/AppFactory';
 import Locales from './App/Presentation/Shared/Locales';
-import { FACTORIES } from './Config/Injects/factories';
-import INotificationFactory from './Notification/Shared/INotificationFactory';
-import MockNotificationFactory from './Notification/Tests/MockNotificationFactory';
-import MainConfig from './Config/mainConfig';
+import MainConfig from './Config/MainConfig';
+import IApp from './App/InterfaceAdapters/IApp';
+import { Lifecycle } from 'tsyringe';
+import MockStrategy from './Notification/Tests/MockStrategy';
+import INotifierStrategy from './Notification/Shared/INotifierStrategy';
+import AppFactory from './Shared/Factories/AppFactory';
 
 const initTestServer = async(): Promise<any> =>
 {
     validateEnv();
+
+    const config = MainConfig.getInstance().getConfig();
 
     const databaseFactory: DatabaseFactory = new DatabaseFactory();
     const dbConnection: ICreateConnection = databaseFactory.create();
@@ -35,24 +39,20 @@ const initTestServer = async(): Promise<any> =>
 
     void Locales.getInstance();
 
-    const mainConfig = MainConfig.getInstance().getConfig();
+    const defaultDb = config.dbConfig.default;
 
-    container.unbind(REPOSITORIES.ITokenRepository);
-    container.bind<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository).to(mainConfig.dbConfig.default === 'Mongoose'
-        ? TokenMongooseRepository
-        : TokenTypeORMRepository
-    );
+    container.register<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository, { useClass:
+        defaultDb ? TokenMongooseRepository : TokenTypeORMRepository
+    }, { lifecycle: Lifecycle.Singleton });
 
-    container.unbind(FACTORIES.INotificationFactory);
-    container.bind<INotificationFactory>(FACTORIES.INotificationFactory).to(MockNotificationFactory);
+    container.register<INotifierStrategy>(FACTORIES.EmailStrategy, { useClass: MockStrategy }, { lifecycle: Lifecycle.Singleton });
 
-    const app = AppFactory.create('AppKoa', {
-        viewRouteEngine: `${process.cwd()}/dist/src/App/Presentation/Views`,
+    const app: IApp = AppFactory.create(config.app.default);
+
+    app.initConfig({
         serverPort: 8088
     });
-
-    app.initConfig();
-    app.build();
+    await app.build();
 
     const application = app.callback();
     const request: supertest.SuperAgentTest = supertest.agent(application);

@@ -3,7 +3,7 @@ import { IsDate, IsEmail, IsString } from 'class-validator';
 import ForgotPasswordPayload from '../../Domain/Payloads/ForgotPasswordPayload';
 import moment from 'moment';
 import jwt from 'jwt-simple';
-import MainConfig from '../../../Config/mainConfig';
+import MainConfig from '../../../Config/MainConfig';
 
 class ForgotPasswordRequest implements ForgotPasswordPayload
 {

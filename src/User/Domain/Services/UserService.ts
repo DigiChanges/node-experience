@@ -1,24 +1,28 @@
 import IUserDomain from '../Entities/IUserDomain';
 import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/Injects';
 import CheckUserRolePayload from '../Payloads/CheckUserRolePayload';
 import IRoleRepository from '../../../Role/Infrastructure/Repositories/IRoleRepository';
 import Password from '../../../App/Domain/ValueObjects/Password';
 import UniqueService from '../../../App/Domain/Services/UniqueService';
-import MainConfig from '../../../Config/mainConfig';
+import MainConfig from '../../../Config/MainConfig';
 import AuthHelper from '../../../Shared/Helpers/AuthHelper';
 import ChangeMyPasswordPayload from '../Payloads/ChangeMyPasswordPayload';
 import User from '../Entities/User';
 import UserSavePayload from '../Payloads/UserSavePayload';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class UserService
 {
-    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-
-    @containerFactory(REPOSITORIES.IRoleRepository)
     private roleRepository: IRoleRepository;
+
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+        this.roleRepository = container.resolve<IRoleRepository>(REPOSITORIES.IRoleRepository);
+    }
 
     async create(payload: UserSavePayload)
     {

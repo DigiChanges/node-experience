@@ -5,6 +5,9 @@
   "auth": {
       "authorization": "AUTHORIZATION"
   },
+  "app": {
+    "default": "APP_DEFAULT"
+  },
   "dbConfig": {
     "TypeORM": {
       "host": "DB_HOST",

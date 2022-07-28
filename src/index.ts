@@ -1,5 +1,8 @@
 import 'reflect-metadata';
-import MainConfig from './Config/mainConfig';
+import './inversify.config';
+import './register';
+
+import MainConfig from './Config/MainConfig';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 
 import EventHandler from './Shared/Events/EventHandler';
@@ -7,17 +10,16 @@ import CacheFactory from './Shared/Factories/CacheFactory';
 import { ICreateConnection } from '@digichanges/shared-experience';
 import ICacheRepository from './App/Infrastructure/Repositories/ICacheRepository';
 
-import AppFactory from './Shared/Factories/AppFactory';
 import CronFactory from './Shared/Factories/CronFactory';
 import Logger from './Shared/Logger/Logger';
+import IApp from './App/InterfaceAdapters/IApp';
+import AppFactory from './Shared/Factories/AppFactory';
 
 void (async() =>
 {
-    const config = MainConfig.getInstance();
-    const app = AppFactory.create('AppKoa', {
-        viewRouteEngine: `${process.cwd()}/dist/src/App/Presentation/Views`,
-        serverPort: config.getConfig().serverPort
-    });
+    const config = MainConfig.getInstance().getConfig();
+    const app: IApp = AppFactory.create(config.app.default);
+
     const databaseFactory = new DatabaseFactory();
     const createConnection: ICreateConnection = databaseFactory.create();
     const cache: ICacheRepository = CacheFactory.createRedisCache();
@@ -28,7 +30,7 @@ void (async() =>
         createConnection.initConfig();
         await createConnection.create();
 
-        await cache.createConnection(config.getConfig().cache.redis);
+        await cache.createConnection(config.cache.redis);
         await cache.cleanAll();
 
         await eventHandler.setListeners();
@@ -36,15 +38,16 @@ void (async() =>
         const cronFactory = new CronFactory();
         cronFactory.start();
 
-
-        app.initConfig();
-        app.build();
+        app.initConfig({
+            serverPort: config.serverPort
+        });
+        await app.build();
         app.listen();
     }
-    catch (error) // TODO: Change this error catch
+    catch (error)
     {
         Logger.info('Error while connecting to the database', error);
-        return error;
+        throw error;
     }
 
     async function closeGracefully(signal: any)
@@ -64,4 +67,3 @@ void (async() =>
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     process.once('SIGUSR2', closeGracefully);
 })();
-

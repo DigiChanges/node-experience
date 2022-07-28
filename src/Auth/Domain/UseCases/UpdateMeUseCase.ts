@@ -1,13 +1,18 @@
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import UpdateMePayload from '../Payloads/UpdateMePayload';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import { REPOSITORIES } from '../../../Config/Injects';
 import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class UpdateMeUseCase
 {
-    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
+
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+    }
 
     async handle(payload: UpdateMePayload): Promise<IUserDomain>
     {

@@ -1,6 +1,6 @@
-import ContainerFactory from '../Factories/ContainerFactory';
-import INotificationFactory from '../../Notification/Shared/INotificationFactory';
-import { FACTORIES } from '../../Config/Injects/factories';
+import INotifierStrategy from '../../Notification/Shared/INotifierStrategy';
+import { FACTORIES } from '../../Config/Injects';
+import container from '../../register';
 
 class ForgotPasswordEvent
 {
@@ -10,9 +10,8 @@ class ForgotPasswordEvent
     {
         const { emailNotification, args } = props;
 
-        const notificationFactory = ContainerFactory.create<INotificationFactory>(FACTORIES.INotificationFactory);
+        const emailNotificator: any = container.resolve<INotifierStrategy>(FACTORIES.EmailStrategy);
 
-        const emailNotificator = notificationFactory.create('email');
         emailNotificator.emailNotification = emailNotification;
         emailNotificator.templatePathNameFile = 'auth/forgotPassword.hbs';
         emailNotificator.data = args;

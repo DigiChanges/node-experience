@@ -11,7 +11,7 @@ We can run the project directly with docker compose and then bash where the basi
 1. Install dependencies. `yarn`.
 2. Copy `.env.dev` file to `.env`.
 3. Then execute `STAGE=dev docker-compose up --build` to up all containers.
-4. Basically generates an admin user, add roles with permission and create a bucket for minIO. `docker-compose exec node bash dev.init.sh`
+4. Basically generates an admin user, add roles with permission and get a bucket for minIO. `docker-compose exec node bash dev.init.sh`
 
 ## Execute NEXP CLI
 
@@ -140,7 +140,7 @@ This above command replaces the mongo container with the postgres container.
 
 ```bash
 docker-compose exec db psql -d experience -U experience -W
-create extension "uuid-ossp";
+get extension "uuid-ossp";
 ```
 
 ```bash

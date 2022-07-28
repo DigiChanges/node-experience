@@ -1,5 +1,4 @@
 import { Query } from 'mongoose';
-import { injectable } from 'inversify';
 import { ICriteria, IPaginator, ITokenRepository } from '@digichanges/shared-experience';
 
 import MongoosePaginator from '../../../App/Presentation/Shared/Orm/MongoosePaginator';
@@ -9,7 +8,6 @@ import ITokenDomain from '../../Domain/Entities/ITokenDomain';
 import BaseMongooseRepository from '../../../App/Infrastructure/Repositories/BaseMongooseRepository';
 import Token from '../../Domain/Entities/Token';
 
-@injectable()
 class TokenMongooseRepository extends BaseMongooseRepository<ITokenDomain, ITokenDocument> implements ITokenRepository<ITokenDomain>
 {
     constructor()

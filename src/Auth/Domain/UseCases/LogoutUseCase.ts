@@ -1,26 +1,33 @@
+import { DependencyContainer } from 'tsyringe';
 import { ITokenRepository } from '@digichanges/shared-experience';
 import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
 import Locales from '../../../App/Presentation/Shared/Locales';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import ITokenDecode from '../../../Shared/InterfaceAdapters/ITokenDecode';
+import { REPOSITORIES, SERVICES } from '../../../Config/Injects';
 import ITokenDomain from '../Entities/ITokenDomain';
 import RefreshTokenPayload from '../Payloads/RefreshTokenPayload';
 import AuthService from '../Services/AuthService';
 import SetTokenBlacklistUseCase from './SetTokenBlacklistUseCase';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class LogoutUseCase
 {
-    @containerFactory(REPOSITORIES.ITokenRepository)
     private tokenRepository: ITokenRepository<ITokenDomain>;
+    private authService: AuthService;
+    private readonly container: DependencyContainer;
 
-    private authService = new AuthService();
-
-    async handle(payload: RefreshTokenPayload, tokenDecode: ITokenDecode): Promise<ILocaleMessage>
+    constructor()
     {
-        const setTokenBlackListUseCase = new SetTokenBlacklistUseCase();
+        const { container } = getRequestContext();
+        this.tokenRepository = container.resolve<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository);
+        this.authService = container.resolve<AuthService>(SERVICES.AuthService);
+        this.container = container;
+    }
 
-        const tokenId = tokenDecode.id;
+    async handle(payload: RefreshTokenPayload): Promise<ILocaleMessage>
+    {
+        const setTokenBlackListUseCase = new SetTokenBlacklistUseCase(this.container);
+
+        const tokenId = payload.decodeToken.id;
 
         const token: ITokenDomain = await this.tokenRepository.getOne(tokenId);
 

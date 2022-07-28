@@ -1,17 +1,21 @@
 import UserAssignRoleBySlug from '../Payloads/UserAssignRoleBySlug';
 import IUserDomain from '../Entities/IUserDomain';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import { REPOSITORIES } from '../../../Config/Injects';
 import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
 import IRoleRepository from '../../../Role/Infrastructure/Repositories/IRoleRepository';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class AssignRoleBySlugUseCase
 {
-    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
-
-    @containerFactory(REPOSITORIES.IRoleRepository)
     private roleRepository: IRoleRepository;
+
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+        this.roleRepository = container.resolve<IRoleRepository>(REPOSITORIES.IRoleRepository);
+    }
 
     async handle(payload: UserAssignRoleBySlug): Promise<IUserDomain>
     {

@@ -1,4 +1,4 @@
-import MainConfig from '../../Config/mainConfig';
+import MainConfig from '../../Config/MainConfig';
 import MinioStrategy from '../Filesystem/MinioStrategy';
 import IFilesystem from '../InterfaceAdapters/IFilesystem';
 

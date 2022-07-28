@@ -1,13 +1,17 @@
+import { DependencyContainer } from 'tsyringe';
 import { ITokenRepository } from '@digichanges/shared-experience';
 
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
+import { REPOSITORIES } from '../../../Config/Injects';
 import ITokenDomain from '../Entities/ITokenDomain';
 
 class GetTokenUseCase
 {
-    @containerFactory(REPOSITORIES.ITokenRepository)
     private repository: ITokenRepository<ITokenDomain>;
+
+    constructor(container: DependencyContainer)
+    {
+        this.repository = container.resolve<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository);
+    }
 
     async handle(id: string): Promise<ITokenDomain>
     {

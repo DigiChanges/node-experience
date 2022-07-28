@@ -1,12 +1,17 @@
 import UserActivePayload from '../Payloads/UserActivePayload';
-import { containerFactory } from '../../../Shared/Decorators/ContainerFactory';
-import { REPOSITORIES } from '../../../Config/Injects/repositories';
+import { REPOSITORIES } from '../../../Config/Injects';
 import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
+import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
 
 class ActiveUserUseCase
 {
-    @containerFactory(REPOSITORIES.IUserRepository)
     private repository: IUserRepository;
+
+    constructor()
+    {
+        const { container } = getRequestContext();
+        this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+    }
 
     async handle(payload: UserActivePayload): Promise<void>
     {

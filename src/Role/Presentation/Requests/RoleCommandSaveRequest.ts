@@ -9,11 +9,11 @@ class RoleCommandSaveRequest implements RoleRepPayload
     private readonly _enable: boolean;
     private readonly _permissions: string[];
 
-    constructor(env: any, role: any = null)
+    constructor(data: Record<string, any>)
     {
-        this._name = env.role;
-        this._slug = env.slug?.toLowerCase() ?? env.role?.toLowerCase();
-        this._enable = env.enable ?? true;
+        this._name = data.role;
+        this._slug = data.slug?.toLowerCase() ?? data.role?.toLowerCase();
+        this._enable = data.enable ?? true;
         this._permissions = [];
     }
 

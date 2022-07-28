@@ -1,10 +1,11 @@
+import IAppConfig from './IAppConfig';
 
 interface IApp
 {
-    initConfig(): any;
-    build(): void;
-    listen(): any;
-    callback(): any;
+    initConfig(config: IAppConfig): unknown;
+    build(): Promise<void>;
+    listen(): unknown;
+    callback(): unknown;
     close(): void;
 }
 

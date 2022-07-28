@@ -1,5 +1,5 @@
 import { IsString, IsUUID, Length } from 'class-validator';
-import MainConfig from '../../../Config/mainConfig';
+import MainConfig from '../../../Config/MainConfig';
 import ChangeMyPasswordPayload from '../../Domain/Payloads/ChangeMyPasswordPayload';
 import UserPasswordRequest from './UserPasswordRequest';
 
@@ -8,11 +8,11 @@ class ChangeMyPasswordRequest extends UserPasswordRequest implements ChangeMyPas
     private readonly _currentPassword: string;
     private readonly _id: string;
 
-    constructor(data: Record<string, any>, userId: string)
+    constructor(data: Record<string, any>)
     {
         super(data);
         this._currentPassword = data.currentPassword;
-        this._id = userId;
+        this._id = data.userId;
     }
 
     @IsString()

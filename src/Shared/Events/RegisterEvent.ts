@@ -1,6 +1,6 @@
-import ContainerFactory from '../Factories/ContainerFactory';
-import INotificationFactory from '../../Notification/Shared/INotificationFactory';
-import { FACTORIES } from '../../Config/Injects/factories';
+import { FACTORIES } from '../../Config/Injects';
+import container from '../../register';
+import INotifierStrategy from '../../Notification/Shared/INotifierStrategy';
 
 class RegisterEvent
 {
@@ -10,14 +10,13 @@ class RegisterEvent
     {
         const { emailNotification, args } = props;
 
-        const notificationFactory = ContainerFactory.create<INotificationFactory>(FACTORIES.INotificationFactory);
+        const emailNotifier: any = container.resolve<INotifierStrategy>(FACTORIES.EmailStrategy);
 
-        const emailNotificator = notificationFactory.create('email');
-        emailNotificator.emailNotification = emailNotification;
-        emailNotificator.templatePathNameFile = 'auth/register.hbs';
-        emailNotificator.data = args;
+        emailNotifier.emailNotification = emailNotification;
+        emailNotifier.templatePathNameFile = 'auth/register.hbs';
+        emailNotifier.data = args;
 
-        await emailNotificator.send();
+        await emailNotifier.send();
     };
 }
 

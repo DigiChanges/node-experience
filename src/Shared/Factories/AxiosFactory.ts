@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import MainConfig from '../../Config/mainConfig';
+import MainConfig from '../../Config/MainConfig';
 
 const port = MainConfig.getInstance().getConfig().serverPort;
 const baseURL = `http://localhost:${port}/api/`;

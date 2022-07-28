@@ -7,9 +7,9 @@ class UserAssignRoleRequest extends IdRequest implements UserAssignRolePayload
 {
     private readonly _rolesId: string[];
 
-    constructor(data: Record<string, any>, id: string)
+    constructor(data: Record<string, any>)
     {
-        super({ id });
+        super(data);
         this._rolesId = data.rolesId;
     }
 

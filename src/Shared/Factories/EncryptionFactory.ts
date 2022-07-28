@@ -1,5 +1,5 @@
 import { IEncryption } from '@digichanges/shared-experience';
-import MainConfig from '../../Config/mainConfig';
+import MainConfig from '../../Config/MainConfig';
 import BcryptEncryptionStrategy from '../Encryption/BcryptEncryptionStrategy';
 import Md5EncryptionStrategy from '../Encryption/Md5EncryptionStrategy';
 
