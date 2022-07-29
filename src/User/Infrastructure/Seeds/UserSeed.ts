@@ -80,7 +80,6 @@ class UserSeed implements ISeed
             country: 'Argentina',
             address: 'New America 123',
             enable: true,
-            verify: true,
             permissions: ['itemsSave'],
             roles: [roleSuperAdmin],
             isSuperAdmin: true
@@ -88,6 +87,7 @@ class UserSeed implements ISeed
 
         const userSuperAdmin: IUserDomain = new User(payloadUserSuperAdmin);
         userSuperAdmin.password = await (new Password('12345678', minLength, maxLength)).ready();
+        userSuperAdmin.verify = true;
 
         await this.userRepository.save(userSuperAdmin);
 
@@ -102,7 +102,6 @@ class UserSeed implements ISeed
             phone: '2234456999',
             country: 'Argentina',
             address: 'New America 123',
-            verify: true,
             enable: true,
             permissions: ['itemsSave'],
             roles: [roleAdmin],
@@ -111,6 +110,7 @@ class UserSeed implements ISeed
 
         const userAdmin: IUserDomain = new User(payloadUserAdmin);
         userAdmin.password = await (new Password('12345678', minLength, maxLength)).ready();
+        userAdmin.verify = true;
 
         await this.userRepository.save(userAdmin);
 
@@ -126,7 +126,6 @@ class UserSeed implements ISeed
             country: 'Argentina',
             address: 'New America 123',
             permissions: ['itemsSave'],
-            verify: true,
             enable: true,
             roles: [roleOperator],
             isSuperAdmin: false
@@ -134,6 +133,7 @@ class UserSeed implements ISeed
 
         const userOperator: IUserDomain = new User(payloadUserOperator);
         userOperator.password = await (new Password('123456789', minLength, maxLength)).ready();
+        userOperator.verify = true;
 
         await this.userRepository.save(userOperator);
 
@@ -148,7 +148,6 @@ class UserSeed implements ISeed
             phone: '2234456999',
             country: 'Argentina',
             address: 'New America 123',
-            verify: false,
             enable: false,
             permissions: ['itemsSave'],
             roles: [roleOperator],
@@ -157,6 +156,7 @@ class UserSeed implements ISeed
 
         const userOperatorDisabled: IUserDomain = new User(payloadUserOperatorDisabled);
         userOperatorDisabled.password = await (new Password('1234567901', minLength, maxLength)).ready();
+        userOperator.verify = false;
 
         await this.userRepository.save(userOperatorDisabled);
         const payloadUserOperatorRoleDisabled = {
@@ -170,14 +170,15 @@ class UserSeed implements ISeed
             phone: '2234456999',
             country: 'Argentina',
             address: 'New America 123',
-            verify: true,
             enable: true,
             permissions: ['itemsSave'],
             roles: [roleOperatorDisabled],
             isSuperAdmin: false
         };
+
         const userOperatorRoleDisabled: IUserDomain = new User(payloadUserOperatorRoleDisabled);
         userOperatorRoleDisabled.password = await (new Password('1234567901', minLength, maxLength)).ready();
+        userOperatorRoleDisabled.verify = true;
 
         await this.userRepository.save(userOperatorRoleDisabled);
     }

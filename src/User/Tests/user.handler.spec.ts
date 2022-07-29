@@ -115,6 +115,7 @@ describe('Start User Test', () =>
                 firstName: 'Jhon',
                 lastName: 'Doe',
                 email: 'user3@node.com',
+                enable: false,
                 password: '12345678',
                 password_confirmation: '12345678',
                 permissions: []
@@ -132,6 +133,7 @@ describe('Start User Test', () =>
 
             expect(data.firstName).toStrictEqual(payload.firstName);
             expect(data.email).toStrictEqual(payload.email);
+            expect(data.enable).toStrictEqual(payload.enable);
         });
 
         test('Update User /users/:id', async() =>
@@ -147,7 +149,7 @@ describe('Start User Test', () =>
                 phone: '22344569121',
                 country: 'UR',
                 address: 'Norway 124',
-                enable: false,
+                enable: true,
                 permissions: []
             };
 
@@ -157,9 +159,17 @@ describe('Start User Test', () =>
                 .set('Authorization', `Bearer ${token}`)
                 .send(payload);
 
-            const { body: { data } } = response;
-
             expect(response.statusCode).toStrictEqual(201);
+
+            const getResponse: IUserResponse = await request
+                .get(`/api/users/${userId}`)
+                .set('Accept', 'application/json')
+                .set('Authorization', `Bearer ${token}`);
+
+            const { body: { data } } = getResponse;
+
+            expect(getResponse.statusCode).toStrictEqual(200);
+            expect(data.enable).toStrictEqual(payload.enable);
         });
 
         test('Change my Password /users/change-my-password', async() =>

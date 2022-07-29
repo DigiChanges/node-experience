@@ -32,7 +32,6 @@ class UserService
         user.setPassword(await (new Password(payload.password, minLength, maxLength)).ready());
 
         await this.validate(user);
-
         await this.repository.save(user);
 
         return user;
