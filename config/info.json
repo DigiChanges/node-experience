@@ -11,31 +11,38 @@
   "domains": [
     {
       "name": "App",
-      "fileInfra": "Base"
+      "fileInfra": "Base",
+      "handler": "Index"
     },
     {
       "name": "Auth",
-      "fileInfra": "Token"
+      "fileInfra": "Token",
+      "handler": "Auth"
     },
     {
       "name": "File",
-      "fileInfra": "File"
+      "fileInfra": "File",
+      "handler": "File"
     },
     {
       "name": "Item",
-      "fileInfra": "Item"
+      "fileInfra": "Item",
+      "handler": "Item"
     },
     {
       "name": "Notification",
-      "fileInfra": "Notification"
+      "fileInfra": "Notification",
+      "handler": "Notification"
     },
     {
       "name": "Role",
-      "fileInfra": "Role"
+      "fileInfra": "Role",
+      "handler": "Role"
     },
     {
       "name": "User",
-      "fileInfra": "User"
+      "fileInfra": "User",
+      "handler": "User"
     }
   ]
 }
