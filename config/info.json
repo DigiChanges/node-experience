@@ -10,11 +10,6 @@
   ],
   "domains": [
     {
-      "name": "App",
-      "fileInfra": "Base",
-      "handler": "Index"
-    },
-    {
       "name": "Auth",
       "fileInfra": "Token",
       "handler": "Auth"
