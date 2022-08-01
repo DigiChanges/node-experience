@@ -13,7 +13,7 @@ import PresignedFileRepRequest from '../Requests/PresignedFileRepRequest';
 import FileUpdateBase64Request from '../Requests/FileUpdateBase64Request';
 import FileUpdateMultipartRequest from '../Requests/FileUpdateMultipartRequest';
 import FileMultipartRepRequest from '../Requests/FileMultipartRepRequest';
-import FileKoaReqMulter from '../Middlewares/FileKoaReqMulter';
+import FileKoaReqMulterMiddleware from '../Middlewares/FileKoaReqMulterMiddleware';
 import ObjectTransformer from '../Transformers/ObjectTransformer';
 import AuthorizeKoaMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeKoaMiddleware';
 import Permissions from '../../../Config/Permissions';
@@ -67,7 +67,7 @@ FileKoaHandler.post('/base64', AuthorizeKoaMiddleware(Permissions.FILES_UPLOAD),
     void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
-FileKoaHandler.post('/', <any>FileKoaReqMulter.single('file'), AuthorizeKoaMiddleware(Permissions.FILES_UPLOAD), async(ctx: Koa.ParameterizedContext & any) =>
+FileKoaHandler.post('/', <any>FileKoaReqMulterMiddleware.single('file'), AuthorizeKoaMiddleware(Permissions.FILES_UPLOAD), async(ctx: Koa.ParameterizedContext & any) =>
 {
     const body = {
         file: ctx.request.file,
@@ -128,7 +128,7 @@ FileKoaHandler.put('/base64/:id', AuthorizeKoaMiddleware(Permissions.FILES_UPDAT
     void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
-FileKoaHandler.put('/:id', <any>FileKoaReqMulter.single('file'), AuthorizeKoaMiddleware(Permissions.FILES_UPDATE), async(ctx: Koa.ParameterizedContext) =>
+FileKoaHandler.put('/:id', <any>FileKoaReqMulterMiddleware.single('file'), AuthorizeKoaMiddleware(Permissions.FILES_UPDATE), async(ctx: Koa.ParameterizedContext) =>
 {
     const body = {
         file: ctx.request.file,

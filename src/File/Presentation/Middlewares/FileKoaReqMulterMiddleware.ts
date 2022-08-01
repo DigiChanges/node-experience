@@ -1,4 +1,4 @@
-import multer from 'multer';
+import multer from '@koa/multer';
 
 const storage = multer.diskStorage(
     {
@@ -7,6 +7,6 @@ const storage = multer.diskStorage(
     }
 );
 
-const FileExpressReqMulter = multer({ storage });
+const FileKoaReqMulterMiddleware = multer({ storage });
 
-export default FileExpressReqMulter;
+export default FileKoaReqMulterMiddleware;

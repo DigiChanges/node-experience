@@ -8,7 +8,7 @@ import Permissions from '../../../Config/Permissions';
 
 import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder';
 import ListObjectsRequest from '../Requests/ListObjectsRequest';
-import FileExpressReqMulter from '../Middlewares/FileExpressReqMulter';
+import FileExpressReqMulterMiddleware from '../Middlewares/FileExpressReqMulterMiddleware';
 import FileBase64RepRequest from '../Requests/FileBase64RepRequest';
 import FileMultipartRepRequest from '../Requests/FileMultipartRepRequest';
 import PresignedFileRepRequest from '../Requests/PresignedFileRepRequest';
@@ -77,7 +77,7 @@ class FileExpressHandler
         void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
-    @httpPost('/', FileExpressReqMulter.single('file'), AuthorizeExpressMiddleware(Permissions.FILES_UPLOAD))
+    @httpPost('/', FileExpressReqMulterMiddleware.single('file'), AuthorizeExpressMiddleware(Permissions.FILES_UPLOAD))
     public async uploadMultipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const body = {
@@ -143,7 +143,7 @@ class FileExpressHandler
         void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
-    @httpPut('/:id', FileExpressReqMulter.single('file'), AuthorizeExpressMiddleware(Permissions.FILES_UPDATE))
+    @httpPut('/:id', FileExpressReqMulterMiddleware.single('file'), AuthorizeExpressMiddleware(Permissions.FILES_UPDATE))
     public async updateMultipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const body = {
