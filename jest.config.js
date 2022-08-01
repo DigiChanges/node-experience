@@ -34,6 +34,7 @@ module.exports = {
 
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
+    "<rootDir>/src/*/I[A-z]*.ts",
     "<rootDir>/node_modules/",
     "<rootDir>/.eslintrc.json",
     "<rootDir>/src/command.ts",
@@ -43,12 +44,14 @@ module.exports = {
     "<rootDir>/src/User/Presentation/Commands/*",
     "<rootDir>/src/Item/Presentation/Commands/*",
     "<rootDir>/src/Role/Presentation/Commands/*",
-    "<rootDir>/src/AppExpress/Presentation/Criterias/*",
     "<rootDir>/src/File/Infrastructure/Repositories/FileTypeORMRepository.ts",
     "<rootDir>/src/User/Infrastructure/Repositories/UserTypeORMRepository.ts",
     "<rootDir>/src/Role/Infrastructure/Repositories/RoleTypeORMRepository.ts",
     "<rootDir>/src/Item/Infrastructure/Repositories/ItemTypeORMRepository.ts",
-    "<rootDir>/src/Auth/Infrastructure/Repositories/TokenRedisRepository.ts"
+    "<rootDir>/src/Auth/Infrastructure/Repositories/TokenRedisRepository.ts",
+    "<rootDir>/src/Shared/Infrastructure/Database/MikroORMCreateConnection.ts",
+    "<rootDir>/src/Shared/Infrastructure/Database/TypeORMCreateConnection.ts ",
+    "<rootDir>/src/Shared/Events/*",
   ],
 
   // Indicates which provider should be used to instrument code for coverage
