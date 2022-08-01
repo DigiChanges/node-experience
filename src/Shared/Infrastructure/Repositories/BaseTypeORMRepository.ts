@@ -1,6 +1,6 @@
 import { EntitySchema, FindOneOptions, getRepository, In, Repository } from 'typeorm';
 import NotFoundException from '../../Exceptions/NotFoundException';
-import IByOptions from '../../InterfaceAdapters/IByOptions';
+import IByOptions from './IByOptions';
 import IBaseRepository from './IBaseRepository';
 
 abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>

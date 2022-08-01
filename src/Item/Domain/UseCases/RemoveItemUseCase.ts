@@ -1,4 +1,4 @@
-import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import IItemDomain from '../Entities/IItemDomain';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';

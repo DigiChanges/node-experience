@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { controller, httpDelete, httpGet, httpPost, httpPut, next, request, response } from 'inversify-express-utils';
 import StatusCode from '../../../Shared/Application/StatusCode';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder';
 import AuthorizeExpressMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeExpressMiddleware';

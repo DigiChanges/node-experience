@@ -1,25 +1,25 @@
 import faker from 'faker';
-import container from '../../../register';
 import IItemRepository from '../Repositories/IItemRepository';
 import Item from '../../Domain/Entities/Item';
 import { REPOSITORIES } from '../../../Config/Injects';
-import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import User from '../../../User/Domain/Entities/User';
 import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 import Password from '../../../Shared/Domain/ValueObjects/Password';
 import MainConfig from '../../../Config/MainConfig';
 import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
+import BaseSeed from '../../../Shared/Infrastructure/Seeds/BaseSeed';
 
-class ItemSeed implements ISeed
+class ItemSeed extends BaseSeed
 {
     private repository: IItemRepository;
     private userRepository: IUserRepository;
 
     constructor()
     {
-        this.repository = container.resolve<IItemRepository>(REPOSITORIES.IItemRepository);
-        this.userRepository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+        super();
+        this.repository = this.container.resolve<IItemRepository>(REPOSITORIES.IItemRepository);
+        this.userRepository = this.container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
     }
 
     public async init()

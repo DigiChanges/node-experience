@@ -8,7 +8,7 @@ import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/
 import Token from '../../Domain/Entities/Token';
 import ITokenRepository from './ITokenRepository';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 class TokenMongooseRepository extends BaseMongooseRepository<ITokenDomain, ITokenDocument> implements ITokenRepository<ITokenDomain>
 {

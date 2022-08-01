@@ -1,3 +1,4 @@
+
 interface IDefaultMessageTransformer
 {
     id: string;

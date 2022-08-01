@@ -1,4 +1,4 @@
-import IHttpStatusCode from '../../Shared/InterfaceAdapters/IHttpStatusCode';
+import IHttpStatusCode from './IHttpStatusCode';
 
 class StatusCode
 {

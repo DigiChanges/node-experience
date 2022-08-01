@@ -10,14 +10,14 @@ import UpdateUserUseCase from '../../Domain/UseCases/UpdateUserUseCase';
 import ValidatorRequest from '../../../Shared/Presentation/Shared/ValidatorRequest';
 
 import IUserDomain from '../../Domain/Entities/IUserDomain';
-import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import UserUpdatePayload from '../../Domain/Payloads/UserUpdatePayload';
 import UserAssignRolePayload from '../../Domain/Payloads/UserAssignRolePayload';
 import ChangeMyPasswordPayload from '../../Domain/Payloads/ChangeMyPasswordPayload';
 import ChangeUserPasswordPayload from '../../Domain/Payloads/ChangeUserPasswordPayload';
 import UserSavePayload from '../../Domain/Payloads/UserSavePayload';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 class UserController
 {

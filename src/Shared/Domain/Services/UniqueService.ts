@@ -1,12 +1,13 @@
 import IUniqueConfig from '../../InterfaceAdapters/IUniqueConfig';
 import UniqueAttributeException from '../Exceptions/UniqueAttributeException';
-import container from '../../../register';
+import { getRequestContext } from '../../Presentation/Shared/RequestContext';
 
 class UniqueService
 {
     static async validate<T = any>(config: IUniqueConfig<T>): Promise<void>
     {
         const { repository, validate, refValue } = config;
+        const { container } = getRequestContext();
 
         const _repository: any = container.resolve<T>(repository as any);
 

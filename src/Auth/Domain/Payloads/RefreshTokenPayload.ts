@@ -1,4 +1,4 @@
-import IDecodeToken from '../../../Shared/InterfaceAdapters/IDecodeToken';
+import IDecodeToken from '../Models/IDecodeToken';
 
 interface RefreshTokenPayload
 {

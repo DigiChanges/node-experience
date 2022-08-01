@@ -1,6 +1,6 @@
 import IRoleRepository from './IRoleRepository';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
 import RoleFilter from '../../Presentation/Criterias/RoleFilter';

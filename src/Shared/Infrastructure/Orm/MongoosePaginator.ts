@@ -1,6 +1,6 @@
 import { Query } from 'mongoose';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
-import IPaginatorConfig from '../../InterfaceAdapters/IPaginatorConfig';
+import IPaginator from './IPaginator';
+import IPaginatorConfig from './IPaginatorConfig';
 import IFilter from '../../Presentation/Requests/IFilter';
 import ISort from '../../Presentation/Requests/ISort';
 import IPagination from '../../Presentation/Requests/IPagination';

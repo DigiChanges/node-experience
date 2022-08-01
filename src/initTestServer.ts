@@ -14,7 +14,7 @@ import ITokenDomain from './Auth/Domain/Entities/ITokenDomain';
 import SeedFactory from './Shared/Factories/SeedFactory';
 import Locales from './Shared/Presentation/Shared/Locales';
 import MainConfig from './Config/MainConfig';
-import IApp from './Shared/InterfaceAdapters/IApp';
+import IApp from './Shared/Application/Http/IApp';
 import { Lifecycle } from 'tsyringe';
 import MockStrategy from './Notification/Tests/MockStrategy';
 import INotifierStrategy from './Notification/Shared/INotifierStrategy';

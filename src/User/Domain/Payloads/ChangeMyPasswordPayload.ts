@@ -1,4 +1,4 @@
-import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import UserPasswordRepPayload from './UserPasswordPayload';
 
 interface ChangeMyPasswordPayload extends IdPayload, UserPasswordRepPayload

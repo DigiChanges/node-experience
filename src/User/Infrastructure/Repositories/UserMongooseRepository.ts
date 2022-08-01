@@ -10,7 +10,7 @@ import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/BaseMongooseRepository';
 import User from '../../Domain/Entities/User';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 class UserMongooseRepository extends BaseMongooseRepository<IUserDomain, IUser> implements IUserRepository
 {

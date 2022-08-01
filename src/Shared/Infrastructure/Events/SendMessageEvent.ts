@@ -1,6 +1,6 @@
 import { FACTORIES } from '../../../Config/Injects';
 import INotifierStrategy from '../../../Notification/Shared/INotifierStrategy';
-import container from '../../../register';
+import { getRequestContext } from '../../Presentation/Shared/RequestContext';
 
 class SendMessageEvent
 {
@@ -9,6 +9,7 @@ class SendMessageEvent
     public static handle = async(props: any) =>
     {
         const { pushNotification, message } = props;
+        const { container } = getRequestContext();
 
         const webPushNotifier: any = container.resolve<INotifierStrategy>(FACTORIES.WebPushStrategy);
 

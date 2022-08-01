@@ -1,6 +1,6 @@
 import INotifierStrategy from '../../../Notification/Shared/INotifierStrategy';
 import { FACTORIES } from '../../../Config/Injects';
-import container from '../../../register';
+import { getRequestContext } from '../../Presentation/Shared/RequestContext';
 
 class ForgotPasswordEvent
 {
@@ -9,6 +9,7 @@ class ForgotPasswordEvent
     public static handle = async(props: any) =>
     {
         const { emailNotification, args } = props;
+        const { container } = getRequestContext();
 
         const emailNotificator: any = container.resolve<INotifierStrategy>(FACTORIES.EmailStrategy);
 

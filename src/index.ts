@@ -10,7 +10,7 @@ import CacheFactory from './Shared/Factories/CacheFactory';
 import ICacheRepository from './Shared/Infrastructure/Repositories/ICacheRepository';
 
 import CronFactory from './Shared/Factories/CronFactory';
-import IApp from './Shared/InterfaceAdapters/IApp';
+import IApp from './Shared/Application/Http/IApp';
 import AppFactory from './Shared/Factories/AppFactory';
 import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
 import Logger from './Shared/Application/Logger/Logger';

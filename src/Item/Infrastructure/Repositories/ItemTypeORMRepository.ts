@@ -2,7 +2,7 @@ import IItemRepository from './IItemRepository';
 import Item from '../../Domain/Entities/Item';
 import { injectable } from 'inversify';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import TypeORMPaginator from '../../../Shared/Infrastructure/Orm/TypeORMPaginator';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';

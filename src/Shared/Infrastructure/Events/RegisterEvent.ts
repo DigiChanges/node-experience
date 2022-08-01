@@ -1,5 +1,5 @@
 import { FACTORIES } from '../../../Config/Injects';
-import container from '../../../register';
+import { getRequestContext } from '../../Presentation/Shared/RequestContext';
 import INotifierStrategy from '../../../Notification/Shared/INotifierStrategy';
 
 class RegisterEvent
@@ -9,6 +9,7 @@ class RegisterEvent
     public static handle = async(props: any) =>
     {
         const { emailNotification, args } = props;
+        const { container } = getRequestContext();
 
         const emailNotifier: any = container.resolve<INotifierStrategy>(FACTORIES.EmailStrategy);
 

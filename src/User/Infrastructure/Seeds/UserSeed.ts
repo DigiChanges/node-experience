@@ -1,4 +1,3 @@
-import container from '../../../register';
 import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 import Role from '../../../Role/Domain/Entities/Role';
 import IUserDomain from '../../Domain/Entities/IUserDomain';
@@ -6,20 +5,21 @@ import User from '../../Domain/Entities/User';
 import IUserRepository from '../Repositories/IUserRepository';
 import IRoleRepository from '../../../Role/Infrastructure/Repositories/IRoleRepository';
 import { REPOSITORIES } from '../../../Config/Injects';
-import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 import Password from '../../../Shared/Domain/ValueObjects/Password';
 import Permissions from '../../../Config/Permissions';
 import MainConfig from '../../../Config/MainConfig';
+import BaseSeed from '../../../Shared/Infrastructure/Seeds/BaseSeed';
 
-class UserSeed implements ISeed
+class UserSeed extends BaseSeed
 {
     private userRepository: IUserRepository;
     private roleRepository: IRoleRepository;
 
     constructor()
     {
-        this.userRepository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
-        this.roleRepository = container.resolve<IRoleRepository>(REPOSITORIES.IRoleRepository);
+        super();
+        this.userRepository = this.container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+        this.roleRepository = this.container.resolve<IRoleRepository>(REPOSITORIES.IRoleRepository);
     }
 
     public async init(): Promise<void>

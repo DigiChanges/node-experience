@@ -1,6 +1,6 @@
 import { SelectQueryBuilder } from 'typeorm';
-import IPaginatorConfig from '../../InterfaceAdapters/IPaginatorConfig';
-import IPaginator from '../../Domain/Payloads/IPaginator';
+import IPaginatorConfig from './IPaginatorConfig';
+import IPaginator from './IPaginator';
 import IFilter from '../../Presentation/Requests/IFilter';
 import ISort from '../../Presentation/Requests/ISort';
 import IPagination from '../../Presentation/Requests/IPagination';

@@ -1,7 +1,5 @@
-import { injectable } from 'tsyringe';
-import IFormatResponder from '../../InterfaceAdapters/IFormatResponder';
+import IFormatResponder from './IFormatResponder';
 
-@injectable()
 class FormatResponder implements IFormatResponder
 {
     getFormatData = (data: unknown, metadata: Record<string, unknown> = null): any =>

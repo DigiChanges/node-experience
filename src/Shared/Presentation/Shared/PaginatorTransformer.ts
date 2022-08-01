@@ -1,5 +1,5 @@
 import Transformer from './Transformer';
-import IPaginator from '../../Domain/Payloads/IPaginator';
+import IPaginator from '../../Infrastructure/Orm/IPaginator';
 
 class PaginatorTransformer extends Transformer
 {

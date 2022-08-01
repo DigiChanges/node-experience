@@ -1,5 +1,5 @@
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import ListFilesUseCase from '../../Domain/UseCases/ListFilesUseCase';
 import ListObjectsUseCase from '../../Domain/UseCases/ListObjectsUseCase';
@@ -12,7 +12,7 @@ import UpdateFileMultipartUseCase from '../../Domain/UseCases/UpdateFileMultipar
 import UpdateFileBase64UseCase from '../../Domain/UseCases/UpdateFileBase64UseCase';
 import GetFileMetadataUserCase from '../../Domain/UseCases/GetFileMetadataUseCase';
 import ListObjectsPayload from '../../Domain/Payloads/ListObjectsPayload';
-import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import FileBase64RepPayload from '../../Domain/Payloads/FileBase64RepPayload';
 import FileMultipartRepPayload from '../../Domain/Payloads/FileMultipartRepPayload';
 import PresignedFileRepPayload from '../../Domain/Payloads/PresignedFileRepPayload';

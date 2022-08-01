@@ -1,7 +1,7 @@
 import IFileRepository from './IFileRepository';
 import { injectable } from 'inversify';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import Paginator from '../../../Shared/Infrastructure/Orm/MikroORMPaginator';
 import FileFilter from '../../Presentation/Criterias/FileFilter';

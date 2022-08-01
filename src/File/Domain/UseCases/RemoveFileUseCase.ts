@@ -1,5 +1,5 @@
 import IFileDomain from '../Entities/IFileDomain';
-import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import FileService from '../Services/FileService';
 
 class RemoveFileUseCase

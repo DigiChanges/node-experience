@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 import RefreshTokenPayload from '../../Domain/Payloads/RefreshTokenPayload';
-import IDecodeToken from '../../../Shared/InterfaceAdapters/IDecodeToken';
+import IDecodeToken from '../../Domain/Models/IDecodeToken';
 
 class RefreshTokenRequest implements RefreshTokenPayload
 {

@@ -1,6 +1,6 @@
 import IFileRepository from './IFileRepository';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import TypeORMPaginator from '../../../Shared/Infrastructure/Orm/TypeORMPaginator';
 import FileFilter from '../../Presentation/Criterias/FileFilter';

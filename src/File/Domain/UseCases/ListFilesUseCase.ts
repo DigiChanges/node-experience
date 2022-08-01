@@ -1,5 +1,5 @@
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import FileService from '../Services/FileService';
 
 class ListFilesUseCase

@@ -11,7 +11,7 @@ import AuthPayload from '../../Domain/Payloads/AuthPayload';
 import RefreshTokenPayload from '../../Domain/Payloads/RefreshTokenPayload';
 import ForgotPasswordPayload from '../../Domain/Payloads/ForgotPasswordPayload';
 import LogoutUseCase from '../../Domain/UseCases/LogoutUseCase';
-import IDecodeToken from '../../../Shared/InterfaceAdapters/IDecodeToken';
+import IDecodeToken from '../../Domain/Models/IDecodeToken';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import RegisterPayload from '../../Domain/Payloads/RegisterPayload';
 import RegisterUseCase from '../../Domain/UseCases/RegisterUseCase';

@@ -8,7 +8,7 @@ import UserSchema from '../Schemas/UserMikroORM';
 import { QueryBuilder } from '@mikro-orm/postgresql';
 import MikroORMPaginator from '../../../Shared/Infrastructure/Orm/MikroORMPaginator';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 class UserMikroORMRepository extends BaseMikroORMRepository<IUserDomain> implements IUserRepository
 {

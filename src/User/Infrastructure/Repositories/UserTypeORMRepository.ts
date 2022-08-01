@@ -9,7 +9,7 @@ import UserSchema from '../Schemas/UserTypeORM';
 
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import BaseTypeORMRepository from '../../../Shared/Infrastructure/Repositories/BaseTypeORMRepository';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 
 @injectable()

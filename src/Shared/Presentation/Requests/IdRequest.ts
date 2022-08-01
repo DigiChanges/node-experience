@@ -1,4 +1,4 @@
-import IdPayload from '../../InterfaceAdapters/IdPayload';
+import IdPayload from './IdPayload';
 import { IsUUID } from 'class-validator';
 import { decorate } from 'ts-mixer';
 

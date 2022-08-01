@@ -1,5 +1,5 @@
 import { ValidationError } from 'class-validator';
-import IHttpStatusCode from '../../../Shared/InterfaceAdapters/IHttpStatusCode';
+import IHttpStatusCode from '../../Application/IHttpStatusCode';
 import StatusCode from '../../Application/StatusCode';
 import IErrorMessage from './IErrorMessage';
 

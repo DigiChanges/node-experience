@@ -1,3 +1,4 @@
+
 interface IPaginatorConfig
 {
     helper?: (data: any) => Promise<any>;

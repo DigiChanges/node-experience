@@ -1,5 +1,5 @@
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IRoleRepository from '../../Infrastructure/Repositories/IRoleRepository';
 import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';

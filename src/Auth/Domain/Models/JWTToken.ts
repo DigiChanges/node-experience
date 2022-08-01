@@ -2,7 +2,7 @@ import moment from 'moment';
 import jwt from 'jwt-simple';
 import IToken from './IToken';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
-import IDecodeToken from '../../../Shared/InterfaceAdapters/IDecodeToken';
+import IDecodeToken from './IDecodeToken';
 import { JwtConfig } from '../../../Config/MainConfig';
 
 class JWTToken implements IToken

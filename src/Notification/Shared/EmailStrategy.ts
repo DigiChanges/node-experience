@@ -9,8 +9,8 @@ import AttachmentsFilesService from '../Domain/Services/AttachmentsFilesService'
 import StatusNotificationEnum from '../Domain/Enum/StatusNotificationEnum';
 import EmailNotification from '../Domain/Entities/EmailNotification';
 import INotifierStrategy from './INotifierStrategy';
-import container from '../../register';
 import ErrorException from '../../Shared/Exceptions/ErrorException';
+import { getRequestContext } from '../../Shared/Presentation/Shared/RequestContext';
 
 class EmailStrategy implements INotifierStrategy
 {
@@ -22,6 +22,7 @@ class EmailStrategy implements INotifierStrategy
 
     constructor()
     {
+        const { container } = getRequestContext();
         this.repository = container.resolve<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository);
         this._save = true;
     }

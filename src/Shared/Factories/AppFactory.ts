@@ -1,4 +1,4 @@
-import IApp from '../InterfaceAdapters/IApp';
+import IApp from '../Application/Http/IApp';
 import AppExpress from '../Application/Http/AppExpress';
 import AppKoa from '../Application/Http/AppKoa';
 

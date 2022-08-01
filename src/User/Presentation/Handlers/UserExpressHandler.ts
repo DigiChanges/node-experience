@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { controller, httpDelete, httpGet, httpPost, httpPut, request, response } from 'inversify-express-utils';
 import StatusCode from '../../../Shared/Application/StatusCode';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder';
 
@@ -21,7 +21,7 @@ import IUserDomain from '../../Domain/Entities/IUserDomain';
 import UserController from '../Controllers/UserControllers';
 import UserSaveRequest from '../Requests/UserSaveRequest';
 import { AuthUser } from '../../../Auth/Presentation/Helpers/AuthUser';
-import IDecodeToken from '../../../Shared/InterfaceAdapters/IDecodeToken';
+import IDecodeToken from '../../../Auth/Domain/Models/IDecodeToken';
 import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
 import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
 

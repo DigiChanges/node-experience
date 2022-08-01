@@ -1,4 +1,4 @@
-import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import IRoleDomain from '../Entities/IRoleDomain';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IRoleRepository from '../../Infrastructure/Repositories/IRoleRepository';

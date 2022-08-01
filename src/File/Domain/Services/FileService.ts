@@ -4,18 +4,18 @@ import { REPOSITORIES } from '../../../Config/Injects';
 import IFileRepository from '../../Infrastructure/Repositories/IFileRepository';
 import PresignedFileRepPayload from 'File/Domain/Payloads/PresignedFileRepPayload';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import ListObjectsPayload from 'File/Domain/Payloads/ListObjectsPayload';
 import FileBase64RepPayload from '../Payloads/FileBase64RepPayload';
 import FileMultipartRepPayload from '../Payloads/FileMultipartRepPayload';
 import FileRepPayload from '../Payloads/FileRepPayload';
 import CreateBucketPayload from '../Payloads/CreateBucketPayload';
-import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import FileDTO from '../Models/FileDTO';
 import IFileDTO from '../Models/IFileDTO';
 import { validate } from 'uuid';
 import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
-import IFilesystem from '../../../Shared/InterfaceAdapters/IFilesystem';
+import IFilesystem from '../../../Shared/Infrastructure/Filesystem/IFilesystem';
 
 class FileService
 {

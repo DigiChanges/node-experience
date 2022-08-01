@@ -1,13 +1,13 @@
 import { ParameterizedContext, Context } from 'koa';
 
-import IFormatResponder from '../../InterfaceAdapters/IFormatResponder';
+import IFormatResponder from '../../Presentation/Shared/IFormatResponder';
 import IFileDTO from '../../../File/Domain/Models/IFileDTO';
 import FormatError from '../../Presentation/Shared/FormatError';
 import ErrorHttpException from '../../Presentation/Shared/ErrorHttpException';
 import FormatResponder from '../../Presentation/Shared/FormatResponder';
-import IHttpStatusCode from '../../InterfaceAdapters/IHttpStatusCode';
+import IHttpStatusCode from '../IHttpStatusCode';
 import Transformer from '../../../Shared/Presentation/Shared/Transformer';
-import IPaginator from '../../Domain/Payloads/IPaginator';
+import IPaginator from '../../Infrastructure/Orm/IPaginator';
 import PaginatorTransformer from '../../Presentation/Shared/PaginatorTransformer';
 
 class KoaResponder

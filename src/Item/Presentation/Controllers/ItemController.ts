@@ -7,11 +7,11 @@ import RemoveItemUseCase from '../../Domain/UseCases/RemoveItemUseCase';
 import UpdateItemUseCase from '../../Domain/UseCases/UpdateItemUseCase';
 import ValidatorRequest from '../../../Shared/Presentation/Shared/ValidatorRequest';
 import ItemRepPayload from '../../Domain/Payloads/ItemRepPayload';
-import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import ItemUpdatePayload from '../../Domain/Payloads/ItemUpdatePayload';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 class ItemController
 {

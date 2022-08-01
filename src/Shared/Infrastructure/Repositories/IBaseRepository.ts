@@ -1,4 +1,4 @@
-import IByOptions from '../../InterfaceAdapters/IByOptions';
+import IByOptions from './IByOptions';
 
 interface IBaseRepository<T>
 {

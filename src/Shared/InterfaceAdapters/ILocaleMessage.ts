@@ -1,3 +1,4 @@
+
 interface ILocaleMessage
 {
     message: string;

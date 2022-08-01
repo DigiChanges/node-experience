@@ -1,4 +1,4 @@
-import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import ItemRepPayload from './ItemRepPayload';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 

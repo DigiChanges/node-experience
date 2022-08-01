@@ -16,7 +16,7 @@ import Permissions from '../../../Config/Permissions';
 import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
 import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
 import StatusCode from '../../../Shared/Application/StatusCode';
-import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/users'

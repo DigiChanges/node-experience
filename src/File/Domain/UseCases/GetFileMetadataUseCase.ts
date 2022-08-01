@@ -1,4 +1,4 @@
-import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import IFileDomain from '../Entities/IFileDomain';
 import FileService from '../Services/FileService';
 

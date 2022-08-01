@@ -1,10 +1,10 @@
 import { Response, Request } from 'express';
 import IFileDTO from '../../../File/Domain/Models/IFileDTO';
-import IFormatResponder from '../../InterfaceAdapters/IFormatResponder';
+import IFormatResponder from '../../Presentation/Shared/IFormatResponder';
 import FormatResponder from '../../Presentation/Shared/FormatResponder';
 import FormatError from '../../Presentation/Shared/FormatError';
-import IPaginator from '../../Domain/Payloads/IPaginator';
-import IHttpStatusCode from '../../InterfaceAdapters/IHttpStatusCode';
+import IPaginator from '../../Infrastructure/Orm/IPaginator';
+import IHttpStatusCode from '../IHttpStatusCode';
 import PaginatorTransformer from '../../Presentation/Shared/PaginatorTransformer';
 import Transformer from '../../../Shared/Presentation/Shared/Transformer';
 

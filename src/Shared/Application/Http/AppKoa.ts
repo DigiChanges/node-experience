@@ -6,7 +6,7 @@ import AuthenticationKoaMiddleware from '../../../Auth/Presentation/Middlewares/
 import RedirectRouteNotFoundKoaMiddleware from '../../Presentation/Middlewares/RedirectRouteNotFoundKoaMiddleware';
 import ThrottleKoa from '../../Presentation/Middlewares/ThrottleKoa';
 import VerifyTokenKoaMiddleware from '../../../Auth/Presentation/Middlewares/VerifyTokenKoaMiddleware';
-import IApp from '../../InterfaceAdapters/IApp';
+import IApp from './IApp';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import IndexKoaHandler from '../../Presentation/Handlers/IndexKoaHandler';
@@ -16,7 +16,7 @@ import UserKoaHandler from '../../../User/Presentation/Handlers/UserKoaHandler';
 import NotificationKoaHandler from '../../../Notification/Presentation/Handlers/NotificationKoaHandler';
 import FileKoaHandler from '../../../File/Presentation/Handlers/FileKoaHandler';
 import AuthKoaHandler from '../../../Auth/Presentation/Handlers/AuthKoaHandler';
-import IAppConfig from '../../InterfaceAdapters/IAppConfig';
+import IAppConfig from './IAppConfig';
 import WhiteListKoaHandler from '../../Tests/WhiteListKoaHandler';
 import { ErrorKoaHandler } from './ErrorKoaHandler';
 import MainConfig from '../../../Config/MainConfig';

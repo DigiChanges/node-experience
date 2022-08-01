@@ -1,3 +1,4 @@
+
 interface IByOptions
 {
     initThrow?: boolean | undefined;

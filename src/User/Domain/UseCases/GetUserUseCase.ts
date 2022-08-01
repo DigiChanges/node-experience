@@ -1,5 +1,5 @@
 import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
-import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import IUserDomain from '../Entities/IUserDomain';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
