@@ -21,6 +21,8 @@ import INotifierStrategy from './Notification/Shared/INotifierStrategy';
 import AppFactory from './Shared/Factories/AppFactory';
 import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
 import ITokenRepository from './Auth/Infrastructure/Repositories/ITokenRepository';
+import { urlAlphabet } from 'nanoid';
+import { customAlphabet } from 'nanoid/async';
 
 const initTestServer = async(): Promise<any> =>
 {
@@ -31,7 +33,11 @@ const initTestServer = async(): Promise<any> =>
     const databaseFactory: DatabaseFactory = new DatabaseFactory();
     const dbConnection: ICreateConnection = databaseFactory.create();
 
-    dbConnection.initConfigTest(process.env.MONGO_URL);
+    const nanoId = customAlphabet(urlAlphabet, 5);
+    const dbName = await nanoId();
+    const newMongoUri = `${process.env.MONGO_URL}${dbName}`;
+
+    dbConnection.initConfigTest(newMongoUri);
     await dbConnection.create();
 
     const eventHandler = EventHandler.getInstance();

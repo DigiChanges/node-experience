@@ -17,7 +17,7 @@
     "pre-check": "yarn ts-check && yarn lint",
     "prepare": "husky install",
     "start": "node dist/index.js",
-    "test": "jest --runInBand --coverage",
+    "test": "jest --coverage",
     "test-watch": "jest --watch --silent --coverage=false",
     "tsc": "tsc",
     "ts-check": "tsc -p tsconfig.json --noEmit",
