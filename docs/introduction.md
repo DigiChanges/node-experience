@@ -8,7 +8,6 @@ Hello! **NExp** *(Node Experience)* is a boilerplate for [**Node**](https://node
 
 Each module is divided by business domain:
 
-- App
 - Auth
 - File
 - Item
@@ -60,11 +59,11 @@ As it is only a boilerplate, you have the freedom to structure the code whatever
 
 Common structures found within this project are: 
 
-- Basic authentication and authorization
-- Filesystem with minIO, 100% S3 compatible
-- Basic push Notification and Email
-- TypeORM and Mongoose Integration with a DatabaseFactory
-- Express and Koa integration with AppFactory
+- Basic authentication and authorization.
+- Filesystem with minIO, 100% S3 compatible.
+- Basic push Notification and Email.
+- TypeORM, MikroORM and Mongoose Integration.
+- Express and Koa integration.
 - Business logic independent of the HTTP and persistence libraries. 
 - Esbuild compiler. 
 
