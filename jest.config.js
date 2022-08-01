@@ -34,16 +34,14 @@ module.exports = {
 
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
-    "<rootDir>/src/*/I[A-z]*.ts",
+    "<rootDir>/src/*/I[A-z]*.{js,ts}",
     "<rootDir>/node_modules/",
     "<rootDir>/.eslintrc.json",
     "<rootDir>/src/command.ts",
-    "<rootDir>/src/File/*",
-    "<rootDir>/src/AppExpress/Domain/*",
-    "<rootDir>/src/Infrastructure/Notifications/*",
-    "<rootDir>/src/User/Presentation/Commands/*",
-    "<rootDir>/src/Item/Presentation/Commands/*",
-    "<rootDir>/src/Role/Presentation/Commands/*",
+    "<rootDir>/src/Infrastructure/Notifications/*.{js,ts}",
+    "<rootDir>/src/User/Presentation/Commands/*.{js,ts}",
+    "<rootDir>/src/Item/Presentation/Commands/*.{js,ts}",
+    "<rootDir>/src/Role/Presentation/Commands/*.{js,ts}",
     "<rootDir>/src/File/Infrastructure/Repositories/FileTypeORMRepository.ts",
     "<rootDir>/src/User/Infrastructure/Repositories/UserTypeORMRepository.ts",
     "<rootDir>/src/Role/Infrastructure/Repositories/RoleTypeORMRepository.ts",
@@ -51,7 +49,7 @@ module.exports = {
     "<rootDir>/src/Auth/Infrastructure/Repositories/TokenRedisRepository.ts",
     "<rootDir>/src/Shared/Infrastructure/Database/MikroORMCreateConnection.ts",
     "<rootDir>/src/Shared/Infrastructure/Database/TypeORMCreateConnection.ts ",
-    "<rootDir>/src/Shared/Events/*",
+    "<rootDir>/src/Shared/Events/*.{js,ts}",
   ],
 
   // Indicates which provider should be used to instrument code for coverage

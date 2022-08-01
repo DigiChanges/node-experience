@@ -86,7 +86,7 @@
     "secure": false,
     "senderName": "Notifications",
     "senderEmailDefault": "notification@localhost.com",
-    "templateDir": "src/App/Infrastructure/templates/emails"
+    "templateDir": "src/Shared/Infrastructure/templates/emails"
   },
   "push": {
     "privateKey": "BFbzNLYCWO7Ei0cmBco43ZCsEbhFAOzcfop1eHYiK8CVCBK_-xeWEWzHHlQiPEUPvuxwMHc1koGj40t2hcgiWvk",
