@@ -1,8 +1,7 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import { IPaginator, StatusCode } from '@digichanges/shared-experience';
-import KoaResponder from '../../../App/Presentation/Shared/Http/KoaResponder';
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
+import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 import UserController from '../Controllers/UserControllers';
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 import UserRequestCriteria from '../Requests/UserRequestCriteria';
@@ -14,8 +13,10 @@ import ChangeUserPasswordRequest from '../Requests/ChangeUserPasswordRequest';
 import UserTransformer from '../Transformers/UserTransformer';
 import AuthorizeKoaMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeKoaMiddleware';
 import Permissions from '../../../Config/Permissions';
-import ResponseMessageEnum from '../../../App/Domain/Enum/ResponseMessageEnum';
-import DefaultMessageTransformer from '../../../App/Presentation/Transformers/DefaultMessageTransformer';
+import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
+import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
+import StatusCode from '../../../Shared/Application/StatusCode';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/users'

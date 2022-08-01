@@ -1,6 +1,6 @@
 import { decorate, Mixin } from 'ts-mixer';
 import RoleUpdatePayload from '../../Domain/Payloads/RoleUpdatePayload';
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 import RoleRepRequest from './RoleRepRequest';
 import { ArrayMinSize, IsArray, IsString } from 'class-validator';
 

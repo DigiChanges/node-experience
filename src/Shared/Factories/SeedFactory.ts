@@ -1,7 +1,7 @@
-import Logger from '../Logger/Logger';
 import _ from 'lodash';
 
 import seeds from '../../seed';
+import Logger from '../Application/Logger/Logger';
 
 class SeedFactory
 {

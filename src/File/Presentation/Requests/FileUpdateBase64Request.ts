@@ -1,4 +1,4 @@
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 import FileUpdateBase64Payload from '../../Domain/Payloads/FileUpdateBase64Payload';
 import { Mixin } from 'ts-mixer';
 import FileBase64RepRequest from './FileBase64RepRequest';

@@ -7,10 +7,10 @@ import INotificationDomain from '../Domain/Entities/INotificationDomain';
 import MainConfig from '../../Config/MainConfig';
 import AttachmentsFilesService from '../Domain/Services/AttachmentsFilesService';
 import StatusNotificationEnum from '../Domain/Enum/StatusNotificationEnum';
-import { ErrorException } from '@digichanges/shared-experience';
 import EmailNotification from '../Domain/Entities/EmailNotification';
 import INotifierStrategy from './INotifierStrategy';
 import container from '../../register';
+import ErrorException from '../../Shared/Exceptions/ErrorException';
 
 class EmailStrategy implements INotifierStrategy
 {

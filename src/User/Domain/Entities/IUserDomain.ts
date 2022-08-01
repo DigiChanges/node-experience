@@ -1,6 +1,6 @@
 import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
-import IBaseDomain from '../../../App/Domain/Entities/IBaseDomain';
-import Password from '../../../App/Domain/ValueObjects/Password';
+import IBaseDomain from '../../../Shared/Domain/Entities/IBaseDomain';
+import Password from '../../../Shared/Domain/ValueObjects/Password';
 import UserRepPayload from '../Payloads/UserRepPayload';
 
 interface IUserDomain extends IBaseDomain

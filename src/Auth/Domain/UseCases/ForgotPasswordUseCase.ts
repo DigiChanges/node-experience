@@ -2,12 +2,12 @@ import MainConfig from '../../../Config/MainConfig';
 import ForgotPasswordPayload from '../Payloads/ForgotPasswordPayload';
 import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 import { REPOSITORIES } from '../../../Config/Injects';
-import ForgotPasswordEvent from '../../../Shared/Events/ForgotPasswordEvent';
+import ForgotPasswordEvent from '../../../Shared/Infrastructure/Events/ForgotPasswordEvent';
 import SendEmailService from '../../../Notification/Domain/Services/SendEmailService';
 import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
-import Locales from '../../../App/Presentation/Shared/Locales';
-import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import Locales from '../../../Shared/Presentation/Shared/Locales';
+import ILocaleMessage from '../../../Shared/InterfaceAdapters/ILocaleMessage';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 
 class ForgotPasswordUseCase
 {

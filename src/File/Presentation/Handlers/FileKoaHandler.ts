@@ -1,8 +1,9 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import { IPaginator, StatusCode } from '@digichanges/shared-experience';
-import KoaResponder from '../../../App/Presentation/Shared/Http/KoaResponder';
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import StatusCode from '../../../Shared/Application/StatusCode';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
+import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 import FileController from '../Controllers/FileController';
 import FileRequestCriteria from '../Requests/FileRequestCriteria';
 import FileTransformer from '../Transformers/FileTransformer';

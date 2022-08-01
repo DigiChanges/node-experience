@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Transformer } from '@digichanges/shared-experience';
+import Transformer from '../../../Shared/Presentation/Shared/Transformer';
 
 import IFileDomain from '../../Domain/Entities/IFileDomain';
 import IFileTransformer from './IFileTransformer';

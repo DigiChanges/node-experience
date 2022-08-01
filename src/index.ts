@@ -5,15 +5,15 @@ import './register';
 import MainConfig from './Config/MainConfig';
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 
-import EventHandler from './Shared/Events/EventHandler';
+import EventHandler from './Shared/Infrastructure/Events/EventHandler';
 import CacheFactory from './Shared/Factories/CacheFactory';
-import { ICreateConnection } from '@digichanges/shared-experience';
-import ICacheRepository from './App/Infrastructure/Repositories/ICacheRepository';
+import ICacheRepository from './Shared/Infrastructure/Repositories/ICacheRepository';
 
 import CronFactory from './Shared/Factories/CronFactory';
-import Logger from './Shared/Logger/Logger';
-import IApp from './App/InterfaceAdapters/IApp';
+import IApp from './Shared/InterfaceAdapters/IApp';
 import AppFactory from './Shared/Factories/AppFactory';
+import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
+import Logger from './Shared/Application/Logger/Logger';
 
 void (async() =>
 {

@@ -1,4 +1,5 @@
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 import FileService from '../Services/FileService';
 
 class ListFilesUseCase

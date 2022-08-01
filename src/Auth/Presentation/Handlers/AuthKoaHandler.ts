@@ -1,8 +1,7 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import moment from 'moment';
-import { StatusCode } from '@digichanges/shared-experience';
-import KoaResponder from '../../../App/Presentation/Shared/Http/KoaResponder';
+import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import AuthRequest from '../Requests/AuthRequest';
 import AuthController from '../Controllers/AuthController';
 import AuthTransformer from '../Transformers/AuthTransformer';
@@ -14,12 +13,13 @@ import Permissions from '../../../Config/Permissions';
 import AuthorizeKoaMiddleware from '../Middlewares/AuthorizeKoaMiddleware';
 import { AuthUser } from '../Helpers/AuthUser';
 import UserTransformer from '../../../User/Presentation/Transformers/UserTransformer';
-import DefaultTransformer from '../../../App/Presentation/Transformers/DefaultTransformer';
+import DefaultTransformer from '../../../Shared/Presentation/Transformers/DefaultTransformer';
 import RegistrationRequest from '../Requests/RegistrationRequest';
 import UpdateMeRequest from '../Requests/UpdateMeRequest';
 import VerifyYourAccountRequest from '../Requests/VerifyYourAccountRequest';
 import RefreshTokenKoaMiddleware from '../Middlewares/RefreshTokenKoaMiddleware';
 import MainConfig from '../../../Config/MainConfig';
+import StatusCode from '../../../Shared/Application/StatusCode';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/auth'

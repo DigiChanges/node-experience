@@ -1,9 +1,9 @@
-import { ICreateConnection } from '@digichanges/shared-experience';
 import { SuperAgentTest } from 'supertest';
 import MainConfig from '../../Config/MainConfig';
 import initTestServer from '../../initTestServer';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IListUsersResponse, IUserResponse } from './types';
+import ICreateConnection from '../../Shared/Infrastructure/Database/ICreateConnection';
 
 describe('Start User Test', () =>
 {

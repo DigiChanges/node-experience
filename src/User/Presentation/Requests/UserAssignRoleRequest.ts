@@ -1,7 +1,7 @@
 import { IsArray, IsUUID } from 'class-validator';
 
 import UserAssignRolePayload from '../../Domain/Payloads/UserAssignRolePayload';
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 
 class UserAssignRoleRequest extends IdRequest implements UserAssignRolePayload
 {

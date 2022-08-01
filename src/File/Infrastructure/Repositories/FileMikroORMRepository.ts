@@ -1,14 +1,15 @@
 import IFileRepository from './IFileRepository';
 import { injectable } from 'inversify';
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
-import Paginator from '../../../App/Presentation/Shared/Orm/MikroORMPaginator';
+import Paginator from '../../../Shared/Infrastructure/Orm/MikroORMPaginator';
 import FileFilter from '../../Presentation/Criterias/FileFilter';
 import FileSchema from '../Schemas/FileMikroORM';
 import File from '../../Domain/Entities/File';
 import IFileDomain from '../../Domain/Entities/IFileDomain';
 
-import BaseMikroORMRepository from '../../../App/Infrastructure/Repositories/BaseMikroORMRepository';
+import BaseMikroORMRepository from '../../../Shared/Infrastructure/Repositories/BaseMikroORMRepository';
 
 @injectable()
 class FileMikroORMRepository extends BaseMikroORMRepository<IFileDomain> implements IFileRepository

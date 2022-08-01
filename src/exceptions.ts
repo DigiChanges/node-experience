@@ -1,4 +1,3 @@
-import { StatusCode } from '@digichanges/shared-experience';
 import DecryptForbiddenException from './Shared/Exceptions/DecryptForbiddenException';
 import BadCredentialsException from './Auth/Domain/Exceptions/BadCredentialsException';
 import UserDisabledException from './User/Domain/Exceptions/UserDisabledException';
@@ -8,9 +7,10 @@ import CantDisabledException from './Auth/Domain/Exceptions/CantDisabledExceptio
 import PasswordWrongException from './Auth/Domain/Exceptions/PasswordWrongException';
 import NotFoundException from './Shared/Exceptions/NotFoundException';
 import WrongPermissionsException from './Auth/Domain/Exceptions/WrongPermissionsException';
-import InvalidPasswordException from './App/Domain/Exceptions/InvalidPasswordException';
-import UniqueAttributeException from './App/Domain/Exceptions/UniqueAttributeException';
+import InvalidPasswordException from './Shared/Domain/Exceptions/InvalidPasswordException';
+import UniqueAttributeException from './Shared/Domain/Exceptions/UniqueAttributeException';
 import UnverifiedUserException from './User/Domain/Exceptions/UnverifiedUserException';
+import StatusCode from './Shared/Application/StatusCode';
 
 const exceptions = {
     [DecryptForbiddenException.name]: StatusCode.HTTP_FORBIDDEN,

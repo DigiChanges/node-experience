@@ -7,7 +7,7 @@ import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import User from '../../../User/Domain/Entities/User';
 import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
-import Password from '../../../App/Domain/ValueObjects/Password';
+import Password from '../../../Shared/Domain/ValueObjects/Password';
 import MainConfig from '../../../Config/MainConfig';
 import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 

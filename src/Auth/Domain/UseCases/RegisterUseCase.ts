@@ -1,13 +1,13 @@
 import UserService from '../../../User/Domain/Services/UserService';
 import SendEmailService from '../../../Notification/Domain/Services/SendEmailService';
-import RegisterEvent from '../../../Shared/Events/RegisterEvent';
+import RegisterEvent from '../../../Shared/Infrastructure/Events/RegisterEvent';
 import TypeNotificationEnum from '../../../Notification/Domain/Enum/TypeNotificationEnum';
-import Locales from '../../../App/Presentation/Shared/Locales';
+import Locales from '../../../Shared/Presentation/Shared/Locales';
 import RegisterPayload from '../Payloads/RegisterPayload';
-import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
+import ILocaleMessage from '../../../Shared/InterfaceAdapters/ILocaleMessage';
 import MainConfig from '../../../Config/MainConfig';
 import { SERVICES } from '../../../Config/Injects';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 
 class RegisterUseCase
 {

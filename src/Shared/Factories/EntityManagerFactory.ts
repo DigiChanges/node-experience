@@ -1,6 +1,6 @@
 import { RequestContext } from '@mikro-orm/core';
 import { EntityManager } from '@mikro-orm/postgresql';
-import { orm } from '../Database/MikroORMCreateConnection'; // TODO: Refactor
+import { orm } from '../Infrastructure/Database/MikroORMCreateConnection'; // TODO: Refactor
 
 class EntityManagerFactory
 {

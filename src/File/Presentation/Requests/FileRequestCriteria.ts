@@ -1,10 +1,10 @@
 import { ParsedQs } from 'qs';
 import FileFilter from '../Criterias/FileFilter';
 import FileSort from '../Criterias/FileSort';
-import Pagination from '../../../App/Presentation/Shared/Pagination';
-import { ICriteria } from '@digichanges/shared-experience';
+import Pagination from '../../../Shared/Presentation/Shared/Pagination';
 
-import RequestCriteria from '../../../App/Presentation/Requests/RequestCriteria';
+import RequestCriteria from '../../../Shared/Presentation/Requests/RequestCriteria';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 
 class FileRequestCriteria extends RequestCriteria implements ICriteria
 {

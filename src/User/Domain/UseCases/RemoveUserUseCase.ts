@@ -1,4 +1,4 @@
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import IUserDomain from '../Entities/IUserDomain';
 import { REPOSITORIES } from '../../../Config/Injects';

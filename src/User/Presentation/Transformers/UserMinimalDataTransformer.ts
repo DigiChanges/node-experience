@@ -1,4 +1,4 @@
-import { Transformer } from '@digichanges/shared-experience';
+import Transformer from '../../../Shared/Presentation/Shared/Transformer';
 
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 import IUserMinimalDataTransformer from './IUserMinimalDataTransformer';

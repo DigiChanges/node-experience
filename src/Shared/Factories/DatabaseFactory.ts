@@ -1,8 +1,8 @@
 import MainConfig from '../../Config/MainConfig';
-import TypeORMCreateConnection from '../Database/TypeORMCreateConnection';
-import MongooseCreateConnection from '../Database/MongooseCreateConnection';
-import { ICreateConnection } from '@digichanges/shared-experience';
-import MikroORMCreateConnection from '../Database/MikroORMCreateConnection';
+import TypeORMCreateConnection from '../Infrastructure/Database/TypeORMCreateConnection';
+import MongooseCreateConnection from '../Infrastructure/Database/MongooseCreateConnection';
+import MikroORMCreateConnection from '../Infrastructure/Database/MikroORMCreateConnection';
+import ICreateConnection from '../Infrastructure/Database/ICreateConnection';
 
 class DatabaseFactory
 {

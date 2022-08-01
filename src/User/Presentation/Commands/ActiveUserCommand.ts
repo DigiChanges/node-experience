@@ -1,5 +1,5 @@
 import commander from 'commander';
-import Logger from '../../../Shared/Logger/Logger';
+import Logger from '../../../Shared/Application/Logger/Logger';
 import ActiveUserUseCase from '../../Domain/UseCases/ActiveUserUseCase';
 
 const ActiveUserCommand = new commander.Command('activeUser');

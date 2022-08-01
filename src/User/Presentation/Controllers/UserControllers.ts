@@ -1,5 +1,3 @@
-import { IPaginator } from '@digichanges/shared-experience';
-
 import GetUserUseCase from '../../Domain/UseCases/GetUserUseCase';
 import ListUsersUseCase from '../../Domain/UseCases/ListUsersUseCase';
 import SaveUserUseCase from '../../Domain/UseCases/SaveUserUseCase';
@@ -9,7 +7,7 @@ import ChangeMyPasswordUseCase from '../../Domain/UseCases/ChangeMyPasswordUseCa
 import ChangeUserPasswordUseCase from '../../Domain/UseCases/ChangeUserPasswordUseCase';
 import UpdateUserUseCase from '../../Domain/UseCases/UpdateUserUseCase';
 
-import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
+import ValidatorRequest from '../../../Shared/Presentation/Shared/ValidatorRequest';
 
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
@@ -18,7 +16,8 @@ import UserAssignRolePayload from '../../Domain/Payloads/UserAssignRolePayload';
 import ChangeMyPasswordPayload from '../../Domain/Payloads/ChangeMyPasswordPayload';
 import ChangeUserPasswordPayload from '../../Domain/Payloads/ChangeUserPasswordPayload';
 import UserSavePayload from '../../Domain/Payloads/UserSavePayload';
-import ICriteria from '../../../App/Domain/Payloads/ICriteria';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
 class UserController
 {

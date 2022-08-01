@@ -1,15 +1,16 @@
 import { Request, Response } from 'express';
 import { controller, httpDelete, httpGet, httpPost, httpPut, request, response } from 'inversify-express-utils';
-import { IPaginator, StatusCode } from '@digichanges/shared-experience';
+import StatusCode from '../../../Shared/Application/StatusCode';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
-import ExpressResponder from '../../../App/Presentation/Shared/Http/ExpressResponder';
+import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder';
 
 import AuthorizeExpressMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeExpressMiddleware';
 import Permissions from '../../../Config/Permissions';
 
 import UserTransformer from '../Transformers/UserTransformer';
 
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 import UserRequestCriteria from '../Requests/UserRequestCriteria';
 import UserUpdateRequest from '../Requests/UserUpdateRequest';
 import UserAssignRoleRequest from '../Requests/UserAssignRoleRequest';
@@ -21,8 +22,8 @@ import UserController from '../Controllers/UserControllers';
 import UserSaveRequest from '../Requests/UserSaveRequest';
 import { AuthUser } from '../../../Auth/Presentation/Helpers/AuthUser';
 import IDecodeToken from '../../../Shared/InterfaceAdapters/IDecodeToken';
-import ResponseMessageEnum from '../../../App/Domain/Enum/ResponseMessageEnum';
-import DefaultMessageTransformer from '../../../App/Presentation/Transformers/DefaultMessageTransformer';
+import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
+import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
 
 @controller('/api/users')
 class UserExpressHandler

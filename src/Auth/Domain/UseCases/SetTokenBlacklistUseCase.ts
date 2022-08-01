@@ -1,8 +1,7 @@
-import { ITokenRepository } from '@digichanges/shared-experience';
-
 import { REPOSITORIES } from '../../../Config/Injects';
 import ITokenDomain from '../Entities/ITokenDomain';
 import { DependencyContainer } from 'tsyringe';
+import ITokenRepository from '../../../Auth/Infrastructure/Repositories/ITokenRepository';
 
 class SetTokenBlacklistUseCase
 {

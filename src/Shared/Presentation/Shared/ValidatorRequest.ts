@@ -1,0 +1,19 @@
+import { validate } from 'class-validator';
+import _ from 'lodash';
+import ErrorHttpException from './ErrorHttpException';
+import StatusCode from '../../Application/StatusCode';
+
+class ValidatorRequest
+{
+    static async handle(request: any)
+    {
+        const errors = await validate(request);
+
+        if (!_.isEmpty(errors))
+        {
+            throw new ErrorHttpException(StatusCode.HTTP_UNPROCESSABLE_ENTITY, { message: 'Failed Request.' }, errors);
+        }
+    }
+}
+
+export default ValidatorRequest;

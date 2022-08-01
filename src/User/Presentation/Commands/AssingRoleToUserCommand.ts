@@ -2,7 +2,7 @@ import commander from 'commander';
 import UserAssignRoleByCommandRequest from '../Requests/UserAssignRoleByCommandRequest';
 import UserAssignRoleBySlug from '../../Domain/Payloads/UserAssignRoleBySlug';
 import AssignRoleBySlugUseCase from '../../Domain/UseCases/AssignRoleBySlugUseCase';
-import Logger from '../../../Shared/Logger/Logger';
+import Logger from '../../../Shared/Application/Logger/Logger';
 
 const AssignRoleToUserCommand = new commander.Command('assignRoleToUser');
 

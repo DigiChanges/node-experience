@@ -1,4 +1,3 @@
-import { ITokenRepository } from '@digichanges/shared-experience';
 import RefreshTokenPayload from '../Payloads/RefreshTokenPayload';
 import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 import TokenFactory from '../../../Shared/Factories/TokenFactory';
@@ -8,7 +7,8 @@ import ITokenDomain from '../Entities/ITokenDomain';
 import IToken from '../Models/IToken';
 import AuthService from '../Services/AuthService';
 import { DependencyContainer } from 'tsyringe';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
+import ITokenRepository from '../../Infrastructure/Repositories/ITokenRepository';
 
 class RefreshTokenUseCase
 {

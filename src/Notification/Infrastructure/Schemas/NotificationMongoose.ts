@@ -4,7 +4,6 @@ import Notification from '../../Domain/Entities/Notification';
 import EmailNotification from '../../Domain/Entities/EmailNotification';
 import PushNotification from '../../Domain/Entities/PushNotification';
 import StatusNotificationEnum from '../../Domain/Enum/StatusNotificationEnum';
-import TypeNotificationEnum from '../../Domain/Enum/TypeNotificationEnum';
 
 const options = { discriminatorKey: 'kind', timestamps: true };
 
@@ -15,7 +14,6 @@ export const NotificationSchema: any = new Schema<Notification>({
 
 export const EmailNotificationSchema: any = new Schema<EmailNotification>({
     status: { type: String, enum: StatusNotificationEnum, default: StatusNotificationEnum.SUCCESS },
-    type: { type: String, enum: TypeNotificationEnum },
     emailTemplatePath: { type: String, required: true },
     htmlRender: { type: String, default : null },
     senderName: { type: String, required: true },

@@ -5,7 +5,7 @@ import RefreshTokenUseCase from '../../Domain/UseCases/RefreshTokenUseCase';
 import PermissionUseCase from '../../Domain/UseCases/PermissionUseCase';
 import SyncRolesPermissionUseCase from '../../Domain/UseCases/SyncRolesPermissionUseCase';
 
-import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
+import ValidatorRequest from '../../../Shared/Presentation/Shared/ValidatorRequest';
 import ChangeForgotPasswordPayload from '../../Domain/Payloads/ChangeForgotPasswordPayload';
 import AuthPayload from '../../Domain/Payloads/AuthPayload';
 import RefreshTokenPayload from '../../Domain/Payloads/RefreshTokenPayload';
@@ -19,7 +19,7 @@ import UpdateMeUseCase from '../../Domain/UseCases/UpdateMeUseCase';
 import VerifyYourAccountPayload from '../../Domain/Payloads/VerifyYourAccountPayload';
 import VerifyYourAccountUseCase from '../../Domain/UseCases/VerifyYourAccountUseCase';
 import IToken from '../../Domain/Models/IToken';
-import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
+import ILocaleMessage from '../../../Shared/InterfaceAdapters/ILocaleMessage';
 import IGroupPermission from '../../../Config/IGroupPermission';
 import UpdateMePayload from '../../Domain/Payloads/UpdateMePayload';
 

@@ -6,7 +6,7 @@ import CantDisabledException from '../../../Auth/Domain/Exceptions/CantDisabledE
 import UserService from '../Services/UserService';
 import { REPOSITORIES, SERVICES } from '../../../Config/Injects';
 import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 
 class UpdateUserUseCase
 {

@@ -3,9 +3,8 @@ import { container, Lifecycle } from 'tsyringe';
 
 import { FACTORIES, SERVICES, REPOSITORIES } from './Config/Injects';
 
-import { IEncryption, ITokenRepository } from '@digichanges/shared-experience';
-import BcryptEncryptionStrategy from './Shared/Encryption/BcryptEncryptionStrategy';
-import Md5EncryptionStrategy from './Shared/Encryption/Md5EncryptionStrategy';
+import BcryptEncryptionStrategy from './Shared/Infrastructure/Encryption/BcryptEncryptionStrategy';
+import Md5EncryptionStrategy from './Shared/Infrastructure/Encryption/Md5EncryptionStrategy';
 
 import MainConfig from './Config/MainConfig';
 
@@ -42,6 +41,8 @@ import ItemMikroORMRepository from './Item/Infrastructure/Repositories/ItemMikro
 import FileMikroORMRepository from './File/Infrastructure/Repositories/FileMikroORMRepository';
 
 import TokenRedisRepository from './Auth/Infrastructure/Repositories/TokenRedisRepository';
+import IEncryption from './Shared/Infrastructure/Encryption/IEncryption';
+import ITokenRepository from './Auth/Infrastructure/Repositories/ITokenRepository';
 
 // Services
 container.register(SERVICES.AuthService, { useClass: AuthService }, { lifecycle: Lifecycle.Singleton });

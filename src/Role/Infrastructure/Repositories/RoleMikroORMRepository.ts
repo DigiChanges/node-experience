@@ -1,5 +1,6 @@
 import { injectable } from 'inversify';
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
 import RoleFilter from '../../Presentation/Criterias/RoleFilter';
 import IRoleDomain from '../../Domain/Entities/IRoleDomain';
@@ -7,9 +8,9 @@ import Role from '../../Domain/Entities/Role';
 import RoleOfSystemNotDeletedException from '../../Domain/Exceptions/RoleOfSystemNotDeletedException';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IRoleRepository from './IRoleRepository';
-import BaseMikroORMRepository from '../../../App/Infrastructure/Repositories/BaseMikroORMRepository';
+import BaseMikroORMRepository from '../../../Shared/Infrastructure/Repositories/BaseMikroORMRepository';
 import RoleSchema from '../Schemas/RoleMikroORM';
-import MikroORMPaginator from '../../../App/Presentation/Shared/Orm/MikroORMPaginator';
+import MikroORMPaginator from '../../../Shared/Infrastructure/Orm/MikroORMPaginator';
 
 @injectable()
 class RoleMikroORMRepository extends BaseMikroORMRepository<IRoleDomain> implements IRoleRepository

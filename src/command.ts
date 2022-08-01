@@ -15,11 +15,11 @@ import CreateVapID from './File/Presentation/Commands/CreateVapID';
 import AssignRoleToUserCommand from './User/Presentation/Commands/AssingRoleToUserCommand';
 import SyncRolesPermissionCommand from './Auth/Presentation/Commands/SyncRolesPermissionCommand';
 import CreateBucketCommand from './File/Presentation/Commands/CreateBucketCommand';
-import Seed from './App/Presentation/Commands/SeedCommand';
+import Seed from './Shared/Presentation/Commands/SeedCommand';
 import initCommand from './initCommand';
-import Logger from './Shared/Logger/Logger';
-import CreateFolderLogger from './App/Presentation/Commands/CreateFolderLogger';
+import CreateFolderLogger from './Shared/Presentation/Commands/CreateFolderLogger';
 import ActiveUserCommand from './User/Presentation/Commands/ActiveUserCommand';
+import Logger from './Shared/Application/Logger/Logger';
 
 void (async() =>
 {

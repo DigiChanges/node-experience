@@ -1,7 +1,7 @@
 import { SuperAgentTest } from 'supertest';
-import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 import EmailStrategy from '../../Notification/Shared/EmailStrategy';
+import ICreateConnection from '../../Shared/Infrastructure/Database/ICreateConnection';
 
 describe('Start ForgotPassword Test', () =>
 {

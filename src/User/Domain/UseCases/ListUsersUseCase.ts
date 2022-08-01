@@ -1,5 +1,6 @@
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
 

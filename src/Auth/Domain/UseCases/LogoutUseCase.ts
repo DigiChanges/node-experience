@@ -1,13 +1,13 @@
 import { DependencyContainer } from 'tsyringe';
-import { ITokenRepository } from '@digichanges/shared-experience';
-import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
-import Locales from '../../../App/Presentation/Shared/Locales';
+import ILocaleMessage from '../../../Shared/InterfaceAdapters/ILocaleMessage';
+import Locales from '../../../Shared/Presentation/Shared/Locales';
 import { REPOSITORIES, SERVICES } from '../../../Config/Injects';
 import ITokenDomain from '../Entities/ITokenDomain';
 import RefreshTokenPayload from '../Payloads/RefreshTokenPayload';
 import AuthService from '../Services/AuthService';
 import SetTokenBlacklistUseCase from './SetTokenBlacklistUseCase';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
+import ITokenRepository from '../../Infrastructure/Repositories/ITokenRepository';
 
 class LogoutUseCase
 {

@@ -1,11 +1,9 @@
-import { ITokenRepository } from '@digichanges/shared-experience';
-import { injectable } from 'inversify';
-import BaseTypeORMRepository from '../../../App/Infrastructure/Repositories/BaseTypeORMRepository';
+import BaseTypeORMRepository from '../../../Shared/Infrastructure/Repositories/BaseTypeORMRepository';
 import Token from '../../Domain/Entities/Token';
 import ITokenDomain from '../../Domain/Entities/ITokenDomain';
 import TokenSchema from '../Schemas/TokenTypeORM';
+import ITokenRepository from './ITokenRepository';
 
-@injectable()
 class TokenTypeORMRepository extends BaseTypeORMRepository<ITokenDomain> implements ITokenRepository<ITokenDomain>
 {
     constructor()

@@ -1,20 +1,21 @@
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 import ChangeMyPasswordPayload from '../Payloads/ChangeMyPasswordPayload';
 import IUserDomain from '../Entities/IUserDomain';
 import PasswordWrongException from '../../../Auth/Domain/Exceptions/PasswordWrongException';
-import EncryptionFactory from '../../../Shared/Factories/EncryptionFactory';
 import UserService from '../Services/UserService';
-import { SERVICES } from '../../../Config/Injects';
+import { FACTORIES, SERVICES } from '../../../Config/Injects';
+import IEncryption from '../../../Shared/Infrastructure/Encryption/IEncryption';
 
 class ChangeMyPasswordUseCase
 {
-    private encryption = EncryptionFactory.create();
-    private userService = new UserService();
+    private encryption: IEncryption;
+    private userService: UserService;
 
     constructor()
     {
         const { container } = getRequestContext();
         this.userService = container.resolve<UserService>(SERVICES.UserService);
+        this.encryption = container.resolve<IEncryption>(FACTORIES.BcryptEncryptionStrategy);
     }
 
     async handle(payload: ChangeMyPasswordPayload): Promise<IUserDomain>

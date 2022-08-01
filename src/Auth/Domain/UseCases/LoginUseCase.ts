@@ -9,9 +9,8 @@ import UserDisabledException from '../../../User/Domain/Exceptions/UserDisabledE
 import RoleDisabledException from '../../../Role/Domain/Exceptions/RoleDisabledException';
 import IToken from '../Models/IToken';
 import UnverifiedUserException from '../../../User/Domain/Exceptions/UnverifiedUserException';
-import { IEncryption } from '@digichanges/shared-experience';
-import { DependencyContainer } from 'tsyringe';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
+import IEncryption from '../../../Shared/Infrastructure/Encryption/IEncryption';
 
 class LoginUseCase
 {

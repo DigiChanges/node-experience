@@ -1,9 +1,9 @@
 import { SuperAgentTest } from 'supertest';
 import initTestServer from '../../initTestServer';
-import { ICreateConnection } from '@digichanges/shared-experience';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IItemResponse, IListItemsResponse } from './types';
 import MainConfig from '../../Config/MainConfig';
+import ICreateConnection from '../../Shared/Infrastructure/Database/ICreateConnection';
 
 describe('Start Item Test', () =>
 {

@@ -3,14 +3,14 @@ import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
 import { REPOSITORIES } from '../../../Config/Injects';
 import CheckUserRolePayload from '../Payloads/CheckUserRolePayload';
 import IRoleRepository from '../../../Role/Infrastructure/Repositories/IRoleRepository';
-import Password from '../../../App/Domain/ValueObjects/Password';
-import UniqueService from '../../../App/Domain/Services/UniqueService';
+import Password from '../../../Shared/Domain/ValueObjects/Password';
+import UniqueService from '../../../Shared/Domain/Services/UniqueService';
 import MainConfig from '../../../Config/MainConfig';
 import AuthHelper from '../../../Shared/Helpers/AuthHelper';
 import ChangeMyPasswordPayload from '../Payloads/ChangeMyPasswordPayload';
 import User from '../Entities/User';
 import UserSavePayload from '../Payloads/UserSavePayload';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 
 class UserService
 {

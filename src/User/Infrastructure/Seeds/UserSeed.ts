@@ -7,7 +7,7 @@ import IUserRepository from '../Repositories/IUserRepository';
 import IRoleRepository from '../../../Role/Infrastructure/Repositories/IRoleRepository';
 import { REPOSITORIES } from '../../../Config/Injects';
 import ISeed from '../../../Shared/InterfaceAdapters/ISeed';
-import Password from '../../../App/Domain/ValueObjects/Password';
+import Password from '../../../Shared/Domain/ValueObjects/Password';
 import Permissions from '../../../Config/Permissions';
 import MainConfig from '../../../Config/MainConfig';
 

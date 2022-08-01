@@ -1,4 +1,5 @@
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
 import ListFilesUseCase from '../../Domain/UseCases/ListFilesUseCase';
 import ListObjectsUseCase from '../../Domain/UseCases/ListObjectsUseCase';
@@ -6,7 +7,7 @@ import UploadBase64UseCase from '../../Domain/UseCases/UploadBase64UseCase';
 import DownloadUseCase from '../../Domain/UseCases/DownloadUseCase';
 import GetPresignedGetObjectUseCase from '../../Domain/UseCases/GetPresignedGetObjectUseCase';
 import UploadMultipartUseCase from '../../Domain/UseCases/UploadMultipartUseCase';
-import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
+import ValidatorRequest from '../../../Shared/Presentation/Shared/ValidatorRequest';
 import UpdateFileMultipartUseCase from '../../Domain/UseCases/UpdateFileMultipartUseCase';
 import UpdateFileBase64UseCase from '../../Domain/UseCases/UpdateFileBase64UseCase';
 import GetFileMetadataUserCase from '../../Domain/UseCases/GetFileMetadataUseCase';

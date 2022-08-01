@@ -1,19 +1,18 @@
 import { Query, Model } from 'mongoose';
-import { injectable } from 'inversify';
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
 import INotificationRepository from './INotificationRepository';
 
-import MongoosePaginator from '../../../App/Presentation/Shared/Orm/MongoosePaginator';
+import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
 import INotification from '../Schemas/INotificationDocument';
-import { connection } from '../../../Shared/Database/MongooseCreateConnection';
+import { connection } from '../../../Shared/Infrastructure/Database/MongooseCreateConnection';
 import INotificationDomain from '../../Domain/Entities/INotificationDomain';
 import EmailNotification from '../../Domain/Entities/EmailNotification';
 import PushNotification from '../../Domain/Entities/PushNotification';
 import NotificationFilter from '../../Presentation/Criterias/NotificationFilter';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 
-@injectable()
 class NotificationMongooseRepository implements INotificationRepository<INotificationDomain>
 {
     private readonly repository: Model<INotification>;
@@ -58,10 +57,10 @@ class NotificationMongooseRepository implements INotificationRepository<INotific
         }
         if (filter.has(NotificationFilter.NAME))
         {
-            const name: string = filter.get(NotificationFilter.NAME);
-            const rsearch = new RegExp(name, 'g');
+            const name: string = filter.get(NotificationFilter.NAME) as string;
+            const rSearch = new RegExp(name, 'g');
 
-            void queryBuilder.where(NotificationFilter.NAME).regex(rsearch);
+            void queryBuilder.where(NotificationFilter.NAME).regex(rSearch);
         }
 
         return new MongoosePaginator(queryBuilder, criteria);

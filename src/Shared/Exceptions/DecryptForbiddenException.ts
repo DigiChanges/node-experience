@@ -1,5 +1,5 @@
-import { ErrorException } from '@digichanges/shared-experience';
-import Locales from '../../App/Presentation/Shared/Locales';
+import Locales from '../Presentation/Shared/Locales';
+import ErrorException from './ErrorException';
 
 class DecryptForbiddenException extends ErrorException
 {

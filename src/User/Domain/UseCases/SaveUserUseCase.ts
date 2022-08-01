@@ -1,9 +1,9 @@
 import IUserDomain from '../Entities/IUserDomain';
-import EventHandler from '../../../Shared/Events/EventHandler';
-import UserCreatedEvent from '../../../Shared/Events/UserCreatedEvent';
+import EventHandler from '../../../Shared/Infrastructure/Events/EventHandler';
+import UserCreatedEvent from '../../../Shared/Infrastructure/Events/UserCreatedEvent';
 import UserSavePayload from '../Payloads/UserSavePayload';
 import UserService from '../Services/UserService';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 import { SERVICES } from '../../../Config/Injects';
 
 class SaveUserUseCase

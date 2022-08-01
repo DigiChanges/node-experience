@@ -3,7 +3,7 @@ import IUserDomain from '../Entities/IUserDomain';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
 import IRoleRepository from '../../../Role/Infrastructure/Repositories/IRoleRepository';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 
 class AssignRoleBySlugUseCase
 {

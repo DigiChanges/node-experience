@@ -6,7 +6,7 @@ import { REPOSITORIES } from '../../../Config/Injects';
 import IRoleRepository from '../../../Role/Infrastructure/Repositories/IRoleRepository';
 import Role from '../../../Role/Domain/Entities/Role';
 import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 
 class SyncRolesPermissionUseCase
 {

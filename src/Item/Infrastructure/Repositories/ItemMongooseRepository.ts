@@ -1,17 +1,16 @@
 import { Query } from 'mongoose';
-import { injectable } from 'inversify';
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
 import IItemRepository from './IItemRepository';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
-import MongoosePaginator from '../../../App/Presentation/Shared/Orm/MongoosePaginator';
+import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
 import IItem from '../Schemas/IItemDocument';
 
-import BaseMongooseRepository from '../../../App/Infrastructure/Repositories/BaseMongooseRepository';
+import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/BaseMongooseRepository';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 import Item from '../../Domain/Entities/Item';
 
-@injectable()
 class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, IItem> implements IItemRepository
 {
     constructor()
@@ -33,7 +32,7 @@ class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, IItem> 
 
         if (filter.has(ItemFilter.NAME))
         {
-            const name: string = filter.get(ItemFilter.NAME);
+            const name: string = filter.get(ItemFilter.NAME) as string;
             const rSearch = new RegExp(name, 'g');
 
             void queryBuilder.where(ItemFilter.NAME).regex(rSearch);

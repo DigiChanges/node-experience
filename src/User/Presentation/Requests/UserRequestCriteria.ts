@@ -1,8 +1,8 @@
-import ICriteria from '../../../App/Domain/Payloads/ICriteria';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import UserSort from '../Criterias/UserSort';
 import UserFilter from '../Criterias/UserFilter';
-import Pagination from '../../../App/Presentation/Shared/Pagination';
-import RequestCriteria from '../../../App/Presentation/Requests/RequestCriteria';
+import Pagination from '../../../Shared/Presentation/Shared/Pagination';
+import RequestCriteria from '../../../Shared/Presentation/Requests/RequestCriteria';
 
 class UserRequestCriteria extends RequestCriteria implements ICriteria
 {

@@ -1,5 +1,5 @@
 import IItemDomain from './IItemDomain';
-import Base from '../../../App/Domain/Entities/Base';
+import Base from '../../../Shared/Domain/Entities/Base';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
 import ItemRepPayload from '../Payloads/ItemRepPayload';
 

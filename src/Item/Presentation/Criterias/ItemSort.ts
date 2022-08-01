@@ -1,4 +1,4 @@
-import { Sort } from '@digichanges/shared-experience';
+import Sort from '../../../Shared/Presentation/Requests/Sort';
 
 class ItemSort extends Sort
 {

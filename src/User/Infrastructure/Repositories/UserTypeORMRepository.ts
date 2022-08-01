@@ -1,15 +1,16 @@
 import IUserRepository from './IUserRepository';
 import User from '../../Domain/Entities/User';
 import { injectable } from 'inversify';
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
-import TypeORMPaginator from '../../../App/Presentation/Shared/Orm/TypeORMPaginator';
+import TypeORMPaginator from '../../../Shared/Infrastructure/Orm/TypeORMPaginator';
 import UserFilter from '../../Presentation/Criterias/UserFilter';
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 import UserSchema from '../Schemas/UserTypeORM';
 
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
-import BaseTypeORMRepository from '../../../App/Infrastructure/Repositories/BaseTypeORMRepository';
+import BaseTypeORMRepository from '../../../Shared/Infrastructure/Repositories/BaseTypeORMRepository';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 
 @injectable()
 class UserTypeORMRepository extends BaseTypeORMRepository<IUserDomain> implements IUserRepository

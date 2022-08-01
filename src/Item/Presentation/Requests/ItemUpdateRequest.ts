@@ -1,6 +1,6 @@
 import { Mixin } from 'ts-mixer';
 import ItemUpdatePayload from '../../Domain/Payloads/ItemUpdatePayload';
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 import ItemRepRequest from './ItemRepRequest';
 import IUserDomain from 'User/Domain/Entities/IUserDomain';
 

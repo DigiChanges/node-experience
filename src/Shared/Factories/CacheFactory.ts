@@ -1,5 +1,5 @@
-import RedisCacheRepository from '../../App/Infrastructure/Repositories/RedisCacheRepository';
-import ICacheRepository from '../../App/Infrastructure/Repositories/ICacheRepository';
+import RedisCacheRepository from '../Infrastructure/Repositories/RedisCacheRepository';
+import ICacheRepository from '../Infrastructure/Repositories/ICacheRepository';
 
 class CacheFactory
 {

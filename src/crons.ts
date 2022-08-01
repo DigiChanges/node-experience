@@ -1,4 +1,4 @@
-import TestCron from './Shared/Crons/TestCron';
+import TestCron from './Shared/Infrastructure/Crons/TestCron';
 
 const crons = {
     TestCron

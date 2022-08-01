@@ -1,9 +1,9 @@
 import Koa from 'koa';
 import { DependencyContainer } from 'tsyringe';
-import { StatusCode } from '@digichanges/shared-experience';
-import ErrorHttpException from '../../../App/Presentation/Shared/ErrorHttpException';
+import ErrorHttpException from '../../../Shared/Presentation/Shared/ErrorHttpException';
 import AuthService from '../../Domain/Services/AuthService';
 import { SERVICES } from '../../../Config/Injects';
+import StatusCode from '../../../Shared/Application/StatusCode';
 
 const RefreshTokenKoaMiddleware = async(ctx: Koa.ParameterizedContext, next: Koa.Next) =>
 {

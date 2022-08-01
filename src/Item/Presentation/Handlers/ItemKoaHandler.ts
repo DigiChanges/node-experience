@@ -1,18 +1,19 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import { IPaginator, StatusCode } from '@digichanges/shared-experience';
-import KoaResponder from '../../../App/Presentation/Shared/Http/KoaResponder';
+import StatusCode from '../../../Shared/Application/StatusCode';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
+import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import ItemController from '../Controllers/ItemController';
 import ItemTransformer from '../Transformers/ItemTransformer';
 import ItemRepRequest from '../Requests/ItemRepRequest';
 import { AuthUser } from '../../../Auth/Presentation/Helpers/AuthUser';
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 import ItemRequestCriteria from '../Requests/ItemRequestCriteria';
 import ItemUpdateRequest from '../Requests/ItemUpdateRequest';
 import AuthorizeKoaMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeKoaMiddleware';
 import Permissions from '../../../Config/Permissions';
-import ResponseMessageEnum from '../../../App/Domain/Enum/ResponseMessageEnum';
-import DefaultMessageTransformer from '../../../App/Presentation/Transformers/DefaultMessageTransformer';
+import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
+import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/items'

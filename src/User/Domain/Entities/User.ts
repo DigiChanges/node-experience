@@ -1,7 +1,7 @@
 import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
 import IUserDomain from './IUserDomain';
-import Base from '../../../App/Domain/Entities/Base';
-import Password from '../../../App/Domain/ValueObjects/Password';
+import Base from '../../../Shared/Domain/Entities/Base';
+import Password from '../../../Shared/Domain/ValueObjects/Password';
 import UserRepPayload from '../Payloads/UserRepPayload';
 
 class User extends Base implements IUserDomain

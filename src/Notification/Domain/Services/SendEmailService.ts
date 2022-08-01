@@ -1,4 +1,4 @@
-import EventHandler from '../../../Shared/Events/EventHandler';
+import EventHandler from '../../../Shared/Infrastructure/Events/EventHandler';
 import ISendEmailParams from '../Entities/ISendEmailParams';
 import EmailNotification from '../Entities/EmailNotification';
 

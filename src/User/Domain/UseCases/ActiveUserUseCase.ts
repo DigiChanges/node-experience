@@ -1,7 +1,7 @@
 import UserActivePayload from '../Payloads/UserActivePayload';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 
 class ActiveUserUseCase
 {

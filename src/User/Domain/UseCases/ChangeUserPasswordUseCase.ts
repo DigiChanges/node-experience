@@ -1,10 +1,10 @@
 import ChangeUserPasswordPayload from '../Payloads/ChangeUserPasswordPayload';
 import IUserDomain from '../Entities/IUserDomain';
-import Password from '../../../App/Domain/ValueObjects/Password';
+import Password from '../../../Shared/Domain/ValueObjects/Password';
 import MainConfig from '../../../Config/MainConfig';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 
 class ChangeUserPasswordUseCase
 {

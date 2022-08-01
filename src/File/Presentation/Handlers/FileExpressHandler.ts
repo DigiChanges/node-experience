@@ -1,11 +1,12 @@
 import { controller, httpPost, request, response, next, httpGet, httpPut, httpDelete } from 'inversify-express-utils';
 import { NextFunction, Request, Response } from 'express';
-import { IPaginator, StatusCode } from '@digichanges/shared-experience';
+import StatusCode from '../../../Shared/Application/StatusCode';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
 import AuthorizeExpressMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeExpressMiddleware';
 import Permissions from '../../../Config/Permissions';
 
-import ExpressResponder from '../../../App/Presentation/Shared/Http/ExpressResponder';
+import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder';
 import ListObjectsRequest from '../Requests/ListObjectsRequest';
 import FileExpressReqMulter from '../Middlewares/FileExpressReqMulter';
 import FileBase64RepRequest from '../Requests/FileBase64RepRequest';
@@ -13,7 +14,7 @@ import FileMultipartRepRequest from '../Requests/FileMultipartRepRequest';
 import PresignedFileRepRequest from '../Requests/PresignedFileRepRequest';
 import FileRequestCriteria from '../Requests/FileRequestCriteria';
 import FileTransformer from '../Transformers/FileTransformer';
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 import FileUpdateMultipartRequest from '../Requests/FileUpdateMultipartRequest';
 import FileUpdateBase64Request from '../Requests/FileUpdateBase64Request';
 import ObjectTransformer from '../Transformers/ObjectTransformer';

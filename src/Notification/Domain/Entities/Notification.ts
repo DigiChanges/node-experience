@@ -1,5 +1,5 @@
 import INotificationDomain from './INotificationDomain';
-import Base from '../../../App/Domain/Entities/Base';
+import Base from '../../../Shared/Domain/Entities/Base';
 
 class Notification extends Base implements INotificationDomain
 {

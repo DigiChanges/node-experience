@@ -1,22 +1,23 @@
 import { NextFunction, Request, Response } from 'express';
 import { controller, httpDelete, httpGet, httpPost, httpPut, next, request, response } from 'inversify-express-utils';
-import { IPaginator, StatusCode } from '@digichanges/shared-experience';
+import StatusCode from '../../../Shared/Application/StatusCode';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
-import ExpressResponder from '../../../App/Presentation/Shared/Http/ExpressResponder';
+import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder';
 import AuthorizeExpressMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeExpressMiddleware';
 import Permissions from '../../../Config/Permissions';
 
 import ItemTransformer from '../Transformers/ItemTransformer';
 import ItemRepRequest from '../Requests/ItemRepRequest';
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 import ItemRequestCriteria from '../Requests/ItemRequestCriteria';
 import ItemUpdateRequest from '../Requests/ItemUpdateRequest';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 
 import ItemController from '../Controllers/ItemController';
 import { AuthUser } from '../../../Auth/Presentation/Helpers/AuthUser';
-import ResponseMessageEnum from '../../../App/Domain/Enum/ResponseMessageEnum';
-import DefaultMessageTransformer from '../../../App/Presentation/Transformers/DefaultMessageTransformer';
+import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
+import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
 
 @controller('/api/items')
 class ItemExpressHandler

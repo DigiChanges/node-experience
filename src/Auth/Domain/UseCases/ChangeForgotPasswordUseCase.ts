@@ -3,12 +3,12 @@ import ChangeForgotPasswordPayload from '../Payloads/ChangeForgotPasswordPayload
 import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
 
 import { REPOSITORIES, SERVICES } from '../../../Config/Injects';
-import Password from '../../../App/Domain/ValueObjects/Password';
+import Password from '../../../Shared/Domain/ValueObjects/Password';
 import MainConfig from '../../../Config/MainConfig';
-import Locales from '../../../App/Presentation/Shared/Locales';
-import ILocaleMessage from '../../../App/InterfaceAdapters/ILocaleMessage';
+import Locales from '../../../Shared/Presentation/Shared/Locales';
+import ILocaleMessage from '../../../Shared/InterfaceAdapters/ILocaleMessage';
 import AuthService from '../Services/AuthService';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 
 class ChangeForgotPasswordUseCase
 {

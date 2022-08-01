@@ -3,7 +3,8 @@ import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IFileRepository from '../../Infrastructure/Repositories/IFileRepository';
 import PresignedFileRepPayload from 'File/Domain/Payloads/PresignedFileRepPayload';
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 import ListObjectsPayload from 'File/Domain/Payloads/ListObjectsPayload';
 import FileBase64RepPayload from '../Payloads/FileBase64RepPayload';
 import FileMultipartRepPayload from '../Payloads/FileMultipartRepPayload';
@@ -13,7 +14,7 @@ import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import FileDTO from '../Models/FileDTO';
 import IFileDTO from '../Models/IFileDTO';
 import { validate } from 'uuid';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 import IFilesystem from '../../../Shared/InterfaceAdapters/IFilesystem';
 
 class FileService

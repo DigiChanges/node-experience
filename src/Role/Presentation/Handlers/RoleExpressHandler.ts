@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import { controller, httpDelete, httpGet, httpPost, httpPut, request, response, next } from 'inversify-express-utils';
-import { IPaginator, StatusCode } from '@digichanges/shared-experience';
+import StatusCode from '../../../Shared/Application/StatusCode';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
-import ExpressResponder from '../../../App/Presentation/Shared/Http/ExpressResponder';
+import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder';
 import RoleTransformer from '../Transformers/RoleTransformer';
 import RoleRepRequest from '../Requests/RoleRepRequest';
-import IdRequest from '../../../App/Presentation/Requests/IdRequest';
+import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 import RoleRequestCriteria from '../Requests/RoleRequestCriteria';
 import RoleUpdateRequest from '../Requests/RoleUpdateRequest';
 import AuthorizeExpressMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeExpressMiddleware';
@@ -13,8 +14,8 @@ import Permissions from '../../../Config/Permissions';
 
 import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 import RoleController from '../Controllers/RoleController';
-import ResponseMessageEnum from '../../../App/Domain/Enum/ResponseMessageEnum';
-import DefaultMessageTransformer from '../../../App/Presentation/Transformers/DefaultMessageTransformer';
+import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
+import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
 
 @controller('/api/roles')
 class RoleExpressHandler

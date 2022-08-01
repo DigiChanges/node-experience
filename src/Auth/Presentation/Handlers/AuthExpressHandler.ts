@@ -1,8 +1,7 @@
 import { controller, httpGet, httpPost, httpPut, request, response } from 'inversify-express-utils';
 import { Response } from 'express';
-import { StatusCode } from '@digichanges/shared-experience';
 
-import ExpressResponder from '../../../App/Presentation/Shared/Http/ExpressResponder';
+import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder';
 
 import AuthorizeExpressMiddleware from '../Middlewares/AuthorizeExpressMiddleware';
 import Permissions from '../../../Config/Permissions';
@@ -19,12 +18,13 @@ import AuthController from '../Controllers/AuthController';
 import { AuthUser } from '../Helpers/AuthUser';
 import UserTransformer from '../../../User/Presentation/Transformers/UserTransformer';
 import moment from 'moment';
-import DefaultTransformer from '../../../App/Presentation/Transformers/DefaultTransformer';
+import DefaultTransformer from '../../../Shared/Presentation/Transformers/DefaultTransformer';
 import RegistrationRequest from '../Requests/RegistrationRequest';
 import UpdateMeRequest from '../Requests/UpdateMeRequest';
 import VerifyYourAccountRequest from '../Requests/VerifyYourAccountRequest';
 import RefreshTokenExpressMiddleware from '../Middlewares/RefreshTokenExpressMiddleware';
 import MainConfig from '../../../Config/MainConfig';
+import StatusCode from '../../../Shared/Application/StatusCode';
 
 @controller('/api/auth')
 class AuthExpressHandler

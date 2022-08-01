@@ -1,11 +1,12 @@
 import IRoleRepository from './IRoleRepository';
 import { injectable } from 'inversify';
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
-import TypeORMPaginator from '../../../App/Presentation/Shared/Orm/TypeORMPaginator';
+import TypeORMPaginator from '../../../Shared/Infrastructure/Orm/TypeORMPaginator';
 import RoleFilter from '../../Presentation/Criterias/RoleFilter';
 import IRoleDomain from '../../Domain/Entities/IRoleDomain';
-import BaseTypeORMRepository from '../../../App/Infrastructure/Repositories/BaseTypeORMRepository';
+import BaseTypeORMRepository from '../../../Shared/Infrastructure/Repositories/BaseTypeORMRepository';
 import Role from '../../Domain/Entities/Role';
 import RoleSchema from '../Schemas/RoleTypeORM';
 import RoleOfSystemNotDeletedException from '../../Domain/Exceptions/RoleOfSystemNotDeletedException';

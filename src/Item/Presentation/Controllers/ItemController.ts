@@ -5,13 +5,13 @@ import ListItemsUseCase from '../../Domain/UseCases/ListItemsUseCase';
 import GetItemUseCase from '../../Domain/UseCases/GetItemUseCase';
 import RemoveItemUseCase from '../../Domain/UseCases/RemoveItemUseCase';
 import UpdateItemUseCase from '../../Domain/UseCases/UpdateItemUseCase';
-import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
+import ValidatorRequest from '../../../Shared/Presentation/Shared/ValidatorRequest';
 import ItemRepPayload from '../../Domain/Payloads/ItemRepPayload';
-import { IPaginator } from '@digichanges/shared-experience';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import ItemUpdatePayload from '../../Domain/Payloads/ItemUpdatePayload';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
-import ICriteria from '../../../App/Domain/Payloads/ICriteria';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
 class ItemController
 {

@@ -4,23 +4,23 @@ import container from './register';
 
 import supertest from 'supertest';
 
-import { ICreateConnection, ITokenRepository } from '@digichanges/shared-experience';
-
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
-import EventHandler from './Shared/Events/EventHandler';
+import EventHandler from './Shared/Infrastructure/Events/EventHandler';
 import { FACTORIES, REPOSITORIES } from './Config/Injects';
 import TokenMongooseRepository from './Auth/Infrastructure/Repositories/TokenMongooseRepository';
 import TokenTypeORMRepository from './Auth/Infrastructure/Repositories/TokenTypeORMRepository';
 import { validateEnv } from './Config/validateEnv';
 import ITokenDomain from './Auth/Domain/Entities/ITokenDomain';
 import SeedFactory from './Shared/Factories/SeedFactory';
-import Locales from './App/Presentation/Shared/Locales';
+import Locales from './Shared/Presentation/Shared/Locales';
 import MainConfig from './Config/MainConfig';
-import IApp from './App/InterfaceAdapters/IApp';
+import IApp from './Shared/InterfaceAdapters/IApp';
 import { Lifecycle } from 'tsyringe';
 import MockStrategy from './Notification/Tests/MockStrategy';
 import INotifierStrategy from './Notification/Shared/INotifierStrategy';
 import AppFactory from './Shared/Factories/AppFactory';
+import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
+import ITokenRepository from './Auth/Infrastructure/Repositories/ITokenRepository';
 
 const initTestServer = async(): Promise<any> =>
 {

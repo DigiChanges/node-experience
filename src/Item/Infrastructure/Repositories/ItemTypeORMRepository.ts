@@ -1,13 +1,14 @@
 import IItemRepository from './IItemRepository';
 import Item from '../../Domain/Entities/Item';
 import { injectable } from 'inversify';
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
-import TypeORMPaginator from '../../../App/Presentation/Shared/Orm/TypeORMPaginator';
+import TypeORMPaginator from '../../../Shared/Infrastructure/Orm/TypeORMPaginator';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import ItemSchema from '../Schemas/ItemTypeORM';
 
-import BaseTypeORMRepository from '../../../App/Infrastructure/Repositories/BaseTypeORMRepository';
+import BaseTypeORMRepository from '../../../Shared/Infrastructure/Repositories/BaseTypeORMRepository';
 
 @injectable()
 class ItemTypeORMRepository extends BaseTypeORMRepository<Item> implements IItemRepository

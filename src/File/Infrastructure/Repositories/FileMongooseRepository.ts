@@ -1,15 +1,16 @@
 import { Query } from 'mongoose';
 import { injectable } from 'inversify';
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
 import IFileRepository from './IFileRepository';
 
 import FileFilter from '../../Presentation/Criterias/FileFilter';
-import MongoosePaginator from '../../../App/Presentation/Shared/Orm/MongoosePaginator';
+import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
 import IFile from '../Schemas/IFileDocument';
 import IFileDomain from '../../Domain/Entities/IFileDomain';
 
-import BaseMongooseRepository from '../../../App/Infrastructure/Repositories/BaseMongooseRepository';
+import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/BaseMongooseRepository';
 import File from '../../Domain/Entities/File';
 
 @injectable()
@@ -27,7 +28,7 @@ class FileMongooseRepository extends BaseMongooseRepository<IFileDomain, IFile> 
 
         if (filter.has(FileFilter.NAME))
         {
-            const name: string = filter.get(FileFilter.NAME);
+            const name: string = filter.get(FileFilter.NAME) as string;
             const rSearch = new RegExp(name, 'g');
 
             void queryBuilder.where(FileFilter.NAME).regex(rSearch);

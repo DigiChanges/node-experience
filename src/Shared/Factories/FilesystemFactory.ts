@@ -1,5 +1,5 @@
 import MainConfig from '../../Config/MainConfig';
-import MinioStrategy from '../Filesystem/MinioStrategy';
+import MinioStrategy from '../Infrastructure/Filesystem/MinioStrategy';
 import IFilesystem from '../InterfaceAdapters/IFilesystem';
 
 class FilesystemFactory

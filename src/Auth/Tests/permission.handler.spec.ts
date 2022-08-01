@@ -1,7 +1,7 @@
 import { SuperAgentTest } from 'supertest';
-import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 import { IPermissionsResponse } from './types';
+import ICreateConnection from '../../Shared/Infrastructure/Database/ICreateConnection';
 
 describe('Start Permission Test', () =>
 {

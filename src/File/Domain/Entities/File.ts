@@ -1,5 +1,5 @@
 import IFileDomain from './IFileDomain';
-import Base from '../../../App/Domain/Entities/Base';
+import Base from '../../../Shared/Domain/Entities/Base';
 
 class File extends Base implements IFileDomain
 {

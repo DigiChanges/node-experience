@@ -2,7 +2,7 @@ import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import IRoleDomain from '../Entities/IRoleDomain';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IRoleRepository from '../../Infrastructure/Repositories/IRoleRepository';
-import { getRequestContext } from '../../../App/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 
 class GetRoleUseCase
 {

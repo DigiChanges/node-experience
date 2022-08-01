@@ -1,4 +1,4 @@
-import IBaseDomain from '../../../App/Domain/Entities/IBaseDomain';
+import IBaseDomain from '../../../Shared/Domain/Entities/IBaseDomain';
 
 interface ITokenDomain extends IBaseDomain
 {

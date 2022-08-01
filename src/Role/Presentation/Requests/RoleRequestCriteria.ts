@@ -1,11 +1,11 @@
 import { ParsedQs } from 'qs';
-import { ICriteria } from '@digichanges/shared-experience';
 
-import RequestCriteria from '../../../App/Presentation/Requests/RequestCriteria';
+import RequestCriteria from '../../../Shared/Presentation/Requests/RequestCriteria';
 
 import RoleSort from '../Criterias/RoleSort';
 import RoleFilter from '../Criterias/RoleFilter';
-import Pagination from '../../../App/Presentation/Shared/Pagination';
+import Pagination from '../../../Shared/Presentation/Shared/Pagination';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 
 class RoleRequestCriteria extends RequestCriteria implements ICriteria
 {

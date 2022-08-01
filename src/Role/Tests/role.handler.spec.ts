@@ -1,9 +1,9 @@
 import { SuperAgentTest } from 'supertest';
-import { ICreateConnection } from '@digichanges/shared-experience';
 import initTestServer from '../../initTestServer';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { IListRolesResponse, IRoleResponse } from './types';
 import MainConfig from '../../Config/MainConfig';
+import ICreateConnection from '../../Shared/Infrastructure/Database/ICreateConnection';
 
 describe('Start Role Test', () =>
 {

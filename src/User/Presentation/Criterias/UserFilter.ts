@@ -1,4 +1,4 @@
-import { Filter } from '@digichanges/shared-experience';
+import Filter from '../../../Shared/Presentation/Requests/Filter';
 
 class UserFilter extends Filter
 {

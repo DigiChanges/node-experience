@@ -1,7 +1,7 @@
 import NotificationRepPayload from '../Payloads/NotificationRepPayload';
 import PushNotification from '../Entities/PushNotification';
-import EventHandler from '../../../Shared/Events/EventHandler';
-import SendMessageEvent from '../../../Shared/Events/SendMessageEvent';
+import EventHandler from '../../../Shared/Infrastructure/Events/EventHandler';
+import SendMessageEvent from '../../../Shared/Infrastructure/Events/SendMessageEvent';
 import NotificationSendMessagePayload from '../Payloads/NotificationSendMessagePayload';
 import INotificationResponse from '../Entities/INotificationResponse';
 

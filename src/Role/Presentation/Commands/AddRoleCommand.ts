@@ -1,4 +1,4 @@
-import Logger from '../../../Shared/Logger/Logger';
+import Logger from '../../../Shared/Application/Logger/Logger';
 import commander from 'commander';
 import RoleRepPayload from '../../Domain/Payloads/RoleRepPayload';
 import SaveRoleUseCase from '../../Domain/UseCases/SaveRoleUseCase';

@@ -1,11 +1,12 @@
 import MainConfig from '../../../Config/MainConfig';
-import { ICacheRepository, ITokenRepository } from '@digichanges/shared-experience';
 
 import ITokenDomain from '../../Domain/Entities/ITokenDomain';
 
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import CacheFactory from '../../../Shared/Factories/CacheFactory';
 import Token from '../../Domain/Entities/Token';
+import ITokenRepository from './ITokenRepository';
+import ICacheRepository from '../../../Shared/Infrastructure/Repositories/ICacheRepository';
 
 class TokenRedisRepository implements ITokenRepository<ITokenDomain>
 {

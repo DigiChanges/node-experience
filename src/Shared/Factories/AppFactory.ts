@@ -1,6 +1,6 @@
-import IApp from '../../App/InterfaceAdapters/IApp';
-import AppExpress from '../../App/Presentation/Shared/Http/AppExpress';
-import AppKoa from '../../App/Presentation/Shared/Http/AppKoa';
+import IApp from '../InterfaceAdapters/IApp';
+import AppExpress from '../Application/Http/AppExpress';
+import AppKoa from '../Application/Http/AppKoa';
 
 class AppFactory
 {

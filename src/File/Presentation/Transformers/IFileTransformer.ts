@@ -1,5 +1,5 @@
 import IFileDomain from '../../Domain/Entities/IFileDomain';
-import BaseTransformer, { BasePropertiesTransformer } from '../../../App/Presentation/Transformers/BaseTransformer';
+import BaseTransformer, { BasePropertiesTransformer } from '../../../Shared/Presentation/Transformers/BaseTransformer';
 
 type IFileTransformer = BaseTransformer<IFileDomain> & BasePropertiesTransformer;
 

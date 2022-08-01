@@ -1,10 +1,10 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import { StatusCode } from '@digichanges/shared-experience';
-import KoaResponder from '../../../App/Presentation/Shared/Http/KoaResponder';
+import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import NotificationController from '../Controller/NotificationController';
 import NotificationSubscriptionRequest from '../Requests/NotificationCreateSuscriptionRequest';
 import NotificationSendMessageRequest from '../Requests/NotificationSendMessageRequest';
+import StatusCode from '../../../Shared/Application/StatusCode';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/notifications'

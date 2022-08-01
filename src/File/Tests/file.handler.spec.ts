@@ -1,4 +1,3 @@
-import { ICreateConnection } from '@digichanges/shared-experience';
 import { SuperAgentTest } from 'supertest';
 import initTestServer from '../../initTestServer';
 import FilesystemFactory from '../../Shared/Factories/FilesystemFactory';
@@ -6,6 +5,7 @@ import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { UploadFileBase64 } from './fixture';
 import MockMinioStrategy from './MockMinioStrategy';
 import { IFileResponse } from './types';
+import ICreateConnection from '../../Shared/Infrastructure/Database/ICreateConnection';
 
 describe('Start File Test', () =>
 {

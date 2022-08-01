@@ -1,5 +1,5 @@
-import { ErrorException } from '@digichanges/shared-experience';
-import Locales from '../../../App/Presentation/Shared/Locales';
+import ErrorException from '../../../Shared/Exceptions/ErrorException';
+import Locales from '../../../Shared/Presentation/Shared/Locales';
 
 class UnverifiedUserException extends ErrorException
 {

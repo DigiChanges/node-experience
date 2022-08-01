@@ -1,15 +1,16 @@
 import IUserRepository from './IUserRepository';
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
 
-import MongoosePaginator from '../../../App/Presentation/Shared/Orm/MongoosePaginator';
+import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
 import UserFilter from '../../Presentation/Criterias/UserFilter';
 import IUser from '../Schemas/IUserDocument';
 import { Query } from 'mongoose';
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
-import BaseMongooseRepository from '../../../App/Infrastructure/Repositories/BaseMongooseRepository';
+import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/BaseMongooseRepository';
 import User from '../../Domain/Entities/User';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
 class UserMongooseRepository extends BaseMongooseRepository<IUserDomain, IUser> implements IUserRepository
 {
@@ -57,15 +58,15 @@ class UserMongooseRepository extends BaseMongooseRepository<IUserDomain, IUser> 
 
         if (filter.has(UserFilter.EMAIL))
         {
-            const email = filter.get(UserFilter.EMAIL);
-            const rsearch = new RegExp(email, 'g');
+            const email = filter.get(UserFilter.EMAIL) as string;
+            const rSearch = new RegExp(email, 'g');
 
-            void queryBuilder.where(UserFilter.EMAIL).regex(rsearch);
+            void queryBuilder.where(UserFilter.EMAIL).regex(rSearch);
         }
 
         if (filter.has(UserFilter.IS_SUPER_ADMIN))
         {
-            const isSuperAdmin: boolean = filter.get(UserFilter.IS_SUPER_ADMIN);
+            const isSuperAdmin = filter.get(UserFilter.IS_SUPER_ADMIN) as boolean;
 
             void queryBuilder.where(UserFilter.IS_SUPER_ADMIN).equals(isSuperAdmin);
         }

@@ -1,17 +1,15 @@
-import { injectable } from 'inversify';
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
-
 import UserFilter from '../../Presentation/Criterias/UserFilter';
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 import User from '../../Domain/Entities/User';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IUserRepository from './IUserRepository';
-import BaseMikroORMRepository from '../../../App/Infrastructure/Repositories/BaseMikroORMRepository';
+import BaseMikroORMRepository from '../../../Shared/Infrastructure/Repositories/BaseMikroORMRepository';
 import UserSchema from '../Schemas/UserMikroORM';
 import { QueryBuilder } from '@mikro-orm/postgresql';
-import MikroORMPaginator from '../../../App/Presentation/Shared/Orm/MikroORMPaginator';
+import MikroORMPaginator from '../../../Shared/Infrastructure/Orm/MikroORMPaginator';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
-@injectable()
 class UserMikroORMRepository extends BaseMikroORMRepository<IUserDomain> implements IUserRepository
 {
     constructor()

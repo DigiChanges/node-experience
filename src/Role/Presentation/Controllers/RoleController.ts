@@ -1,4 +1,5 @@
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
+import IPaginator from '../../../Shared/Domain/Payloads/IPaginator';
 
 import SaveRoleUseCase from '../../Domain/UseCases/SaveRoleUseCase';
 import ListRolesUseCase from '../../Domain/UseCases/ListRolesUseCase';
@@ -6,7 +7,7 @@ import GetRoleUseCase from '../../Domain/UseCases/GetRoleUseCase';
 import RemoveRoleUseCase from '../../Domain/UseCases/RemoveRoleUseCase';
 import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 import UpdateRoleUseCase from '../../Domain/UseCases/UpdateRoleUseCase';
-import ValidatorRequest from '../../../App/Presentation/Shared/ValidatorRequest';
+import ValidatorRequest from '../../../Shared/Presentation/Shared/ValidatorRequest';
 import RoleRepPayload from '../../Domain/Payloads/RoleRepPayload';
 import IdPayload from '../../../Shared/InterfaceAdapters/IdPayload';
 import RoleUpdatePayload from '../../Domain/Payloads/RoleUpdatePayload';

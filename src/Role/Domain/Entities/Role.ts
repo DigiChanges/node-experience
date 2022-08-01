@@ -1,5 +1,5 @@
 import IRoleDomain from './IRoleDomain';
-import Base from '../../../App/Domain/Entities/Base';
+import Base from '../../../Shared/Domain/Entities/Base';
 import RoleRepPayload from '../Payloads/RoleRepPayload';
 import AuthHelper from '../../../Shared/Helpers/AuthHelper';
 
