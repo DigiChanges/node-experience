@@ -38,6 +38,11 @@
       "name": "User",
       "fileInfra": "User",
       "handler": "User"
+    },
+    {
+      "name": "Shared",
+      "fileInfra": "Base",
+      "handler": "Index"
     }
   ]
 }
