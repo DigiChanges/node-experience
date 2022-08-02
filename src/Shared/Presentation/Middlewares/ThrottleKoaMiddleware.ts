@@ -12,7 +12,7 @@ const meta: any = {
 const db = new Map(); // TODO: Replace to REDIS
 
 // Blocking when exceed more than 30 request per second
-const ThrottleKoa = throttle({
+const ThrottleKoaMiddleware = throttle({
     driver: 'memory',
     db,
     duration: 1000,
@@ -26,4 +26,4 @@ const ThrottleKoa = throttle({
     disableHeader: true
 });
 
-export default ThrottleKoa;
+export default ThrottleKoaMiddleware;

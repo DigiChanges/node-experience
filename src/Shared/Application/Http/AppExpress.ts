@@ -19,7 +19,7 @@ import '../../Tests/WhiteListExpressHandler';
 import AuthenticationExpressMiddleware from '../../../Auth/Presentation/Middlewares/AuthenticationExpressMiddleware';
 import { ErrorExpressHandler } from './ErrorExpressHandler';
 import RedirectRouteNotFoundExpressMiddleware from '../../Presentation/Middlewares/RedirectRouteNotFoundExpressMiddleware';
-import ThrottleExpress from '../../Presentation/Middlewares/ThrottleExpress';
+import ThrottleExpressMiddleware from '../../Presentation/Middlewares/ThrottleExpressMiddleware';
 import VerifyTokenExpressMiddleware from '../../../Auth/Presentation/Middlewares/VerifyTokenExpressMiddleware';
 import IApp from './IApp';
 import IAppConfig from './IAppConfig';
@@ -72,7 +72,7 @@ class AppExpress implements IApp
                 next();
             });
             app.use(LoggerExpressMiddleware);
-            app.use('/api/', ThrottleExpress);
+            app.use('/api/', ThrottleExpressMiddleware);
             app.use(AuthenticationExpressMiddleware);
             app.use(VerifyTokenExpressMiddleware);
         });

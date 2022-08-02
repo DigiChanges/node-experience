@@ -4,7 +4,7 @@ import { Server } from 'http';
 
 import AuthenticationKoaMiddleware from '../../../Auth/Presentation/Middlewares/AuthenticationKoaMiddleware';
 import RedirectRouteNotFoundKoaMiddleware from '../../Presentation/Middlewares/RedirectRouteNotFoundKoaMiddleware';
-import ThrottleKoa from '../../Presentation/Middlewares/ThrottleKoa';
+import ThrottleKoaMiddleware from '../../Presentation/Middlewares/ThrottleKoaMiddleware';
 import VerifyTokenKoaMiddleware from '../../../Auth/Presentation/Middlewares/VerifyTokenKoaMiddleware';
 import IApp from './IApp';
 import Koa from 'koa';
@@ -67,7 +67,7 @@ class AppKoa implements IApp
             await next();
         });
         this.app.use(LoggerKoaMiddleware);
-        this.app.use(ThrottleKoa);
+        this.app.use(ThrottleKoaMiddleware);
         this.app.use(AuthenticationKoaMiddleware);
         this.app.use(VerifyTokenKoaMiddleware);
     }

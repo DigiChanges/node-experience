@@ -9,10 +9,10 @@ const meta: any = {
 };
 
 // Blocking when exceed more than 15 request per second
-const ThrottleExpress = throttle({
+const ThrottleExpressMiddleware = throttle({
     windowMs: 1000, // 1 second
     max: 30, // start blocking after 30 request
     message: meta
 });
 
-export default ThrottleExpress;
+export default ThrottleExpressMiddleware;
