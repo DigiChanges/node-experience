@@ -36,6 +36,11 @@ type MongooseConfig = {
     database: string;
     username: string;
     password: string;
+    driver: string;
+    ssl: boolean;
+    sslValidate: boolean;
+    sslCA: string | null;
+    replicaSet: string | null;
 };
 
 type MikroORMConfig = {

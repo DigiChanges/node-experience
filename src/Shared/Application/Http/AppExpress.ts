@@ -25,7 +25,7 @@ import IApp from './IApp';
 import IAppConfig from './IAppConfig';
 import MainConfig from '../../../Config/MainConfig';
 import { RequestContext } from '@mikro-orm/core';
-import { orm } from '../../Infrastructure/Database/MikroORMCreateConnection';
+import { orm } from '../../Infrastructure/Database/CreateMikroORMConnection';
 import LoggerExpressMiddleware from '../../Presentation/Middlewares/LoggerExpressMiddleware';
 import { createRequestContext, getRequestContext } from '../../Presentation/Shared/RequestContext';
 import Logger from '../Logger/Logger';

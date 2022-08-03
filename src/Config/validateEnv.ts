@@ -11,8 +11,15 @@ export function validateEnv()
         DB_DATABASE: str(),
         DB_PASSWORD: str(),
         DB_PORT: port(),
+        DB_DRIVER: str(),
+        SSL: bool(),
+        SSL_VALIDATE: bool(),
+        SSL_CA: str(),
+        REPLICA_SET: str(),
+        DB_ORM_DEFAULT: str(),
+
         DB_SYNCHRONIZE: bool(),
-        DB_TYPE_DEFAULT: str(),
+        DB_TYPE: str(),
 
         MINIO_HOST: str(),
         MINIO_ACCESS_KEY: str(),

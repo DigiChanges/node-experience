@@ -47,8 +47,8 @@ module.exports = {
     "<rootDir>/src/Role/Infrastructure/Repositories/RoleTypeORMRepository.ts",
     "<rootDir>/src/Item/Infrastructure/Repositories/ItemTypeORMRepository.ts",
     "<rootDir>/src/Auth/Infrastructure/Repositories/TokenRedisRepository.ts",
-    "<rootDir>/src/Shared/Infrastructure/Database/MikroORMCreateConnection.ts",
-    "<rootDir>/src/Shared/Infrastructure/Database/TypeORMCreateConnection.ts ",
+    "<rootDir>/src/Shared/Infrastructure/Database/CreateMikroORMConnection.ts",
+    "<rootDir>/src/Shared/Infrastructure/Database/CreateTypeORMConnection.ts ",
     "<rootDir>/src/Shared/Events/*.{js,ts}",
   ],
 

@@ -5,7 +5,7 @@ import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
 import RoleFilter from '../../Presentation/Criterias/RoleFilter';
 import { Query } from 'mongoose';
-import IRole from '../Schemas/IRoleDocument';
+import IRole from '../Schemas/RoleMongooseDocument';
 import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 
 import Roles from '../../../Config/Roles';

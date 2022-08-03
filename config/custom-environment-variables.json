@@ -23,7 +23,12 @@
       "port": "DB_PORT",
       "username": "DB_USER",
       "password": "DB_PASSWORD",
-      "database": "DB_DATABASE"
+      "database": "DB_DATABASE",
+      "driver": "DB_DRIVER",
+      "ssl": "SSL",
+      "sslValidate": "SSL_VALIDATE",
+      "sslCA": "SSL_CA",
+      "replicaSet": "REPLICA_SET"
     },
     "MikroORM": {
       "host": "DB_HOST",
@@ -33,7 +38,7 @@
       "dbName": "DB_DATABASE",
       "type": "DB_TYPE"
     },
-    "default" : "DB_TYPE_DEFAULT"
+    "default" : "DB_ORM_DEFAULT"
   },
   "cache": {
     "redis": {

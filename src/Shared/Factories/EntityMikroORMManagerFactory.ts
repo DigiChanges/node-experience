@@ -1,8 +1,8 @@
 import { RequestContext } from '@mikro-orm/core';
 import { EntityManager } from '@mikro-orm/postgresql';
-import { orm } from '../Infrastructure/Database/MikroORMCreateConnection'; // TODO: Refactor
+import { orm } from '../Infrastructure/Database/CreateMikroORMConnection'; // TODO: Refactor
 
-class EntityManagerFactory
+class EntityMikroORMManagerFactory
 {
     public static getEntityFactory(): EntityManager
     {
@@ -18,4 +18,4 @@ class EntityManagerFactory
     }
 }
 
-export default EntityManagerFactory;
+export default EntityMikroORMManagerFactory;

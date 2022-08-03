@@ -1,7 +1,7 @@
 import MainConfig from '../../Config/MainConfig';
-import TypeORMCreateConnection from '../Infrastructure/Database/TypeORMCreateConnection';
-import MongooseCreateConnection from '../Infrastructure/Database/MongooseCreateConnection';
-import MikroORMCreateConnection from '../Infrastructure/Database/MikroORMCreateConnection';
+import CreateTypeORMConnection from '../Infrastructure/Database/CreateTypeORMConnection';
+import CreateMongooseConnection from '../Infrastructure/Database/CreateMongooseConnection';
+import CreateMikroORMConnection from '../Infrastructure/Database/CreateMikroORMConnection';
 import ICreateConnection from '../Infrastructure/Database/ICreateConnection';
 
 class DatabaseFactory
@@ -26,9 +26,9 @@ class DatabaseFactory
         const config = dbConfig[this.dbDefault];
 
         const createConnections: Record<string, any> = {
-            TypeORM: TypeORMCreateConnection,
-            Mongoose: MongooseCreateConnection,
-            MikroORM: MikroORMCreateConnection
+            TypeORM: CreateTypeORMConnection,
+            Mongoose: CreateMongooseConnection,
+            MikroORM: CreateMikroORMConnection
         };
 
         return new createConnections[this.dbDefault](config);

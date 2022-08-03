@@ -7,7 +7,7 @@ import IFileRepository from './IFileRepository';
 
 import FileFilter from '../../Presentation/Criterias/FileFilter';
 import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
-import IFile from '../Schemas/IFileDocument';
+import IFile from '../Schemas/FileMongooseDocument';
 import IFileDomain from '../../Domain/Entities/IFileDomain';
 
 import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/BaseMongooseRepository';

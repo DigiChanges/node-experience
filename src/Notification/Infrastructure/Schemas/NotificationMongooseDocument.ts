@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 import INotificationDomain from '../../Domain/Entities/INotificationDomain';
 
-interface INotificationDocument extends Document, INotificationDomain {}
+type NotificationMongooseDocument = Document & INotificationDomain
 
-export default INotificationDocument;
+export default NotificationMongooseDocument;

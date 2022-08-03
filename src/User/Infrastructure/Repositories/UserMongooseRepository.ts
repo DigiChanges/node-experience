@@ -2,7 +2,7 @@ import IUserRepository from './IUserRepository';
 
 import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
 import UserFilter from '../../Presentation/Criterias/UserFilter';
-import IUser from '../Schemas/IUserDocument';
+import IUser from '../Schemas/UserMongooseDocument';
 import { Query } from 'mongoose';
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 

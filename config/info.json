@@ -7,42 +7,5 @@
     "Mongoose",
     "TypeORM",
     "MikroORM"
-  ],
-  "domains": [
-    {
-      "name": "Auth",
-      "fileInfra": "Token",
-      "handler": "Auth"
-    },
-    {
-      "name": "File",
-      "fileInfra": "File",
-      "handler": "File"
-    },
-    {
-      "name": "Item",
-      "fileInfra": "Item",
-      "handler": "Item"
-    },
-    {
-      "name": "Notification",
-      "fileInfra": "Notification",
-      "handler": "Notification"
-    },
-    {
-      "name": "Role",
-      "fileInfra": "Role",
-      "handler": "Role"
-    },
-    {
-      "name": "User",
-      "fileInfra": "User",
-      "handler": "User"
-    },
-    {
-      "name": "Shared",
-      "fileInfra": "Base",
-      "handler": "Index"
-    }
   ]
 }

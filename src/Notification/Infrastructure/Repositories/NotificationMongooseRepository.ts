@@ -5,8 +5,8 @@ import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import INotificationRepository from './INotificationRepository';
 
 import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
-import INotification from '../Schemas/INotificationDocument';
-import { connection } from '../../../Shared/Infrastructure/Database/MongooseCreateConnection';
+import INotification from '../Schemas/NotificationMongooseDocument';
+import { connection } from '../../../Shared/Infrastructure/Database/CreateMongooseConnection';
 import INotificationDomain from '../../Domain/Entities/INotificationDomain';
 import EmailNotification from '../../Domain/Entities/EmailNotification';
 import PushNotification from '../../Domain/Entities/PushNotification';

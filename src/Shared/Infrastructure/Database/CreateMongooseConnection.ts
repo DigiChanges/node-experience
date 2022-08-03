@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 import MainConfig from '../../../Config/MainConfig';
 
-import IUserDocument from '../../../User/Infrastructure/Schemas/IUserDocument';
-import IRoleDocument from '../../../Role/Infrastructure/Schemas/IRoleDocument';
-import IItemDocument from '../../../Item/Infrastructure/Schemas/IItemDocument';
-import IFileDocument from '../../../File/Infrastructure/Schemas/IFileDocument';
-import INotificationDocument from '../../../Notification/Infrastructure/Schemas/INotificationDocument';
-import ITokenDocument from '../../../Auth/Infrastructure/Schemas/ITokenDocument';
+import UserMongooseDocument from '../../../User/Infrastructure/Schemas/UserMongooseDocument';
+import RoleMongooseDocument from '../../../Role/Infrastructure/Schemas/RoleMongooseDocument';
+import ItemMongooseDocument from '../../../Item/Infrastructure/Schemas/ItemMongooseDocument';
+import FileMongooseDocument from '../../../File/Infrastructure/Schemas/FileMongooseDocument';
+import NotificationMongooseDocument from '../../../Notification/Infrastructure/Schemas/NotificationMongooseDocument';
+import ITokenMongooseDocument from '../../../Auth/Infrastructure/Schemas/ITokenMongooseDocument';
 
 import ItemSchema from '../../../Item/Infrastructure/Schemas/ItemMongoose';
 
@@ -19,21 +19,34 @@ import ICreateConnection from './ICreateConnection';
 
 export let connection: mongoose.Connection = null;
 
-class MongooseCreateConnection implements ICreateConnection
+class CreateMongooseConnection implements ICreateConnection
 {
     private readonly config: any;
     private uri: string;
+    private readonly options: any;
 
     constructor(config: any)
     {
         this.config = config;
         this.uri = '';
+        this.options = {
+            autoIndex: true
+        };
     }
 
     async initConfig()
     {
         const config = MainConfig.getInstance().getConfig().dbConfig.Mongoose;
         this.uri = `mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`;
+
+        if (config.ssl === true)
+        {
+            this.options['ssl'] = config.ssl;
+            this.options['sslValidate'] = config.sslValidate;
+            this.options['sslCA'] = config.sslCA;
+            this.options['replicaSet'] = config.replicaSet;
+            this.uri = `${config.driver}://${config.username}:${config.password}@${config.host}/${config.database}?authSource=admin`;
+        }
     }
 
     async initConfigTest(uri: string)
@@ -46,16 +59,16 @@ class MongooseCreateConnection implements ICreateConnection
         connection = mongoose.createConnection(this.uri);
 
         // Domain
-        connection.model<IUserDocument>('User', UserSchema);
-        connection.model<IRoleDocument>('Role', RoleSchema);
-        connection.model<IItemDocument>('Item', ItemSchema);
-        connection.model<IFileDocument>('File', FileSchema);
+        connection.model<UserMongooseDocument>('User', UserSchema);
+        connection.model<RoleMongooseDocument>('Role', RoleSchema);
+        connection.model<ItemMongooseDocument>('Item', ItemSchema);
+        connection.model<FileMongooseDocument>('File', FileSchema);
 
         // Infrastructure
-        const NotificationModel = connection.model<INotificationDocument>('Notification', NotificationSchema);
+        const NotificationModel = connection.model<NotificationMongooseDocument>('Notification', NotificationSchema);
         NotificationModel.discriminator('EmailNotification', EmailNotificationSchema);
         NotificationModel.discriminator('PushNotification', PushNotificationSchema);
-        connection.model<ITokenDocument>('Token', TokenSchema);
+        connection.model<ITokenMongooseDocument>('Token', TokenSchema);
 
         return connection;
     }
@@ -76,4 +89,4 @@ class MongooseCreateConnection implements ICreateConnection
     }
 }
 
-export default MongooseCreateConnection;
+export default CreateMongooseConnection;

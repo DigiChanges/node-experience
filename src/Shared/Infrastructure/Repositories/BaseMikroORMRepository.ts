@@ -2,13 +2,13 @@ import { EntityRepository, EntitySchema, FindOneOptions } from '@mikro-orm/core'
 import NotFoundException from '../../Exceptions/NotFoundException';
 import IByOptions from './IByOptions';
 import IBaseRepository from './IBaseRepository';
-import EntityManagerFactory from '../../Factories/EntityManagerFactory'; // TODO: Refactor
+import EntityMikroORMManagerFactory from '../../Factories/EntityMikroORMManagerFactory'; // TODO: Refactor
 
 abstract class BaseMikroORMRepository<T> implements IBaseRepository<T>
 {
     protected readonly entityName: string;
     protected repository: EntityRepository<any>;
-    protected em = EntityManagerFactory.getEntityFactory();
+    protected em = EntityMikroORMManagerFactory.getEntityFactory();
     protected populate: string[];
 
     constructor(entityName: string, entitySchema: EntitySchema<any>, populate: string[] = [])

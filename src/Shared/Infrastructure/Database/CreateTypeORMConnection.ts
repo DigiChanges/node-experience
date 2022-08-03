@@ -8,7 +8,7 @@ import Notification from '../../../Notification/Infrastructure/Schemas/Notificat
 import TokenSchema from '../../../Auth/Infrastructure/Schemas/TokenTypeORM';
 import ICreateConnection from './ICreateConnection';
 
-class TypeORMCreateConnection implements ICreateConnection
+class CreateTypeORMConnection implements ICreateConnection
 {
     private readonly config: any;
     private connection: Connection;
@@ -75,4 +75,4 @@ class TypeORMCreateConnection implements ICreateConnection
     }
 }
 
-export default TypeORMCreateConnection;
+export default CreateTypeORMConnection;

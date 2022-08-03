@@ -27,7 +27,12 @@
       "port": 27017,
       "database": "experience",
       "username": "experience",
-      "password": "experience"
+      "password": "experience",
+      "driver": "mongo",
+      "ssl": false,
+      "sslValidate": false,
+      "sslCA": "",
+      "replicaSet": ""
     },
     "MikroORM": {
       "type": "postgresql",

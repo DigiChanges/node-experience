@@ -21,7 +21,7 @@ import WhiteListKoaHandler from '../../Tests/WhiteListKoaHandler';
 import { ErrorKoaHandler } from './ErrorKoaHandler';
 import MainConfig from '../../../Config/MainConfig';
 import { RequestContext } from '@mikro-orm/core';
-import { orm } from '../../Infrastructure/Database/MikroORMCreateConnection';
+import { orm } from '../../Infrastructure/Database/CreateMikroORMConnection';
 import LoggerKoaMiddleware from '../../Presentation/Middlewares/LoggerKoaMiddleware';
 import container from '../../../register';
 import { createRequestContext, getRequestContext } from '../../Presentation/Shared/RequestContext';

@@ -9,7 +9,7 @@ import ICreateConnection from './ICreateConnection';
 
 export let orm: MikroORM = null;
 
-class MikroORMCreateConnection implements ICreateConnection
+class CreateMikroORMConnection implements ICreateConnection
 {
     private readonly config: any;
     private createInstanceConnection: any;
@@ -65,4 +65,4 @@ class MikroORMCreateConnection implements ICreateConnection
     }
 }
 
-export default MikroORMCreateConnection;
+export default CreateMikroORMConnection;

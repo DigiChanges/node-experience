@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 
-interface IRoleDocument extends Document, IRoleDomain {}
+type RoleMongooseDocument = Document & IRoleDomain;
 
-export default IRoleDocument;
+export default RoleMongooseDocument;

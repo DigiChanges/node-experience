@@ -5,7 +5,7 @@ import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import IItemRepository from './IItemRepository';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
-import IItem from '../Schemas/IItemDocument';
+import IItem from '../Schemas/ItemMongooseDocument';
 
 import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/BaseMongooseRepository';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
