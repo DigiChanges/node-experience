@@ -24,11 +24,11 @@ import VerifyTokenExpressMiddleware from '../../../Auth/Presentation/Middlewares
 import IApp from './IApp';
 import IAppConfig from './IAppConfig';
 import MainConfig from '../../../Config/MainConfig';
-import { RequestContext } from '@mikro-orm/core';
-import { orm } from '../../Infrastructure/Database/CreateMikroORMConnection';
+
 import LoggerExpressMiddleware from '../../Presentation/Middlewares/LoggerExpressMiddleware';
 import { createRequestContext, getRequestContext } from '../../Presentation/Shared/RequestContext';
 import Logger from '../Logger/Logger';
+import ContextMikroORMExpressMiddleware from '../../Presentation/Middlewares/ContextMikroORMExpressMiddleware';
 
 class AppExpress implements IApp
 {
@@ -59,11 +59,9 @@ class AppExpress implements IApp
 
             if (MainConfig.getInstance().getConfig().dbConfig.default === 'MikroORM')
             {
-                app.use((req, res, next) =>
-                {
-                    RequestContext.create(orm.em, next);
-                });
+                app.use(ContextMikroORMExpressMiddleware);
             }
+
             app.use(async(req: any, res, next) =>
             {
                 req.container = newContainer.createChildContainer();

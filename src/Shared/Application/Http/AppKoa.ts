@@ -20,12 +20,12 @@ import IAppConfig from './IAppConfig';
 import WhiteListKoaHandler from '../../Tests/WhiteListKoaHandler';
 import { ErrorKoaHandler } from './ErrorKoaHandler';
 import MainConfig from '../../../Config/MainConfig';
-import { RequestContext } from '@mikro-orm/core';
-import { orm } from '../../Infrastructure/Database/CreateMikroORMConnection';
+
 import LoggerKoaMiddleware from '../../Presentation/Middlewares/LoggerKoaMiddleware';
 import container from '../../../register';
 import { createRequestContext, getRequestContext } from '../../Presentation/Shared/RequestContext';
 import Logger from '../Logger/Logger';
+import ContextMikroORMKoaMiddleware from '../../Presentation/Middlewares/ContextMikroORMKoaMiddleware';
 
 class AppKoa implements IApp
 {
@@ -56,7 +56,7 @@ class AppKoa implements IApp
 
         if (MainConfig.getInstance().getConfig().dbConfig.default === 'MikroORM')
         {
-            this.app.use((ctx, next) => RequestContext.createAsync(orm.em, next));
+            this.app.use(ContextMikroORMKoaMiddleware);
         }
 
         this.app.use(async(ctx, next) =>
