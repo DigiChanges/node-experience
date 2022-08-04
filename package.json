@@ -121,7 +121,7 @@
     "@typescript-eslint/parser": "^5.16.0",
     "esbuild": "^0.14.49",
     "esbuild-node-externals": "^1.4.1",
-    "esbuild-node-tsc": "^1.8.6",
+    "esbuild-node-tsc": "1.8.6",
     "esbuild-plugin-tsc": "^0.3.1",
     "eslint": "^8.11.0",
     "eslint-plugin-import": "^2.25.4",

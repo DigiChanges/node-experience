@@ -2,9 +2,9 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "target": "ES2019",
+    "target": "ESNext",
     "lib": [
-      "ES2019",
+      "ESNext",
       "DOM"
     ],
     "allowJs": true,
