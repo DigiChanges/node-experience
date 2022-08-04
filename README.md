@@ -10,6 +10,10 @@
 ## Basic Description
 Hello! **NExp** *(Node Experience)* is a boilerplate for [**Node**](https://nodejs.org/en/), which makes use of a Hexagonal architecture, in addition to all the power of [**TypeScript**](https://www.typescriptlang.org/) that combined allow a perfect cohesion thus achieving a clean and at the same time very powerful implementation.
 
+## Base project
+
+https://github.com/DigiChanges/node-experience
+
 ## Quick Start
 
 We can run the project directly with docker compose and then bash where the basic commands to feed the database are located.
@@ -19,24 +23,20 @@ We can run the project directly with docker compose and then bash where the basi
 3. Then execute `STAGE=dev docker-compose up --build` to up all containers.
 4. Basically generates an admin user, add roles with permission and get a bucket for minIO. `docker-compose exec node bash dev.init.sh`
 
-## Execute NEXP CLI
+## Installation
 
-[Nexp CLI](https://github.com/DigiChanges/nexp-cli)
-
-You can install NExp without using this repository. With the help of Yeoman you can have NExp installed and with only what you want to have.
-
-First, install [Yeoman](http://yeoman.io) and nexp-cli using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+First, install nexp-cli using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
-npm install -g yo
-npm install -g generator-nexp-cli
+npm install -g nexp-cli
 ```
 
 Then generate your new project:
 
 ```bash
-yo generator-nexp-cli
+nexp-cli create
 ```
+
 Each module is divided by business domain:
 
 - Auth
