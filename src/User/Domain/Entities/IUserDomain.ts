@@ -21,7 +21,6 @@ interface IUserDomain extends IBaseDomain
     enable: boolean;
     verify: boolean;
     isSuperAdmin: boolean;
-    confirmationToken?: string;
     passwordRequestedAt?: Date;
 
     updateRep(payload: UserRepPayload): void;

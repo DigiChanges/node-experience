@@ -112,8 +112,8 @@
     "publicKey": "k8sGjPBnD8iabMkB6toD8payp9plozw4t4FSfjhUPhQ"
   },
   "url":{
-    "urlApi": "http://localhost:8089/api/",
-    "urlWeb": "http://localhost:3000/"
+    "urlApi": "http://localhost:8089/api",
+    "urlWeb": "http://localhost:3000"
   },
   "productInfo": {
     "productName": "experience"

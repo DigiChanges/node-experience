@@ -22,7 +22,6 @@ class User extends Base implements IUserDomain
     enable: boolean;
     verify: boolean;
     isSuperAdmin: boolean;
-    confirmationToken?: string;
     passwordRequestedAt?: Date;
 
     constructor(payload: UserRepPayload)
@@ -46,7 +45,6 @@ class User extends Base implements IUserDomain
         this.enable = payload.enable !== undefined || payload.enable !== null ? payload.enable : this.enable;
         this.roles = payload.roles ?? this.roles;
         this.permissions = payload.permissions ?? this.permissions;
-        this.confirmationToken = payload.confirmationToken ?? this.confirmationToken ?? null;
         this.passwordRequestedAt = payload.passwordRequestedAt ?? this.passwordRequestedAt ?? null;
         this.isSuperAdmin = this.isSuperAdmin ?? payload.isSuperAdmin ?? this.isSuperAdmin;
     }

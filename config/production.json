@@ -95,8 +95,8 @@
     "templateDir": "src/Shared/Infrastructure/templates/emails"
   },
   "url":{
-    "urlApi": "http://localhost:8089/api/",
-    "urlWeb": "http://localhost:3000/"
+    "urlApi": "http://localhost:8089/api",
+    "urlWeb": "http://localhost:3000"
   },
   "productInfo": {
     "productName": "experience"

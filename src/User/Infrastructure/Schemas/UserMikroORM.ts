@@ -65,10 +65,6 @@ const UserSchema = new EntitySchema<User>({
             type: 'boolean',
             default: false
         },
-        confirmationToken: {
-            type: 'string',
-            nullable: true
-        },
         passwordRequestedAt: {
             type: 'Date',
             nullable: true

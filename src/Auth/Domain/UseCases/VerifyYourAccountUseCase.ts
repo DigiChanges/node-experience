@@ -1,4 +1,3 @@
-import { DependencyContainer } from 'tsyringe';
 import VerifyYourAccountPayload from '../Payloads/VerifyYourAccountPayload';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
@@ -8,26 +7,28 @@ import Locales from '../../../Shared/Presentation/Shared/Locales';
 import VerifiedAccountEvent from '../../../Shared/Infrastructure/Events/VerifiedAccountEvent';
 import ILocaleMessage from '../../../Shared/InterfaceAdapters/ILocaleMessage';
 import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
+import AuthService from '../Services/AuthService';
 
 class VerifyYourAccountUseCase
 {
     private repository: IUserRepository;
+    private authService: AuthService;
 
     constructor()
     {
         const { container } = getRequestContext();
         this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+        this.authService = new AuthService();
     }
 
     async handle(payload: VerifyYourAccountPayload): Promise<ILocaleMessage>
     {
         const confirmationToken = payload.confirmationToken;
-
-        const user = await this.repository.getOneByConfirmationToken(confirmationToken);
+        const { email } = this.authService.validateToken(confirmationToken);
+        const user = await this.repository.getOneByEmail(email);
 
         user.verify = true;
         user.enable = true;
-        user.confirmationToken = null;
 
         await this.repository.update(user);
 

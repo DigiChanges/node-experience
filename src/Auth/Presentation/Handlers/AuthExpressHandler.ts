@@ -19,7 +19,7 @@ import { AuthUser } from '../Helpers/AuthUser';
 import UserTransformer from '../../../User/Presentation/Transformers/UserTransformer';
 import moment from 'moment';
 import DefaultTransformer from '../../../Shared/Presentation/Transformers/DefaultTransformer';
-import RegistrationRequest from '../Requests/RegistrationRequest';
+import RegisterRequest from '../Requests/RegisterRequest';
 import UpdateMeRequest from '../Requests/UpdateMeRequest';
 import VerifyYourAccountRequest from '../Requests/VerifyYourAccountRequest';
 import RefreshTokenExpressMiddleware from '../Middlewares/RefreshTokenExpressMiddleware';
@@ -83,7 +83,7 @@ class AuthExpressHandler
     @httpPost('/signup')
     public async register(@request() req: any, @response() res: Response): Promise<void>
     {
-        const _request = new RegistrationRequest(req.body);
+        const _request = new RegisterRequest(req.body);
 
         const payload = await this.controller.register(_request);
 

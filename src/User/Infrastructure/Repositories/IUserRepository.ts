@@ -6,7 +6,6 @@ import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 interface IUserRepository extends IBaseRepository<IUserDomain>
 {
     getOneByEmail(email: string): Promise<IUserDomain>;
-    getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>;
     list(criteria: ICriteria): Promise<IPaginator>
 }
 
