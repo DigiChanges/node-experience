@@ -25,12 +25,11 @@ class ForgotPasswordUseCase
         const { confirmationToken, passwordRequestedAt, email } = payload;
         const user = await this.repository.getOneByEmail(email);
 
-        user.confirmationToken = confirmationToken;
         user.passwordRequestedAt = passwordRequestedAt;
 
         await this.repository.save(user);
 
-        const urlConfirmationToken = `${urlWeb}/changeForgotPassword/${confirmationToken}`;
+        const urlConfirmationToken = `${urlWeb}/change-forgot-password?token=${confirmationToken}`;
 
         void await SendEmailService.handle({
             event: ForgotPasswordEvent.FORGOT_PASSWORD_EVENT,

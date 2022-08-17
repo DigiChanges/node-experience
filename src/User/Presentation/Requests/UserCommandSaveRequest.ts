@@ -15,7 +15,6 @@ class UserCommandSaveRequest implements UserSavePayload
     private readonly _country: string;
     private readonly _address: string;
     private readonly _password: string;
-    private readonly _passwordConfirmation: string;
     private readonly _enable: boolean;
     private readonly _permissions: string[];
     private readonly _roles: IRoleDomain[];
@@ -30,7 +29,6 @@ class UserCommandSaveRequest implements UserSavePayload
         this._documentType = data.documentType;
         this._documentNumber = data.documentNumber;
         this._password = data.password;
-        this._passwordConfirmation = data.passwordConfirmation;
         this._gender = data.gender;
         this._phone = data.phone;
         this._country = data.country;
@@ -124,16 +122,6 @@ class UserCommandSaveRequest implements UserSavePayload
     get enable(): boolean
     {
         return this._enable;
-    }
-
-    @IsArray()
-    @ArrayMinSize(0)
-    @IsString({
-        each: true
-    })
-    get confirmationToken(): null
-    {
-        return null;
     }
 
     @IsArray()

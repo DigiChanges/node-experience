@@ -32,18 +32,6 @@ class UserTypeORMRepository extends BaseTypeORMRepository<IUserDomain> implement
         return user;
     }
 
-    async getOneByConfirmationToken(confirmationToken: string): Promise<IUserDomain>
-    {
-        const user = await this.repository.findOneBy({ confirmationToken });
-
-        if (!user)
-        {
-            throw new NotFoundException(User.name);
-        }
-
-        return user;
-    }
-
     async list(criteria: ICriteria): Promise<IPaginator>
     {
         const queryBuilder = this.repository.createQueryBuilder('i');

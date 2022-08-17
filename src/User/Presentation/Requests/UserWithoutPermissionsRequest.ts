@@ -105,11 +105,6 @@ class UserWithoutPermissionsRequest implements UserRepPayload
         return false;
     }
 
-    get confirmationToken(): string | null
-    {
-        return null;
-    }
-
     get passwordRequestedAt(): null
     {
         return null;

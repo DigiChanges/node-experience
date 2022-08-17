@@ -14,7 +14,7 @@ import AuthorizeKoaMiddleware from '../Middlewares/AuthorizeKoaMiddleware';
 import { AuthUser } from '../Helpers/AuthUser';
 import UserTransformer from '../../../User/Presentation/Transformers/UserTransformer';
 import DefaultTransformer from '../../../Shared/Presentation/Transformers/DefaultTransformer';
-import RegistrationRequest from '../Requests/RegistrationRequest';
+import RegisterRequest from '../Requests/RegisterRequest';
 import UpdateMeRequest from '../Requests/UpdateMeRequest';
 import VerifyYourAccountRequest from '../Requests/VerifyYourAccountRequest';
 import RefreshTokenKoaMiddleware from '../Middlewares/RefreshTokenKoaMiddleware';
@@ -71,7 +71,7 @@ AuthKoaHandler.post('/login', async(ctx: Koa.ParameterizedContext & any) =>
 
 AuthKoaHandler.post('/signup', async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new RegistrationRequest(ctx.request.body);
+    const _request = new RegisterRequest(ctx.request.body);
 
     const payload = await controller.register(_request);
 
@@ -89,7 +89,17 @@ AuthKoaHandler.post('/logout', async(ctx: Koa.ParameterizedContext & any) =>
 
     const payload = await controller.logout(_request);
 
-    ctx.cookies.set('refreshToken', null);
+    ctx.cookies.set(
+        'refreshToken',
+        null,
+        {
+            expires: moment.unix(0).toDate(),
+            maxAge: 0,
+            path: '/api/auth',
+            secure: MainConfig.getInstance().getConfig().setCookieSecure,
+            httpOnly: true,
+            sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
+        });
 
     void await responder.send(payload, ctx, StatusCode.HTTP_OK, new DefaultTransformer());
 });

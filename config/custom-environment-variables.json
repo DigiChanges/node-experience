@@ -2,6 +2,8 @@
   "env": "NODE_ENV",
   "nodePath": "NODE_PATH",
   "serverPort": "SERVER_PORT",
+  "setCookieSecure": "SET_COOKIE_SECURE",
+  "setCookieSameSite": "SET_COOKIE_SAME_SITE",
   "auth": {
       "authorization": "AUTHORIZATION"
   },

@@ -19,7 +19,7 @@ import { AuthUser } from '../Helpers/AuthUser';
 import UserTransformer from '../../../User/Presentation/Transformers/UserTransformer';
 import moment from 'moment';
 import DefaultTransformer from '../../../Shared/Presentation/Transformers/DefaultTransformer';
-import RegistrationRequest from '../Requests/RegistrationRequest';
+import RegisterRequest from '../Requests/RegisterRequest';
 import UpdateMeRequest from '../Requests/UpdateMeRequest';
 import VerifyYourAccountRequest from '../Requests/VerifyYourAccountRequest';
 import RefreshTokenExpressMiddleware from '../Middlewares/RefreshTokenExpressMiddleware';
@@ -74,7 +74,7 @@ class AuthExpressHandler
                 path: '/api/auth',
                 secure: MainConfig.getInstance().getConfig().setCookieSecure,
                 httpOnly: true,
-                sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
+                sameSite: MainConfig.getInstance().getConfig().setCookieSameSite as any
             });
 
         void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new AuthTransformer());
@@ -83,7 +83,7 @@ class AuthExpressHandler
     @httpPost('/signup')
     public async register(@request() req: any, @response() res: Response): Promise<void>
     {
-        const _request = new RegistrationRequest(req.body);
+        const _request = new RegisterRequest(req.body);
 
         const payload = await this.controller.register(_request);
 
@@ -102,7 +102,17 @@ class AuthExpressHandler
 
         const payload = await this.controller.logout(_request);
 
-        res.cookie('refreshToken', null);
+        res.cookie(
+            'refreshToken',
+            null,
+            {
+                expires: moment.unix(0).toDate(),
+                maxAge: 0,
+                path: '/api/auth',
+                secure: MainConfig.getInstance().getConfig().setCookieSecure,
+                httpOnly: true,
+                sameSite: MainConfig.getInstance().getConfig().setCookieSameSite as any
+            });
 
         void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
@@ -123,7 +133,7 @@ class AuthExpressHandler
                 path: '/api/auth',
                 secure: MainConfig.getInstance().getConfig().setCookieSecure,
                 httpOnly: true,
-                sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
+                sameSite: MainConfig.getInstance().getConfig().setCookieSameSite as any
             });
 
         void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new AuthTransformer());

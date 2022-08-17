@@ -20,7 +20,6 @@ const UserSchema: any = new Schema({
     enable: { type: Boolean, required: true, default: true },
     verify: { type: Boolean, required: true, default: false },
     isSuperAdmin: { type: Boolean, required: true },
-    confirmationToken: { type: String },
     passwordRequestedAt: { type: Date }
 }, { timestamps: true });
 
