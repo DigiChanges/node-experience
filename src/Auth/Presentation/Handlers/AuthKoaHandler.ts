@@ -89,7 +89,17 @@ AuthKoaHandler.post('/logout', async(ctx: Koa.ParameterizedContext & any) =>
 
     const payload = await controller.logout(_request);
 
-    ctx.cookies.set('refreshToken', null);
+    ctx.cookies.set(
+        'refreshToken',
+        null,
+        {
+            expires: moment.unix(0).toDate(),
+            maxAge: 0,
+            path: '/api/auth',
+            secure: MainConfig.getInstance().getConfig().setCookieSecure,
+            httpOnly: true,
+            sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
+        });
 
     void await responder.send(payload, ctx, StatusCode.HTTP_OK, new DefaultTransformer());
 });
