@@ -35,7 +35,7 @@ class MinioStrategy implements IFilesystem
     async presignedGetObject(object: IFileDomain, expiry: number, respHeaders?: { [key: string]: any; }): Promise<string>
     {
         const bucket = this.getBucket(object);
-        return await this.#filesystem.presignedGetObject(bucket, object.name, expiry, respHeaders);
+        return await this.#filesystem.presignedGetObject(bucket, `${this.#rootPath}/${object.name}`, expiry, respHeaders);
     }
 
     async presignedPutObject(objectName: string, expiry: number, isPrivate = true): Promise<string>
@@ -55,7 +55,8 @@ class MinioStrategy implements IFilesystem
 
     async uploadFile(object: IFileDomain, path: string)
     {
-        return await this.#filesystem.fPutObject(this.getBucket(object), `${this.#rootPath}/${object.name}`, path, {});
+        const acl = object.isPublic ? 'public-read' : 'private';
+        return await this.#filesystem.fPutObject(this.getBucket(object), `${this.#rootPath}/${object.name}`, path, { 'x-amz-acl': acl });
     }
 
     async uploadFileByBuffer(object: IFileDomain, base64Data: string)

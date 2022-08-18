@@ -1,5 +1,5 @@
 import PresignedFileRepPayload from '../../Domain/Payloads/PresignedFileRepPayload';
-import { IsOptional, IsString } from 'class-validator';
+import { IsInt, IsOptional, IsString } from 'class-validator';
 import FileOptionsQueryRequest from './FileOptionsQueryRequest';
 
 class PresignedFileRepRequest extends FileOptionsQueryRequest implements PresignedFileRepPayload
@@ -21,7 +21,7 @@ class PresignedFileRepRequest extends FileOptionsQueryRequest implements Presign
     }
 
     @IsOptional()
-    @IsString()
+    @IsInt()
     get expiry(): number
     {
         return this._expiry || 60 * 24 * 24 * 7;

@@ -31,18 +31,18 @@ class FileService
 
     async getPresignedGetObject(payload: PresignedFileRepPayload): Promise<string>
     {
-        const filename = payload.name;
+        const name = payload.name;
         const expiry = payload.expiry;
         const isPublic = payload.isPublic;
         let file: IFileDomain;
 
-        if (validate(filename))
+        if (validate(name))
         {
-            file = await this.getOne(filename);
+            file = await this.getOne(name);
         }
         else
         {
-            file = await this.repository.getOneBy({ filename, isPublic });
+            file = await this.repository.getOneBy({ name, isPublic });
         }
 
         return await this.getFileUrl(file, expiry);
