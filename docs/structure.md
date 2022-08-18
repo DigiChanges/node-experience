@@ -13,7 +13,11 @@ To begin with, you must understand that the project is divided by domains.
 * Notification - Domain for email notifications and web push notifications.
 * Role - Domain to manage roles within the system.
 * User - Domain to manage users.
-* Shared - Exceptional domain that we will detail below.
+* Shared - Exceptional domain, are classes that are used throughout the system.
+     * Application - Everything related to libraries like express or koa.
+     * Domain - It is the basic domain layer as a base.
+     * Exceptions - These are general exceptions.
+     * Factories - These are the factories that are used throughout the system.
 
 TODO: Handlers
 
