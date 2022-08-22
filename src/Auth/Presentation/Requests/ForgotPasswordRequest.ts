@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { IsDate, IsEmail } from 'class-validator';
 
 import ForgotPasswordPayload from '../../Domain/Payloads/ForgotPasswordPayload';
@@ -23,7 +23,7 @@ class ForgotPasswordRequest extends ConfirmationTokenRequest implements ForgotPa
     @IsDate()
     get passwordRequestedAt(): Date
     {
-        return moment().toDate();
+        return dayjs().toDate();
     }
 }
 

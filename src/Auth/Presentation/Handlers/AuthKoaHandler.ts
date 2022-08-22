@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import AuthRequest from '../Requests/AuthRequest';
 import AuthController from '../Controllers/AuthController';
@@ -58,7 +58,7 @@ AuthKoaHandler.post('/login', async(ctx: Koa.ParameterizedContext & any) =>
         'refreshToken',
         payload.getRefreshHash(),
         {
-            expires: moment.unix(payload.getExpires()).toDate(),
+            expires: dayjs.unix(payload.getExpires()).toDate(),
             maxAge: payload.getExpires(),
             path: '/api/auth',
             secure: MainConfig.getInstance().getConfig().setCookieSecure,
@@ -93,7 +93,7 @@ AuthKoaHandler.post('/logout', async(ctx: Koa.ParameterizedContext & any) =>
         'refreshToken',
         null,
         {
-            expires: moment.unix(0).toDate(),
+            expires: dayjs.unix(0).toDate(),
             maxAge: 0,
             path: '/api/auth',
             secure: MainConfig.getInstance().getConfig().setCookieSecure,
@@ -114,7 +114,7 @@ AuthKoaHandler.post('/refresh-token', RefreshTokenKoaMiddleware, async(ctx: Koa.
         'refreshToken',
         payload.getRefreshHash(),
         {
-            expires: moment.unix(payload.getExpires()).toDate(),
+            expires: dayjs.unix(payload.getExpires()).toDate(),
             maxAge: payload.getExpires(),
             path: '/api/auth',
             secure: MainConfig.getInstance().getConfig().setCookieSecure,

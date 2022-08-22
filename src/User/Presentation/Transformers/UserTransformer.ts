@@ -1,5 +1,5 @@
-import moment from 'moment';
-
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 import RoleTransformer from '../../../Role/Presentation/Transformers/RoleTransformer';
 import IUserTransformer from './IUserTransformer';
@@ -17,6 +17,8 @@ class UserTransformer extends Transformer
 
     public async transform(user: IUserDomain): Promise<IUserTransformer>
     {
+        dayjs.extend(utc);
+
         return {
             id: user.getId(),
             firstName: user.firstName,
@@ -32,8 +34,8 @@ class UserTransformer extends Transformer
             enable: user.enable,
             roles: await this.roleTransformer.handle(user.getRoles()),
             permissions: user.permissions,
-            createdAt: moment(user.createdAt).utc().unix(),
-            updatedAt: moment(user.updatedAt).utc().unix()
+            createdAt: dayjs(user.createdAt).utc().unix(),
+            updatedAt: dayjs(user.updatedAt).utc().unix()
         };
     }
 }
