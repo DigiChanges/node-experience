@@ -7,7 +7,7 @@
     "command": "ts-node src/command.ts",
     "ci": "npm run cpy-ci && npm run ts-check && npm run lint",
     "clean": "rimraf dist/src/*",
-    "cpy-ci": "cp .env .env",
+    "cpy-ci": "cp .env.dev .env",
     "debug": "nodemon --inspect=0.0.0.0:9229 src/index.ts",
     "dev": "nodemon",
     "docker:command": "docker-compose exec node yarn command",
