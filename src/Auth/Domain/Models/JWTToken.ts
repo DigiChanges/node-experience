@@ -1,4 +1,5 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import jwt from 'jwt-simple';
 import IToken from './IToken';
 import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
@@ -16,9 +17,11 @@ class JWTToken implements IToken
 
     constructor(id: string, user: IUserDomain, jwtConfig: JwtConfig)
     {
+        dayjs.extend(utc);
+
         const { secret, expires, iss, aud } = jwtConfig;
         this.user = user;
-        this.expires = moment().utc().add({ minutes: expires }).unix();
+        this.expires = dayjs().utc().add(expires, 'minute').unix();
         this.payload = {
             id,
             iss,
@@ -30,7 +33,7 @@ class JWTToken implements IToken
             email: user.email
         };
 
-        const expiresRefreshToken = moment().utc().add({ minutes: expires + 1 }).unix();
+        const expiresRefreshToken = dayjs().utc().add(expires + 1, 'minute').unix();
 
         this.payloadRefreshToken = {
             ...this.payload,

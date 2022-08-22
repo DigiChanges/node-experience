@@ -1,4 +1,5 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import Transformer from '../../../Shared/Presentation/Shared/Transformer';
 
 import IToken from '../../Domain/Models/IToken';
@@ -20,6 +21,7 @@ class AuthTransformer extends Transformer
     {
         const user: IUserDomain = token.getUser();
         const authService: AuthService = new AuthService();
+        dayjs.extend(utc);
 
         return {
             user: {
@@ -31,8 +33,8 @@ class AuthTransformer extends Transformer
                 permissions: authService.getPermissions(user),
                 isSuperAdmin: token.getUser().isSuperAdmin,
                 roles: await this.roleUserTransformer.handle(token.getUser().roles),
-                createdAt: moment(token.getUser().createdAt).utc().unix(),
-                updatedAt: moment(token.getUser().updatedAt).utc().unix()
+                createdAt: dayjs(token.getUser().createdAt).utc().unix(),
+                updatedAt: dayjs(token.getUser().updatedAt).utc().unix()
             },
             expires: token.getExpires(),
             token: token.getHash()

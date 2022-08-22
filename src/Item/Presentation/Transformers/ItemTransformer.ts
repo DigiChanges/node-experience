@@ -1,6 +1,6 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import Transformer from '../../../Shared/Presentation/Shared/Transformer';
-
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 import IItemTransformer from './IItemTransformer';
 import UserMinimalDataTransformer from '../../../User/Presentation/Transformers/UserMinimalDataTransformer';
@@ -19,6 +19,7 @@ class ItemTransformer extends Transformer
     {
         const createdBy = item.getCreatedBy();
         const lastModifiedBy = item.getLastModifiedBy();
+        dayjs.extend(utc);
 
         return {
             id: item.getId(),
@@ -26,8 +27,8 @@ class ItemTransformer extends Transformer
             type: item.type,
             createdBy: createdBy ? await this.userTransformer.handle(createdBy) : null,
             lastModifiedBy: lastModifiedBy ? await this.userTransformer.handle(lastModifiedBy) : null,
-            createdAt: moment(item.createdAt).utc().unix(),
-            updatedAt: moment(item.updatedAt).utc().unix()
+            createdAt: dayjs(item.createdAt).utc().unix(),
+            updatedAt: dayjs(item.updatedAt).utc().unix()
         };
     }
 }

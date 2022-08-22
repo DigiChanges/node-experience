@@ -1,4 +1,5 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import Transformer from '../../../Shared/Presentation/Shared/Transformer';
 
 import IFileDomain from '../../Domain/Entities/IFileDomain';
@@ -8,6 +9,7 @@ class FileTransformer extends Transformer
 {
     public async transform(file: IFileDomain): Promise<IFileTransformer>
     {
+        dayjs.extend(utc);
         return {
             id: file.getId(),
             name: file.name,
@@ -18,8 +20,8 @@ class FileTransformer extends Transformer
             size: file.size,
             version: file.version,
             isPublic: file.isPublic,
-            createdAt: moment(file.createdAt).utc().unix(),
-            updatedAt: moment(file.updatedAt).utc().unix()
+            createdAt: dayjs(file.createdAt).utc().unix(),
+            updatedAt: dayjs(file.updatedAt).utc().unix()
         };
     }
 }

@@ -17,7 +17,7 @@ import PermissionsTransformer from '../Transformers/PermissionsTransformer';
 import AuthController from '../Controllers/AuthController';
 import { AuthUser } from '../Helpers/AuthUser';
 import UserTransformer from '../../../User/Presentation/Transformers/UserTransformer';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import DefaultTransformer from '../../../Shared/Presentation/Transformers/DefaultTransformer';
 import RegisterRequest from '../Requests/RegisterRequest';
 import UpdateMeRequest from '../Requests/UpdateMeRequest';
@@ -69,7 +69,7 @@ class AuthExpressHandler
             'refreshToken',
             payload.getRefreshHash(),
             {
-                expires: moment.unix(payload.getExpires()).toDate(),
+                expires: dayjs.unix(payload.getExpires()).toDate(),
                 maxAge: payload.getExpires(),
                 path: '/api/auth',
                 secure: MainConfig.getInstance().getConfig().setCookieSecure,
@@ -106,7 +106,7 @@ class AuthExpressHandler
             'refreshToken',
             null,
             {
-                expires: moment.unix(0).toDate(),
+                expires: dayjs.unix(0).toDate(),
                 maxAge: 0,
                 path: '/api/auth',
                 secure: MainConfig.getInstance().getConfig().setCookieSecure,
@@ -128,7 +128,7 @@ class AuthExpressHandler
             'refreshToken',
             payload.getRefreshHash(),
             {
-                expires: moment.unix(payload.getExpires()).toDate(),
+                expires: dayjs.unix(payload.getExpires()).toDate(),
                 maxAge: payload.getExpires(),
                 path: '/api/auth',
                 secure: MainConfig.getInstance().getConfig().setCookieSecure,

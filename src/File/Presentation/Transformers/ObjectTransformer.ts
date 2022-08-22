@@ -1,13 +1,15 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import Transformer from '../../../Shared/Presentation/Shared/Transformer';
 
 class ObjectTransformer extends Transformer
 {
     public async transform(object: any)
     {
+        dayjs.extend(utc);
         return {
             name: object.name,
-            lastModified: moment(object.lastModified).utc().unix(),
+            lastModified: dayjs(object.lastModified).utc().unix(),
             etag: object.etag,
             size: object.size
         };
