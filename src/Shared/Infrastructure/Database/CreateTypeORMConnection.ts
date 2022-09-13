@@ -1,4 +1,4 @@
-import { Connection, createConnection } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { newDb } from 'pg-mem';
 import User from '../../../User/Infrastructure/Schemas/UserTypeORM';
 import Role from '../../../Role/Infrastructure/Schemas/RoleTypeORM';
@@ -8,10 +8,11 @@ import Notification from '../../../Notification/Infrastructure/Schemas/Notificat
 import TokenSchema from '../../../Auth/Infrastructure/Schemas/TokenTypeORM';
 import ICreateConnection from './ICreateConnection';
 
+export let connection: DataSource = null;
+
 class CreateTypeORMConnection implements ICreateConnection
 {
     private readonly config: any;
-    private connection: Connection;
     private createInstanceConnection: any;
     private entities = [
         File,
@@ -30,8 +31,8 @@ class CreateTypeORMConnection implements ICreateConnection
     {
         this.createInstanceConnection = async() =>
         {
-            this.connection = await createConnection({ ...this.config, entities: this.entities });
-            return this.connection;
+            connection = new DataSource({ ...this.config, entities: this.entities });
+            return connection;
         };
     }
 
@@ -49,12 +50,12 @@ class CreateTypeORMConnection implements ICreateConnection
 
         this.createInstanceConnection = async() =>
         {
-            this.connection = await db.adapters.createTypeormConnection({
+            connection = await db.adapters.createTypeormConnection({
                 type: 'postgres',
                 entities: [...this.entities, TokenSchema]
             });
 
-            return await this.connection.synchronize();
+            return await connection.synchronize();
         };
     }
 
@@ -65,8 +66,8 @@ class CreateTypeORMConnection implements ICreateConnection
 
     async close(): Promise<any>
     {
-        await this.connection.close();
-        return this.connection;
+        await connection.close();
+        return connection;
     }
 
     async drop(): Promise<any>

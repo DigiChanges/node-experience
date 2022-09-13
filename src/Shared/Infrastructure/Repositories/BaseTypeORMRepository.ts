@@ -1,7 +1,9 @@
-import { EntitySchema, FindOneOptions, getRepository, In, Repository } from 'typeorm';
+import { DataSource, EntitySchema, FindOneOptions, getRepository, In, Repository } from 'typeorm';
 import NotFoundException from '../../Exceptions/NotFoundException';
 import IByOptions from './IByOptions';
 import IBaseRepository from './IBaseRepository';
+import { connection } from '../Database/CreateTypeORMConnection';
+
 
 abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>
 {
@@ -11,7 +13,7 @@ abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>
     constructor(entityName: string, schema: EntitySchema)
     {
         this.entityName = entityName;
-        this.repository = getRepository<T>(schema);
+        this.repository = connection.getRepository<T>(schema);
     }
 
     async save(entity: T): Promise<T>
