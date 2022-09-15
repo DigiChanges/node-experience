@@ -102,7 +102,20 @@ const UserSchema = new EntitySchema<User>({
                 }
             }
         }
-    }
+    },
+    indices: [
+        {
+            name: 'id_user_1',
+            unique: true,
+            columns: ['_id']
+        }
+    ],
+    uniques: [
+        {
+            name: 'unq_user_1',
+            columns: ['_id']
+        }
+    ]
 });
 
 export default UserSchema;

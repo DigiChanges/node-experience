@@ -41,7 +41,7 @@ dev_sql:
 	@echo '************                               ************'
 	@echo '************           DEV INIT    	      ************'
 	@echo '************                               ************'
-	docker-compose -f docker-compose.yml -f docker-compose.sql.yml up --build -d
+	STAGE=$(DEV_STAGE) docker-compose -f docker-compose.yml -f docker-compose.sql.yml up --build -d
 
 exec:
 	@echo '************                               ************'

@@ -18,8 +18,8 @@ class Item extends Base implements IItemDomain
 
     updateBuild(payload: ItemRepPayload): void
     {
-        this.name = payload.name;
-        this.type = payload.type;
+        this.name = payload?.name;
+        this.type = payload?.type;
     }
 
     getCreatedBy(): IUserDomain

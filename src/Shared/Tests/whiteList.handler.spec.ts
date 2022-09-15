@@ -18,7 +18,7 @@ describe('White list routes Test', () =>
     afterAll((async() =>
     {
         await dbConnection.drop();
-        await dbConnection.close();
+        await dbConnection.close(true);
     }));
 
     describe('all', () =>

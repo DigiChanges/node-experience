@@ -37,7 +37,7 @@ const initTestServer = async(): Promise<any> =>
     const dbName = await nanoId();
     const newMongoUri = `${process.env.MONGO_URL}${dbName}`;
 
-    dbConnection.initConfigTest(newMongoUri);
+    await dbConnection.initConfigTest(newMongoUri);
     await dbConnection.create();
 
     const eventHandler = EventHandler.getInstance();

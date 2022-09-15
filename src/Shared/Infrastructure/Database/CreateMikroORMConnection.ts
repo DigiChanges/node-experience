@@ -4,6 +4,7 @@ import Role from '../../../Role/Infrastructure/Schemas/RoleMikroORM';
 import Item from '../../../Item/Infrastructure/Schemas/ItemMikroORM';
 import File from '../../../File/Infrastructure/Schemas/FileMikroORM';
 import ICreateConnection from './ICreateConnection';
+import Logger from '../../Application/Logger/Logger';
 // import Notification from '../../Notification/Infrastructure/Schemas/NotificationMikroORM';
 // import TokenSchema from '../../AuthHelper/Infrastructure/Schemas/TokenMikroORM';
 
@@ -44,7 +45,7 @@ class CreateMikroORMConnection implements ICreateConnection
         };
     }
 
-    initConfigTest(uri: string): any
+    async initConfigTest(uri: string): Promise<any>
     {
         return Promise.resolve(undefined); // TODO: Set init config
     }
@@ -54,14 +55,28 @@ class CreateMikroORMConnection implements ICreateConnection
         return await this.createInstanceConnection();
     }
 
-    async close(): Promise<void>
+    async close(force = true): Promise<void>
     {
-        await orm.close();
+        await orm.close(force);
     }
 
     async drop(): Promise<any>
     {
         return Promise.resolve(undefined); // TODO: drop
+    }
+
+    async synchronize(): Promise<void>
+    {
+        const generator = orm.getSchemaGenerator();
+
+        const dropDump = await generator.getDropSchemaSQL();
+        Logger.debug(dropDump);
+
+        const createDump = await generator.getCreateSchemaSQL();
+        Logger.debug(createDump);
+
+        const updateDump = await generator.getUpdateSchemaSQL();
+        Logger.debug(updateDump);
     }
 }
 

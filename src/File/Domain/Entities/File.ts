@@ -1,5 +1,6 @@
 import IFileDomain from './IFileDomain';
 import Base from '../../../Shared/Domain/Entities/Base';
+import IFileBuild from './IFileBuild';
 
 class File extends Base implements IFileDomain
 {
@@ -12,13 +13,13 @@ class File extends Base implements IFileDomain
     version: number;
     isPublic: boolean;
 
-    constructor({ originalName = 'empty.jpg', hasOriginalName = false })
+    constructor(data?: IFileBuild)
     {
         super();
         this.version = 1;
         this.isPublic = false;
-        this.originalName = originalName;
-        this.setName(hasOriginalName);
+        this.originalName = data?.originalName ?? 'empty.jpg';
+        this.setName(data?.hasOriginalName ?? false);
     }
 
     private setName(hasOriginalName: boolean)
