@@ -83,4 +83,4 @@ volumes:
   minio:
     driver: "local"
   redis:
-    driver: "local"       # agregar a volumenes
+    driver: "local"

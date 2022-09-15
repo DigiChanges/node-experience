@@ -41,7 +41,20 @@ const ItemSchema = new EntitySchema<Item>({
             joinColumn: true,
             eager: true
         }
-    }
+    },
+    indices: [
+        {
+            name: 'id_item_1',
+            unique: true,
+            columns: ['_id']
+        }
+    ],
+    uniques: [
+        {
+            name: 'unq_item_1',
+            columns: ['_id']
+        }
+    ]
 });
 
 export default ItemSchema;

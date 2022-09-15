@@ -45,7 +45,23 @@ const FileSchema = new EntitySchema<File>({
             type: 'timestamp with time zone',
             updateDate: true
         }
-    }
+    },
+    indices: [
+        {
+            name: 'id_file_1',
+            columns: ['_id']
+        }
+    ],
+    uniques: [
+        {
+            name: 'unq_file_1',
+            columns: ['_id']
+        },
+        {
+            name: 'unq_path_name_is_public',
+            columns: ['name', 'path', 'isPublic']
+        }
+    ]
 });
 
 export default FileSchema;

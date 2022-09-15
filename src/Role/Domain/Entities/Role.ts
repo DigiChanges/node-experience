@@ -19,12 +19,12 @@ class Role extends Base implements IRoleDomain
 
     updateBuild(payload: RoleRepPayload): void
     {
-        AuthHelper.validatePermissions(payload.permissions);
+        AuthHelper.validatePermissions(payload?.permissions ?? []);
 
-        this.name = payload.name;
-        this.slug = payload.slug;
-        this.enable = payload.enable;
-        this.permissions = payload.permissions;
+        this.name = payload?.name;
+        this.slug = payload?.slug;
+        this.enable = payload?.enable;
+        this.permissions = payload?.permissions;
     }
 }
 

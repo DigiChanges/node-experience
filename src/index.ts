@@ -53,7 +53,7 @@ void (async() =>
     async function closeGracefully(signal: any)
     {
         app.close();
-        await createConnection.close();
+        await createConnection.close(true);
         cache.close();
         await eventHandler.removeListeners();
 

@@ -1,9 +1,8 @@
-import { DataSource, EntitySchema, FindOneOptions, getRepository, In, Repository } from 'typeorm';
+import { EntitySchema, FindOneOptions, In, Repository } from 'typeorm';
 import NotFoundException from '../../Exceptions/NotFoundException';
 import IByOptions from './IByOptions';
 import IBaseRepository from './IBaseRepository';
-import { connection } from '../Database/CreateTypeORMConnection';
-
+import { dataSource } from '../Database/CreateTypeORMConnection';
 
 abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>
 {
@@ -13,7 +12,7 @@ abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>
     constructor(entityName: string, schema: EntitySchema)
     {
         this.entityName = entityName;
-        this.repository = connection.getRepository<T>(schema);
+        this.repository = dataSource.getRepository<T>(schema);
     }
 
     async save(entity: T): Promise<T>
@@ -23,7 +22,7 @@ abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>
 
     async getOne(id: string): Promise<T>
     {
-        const entity = await this.repository.findOneById(id);
+        const entity = await this.getOneBy({ _id: id });
 
         if (!entity)
         {
@@ -40,7 +39,7 @@ abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>
 
     async delete(id: string): Promise<T>
     {
-        const entity = await this.repository.findOneById(id);
+        const entity = await this.getOneBy({ _id: id });
 
         if (!entity)
         {
@@ -56,7 +55,7 @@ abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>
     {
         const { initThrow = true } = options;
 
-        const entity = await this.repository.findOne(condition);
+        const entity = await this.repository.findOneBy(condition);
 
         if (initThrow && !entity)
         {

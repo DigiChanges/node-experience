@@ -18,23 +18,9 @@
       "database": "experience",
       "username": "experience",
       "password": "experience",
-      "synchronize": true,
+      "synchronize": false,
       "migrationsRun": false,
-      "logging": true,
-      "entities": [
-        "src/Infrastructure/Schema/TypeORM/*.ts"
-      ],
-      "migrations": [
-        "src/Infrastructure/Migrations/TypeORM/**/*.ts"
-      ],
-      "subscribers": [
-        "src/Infrastructure/Subscribers/TypeORM/**/*.ts"
-      ],
-      "cli": {
-        "entitiesDir": "/src/Infrastructure/Entities/TypeORM",
-        "migrationsDir": "/src/Infrastructure/Migrations",
-        "subscribersDir": "/src/Infrastructure/Subscribers"
-      }
+      "logging": true
     },
     "Mongoose": {
       "host": "db",

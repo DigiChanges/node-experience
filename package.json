@@ -24,7 +24,7 @@
     "tsc": "tsc",
     "ts-check": "tsc -p tsconfig.json --noEmit",
     "transpile": "node build.js",
-    "sync-db": "ts-node src/Shared/Presentation/Commands/SynchronizeMikroORM.ts",
+    "sync-db": "ts-node src/Shared/Presentation/Commands/SynchronizeDb.ts",
     "watch": "nodemon dist/src/index.js"
   },
   "keywords": [],
@@ -83,7 +83,7 @@
     "ts-mixer": "^6.0.1",
     "tslog": "^3.3.3",
     "tsyringe": "^4.7.0",
-    "typeorm": "^0.3.7",
+    "typeorm": "^0.3.9",
     "uuid": "^8.3.2",
     "web-push": "^3.5.0"
   },

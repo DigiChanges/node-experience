@@ -2,10 +2,11 @@
 interface ICreateConnection
 {
     create(): Promise<any>;
-    close(): Promise<any>;
+    close(force?: boolean): Promise<any>;
     drop(): Promise<any>;
     initConfig(): any;
-    initConfigTest(uri: string): any;
+    initConfigTest(uri: string): Promise<void>;
+    synchronize(): Promise<void>;
 }
 
 export default ICreateConnection;

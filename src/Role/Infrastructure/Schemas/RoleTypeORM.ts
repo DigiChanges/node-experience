@@ -40,7 +40,20 @@ const RoleSchema = new EntitySchema<Role>({
             type: 'timestamp with time zone',
             updateDate: true
         }
-    }
+    },
+    indices: [
+        {
+            name: 'id_role_1',
+            unique: true,
+            columns: ['_id']
+        }
+    ],
+    uniques: [
+        {
+            name: 'unq_role_1',
+            columns: ['_id']
+        }
+    ]
 });
 
 export default RoleSchema;

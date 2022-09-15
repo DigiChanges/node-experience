@@ -73,9 +73,14 @@ class CreateMongooseConnection implements ICreateConnection
         return connection;
     }
 
-    async close(): Promise<any>
+    async close(force = true): Promise<any>
     {
-        await connection.close(true);
+        await connection.close(force);
+    }
+
+    async synchronize(): Promise<void>
+    {
+        return Promise.resolve(undefined); // There is no need to synchronize
     }
 
     async drop(): Promise<any>

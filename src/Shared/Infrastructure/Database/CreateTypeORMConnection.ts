@@ -8,12 +8,11 @@ import Notification from '../../../Notification/Infrastructure/Schemas/Notificat
 import TokenSchema from '../../../Auth/Infrastructure/Schemas/TokenTypeORM';
 import ICreateConnection from './ICreateConnection';
 
-export let connection: DataSource = null;
+export let dataSource: DataSource = null;
 
 class CreateTypeORMConnection implements ICreateConnection
 {
     private readonly config: any;
-    private createInstanceConnection: any;
     private entities = [
         File,
         Notification,
@@ -27,16 +26,13 @@ class CreateTypeORMConnection implements ICreateConnection
         this.config = config;
     }
 
-    initConfig(): any
+    async initConfig(): Promise<DataSource>
     {
-        this.createInstanceConnection = async() =>
-        {
-            connection = new DataSource({ ...this.config, entities: this.entities });
-            return connection;
-        };
+        dataSource = new DataSource({ ...this.config, entities: this.entities });
+        return dataSource;
     }
 
-    initConfigTest(uri: string): any
+    async initConfigTest(uri: string): Promise<void>
     {
         // ==== get a memory db
         const db = newDb({
@@ -48,31 +44,32 @@ class CreateTypeORMConnection implements ICreateConnection
             name: 'current_database'
         });
 
-        this.createInstanceConnection = async() =>
-        {
-            connection = await db.adapters.createTypeormConnection({
-                type: 'postgres',
-                entities: [...this.entities, TokenSchema]
-            });
+        dataSource = db.adapters.createTypeormDataSource({
+            type: 'postgres',
+            entities: [...this.entities, TokenSchema]
+        });
 
-            return await connection.synchronize();
-        };
+        await dataSource.synchronize();
     }
 
     async create(): Promise<any>
     {
-        return await this.createInstanceConnection();
+        return await dataSource.initialize();
     }
 
-    async close(): Promise<any>
+    async close(force = true): Promise<void>
     {
-        await connection.close();
-        return connection;
+        await dataSource.destroy();
+    }
+
+    async synchronize(): Promise<void>
+    {
+        await dataSource.synchronize(true);
     }
 
     async drop(): Promise<any>
     {
-        return Promise.resolve(undefined); // TODO: drop
+        return await dataSource.dropDatabase();
     }
 }
 

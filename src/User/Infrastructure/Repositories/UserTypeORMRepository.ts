@@ -1,6 +1,5 @@
 import IUserRepository from './IUserRepository';
 import User from '../../Domain/Entities/User';
-import { injectable } from 'inversify';
 
 import TypeORMPaginator from '../../../Shared/Infrastructure/Orm/TypeORMPaginator';
 import UserFilter from '../../Presentation/Criterias/UserFilter';
@@ -12,7 +11,6 @@ import BaseTypeORMRepository from '../../../Shared/Infrastructure/Repositories/B
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 
-@injectable()
 class UserTypeORMRepository extends BaseTypeORMRepository<IUserDomain> implements IUserRepository
 {
     constructor()

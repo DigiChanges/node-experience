@@ -5,7 +5,10 @@ const FileSchema = new EntitySchema<File>({
     name: 'File',
     tableName: 'files',
     class: File,
-    indexes: [{ name: 'id_file_1', properties: '_id' }],
+    indexes: [{
+        name: 'id_file_1',
+        properties: '_id'
+    }],
     uniques: [
         {
             name: 'unq_file_1',
