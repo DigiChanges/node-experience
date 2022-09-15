@@ -27,7 +27,7 @@ void (async() =>
 
     try
     {
-        createConnection.initConfig();
+        await createConnection.initConfig();
         await createConnection.create();
 
         await cache.createConnection(config.cache.redis);

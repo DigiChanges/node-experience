@@ -5,7 +5,7 @@ const synchronize = async() =>
 {
     const databaseFactory = new DatabaseFactory();
     const createConnection: ICreateConnection = databaseFactory.create();
-    createConnection.initConfig();
+    await createConnection.initConfig();
     await createConnection.create();
     await createConnection.synchronize();
     await createConnection.close();

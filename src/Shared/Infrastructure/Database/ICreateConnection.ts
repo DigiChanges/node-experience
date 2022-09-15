@@ -4,7 +4,7 @@ interface ICreateConnection
     create(): Promise<any>;
     close(force?: boolean): Promise<any>;
     drop(): Promise<any>;
-    initConfig(): any;
+    initConfig(): Promise<any>;
     initConfigTest(uri: string): Promise<void>;
     synchronize(): Promise<void>;
 }

@@ -8,7 +8,7 @@ const initCommand = async() =>
     const databaseFactory = new DatabaseFactory();
 
     const createConnection = databaseFactory.create();
-    createConnection.initConfig();
+    await createConnection.initConfig();
 
     await createConnection.create();
 };
