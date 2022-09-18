@@ -20,14 +20,14 @@ class AuthService
         return jwt.decode(_token, secret, false, algorithm);
     }
 
-    public getPermissions(auth_user: IUserDomain): string[]
+    public getPermissions(authUser: IUserDomain): string[]
     {
-        const rolePermissions = auth_user.getRoles().filter(role => role.enable).reduce((accum, role) =>
+        const rolePermissions = authUser.getRoles().filter(role => role.enable).reduce((accum, role) =>
         {
             return [...accum, ...role.permissions];
         }, []);
 
-        return [...new Set([...auth_user.permissions, ...rolePermissions])];
+        return [...new Set([...authUser.permissions, ...rolePermissions])];
     }
 
     public async authorize(authUser: Auth, handlerPermissions: string[]): Promise<boolean>

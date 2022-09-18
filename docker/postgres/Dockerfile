@@ -1,4 +1,4 @@
 FROM postgres:11
 
-ONBUILD RUN psql -U experience -d experience -c "get extension \"unaccent\";"
-ONBUILD RUN psql -U experience -d experience -c "get extension \"uuid-ossp\";"
+# Copy in the load-extensions script
+COPY load-extensions.sh /docker-entrypoint-initdb.d/
