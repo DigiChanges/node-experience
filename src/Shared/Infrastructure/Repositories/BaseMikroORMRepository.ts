@@ -4,7 +4,7 @@ import IByOptions from './IByOptions';
 import IBaseRepository from './IBaseRepository';
 import EntityMikroORMManagerFactory from '../../Factories/EntityMikroORMManagerFactory'; // TODO: Refactor
 
-abstract class BaseMikroORMRepository<T> implements IBaseRepository<T>
+abstract class BaseMikroORMRepository<T extends object> implements IBaseRepository<T>
 {
     protected readonly entityName: string;
     protected repository: EntityRepository<any>;
