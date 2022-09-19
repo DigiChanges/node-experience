@@ -1,6 +1,6 @@
 import Logger from '../../../Shared/Application/Logger/Logger';
 import commander from 'commander';
-import SyncRolesPermissionUseCase from '../../Domain/UseCases/SyncRolesPermissionUseCase';
+import AuthController from '../Controllers/AuthController';
 
 const SyncRolesPermissionCommand = new commander.Command('syncRolesPermission');
 
@@ -9,8 +9,8 @@ SyncRolesPermissionCommand
     .description('Sync permissions')
     .action(async() =>
     {
-        const syncRolesPermissionUseCase = new SyncRolesPermissionUseCase();
-        await syncRolesPermissionUseCase.handle();
+        const controller = new AuthController();
+        await controller.syncRolesPermissions();
 
         Logger.info('Sync successfully.');
     });

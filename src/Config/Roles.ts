@@ -6,7 +6,7 @@ class Roles
     static readonly ADMIN: string = 'Admin';
     static readonly OPERATOR: string = 'Operator';
 
-    static getRoles(): any
+    static getRoles(): Record<string, string[]>
     {
         return {
             [Roles.SUPER_ADMIN]: [

@@ -22,10 +22,11 @@ class SyncRolesPermissionUseCase
     {
         const roles = Roles.getRoles();
 
-        _.map(roles, async(value: string[], key: string) =>
+        for (const key in roles)
         {
-            let permissions = value;
+            let permissions = roles[key];
             let amount = false;
+
             const role = await this.repository.getBySlug(key.toLowerCase());
 
             if (role)
@@ -49,7 +50,7 @@ class SyncRolesPermissionUseCase
                 const newRole: IRoleDomain = new Role(payload);
                 await this.repository.save(newRole);
             }
-        });
+        }
 
         return _.flatMap(Permissions.permissions());
     }
