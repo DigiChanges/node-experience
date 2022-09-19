@@ -180,7 +180,7 @@ class AuthExpressHandler
     @httpPost('/sync-roles-permissions', AuthorizeExpressMiddleware(Permissions.AUTH_SYNC_PERMISSIONS))
     public async syncRolesPermissions(@request() req: any, @response() res: Response)
     {
-        this.controller.syncRolesPermissions();
+        await this.controller.syncRolesPermissions();
 
         void await this.responder.send({ message: 'Sync Successfully' }, req, res, StatusCode.HTTP_CREATED, null);
     }

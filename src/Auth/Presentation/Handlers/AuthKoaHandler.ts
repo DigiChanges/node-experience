@@ -161,7 +161,7 @@ AuthKoaHandler.get('/permissions', AuthorizeKoaMiddleware(Permissions.GET_PERMIS
 
 AuthKoaHandler.post('/sync-roles-permissions', AuthorizeKoaMiddleware(Permissions.AUTH_SYNC_PERMISSIONS), async(ctx: Koa.ParameterizedContext & any) =>
 {
-    controller.syncRolesPermissions();
+    await controller.syncRolesPermissions();
 
     void await responder.send({ message: 'Sync Successfully' }, ctx, StatusCode.HTTP_CREATED);
 });

@@ -18,7 +18,7 @@ class SyncRolesPermissionUseCase
         this.repository = container.resolve<IRoleRepository>(REPOSITORIES.IRoleRepository);
     }
 
-    handle(): string[]
+    async handle(): Promise<string[]>
     {
         const roles = Roles.getRoles();
 

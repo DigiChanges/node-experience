@@ -93,7 +93,7 @@ class AuthController
         return useCase.handle();
     }
 
-    public syncRolesPermissions(): string[]
+    public syncRolesPermissions(): Promise<string[]>
     {
         const useCase = new SyncRolesPermissionUseCase();
         return useCase.handle();

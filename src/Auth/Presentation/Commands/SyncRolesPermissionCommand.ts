@@ -7,10 +7,10 @@ const SyncRolesPermissionCommand = new commander.Command('syncRolesPermission');
 SyncRolesPermissionCommand
     .version('0.0.1')
     .description('Sync permissions')
-    .action(() =>
+    .action(async() =>
     {
         const syncRolesPermissionUseCase = new SyncRolesPermissionUseCase();
-        syncRolesPermissionUseCase.handle();
+        await syncRolesPermissionUseCase.handle();
 
         Logger.info('Sync successfully.');
     });
