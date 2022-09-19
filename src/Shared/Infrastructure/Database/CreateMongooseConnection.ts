@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import MainConfig from '../../../Config/MainConfig';
+import { urlAlphabet } from 'nanoid';
+import { customAlphabet } from 'nanoid/async';
 
 import UserMongooseDocument from '../../../User/Infrastructure/Schemas/UserMongooseDocument';
 import RoleMongooseDocument from '../../../Role/Infrastructure/Schemas/RoleMongooseDocument';
@@ -49,9 +51,11 @@ class CreateMongooseConnection implements ICreateConnection
         }
     }
 
-    async initConfigTest(uri: string)
+    async initConfigTest()
     {
-        this.uri = uri;
+        const nanoId = customAlphabet(urlAlphabet, 5);
+        const dbName = await nanoId();
+        this.uri = `${process.env.MONGO_URL}${dbName}`;
     }
 
     async create(): Promise<any>

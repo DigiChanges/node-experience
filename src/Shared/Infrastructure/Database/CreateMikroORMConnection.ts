@@ -45,7 +45,7 @@ class CreateMikroORMConnection implements ICreateConnection
         };
     }
 
-    async initConfigTest(uri: string): Promise<any>
+    async initConfigTest(): Promise<any>
     {
         return Promise.resolve(undefined); // TODO: Set init config
     }

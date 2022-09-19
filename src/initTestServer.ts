@@ -21,8 +21,6 @@ import INotifierStrategy from './Notification/Shared/INotifierStrategy';
 import AppFactory from './Shared/Factories/AppFactory';
 import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
 import ITokenRepository from './Auth/Infrastructure/Repositories/ITokenRepository';
-import { urlAlphabet } from 'nanoid';
-import { customAlphabet } from 'nanoid/async';
 
 const initTestServer = async(): Promise<any> =>
 {
@@ -33,12 +31,9 @@ const initTestServer = async(): Promise<any> =>
     const databaseFactory: DatabaseFactory = new DatabaseFactory();
     const dbConnection: ICreateConnection = databaseFactory.create();
 
-    const nanoId = customAlphabet(urlAlphabet, 5);
-    const dbName = await nanoId();
-    const newMongoUri = `${process.env.MONGO_URL}${dbName}`;
-
-    await dbConnection.initConfigTest(newMongoUri);
+    await dbConnection.initConfigTest();
     await dbConnection.create();
+    await dbConnection.synchronize();
 
     const eventHandler = EventHandler.getInstance();
     await eventHandler.setListeners();
@@ -47,8 +42,11 @@ const initTestServer = async(): Promise<any> =>
 
     const defaultDb = config.dbConfig.default;
 
+    // @ts-ignore
+    container._registry._registryMap.delete('ITokenRepository');
+
     container.register<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository, { useClass:
-        defaultDb ? TokenMongooseRepository : TokenTypeORMRepository
+        defaultDb === 'Mongoose' ? TokenMongooseRepository : TokenTypeORMRepository
     }, { lifecycle: Lifecycle.Singleton });
 
     container.register<INotifierStrategy>(FACTORIES.EmailStrategy, { useClass: MockStrategy }, { lifecycle: Lifecycle.Singleton });

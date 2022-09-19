@@ -32,7 +32,7 @@ class CreateTypeORMConnection implements ICreateConnection
         return dataSource;
     }
 
-    async initConfigTest(uri: string): Promise<void>
+    async initConfigTest(): Promise<void>
     {
         // ==== get a memory db
         const db = newDb({
@@ -44,12 +44,59 @@ class CreateTypeORMConnection implements ICreateConnection
             name: 'current_database'
         });
 
+        db.public.registerFunction({
+            name: 'version',
+            implementation: () =>
+            {
+                return 'PostgreSQL 11.16 (Debian 11.16-1.pgdg90+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 6.3.0-18+deb9u1) 6.3.0 20170516, 64-bit';
+            }
+        });
+
+        db.public.registerFunction({
+            name: 'pg_views',
+            implementation: () =>
+            {
+                return [];
+            }
+        });
+
+        db.public.registerFunction({
+            name: 'pg_matviews',
+            implementation: () =>
+            {
+                return null;
+            }
+        });
+
+        db.public.interceptQueries(text =>
+        {
+            if (text === 'SELECT \'DROP VIEW IF EXISTS "\' || schemaname || \'"."\' || viewname || \'" CASCADE;\' as "query" FROM "pg_views" WHERE "schemaname" IN (current_schema()) AND "viewname" NOT IN (\'geography_columns\', \'geometry_columns\', \'raster_columns\', \'raster_overviews\')')
+            {
+                return [];
+            }
+
+            if (text === 'SELECT \'DROP MATERIALIZED VIEW IF EXISTS "\' || schemaname || \'"."\' || matviewname || \'" CASCADE;\' as "query" FROM "pg_matviews" WHERE "schemaname" IN (current_schema())')
+            {
+                return [];
+            }
+
+            if (text === 'SELECT \'DROP TABLE IF EXISTS "\' || schemaname || \'"."\' || tablename || \'" CASCADE;\' as "query" FROM "pg_tables" WHERE "schemaname" IN (current_schema()) AND "tablename" NOT IN (\'spatial_ref_sys\')')
+            {
+                return [];
+            }
+
+            if (text === 'SELECT \'DROP TYPE IF EXISTS "\' || n.nspname || \'"."\' || t.typname || \'" CASCADE;\' as "query" FROM "pg_type" "t" INNER JOIN "pg_enum" "e" ON "e"."enumtypid" = "t"."oid" INNER JOIN "pg_namespace" "n" ON "n"."oid" = "t"."typnamespace" WHERE "n"."nspname" IN (current_schema()) GROUP BY "n"."nspname", "t"."typname"')
+            {
+                return [];
+            }
+
+            return null;
+        });
+
         dataSource = db.adapters.createTypeormDataSource({
             type: 'postgres',
             entities: [...this.entities, TokenSchema]
         });
-
-        await dataSource.synchronize();
     }
 
     async create(): Promise<any>

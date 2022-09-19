@@ -23,7 +23,20 @@ const TokenSchema = new EntitySchema<Token>({
         blackListed: {
             type: 'bool'
         }
-    }
+    },
+    indices: [
+        {
+            name: 'id_token_1',
+            unique: true,
+            columns: ['_id']
+        }
+    ],
+    uniques: [
+        {
+            name: 'unq_token_1',
+            columns: ['_id']
+        }
+    ]
 });
 
 export default TokenSchema;
