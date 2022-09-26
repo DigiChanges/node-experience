@@ -81,6 +81,7 @@ The directory structures for business domains are as follows:
 │   ├── Requests
 │   └── Transformers
 ├── Tests
+│   ├── Fixtures
  ```
 
 ---
