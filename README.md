@@ -14,6 +14,12 @@ Hello! **NExp** *(Node Experience)* is a boilerplate for [**Node**](https://node
 
 https://github.com/DigiChanges/node-experience
 
+## Docs
+
+### Boilerplate Documentation
+
+[Boilerplate Documentation](https://digichanges.github.io/nexp-docs)
+
 ## Quick Start
 
 We can run the project directly with docker compose and then bash where the basic commands to feed the database are located.
@@ -95,17 +101,7 @@ Common structures found within this project are:
 - TypeORM, MikroORM and Mongoose Integration.
 - Express and Koa integration.
 - Business logic independent of the HTTP and persistence libraries. 
-- Esbuild compiler. 
-
-## Docs
-
-### Postman Documentation
-
-[API Documentation](https://documenter.getpostman.com/view/10426172/Tz5je15Z)
-
-### Boilerplate Documentation
-
-[Boilerplate Documentation](https://digichanges.github.io/node-experience)
+- Esbuild compiler.
 
 ## License
 
