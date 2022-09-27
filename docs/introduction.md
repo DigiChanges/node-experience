@@ -6,6 +6,10 @@
 ## Basic Description
 Hello! **NExp** *(Node Experience)* is a boilerplate for [**Node**](https://nodejs.org/en/), which makes use of a Hexagonal architecture, in addition to all the power of [**TypeScript**](https://www.typescriptlang.org/) that combined allow a perfect cohesion thus achieving a clean and at the same time very powerful implementation.
 
+### Boilerplate Documentation
+
+[Boilerplate Documentation](https://digichanges.github.io/nexp-docs)
+
 Each module is divided by business domain:
 
 - Auth
@@ -68,14 +72,6 @@ Common structures found within this project are:
 - Esbuild compiler. 
 
 ## Docs
-
-### Postman Documentation
-
-[API Documentation](https://documenter.getpostman.com/view/10426172/Tz5je15Z)
-
-### Boilerplate Documentation
-
-[Boilerplate Documentation](https://digichanges.github.io/node-experience)
 
 ## License
 
