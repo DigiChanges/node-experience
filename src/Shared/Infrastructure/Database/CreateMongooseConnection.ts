@@ -41,7 +41,7 @@ class CreateMongooseConnection implements ICreateConnection
         const config = MainConfig.getInstance().getConfig().dbConfig.Mongoose;
         this.uri = `mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`;
 
-        if (config.ssl === true)
+        if (config.ssl)
         {
             this.options['ssl'] = config.ssl;
             this.options['sslValidate'] = config.sslValidate;
