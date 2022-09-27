@@ -1,5 +1,4 @@
 - [Introduction](/)
-- [Quick Start](quick_start)
 - [Structure](structure)
 - [Credits](credits)
 - **Links**
