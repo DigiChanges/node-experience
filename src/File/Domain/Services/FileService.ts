@@ -16,6 +16,8 @@ import IFileDTO from '../Models/IFileDTO';
 import { validate } from 'uuid';
 import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 import IFilesystem from '../../../Shared/Infrastructure/Filesystem/IFilesystem';
+// @ts-ignore
+import { CWebp } from 'cwebp';
 
 class FileService
 {
@@ -129,6 +131,24 @@ class FileService
         const file = await this.repository.delete(id);
         void await this.fileSystem.removeObjects(file);
         return file;
+    }
+
+    async optimize(payload: FileMultipartRepPayload): Promise<any>
+    {
+        const encoder = CWebp(payload.file.path);
+        const newPath = payload.file.path.replace(payload.extension, 'webp');
+        await encoder.write(newPath);
+
+        return {
+            fieldname: payload.file.fieldname,
+            originalname: payload.file.originalname.replace(payload.extension, 'webp'),
+            encoding: payload.file.encoding,
+            mimetype: 'image/webp',
+            destination: payload.file.destination,
+            filename: payload.file.filename.replace(payload.extension, 'webp'),
+            path: newPath,
+            size: payload.size
+        };
     }
 }
 
