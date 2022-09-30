@@ -1,5 +1,4 @@
 - [Introduction](/)
-- [Structure](structure)
 - [Credits](credits)
 - **Links**
 - [Github](https://github.com/DigiChanges/node-experience)
