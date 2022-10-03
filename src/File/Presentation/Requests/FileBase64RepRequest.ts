@@ -53,6 +53,11 @@ class FileBase64RepRequest extends FileOptionsQueryRequest implements FileBase64
     {
         return this._base64;
     }
+
+    get isImage(): boolean
+    {
+        return this._mimeType.includes('image');
+    }
 }
 
 export default FileBase64RepRequest;

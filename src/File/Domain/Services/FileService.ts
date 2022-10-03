@@ -18,6 +18,8 @@ import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestCo
 import IFilesystem from '../../../Shared/Infrastructure/Filesystem/IFilesystem';
 // @ts-ignore
 import { CWebp } from 'cwebp';
+import IFileMultipart from '../Entities/IFileMultipart';
+import FileMultipartOptimizeDTO from '../FileMultipartOptimizeDTO';
 
 class FileService
 {
@@ -133,13 +135,13 @@ class FileService
         return file;
     }
 
-    async optimize(payload: FileMultipartRepPayload): Promise<any>
+    async optimize(payload: FileMultipartRepPayload): Promise<FileMultipartRepPayload>
     {
         const encoder = CWebp(payload.file.path);
         const newPath = payload.file.path.replace(payload.extension, 'webp');
         await encoder.write(newPath);
 
-        return {
+        const file: IFileMultipart = {
             fieldname: payload.file.fieldname,
             originalname: payload.file.originalname.replace(payload.extension, 'webp'),
             encoding: payload.file.encoding,
@@ -149,7 +151,27 @@ class FileService
             path: newPath,
             size: payload.size
         };
+
+        return new FileMultipartOptimizeDTO(payload, file);
     }
+
+    // async optimizeBase64(payload: FileMultipartRepPayload): Promise<any>
+    // {
+    //     const encoder = CWebp(payload.file.path);
+    //     const newPath = payload.file.path.replace(payload.extension, 'webp');
+    //     await encoder.write(newPath);
+    //
+    //     return {
+    //         fieldname: payload.file.fieldname,
+    //         originalname: payload.file.originalname.replace(payload.extension, 'webp'),
+    //         encoding: payload.file.encoding,
+    //         mimetype: 'image/webp',
+    //         destination: payload.file.destination,
+    //         filename: payload.file.filename.replace(payload.extension, 'webp'),
+    //         path: newPath,
+    //         size: payload.size
+    //     };
+    // }
 }
 
 export default FileService;

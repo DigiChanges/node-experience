@@ -1,11 +1,12 @@
 import FileMultipartRepPayload from './Payloads/FileMultipartRepPayload';
+import IFileMultipart from './Entities/IFileMultipart';
 
-class FileMultipartOptimizeRequestAdapter implements FileMultipartRepPayload
+class FileMultipartOptimizeDTO implements FileMultipartRepPayload
 {
     private readonly _req: FileMultipartRepPayload;
-    private readonly _file: any;
+    private readonly _file: IFileMultipart;
 
-    constructor(fileRequest: FileMultipartRepPayload, _file: any)
+    constructor(fileRequest: FileMultipartRepPayload, _file: IFileMultipart)
     {
         this._req = fileRequest;
         this._file = _file;
@@ -16,7 +17,7 @@ class FileMultipartOptimizeRequestAdapter implements FileMultipartRepPayload
         return 'webp';
     }
 
-    get file(): any
+    get file(): IFileMultipart
     {
         return this._file;
     }
@@ -52,6 +53,11 @@ class FileMultipartOptimizeRequestAdapter implements FileMultipartRepPayload
     {
         return this._req.size;
     }
+
+    get isImage(): boolean
+    {
+        return this._req.isImage;
+    }
 }
 
-export default FileMultipartOptimizeRequestAdapter;
+export default FileMultipartOptimizeDTO;

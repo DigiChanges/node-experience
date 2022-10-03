@@ -1,7 +1,6 @@
 FROM node:16-alpine as dev
 
-RUN apk add bash dumb-init
-RUN apk add curl
+RUN apk add bash dumb-init curl
 RUN curl -s https://raw.githubusercontent.com/Intervox/node-webp/latest/bin/install_webp | bash
 RUN apk add --no-cache --update libwebp-tools
 RUN apk add --no-cache --update libpng-dev libjpeg-turbo-dev giflib-dev tiff-dev autoconf automake make gcc g++ wget

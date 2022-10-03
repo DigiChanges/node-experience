@@ -1,10 +1,11 @@
 import FileMultipartRepPayload from '../../Domain/Payloads/FileMultipartRepPayload';
 import { IsDefined, IsNumber, IsString } from 'class-validator';
 import FileOptionsQueryRequest from './FileOptionsQueryRequest';
+import IFileMultipart from '../../Domain/Entities/IFileMultipart';
 
 class FileMultipartRepRequest extends FileOptionsQueryRequest implements FileMultipartRepPayload
 {
-    private readonly _file: any;
+    private readonly _file: IFileMultipart;
 
     constructor({ file, query }: any)
     {
@@ -42,9 +43,14 @@ class FileMultipartRepRequest extends FileOptionsQueryRequest implements FileMul
     }
 
     @IsDefined()
-    get file(): any
+    get file(): IFileMultipart
     {
         return this._file;
+    }
+
+    get isImage(): boolean
+    {
+        return this._file.mimetype.includes('image');
     }
 }
 
