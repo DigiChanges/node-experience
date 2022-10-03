@@ -11,7 +11,7 @@ class UploadMultipartUseCase
     {
         if (payload.isOptimize && payload.isImage)
         {
-            payload = await this.fileService.optimizeMultipart(payload);
+            payload = await this.fileService.optimizeMultipartToUpload(payload);
         }
 
         const build = {

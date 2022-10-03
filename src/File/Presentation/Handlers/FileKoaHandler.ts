@@ -132,7 +132,7 @@ FileKoaHandler.put('/:id', <any>FileKoaReqMulterMiddleware.single('file'), Autho
 {
     const body = {
         file: ctx.request.file,
-        params: ctx.params,
+        query: ctx.query,
         id: ctx.params.id
     };
 

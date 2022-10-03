@@ -11,7 +11,7 @@ class UploadBase64UseCase
     {
         if (payload.isOptimize && payload.isImage)
         {
-            payload = await this.fileService.optimizeBase64(payload);
+            payload = await this.fileService.optimizeBase64ToUpload(payload);
         }
 
         const build = {

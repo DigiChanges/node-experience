@@ -22,6 +22,10 @@ import IFileMultipart from '../Entities/IFileMultipart';
 import FileMultipartOptimizeDTO from '../../Presentation/Requests/FileMultipartOptimizeDTO';
 import FileBase64OptimizeDTO from '../../Presentation/Requests/FileBase64OptimizeDTO';
 import * as fs from 'fs';
+import FileUpdateMultipartPayload from '../Payloads/FileUpdateMultipartPayload';
+import FileUpdateMultipartOptimizeDTO from '../../Presentation/Requests/FileUpdateMultipartOptimizeDTO';
+import FileUpdateBase64Payload from '../Payloads/FileUpdateBase64Payload';
+import FileUpdateBase64OptimizeDTO from '../../Presentation/Requests/FileUpdateBase64OptimizeDTO';
 
 class FileService
 {
@@ -63,6 +67,14 @@ class FileService
         file.isPublic = payload.isPublic;
 
         return await this.repository.save(file);
+    }
+
+    async update(file: IFileDomain, payload: FileRepPayload, hasOriginalName = false): Promise<IFileDomain>
+    {
+        file.originalName = payload.originalName;
+        file.setName(hasOriginalName);
+
+        return await this.persist(file, payload);
     }
 
     async uploadFileBase64(file: IFileDomain, payload: FileBase64RepPayload): Promise<any>
@@ -137,13 +149,13 @@ class FileService
         return file;
     }
 
-    async optimizeMultipart(payload: FileMultipartRepPayload): Promise<FileMultipartRepPayload>
+    private async getFileMultipartOptimized(payload: FileMultipartRepPayload): Promise<IFileMultipart>
     {
         const encoder = CWebp(payload.file.path);
         const newPath = payload.file.path.replace(payload.extension, 'webp');
         await encoder.write(newPath);
 
-        const file: IFileMultipart = {
+        return {
             fieldname: payload.file.fieldname,
             originalname: payload.file.originalname.replace(payload.extension, 'webp'),
             encoding: payload.file.encoding,
@@ -153,11 +165,9 @@ class FileService
             path: newPath,
             size: payload.size
         };
-
-        return new FileMultipartOptimizeDTO(payload, file);
     }
 
-    async optimizeBase64(payload: FileBase64RepPayload): Promise<FileBase64RepPayload>
+    private async getFileBase64Optimized(payload: FileBase64RepPayload): Promise<string>
     {
         const buffer = Buffer.from(payload.base64, 'base64');
         const encoder = CWebp(buffer);
@@ -165,9 +175,35 @@ class FileService
         await encoder.write(newPath);
 
         const buff = fs.readFileSync(newPath);
-        const base64data = buff.toString('base64');
+        return buff.toString('base64');
+    }
+
+    async optimizeMultipartToUpload(payload: FileMultipartRepPayload): Promise<FileMultipartRepPayload>
+    {
+        const file = await this.getFileMultipartOptimized(payload);
+
+        return new FileMultipartOptimizeDTO(payload, file);
+    }
+
+    async optimizeMultipartToUpdate(payload: FileUpdateMultipartPayload): Promise<FileUpdateMultipartPayload>
+    {
+        const file = await this.getFileMultipartOptimized(payload);
+
+        return new FileUpdateMultipartOptimizeDTO(payload, file);
+    }
+
+    async optimizeBase64ToUpload(payload: FileBase64RepPayload): Promise<FileBase64RepPayload>
+    {
+        const base64data = await this.getFileBase64Optimized(payload);
 
         return new FileBase64OptimizeDTO(payload, base64data);
+    }
+
+    async optimizeBase64ToUpdate(payload: FileUpdateBase64Payload): Promise<FileUpdateBase64Payload>
+    {
+        const base64data = await this.getFileBase64Optimized(payload);
+
+        return new FileUpdateBase64OptimizeDTO(payload, base64data);
     }
 }
 
