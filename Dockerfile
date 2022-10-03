@@ -22,17 +22,17 @@ USER node
 
 FROM dev as build
 
-RUN yarn
-RUN yarn transpile
+RUN pnpm install
+RUN pnpm transpile
 
 FROM build as prerelease
 
-RUN yarn --production=true
+RUN pnpm install --production
 
 FROM node:16-alpine as prod
 
 RUN apk add bash dumb-init
-RUN yarn global add pm2
+RUN npm install -g pm2
 
 WORKDIR /usr/app
 
