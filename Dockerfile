@@ -5,7 +5,7 @@ RUN apk add bash dumb-init
 WORKDIR /usr/app
 
 COPY --chown=node:node package.json ./
-COPY --chown=node:node yarn.lock ./
+COPY --chown=node:node pnpm-lock.yaml ./
 COPY --chown=node:node src ./src
 COPY --chown=node:node tsconfig.json ./
 COPY --chown=node:node ecosystem.config.js ./
