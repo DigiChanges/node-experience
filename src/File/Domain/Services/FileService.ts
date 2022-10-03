@@ -26,6 +26,7 @@ import FileUpdateMultipartPayload from '../Payloads/FileUpdateMultipartPayload';
 import FileUpdateMultipartOptimizeDTO from '../../Presentation/Requests/FileUpdateMultipartOptimizeDTO';
 import FileUpdateBase64Payload from '../Payloads/FileUpdateBase64Payload';
 import FileUpdateBase64OptimizeDTO from '../../Presentation/Requests/FileUpdateBase64OptimizeDTO';
+import FilePayload from '../Payloads/FilePayload';
 
 class FileService
 {
@@ -69,10 +70,10 @@ class FileService
         return await this.repository.save(file);
     }
 
-    async update(file: IFileDomain, payload: FileRepPayload, hasOriginalName = false): Promise<IFileDomain>
+    async update(file: IFileDomain, payload: FilePayload): Promise<IFileDomain>
     {
         file.originalName = payload.originalName;
-        file.setName(hasOriginalName);
+        file.setName(payload.isOriginalName);
 
         return await this.persist(file, payload);
     }

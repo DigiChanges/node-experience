@@ -1,8 +1,7 @@
-import FileOptionsQueryPayload from './FileOptionsQueryPayload';
-import FileRepPayload from './FileRepPayload';
 import IFileMultipart from '../Entities/IFileMultipart';
+import FilePayload from './FilePayload';
 
-interface FileMultipartRepPayload extends FileRepPayload, FileOptionsQueryPayload
+interface FileMultipartRepPayload extends FilePayload
 {
     file: IFileMultipart;
 }

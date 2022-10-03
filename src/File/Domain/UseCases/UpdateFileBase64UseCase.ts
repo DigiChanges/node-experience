@@ -16,7 +16,7 @@ class UpdateFileBase64UseCase
         }
 
         let file: IFileDomain = await this.fileService.getOne(id);
-        file = await this.fileService.update(file, payload, payload.isOriginalName);
+        file = await this.fileService.update(file, payload);
         return await this.fileService.uploadFileBase64(file, payload);
     }
 }
