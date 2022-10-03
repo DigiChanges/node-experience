@@ -19,7 +19,9 @@ import IFilesystem from '../../../Shared/Infrastructure/Filesystem/IFilesystem';
 // @ts-ignore
 import { CWebp } from 'cwebp';
 import IFileMultipart from '../Entities/IFileMultipart';
-import FileMultipartOptimizeDTO from '../FileMultipartOptimizeDTO';
+import FileMultipartOptimizeDTO from '../../Presentation/Requests/FileMultipartOptimizeDTO';
+import FileBase64OptimizeDTO from '../../Presentation/Requests/FileBase64OptimizeDTO';
+import * as fs from 'fs';
 
 class FileService
 {
@@ -135,7 +137,7 @@ class FileService
         return file;
     }
 
-    async optimize(payload: FileMultipartRepPayload): Promise<FileMultipartRepPayload>
+    async optimizeMultipart(payload: FileMultipartRepPayload): Promise<FileMultipartRepPayload>
     {
         const encoder = CWebp(payload.file.path);
         const newPath = payload.file.path.replace(payload.extension, 'webp');
@@ -155,23 +157,18 @@ class FileService
         return new FileMultipartOptimizeDTO(payload, file);
     }
 
-    // async optimizeBase64(payload: FileMultipartRepPayload): Promise<any>
-    // {
-    //     const encoder = CWebp(payload.file.path);
-    //     const newPath = payload.file.path.replace(payload.extension, 'webp');
-    //     await encoder.write(newPath);
-    //
-    //     return {
-    //         fieldname: payload.file.fieldname,
-    //         originalname: payload.file.originalname.replace(payload.extension, 'webp'),
-    //         encoding: payload.file.encoding,
-    //         mimetype: 'image/webp',
-    //         destination: payload.file.destination,
-    //         filename: payload.file.filename.replace(payload.extension, 'webp'),
-    //         path: newPath,
-    //         size: payload.size
-    //     };
-    // }
+    async optimizeBase64(payload: FileBase64RepPayload): Promise<FileBase64RepPayload>
+    {
+        const buffer = Buffer.from(payload.base64, 'base64');
+        const encoder = CWebp(buffer);
+        const newPath = '/tmp/converted.webp';
+        await encoder.write(newPath);
+
+        const buff = fs.readFileSync(newPath);
+        const base64data = buff.toString('base64');
+
+        return new FileBase64OptimizeDTO(payload, base64data);
+    }
 }
 
 export default FileService;

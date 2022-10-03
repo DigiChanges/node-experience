@@ -1,15 +1,14 @@
-import FileMultipartRepPayload from './Payloads/FileMultipartRepPayload';
-import IFileMultipart from './Entities/IFileMultipart';
+import FileBase64RepPayload from '../../Domain/Payloads/FileBase64RepPayload';
 
-class FileMultipartOptimizeDTO implements FileMultipartRepPayload
+class FileBase64OptimizeDTO implements FileBase64RepPayload
 {
-    private readonly _req: FileMultipartRepPayload;
-    private readonly _file: IFileMultipart;
+    private readonly _req: FileBase64RepPayload;
+    private readonly _base64: string;
 
-    constructor(fileRequest: FileMultipartRepPayload, _file: IFileMultipart)
+    constructor(fileRequest: FileBase64RepPayload, _base64: string)
     {
         this._req = fileRequest;
-        this._file = _file;
+        this._base64 = _base64;
     }
 
     get extension(): string
@@ -17,9 +16,9 @@ class FileMultipartOptimizeDTO implements FileMultipartRepPayload
         return 'webp';
     }
 
-    get file(): IFileMultipart
+    get base64(): string
     {
-        return this._file;
+        return this._base64;
     }
     get isOptimize(): boolean
     {
@@ -60,4 +59,4 @@ class FileMultipartOptimizeDTO implements FileMultipartRepPayload
     }
 }
 
-export default FileMultipartOptimizeDTO;
+export default FileBase64OptimizeDTO;

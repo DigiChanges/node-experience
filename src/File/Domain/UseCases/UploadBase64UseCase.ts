@@ -9,6 +9,11 @@ class UploadBase64UseCase
 
     async handle(payload: FileBase64RepPayload): Promise<any>
     {
+        if (payload.isOptimize && payload.isImage)
+        {
+            payload = await this.fileService.optimizeBase64(payload);
+        }
+
         const build = {
             hasOriginalName: payload.isOriginalName,
             originalName: payload.originalName
