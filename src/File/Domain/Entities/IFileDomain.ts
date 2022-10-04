@@ -10,6 +10,7 @@ interface IFileDomain extends IBaseDomain
     size: number;
     version: number;
     isPublic: boolean;
+    setName(hasOriginalName: boolean): void;
 }
 
 export default IFileDomain;

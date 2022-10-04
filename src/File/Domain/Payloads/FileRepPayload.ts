@@ -7,6 +7,7 @@ interface FileRepPayload
     extension: string;
     size: number;
     isPublic: boolean;
+    isImage: boolean;
 }
 
 export default FileRepPayload;

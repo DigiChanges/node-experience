@@ -148,7 +148,7 @@ class FileExpressHandler
     {
         const body = {
             file: req.file,
-            params: req.params,
+            query: req.query,
             id: req.params.id
         };
 

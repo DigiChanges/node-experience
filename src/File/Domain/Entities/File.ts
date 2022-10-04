@@ -22,7 +22,7 @@ class File extends Base implements IFileDomain
         this.setName(data?.hasOriginalName ?? false);
     }
 
-    private setName(hasOriginalName: boolean)
+    public setName(hasOriginalName: boolean)
     {
         this.name = this._id;
 

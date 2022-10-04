@@ -9,6 +9,11 @@ class UploadMultipartUseCase
 
     async handle(payload: FileMultipartRepPayload): Promise<any>
     {
+        if (payload.isOptimize && payload.isImage)
+        {
+            payload = await this.fileService.optimizeMultipartToUpload(payload);
+        }
+
         const build = {
             hasOriginalName: payload.isOriginalName,
             originalName: payload.originalName

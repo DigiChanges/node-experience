@@ -1,7 +1,6 @@
-import FileOptionsQueryPayload from './FileOptionsQueryPayload';
-import FileRepPayload from './FileRepPayload';
+import FilePayload from './FilePayload';
 
-interface FileBase64RepPayload extends FileRepPayload, FileOptionsQueryPayload
+interface FileBase64RepPayload extends FilePayload
 {
     base64: string,
 }
