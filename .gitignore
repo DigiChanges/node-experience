@@ -10,6 +10,7 @@ lerna-debug.log*
 package-lock.json
 .nexp
 .env.infisical
+.pnpm-store
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

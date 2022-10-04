@@ -4,6 +4,8 @@ RUN apk add bash dumb-init
 
 WORKDIR /usr/app
 
+RUN npm install --location=global pnpm
+
 COPY --chown=node:node package.json ./
 COPY --chown=node:node pnpm-lock.yaml ./
 COPY --chown=node:node src ./src
@@ -16,7 +18,10 @@ COPY --chown=node:node nodemon.json ./
 COPY --chown=node:node .eslintrc.json ./
 
 # Run development server
-ENTRYPOINT [ "dumb-init", "yarn", "dev" ]
+ENTRYPOINT [ "dumb-init", "pnpm", "dev" ]
+
+EXPOSE 8089
+EXPOSE 9229
 
 USER node
 
@@ -44,8 +49,6 @@ COPY --from=prerelease --chown=node:node /usr/app/config/ ./config/
 COPY --from=prerelease --chown=node:node /usr/app/.env/ ./.env
 COPY --from=dev --chown=node:node /usr/app/src/Config/Locales ./dist/src/Config/Locales
 COPY --from=dev --chown=node:node /usr/app/src/App/Presentation/Views ./dist/src/App/Presentation/Views
-
-EXPOSE ${PORT}
 
 USER node
 

@@ -24,7 +24,7 @@ https://github.com/DigiChanges/node-experience
 
 We can run the project directly with docker compose and then bash where the basic commands to feed the database are located.
 
-1. Install dependencies. `yarn`.
+1. Install dependencies. `pnpm install`.
 2. Copy `.env.dev` file to `.env`. (**.env.dev** it's a environment example file)
 3. Then execute `STAGE=dev docker-compose up --build` to up all containers.
 4. Basically generates an admin user, add roles with permission and get a bucket for minIO. `docker-compose exec node bash dev.init.sh`
