@@ -15,6 +15,7 @@ export enum REPOSITORIES  {
     IUserRepository = 'IUserRepository',
     IRoleRepository = 'IRoleRepository',
     IFileRepository = 'IFileRepository',
+    IFileVersionRepository = 'IFileVersionRepository',
     ITokenRepository = 'ITokenRepository',
     INotificationRepository = 'INotificationRepository'
 }

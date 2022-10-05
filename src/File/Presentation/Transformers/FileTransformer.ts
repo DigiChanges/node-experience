@@ -2,26 +2,28 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import Transformer from '../../../Shared/Presentation/Shared/Transformer';
 
-import IFileDomain from '../../Domain/Entities/IFileDomain';
+import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 import IFileTransformer from './IFileTransformer';
 
 class FileTransformer extends Transformer
 {
-    public async transform(file: IFileDomain): Promise<IFileTransformer>
+    public async transform(fileVersion: IFileVersionDomain): Promise<IFileTransformer>
     {
         dayjs.extend(utc);
         return {
-            id: file.getId(),
-            name: file.name,
-            originalName: file.originalName,
-            extension: file.extension,
-            path: file.path,
-            mimeType: file.mimeType,
-            size: file.size,
-            version: file.version,
-            isPublic: file.isPublic,
-            createdAt: dayjs(file.createdAt).utc().unix(),
-            updatedAt: dayjs(file.updatedAt).utc().unix()
+            id: fileVersion.getId(),
+            name: fileVersion.name,
+            originalName: fileVersion.originalName,
+            extension: fileVersion.extension,
+            path: fileVersion.path,
+            mimeType: fileVersion.mimeType,
+            size: fileVersion.size,
+            version: fileVersion.version,
+            isPublic: fileVersion.isPublic,
+            isOptimized: fileVersion.isOptimized,
+            file: fileVersion.file,
+            createdAt: dayjs(fileVersion.createdAt).utc().unix(),
+            updatedAt: dayjs(fileVersion.updatedAt).utc().unix()
         };
     }
 }

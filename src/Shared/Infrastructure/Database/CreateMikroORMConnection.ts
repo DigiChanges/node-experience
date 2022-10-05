@@ -3,7 +3,8 @@ import { newDb } from 'pg-mem';
 import User from '../../../User/Infrastructure/Schemas/UserMikroORM';
 import Role from '../../../Role/Infrastructure/Schemas/RoleMikroORM';
 import Item from '../../../Item/Infrastructure/Schemas/ItemMikroORM';
-import File from '../../../File/Infrastructure/Schemas/FileMikroORM';
+import File from '../../../File/Infrastructure/Schemas/FileVersionMikroORM';
+import FileVersion from '../../../File/Infrastructure/Schemas/FileVersionMikroORM';
 import ICreateConnection from './ICreateConnection';
 import Logger from '../../Application/Logger/Logger';
 import { DataSource } from 'typeorm';
@@ -16,6 +17,7 @@ class CreateMikroORMConnection implements ICreateConnection
     private readonly config: any;
     private createInstanceConnection: any;
     private entities = [
+        FileVersion,
         Role,
         User,
         Item,

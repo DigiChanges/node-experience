@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-import IFileDTO from '../../../File/Domain/Models/IFileDTO';
+import IFileVersionDTO from '../../../File/Domain/Models/IFileVersionDTO';
 import IFormatResponder from '../../Presentation/Shared/IFormatResponder';
 import FormatResponder from '../../Presentation/Shared/FormatResponder';
 import FormatError from '../../Presentation/Shared/FormatError';
@@ -71,7 +71,7 @@ class ExpressResponder
         response.status(status.code).send(result);
     }
 
-    public sendStream(fileDto: IFileDTO, request: Request | any, response: Response, status: IHttpStatusCode)
+    public sendStream(fileDto: IFileVersionDTO, request: Request | any, response: Response, status: IHttpStatusCode)
     {
         response.writeHead(status.code, { 'Content-Type': fileDto.metadata.mimeType });
 

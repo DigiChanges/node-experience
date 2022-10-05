@@ -82,7 +82,7 @@ class FileExpressHandler
     {
         const body = {
             file: req.file,
-            params: req.params
+            query: req.query
         };
 
         const _request = new FileMultipartRepRequest(body);

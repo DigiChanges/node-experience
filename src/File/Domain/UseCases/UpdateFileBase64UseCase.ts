@@ -1,5 +1,5 @@
 import FileUpdateBase64Payload from '../Payloads/FileUpdateBase64Payload';
-import IFileDomain from '../Entities/IFileDomain';
+import IFileVersionDomain from '../Entities/IFileVersionDomain';
 import FileService from '../Services/FileService';
 
 class UpdateFileBase64UseCase
@@ -15,7 +15,7 @@ class UpdateFileBase64UseCase
             payload = await this.fileService.optimizeBase64ToUpdate(payload);
         }
 
-        let file: IFileDomain = await this.fileService.getOne(id);
+        let file: IFileVersionDomain = await this.fileService.getOneVersion(id);
         file = await this.fileService.update(file, payload);
         return await this.fileService.uploadFileBase64(file, payload);
     }

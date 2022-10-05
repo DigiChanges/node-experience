@@ -1,26 +1,27 @@
+import IFileVersionRepository from './IFileVersionRepository';
 import { injectable } from 'inversify';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import Paginator from '../../../Shared/Infrastructure/Orm/MikroORMPaginator';
 import FileFilter from '../../Presentation/Criterias/FileFilter';
+import FileVersionSchema from '../Schemas/FileVersionMikroORM';
+import FileVersion from '../../Domain/Entities/FileVersion';
+import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 
 import BaseMikroORMRepository from '../../../Shared/Infrastructure/Repositories/BaseMikroORMRepository';
-import IFileDomain from '../../Domain/Entities/IFileDomain';
-import IFileRepository from './IFileRepository';
-import FileSchema from '../Schemas/FileMikroORM';
 
 @injectable()
-class FileMikroORMRepository extends BaseMikroORMRepository<IFileDomain> implements IFileRepository
+class FileVersionMikroORMRepository extends BaseMikroORMRepository<IFileVersionDomain> implements IFileVersionRepository
 {
     constructor()
     {
-        super('File', FileSchema);
+        super('FileVersion', FileVersionSchema);
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        const queryBuilder = this.em.createQueryBuilder('File', 'i');
+        const queryBuilder = this.em.createQueryBuilder('FileVersion', 'i');
 
         const filter = criteria.getFilter();
 
@@ -35,4 +36,4 @@ class FileMikroORMRepository extends BaseMikroORMRepository<IFileDomain> impleme
     }
 }
 
-export default FileMikroORMRepository;
+export default FileVersionMikroORMRepository;

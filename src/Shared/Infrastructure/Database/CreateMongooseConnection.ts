@@ -6,7 +6,7 @@ import { customAlphabet } from 'nanoid/async';
 import UserMongooseDocument from '../../../User/Infrastructure/Schemas/UserMongooseDocument';
 import RoleMongooseDocument from '../../../Role/Infrastructure/Schemas/RoleMongooseDocument';
 import ItemMongooseDocument from '../../../Item/Infrastructure/Schemas/ItemMongooseDocument';
-import FileMongooseDocument from '../../../File/Infrastructure/Schemas/FileMongooseDocument';
+import FileVersionMongooseDocument from '../../../File/Infrastructure/Schemas/FileVersionMongooseDocument';
 import NotificationMongooseDocument from '../../../Notification/Infrastructure/Schemas/NotificationMongooseDocument';
 import ITokenMongooseDocument from '../../../Auth/Infrastructure/Schemas/ITokenMongooseDocument';
 
@@ -14,10 +14,16 @@ import ItemSchema from '../../../Item/Infrastructure/Schemas/ItemMongoose';
 
 import RoleSchema from '../../../Role/Infrastructure/Schemas/RoleMongoose';
 import UserSchema from '../../../User/Infrastructure/Schemas/UserMongoose';
-import FileSchema from '../../../File/Infrastructure/Schemas/FileMongoose';
-import { EmailNotificationSchema, NotificationSchema, PushNotificationSchema } from '../../../Notification/Infrastructure/Schemas/NotificationMongoose';
+import FileVersionSchema from '../../../File/Infrastructure/Schemas/FileVersionMongoose';
+import {
+    EmailNotificationSchema,
+    NotificationSchema,
+    PushNotificationSchema
+} from '../../../Notification/Infrastructure/Schemas/NotificationMongoose';
 import TokenSchema from '../../../Auth/Infrastructure/Schemas/TokenMongoose';
 import ICreateConnection from './ICreateConnection';
+import FileMongooseDocument from '../../../File/Infrastructure/Schemas/FileMongooseDocument';
+import FileSchema from '../../../File/Infrastructure/Schemas/FileMongoose';
 
 export let connection: mongoose.Connection = null;
 
@@ -66,6 +72,7 @@ class CreateMongooseConnection implements ICreateConnection
         connection.model<UserMongooseDocument>('User', UserSchema);
         connection.model<RoleMongooseDocument>('Role', RoleSchema);
         connection.model<ItemMongooseDocument>('Item', ItemSchema);
+        connection.model<FileVersionMongooseDocument>('FileVersion', FileVersionSchema);
         connection.model<FileMongooseDocument>('File', FileSchema);
 
         // Infrastructure

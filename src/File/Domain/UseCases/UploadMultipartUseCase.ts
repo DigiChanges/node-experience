@@ -1,6 +1,6 @@
 import FileMultipartRepPayload from '../Payloads/FileMultipartRepPayload';
-import IFileDomain from '../Entities/IFileDomain';
-import File from '../Entities/File';
+import IFileVersionDomain from '../Entities/IFileVersionDomain';
+import FileVersion from '../Entities/FileVersion';
 import FileService from '../Services/FileService';
 
 class UploadMultipartUseCase
@@ -16,12 +16,13 @@ class UploadMultipartUseCase
 
         const build = {
             hasOriginalName: payload.isOriginalName,
-            originalName: payload.originalName
+            originalName: payload.originalName,
+            isOptimized: payload.isOptimize && payload.isImage
         };
 
-        let file: IFileDomain = new File(build);
-        file = await this.fileService.persist(file, payload);
-        return await this.fileService.uploadFileMultipart(file, payload);
+        let fileVersion: IFileVersionDomain = new FileVersion(build);
+        fileVersion = await this.fileService.persist(fileVersion, payload);
+        return await this.fileService.uploadFileMultipart(fileVersion, payload);
     }
 }
 

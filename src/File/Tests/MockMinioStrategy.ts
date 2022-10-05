@@ -1,6 +1,6 @@
 import internal from 'stream';
 import IFilesystem from '../../Shared/Infrastructure/Filesystem/IFilesystem';
-import IFileDomain from '../Domain/Entities/IFileDomain';
+import IFileVersionDomain from '../Domain/Entities/IFileVersionDomain';
 import ListObjectsPayload from '../Domain/Payloads/ListObjectsPayload';
 
 class MockMinioStrategy implements IFilesystem
@@ -14,7 +14,7 @@ class MockMinioStrategy implements IFilesystem
         this.filesystem = 'filesystem';
     }
 
-    async presignedGetObject(object: IFileDomain, expiry: number, respHeaders?: { [key: string]: any; }): Promise<string>
+    async presignedGetObject(object: IFileVersionDomain, expiry: number, respHeaders?: { [key: string]: any; }): Promise<string>
     {
         return new Promise<string>((resolve) => resolve('success'));
     }
@@ -34,12 +34,12 @@ class MockMinioStrategy implements IFilesystem
         return new Promise<void>((resolve) => resolve);
     }
 
-    async uploadFile(object: IFileDomain, path: string): Promise<string>
+    async uploadFile(object: IFileVersionDomain, path: string): Promise<string>
     {
         return new Promise<string>((resolve) => resolve('success'));
     }
 
-    async uploadFileByBuffer(object: IFileDomain, base64Data: string)
+    async uploadFileByBuffer(object: IFileVersionDomain, base64Data: string)
     {
         return new Promise<string>((resolve) => resolve('success'));
     }
@@ -49,7 +49,7 @@ class MockMinioStrategy implements IFilesystem
         return new Promise<string>((resolve) => resolve('success'));
     }
 
-    async downloadStreamFile(object: IFileDomain): Promise<internal.Readable>
+    async downloadStreamFile(object: IFileVersionDomain): Promise<internal.Readable>
     {
         return new Promise<internal.Readable>((resolve) => resolve(new internal.Readable()));
     }
@@ -59,7 +59,7 @@ class MockMinioStrategy implements IFilesystem
         return new Promise((resolve) => resolve('success'));
     }
 
-    async removeObjects(object: IFileDomain): Promise<void>
+    async removeObjects(object: IFileVersionDomain): Promise<void>
     {
         return new Promise<void>((resolve) => resolve);
     }

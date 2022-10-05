@@ -3,7 +3,8 @@ import { newDb } from 'pg-mem';
 import User from '../../../User/Infrastructure/Schemas/UserTypeORM';
 import Role from '../../../Role/Infrastructure/Schemas/RoleTypeORM';
 import Item from '../../../Item/Infrastructure/Schemas/ItemTypeORM';
-import File from '../../../File/Infrastructure/Schemas/FileTypeORM';
+import File from '../../../File/Infrastructure/Schemas/FileVersionTypeORM';
+import FileVersion from '../../../File/Infrastructure/Schemas/FileVersionTypeORM';
 import Notification from '../../../Notification/Infrastructure/Schemas/NotificationTypeORM';
 import TokenSchema from '../../../Auth/Infrastructure/Schemas/TokenTypeORM';
 import ICreateConnection from './ICreateConnection';
@@ -14,6 +15,7 @@ class CreateTypeORMConnection implements ICreateConnection
 {
     private readonly config: any;
     private entities = [
+        FileVersion,
         File,
         Notification,
         Role,

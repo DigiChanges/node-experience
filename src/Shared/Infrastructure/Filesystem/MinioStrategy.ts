@@ -2,7 +2,7 @@ import { Client } from 'minio';
 import internal from 'stream';
 import { MinioConfig } from '../../../Config/MainConfig';
 import IFilesystem from './IFilesystem';
-import IFileDomain from '../../../File/Domain/Entities/IFileDomain';
+import IFileVersionDomain from '../../../File/Domain/Entities/IFileVersionDomain';
 import ListObjectsPayload from '../../../File/Domain/Payloads/ListObjectsPayload';
 
 class MinioStrategy implements IFilesystem
@@ -32,7 +32,7 @@ class MinioStrategy implements IFilesystem
         });
     }
 
-    async presignedGetObject(object: IFileDomain, expiry: number, respHeaders?: { [key: string]: any; }): Promise<string>
+    async presignedGetObject(object: IFileVersionDomain, expiry: number, respHeaders?: { [key: string]: any; }): Promise<string>
     {
         const bucket = this.getBucket(object);
         return await this.#filesystem.presignedGetObject(bucket, `${this.#rootPath}/${object.name}`, expiry, respHeaders);
@@ -53,13 +53,13 @@ class MinioStrategy implements IFilesystem
         return await this.#filesystem.setBucketPolicy(bucketPrivate || this.#privateBucket, bucketPolicy);
     }
 
-    async uploadFile(object: IFileDomain, path: string)
+    async uploadFile(object: IFileVersionDomain, path: string)
     {
         const acl = object.isPublic ? 'public-read' : 'private';
         return await this.#filesystem.fPutObject(this.getBucket(object), `${this.#rootPath}/${object.name}`, path, { 'x-amz-acl': acl });
     }
 
-    async uploadFileByBuffer(object: IFileDomain, base64Data: string)
+    async uploadFileByBuffer(object: IFileVersionDomain, base64Data: string)
     {
         const buffer = Buffer.from(base64Data, 'base64');
 
@@ -77,7 +77,7 @@ class MinioStrategy implements IFilesystem
         return filePath;
     }
 
-    async downloadStreamFile(object: IFileDomain, isPrivate = true): Promise<internal.Readable>
+    async downloadStreamFile(object: IFileVersionDomain, isPrivate = true): Promise<internal.Readable>
     {
         return await this.#filesystem.getObject(this.getBucket(object), `${this.#rootPath}/${object.name}`);
     }
@@ -107,12 +107,12 @@ class MinioStrategy implements IFilesystem
         });
     }
 
-    async removeObjects(object: IFileDomain): Promise<void>
+    async removeObjects(object: IFileVersionDomain): Promise<void>
     {
         await this.#filesystem.removeObject(this.getBucket(object), object.name);
     }
 
-    private getBucket(object?: IFileDomain, isPublic = false): string
+    private getBucket(object?: IFileVersionDomain, isPublic = false): string
     {
         const _isPrivate = object?.isPublic ?? isPublic;
         return _isPrivate ? this.#privateBucket : this.#publicBucket;

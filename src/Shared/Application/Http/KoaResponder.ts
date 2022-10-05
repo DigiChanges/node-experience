@@ -1,7 +1,7 @@
 import { ParameterizedContext, Context } from 'koa';
 
 import IFormatResponder from '../../Presentation/Shared/IFormatResponder';
-import IFileDTO from '../../../File/Domain/Models/IFileDTO';
+import IFileVersionDTO from '../../../File/Domain/Models/IFileVersionDTO';
 import FormatError from '../../Presentation/Shared/FormatError';
 import ErrorHttpException from '../../Presentation/Shared/ErrorHttpException';
 import FormatResponder from '../../Presentation/Shared/FormatResponder';
@@ -68,7 +68,7 @@ class KoaResponder
         return ctx.body = result;
     }
 
-    public sendStream(fileDto: IFileDTO, ctx: Context & any, status: IHttpStatusCode)
+    public sendStream(fileDto: IFileVersionDTO, ctx: Context & any, status: IHttpStatusCode)
     {
         ctx.status = status.code;
         ctx.response.set('Content-Type', fileDto.metadata.mimeType);

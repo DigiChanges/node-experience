@@ -1,7 +1,7 @@
 import { EntitySchema } from 'typeorm';
 import File from '../../Domain/Entities/File';
 
-const FileSchema = new EntitySchema<File>({
+const FileTypeORM = new EntitySchema<File>({
     name: 'File',
     target: File,
     tableName: 'files',
@@ -10,30 +10,6 @@ const FileSchema = new EntitySchema<File>({
             type: 'uuid',
             primary: true,
             unique: true
-        },
-        name: {
-            type: String
-        },
-        originalName: {
-            type: String
-        },
-        mimeType: {
-            type: String
-        },
-        path: {
-            type: String
-        },
-        extension: {
-            type: String
-        },
-        size: {
-            type: Number
-        },
-        version: {
-            type: Number
-        },
-        isPublic: {
-            type: Boolean
         },
         createdAt: {
             name: 'createdAt',
@@ -56,12 +32,8 @@ const FileSchema = new EntitySchema<File>({
         {
             name: 'unq_file_1',
             columns: ['_id']
-        },
-        {
-            name: 'unq_path_name_is_public',
-            columns: ['name', 'path', 'isPublic']
         }
     ]
 });
 
-export default FileSchema;
+export default FileTypeORM;

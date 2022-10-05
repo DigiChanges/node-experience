@@ -1,24 +1,24 @@
 import internal from 'stream';
-import IFileDomain from '../Entities/IFileDomain';
-import IFileDTO from './IFileDTO';
+import IFileVersionDomain from '../Entities/IFileVersionDomain';
+import IFileVersionDTO from './IFileVersionDTO';
 
-class FileDTO implements IFileDTO
+class FileVersionDTO implements IFileVersionDTO
 {
-    private _metadata: IFileDomain;
+    private _metadata: IFileVersionDomain;
     private _stream: internal.Readable;
 
-    constructor(metadata: IFileDomain, stream: internal.Readable)
+    constructor(metadata: IFileVersionDomain, stream: internal.Readable)
     {
         this._metadata = metadata;
         this._stream = stream;
     }
 
-    public get metadata(): IFileDomain
+    public get metadata(): IFileVersionDomain
     {
         return this._metadata;
     }
 
-    public set metadata(v: IFileDomain)
+    public set metadata(v: IFileVersionDomain)
     {
         this._metadata = v;
     }
@@ -33,4 +33,4 @@ class FileDTO implements IFileDTO
     }
 }
 
-export default FileDTO;
+export default FileVersionDTO;

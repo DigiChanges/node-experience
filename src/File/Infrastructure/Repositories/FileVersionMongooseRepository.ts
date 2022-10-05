@@ -3,17 +3,18 @@ import { injectable } from 'inversify';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
+import IFileVersionRepository from './IFileVersionRepository';
+
 import FileFilter from '../../Presentation/Criterias/FileFilter';
 import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
-import IFile from '../Schemas/FileMongooseDocument';
+import IFileVersion from '../Schemas/FileVersionMongooseDocument';
+import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 
 import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/BaseMongooseRepository';
 import FileVersion from '../../Domain/Entities/FileVersion';
-import IFileDomain from '../../Domain/Entities/IFileDomain';
-import IFileRepository from './IFileRepository';
 
 @injectable()
-class FileMongooseRepository extends BaseMongooseRepository<IFileDomain, IFile> implements IFileRepository
+class FileVersionMongooseRepository extends BaseMongooseRepository<IFileVersionDomain, IFileVersion> implements IFileVersionRepository
 {
     constructor()
     {
@@ -22,7 +23,7 @@ class FileMongooseRepository extends BaseMongooseRepository<IFileDomain, IFile> 
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        const queryBuilder: Query<IFile[], IFile> = this.repository.find();
+        const queryBuilder: Query<IFileVersion[], IFileVersion> = this.repository.find();
         const filter = criteria.getFilter();
 
         if (filter.has(FileFilter.NAME))
@@ -37,4 +38,4 @@ class FileMongooseRepository extends BaseMongooseRepository<IFileDomain, IFile> 
     }
 }
 
-export default FileMongooseRepository;
+export default FileVersionMongooseRepository;

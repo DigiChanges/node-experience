@@ -19,8 +19,8 @@ import PresignedFileRepPayload from '../../Domain/Payloads/PresignedFileRepPaylo
 import FileUpdateBase64Payload from '../../Domain/Payloads/FileUpdateBase64Payload';
 import FileUpdateMultipartPayload from '../../Domain/Payloads/FileUpdateMultipartPayload';
 import RemoveFileUseCase from '../../Domain/UseCases/RemoveFileUseCase';
-import IFileDomain from '../../Domain/Entities/IFileDomain';
-import IFileDTO from '../../Domain/Models/IFileDTO';
+import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
+import IFileVersionDTO from '../../Domain/Models/IFileVersionDTO';
 
 class FileController
 {
@@ -40,7 +40,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async getFileMetadata(request: IdPayload): Promise<IFileDomain>
+    public async getFileMetadata(request: IdPayload): Promise<IFileVersionDomain>
     {
         await ValidatorRequest.handle(request);
 
@@ -72,7 +72,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async downloadStreamFile(request: IdPayload): Promise<IFileDTO>
+    public async downloadStreamFile(request: IdPayload): Promise<IFileVersionDTO>
     {
         await ValidatorRequest.handle(request);
 
@@ -96,7 +96,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async removeFile(request: IdPayload): Promise<IFileDomain>
+    public async removeFile(request: IdPayload): Promise<IFileVersionDomain>
     {
         await ValidatorRequest.handle(request);
 

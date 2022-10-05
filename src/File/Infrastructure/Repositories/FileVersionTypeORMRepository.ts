@@ -1,20 +1,20 @@
+import IFileVersionRepository from './IFileVersionRepository';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import TypeORMPaginator from '../../../Shared/Infrastructure/Orm/TypeORMPaginator';
 import FileFilter from '../../Presentation/Criterias/FileFilter';
-import FileSchema from '../Schemas/FileTypeORM';
+import FileVersionSchema from '../Schemas/FileVersionTypeORM';
 import FileVersion from '../../Domain/Entities/FileVersion';
+import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 
 import BaseTypeORMRepository from '../../../Shared/Infrastructure/Repositories/BaseTypeORMRepository';
-import IFileRepository from './IFileRepository';
-import IFileDomain from '../../Domain/Entities/IFileDomain';
 
-class FileTypeORMRepository extends BaseTypeORMRepository<IFileDomain> implements IFileRepository
+class FileVersionTypeORMRepository extends BaseTypeORMRepository<IFileVersionDomain> implements IFileVersionRepository
 {
     constructor()
     {
-        super(FileVersion.name, FileSchema);
+        super(FileVersion.name, FileVersionSchema);
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -37,4 +37,4 @@ class FileTypeORMRepository extends BaseTypeORMRepository<IFileDomain> implement
     }
 }
 
-export default FileTypeORMRepository;
+export default FileVersionTypeORMRepository;

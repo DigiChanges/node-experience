@@ -1,5 +1,5 @@
 import FileUpdateMultipartPayload from '../Payloads/FileUpdateMultipartPayload';
-import IFileDomain from '../Entities/IFileDomain';
+import IFileVersionDomain from '../Entities/IFileVersionDomain';
 import FileService from '../Services/FileService';
 
 class UpdateFileMultipartUseCase
@@ -15,7 +15,7 @@ class UpdateFileMultipartUseCase
             payload = await this.fileService.optimizeMultipartToUpdate(payload);
         }
 
-        let file: IFileDomain = await this.fileService.getOne(id);
+        let file: IFileVersionDomain = await this.fileService.getOneVersion(id);
         file = await this.fileService.update(file, payload);
         return await this.fileService.uploadFileMultipart(file, payload);
     }
