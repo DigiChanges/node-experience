@@ -16,7 +16,7 @@ class UploadBase64UseCase
             payload = await this.fileService.optimizeBase64ToUpload(payload);
         }
 
-        const file = await this.fileService.persist(new File());
+        let file = await this.fileService.persist(new File());
 
         const build = {
             hasOriginalName: payload.isOriginalName,
@@ -27,9 +27,10 @@ class UploadBase64UseCase
 
         let fileVersion: IFileVersionDomain = new FileVersion(build);
         fileVersion = await this.fileService.persistVersion(fileVersion, payload);
+        file = await this.fileService.update(file);
         await this.fileService.uploadFileBase64(fileVersion, payload);
 
-        return new FileDTO([fileVersion]);
+        return new FileDTO(file, [fileVersion]);
     }
 }
 

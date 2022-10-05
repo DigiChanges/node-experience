@@ -17,7 +17,7 @@ class UploadMultipartUseCase
             payload = await this.fileService.optimizeMultipartToUpload(payload);
         }
 
-        const file = await this.fileService.persist(new File());
+        let file = await this.fileService.persist(new File());
 
         const build = {
             hasOriginalName: payload.isOriginalName,
@@ -28,9 +28,10 @@ class UploadMultipartUseCase
 
         let fileVersion: IFileVersionDomain = new FileVersion(build);
         fileVersion = await this.fileService.persistVersion(fileVersion, payload);
+        file = await this.fileService.update(file);
         await this.fileService.uploadFileMultipart(fileVersion, payload);
 
-        return new FileDTO([fileVersion]);
+        return new FileDTO(file, [fileVersion]);
     }
 }
 

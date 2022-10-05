@@ -126,7 +126,7 @@ FileKoaHandler.put('/base64/:id', AuthorizeKoaMiddleware(Permissions.FILES_UPDAT
 
     const file = await controller.updateBase64(_request);
 
-    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileVersionTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
 FileKoaHandler.put('/:id', <any>FileKoaReqMulterMiddleware.single('file'), AuthorizeKoaMiddleware(Permissions.FILES_UPDATE), async(ctx: Koa.ParameterizedContext) =>
@@ -141,7 +141,7 @@ FileKoaHandler.put('/:id', <any>FileKoaReqMulterMiddleware.single('file'), Autho
 
     const file = await controller.updateMultipart(_request);
 
-    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileVersionTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
 FileKoaHandler.delete('/:id', AuthorizeKoaMiddleware(Permissions.FILES_DELETE), async(ctx: Koa.ParameterizedContext) =>

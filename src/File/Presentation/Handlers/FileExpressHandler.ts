@@ -140,7 +140,7 @@ class FileExpressHandler
 
         const file = await this.controller.updateBase64(_request);
 
-        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileVersionTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
     @httpPut('/:id', FileExpressReqMulterMiddleware.single('file'), AuthorizeExpressMiddleware(Permissions.FILES_UPDATE))
@@ -156,7 +156,7 @@ class FileExpressHandler
 
         const file = await this.controller.updateMultipart(_request);
 
-        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileVersionTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
     @httpDelete('/:id', AuthorizeExpressMiddleware(Permissions.FILES_DELETE))
     public async deleteFile(@request() req: Request, @response() res: Response, @next() nex: NextFunction)

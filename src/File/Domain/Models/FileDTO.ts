@@ -7,9 +7,9 @@ class FileDTO implements IFileDTO
     private readonly _file: IFileDomain;
     private readonly _versions: IFileVersionDomain[];
 
-    constructor(fileVersions: IFileVersionDomain[])
+    constructor(file: IFileDomain, fileVersions: IFileVersionDomain[])
     {
-        this._file = fileVersions[0].file;
+        this._file = file;
         this._versions = fileVersions;
     }
 

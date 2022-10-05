@@ -56,14 +56,14 @@ class MinioStrategy implements IFilesystem
     async uploadFile(object: IFileVersionDomain, path: string)
     {
         const acl = object.isPublic ? 'public-read' : 'private';
-        return await this.#filesystem.fPutObject(this.getBucket(object), `${this.#rootPath}/${object.name}`, path, { 'x-amz-acl': acl });
+        return await this.#filesystem.fPutObject(this.getBucket(object), `${this.#rootPath}${object.path}${object.name}`, path, { 'x-amz-acl': acl });
     }
 
     async uploadFileByBuffer(object: IFileVersionDomain, base64Data: string)
     {
         const buffer = Buffer.from(base64Data, 'base64');
 
-        return await this.#filesystem.putObject(this.getBucket(object), `${this.#rootPath}/${object.name}`, buffer, object.size, {
+        return await this.#filesystem.putObject(this.getBucket(object), `${this.#rootPath}${object.path}${object.name}`, buffer, object.size, {
             'content-type': object.mimeType
         });
     }

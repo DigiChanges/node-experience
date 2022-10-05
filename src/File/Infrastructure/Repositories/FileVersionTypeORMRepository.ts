@@ -35,6 +35,11 @@ class FileVersionTypeORMRepository extends BaseTypeORMRepository<IFileVersionDom
 
         return new TypeORMPaginator(queryBuilder, criteria);
     }
+
+    getLastOneBy(fileId: string): Promise<IFileVersionDomain>
+    {
+        return Promise.resolve(undefined);
+    }
 }
 
 export default FileVersionTypeORMRepository;

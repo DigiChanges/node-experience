@@ -1,4 +1,4 @@
-import { Query } from 'mongoose';
+import { FilterQuery, Query } from 'mongoose';
 import { injectable } from 'inversify';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
@@ -35,6 +35,16 @@ class FileVersionMongooseRepository extends BaseMongooseRepository<IFileVersionD
         }
 
         return new MongoosePaginator(queryBuilder, criteria);
+    }
+
+    async getLastOneBy(fileId: string): Promise<IFileVersionDomain>
+    {
+        const [fileVersion] = await this.repository.find({ file: fileId })
+            .sort({ version: -1 })
+            .limit(1)
+            .populate(this.populate);
+
+        return fileVersion;
     }
 }
 

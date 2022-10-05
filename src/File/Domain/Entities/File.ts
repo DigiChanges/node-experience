@@ -8,7 +8,7 @@ class File extends Base implements IFileDomain
     constructor()
     {
         super();
-        this.currentVersion = 1;
+        this.currentVersion = 0;
     }
 }
 

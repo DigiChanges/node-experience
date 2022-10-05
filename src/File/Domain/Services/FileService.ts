@@ -44,6 +44,11 @@ class FileService
         this.fileSystem = FilesystemFactory.create();
     }
 
+    async getOne(id: string): Promise<IFileDomain>
+    {
+        return await this.fileRepository.getOne(id);
+    }
+
     async persist(file: IFileDomain): Promise<IFileDomain>
     {
         return this.fileRepository.save(file);
@@ -78,12 +83,11 @@ class FileService
         return await this.versionRepository.save(fileVersion);
     }
 
-    async update(fileVersion: IFileVersionDomain, payload: FilePayload): Promise<IFileVersionDomain>
+    async update(file: IFileDomain): Promise<IFileDomain>
     {
-        fileVersion.originalName = payload.originalName;
-        fileVersion.setName(payload.isOriginalName);
+        file.currentVersion++;
 
-        return await this.persistVersion(fileVersion, payload);
+        return await this.persist(file);
     }
 
     async uploadFileBase64(fileVersion: IFileVersionDomain, payload: FileBase64RepPayload): Promise<any>
@@ -113,6 +117,11 @@ class FileService
     async getVersions(id: string): Promise<IFileVersionDomain[]>
     {
         return await this.versionRepository.getBy({ file: id });
+    }
+
+    async getLastVersions(id: string): Promise<IFileVersionDomain>
+    {
+        return await this.versionRepository.getOneBy({ file: id });
     }
 
     async getOneVersion(id: string): Promise<IFileVersionDomain>
