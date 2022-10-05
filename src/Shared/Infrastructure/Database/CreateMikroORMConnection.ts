@@ -7,8 +7,7 @@ import File from '../../../File/Infrastructure/Schemas/FileMikroORM';
 import ICreateConnection from './ICreateConnection';
 import Logger from '../../Application/Logger/Logger';
 import { DataSource } from 'typeorm';
-// import Notification from '../../Notification/Infrastructure/Schemas/NotificationMikroORM';
-// import TokenSchema from '../../AuthHelper/Infrastructure/Schemas/TokenMikroORM';
+import TokenSchema from '../../../Auth/Infrastructure/Schemas/TokenMikroORM';
 
 export let orm: MikroORM = null;
 
@@ -49,67 +48,19 @@ class CreateMikroORMConnection implements ICreateConnection
 
     async initConfigTest(): Promise<void>
     {
-        const db = newDb({
-            autoCreateForeignKeyIndices: true
-        });
-
-        db.public.registerFunction({
-            implementation: () => 'experience',
-            name: 'current_database'
-        });
-
-        db.public.registerFunction({
-            name: 'version',
-            implementation: () =>
-            {
-                return 'PostgreSQL 11.16 (Debian 11.16-1.pgdg90+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 6.3.0-18+deb9u1) 6.3.0 20170516, 64-bit';
-            }
-        });
-
-        db.public.registerFunction({
-            name: 'pg_views',
-            implementation: () =>
-            {
-                return [];
-            }
-        });
-
-        db.public.registerFunction({
-            name: 'pg_matviews',
-            implementation: () =>
-            {
-                return null;
-            }
-        });
-
-        db.public.interceptQueries(text =>
-        {
-            if (text === 'SELECT \'DROP VIEW IF EXISTS "\' || schemaname || \'"."\' || viewname || \'" CASCADE;\' as "query" FROM "pg_views" WHERE "schemaname" IN (current_schema()) AND "viewname" NOT IN (\'geography_columns\', \'geometry_columns\', \'raster_columns\', \'raster_overviews\')')
-            {
-                return [];
-            }
-
-            if (text === 'SELECT \'DROP MATERIALIZED VIEW IF EXISTS "\' || schemaname || \'"."\' || matviewname || \'" CASCADE;\' as "query" FROM "pg_matviews" WHERE "schemaname" IN (current_schema())')
-            {
-                return [];
-            }
-
-            if (text === 'SELECT \'DROP TABLE IF EXISTS "\' || schemaname || \'"."\' || tablename || \'" CASCADE;\' as "query" FROM "pg_tables" WHERE "schemaname" IN (current_schema()) AND "tablename" NOT IN (\'spatial_ref_sys\')')
-            {
-                return [];
-            }
-
-            if (text === 'SELECT \'DROP TYPE IF EXISTS "\' || n.nspname || \'"."\' || t.typname || \'" CASCADE;\' as "query" FROM "pg_type" "t" INNER JOIN "pg_enum" "e" ON "e"."enumtypid" = "t"."oid" INNER JOIN "pg_namespace" "n" ON "n"."oid" = "t"."typnamespace" WHERE "n"."nspname" IN (current_schema()) GROUP BY "n"."nspname", "t"."typname"')
-            {
-                return [];
-            }
-
-            return null;
-        });
+        const db = newDb();
 
         orm = await db.adapters.createMikroOrm({
-            entities: [...this.entities]
+            entities: [...this.entities, TokenSchema]
         });
+
+        const generator = orm.getSchemaGenerator();
+
+        await generator.dropSchema();
+        await generator.getCreateSchemaSQL();
+        await generator.getUpdateSchemaSQL();
+
+        await generator.refreshDatabase();
     }
 
     async create(): Promise<any>
@@ -124,13 +75,16 @@ class CreateMikroORMConnection implements ICreateConnection
 
     async drop(): Promise<any>
     {
-        return Promise.resolve(undefined); // TODO: drop
+        const generator = orm.getSchemaGenerator();
+        await generator.getDropSchemaSQL();
+        return await generator.refreshDatabase();
     }
 
     async synchronize(): Promise<void>
     {
-        const generator = orm.getSchemaGenerator();
+        const generator = orm.getSchemaGenerator(); // this also creates the schema
 
+        /* This isn't necessary, but informative */
         const dropDump = await generator.getDropSchemaSQL();
         Logger.debug(dropDump);
 
@@ -139,6 +93,8 @@ class CreateMikroORMConnection implements ICreateConnection
 
         const updateDump = await generator.getUpdateSchemaSQL();
         Logger.debug(updateDump);
+
+        await generator.refreshDatabase(); // without this, the schema 'll not update
     }
 }
 
