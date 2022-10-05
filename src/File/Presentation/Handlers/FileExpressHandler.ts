@@ -13,12 +13,13 @@ import FileBase64RepRequest from '../Requests/FileBase64RepRequest';
 import FileMultipartRepRequest from '../Requests/FileMultipartRepRequest';
 import PresignedFileRepRequest from '../Requests/PresignedFileRepRequest';
 import FileRequestCriteria from '../Requests/FileRequestCriteria';
-import FileTransformer from '../Transformers/FileTransformer';
+import FileVersionTransformer from '../Transformers/FileVersionTransformer';
 import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 import FileUpdateMultipartRequest from '../Requests/FileUpdateMultipartRequest';
 import FileUpdateBase64Request from '../Requests/FileUpdateBase64Request';
 import ObjectTransformer from '../Transformers/ObjectTransformer';
 import FileController from '../Controllers/FileController';
+import FileTransformer from '../Transformers/FileTransformer';
 
 @controller('/api/files')
 class FileExpressHandler
@@ -39,7 +40,7 @@ class FileExpressHandler
 
         const paginator: IPaginator = await this.controller.list(_request);
 
-        await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new FileTransformer());
+        await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new FileVersionTransformer());
     }
 
     @httpGet('/objects', AuthorizeExpressMiddleware(Permissions.FILES_LIST))
@@ -59,7 +60,7 @@ class FileExpressHandler
 
         const file = await this.controller.getFileMetadata(_request);
 
-        void await this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileVersionTransformer());
     }
 
     @httpPost('/base64', AuthorizeExpressMiddleware(Permissions.FILES_UPLOAD))
@@ -86,7 +87,6 @@ class FileExpressHandler
         };
 
         const _request = new FileMultipartRepRequest(body);
-
         const file = await this.controller.uploadMultipart(_request);
 
         void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
@@ -124,7 +124,7 @@ class FileExpressHandler
 
         const file = await this.controller.removeFile(_request);
 
-        void await this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileVersionTransformer());
     }
 
     @httpPut('/base64/:id', AuthorizeExpressMiddleware(Permissions.FILES_UPDATE))
@@ -140,7 +140,7 @@ class FileExpressHandler
 
         const file = await this.controller.updateBase64(_request);
 
-        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileVersionTransformer());
     }
 
     @httpPut('/:id', FileExpressReqMulterMiddleware.single('file'), AuthorizeExpressMiddleware(Permissions.FILES_UPDATE))
@@ -156,7 +156,7 @@ class FileExpressHandler
 
         const file = await this.controller.updateMultipart(_request);
 
-        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileVersionTransformer());
     }
     @httpDelete('/:id', AuthorizeExpressMiddleware(Permissions.FILES_DELETE))
     public async deleteFile(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
@@ -169,7 +169,7 @@ class FileExpressHandler
 
         const file = await this.controller.removeFile(_request);
 
-        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileVersionTransformer());
     }
 }
 

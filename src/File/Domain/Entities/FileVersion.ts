@@ -19,11 +19,18 @@ class FileVersion extends Base implements IFileVersionDomain
     constructor(data?: IFileBuild)
     {
         super();
+        this.file = data.file;
         this.version = 1;
         this.isPublic = false;
         this.isOptimized = data?.isOptimized;
         this.originalName = data?.originalName ?? 'empty.jpg';
         this.setName(data?.hasOriginalName ?? false);
+        this.setPath();
+    }
+
+    private setPath()
+    {
+        this.path = `/${this.file.getId()}/${this.version}/`;
     }
 
     public setName(hasOriginalName: boolean)

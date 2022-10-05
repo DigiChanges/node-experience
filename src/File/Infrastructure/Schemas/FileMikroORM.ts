@@ -22,6 +22,9 @@ const FileMikroORM = new EntitySchema<File>({
             primary: true,
             unique: true
         },
+        currentVersion: {
+            type: 'number'
+        },
         createdAt: {
             type: 'Date',
             onCreate: () => new Date(), nullable: true

@@ -28,6 +28,7 @@ import FileUpdateBase64Payload from '../Payloads/FileUpdateBase64Payload';
 import FileUpdateBase64OptimizeDTO from '../../Presentation/Requests/FileUpdateBase64OptimizeDTO';
 import FilePayload from '../Payloads/FilePayload';
 import IFileRepository from '../../Infrastructure/Repositories/IFileRepository';
+import IFileDomain from '../Entities/IFileDomain';
 
 class FileService
 {
@@ -38,8 +39,14 @@ class FileService
     constructor()
     {
         const { container } = getRequestContext();
-        this.versionRepository = container.resolve<IFileVersionRepository>(REPOSITORIES.IFileRepository);
+        this.versionRepository = container.resolve<IFileVersionRepository>(REPOSITORIES.IFileVersionRepository);
+        this.fileRepository = container.resolve<IFileRepository>(REPOSITORIES.IFileRepository);
         this.fileSystem = FilesystemFactory.create();
+    }
+
+    async persist(file: IFileDomain): Promise<IFileDomain>
+    {
+        return this.fileRepository.save(file);
     }
 
     async getPresignedGetObject(payload: PresignedFileRepPayload): Promise<string>
@@ -61,10 +68,9 @@ class FileService
         return await this.getFileUrl(fileVersion, expiry);
     }
 
-    async persist(fileVersion: IFileVersionDomain, payload: FileRepPayload): Promise<IFileVersionDomain>
+    async persistVersion(fileVersion: IFileVersionDomain, payload: FileRepPayload): Promise<IFileVersionDomain>
     {
         fileVersion.extension = payload.extension;
-        fileVersion.path = payload.path;
         fileVersion.mimeType = payload.mimeType;
         fileVersion.size = payload.size;
         fileVersion.isPublic = payload.isPublic;
@@ -77,7 +83,7 @@ class FileService
         fileVersion.originalName = payload.originalName;
         fileVersion.setName(payload.isOriginalName);
 
-        return await this.persist(fileVersion, payload);
+        return await this.persistVersion(fileVersion, payload);
     }
 
     async uploadFileBase64(fileVersion: IFileVersionDomain, payload: FileBase64RepPayload): Promise<any>
@@ -102,6 +108,11 @@ class FileService
     async listObjects(payload: ListObjectsPayload): Promise<any>
     {
         return await this.fileSystem.listObjects(payload);
+    }
+
+    async getVersions(id: string): Promise<IFileVersionDomain[]>
+    {
+        return await this.versionRepository.getBy({ file: id });
     }
 
     async getOneVersion(id: string): Promise<IFileVersionDomain>

@@ -6,7 +6,7 @@ import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 import FileController from '../Controllers/FileController';
 import FileRequestCriteria from '../Requests/FileRequestCriteria';
-import FileTransformer from '../Transformers/FileTransformer';
+import FileVersionTransformer from '../Transformers/FileVersionTransformer';
 import ListObjectsRequest from '../Requests/ListObjectsRequest';
 import FileBase64RepRequest from '../Requests/FileBase64RepRequest';
 import PresignedFileRepRequest from '../Requests/PresignedFileRepRequest';
@@ -17,6 +17,7 @@ import FileKoaReqMulterMiddleware from '../Middlewares/FileKoaReqMulterMiddlewar
 import ObjectTransformer from '../Transformers/ObjectTransformer';
 import AuthorizeKoaMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeKoaMiddleware';
 import Permissions from '../../../Config/Permissions';
+import FileTransformer from '../Transformers/FileTransformer';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/files'
@@ -32,7 +33,7 @@ FileKoaHandler.get('/', AuthorizeKoaMiddleware(Permissions.FILES_LIST), async(ct
 
     const paginator: IPaginator = await controller.list(_request);
 
-    await responder.paginate(paginator, ctx, StatusCode.HTTP_OK, new FileTransformer());
+    await responder.paginate(paginator, ctx, StatusCode.HTTP_OK, new FileVersionTransformer());
 });
 
 FileKoaHandler.get('/objects', AuthorizeKoaMiddleware(Permissions.FILES_LIST), async(ctx: Koa.ParameterizedContext & any) =>
@@ -50,7 +51,7 @@ FileKoaHandler.get('/metadata/:id', AuthorizeKoaMiddleware(Permissions.FILES_SHO
 
     const file = await controller.getFileMetadata(_request);
 
-    void await responder.send(file, ctx, StatusCode.HTTP_OK, new FileTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_OK, new FileVersionTransformer());
 });
 
 FileKoaHandler.post('/base64', AuthorizeKoaMiddleware(Permissions.FILES_UPLOAD), async(ctx: Koa.ParameterizedContext & any) =>
@@ -110,7 +111,7 @@ FileKoaHandler.get('/:id', AuthorizeKoaMiddleware(Permissions.FILES_DELETE), asy
 
     const file = await controller.removeFile(_request);
 
-    void await responder.send(file, ctx, StatusCode.HTTP_OK, new FileTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_OK, new FileVersionTransformer());
 });
 
 FileKoaHandler.put('/base64/:id', AuthorizeKoaMiddleware(Permissions.FILES_UPDATE), async(ctx: Koa.ParameterizedContext) =>
@@ -125,7 +126,7 @@ FileKoaHandler.put('/base64/:id', AuthorizeKoaMiddleware(Permissions.FILES_UPDAT
 
     const file = await controller.updateBase64(_request);
 
-    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileVersionTransformer());
 });
 
 FileKoaHandler.put('/:id', <any>FileKoaReqMulterMiddleware.single('file'), AuthorizeKoaMiddleware(Permissions.FILES_UPDATE), async(ctx: Koa.ParameterizedContext) =>
@@ -140,7 +141,7 @@ FileKoaHandler.put('/:id', <any>FileKoaReqMulterMiddleware.single('file'), Autho
 
     const file = await controller.updateMultipart(_request);
 
-    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileVersionTransformer());
 });
 
 FileKoaHandler.delete('/:id', AuthorizeKoaMiddleware(Permissions.FILES_DELETE), async(ctx: Koa.ParameterizedContext) =>
@@ -153,7 +154,7 @@ FileKoaHandler.delete('/:id', AuthorizeKoaMiddleware(Permissions.FILES_DELETE), 
 
     const file = await controller.removeFile(_request);
 
-    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileVersionTransformer());
 });
 
 export default FileKoaHandler;

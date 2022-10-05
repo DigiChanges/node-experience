@@ -11,6 +11,9 @@ const FileTypeORM = new EntitySchema<File>({
             primary: true,
             unique: true
         },
+        currentVersion: {
+            type: 'number'
+        },
         createdAt: {
             name: 'createdAt',
             type: 'timestamp with time zone',

@@ -8,16 +8,16 @@ import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePagina
 import IFile from '../Schemas/FileMongooseDocument';
 
 import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/BaseMongooseRepository';
-import FileVersion from '../../Domain/Entities/FileVersion';
 import IFileDomain from '../../Domain/Entities/IFileDomain';
 import IFileRepository from './IFileRepository';
+import File from '../../Domain/Entities/File';
 
 @injectable()
 class FileMongooseRepository extends BaseMongooseRepository<IFileDomain, IFile> implements IFileRepository
 {
     constructor()
     {
-        super(FileVersion.name);
+        super(File.name);
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>

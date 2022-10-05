@@ -1,29 +1,29 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import Transformer from '../../../Shared/Presentation/Shared/Transformer';
-
-import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
+import IFileDTO from '../../Domain/Models/IFileDTO';
 import IFileTransformer from './IFileTransformer';
+import FileVersionTransformer from './FileVersionTransformer';
 
 class FileTransformer extends Transformer
 {
-    public async transform(fileVersion: IFileVersionDomain): Promise<IFileTransformer>
+    private fileVersionTransformer: FileVersionTransformer;
+
+    constructor()
+    {
+        super();
+        this.fileVersionTransformer = new FileVersionTransformer();
+    }
+    public async transform(fileDto: IFileDTO): Promise<IFileTransformer>
     {
         dayjs.extend(utc);
+
         return {
-            id: fileVersion.getId(),
-            name: fileVersion.name,
-            originalName: fileVersion.originalName,
-            extension: fileVersion.extension,
-            path: fileVersion.path,
-            mimeType: fileVersion.mimeType,
-            size: fileVersion.size,
-            version: fileVersion.version,
-            isPublic: fileVersion.isPublic,
-            isOptimized: fileVersion.isOptimized,
-            file: fileVersion.file,
-            createdAt: dayjs(fileVersion.createdAt).utc().unix(),
-            updatedAt: dayjs(fileVersion.updatedAt).utc().unix()
+            id: fileDto.file.getId(),
+            currentVersion: fileDto.file.currentVersion,
+            versions: await this.fileVersionTransformer.handle(fileDto.versions),
+            createdAt: dayjs(fileDto.file.createdAt).utc().unix(),
+            updatedAt: dayjs(fileDto.file.updatedAt).utc().unix()
         };
     }
 }
