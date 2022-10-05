@@ -1,12 +1,13 @@
 import { MikroORM } from '@mikro-orm/core';
+import { newDb } from 'pg-mem';
 import User from '../../../User/Infrastructure/Schemas/UserMikroORM';
 import Role from '../../../Role/Infrastructure/Schemas/RoleMikroORM';
 import Item from '../../../Item/Infrastructure/Schemas/ItemMikroORM';
 import File from '../../../File/Infrastructure/Schemas/FileMikroORM';
 import ICreateConnection from './ICreateConnection';
 import Logger from '../../Application/Logger/Logger';
-// import Notification from '../../Notification/Infrastructure/Schemas/NotificationMikroORM';
-// import TokenSchema from '../../AuthHelper/Infrastructure/Schemas/TokenMikroORM';
+import { DataSource } from 'typeorm';
+import TokenSchema from '../../../Auth/Infrastructure/Schemas/TokenMikroORM';
 
 export let orm: MikroORM = null;
 
@@ -45,9 +46,21 @@ class CreateMikroORMConnection implements ICreateConnection
         };
     }
 
-    async initConfigTest(): Promise<any>
+    async initConfigTest(): Promise<void>
     {
-        return Promise.resolve(undefined); // TODO: Set init config
+        const db = newDb();
+
+        orm = await db.adapters.createMikroOrm({
+            entities: [...this.entities, TokenSchema]
+        });
+
+        const generator = orm.getSchemaGenerator();
+
+        await generator.dropSchema();
+        await generator.getCreateSchemaSQL();
+        await generator.getUpdateSchemaSQL();
+
+        await generator.refreshDatabase();
     }
 
     async create(): Promise<any>
@@ -62,13 +75,16 @@ class CreateMikroORMConnection implements ICreateConnection
 
     async drop(): Promise<any>
     {
-        return Promise.resolve(undefined); // TODO: drop
+        const generator = orm.getSchemaGenerator();
+        await generator.getDropSchemaSQL();
+        return await generator.refreshDatabase();
     }
 
     async synchronize(): Promise<void>
     {
-        const generator = orm.getSchemaGenerator();
+        const generator = orm.getSchemaGenerator(); // this also creates the schema
 
+        /* This isn't necessary, but informative */
         const dropDump = await generator.getDropSchemaSQL();
         Logger.debug(dropDump);
 
@@ -77,6 +93,8 @@ class CreateMikroORMConnection implements ICreateConnection
 
         const updateDump = await generator.getUpdateSchemaSQL();
         Logger.debug(updateDump);
+
+        await generator.refreshDatabase(); // without this, the schema 'll not update
     }
 }
 
