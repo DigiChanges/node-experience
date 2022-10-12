@@ -35,9 +35,16 @@ class FileVersionMikroORMRepository extends BaseMikroORMRepository<IFileVersionD
         return new Paginator(queryBuilder, criteria);
     }
 
-    getLastOneBy(conditions: Record<string, any>): Promise<IFileVersionDomain>
+    async getLastOneBy(conditions: Record<string, any>): Promise<IFileVersionDomain>
     {
-        return Promise.resolve(undefined);
+        const options = {
+            populate: this.populate,
+            orderBy: { createdAt: 'desc' },
+            limit: 1
+        };
+        const [fileVersion] = await this.repository.find(conditions, options as any);
+
+        return fileVersion;
     }
 }
 

@@ -36,9 +36,16 @@ class FileVersionTypeORMRepository extends BaseTypeORMRepository<IFileVersionDom
         return new TypeORMPaginator(queryBuilder, criteria);
     }
 
-    getLastOneBy(conditions: Record<string, any>): Promise<IFileVersionDomain>
+    async getLastOneBy(conditions: Record<string, any>): Promise<IFileVersionDomain>
     {
-        return Promise.resolve(undefined);
+        const options: any = {
+            ...conditions,
+            order: { createdAt: 'DESC' },
+            take: 1
+        };
+        const [fileVersion] = await this.repository.find(options);
+
+        return fileVersion;
     }
 }
 

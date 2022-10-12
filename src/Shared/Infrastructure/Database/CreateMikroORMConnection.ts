@@ -3,11 +3,10 @@ import { newDb } from 'pg-mem';
 import User from '../../../User/Infrastructure/Schemas/UserMikroORM';
 import Role from '../../../Role/Infrastructure/Schemas/RoleMikroORM';
 import Item from '../../../Item/Infrastructure/Schemas/ItemMikroORM';
-import File from '../../../File/Infrastructure/Schemas/FileVersionMikroORM';
+import File from '../../../File/Infrastructure/Schemas/FileMikroORM';
 import FileVersion from '../../../File/Infrastructure/Schemas/FileVersionMikroORM';
 import ICreateConnection from './ICreateConnection';
 import Logger from '../../Application/Logger/Logger';
-import { DataSource } from 'typeorm';
 import TokenSchema from '../../../Auth/Infrastructure/Schemas/TokenMikroORM';
 
 export let orm: MikroORM = null;

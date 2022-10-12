@@ -6,12 +6,11 @@ const FileVersionSchema = new EntitySchema<FileVersion>({
     tableName: 'file_versions',
     class: FileVersion,
     indexes: [{
-        name: 'id_file_1',
         properties: '_id'
     }],
     uniques: [
         {
-            name: 'unq_file_1',
+            name: 'unq_file_version_1',
             properties: ['_id']
         },
         {
