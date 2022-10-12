@@ -26,9 +26,11 @@ import FileUpdateMultipartPayload from '../Payloads/FileUpdateMultipartPayload';
 import FileUpdateMultipartOptimizeDTO from '../../Presentation/Requests/FileUpdateMultipartOptimizeDTO';
 import FileUpdateBase64Payload from '../Payloads/FileUpdateBase64Payload';
 import FileUpdateBase64OptimizeDTO from '../../Presentation/Requests/FileUpdateBase64OptimizeDTO';
-import FilePayload from '../Payloads/FilePayload';
 import IFileRepository from '../../Infrastructure/Repositories/IFileRepository';
 import IFileDomain from '../Entities/IFileDomain';
+import File from '../Entities/File';
+import IFileVersionOptimizeDTO from '../Payloads/IFileVersionOptimizeDTO';
+import FileVersionOptimizeDTO from '../../Presentation/Requests/FileVersionOptimizeDTO';
 
 class FileService
 {
@@ -49,8 +51,9 @@ class FileService
         return await this.fileRepository.getOne(id);
     }
 
-    async persist(file: IFileDomain): Promise<IFileDomain>
+    async persist(): Promise<IFileDomain>
     {
+        const file = new File();
         return this.fileRepository.save(file);
     }
 
@@ -87,7 +90,7 @@ class FileService
     {
         file.currentVersion++;
 
-        return await this.persist(file);
+        return this.fileRepository.save(file);
     }
 
     async uploadFileBase64(fileVersion: IFileVersionDomain, payload: FileBase64RepPayload): Promise<any>
@@ -98,6 +101,13 @@ class FileService
     }
 
     async uploadFileMultipart(fileVersion: IFileVersionDomain, payload: FileMultipartRepPayload): Promise<any>
+    {
+        await this.fileSystem.uploadFile(fileVersion, payload.file.path);
+
+        return fileVersion;
+    }
+
+    async uploadFileVersionOptimized(fileVersion: IFileVersionDomain, payload: IFileVersionOptimizeDTO): Promise<any>
     {
         await this.fileSystem.uploadFile(fileVersion, payload.file.path);
 
@@ -121,7 +131,7 @@ class FileService
 
     async getLastVersions(id: string): Promise<IFileVersionDomain>
     {
-        return await this.versionRepository.getOneBy({ file: id });
+        return await this.versionRepository.getLastOneBy(id);
     }
 
     async getOneVersion(id: string): Promise<IFileVersionDomain>
@@ -149,7 +159,8 @@ class FileService
     async download(payload: IdPayload): Promise<IFileVersionDTO>
     {
         const id = payload.id;
-        const fileVersion: IFileVersionDomain = await this.getOneVersion(id);
+        const fileVersion: IFileVersionDomain = await this.getLastVersions(id);
+
         const stream = await this.fileSystem.downloadStreamFile(fileVersion);
 
         return new FileVersionDTO(fileVersion, stream);
@@ -170,6 +181,25 @@ class FileService
         const fileVersion = await this.versionRepository.delete(id);
         void await this.fileSystem.removeObjects(fileVersion);
         return fileVersion;
+    }
+
+    private async getFileVersionOptimized(fileVersion: IFileVersionDomain): Promise<IFileMultipart>
+    {
+        const path = await this.fileSystem.downloadFile(fileVersion);
+        const encoder = CWebp(path);
+        const newPath = path.replace(fileVersion.extension, 'webp');
+        await encoder.write(newPath);
+
+        return {
+            fieldname: fileVersion.name,
+            originalname: fileVersion.originalName.replace(fileVersion.extension, 'webp'),
+            encoding: '',
+            mimetype: 'image/webp',
+            destination: '',
+            filename: fileVersion.name.replace(fileVersion.extension, 'webp'),
+            path: newPath,
+            size: fileVersion.size
+        };
     }
 
     private async getFileMultipartOptimized(payload: FileMultipartRepPayload): Promise<IFileMultipart>
@@ -227,6 +257,13 @@ class FileService
         const base64data = await this.getFileBase64Optimized(payload);
 
         return new FileUpdateBase64OptimizeDTO(payload, base64data);
+    }
+
+    async optimizeFileVersion(fileVersion: IFileVersionDomain): Promise<IFileVersionOptimizeDTO>
+    {
+        const multipart = await this.getFileVersionOptimized(fileVersion);
+
+        return new FileVersionOptimizeDTO(multipart, fileVersion);
     }
 }
 

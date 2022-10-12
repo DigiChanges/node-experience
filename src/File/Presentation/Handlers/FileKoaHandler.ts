@@ -51,7 +51,7 @@ FileKoaHandler.get('/metadata/:id', AuthorizeKoaMiddleware(Permissions.FILES_SHO
 
     const file = await controller.getFileMetadata(_request);
 
-    void await responder.send(file, ctx, StatusCode.HTTP_OK, new FileVersionTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_OK, new FileTransformer());
 });
 
 FileKoaHandler.post('/base64', AuthorizeKoaMiddleware(Permissions.FILES_UPLOAD), async(ctx: Koa.ParameterizedContext & any) =>

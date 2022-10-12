@@ -21,6 +21,8 @@ import FileUpdateMultipartPayload from '../../Domain/Payloads/FileUpdateMultipar
 import RemoveFileUseCase from '../../Domain/UseCases/RemoveFileUseCase';
 import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 import IFileVersionDTO from '../../Domain/Models/IFileVersionDTO';
+import IFileDTO from '../../Domain/Models/IFileDTO';
+import OptimizeUseCase from '../../Domain/UseCases/OptimizeUseCase';
 
 class FileController
 {
@@ -40,7 +42,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async getFileMetadata(request: IdPayload): Promise<IFileVersionDomain>
+    public async getFileMetadata(request: IdPayload): Promise<IFileDTO>
     {
         await ValidatorRequest.handle(request);
 
@@ -53,6 +55,14 @@ class FileController
         await ValidatorRequest.handle(request);
 
         const useCase = new UploadBase64UseCase();
+        return await useCase.handle(request);
+    }
+
+    public async optimize(request: IdPayload): Promise<any>
+    {
+        await ValidatorRequest.handle(request);
+
+        const useCase = new OptimizeUseCase();
         return await useCase.handle(request);
     }
 

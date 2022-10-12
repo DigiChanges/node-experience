@@ -13,6 +13,7 @@ interface IFileVersionDomain extends IBaseDomain
     isPublic: boolean;
     isOptimized: boolean;
     file: IFileDomain;
+    objectPath: string;
     setName(hasOriginalName: boolean): void;
 }
 

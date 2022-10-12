@@ -60,7 +60,17 @@ class FileExpressHandler
 
         const file = await this.controller.getFileMetadata(_request);
 
-        void await this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileVersionTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileTransformer());
+    }
+
+    @httpPost('/optimize/:id', AuthorizeExpressMiddleware(Permissions.FILES_UPLOAD))
+    public async optimize(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
+    {
+        const _request = new IdRequest({ id: req.params.id });
+
+        const file = await this.controller.optimize(_request);
+
+        void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
     @httpPost('/base64', AuthorizeExpressMiddleware(Permissions.FILES_UPLOAD))

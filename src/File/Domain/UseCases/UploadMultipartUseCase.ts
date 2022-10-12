@@ -17,7 +17,7 @@ class UploadMultipartUseCase
             payload = await this.fileService.optimizeMultipartToUpload(payload);
         }
 
-        let file = await this.fileService.persist(new File());
+        let file = await this.fileService.persist();
 
         const build = {
             hasOriginalName: payload.isOriginalName,

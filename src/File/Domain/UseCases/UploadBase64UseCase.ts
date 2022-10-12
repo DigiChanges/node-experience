@@ -16,7 +16,7 @@ class UploadBase64UseCase
             payload = await this.fileService.optimizeBase64ToUpload(payload);
         }
 
-        let file = await this.fileService.persist(new File());
+        let file = await this.fileService.persist();
 
         const build = {
             hasOriginalName: payload.isOriginalName,

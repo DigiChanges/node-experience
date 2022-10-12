@@ -35,12 +35,12 @@ class MinioStrategy implements IFilesystem
     async presignedGetObject(object: IFileVersionDomain, expiry: number, respHeaders?: { [key: string]: any; }): Promise<string>
     {
         const bucket = this.getBucket(object);
-        return await this.#filesystem.presignedGetObject(bucket, `${this.#rootPath}/${object.name}`, expiry, respHeaders);
+        return await this.#filesystem.presignedGetObject(bucket, `${this.#rootPath}${object.objectPath}`, expiry, respHeaders);
     }
 
-    async presignedPutObject(objectName: string, expiry: number, isPrivate = true): Promise<string>
+    async presignedPutObject(objectPath: string, expiry: number, isPrivate = true): Promise<string>
     {
-        return await this.#filesystem.presignedPutObject(this.getBucket(null, isPrivate), objectName, expiry);
+        return await this.#filesystem.presignedPutObject(this.getBucket(null, isPrivate), objectPath, expiry);
     }
 
     async createBucket(bucketPrivate: string, region?: string): Promise<void>
@@ -56,30 +56,30 @@ class MinioStrategy implements IFilesystem
     async uploadFile(object: IFileVersionDomain, path: string)
     {
         const acl = object.isPublic ? 'public-read' : 'private';
-        return await this.#filesystem.fPutObject(this.getBucket(object), `${this.#rootPath}${object.path}${object.name}`, path, { 'x-amz-acl': acl });
+        return await this.#filesystem.fPutObject(this.getBucket(object), `${this.#rootPath}${object.objectPath}`, path, { 'x-amz-acl': acl });
     }
 
     async uploadFileByBuffer(object: IFileVersionDomain, base64Data: string)
     {
         const buffer = Buffer.from(base64Data, 'base64');
 
-        return await this.#filesystem.putObject(this.getBucket(object), `${this.#rootPath}${object.path}${object.name}`, buffer, object.size, {
+        return await this.#filesystem.putObject(this.getBucket(object), `${this.#rootPath}${object.objectPath}`, buffer, object.size, {
             'content-type': object.mimeType
         });
     }
 
-    async downloadFile(objectName: string, isPrivate = true): Promise<string>
+    async downloadFile(object: IFileVersionDomain, isPrivate = true): Promise<string>
     {
-        const filePath = `${this.#pathTemp}${objectName}`;
+        const filePath = `${this.#pathTemp}${object.name}`;
 
-        await this.#filesystem.fGetObject(this.getBucket(null, isPrivate), `${this.#rootPath}/${objectName}`, filePath);
+        await this.#filesystem.fGetObject(this.getBucket(object), `${this.#rootPath}${object.objectPath}`, filePath);
 
         return filePath;
     }
 
     async downloadStreamFile(object: IFileVersionDomain, isPrivate = true): Promise<internal.Readable>
     {
-        return await this.#filesystem.getObject(this.getBucket(object), `${this.#rootPath}/${object.name}`);
+        return await this.#filesystem.getObject(this.getBucket(object), `${this.#rootPath}${object.objectPath}`);
     }
 
     async listObjects(payload: ListObjectsPayload)

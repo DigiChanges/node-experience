@@ -46,6 +46,11 @@ class FileVersion extends Base implements IFileVersionDomain
                 .replace(/ /g, '_');
         }
     }
+
+    public get objectPath(): string
+    {
+        return `${this.path}${this.name}`;
+    }
 }
 
 export default FileVersion;
