@@ -51,6 +51,11 @@ class FileVersion extends Base implements IFileVersionDomain
     {
         return `${this.path}${this.name}`;
     }
+
+    public get isImage(): boolean
+    {
+        return this.mimeType?.includes('image');
+    }
 }
 
 export default FileVersion;

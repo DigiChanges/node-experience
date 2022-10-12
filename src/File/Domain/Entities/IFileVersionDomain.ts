@@ -14,6 +14,7 @@ interface IFileVersionDomain extends IBaseDomain
     isOptimized: boolean;
     file: IFileDomain;
     objectPath: string;
+    isImage: boolean;
     setName(hasOriginalName: boolean): void;
 }
 

@@ -6,7 +6,7 @@ import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 interface IFileVersionRepository extends IBaseRepository<IFileVersionDomain>
 {
     list(criteria: ICriteria): Promise<IPaginator>;
-    getLastOneBy(fileId: string): Promise<IFileVersionDomain>;
+    getLastOneBy(conditions: Record<string, any>): Promise<IFileVersionDomain>;
 }
 
 export default IFileVersionRepository;

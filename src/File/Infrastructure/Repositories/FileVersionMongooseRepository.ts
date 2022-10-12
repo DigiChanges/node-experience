@@ -37,9 +37,9 @@ class FileVersionMongooseRepository extends BaseMongooseRepository<IFileVersionD
         return new MongoosePaginator(queryBuilder, criteria);
     }
 
-    async getLastOneBy(fileId: string): Promise<IFileVersionDomain>
+    async getLastOneBy(conditions: Record<string, any>): Promise<IFileVersionDomain>
     {
-        const [fileVersion] = await this.repository.find({ file: fileId })
+        const [fileVersion] = await this.repository.find(conditions)
             .sort({ version: -1 })
             .limit(1)
             .populate(this.populate);

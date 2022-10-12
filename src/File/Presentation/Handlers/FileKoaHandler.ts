@@ -18,6 +18,7 @@ import ObjectTransformer from '../Transformers/ObjectTransformer';
 import AuthorizeKoaMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeKoaMiddleware';
 import Permissions from '../../../Config/Permissions';
 import FileTransformer from '../Transformers/FileTransformer';
+import OptimizeRequest from '../Requests/OptimizeRequest';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/files'
@@ -103,6 +104,20 @@ FileKoaHandler.get('/:id', AuthorizeKoaMiddleware(Permissions.FILES_DOWNLOAD), a
     const fileDto = await controller.downloadStreamFile(_request);
 
     responder.sendStream(fileDto, ctx, StatusCode.HTTP_OK);
+});
+
+FileKoaHandler.post('/optimize/:id', AuthorizeKoaMiddleware(Permissions.FILES_DELETE), async(ctx: Koa.ParameterizedContext) =>
+{
+    const body = {
+        id: ctx.params.id,
+        query: ctx.query
+    };
+
+    const _request = new OptimizeRequest(body);
+
+    const file = await controller.optimize(_request);
+
+    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
 FileKoaHandler.get('/:id', AuthorizeKoaMiddleware(Permissions.FILES_DELETE), async(ctx: Koa.ParameterizedContext) =>

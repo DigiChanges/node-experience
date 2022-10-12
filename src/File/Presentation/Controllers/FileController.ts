@@ -23,6 +23,7 @@ import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 import IFileVersionDTO from '../../Domain/Models/IFileVersionDTO';
 import IFileDTO from '../../Domain/Models/IFileDTO';
 import OptimizeUseCase from '../../Domain/UseCases/OptimizeUseCase';
+import OptimizePayload from '../../Domain/Payloads/OptimizePayload';
 
 class FileController
 {
@@ -58,7 +59,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async optimize(request: IdPayload): Promise<any>
+    public async optimize(request: OptimizePayload): Promise<any>
     {
         await ValidatorRequest.handle(request);
 

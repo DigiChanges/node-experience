@@ -59,18 +59,18 @@ class FileService
 
     async getPresignedGetObject(payload: PresignedFileRepPayload): Promise<string>
     {
-        const name = payload.name;
+        const file = payload.file;
         const expiry = payload.expiry;
         const isPublic = payload.isPublic;
         let fileVersion: IFileVersionDomain;
 
-        if (validate(name))
+        if (validate(file))
         {
-            fileVersion = await this.getOneVersion(name);
+            fileVersion = await this.versionRepository.getLastOneBy({ file });
         }
         else
         {
-            fileVersion = await this.versionRepository.getOneBy({ name, isPublic });
+            fileVersion = await this.versionRepository.getLastOneBy({ name: file, isPublic });
         }
 
         return await this.getFileUrl(fileVersion, expiry);
@@ -129,9 +129,9 @@ class FileService
         return await this.versionRepository.getBy({ file: id });
     }
 
-    async getLastVersions(id: string): Promise<IFileVersionDomain>
+    async getLastVersions(file: string): Promise<IFileVersionDomain>
     {
-        return await this.versionRepository.getLastOneBy(id);
+        return await this.versionRepository.getLastOneBy({ file });
     }
 
     async getOneVersion(id: string): Promise<IFileVersionDomain>

@@ -2,7 +2,7 @@ import FileOptionsQueryPayload from './FileOptionsQueryPayload';
 
 interface PresignedFileRepPayload extends FileOptionsQueryPayload
 {
-    name: string,
+    file: string,
     expiry: number,
 }
 

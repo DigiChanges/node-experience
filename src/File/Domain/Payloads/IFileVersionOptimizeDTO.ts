@@ -1,5 +1,5 @@
-import FileRepPayload from './FileRepPayload';
 import IFileMultipart from '../Entities/IFileMultipart';
+import FileRepPayload from './FileRepPayload';
 
 interface IFileVersionOptimizeDTO extends FileRepPayload
 {

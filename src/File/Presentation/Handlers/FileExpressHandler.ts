@@ -20,6 +20,7 @@ import FileUpdateBase64Request from '../Requests/FileUpdateBase64Request';
 import ObjectTransformer from '../Transformers/ObjectTransformer';
 import FileController from '../Controllers/FileController';
 import FileTransformer from '../Transformers/FileTransformer';
+import OptimizeRequest from '../Requests/OptimizeRequest';
 
 @controller('/api/files')
 class FileExpressHandler
@@ -66,7 +67,12 @@ class FileExpressHandler
     @httpPost('/optimize/:id', AuthorizeExpressMiddleware(Permissions.FILES_UPLOAD))
     public async optimize(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest({ id: req.params.id });
+        const body = {
+            id: req.params.id,
+            query: req.query
+        };
+
+        const _request = new OptimizeRequest(body);
 
         const file = await this.controller.optimize(_request);
 
