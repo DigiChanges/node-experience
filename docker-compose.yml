@@ -11,6 +11,11 @@ services:
     ports:
       - "8089:8089"
       - "9229:9229"
+    labels:
+      - traefik.http.routers.api.rule=Host(`api.domain.com`)
+      - traefik.http.routers.api.tls=true
+      - traefik.http.routers.api.tls.certresolver=lets-encrypt
+      - traefik.port=80
     volumes:
       - .:/usr/app:cached
     networks:
@@ -50,6 +55,11 @@ services:
     ports:
       - "9000:9000"
       - "9001:9001"
+    labels:
+      - traefik.http.routers.api.rule=Host(`minio.domain.com`)
+      - traefik.http.routers.api.tls=true
+      - traefik.http.routers.api.tls.certresolver=lets-encrypt
+      - traefik.port=80
     networks:
      - experiencenet
     environment:

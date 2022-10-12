@@ -10,7 +10,7 @@ jobs:
       - run: npm install --force
       - run: npm run ci
       - run: npm run build
-      - run: npm run test-ci
+      - run: npm run test:ci
       - store_artifacts:
           path: ~/circleci/coverage
           destination: reports/
