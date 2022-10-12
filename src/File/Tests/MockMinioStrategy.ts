@@ -44,7 +44,7 @@ class MockMinioStrategy implements IFilesystem
         return new Promise<string>((resolve) => resolve('success'));
     }
 
-    async downloadFile(objectName: string): Promise<string>
+    async downloadFile(object: IFileVersionDomain): Promise<string>
     {
         return new Promise<string>((resolve) => resolve('success'));
     }
