@@ -60,14 +60,14 @@ class AppExpress implements IApp
 
             if (MainConfig.getInstance().getConfig().dbConfig.default === 'MikroORM')
             {
-                app.use(ContextMikroORMExpressMiddleware);
+                app.use(void ContextMikroORMExpressMiddleware);
             }
 
-            app.use(ContainerExpressMiddleware);
-            app.use(LoggerExpressMiddleware);
+            app.use(void ContainerExpressMiddleware);
+            app.use(void LoggerExpressMiddleware);
             app.use('/api/', ThrottleExpressMiddleware);
-            app.use(AuthenticationExpressMiddleware);
-            app.use(VerifyTokenExpressMiddleware);
+            app.use(void AuthenticationExpressMiddleware);
+            app.use(void VerifyTokenExpressMiddleware);
         });
 
         this.server.setErrorConfig((app: express.Application) =>
@@ -79,14 +79,14 @@ class AppExpress implements IApp
     public async build(): Promise<void>
     {
         this.app = this.server.build();
-        this.app.use(async(req: any, res, next) =>
+        this.app.use(void (async(req: any, res: any, next: any) =>
         {
             const data = getRequestContext();
             await data.container.dispose();
             delete data.container;
 
             next();
-        });
+        }));
         this.app.use(RedirectRouteNotFoundExpressMiddleware);
     }
 

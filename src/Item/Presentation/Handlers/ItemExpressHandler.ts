@@ -31,7 +31,7 @@ class ItemExpressHandler
         this.controller = new ItemController();
     }
 
-    @httpPost('/', AuthorizeExpressMiddleware(Permissions.ITEMS_SAVE))
+    @httpPost('/', void AuthorizeExpressMiddleware(Permissions.ITEMS_SAVE))
     public async save(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new ItemRepRequest(req.body);
@@ -41,7 +41,7 @@ class ItemExpressHandler
         void await this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
     }
 
-    @httpGet('/', AuthorizeExpressMiddleware(Permissions.ITEMS_LIST))
+    @httpGet('/', void AuthorizeExpressMiddleware(Permissions.ITEMS_LIST))
     public async list(@request() req: Request, @response() res: Response)
     {
         const data = {
@@ -56,7 +56,7 @@ class ItemExpressHandler
         await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpGet('/:id', AuthorizeExpressMiddleware(Permissions.ITEMS_SHOW))
+    @httpGet('/:id', void AuthorizeExpressMiddleware(Permissions.ITEMS_SHOW))
     public async getOne(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest({ id: req.params.id });
@@ -66,7 +66,7 @@ class ItemExpressHandler
         void await this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
-    @httpPut('/:id', AuthorizeExpressMiddleware(Permissions.ITEMS_UPDATE))
+    @httpPut('/:id', void AuthorizeExpressMiddleware(Permissions.ITEMS_UPDATE))
     public async update(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const data = {
@@ -82,7 +82,7 @@ class ItemExpressHandler
         void await this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
-    @httpDelete('/:id', AuthorizeExpressMiddleware(Permissions.ITEMS_DELETE))
+    @httpDelete('/:id', void AuthorizeExpressMiddleware(Permissions.ITEMS_DELETE))
     public async remove(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest({ id: req.params.id });

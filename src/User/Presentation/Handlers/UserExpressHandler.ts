@@ -37,7 +37,7 @@ class UserExpressHandler
         this.controller = new UserController();
     }
 
-    @httpPost('/', AuthorizeExpressMiddleware(Permissions.USERS_SAVE))
+    @httpPost('/', void AuthorizeExpressMiddleware(Permissions.USERS_SAVE))
     public async save(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new UserSaveRequest(req.body);
@@ -47,7 +47,7 @@ class UserExpressHandler
         void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
     }
 
-    @httpGet('/', AuthorizeExpressMiddleware(Permissions.USERS_LIST))
+    @httpGet('/', void AuthorizeExpressMiddleware(Permissions.USERS_LIST))
     public async list(@request() req: Request, @response() res: Response): Promise<void>
     {
         const data = {
@@ -62,7 +62,7 @@ class UserExpressHandler
         await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
-    @httpGet('/:id', AuthorizeExpressMiddleware(Permissions.USERS_SHOW))
+    @httpGet('/:id', void AuthorizeExpressMiddleware(Permissions.USERS_SHOW))
     public async getOne(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new IdRequest({ id: req.params.id });
@@ -72,7 +72,7 @@ class UserExpressHandler
         void await this.responder.send(user, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
-    @httpPut('/:id', AuthorizeExpressMiddleware(Permissions.USERS_UPDATE))
+    @httpPut('/:id', void AuthorizeExpressMiddleware(Permissions.USERS_UPDATE))
     public async update(@request() req: any, @response() res: Response): Promise<void>
     {
         const data = {
@@ -88,7 +88,7 @@ class UserExpressHandler
         void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
-    @httpPut('/assign-role/:id', AuthorizeExpressMiddleware(Permissions.USERS_ASSIGN_ROLE))
+    @httpPut('/assign-role/:id', void AuthorizeExpressMiddleware(Permissions.USERS_ASSIGN_ROLE))
     public async assignRole(@request() req: Request, @response() res: Response): Promise<void>
     {
         const data = {
@@ -103,7 +103,7 @@ class UserExpressHandler
         void await this.responder.send(_response, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
-    @httpDelete('/:id', AuthorizeExpressMiddleware(Permissions.USERS_DELETE))
+    @httpDelete('/:id', void AuthorizeExpressMiddleware(Permissions.USERS_DELETE))
     public async remove(@request() req: Request, @response() res: Response): Promise<void>
     {
         const _request = new IdRequest({ id: req.params.id });
@@ -113,7 +113,7 @@ class UserExpressHandler
         void await this.responder.send(data, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
-    @httpPost('/change-my-password', AuthorizeExpressMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD))
+    @httpPost('/change-my-password', void AuthorizeExpressMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD))
     public async changeMyPassword(@request() req: any, @response() res: Response): Promise<void>
     {
         const data = {
@@ -127,7 +127,7 @@ class UserExpressHandler
         void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
-    @httpPut('/change-user-password/:id', AuthorizeExpressMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD))
+    @httpPut('/change-user-password/:id', void AuthorizeExpressMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD))
     public async changeUserPassword(@request() req: Request, @response() res: Response): Promise<void>
     {
         const data = {
