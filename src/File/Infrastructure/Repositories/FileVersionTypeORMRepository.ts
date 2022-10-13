@@ -9,6 +9,8 @@ import FileVersion from '../../Domain/Entities/FileVersion';
 import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 
 import BaseTypeORMRepository from '../../../Shared/Infrastructure/Repositories/BaseTypeORMRepository';
+import IByOptions from '../../../Shared/Infrastructure/Repositories/IByOptions';
+import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 
 class FileVersionTypeORMRepository extends BaseTypeORMRepository<IFileVersionDomain> implements IFileVersionRepository
 {
@@ -36,14 +38,21 @@ class FileVersionTypeORMRepository extends BaseTypeORMRepository<IFileVersionDom
         return new TypeORMPaginator(queryBuilder, criteria);
     }
 
-    async getLastOneBy(conditions: Record<string, any>): Promise<IFileVersionDomain>
+    async getLastOneBy(conditions: Record<string, any>, options: IByOptions = {}): Promise<IFileVersionDomain>
     {
-        const options: any = {
+        const { initThrow = false } = options;
+
+        const queryOptions: any = {
             ...conditions,
             order: { createdAt: 'DESC' },
             take: 1
         };
-        const [fileVersion] = await this.repository.find(options);
+        const [fileVersion] = await this.repository.find(queryOptions);
+
+        if (!fileVersion && initThrow)
+        {
+            throw new NotFoundException(this.entityName);
+        }
 
         return fileVersion;
     }

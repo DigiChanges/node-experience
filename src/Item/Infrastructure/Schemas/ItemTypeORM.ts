@@ -34,13 +34,14 @@ const ItemSchema = new EntitySchema<Item>({
             target: 'User',
             joinColumn: true,
             eager: true
-        },
-        lastModifiedBy: {
-            type: 'many-to-one',
-            target: 'User',
-            joinColumn: true,
-            eager: true
         }
+        // TODO: duplicate reference error.
+        // lastModifiedBy: {
+        //     type: 'many-to-one',
+        //     target: 'User',
+        //     joinColumn: true,
+        //     eager: false
+        // }
     },
     indices: [
         {

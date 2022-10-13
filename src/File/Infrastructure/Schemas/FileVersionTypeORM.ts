@@ -54,20 +54,18 @@ const FileVersionSchema = new EntitySchema<FileVersion>({
             type: 'many-to-one',
             target: 'File',
             eager: true,
-            joinColumn: {
-                name: '_id'
-            }
+            joinColumn: true
         }
     },
     indices: [
         {
-            name: 'id_file_1',
+            name: 'id_file_version_1',
             columns: ['_id']
         }
     ],
     uniques: [
         {
-            name: 'unq_file_1',
+            name: 'unq_file_version_1',
             columns: ['_id']
         },
         {

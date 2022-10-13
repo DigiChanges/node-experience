@@ -1,12 +1,12 @@
 import IFileVersionDTO from '../Models/IFileVersionDTO';
-import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import FileService from '../Services/FileService';
+import DownloadRequest from '../../Presentation/Requests/DownloadRequest';
 
 class DownloadUseCase
 {
     private fileService = new FileService();
 
-    async handle(payload: IdPayload): Promise<IFileVersionDTO>
+    async handle(payload: DownloadRequest): Promise<IFileVersionDTO>
     {
         return await this.fileService.download(payload);
     }

@@ -12,7 +12,7 @@ const FileTypeORM = new EntitySchema<File>({
             unique: true
         },
         currentVersion: {
-            type: 'number'
+            type: Number
         },
         createdAt: {
             name: 'createdAt',

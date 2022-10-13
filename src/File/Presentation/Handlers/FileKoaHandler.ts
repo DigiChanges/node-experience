@@ -19,6 +19,7 @@ import AuthorizeKoaMiddleware from '../../../Auth/Presentation/Middlewares/Autho
 import Permissions from '../../../Config/Permissions';
 import FileTransformer from '../Transformers/FileTransformer';
 import OptimizeRequest from '../Requests/OptimizeRequest';
+import DownloadRequest from '../Requests/DownloadRequest';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/files'
@@ -99,14 +100,18 @@ FileKoaHandler.post('/presigned-get-object', AuthorizeKoaMiddleware(Permissions.
 
 FileKoaHandler.get('/:id', AuthorizeKoaMiddleware(Permissions.FILES_DOWNLOAD), async(ctx: Koa.ParameterizedContext) =>
 {
-    const _request = new IdRequest({ id: ctx.params.id });
+    const data = {
+        id: ctx.params.id,
+        query: ctx.query
+    };
+    const _request = new DownloadRequest(data);
 
     const fileDto = await controller.downloadStreamFile(_request);
 
     responder.sendStream(fileDto, ctx, StatusCode.HTTP_OK);
 });
 
-FileKoaHandler.post('/optimize/:id', AuthorizeKoaMiddleware(Permissions.FILES_DELETE), async(ctx: Koa.ParameterizedContext) =>
+FileKoaHandler.put('/optimize/:id', AuthorizeKoaMiddleware(Permissions.FILES_DELETE), async(ctx: Koa.ParameterizedContext) =>
 {
     const body = {
         id: ctx.params.id,

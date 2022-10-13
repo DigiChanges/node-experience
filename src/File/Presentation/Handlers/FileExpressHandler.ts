@@ -21,6 +21,7 @@ import ObjectTransformer from '../Transformers/ObjectTransformer';
 import FileController from '../Controllers/FileController';
 import FileTransformer from '../Transformers/FileTransformer';
 import OptimizeRequest from '../Requests/OptimizeRequest';
+import DownloadRequest from '../Requests/DownloadRequest';
 
 @controller('/api/files')
 class FileExpressHandler
@@ -64,7 +65,7 @@ class FileExpressHandler
         void await this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileTransformer());
     }
 
-    @httpPost('/optimize/:id', AuthorizeExpressMiddleware(Permissions.FILES_UPLOAD))
+    @httpPut('/optimize/:id', AuthorizeExpressMiddleware(Permissions.FILES_UPLOAD))
     public async optimize(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const body = {
@@ -126,7 +127,11 @@ class FileExpressHandler
     @httpGet('/:id', AuthorizeExpressMiddleware(Permissions.FILES_DOWNLOAD))
     public async downloadStreamFile(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest({ id: req.params.id });
+        const data = {
+            id: req.params.id,
+            query: req.query
+        };
+        const _request = new DownloadRequest(data);
 
         const fileDto = await this.controller.downloadStreamFile(_request);
 

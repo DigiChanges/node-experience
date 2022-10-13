@@ -12,6 +12,8 @@ import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 
 import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/BaseMongooseRepository';
 import FileVersion from '../../Domain/Entities/FileVersion';
+import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
+import IByOptions from '../../../Shared/Infrastructure/Repositories/IByOptions';
 
 @injectable()
 class FileVersionMongooseRepository extends BaseMongooseRepository<IFileVersionDomain, IFileVersion> implements IFileVersionRepository
@@ -37,12 +39,19 @@ class FileVersionMongooseRepository extends BaseMongooseRepository<IFileVersionD
         return new MongoosePaginator(queryBuilder, criteria);
     }
 
-    async getLastOneBy(conditions: Record<string, any>): Promise<IFileVersionDomain>
+    async getLastOneBy(conditions: Record<string, any>, options: IByOptions = {}): Promise<IFileVersionDomain>
     {
+        const { initThrow = false } = options;
+
         const [fileVersion] = await this.repository.find(conditions)
             .sort({ version: -1 })
             .limit(1)
             .populate(this.populate);
+
+        if (!fileVersion && initThrow)
+        {
+            throw new NotFoundException(this.entityName);
+        }
 
         return fileVersion;
     }

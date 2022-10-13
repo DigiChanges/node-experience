@@ -31,6 +31,7 @@ import IFileDomain from '../Entities/IFileDomain';
 import File from '../Entities/File';
 import IFileVersionOptimizeDTO from '../Payloads/IFileVersionOptimizeDTO';
 import FileVersionOptimizeDTO from '../../Presentation/Requests/FileVersionOptimizeDTO';
+import DownloadRequest from '../../Presentation/Requests/DownloadRequest';
 
 class FileService
 {
@@ -59,19 +60,21 @@ class FileService
 
     async getPresignedGetObject(payload: PresignedFileRepPayload): Promise<string>
     {
-        const file = payload.file;
-        const expiry = payload.expiry;
-        const isPublic = payload.isPublic;
-        let fileVersion: IFileVersionDomain;
+        const { file, expiry, isPublic, version } = payload;
 
-        if (validate(file))
+        let conditions: any = { file };
+
+        if (version)
         {
-            fileVersion = await this.versionRepository.getLastOneBy({ file });
+            conditions = { ...conditions, version };
         }
-        else
+
+        if (isPublic)
         {
-            fileVersion = await this.versionRepository.getLastOneBy({ name: file, isPublic });
+            conditions = { ...conditions, isPublic };
         }
+
+        const fileVersion = await this.versionRepository.getLastOneBy(conditions, { initThrow: true });
 
         return await this.getFileUrl(fileVersion, expiry);
     }
@@ -124,9 +127,9 @@ class FileService
         return await this.fileSystem.listObjects(payload);
     }
 
-    async getVersions(id: string): Promise<IFileVersionDomain[]>
+    async getVersions(file: string): Promise<IFileVersionDomain[]>
     {
-        return await this.versionRepository.getBy({ file: id });
+        return await this.versionRepository.getBy({ file });
     }
 
     async getLastVersions(file: string): Promise<IFileVersionDomain>
@@ -134,9 +137,9 @@ class FileService
         return await this.versionRepository.getLastOneBy({ file });
     }
 
-    async getOneVersion(id: string): Promise<IFileVersionDomain>
+    async getOneVersion(file: string, version: number): Promise<IFileVersionDomain>
     {
-        return await this.versionRepository.getOne(id);
+        return await this.versionRepository.getOneBy({ file, version });
     }
 
     async createBucket(payload: CreateBucketPayload): Promise<void>
@@ -156,10 +159,19 @@ class FileService
         await this.fileSystem.setBucketPolicy(bucketPublicPolicy, bucketNamePublic);
     }
 
-    async download(payload: IdPayload): Promise<IFileVersionDTO>
+    async download(payload: DownloadRequest): Promise<IFileVersionDTO>
     {
-        const id = payload.id;
-        const fileVersion: IFileVersionDomain = await this.getLastVersions(id);
+        const { id, version } = payload;
+        let fileVersion: IFileVersionDomain;
+
+        if (!version)
+        {
+            fileVersion = await this.getLastVersions(id);
+        }
+        else
+        {
+            fileVersion = await this.getOneVersion(id, version);
+        }
 
         const stream = await this.fileSystem.downloadStreamFile(fileVersion);
 

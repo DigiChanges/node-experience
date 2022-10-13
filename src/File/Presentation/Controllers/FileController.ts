@@ -24,6 +24,7 @@ import IFileVersionDTO from '../../Domain/Models/IFileVersionDTO';
 import IFileDTO from '../../Domain/Models/IFileDTO';
 import OptimizeUseCase from '../../Domain/UseCases/OptimizeUseCase';
 import OptimizePayload from '../../Domain/Payloads/OptimizePayload';
+import DownloadRequest from '../Requests/DownloadRequest';
 
 class FileController
 {
@@ -83,7 +84,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async downloadStreamFile(request: IdPayload): Promise<IFileVersionDTO>
+    public async downloadStreamFile(request: DownloadRequest): Promise<IFileVersionDTO>
     {
         await ValidatorRequest.handle(request);
 

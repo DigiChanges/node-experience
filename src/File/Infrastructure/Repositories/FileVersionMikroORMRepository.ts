@@ -10,6 +10,8 @@ import FileVersion from '../../Domain/Entities/FileVersion';
 import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 
 import BaseMikroORMRepository from '../../../Shared/Infrastructure/Repositories/BaseMikroORMRepository';
+import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
+import IByOptions from '../../../Shared/Infrastructure/Repositories/IByOptions';
 
 @injectable()
 class FileVersionMikroORMRepository extends BaseMikroORMRepository<IFileVersionDomain> implements IFileVersionRepository
@@ -35,14 +37,21 @@ class FileVersionMikroORMRepository extends BaseMikroORMRepository<IFileVersionD
         return new Paginator(queryBuilder, criteria);
     }
 
-    async getLastOneBy(conditions: Record<string, any>): Promise<IFileVersionDomain>
+    async getLastOneBy(conditions: Record<string, any>, options: IByOptions = {}): Promise<IFileVersionDomain>
     {
-        const options = {
+        const { initThrow = false } = options;
+
+        const queryOptions = {
             populate: this.populate,
             orderBy: { createdAt: 'desc' },
             limit: 1
         };
-        const [fileVersion] = await this.repository.find(conditions, options as any);
+        const [fileVersion] = await this.repository.find(conditions, queryOptions as any);
+
+        if (!fileVersion && initThrow)
+        {
+            throw new NotFoundException(this.entityName);
+        }
 
         return fileVersion;
     }

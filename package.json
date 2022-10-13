@@ -5,7 +5,7 @@
   "scripts": {
     "build": "etsc",
     "command": "ts-node src/command.ts",
-    "ci": "npm run cpy-ci && npm run ts-check && npm run lint",
+    "ci": "npm run cpy:ci && npm run ts:check && npm run lint",
     "clean": "rimraf dist/src/*",
     "cpy:ci": "cp .env.dev .env",
     "dev": "nodemon",
@@ -15,7 +15,7 @@
     "lint-fix": "eslint -c .eslintrc.json ./src --fix",
     "lint": "eslint -c .eslintrc.json ./src",
     "pre:commit": "lint-staged",
-    "pre:check": "pnpm ts-check && pnpm lint",
+    "pre:check": "pnpm ts:check && pnpm lint",
     "prepare": "husky install",
     "start": "node dist/index.js",
     "test:ci": "jest --run-in-band --coverage",
