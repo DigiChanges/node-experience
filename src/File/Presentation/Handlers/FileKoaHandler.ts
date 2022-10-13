@@ -125,15 +125,6 @@ FileKoaHandler.put('/optimize/:id', AuthorizeKoaMiddleware(Permissions.FILES_DEL
     void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
-FileKoaHandler.get('/:id', AuthorizeKoaMiddleware(Permissions.FILES_DELETE), async(ctx: Koa.ParameterizedContext) =>
-{
-    const _request = new IdRequest({ id: ctx.params.id });
-
-    const file = await controller.removeFile(_request);
-
-    void await responder.send(file, ctx, StatusCode.HTTP_OK, new FileVersionTransformer());
-});
-
 FileKoaHandler.put('/base64/:id', AuthorizeKoaMiddleware(Permissions.FILES_UPDATE), async(ctx: Koa.ParameterizedContext) =>
 {
     const body = {

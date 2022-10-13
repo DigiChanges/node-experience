@@ -60,19 +60,14 @@ describe('Start File Test', () =>
             const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
+            expect(data.currentVersion).toStrictEqual(1);
+            expect(data.versions.length).toStrictEqual(1);
 
             file_id = data.id;
         });
 
         test('Get File /files/metadata/:id', async() =>
         {
-            const payload = {
-                originalName: 'photo.jpg',
-                extension: 'jpg',
-                mimeType: 'image/jpeg',
-                isPublic: false
-            };
-
             const response: IFileResponse = await request
                 .get(`/api/files/metadata/${file_id}`)
                 .set('Accept', 'application/json')
@@ -82,12 +77,13 @@ describe('Start File Test', () =>
             const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(200);
+            expect(data.id).toStrictEqual(file_id);
         });
 
         // test('Get File /files/:id', async () =>
         // {
-        //     const response: any = await request
-        //         .get(`/api/files/${fileId}`)
+        //     const response: IFileResponse = await request
+        //         .get(`/api/files/${file_id}`)
         //         .set('Accept', 'application/json')
         //         .set('Authorization', `Bearer ${token}`)
         //         .send();
@@ -99,30 +95,21 @@ describe('Start File Test', () =>
         //     expect(statusCode).toStrictEqual('HTTP_OK');
         //
         // });
-        //
-        // test('Update Item /items/:id', async () =>
-        // {
-        //     const payload = {
-        //         name: 'Item 1 updateRep',
-        //         type: 11
-        //     };
-        //
-        //     const response: any = await request
-        //         .put(`/api/items/${fileId}`)
-        //         .set('Accept', 'application/json')
-        //         .set('Authorization', `Bearer ${token}`)
-        //         .send(payload);
-        //
-        //     const {body: {data}} = response;
-        //
-        //     expect(response.statusCode).toStrictEqual(201);
-        //     expect(status).toStrictEqual('success');
-        //     expect(statusCode).toStrictEqual('HTTP_CREATED');
-        //
-        //     expect(data.name).toStrictEqual(payload.name);
-        //     expect(data.type).toStrictEqual(payload.type);
-        //
-        // });
+
+        test('Update File /file/base64/:id', async() =>
+        {
+            const response: IFileResponse = await request
+                .put(`/api/files/base64/${file_id}`)
+                .set('Accept', 'application/json')
+                .set('Authorization', `Bearer ${token}`)
+                .send(UploadFileBase64);
+
+            const { body: { data } } = response;
+
+            expect(response.statusCode).toStrictEqual(201);
+            expect(data.currentVersion).toStrictEqual(2);
+            expect(data.versions.length).toStrictEqual(2);
+        });
         //
         // test('Delete Item /items/:id', async () =>
         // {
