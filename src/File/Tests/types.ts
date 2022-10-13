@@ -1,10 +1,11 @@
 import { IBodyResponse } from '../../Shared/InterfaceAdapters/Tests/IBodyResponse';
 import { IFetchResponse } from '../../Shared/InterfaceAdapters/Tests/IFetchResponse';
 import IFileVersionTransformer from '../Presentation/Transformers/IFileVersionTransformer';
+import IFileTransformer from '../Presentation/Transformers/IFileTransformer';
 
 interface IFileBody extends IBodyResponse
 {
-    data: IFileVersionTransformer;
+    data: IFileTransformer;
 }
 
 interface IListFileBody extends IBodyResponse

@@ -68,7 +68,7 @@ describe('Start File Test', () =>
 
         test('Get File /files/metadata/:id', async() =>
         {
-            const response: IFileResponse = await request
+            const response = await request
                 .get(`/api/files/metadata/${file_id}`)
                 .set('Accept', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
