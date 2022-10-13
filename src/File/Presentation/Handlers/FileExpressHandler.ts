@@ -95,7 +95,7 @@ class FileExpressHandler
         void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
-    @httpPost('/', FileExpressReqMulterMiddleware.single('file'), AuthorizeExpressMiddleware(Permissions.FILES_UPLOAD))
+    @httpPost('/', FileExpressReqMulterMiddleware.single('file'), void AuthorizeExpressMiddleware(Permissions.FILES_UPLOAD))
     public async uploadMultipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const body = {
