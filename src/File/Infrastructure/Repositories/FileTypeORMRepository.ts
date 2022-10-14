@@ -4,7 +4,7 @@ import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import TypeORMPaginator from '../../../Shared/Infrastructure/Orm/TypeORMPaginator';
 import FileFilter from '../../Presentation/Criterias/FileFilter';
 import FileSchema from '../Schemas/FileTypeORM';
-import FileVersion from '../../Domain/Entities/FileVersion';
+import File from '../../Domain/Entities/File';
 
 import BaseTypeORMRepository from '../../../Shared/Infrastructure/Repositories/BaseTypeORMRepository';
 import IFileRepository from './IFileRepository';
@@ -14,7 +14,7 @@ class FileTypeORMRepository extends BaseTypeORMRepository<IFileDomain> implement
 {
     constructor()
     {
-        super(FileVersion.name, FileSchema);
+        super(File.name, FileSchema);
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>

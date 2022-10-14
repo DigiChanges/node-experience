@@ -110,6 +110,7 @@ class MinioStrategy implements IFilesystem
 
     async removeObjects(object: IFileVersionDomain): Promise<void>
     {
+        console.log('object.objectPath: ', object.objectPath);
         await this.#filesystem.removeObject(this.getBucket(object), object.objectPath);
     }
 
