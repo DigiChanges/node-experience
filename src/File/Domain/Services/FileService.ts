@@ -32,6 +32,8 @@ import File from '../Entities/File';
 import IFileVersionOptimizeDTO from '../Payloads/IFileVersionOptimizeDTO';
 import FileVersionOptimizeDTO from '../../Presentation/Requests/FileVersionOptimizeDTO';
 import DownloadRequest from '../../Presentation/Requests/DownloadRequest';
+import IFileDTO from '../Models/IFileDTO';
+import FileDTO from '../Models/FileDTO';
 
 class FileService
 {
@@ -60,21 +62,9 @@ class FileService
 
     async getPresignedGetObject(payload: PresignedFileRepPayload): Promise<string>
     {
-        const { file, expiry, isPublic, version } = payload;
+        const { file, expiry, version } = payload;
 
-        let conditions: any = { file };
-
-        if (version)
-        {
-            conditions = { ...conditions, version };
-        }
-
-        if (isPublic)
-        {
-            conditions = { ...conditions, isPublic };
-        }
-
-        const fileVersion = await this.versionRepository.getLastOneBy(conditions, { initThrow: true });
+        const fileVersion = await this.versionRepository.getLastOneByFields(file, version, { initThrow: true });
 
         return await this.getFileUrl(fileVersion, expiry);
     }
@@ -129,17 +119,17 @@ class FileService
 
     async getVersions(file: string): Promise<IFileVersionDomain[]>
     {
-        return await this.versionRepository.getBy({ file });
+        return await this.versionRepository.getAllByFileId(file);
     }
 
     async getLastVersions(file: string): Promise<IFileVersionDomain>
     {
-        return await this.versionRepository.getLastOneBy({ file });
+        return await this.versionRepository.getLastOneByFields(file);
     }
 
     async getOneVersion(file: string, version: number): Promise<IFileVersionDomain>
     {
-        return await this.versionRepository.getOneBy({ file, version });
+        return await this.versionRepository.getOneByFileIdAndVersion(file, version);
     }
 
     async createBucket(payload: CreateBucketPayload): Promise<void>
@@ -188,11 +178,19 @@ class FileService
         return await this.fileSystem.presignedGetObject(fileVersion, expiry, metadata);
     }
 
-    async removeFile(id: string): Promise<IFileVersionDomain>
+    async removeFileAndVersions(id: string): Promise<IFileDTO>
     {
-        const fileVersion = await this.versionRepository.delete(id);
-        void await this.fileSystem.removeObjects(fileVersion);
-        return fileVersion;
+        const fileVersions = await this.versionRepository.getAllByFileId(id);
+
+        for (const fileVersion of fileVersions)
+        {
+            await this.fileSystem.removeObjects(fileVersion);
+            await this.versionRepository.delete(fileVersion.getId());
+        }
+
+        const file = await this.fileRepository.delete(id);
+
+        return new FileDTO(file, fileVersions);
     }
 
     private async getFileVersionOptimized(fileVersion: IFileVersionDomain): Promise<IFileMultipart>

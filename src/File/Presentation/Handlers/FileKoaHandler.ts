@@ -165,7 +165,7 @@ FileKoaHandler.delete('/:id', AuthorizeKoaMiddleware(Permissions.FILES_DELETE), 
 
     const file = await controller.removeFile(_request);
 
-    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileVersionTransformer());
+    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
 export default FileKoaHandler;

@@ -7,7 +7,9 @@ import IByOptions from '../../../Shared/Infrastructure/Repositories/IByOptions';
 interface IFileVersionRepository extends IBaseRepository<IFileVersionDomain>
 {
     list(criteria: ICriteria): Promise<IPaginator>;
-    getLastOneBy(conditions: Record<string, any>, options?: IByOptions): Promise<IFileVersionDomain>;
+    getLastOneByFields(file: string, version?: number, options?: IByOptions): Promise<IFileVersionDomain>;
+    getOneByFileIdAndVersion(file: string, version?: number): Promise<IFileVersionDomain>;
+    getAllByFileId(file: string): Promise<IFileVersionDomain[]>;
 }
 
 export default IFileVersionRepository;

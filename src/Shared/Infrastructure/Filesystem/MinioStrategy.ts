@@ -4,6 +4,7 @@ import { MinioConfig } from '../../../Config/MainConfig';
 import IFilesystem from './IFilesystem';
 import IFileVersionDomain from '../../../File/Domain/Entities/IFileVersionDomain';
 import ListObjectsPayload from '../../../File/Domain/Payloads/ListObjectsPayload';
+import { isUndefined } from 'lodash';
 
 class MinioStrategy implements IFilesystem
 {
@@ -109,12 +110,12 @@ class MinioStrategy implements IFilesystem
 
     async removeObjects(object: IFileVersionDomain): Promise<void>
     {
-        await this.#filesystem.removeObject(this.getBucket(object), object.name);
+        await this.#filesystem.removeObject(this.getBucket(object), object.objectPath);
     }
 
-    private getBucket(object?: IFileVersionDomain, isPublic = false): string
+    private getBucket(object?: IFileVersionDomain, isPrivate = false): string
     {
-        const _isPrivate = object?.isPublic ?? isPublic;
+        const _isPrivate = !isUndefined(object?.isPublic) ? !object.isPublic : isPrivate;
         return _isPrivate ? this.#privateBucket : this.#publicBucket;
     }
 

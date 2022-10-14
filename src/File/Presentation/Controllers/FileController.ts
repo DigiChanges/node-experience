@@ -108,7 +108,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async removeFile(request: IdPayload): Promise<IFileVersionDomain>
+    public async removeFile(request: IdPayload): Promise<IFileDTO>
     {
         await ValidatorRequest.handle(request);
 

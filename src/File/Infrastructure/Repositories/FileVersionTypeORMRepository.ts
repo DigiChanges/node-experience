@@ -38,9 +38,16 @@ class FileVersionTypeORMRepository extends BaseTypeORMRepository<IFileVersionDom
         return new TypeORMPaginator(queryBuilder, criteria);
     }
 
-    async getLastOneBy(conditions: Record<string, any>, options: IByOptions = {}): Promise<IFileVersionDomain>
+    async getLastOneByFields(file: string, version: number = null, options: IByOptions = {}): Promise<IFileVersionDomain>
     {
         const { initThrow = false } = options;
+
+        let conditions: any = { 'file._id': file };
+
+        if (version)
+        {
+            conditions = { ...conditions, version };
+        }
 
         const queryOptions: any = {
             ...conditions,
@@ -55,6 +62,23 @@ class FileVersionTypeORMRepository extends BaseTypeORMRepository<IFileVersionDom
         }
 
         return fileVersion;
+    }
+
+    async getOneByFileIdAndVersion(file: string, version: number = null): Promise<IFileVersionDomain>
+    {
+        let conditions: any = { 'file._id': file };
+
+        if (version)
+        {
+            conditions = { ...conditions, version };
+        }
+
+        return await this.getOneBy(conditions);
+    }
+
+    async getAllByFileId(file: string): Promise<IFileVersionDomain[]>
+    {
+        return await this.getBy({ 'file._id': file });
     }
 }
 

@@ -145,7 +145,7 @@ class FileExpressHandler
 
         const file = await this.controller.removeFile(_request);
 
-        void await this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileVersionTransformer());
+        void await this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileTransformer());
     }
 
     @httpPut('/base64/:id', void AuthorizeExpressMiddleware(Permissions.FILES_UPDATE))
