@@ -26,6 +26,7 @@ import container from '../../../register';
 import { createRequestContext, getRequestContext } from '../../Presentation/Shared/RequestContext';
 import Logger from '../Logger/Logger';
 import ContextMikroORMKoaMiddleware from '../../Presentation/Middlewares/ContextMikroORMKoaMiddleware';
+import ContainerKoaMiddleware from '../../Presentation/Middlewares/ContainerKoaMiddleware';
 
 class AppKoa implements IApp
 {
@@ -59,13 +60,7 @@ class AppKoa implements IApp
             this.app.use(ContextMikroORMKoaMiddleware);
         }
 
-        this.app.use(async(ctx, next) =>
-        {
-            ctx.container = container.createChildContainer();
-            createRequestContext(ctx.container);
-
-            await next();
-        });
+        this.app.use(ContainerKoaMiddleware);
         this.app.use(LoggerKoaMiddleware);
         this.app.use(ThrottleKoaMiddleware);
         this.app.use(AuthenticationKoaMiddleware);

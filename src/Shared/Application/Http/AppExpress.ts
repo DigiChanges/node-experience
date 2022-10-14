@@ -29,6 +29,7 @@ import LoggerExpressMiddleware from '../../Presentation/Middlewares/LoggerExpres
 import { createRequestContext, getRequestContext } from '../../Presentation/Shared/RequestContext';
 import Logger from '../Logger/Logger';
 import ContextMikroORMExpressMiddleware from '../../Presentation/Middlewares/ContextMikroORMExpressMiddleware';
+import ContainerExpressMiddleware from '../../Presentation/Middlewares/ContainerExpressMiddleware';
 
 class AppExpress implements IApp
 {
@@ -62,13 +63,7 @@ class AppExpress implements IApp
                 app.use(ContextMikroORMExpressMiddleware);
             }
 
-            app.use(async(req: any, res, next) =>
-            {
-                req.container = newContainer.createChildContainer();
-                createRequestContext(req.container);
-
-                next();
-            });
+            app.use(ContainerExpressMiddleware);
             app.use(LoggerExpressMiddleware);
             app.use('/api/', ThrottleExpressMiddleware);
             app.use(AuthenticationExpressMiddleware);
