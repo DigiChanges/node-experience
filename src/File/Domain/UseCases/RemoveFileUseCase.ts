@@ -1,15 +1,16 @@
-import IFileDomain from '../Entities/IFileDomain';
+import IFileVersionDomain from '../Entities/IFileVersionDomain';
 import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import FileService from '../Services/FileService';
+import IFileDTO from '../Models/IFileDTO';
 
 class RemoveFileUseCase
 {
     private fileService = new FileService();
 
-    async handle(payload: IdPayload): Promise<IFileDomain>
+    async handle(payload: IdPayload): Promise<IFileDTO>
     {
         const { id } = payload;
-        return this.fileService.removeFile(id);
+        return this.fileService.removeFileAndVersions(id);
     }
 }
 

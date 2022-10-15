@@ -3,14 +3,13 @@ import { injectable } from 'inversify';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
-import IFileRepository from './IFileRepository';
-
 import FileFilter from '../../Presentation/Criterias/FileFilter';
 import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
 import IFile from '../Schemas/FileMongooseDocument';
-import IFileDomain from '../../Domain/Entities/IFileDomain';
 
 import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/BaseMongooseRepository';
+import IFileDomain from '../../Domain/Entities/IFileDomain';
+import IFileRepository from './IFileRepository';
 import File from '../../Domain/Entities/File';
 
 @injectable()

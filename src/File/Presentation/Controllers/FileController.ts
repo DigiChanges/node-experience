@@ -19,8 +19,12 @@ import PresignedFileRepPayload from '../../Domain/Payloads/PresignedFileRepPaylo
 import FileUpdateBase64Payload from '../../Domain/Payloads/FileUpdateBase64Payload';
 import FileUpdateMultipartPayload from '../../Domain/Payloads/FileUpdateMultipartPayload';
 import RemoveFileUseCase from '../../Domain/UseCases/RemoveFileUseCase';
-import IFileDomain from '../../Domain/Entities/IFileDomain';
+import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
+import IFileVersionDTO from '../../Domain/Models/IFileVersionDTO';
 import IFileDTO from '../../Domain/Models/IFileDTO';
+import OptimizeUseCase from '../../Domain/UseCases/OptimizeUseCase';
+import OptimizePayload from '../../Domain/Payloads/OptimizePayload';
+import DownloadRequest from '../Requests/DownloadRequest';
 
 class FileController
 {
@@ -40,7 +44,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async getFileMetadata(request: IdPayload): Promise<IFileDomain>
+    public async getFileMetadata(request: IdPayload): Promise<IFileDTO>
     {
         await ValidatorRequest.handle(request);
 
@@ -53,6 +57,14 @@ class FileController
         await ValidatorRequest.handle(request);
 
         const useCase = new UploadBase64UseCase();
+        return await useCase.handle(request);
+    }
+
+    public async optimize(request: OptimizePayload): Promise<any>
+    {
+        await ValidatorRequest.handle(request);
+
+        const useCase = new OptimizeUseCase();
         return await useCase.handle(request);
     }
 
@@ -72,7 +84,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async downloadStreamFile(request: IdPayload): Promise<IFileDTO>
+    public async downloadStreamFile(request: DownloadRequest): Promise<IFileVersionDTO>
     {
         await ValidatorRequest.handle(request);
 
@@ -96,7 +108,7 @@ class FileController
         return await useCase.handle(request);
     }
 
-    public async removeFile(request: IdPayload): Promise<IFileDomain>
+    public async removeFile(request: IdPayload): Promise<IFileDTO>
     {
         await ValidatorRequest.handle(request);
 

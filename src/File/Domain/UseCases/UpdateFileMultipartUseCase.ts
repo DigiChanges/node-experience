@@ -1,6 +1,8 @@
 import FileUpdateMultipartPayload from '../Payloads/FileUpdateMultipartPayload';
-import IFileDomain from '../Entities/IFileDomain';
+import IFileVersionDomain from '../Entities/IFileVersionDomain';
 import FileService from '../Services/FileService';
+import FileVersion from '../Entities/FileVersion';
+import FileDTO from '../Models/FileDTO';
 
 class UpdateFileMultipartUseCase
 {
@@ -15,9 +17,23 @@ class UpdateFileMultipartUseCase
             payload = await this.fileService.optimizeMultipartToUpdate(payload);
         }
 
-        let file: IFileDomain = await this.fileService.getOne(id);
-        file = await this.fileService.update(file, payload);
-        return await this.fileService.uploadFileMultipart(file, payload);
+        let file = await this.fileService.getOne(id);
+
+        const build = {
+            hasOriginalName: payload.isOriginalName,
+            originalName: payload.originalName,
+            isOptimized: payload.isOptimize && payload.isImage,
+            file
+        };
+
+        let fileVersion: IFileVersionDomain = new FileVersion(build);
+        fileVersion = await this.fileService.persistVersion(fileVersion, payload);
+        file = await this.fileService.update(file);
+        await this.fileService.uploadFileMultipart(fileVersion, payload);
+
+        const fileVersions = await this.fileService.getVersions(file.getId());
+
+        return new FileDTO(file, fileVersions);
     }
 }
 

@@ -1,28 +1,12 @@
 import { Schema } from 'mongoose';
-import File from '../../Domain/Entities/File';
 import { v4 as uuidV4 } from 'uuid';
+import File from '../../Domain/Entities/File';
 
-const FileSchema: any = new Schema({
+const FileMongoose: any = new Schema({
     _id: { type: Schema.Types.String, default: uuidV4 },
-    name: { type: Schema.Types.String, required: true },
-    originalName: { type: Schema.Types.String, required: true },
-    mimeType: { type: Schema.Types.String, required: true },
-    path: { type: Schema.Types.String },
-    extension: { type: Schema.Types.String },
-    size: { type: Schema.Types.Number, required: true },
-    version: { type: Schema.Types.Number, required: true },
-    isPublic: { type: Schema.Types.Boolean, default: false }
+    currentVersion: { type: Schema.Types.Number }
 }, { timestamps: true });
 
-FileSchema.index({
-    name: 1,
-    path: 1,
-    isPublic: 1
-},
-{
-    unique: true,
-    name:'name_path_private_index'
-});
-FileSchema.loadClass(File);
+FileMongoose.loadClass(File);
 
-export default FileSchema;
+export default FileMongoose;

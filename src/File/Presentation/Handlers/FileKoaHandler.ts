@@ -6,7 +6,7 @@ import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 import FileController from '../Controllers/FileController';
 import FileRequestCriteria from '../Requests/FileRequestCriteria';
-import FileTransformer from '../Transformers/FileTransformer';
+import FileVersionTransformer from '../Transformers/FileVersionTransformer';
 import ListObjectsRequest from '../Requests/ListObjectsRequest';
 import FileBase64RepRequest from '../Requests/FileBase64RepRequest';
 import PresignedFileRepRequest from '../Requests/PresignedFileRepRequest';
@@ -17,6 +17,9 @@ import FileKoaReqMulterMiddleware from '../Middlewares/FileKoaReqMulterMiddlewar
 import ObjectTransformer from '../Transformers/ObjectTransformer';
 import AuthorizeKoaMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeKoaMiddleware';
 import Permissions from '../../../Config/Permissions';
+import FileTransformer from '../Transformers/FileTransformer';
+import OptimizeRequest from '../Requests/OptimizeRequest';
+import DownloadRequest from '../Requests/DownloadRequest';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/files'
@@ -32,7 +35,7 @@ FileKoaHandler.get('/', AuthorizeKoaMiddleware(Permissions.FILES_LIST), async(ct
 
     const paginator: IPaginator = await controller.list(_request);
 
-    await responder.paginate(paginator, ctx, StatusCode.HTTP_OK, new FileTransformer());
+    await responder.paginate(paginator, ctx, StatusCode.HTTP_OK, new FileVersionTransformer());
 });
 
 FileKoaHandler.get('/objects', AuthorizeKoaMiddleware(Permissions.FILES_LIST), async(ctx: Koa.ParameterizedContext & any) =>
@@ -97,20 +100,29 @@ FileKoaHandler.post('/presigned-get-object', AuthorizeKoaMiddleware(Permissions.
 
 FileKoaHandler.get('/:id', AuthorizeKoaMiddleware(Permissions.FILES_DOWNLOAD), async(ctx: Koa.ParameterizedContext) =>
 {
-    const _request = new IdRequest({ id: ctx.params.id });
+    const data = {
+        id: ctx.params.id,
+        query: ctx.query
+    };
+    const _request = new DownloadRequest(data);
 
     const fileDto = await controller.downloadStreamFile(_request);
 
     responder.sendStream(fileDto, ctx, StatusCode.HTTP_OK);
 });
 
-FileKoaHandler.get('/:id', AuthorizeKoaMiddleware(Permissions.FILES_DELETE), async(ctx: Koa.ParameterizedContext) =>
+FileKoaHandler.put('/optimize/:id', AuthorizeKoaMiddleware(Permissions.FILES_DELETE), async(ctx: Koa.ParameterizedContext) =>
 {
-    const _request = new IdRequest({ id: ctx.params.id });
+    const body = {
+        id: ctx.params.id,
+        query: ctx.query
+    };
 
-    const file = await controller.removeFile(_request);
+    const _request = new OptimizeRequest(body);
 
-    void await responder.send(file, ctx, StatusCode.HTTP_OK, new FileTransformer());
+    const file = await controller.optimize(_request);
+
+    void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
 });
 
 FileKoaHandler.put('/base64/:id', AuthorizeKoaMiddleware(Permissions.FILES_UPDATE), async(ctx: Koa.ParameterizedContext) =>

@@ -1,7 +1,9 @@
 import FileBase64RepPayload from '../Payloads/FileBase64RepPayload';
-import IFileDomain from '../Entities/IFileDomain';
-import File from '../Entities/File';
+import IFileVersionDomain from '../Entities/IFileVersionDomain';
+import FileVersion from '../Entities/FileVersion';
 import FileService from '../Services/FileService';
+import File from '../Entities/File';
+import FileDTO from '../Models/FileDTO';
 
 class UploadBase64UseCase
 {
@@ -14,14 +16,21 @@ class UploadBase64UseCase
             payload = await this.fileService.optimizeBase64ToUpload(payload);
         }
 
+        let file = await this.fileService.persist();
+
         const build = {
             hasOriginalName: payload.isOriginalName,
-            originalName: payload.originalName
+            originalName: payload.originalName,
+            isOptimized: payload.isOptimize && payload.isImage,
+            file
         };
 
-        let file: IFileDomain = new File(build);
-        file = await this.fileService.persist(file, payload);
-        return await this.fileService.uploadFileBase64(file, payload);
+        let fileVersion: IFileVersionDomain = new FileVersion(build);
+        fileVersion = await this.fileService.persistVersion(fileVersion, payload);
+        file = await this.fileService.update(file);
+        await this.fileService.uploadFileBase64(fileVersion, payload);
+
+        return new FileDTO(file, [fileVersion]);
     }
 }
 

@@ -117,7 +117,7 @@ class AuthExpressHandler
         void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
 
-    @httpPost('/refresh-token', RefreshTokenExpressMiddleware)
+    @httpPost('/refresh-token', void RefreshTokenExpressMiddleware)
     public async refreshToken(@request() req: any, @response() res: Response)
     {
         const _request = new RefreshTokenRequest(req);
@@ -169,7 +169,7 @@ class AuthExpressHandler
         void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
 
-    @httpGet('/permissions', AuthorizeExpressMiddleware(Permissions.GET_PERMISSIONS))
+    @httpGet('/permissions', void AuthorizeExpressMiddleware(Permissions.GET_PERMISSIONS))
     public async permissions(@request() req: any, @response() res: Response)
     {
         const payload = this.controller.permissions();
@@ -177,7 +177,7 @@ class AuthExpressHandler
         void await this.responder.send(payload, req, res, StatusCode.HTTP_OK, new PermissionsTransformer());
     }
 
-    @httpPost('/sync-roles-permissions', AuthorizeExpressMiddleware(Permissions.AUTH_SYNC_PERMISSIONS))
+    @httpPost('/sync-roles-permissions', void AuthorizeExpressMiddleware(Permissions.AUTH_SYNC_PERMISSIONS))
     public async syncRolesPermissions(@request() req: any, @response() res: Response)
     {
         await this.controller.syncRolesPermissions();

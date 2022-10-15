@@ -18,30 +18,34 @@ import UserService from './User/Domain/Services/UserService';
 import IUserRepository from './User/Infrastructure/Repositories/IUserRepository';
 import IRoleRepository from './Role/Infrastructure/Repositories/IRoleRepository';
 import IItemRepository from './Item/Infrastructure/Repositories/IItemRepository';
-import IFileRepository from './File/Infrastructure/Repositories/IFileRepository';
+import IFileVersionRepository from './File/Infrastructure/Repositories/IFileVersionRepository';
 import INotificationRepository from './Notification/Infrastructure/Repositories/INotificationRepository';
 import INotificationDomain from './Notification/Domain/Entities/INotificationDomain';
 import ITokenDomain from './Auth/Domain/Entities/ITokenDomain';
 
 import UserMongooseRepository from './User/Infrastructure/Repositories/UserMongooseRepository';
 import RoleMongooseRepository from './Role/Infrastructure/Repositories/RoleMongooseRepository';
-import FileMongooseRepository from './File/Infrastructure/Repositories/FileMongooseRepository';
+import FileVersionMongooseRepository from './File/Infrastructure/Repositories/FileVersionMongooseRepository';
 import ItemMongooseRepository from './Item/Infrastructure/Repositories/ItemMongooseRepository';
 import NotificationMongooseRepository from './Notification/Infrastructure/Repositories/NotificationMongooseRepository';
 
 import UserTypeORMRepository from './User/Infrastructure/Repositories/UserTypeORMRepository';
 import RoleTypeORMRepository from './Role/Infrastructure/Repositories/RoleTypeORMRepository';
-import FileTypeORMRepository from './File/Infrastructure/Repositories/FileTypeORMRepository';
+import FileVersionTypeORMRepository from './File/Infrastructure/Repositories/FileVersionTypeORMRepository';
 import ItemTypeORMRepository from './Item/Infrastructure/Repositories/ItemTypeORMRepository';
 
 import UserMikroORMRepository from './User/Infrastructure/Repositories/UserMikroORMRepository';
 import RoleMikroORMRepository from './Role/Infrastructure/Repositories/RoleMikroORMRepository';
 import ItemMikroORMRepository from './Item/Infrastructure/Repositories/ItemMikroORMRepository';
-import FileMikroORMRepository from './File/Infrastructure/Repositories/FileMikroORMRepository';
+import FileVersionMikroORMRepository from './File/Infrastructure/Repositories/FileVersionMikroORMRepository';
 
 import TokenRedisRepository from './Auth/Infrastructure/Repositories/TokenRedisRepository';
 import IEncryption from './Shared/Infrastructure/Encryption/IEncryption';
 import ITokenRepository from './Auth/Infrastructure/Repositories/ITokenRepository';
+import IFileRepository from './File/Infrastructure/Repositories/IFileRepository';
+import FileTypeORMRepository from './File/Infrastructure/Repositories/FileTypeORMRepository';
+import FileMongooseRepository from './File/Infrastructure/Repositories/FileMongooseRepository';
+import FileMikroORMRepository from './File/Infrastructure/Repositories/FileMikroORMRepository';
 
 // Services
 container.register(SERVICES.AuthService, { useClass: AuthService }, { lifecycle: Lifecycle.Singleton });
@@ -55,6 +59,7 @@ if (defaultDbConfig === 'TypeORM')
     container.register<IUserRepository>(REPOSITORIES.IUserRepository, { useClass: UserTypeORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<IRoleRepository>(REPOSITORIES.IRoleRepository, { useClass: RoleTypeORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<IItemRepository>(REPOSITORIES.IItemRepository, { useClass: ItemTypeORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
+    container.register<IFileVersionRepository>(REPOSITORIES.IFileVersionRepository, { useClass: FileVersionTypeORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<IFileRepository>(REPOSITORIES.IFileRepository, { useClass: FileTypeORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
 }
 else if (defaultDbConfig === 'Mongoose')
@@ -62,6 +67,7 @@ else if (defaultDbConfig === 'Mongoose')
     container.register<IUserRepository>(REPOSITORIES.IUserRepository, { useClass: UserMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<IRoleRepository>(REPOSITORIES.IRoleRepository, { useClass: RoleMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<IItemRepository>(REPOSITORIES.IItemRepository, { useClass: ItemMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
+    container.register<IFileVersionRepository>(REPOSITORIES.IFileVersionRepository, { useClass: FileVersionMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<IFileRepository>(REPOSITORIES.IFileRepository, { useClass: FileMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository, { useClass: NotificationMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
 }
@@ -70,6 +76,7 @@ else if (defaultDbConfig === 'MikroORM')
     container.register<IUserRepository>(REPOSITORIES.IUserRepository, { useClass: UserMikroORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<IRoleRepository>(REPOSITORIES.IRoleRepository, { useClass: RoleMikroORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<IItemRepository>(REPOSITORIES.IItemRepository, { useClass: ItemMikroORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
+    container.register<IFileVersionRepository>(REPOSITORIES.IFileVersionRepository, { useClass: FileVersionMikroORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<IFileRepository>(REPOSITORIES.IFileRepository, { useClass: FileMikroORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
 }
 

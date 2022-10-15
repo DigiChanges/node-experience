@@ -1,7 +1,7 @@
 import Notification from './Notification';
 import StatusNotificationEnum from '../Enum/StatusNotificationEnum';
 import TypeNotificationEnum from '../Enum/TypeNotificationEnum';
-import IFileDomain from '../../../File/Domain/Entities/IFileDomain';
+import IFileVersionDomain from '../../../File/Domain/Entities/IFileVersionDomain';
 import IEmailNotificationData from './IEmailNotificationData';
 import IFilesAttachments from './IFilesAttachments';
 
@@ -18,7 +18,7 @@ class EmailNotification extends Notification
     bcc: string;
     subject: string;
     external: boolean;
-    attachedFiles?: IFileDomain[];
+    attachedFiles?: IFileVersionDomain[];
     data?: IEmailNotificationData;
     tempFilesAttachments: IFilesAttachments[];
 
@@ -27,7 +27,7 @@ class EmailNotification extends Notification
         super();
     }
 
-    getAttachedFiles(): IFileDomain[]
+    getAttachedFiles(): IFileVersionDomain[]
     {
         return this.attachedFiles;
     }

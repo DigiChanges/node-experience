@@ -1,7 +1,7 @@
 import { EntitySchema } from '@mikro-orm/core';
 import File from '../../Domain/Entities/File';
 
-const FileSchema = new EntitySchema<File>({
+const FileMikroORM = new EntitySchema<File>({
     name: 'File',
     tableName: 'files',
     class: File,
@@ -13,11 +13,8 @@ const FileSchema = new EntitySchema<File>({
         {
             name: 'unq_file_1',
             properties: ['_id']
-        },
-        {
-            name: 'unq_path_name_is_public',
-            properties: ['name', 'path', 'isPublic']
-        }],
+        }
+    ],
     properties: {
         _id: {
             type: 'uuid',
@@ -25,29 +22,8 @@ const FileSchema = new EntitySchema<File>({
             primary: true,
             unique: true
         },
-        name: {
-            type: 'string'
-        },
-        originalName: {
-            type: 'string'
-        },
-        mimeType: {
-            type: 'string'
-        },
-        path: {
-            type: 'string'
-        },
-        extension: {
-            type: 'string'
-        },
-        size: {
+        currentVersion: {
             type: 'number'
-        },
-        version: {
-            type: 'number'
-        },
-        isPublic: {
-            type: 'boolean'
         },
         createdAt: {
             type: 'Date',
@@ -61,4 +37,4 @@ const FileSchema = new EntitySchema<File>({
     }
 });
 
-export default FileSchema;
+export default FileMikroORM;

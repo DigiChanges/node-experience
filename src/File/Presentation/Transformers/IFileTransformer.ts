@@ -1,6 +1,11 @@
-import IFileDomain from '../../Domain/Entities/IFileDomain';
 import BaseTransformer, { BasePropertiesTransformer } from '../../../Shared/Presentation/Transformers/BaseTransformer';
+import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 
-type IFileTransformer = BaseTransformer<IFileDomain> & BasePropertiesTransformer;
+interface IFileData {
+    currentVersion: number;
+    versions: IFileVersionDomain[];
+}
+
+type IFileTransformer = BaseTransformer<IFileData> & BasePropertiesTransformer;
 
 export default IFileTransformer;

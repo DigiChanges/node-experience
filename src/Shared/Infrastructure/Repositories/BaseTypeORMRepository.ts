@@ -55,7 +55,7 @@ abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>
     {
         const { initThrow = true } = options;
 
-        const entity = await this.repository.findOneBy(condition);
+        const entity = await this.repository.findOneBy(condition as any);
 
         if (initThrow && !entity)
         {
@@ -71,7 +71,7 @@ abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>
 
         initThrow = initThrow ?? false;
 
-        const entities = await this.repository.find(condition);
+        const entities = await this.repository.findBy(condition as any);
 
         if (initThrow && entities.length === 0)
         {

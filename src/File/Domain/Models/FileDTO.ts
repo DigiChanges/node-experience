@@ -1,35 +1,26 @@
-import internal from 'stream';
 import IFileDomain from '../Entities/IFileDomain';
+import IFileVersionDomain from '../Entities/IFileVersionDomain';
 import IFileDTO from './IFileDTO';
 
 class FileDTO implements IFileDTO
 {
-    private _metadata: IFileDomain;
-    private _stream: internal.Readable;
+    private readonly _file: IFileDomain;
+    private readonly _versions: IFileVersionDomain[];
 
-    constructor(metadata: IFileDomain, stream: internal.Readable)
+    constructor(file: IFileDomain, fileVersions: IFileVersionDomain[])
     {
-        this._metadata = metadata;
-        this._stream = stream;
+        this._file = file;
+        this._versions = fileVersions;
     }
 
-    public get metadata(): IFileDomain
+    get file(): IFileDomain
     {
-        return this._metadata;
+        return this._file;
     }
 
-    public set metadata(v: IFileDomain)
+    get versions(): IFileVersionDomain[]
     {
-        this._metadata = v;
-    }
-
-    public get stream(): internal.Readable
-    {
-        return this._stream;
-    }
-    public set stream(v: internal.Readable)
-    {
-        this._stream = v;
+        return this._versions;
     }
 }
 

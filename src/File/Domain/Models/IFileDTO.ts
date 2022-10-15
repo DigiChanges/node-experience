@@ -1,10 +1,10 @@
-import internal from 'stream';
 import IFileDomain from '../Entities/IFileDomain';
+import IFileVersionDomain from '../Entities/IFileVersionDomain';
 
 interface IFileDTO
 {
-    metadata: IFileDomain;
-    stream: internal.Readable;
+    file: IFileDomain;
+    versions: IFileVersionDomain[];
 }
 
 export default IFileDTO;

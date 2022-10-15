@@ -1,4 +1,3 @@
-import IFileRepository from './IFileRepository';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
@@ -6,9 +5,10 @@ import TypeORMPaginator from '../../../Shared/Infrastructure/Orm/TypeORMPaginato
 import FileFilter from '../../Presentation/Criterias/FileFilter';
 import FileSchema from '../Schemas/FileTypeORM';
 import File from '../../Domain/Entities/File';
-import IFileDomain from '../../Domain/Entities/IFileDomain';
 
 import BaseTypeORMRepository from '../../../Shared/Infrastructure/Repositories/BaseTypeORMRepository';
+import IFileRepository from './IFileRepository';
+import IFileDomain from '../../Domain/Entities/IFileDomain';
 
 class FileTypeORMRepository extends BaseTypeORMRepository<IFileDomain> implements IFileRepository
 {

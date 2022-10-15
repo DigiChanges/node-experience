@@ -1,6 +1,6 @@
 import TypeNotificationEnum from '../Enum/TypeNotificationEnum';
 import IEmailNotificationData from './IEmailNotificationData';
-import IFileDomain from '../../../File/Domain/Entities/IFileDomain';
+import IFileVersionDomain from '../../../File/Domain/Entities/IFileVersionDomain';
 
 interface ISendEmailParams
 {
@@ -10,7 +10,7 @@ interface ISendEmailParams
     name: string;
     subject?: string;
     data?: IEmailNotificationData;
-    files?: IFileDomain[];
+    files?: IFileVersionDomain[];
     to: string;
     cc?: string[];
     bcc?: string[];

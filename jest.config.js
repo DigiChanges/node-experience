@@ -42,6 +42,7 @@ module.exports = {
     "<rootDir>/src/User/Presentation/Commands/*.{js,ts}",
     "<rootDir>/src/Item/Presentation/Commands/*.{js,ts}",
     "<rootDir>/src/Role/Presentation/Commands/*.{js,ts}",
+    "<rootDir>/src/FileVersion/Infrastructure/Repositories/FileVersionTypeORMRepository.ts",
     "<rootDir>/src/File/Infrastructure/Repositories/FileTypeORMRepository.ts",
     "<rootDir>/src/User/Infrastructure/Repositories/UserTypeORMRepository.ts",
     "<rootDir>/src/Role/Infrastructure/Repositories/RoleTypeORMRepository.ts",

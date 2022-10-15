@@ -1,8 +1,9 @@
 import FileOptionsQueryPayload from './FileOptionsQueryPayload';
+import VersionPayload from './VersionPayload';
 
-interface PresignedFileRepPayload extends FileOptionsQueryPayload
+interface PresignedFileRepPayload extends FileOptionsQueryPayload, VersionPayload
 {
-    name: string,
+    file: string,
     expiry: number,
 }
 

@@ -29,7 +29,7 @@ class RoleExpressHandler
         this.controller = new RoleController();
     }
 
-    @httpPost('/', AuthorizeExpressMiddleware(Permissions.ROLES_SAVE))
+    @httpPost('/', void AuthorizeExpressMiddleware(Permissions.ROLES_SAVE))
     public async save(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new RoleRepRequest(req.body);
@@ -39,7 +39,7 @@ class RoleExpressHandler
         void await this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
     }
 
-    @httpGet('/', AuthorizeExpressMiddleware(Permissions.ROLES_LIST))
+    @httpGet('/', void AuthorizeExpressMiddleware(Permissions.ROLES_LIST))
     public async list(@request() req: Request, @response() res: Response)
     {
         const _request = new RoleRequestCriteria(req.query, req.url);
@@ -49,7 +49,7 @@ class RoleExpressHandler
         await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
 
-    @httpGet('/:id', AuthorizeExpressMiddleware(Permissions.ROLES_SHOW))
+    @httpGet('/:id', void AuthorizeExpressMiddleware(Permissions.ROLES_SHOW))
     public async get_one(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest({ id: req.params.id });
@@ -59,7 +59,7 @@ class RoleExpressHandler
         void await this.responder.send(role, req, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
 
-    @httpPut('/:id', AuthorizeExpressMiddleware(Permissions.ROLES_UPDATE))
+    @httpPut('/:id', void AuthorizeExpressMiddleware(Permissions.ROLES_UPDATE))
     public async update(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const data = {
@@ -74,7 +74,7 @@ class RoleExpressHandler
         void await this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
-    @httpDelete('/:id', AuthorizeExpressMiddleware(Permissions.ROLES_DELETE))
+    @httpDelete('/:id', void AuthorizeExpressMiddleware(Permissions.ROLES_DELETE))
     public async remove(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const _request = new IdRequest({ id: req.params.id });
