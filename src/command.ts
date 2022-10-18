@@ -7,18 +7,18 @@ dotenv.config(); // Need before get config
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
 
 import './register';
-import AddUserRoleCommand from './User/Presentation/Commands/AddUserRoleCommand';
-import AddUserCommand from './User/Presentation/Commands/AddUserCommand';
-import AddRoleCommand from './Role/Presentation/Commands/AddRoleCommand';
+import AddUserRoleCommand from './Auth/Presentation/Commands/AddUserRoleCommand';
+import AddUserCommand from './Auth/Presentation/Commands/AddUserCommand';
+import AddRoleCommand from './Auth/Presentation/Commands/AddRoleCommand';
 import CreateVapID from './File/Presentation/Commands/CreateVapID';
 
-import AssignRoleToUserCommand from './User/Presentation/Commands/AssingRoleToUserCommand';
+import AssignRoleToUserCommand from './Auth/Presentation/Commands/AssingRoleToUserCommand';
 import SyncRolesPermissionCommand from './Auth/Presentation/Commands/SyncRolesPermissionCommand';
 import CreateBucketCommand from './File/Presentation/Commands/CreateBucketCommand';
 import Seed from './Shared/Presentation/Commands/SeedCommand';
 import initCommand from './initCommand';
 import CreateFolderLogger from './Shared/Presentation/Commands/CreateFolderLogger';
-import ActiveUserCommand from './User/Presentation/Commands/ActiveUserCommand';
+import ActiveUserCommand from './Auth/Presentation/Commands/ActiveUserCommand';
 import Logger from './Shared/Application/Logger/Logger';
 
 void (async() =>

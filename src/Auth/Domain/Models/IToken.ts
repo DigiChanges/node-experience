@@ -1,4 +1,4 @@
-import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
+import IUserDomain from '../Entities/IUserDomain';
 
 interface IToken
 {

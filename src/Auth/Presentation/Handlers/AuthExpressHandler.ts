@@ -6,22 +6,22 @@ import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder'
 import AuthorizeExpressMiddleware from '../Middlewares/AuthorizeExpressMiddleware';
 import Permissions from '../../../Config/Permissions';
 
-import AuthRequest from '../Requests/AuthRequest';
-import ForgotPasswordRequest from '../Requests/ForgotPasswordRequest';
-import ChangeForgotPasswordRequest from '../Requests/ChangeForgotPasswordRequest';
-import RefreshTokenRequest from '../Requests/RefreshTokenRequest';
+import AuthRequest from '../Requests/Auth/AuthRequest';
+import ForgotPasswordRequest from '../Requests/Auth/ForgotPasswordRequest';
+import ChangeForgotPasswordRequest from '../Requests/Auth/ChangeForgotPasswordRequest';
+import RefreshTokenRequest from '../Requests/Auth/RefreshTokenRequest';
 
 import AuthTransformer from '../Transformers/AuthTransformer';
 import PermissionsTransformer from '../Transformers/PermissionsTransformer';
 
 import AuthController from '../Controllers/AuthController';
 import { AuthUser } from '../Helpers/AuthUser';
-import UserTransformer from '../../../User/Presentation/Transformers/UserTransformer';
+import UserTransformer from '../Transformers/UserTransformer';
 import dayjs from 'dayjs';
 import DefaultTransformer from '../../../Shared/Presentation/Transformers/DefaultTransformer';
-import RegisterRequest from '../Requests/RegisterRequest';
-import UpdateMeRequest from '../Requests/UpdateMeRequest';
-import VerifyYourAccountRequest from '../Requests/VerifyYourAccountRequest';
+import RegisterRequest from '../Requests/Auth/RegisterRequest';
+import UpdateMeRequest from '../Requests/Auth/UpdateMeRequest';
+import VerifyYourAccountRequest from '../Requests/Auth/VerifyYourAccountRequest';
 import RefreshTokenExpressMiddleware from '../Middlewares/RefreshTokenExpressMiddleware';
 import MainConfig from '../../../Config/MainConfig';
 import StatusCode from '../../../Shared/Application/StatusCode';

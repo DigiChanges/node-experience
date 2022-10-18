@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import jwt from 'jwt-simple';
 import IToken from './IToken';
-import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
+import IUserDomain from '../Entities/IUserDomain';
 import IDecodeToken from './IDecodeToken';
 import { JwtConfig } from '../../../Config/MainConfig';
 

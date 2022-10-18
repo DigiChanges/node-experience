@@ -1,26 +1,26 @@
-import LoginUseCase from '../../Domain/UseCases/LoginUseCase';
-import ChangeForgotPasswordUseCase from '../../Domain/UseCases/ChangeForgotPasswordUseCase';
-import ForgotPasswordUseCase from '../../Domain/UseCases/ForgotPasswordUseCase';
-import RefreshTokenUseCase from '../../Domain/UseCases/RefreshTokenUseCase';
-import PermissionUseCase from '../../Domain/UseCases/PermissionUseCase';
-import SyncRolesPermissionUseCase from '../../Domain/UseCases/SyncRolesPermissionUseCase';
+import LoginUseCase from '../../Domain/UseCases/Auth/LoginUseCase';
+import ChangeForgotPasswordUseCase from '../../Domain/UseCases/Auth/ChangeForgotPasswordUseCase';
+import ForgotPasswordUseCase from '../../Domain/UseCases/Auth/ForgotPasswordUseCase';
+import RefreshTokenUseCase from '../../Domain/UseCases/Auth/RefreshTokenUseCase';
+import PermissionUseCase from '../../Domain/UseCases/Auth/PermissionUseCase';
+import SyncRolesPermissionUseCase from '../../Domain/UseCases/Auth/SyncRolesPermissionUseCase';
+import RegisterUseCase from '../../Domain/UseCases/Auth/RegisterUseCase';
+import UpdateMeUseCase from '../../Domain/UseCases/Auth/UpdateMeUseCase';
+import LogoutUseCase from '../../Domain/UseCases/Auth/LogoutUseCase';
+import VerifyYourAccountUseCase from '../../Domain/UseCases/Auth/VerifyYourAccountUseCase';
 
 import ValidatorRequest from '../../../Shared/Presentation/Shared/ValidatorRequest';
-import ChangeForgotPasswordPayload from '../../Domain/Payloads/ChangeForgotPasswordPayload';
-import AuthPayload from '../../Domain/Payloads/AuthPayload';
-import RefreshTokenPayload from '../../Domain/Payloads/RefreshTokenPayload';
-import ForgotPasswordPayload from '../../Domain/Payloads/ForgotPasswordPayload';
-import LogoutUseCase from '../../Domain/UseCases/LogoutUseCase';
-import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
-import RegisterPayload from '../../Domain/Payloads/RegisterPayload';
-import RegisterUseCase from '../../Domain/UseCases/RegisterUseCase';
-import UpdateMeUseCase from '../../Domain/UseCases/UpdateMeUseCase';
-import VerifyYourAccountPayload from '../../Domain/Payloads/VerifyYourAccountPayload';
-import VerifyYourAccountUseCase from '../../Domain/UseCases/VerifyYourAccountUseCase';
+import ChangeForgotPasswordPayload from '../../Domain/Payloads/Auth/ChangeForgotPasswordPayload';
+import AuthPayload from '../../Domain/Payloads/Auth/AuthPayload';
+import RefreshTokenPayload from '../../Domain/Payloads/Auth/RefreshTokenPayload';
+import ForgotPasswordPayload from '../../Domain/Payloads/Auth/ForgotPasswordPayload';
+import IUserDomain from '../../Domain/Entities/IUserDomain';
+import RegisterPayload from '../../Domain/Payloads/Auth/RegisterPayload';
+import VerifyYourAccountPayload from '../../Domain/Payloads/Auth/VerifyYourAccountPayload';
 import IToken from '../../Domain/Models/IToken';
 import ILocaleMessage from '../../../Shared/InterfaceAdapters/ILocaleMessage';
 import IGroupPermission from '../../../Config/IGroupPermission';
-import UpdateMePayload from '../../Domain/Payloads/UpdateMePayload';
+import UpdateMePayload from '../../Domain/Payloads/Auth/UpdateMePayload';
 
 class AuthController
 {

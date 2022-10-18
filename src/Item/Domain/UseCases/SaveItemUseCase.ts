@@ -1,6 +1,6 @@
 import ItemRepPayload from '../Payloads/ItemRepPayload';
 import IItemDomain from '../Entities/IItemDomain';
-import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
+import IUserDomain from '../../../Auth/Domain/Entities/IUserDomain';
 import Item from '../Entities/Item';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';

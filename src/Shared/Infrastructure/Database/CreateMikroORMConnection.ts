@@ -1,7 +1,7 @@
 import { MikroORM } from '@mikro-orm/core';
 import { newDb } from 'pg-mem';
-import User from '../../../User/Infrastructure/Schemas/UserMikroORM';
-import Role from '../../../Role/Infrastructure/Schemas/RoleMikroORM';
+import User from '../../../Auth/Infrastructure/Schemas/UserMikroORM';
+import Role from '../../../Auth/Infrastructure/Schemas/RoleMikroORM';
 import Item from '../../../Item/Infrastructure/Schemas/ItemMikroORM';
 import File from '../../../File/Infrastructure/Schemas/FileMikroORM';
 import FileVersion from '../../../File/Infrastructure/Schemas/FileVersionMikroORM';

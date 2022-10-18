@@ -49,8 +49,6 @@ Each module is divided by business domain:
 - File
 - Item
 - Notification
-- Role
-- User
 
 There are also two particular cases:
 

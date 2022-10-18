@@ -1,6 +1,6 @@
 import { REPOSITORIES, SERVICES } from '../../../Config/Injects';
 import AuthService from '../../Domain/Services/AuthService';
-import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
+import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
 import { DependencyContainer } from 'tsyringe';
 
 const AuthenticationExpressMiddleware = async(req: any, res: any, next: any) =>

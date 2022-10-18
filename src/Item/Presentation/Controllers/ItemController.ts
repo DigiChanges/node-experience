@@ -9,7 +9,7 @@ import ValidatorRequest from '../../../Shared/Presentation/Shared/ValidatorReque
 import ItemRepPayload from '../../Domain/Payloads/ItemRepPayload';
 import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import ItemUpdatePayload from '../../Domain/Payloads/ItemUpdatePayload';
-import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
+import IUserDomain from '../../../Auth/Domain/Entities/IUserDomain';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 

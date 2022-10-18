@@ -2,7 +2,7 @@ import { SERVICES } from '../../../Config/Injects';
 import { NextFunction, Response } from 'express';
 import MainConfig from '../../../Config/MainConfig';
 
-import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
+import IUserDomain from '../../Domain/Entities/IUserDomain';
 import ForbiddenHttpException from '../Exceptions/ForbiddenHttpException';
 import AuthService from '../../Domain/Services/AuthService';
 import { DependencyContainer } from 'tsyringe';

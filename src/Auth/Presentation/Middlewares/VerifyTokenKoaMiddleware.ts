@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import VerifyTokenBlacklistUseCase from '../../Domain/UseCases/VerifyTokenBlacklistUseCase';
+import VerifyTokenBlacklistUseCase from '../../Domain/UseCases/Auth/VerifyTokenBlacklistUseCase';
 
 const VerifyTokenKoaMiddleware = async(ctx: Koa.ParameterizedContext, next: Koa.Next) =>
 {

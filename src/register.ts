@@ -13,29 +13,29 @@ import EmailStrategy from './Notification/Shared/EmailStrategy';
 import WebPushStrategy from './Notification/Shared/WebPushStrategy';
 
 import AuthService from './Auth/Domain/Services/AuthService';
-import UserService from './User/Domain/Services/UserService';
+import UserService from './Auth/Domain/Services/UserService';
 
-import IUserRepository from './User/Infrastructure/Repositories/IUserRepository';
-import IRoleRepository from './Role/Infrastructure/Repositories/IRoleRepository';
+import IUserRepository from './Auth/Infrastructure/Repositories/IUserRepository';
+import IRoleRepository from './Auth/Infrastructure/Repositories/IRoleRepository';
 import IItemRepository from './Item/Infrastructure/Repositories/IItemRepository';
 import IFileVersionRepository from './File/Infrastructure/Repositories/IFileVersionRepository';
 import INotificationRepository from './Notification/Infrastructure/Repositories/INotificationRepository';
 import INotificationDomain from './Notification/Domain/Entities/INotificationDomain';
 import ITokenDomain from './Auth/Domain/Entities/ITokenDomain';
 
-import UserMongooseRepository from './User/Infrastructure/Repositories/UserMongooseRepository';
-import RoleMongooseRepository from './Role/Infrastructure/Repositories/RoleMongooseRepository';
+import UserMongooseRepository from './Auth/Infrastructure/Repositories/UserMongooseRepository';
+import RoleMongooseRepository from './Auth/Infrastructure/Repositories/RoleMongooseRepository';
 import FileVersionMongooseRepository from './File/Infrastructure/Repositories/FileVersionMongooseRepository';
 import ItemMongooseRepository from './Item/Infrastructure/Repositories/ItemMongooseRepository';
 import NotificationMongooseRepository from './Notification/Infrastructure/Repositories/NotificationMongooseRepository';
 
-import UserTypeORMRepository from './User/Infrastructure/Repositories/UserTypeORMRepository';
-import RoleTypeORMRepository from './Role/Infrastructure/Repositories/RoleTypeORMRepository';
+import UserTypeORMRepository from './Auth/Infrastructure/Repositories/UserTypeORMRepository';
+import RoleTypeORMRepository from './Auth/Infrastructure/Repositories/RoleTypeORMRepository';
 import FileVersionTypeORMRepository from './File/Infrastructure/Repositories/FileVersionTypeORMRepository';
 import ItemTypeORMRepository from './Item/Infrastructure/Repositories/ItemTypeORMRepository';
 
-import UserMikroORMRepository from './User/Infrastructure/Repositories/UserMikroORMRepository';
-import RoleMikroORMRepository from './Role/Infrastructure/Repositories/RoleMikroORMRepository';
+import UserMikroORMRepository from './Auth/Infrastructure/Repositories/UserMikroORMRepository';
+import RoleMikroORMRepository from './Auth/Infrastructure/Repositories/RoleMikroORMRepository';
 import ItemMikroORMRepository from './Item/Infrastructure/Repositories/ItemMikroORMRepository';
 import FileVersionMikroORMRepository from './File/Infrastructure/Repositories/FileVersionMikroORMRepository';
 

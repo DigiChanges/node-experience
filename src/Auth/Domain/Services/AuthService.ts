@@ -1,5 +1,5 @@
 import jwt from 'jwt-simple';
-import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
+import IUserDomain from '../Entities/IUserDomain';
 import IDecodeToken from '../Models/IDecodeToken';
 import TokenExpiredHttpException from '../../Presentation/Exceptions/TokenExpiredHttpException';
 import TokenNotFoundHttpException from '../../Presentation/Exceptions/TokenNotFoundHttpException';

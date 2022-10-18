@@ -9,9 +9,9 @@ import newContainer from '../../../register';
 
 import '../../Presentation/Handlers/IndexExpressHandler';
 import '../../../Item/Presentation/Handlers/ItemExpressHandler';
-import '../../../User/Presentation/Handlers/UserExpressHandler';
+import '../../../Auth/Presentation/Handlers/UserExpressHandler';
 import '../../../Auth/Presentation/Handlers/AuthExpressHandler';
-import '../../../Role/Presentation/Handlers/RoleExpressHandler';
+import '../../../Auth/Presentation/Handlers/RoleExpressHandler';
 import '../../../File/Presentation/Handlers/FileExpressHandler';
 import '../../../Notification/Presentation/Handlers/NotificationExpressHandler';
 import '../../Tests/WhiteListExpressHandler';

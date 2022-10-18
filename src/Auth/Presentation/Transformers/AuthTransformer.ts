@@ -3,8 +3,8 @@ import utc from 'dayjs/plugin/utc';
 import Transformer from '../../../Shared/Presentation/Shared/Transformer';
 
 import IToken from '../../Domain/Models/IToken';
-import RoleUserTransformer from '../../../Role/Presentation/Transformers/RoleUserTransformer';
-import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
+import RoleUserTransformer from './RoleUserTransformer';
+import IUserDomain from '../../Domain/Entities/IUserDomain';
 import AuthService from '../../Domain/Services/AuthService';
 
 class AuthTransformer extends Transformer

@@ -1,5 +1,5 @@
-import VerifyTokenBlacklistUseCase from '../../Domain/UseCases/VerifyTokenBlacklistUseCase';
 import { DependencyContainer } from 'tsyringe';
+import VerifyTokenBlacklistUseCase from '../../Domain/UseCases/Auth/VerifyTokenBlacklistUseCase';
 
 const VerifyTokenExpressMiddleware = async(req: any, response: any, next: any) =>
 {

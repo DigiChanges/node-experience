@@ -2,7 +2,7 @@ import Koa from 'koa';
 import MainConfig from '../../../Config/MainConfig';
 import { SERVICES } from '../../../Config/Injects';
 
-import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
+import IUserDomain from '../../Domain/Entities/IUserDomain';
 import ForbiddenHttpException from '../Exceptions/ForbiddenHttpException';
 import AuthService from '../../Domain/Services/AuthService';
 import { DependencyContainer } from 'tsyringe';

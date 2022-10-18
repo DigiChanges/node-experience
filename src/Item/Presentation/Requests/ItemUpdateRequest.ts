@@ -2,7 +2,7 @@ import { Mixin } from 'ts-mixer';
 import ItemUpdatePayload from '../../Domain/Payloads/ItemUpdatePayload';
 import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
 import ItemRepRequest from './ItemRepRequest';
-import IUserDomain from 'User/Domain/Entities/IUserDomain';
+import IUserDomain from 'Auth/Domain/Entities/IUserDomain';
 
 class ItemUpdateRequest extends Mixin(ItemRepRequest, IdRequest) implements ItemUpdatePayload
 {

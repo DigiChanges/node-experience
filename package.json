@@ -12,7 +12,7 @@
     "login:infisical": "infisical login",
     "pull:env": "infisical pull",
     "docker:command": "docker-compose exec node pnpm command",
-    "lint-fix": "eslint -c .eslintrc.json ./src --fix",
+    "lint:fix": "eslint -c .eslintrc.json ./src --fix",
     "lint": "eslint -c .eslintrc.json ./src",
     "pre:commit": "lint-staged",
     "pre:check": "pnpm ts:check && pnpm lint",

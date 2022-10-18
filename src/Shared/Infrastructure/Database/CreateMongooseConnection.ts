@@ -3,8 +3,8 @@ import MainConfig from '../../../Config/MainConfig';
 import { urlAlphabet } from 'nanoid';
 import { customAlphabet } from 'nanoid/async';
 
-import UserMongooseDocument from '../../../User/Infrastructure/Schemas/UserMongooseDocument';
-import RoleMongooseDocument from '../../../Role/Infrastructure/Schemas/RoleMongooseDocument';
+import UserMongooseDocument from '../../../Auth/Infrastructure/Schemas/UserMongooseDocument';
+import RoleMongooseDocument from '../../../Auth/Infrastructure/Schemas/RoleMongooseDocument';
 import ItemMongooseDocument from '../../../Item/Infrastructure/Schemas/ItemMongooseDocument';
 import FileVersionMongooseDocument from '../../../File/Infrastructure/Schemas/FileVersionMongooseDocument';
 import NotificationMongooseDocument from '../../../Notification/Infrastructure/Schemas/NotificationMongooseDocument';
@@ -12,8 +12,8 @@ import ITokenMongooseDocument from '../../../Auth/Infrastructure/Schemas/ITokenM
 
 import ItemSchema from '../../../Item/Infrastructure/Schemas/ItemMongoose';
 
-import RoleSchema from '../../../Role/Infrastructure/Schemas/RoleMongoose';
-import UserSchema from '../../../User/Infrastructure/Schemas/UserMongoose';
+import RoleSchema from '../../../Auth/Infrastructure/Schemas/RoleMongoose';
+import UserSchema from '../../../Auth/Infrastructure/Schemas/UserMongoose';
 import FileVersionSchema from '../../../File/Infrastructure/Schemas/FileVersionMongoose';
 import {
     EmailNotificationSchema,

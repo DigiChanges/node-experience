@@ -1,4 +1,4 @@
-import UserSeed from './User/Infrastructure/Seeds/UserSeed';
+import UserSeed from './Auth/Infrastructure/Seeds/UserSeed';
 import ItemSeed from './Item/Infrastructure/Seeds/ItemSeed';
 
 const seeds = {

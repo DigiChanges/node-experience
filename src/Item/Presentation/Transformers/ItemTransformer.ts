@@ -3,7 +3,7 @@ import utc from 'dayjs/plugin/utc';
 import Transformer from '../../../Shared/Presentation/Shared/Transformer';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 import IItemTransformer from './IItemTransformer';
-import UserMinimalDataTransformer from '../../../User/Presentation/Transformers/UserMinimalDataTransformer';
+import UserMinimalDataTransformer from '../../../Auth/Presentation/Transformers/UserMinimalDataTransformer';
 
 class ItemTransformer extends Transformer
 {

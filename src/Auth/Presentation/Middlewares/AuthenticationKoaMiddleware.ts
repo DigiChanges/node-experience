@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import { REPOSITORIES, SERVICES } from '../../../Config/Injects';
 import AuthService from '../../Domain/Services/AuthService';
-import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
+import IUserRepository from '../../Infrastructure/Repositories/IUserRepository';
 import { DependencyContainer } from 'tsyringe';
 
 const AuthenticationKoaMiddleware = async(ctx: Koa.ParameterizedContext, next: Koa.Next) =>

@@ -2,12 +2,12 @@ import faker from 'faker';
 import IItemRepository from '../Repositories/IItemRepository';
 import Item from '../../Domain/Entities/Item';
 import { REPOSITORIES } from '../../../Config/Injects';
-import IUserDomain from '../../../User/Domain/Entities/IUserDomain';
-import User from '../../../User/Domain/Entities/User';
-import IUserRepository from '../../../User/Infrastructure/Repositories/IUserRepository';
+import IUserDomain from '../../../Auth/Domain/Entities/IUserDomain';
+import User from '../../../Auth/Domain/Entities/User';
+import IUserRepository from '../../../Auth/Infrastructure/Repositories/IUserRepository';
 import Password from '../../../Shared/Domain/ValueObjects/Password';
 import MainConfig from '../../../Config/MainConfig';
-import IRoleDomain from '../../../Role/Domain/Entities/IRoleDomain';
+import IRoleDomain from '../../../Auth/Domain/Entities/IRoleDomain';
 import BaseSeed from '../../../Shared/Infrastructure/Seeds/BaseSeed';
 
 class ItemSeed extends BaseSeed

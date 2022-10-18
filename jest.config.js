@@ -2,7 +2,6 @@
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/en/configuration.html
  */
-// const { defaults: tsjPreset } = require('ts-jest/presets')
 
 module.exports = {
 
@@ -37,20 +36,20 @@ module.exports = {
     "<rootDir>/src/*/I[A-z]*.{js,ts}",
     "<rootDir>/node_modules/",
     "<rootDir>/.eslintrc.json",
-    "<rootDir>/src/command.ts",
+    "<rootDir>/src/command.{js,ts}",
     "<rootDir>/src/Infrastructure/Notifications/*.{js,ts}",
-    "<rootDir>/src/User/Presentation/Commands/*.{js,ts}",
-    "<rootDir>/src/Item/Presentation/Commands/*.{js,ts}",
-    "<rootDir>/src/Role/Presentation/Commands/*.{js,ts}",
-    "<rootDir>/src/FileVersion/Infrastructure/Repositories/FileVersionTypeORMRepository.ts",
-    "<rootDir>/src/File/Infrastructure/Repositories/FileTypeORMRepository.ts",
-    "<rootDir>/src/User/Infrastructure/Repositories/UserTypeORMRepository.ts",
-    "<rootDir>/src/Role/Infrastructure/Repositories/RoleTypeORMRepository.ts",
-    "<rootDir>/src/Item/Infrastructure/Repositories/ItemTypeORMRepository.ts",
-    "<rootDir>/src/Auth/Infrastructure/Repositories/TokenRedisRepository.ts",
-    "<rootDir>/src/Shared/Infrastructure/Database/CreateMikroORMConnection.ts",
-    "<rootDir>/src/Shared/Infrastructure/Database/CreateTypeORMConnection.ts ",
+    "<rootDir>/src/Auth/Presentation/Commands/*.{js,ts}",
+    "<rootDir>/src/FileVersion/Infrastructure/Repositories/FileVersionTypeORMRepository.{js,ts}",
+    "<rootDir>/src/File/Infrastructure/Repositories/FileTypeORMRepository.{js,ts}",
+    "<rootDir>/src/Auth/Infrastructure/Repositories/UserTypeORMRepository.{js,ts}",
+    "<rootDir>/src/Auth/Infrastructure/Repositories/RoleTypeORMRepository.{js,ts}",
+    "<rootDir>/src/Auth/Infrastructure/Repositories/TokenRedisRepository.{js,ts}",
+    "<rootDir>/src/Item/Infrastructure/Repositories/ItemTypeORMRepository.{js,ts}",
+    "<rootDir>/src/Shared/Infrastructure/Database/CreateMikroORMConnection.{js,ts}",
+    "<rootDir>/src/Shared/Infrastructure/Database/CreateTypeORMConnection.{js,ts}",
+    "<rootDir>/src/Shared/Infrastructure/Orm/MikroORMPaginator.{js,ts}",
     "<rootDir>/src/Shared/Events/*.{js,ts}",
+    "<rootDir>/src/*/*.{js,ts}",
   ],
 
   // Indicates which provider should be used to instrument code for coverage
