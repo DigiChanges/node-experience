@@ -1,5 +1,5 @@
 import { decorate } from 'ts-mixer';
-import { IsBoolean, IsEmail, IsString, Length, Validate } from 'class-validator';
+import { IsBoolean, IsEmail, IsString, Length } from 'class-validator';
 import UserRepPayload from '../../../Domain/Payloads/User/UserRepPayload';
 import IRoleDomain from '../../../Domain/Entities/IRoleDomain';
 import { IsValidBirthday } from '../../Helpers/CustomUserValidation';
