@@ -1,11 +1,24 @@
-import { ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
+import { ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface, registerDecorator } from 'class-validator';
 
-@ValidatorConstraint()
-export class IsValidBirthday implements ValidatorConstraintInterface
+export function IsValidBirthday(validationOptions?: ValidationOptions)
+{
+    return (object: any, propertyName: string) =>
+    {
+        registerDecorator({
+            target: object.constructor,
+            propertyName,
+            options: validationOptions,
+            validator: IsValidBirthdayConstraint
+        });
+    };
+}
+
+@ValidatorConstraint({ name: 'IsValidBirthday' })
+class IsValidBirthdayConstraint implements ValidatorConstraintInterface
 {
     public validate(date: string)
     {
-        return this.dateIsValid(date);
+        return date ? this.dateIsValid(date) : false;
     }
 
     private dateIsValid(dateStr: string)

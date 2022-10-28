@@ -51,9 +51,9 @@ class UserWithoutPermissionsRequest implements UserRepPayload
         return this._email;
     }
 
-    @decorate(Validate(IsValidBirthday, {
-        message: 'Invalid format'
-    }))
+    @decorate(IsString())
+    @decorate(IsValidBirthday({ message: 'Invalid format' }))
+
     get birthday(): string
     {
         return this._birthday;
