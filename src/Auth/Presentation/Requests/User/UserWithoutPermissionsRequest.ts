@@ -2,6 +2,7 @@ import { decorate } from 'ts-mixer';
 import { IsBoolean, IsEmail, IsString, Length } from 'class-validator';
 import UserRepPayload from '../../../Domain/Payloads/User/UserRepPayload';
 import IRoleDomain from '../../../Domain/Entities/IRoleDomain';
+import { IsValidBirthday } from '../../Helpers/CustomUserValidation';
 
 class UserWithoutPermissionsRequest implements UserRepPayload
 {
@@ -50,8 +51,9 @@ class UserWithoutPermissionsRequest implements UserRepPayload
         return this._email;
     }
 
-    @decorate(Length(3, 10))
     @decorate(IsString())
+    @decorate(IsValidBirthday({ message: 'Invalid format' }))
+
     get birthday(): string
     {
         return this._birthday;
