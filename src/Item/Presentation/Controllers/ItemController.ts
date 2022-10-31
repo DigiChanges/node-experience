@@ -9,18 +9,17 @@ import ValidatorRequest from '../../../Shared/Presentation/Shared/ValidatorReque
 import ItemRepPayload from '../../Domain/Payloads/ItemRepPayload';
 import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import ItemUpdatePayload from '../../Domain/Payloads/ItemUpdatePayload';
-import IUserDomain from '../../../Auth/Domain/Entities/IUserDomain';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 class ItemController
 {
-    public async save(request: ItemRepPayload, authUser: IUserDomain): Promise<IItemDomain>
+    public async save(request: ItemRepPayload): Promise<IItemDomain>
     {
         await ValidatorRequest.handle(request);
 
         const useCase = new SaveItemUseCase();
-        return await useCase.handle(request, authUser);
+        return await useCase.handle(request);
     }
 
     public async list(request: ICriteria): Promise<IPaginator>

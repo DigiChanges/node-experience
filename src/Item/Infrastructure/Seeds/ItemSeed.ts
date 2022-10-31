@@ -26,17 +26,17 @@ class ItemSeed extends BaseSeed
     {
         const indexes = Array.from({ length: 10 }, (v, i) => i + 1);
 
-        const user = await this.createUser();
+        const authUser = await this.createUser();
 
         for await (const index of indexes)
         {
             const name = faker.name.title();
             const type = faker.datatype.number();
 
-            const item = new Item({ name, type });
+            const item = new Item({ name, type, authUser });
 
-            item.createdBy = user;
-            item.lastModifiedBy = user;
+            item.createdBy = authUser;
+            item.lastModifiedBy = authUser;
 
             await this.repository.save(item);
         }

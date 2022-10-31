@@ -25,9 +25,14 @@ const controller: ItemController = new ItemController();
 
 ItemKoaHandler.post('/', AuthorizeKoaMiddleware(Permissions.ITEMS_SAVE), async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const request = new ItemRepRequest(ctx.request.body);
+    const data = {
+        authUser: AuthUser(ctx),
+        ...ctx.request.body
+    };
 
-    const item = await controller.save(request, AuthUser(ctx));
+    const request = new ItemRepRequest(data);
+
+    const item = await controller.save(request);
 
     void await responder.send(item, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
 });

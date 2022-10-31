@@ -1,6 +1,5 @@
 import ItemRepPayload from '../Payloads/ItemRepPayload';
 import IItemDomain from '../Entities/IItemDomain';
-import IUserDomain from '../../../Auth/Domain/Entities/IUserDomain';
 import Item from '../Entities/Item';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
@@ -16,10 +15,10 @@ class SaveItemUseCase
         this.repository = container.resolve<IItemRepository>(REPOSITORIES.IItemRepository);
     }
 
-    async handle(payload: ItemRepPayload, authUser: IUserDomain): Promise<IItemDomain>
+    async handle(payload: ItemRepPayload): Promise<IItemDomain>
     {
         const item = new Item(payload);
-        item.createdBy = authUser;
+        item.createdBy = payload.authUser;
 
         return await this.repository.save(item);
     }

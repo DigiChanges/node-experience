@@ -34,9 +34,14 @@ class ItemExpressHandler
     @httpPost('/', void AuthorizeExpressMiddleware(Permissions.ITEMS_SAVE))
     public async save(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new ItemRepRequest(req.body);
+        const data = {
+            authUser: AuthUser(req),
+            ...req.body
+        };
 
-        const item: IItemDomain = await this.controller.save(_request, AuthUser(req));
+        const _request = new ItemRepRequest(data);
+
+        const item: IItemDomain = await this.controller.save(_request);
 
         void await this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
     }
