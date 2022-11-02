@@ -1,9 +1,9 @@
 import ItemRepPayload from '../Payloads/ItemRepPayload';
 import IItemDomain from '../Entities/IItemDomain';
-import Item from '../Entities/Item';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
 import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
+import ItemBuilder from '../Factories/ItemBuilder';
 
 class SaveItemUseCase
 {
@@ -17,8 +17,10 @@ class SaveItemUseCase
 
     async handle(payload: ItemRepPayload): Promise<IItemDomain>
     {
-        const item = new Item(payload);
-        item.createdBy = payload.authUser;
+        const item: IItemDomain = new ItemBuilder(payload)
+            .setItem()
+            .build()
+            .create();
 
         return await this.repository.save(item);
     }

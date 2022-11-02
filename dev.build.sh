@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-yarn
-yarn dev:watch
+pnpm
+pnpm dev:watch

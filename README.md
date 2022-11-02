@@ -40,7 +40,7 @@ npm install -g nexp-cli
 Then generate your new project:
 
 ```bash
-nexp-cli create
+nexp-cli setPayload
 ```
 
 Each module is divided by business domain:

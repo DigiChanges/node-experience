@@ -1,6 +1,5 @@
 import faker from 'faker';
 import IItemRepository from '../Repositories/IItemRepository';
-import Item from '../../Domain/Entities/Item';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IUserDomain from '../../../Auth/Domain/Entities/IUserDomain';
 import User from '../../../Auth/Domain/Entities/User';
@@ -9,6 +8,8 @@ import Password from '../../../Shared/Domain/ValueObjects/Password';
 import MainConfig from '../../../Config/MainConfig';
 import IRoleDomain from '../../../Auth/Domain/Entities/IRoleDomain';
 import BaseSeed from '../../../Shared/Infrastructure/Seeds/BaseSeed';
+import IItemDomain from '../../Domain/Entities/IItemDomain';
+import ItemBuilder from '../../Domain/Factories/ItemBuilder';
 
 class ItemSeed extends BaseSeed
 {
@@ -33,10 +34,10 @@ class ItemSeed extends BaseSeed
             const name = faker.name.title();
             const type = faker.datatype.number();
 
-            const item = new Item({ name, type, authUser });
-
-            item.createdBy = authUser;
-            item.lastModifiedBy = authUser;
+            const item: IItemDomain = new ItemBuilder({ name, type, authUser })
+                .setItem()
+                .build()
+                .create();
 
             await this.repository.save(item);
         }

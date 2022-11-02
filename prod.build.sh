@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-yarn
-yarn build
+pnpm
+pnpm build
 cp ./.env.prod ./.env
 pm2-runtime start ecosystem.config.js

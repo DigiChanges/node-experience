@@ -17,8 +17,8 @@ class ItemTransformer extends Transformer
 
     public async transform(item: IItemDomain): Promise<IItemTransformer>
     {
-        const createdBy = item.getCreatedBy();
-        const lastModifiedBy = item.getLastModifiedBy();
+        const createdBy = item.createdBy;
+        const lastModifiedBy = item.lastModifiedBy;
         dayjs.extend(utc);
 
         return {
