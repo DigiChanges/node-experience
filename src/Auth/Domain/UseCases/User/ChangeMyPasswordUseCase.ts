@@ -3,7 +3,7 @@ import ChangeMyPasswordPayload from '../../Payloads/User/ChangeMyPasswordPayload
 import IUserDomain from '../../Entities/IUserDomain';
 import PasswordWrongException from '../../Exceptions/PasswordWrongException';
 import UserService from '../../Services/UserService';
-import { FACTORIES, SERVICES } from '../../../../Config/Injects';
+import { FACTORIES } from '../../../../Config/Injects';
 import IEncryption from '../../../../Shared/Infrastructure/Encryption/IEncryption';
 
 class ChangeMyPasswordUseCase
@@ -14,7 +14,7 @@ class ChangeMyPasswordUseCase
     constructor()
     {
         const { container } = getRequestContext();
-        this.userService = container.resolve<UserService>(SERVICES.UserService);
+        this.userService = new UserService();
         this.encryption = container.resolve<IEncryption>(FACTORIES.BcryptEncryptionStrategy);
     }
 

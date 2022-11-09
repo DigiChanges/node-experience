@@ -8,12 +8,7 @@ import Md5EncryptionStrategy from './Shared/Infrastructure/Encryption/Md5Encrypt
 
 import MainConfig from './Config/MainConfig';
 
-import INotifierStrategy from './Notification/Shared/INotifierStrategy';
-import EmailStrategy from './Notification/Shared/EmailStrategy';
-import WebPushStrategy from './Notification/Shared/WebPushStrategy';
-
 import AuthService from './Auth/Domain/Services/AuthService';
-import UserService from './Auth/Domain/Services/UserService';
 
 import IUserRepository from './Auth/Infrastructure/Repositories/IUserRepository';
 import IRoleRepository from './Auth/Infrastructure/Repositories/IRoleRepository';
@@ -49,7 +44,6 @@ import FileMikroORMRepository from './File/Infrastructure/Repositories/FileMikro
 
 // Services
 container.register(SERVICES.AuthService, { useClass: AuthService }, { lifecycle: Lifecycle.Singleton });
-container.register(SERVICES.UserService, { useClass: UserService }, { lifecycle: Lifecycle.Singleton });
 
 // Repositories
 const defaultDbConfig = MainConfig.getInstance().getConfig().dbConfig.default;
@@ -85,8 +79,5 @@ container.register<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository
 // Shared
 container.register<IEncryption>(FACTORIES.BcryptEncryptionStrategy, { useClass: BcryptEncryptionStrategy }, { lifecycle: Lifecycle.Singleton });
 container.register<IEncryption>(FACTORIES.Md5EncryptionStrategy, { useClass: Md5EncryptionStrategy }, { lifecycle: Lifecycle.Singleton });
-
-container.register<INotifierStrategy>(FACTORIES.EmailStrategy, { useClass: EmailStrategy }, { lifecycle: Lifecycle.Singleton });
-container.register<INotifierStrategy>(FACTORIES.WebPushStrategy, { useClass: WebPushStrategy }, { lifecycle: Lifecycle.Singleton });
 
 export default container;

@@ -12,7 +12,7 @@ export class ErrorKoaHandler
         {
             await next();
         }
-        catch (err)
+        catch (err: any)
         {
             const responder = new KoaResponder();
             const exception: ErrorHttpException = ExceptionFactory.getException(err);

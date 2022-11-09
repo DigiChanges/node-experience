@@ -11,8 +11,8 @@ interface IPaginator
     getPath(): string;
     getFirstUrl(): string;
     getLastUrl(): string;
-    getNextUrl(): string;
-    getPrevUrl(): string;
+    getNextUrl(): string | null;
+    getPrevUrl(): string | null;
     getCurrentUrl(): string;
     getExist(): boolean;
     getMetadata(): Record<string, unknown>;

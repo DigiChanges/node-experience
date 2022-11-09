@@ -6,8 +6,6 @@ import Locales from '../../../../Shared/Presentation/Shared/Locales';
 import RegisterPayload from '../../Payloads/Auth/RegisterPayload';
 import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
 import MainConfig from '../../../../Config/MainConfig';
-import { SERVICES } from '../../../../Config/Injects';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
 
 class RegisterUseCase
 {
@@ -15,8 +13,7 @@ class RegisterUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
-        this.userService = container.resolve<UserService>(SERVICES.UserService);
+        this.userService = new UserService();
     }
 
     async handle(payload: RegisterPayload): Promise<ILocaleMessage>

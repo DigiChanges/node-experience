@@ -6,22 +6,17 @@ import ICreateConnection from '../Infrastructure/Database/ICreateConnection';
 
 class DatabaseFactory
 {
-    private dbDefault: string;
+    private readonly dbDefault: string;
 
     constructor(dbDefault?: string)
     {
-        this.dbDefault = dbDefault;
+        const mainConfig = MainConfig.getInstance();
+        this.dbDefault = dbDefault ?? mainConfig.getConfig().dbConfig.default;
     }
 
     create(): ICreateConnection
     {
         const mainConfig = MainConfig.getInstance();
-
-        if (!this.dbDefault)
-        {
-            this.dbDefault = mainConfig.getConfig().dbConfig.default;
-        }
-
         const dbConfig: any = mainConfig.getConfig().dbConfig;
         const config = dbConfig[this.dbDefault];
 

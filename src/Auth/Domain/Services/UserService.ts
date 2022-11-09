@@ -4,7 +4,6 @@ import { REPOSITORIES } from '../../../Config/Injects';
 import CheckUserRolePayload from '../Payloads/User/CheckUserRolePayload';
 import IRoleRepository from '../../Infrastructure/Repositories/IRoleRepository';
 import Password from '../../../Shared/Domain/ValueObjects/Password';
-import UniqueService from '../../../Shared/Domain/Services/UniqueService';
 import MainConfig from '../../../Config/MainConfig';
 import AuthHelper from '../../../Shared/Helpers/AuthHelper';
 import ChangeMyPasswordPayload from '../Payloads/User/ChangeMyPasswordPayload';
@@ -45,15 +44,6 @@ class UserService
     async validate(user: IUserDomain): Promise<void>
     {
         AuthHelper.validatePermissions(user.permissions);
-
-        void await UniqueService.validate<IUserDomain>({
-            repository: REPOSITORIES.IUserRepository,
-            validate: {
-                email: user.email,
-                documentNumber: user.documentNumber
-            },
-            refValue: user.getId()
-        });
     }
 
     async checkIfUserHasRole(payload: CheckUserRolePayload): Promise<boolean>

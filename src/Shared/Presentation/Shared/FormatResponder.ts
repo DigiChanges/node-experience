@@ -1,8 +1,8 @@
-import IFormatResponder from './IFormatResponder';
+import IFormatResponder, { ResponsePayload } from './IFormatResponder';
 
 class FormatResponder implements IFormatResponder
 {
-    getFormatData = (data: unknown, metadata: Record<string, unknown> = null): any =>
+    getFormatData = (data: unknown, metadata: Record<string, unknown>): ResponsePayload =>
     {
         return {
             data,

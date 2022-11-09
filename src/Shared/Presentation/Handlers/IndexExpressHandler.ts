@@ -19,7 +19,7 @@ class IndexExpressHandler extends BaseHttpController
     public async index()
     {
         const locales = Locales.getInstance().getLocales();
-        return await this.responder.send({ message: locales.__('greetings') }, this.httpContext.request, this.httpContext.response, StatusCode.HTTP_OK, null);
+        return await this.responder.send({ message: locales.__('greetings') }, this.httpContext.request, this.httpContext.response, StatusCode.HTTP_OK);
     }
 }
 

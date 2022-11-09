@@ -3,8 +3,6 @@ import EventHandler from '../../../../Shared/Infrastructure/Events/EventHandler'
 import UserCreatedEvent from '../../../../Shared/Infrastructure/Events/UserCreatedEvent';
 import UserSavePayload from '../../Payloads/User/UserSavePayload';
 import UserService from '../../Services/UserService';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
-import { SERVICES } from '../../../../Config/Injects';
 
 class SaveUserUseCase
 {
@@ -13,8 +11,7 @@ class SaveUserUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
-        this.userService = container.resolve<UserService>(SERVICES.UserService);
+        this.userService = new UserService();
         this.eventHandler = EventHandler.getInstance();
     }
 

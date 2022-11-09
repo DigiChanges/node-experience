@@ -21,8 +21,7 @@ export enum REPOSITORIES  {
 }
 
 export enum SERVICES {
-    AuthService = 'AuthService',
-    UserService = 'UserService'
+    AuthService = 'AuthService'
 }
 
 export enum TYPES  {

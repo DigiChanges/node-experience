@@ -9,7 +9,7 @@ import ICreateConnection from './ICreateConnection';
 import Logger from '../../Application/Logger/Logger';
 import TokenSchema from '../../../Auth/Infrastructure/Schemas/TokenMikroORM';
 
-export let orm: MikroORM = null;
+export let orm: MikroORM;
 
 class CreateMikroORMConnection implements ICreateConnection
 {

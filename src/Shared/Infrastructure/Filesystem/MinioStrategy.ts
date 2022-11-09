@@ -8,7 +8,7 @@ import { isUndefined } from 'lodash';
 
 class MinioStrategy implements IFilesystem
 {
-    readonly #filesystem: Client = null;
+    readonly #filesystem: Client;
     readonly #publicBucket: string;
     readonly #privateBucket: string;
     readonly #rootPath: string;
@@ -41,7 +41,7 @@ class MinioStrategy implements IFilesystem
 
     async presignedPutObject(objectPath: string, expiry: number, isPrivate = true): Promise<string>
     {
-        return await this.#filesystem.presignedPutObject(this.getBucket(null, isPrivate), objectPath, expiry);
+        return await this.#filesystem.presignedPutObject(this.getBucket(undefined, isPrivate), objectPath, expiry);
     }
 
     async createBucket(bucketPrivate: string, region?: string): Promise<void>
@@ -89,7 +89,7 @@ class MinioStrategy implements IFilesystem
         const recursive = payload.recursive;
         const isPrivate = payload.isPublic;
 
-        const stream = this.#filesystem.listObjectsV2(this.getBucket(null, isPrivate), prefix, recursive);
+        const stream = this.#filesystem.listObjectsV2(this.getBucket(undefined, isPrivate), prefix, recursive);
 
         return new Promise((resolve, reject) =>
         {
@@ -115,7 +115,7 @@ class MinioStrategy implements IFilesystem
 
     private getBucket(object?: IFileVersionDomain, isPrivate = false): string
     {
-        const _isPrivate = !isUndefined(object?.isPublic) ? !object.isPublic : isPrivate;
+        const _isPrivate = !isUndefined(object?.isPublic) ? !object?.isPublic : isPrivate;
         return _isPrivate ? this.#privateBucket : this.#publicBucket;
     }
 

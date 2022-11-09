@@ -9,7 +9,7 @@ import Notification from '../../../Notification/Infrastructure/Schemas/Notificat
 import TokenSchema from '../../../Auth/Infrastructure/Schemas/TokenTypeORM';
 import ICreateConnection from './ICreateConnection';
 
-export let dataSource: DataSource = null;
+export let dataSource: DataSource;
 
 class CreateTypeORMConnection implements ICreateConnection
 {

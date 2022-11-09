@@ -22,7 +22,7 @@ class AuthService
 
     public getPermissions(authUser: IUserDomain): string[]
     {
-        const rolePermissions = authUser.getRoles().filter(role => role.enable).reduce((accum, role) =>
+        const rolePermissions: string[] = authUser.getRoles().filter(role => role.enable).reduce((accum, role) =>
         {
             return [...accum, ...role.permissions];
         }, []);

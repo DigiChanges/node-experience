@@ -12,7 +12,7 @@
     "baseUrl": "./src",
     "module": "commonjs",
     "esModuleInterop": true,
-    "noImplicitAny": true,
+    "strict": false,
     "types": [
       "node",
       "reflect-metadata",

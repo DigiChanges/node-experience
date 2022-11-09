@@ -3,7 +3,7 @@ import ICacheRepository from './ICacheRepository';
 
 class RedisCacheRepository implements ICacheRepository
 {
-    private redis: Tedis;
+    private redis: Tedis; // TODO: Add construction builder
     private static instance: RedisCacheRepository;
 
     async createConnection(config: any)
@@ -21,7 +21,7 @@ class RedisCacheRepository implements ICacheRepository
         return RedisCacheRepository.instance;
     }
 
-    async set(key: string, value: string, expires: number = null): Promise<any>
+    async set(key: string, value: string, expires?: number): Promise<void>
     {
         if (expires)
         {
@@ -51,7 +51,7 @@ class RedisCacheRepository implements ICacheRepository
         return JSON.parse(val);
     }
 
-    async get(key: string): Promise<string | number>
+    async get(key: string): Promise<string | number | null>
     {
         return await this.redis.get(key);
     }

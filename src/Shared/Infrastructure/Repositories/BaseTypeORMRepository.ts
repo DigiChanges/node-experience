@@ -1,10 +1,10 @@
-import { EntitySchema, FindOneOptions, In, Repository } from 'typeorm';
+import { EntitySchema, FindOneOptions, In, ObjectLiteral, Repository } from 'typeorm';
 import NotFoundException from '../../Exceptions/NotFoundException';
 import IByOptions from './IByOptions';
 import IBaseRepository from './IBaseRepository';
 import { dataSource } from '../Database/CreateTypeORMConnection';
 
-abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>
+abstract class BaseTypeORMRepository<T extends ObjectLiteral> implements IBaseRepository<T>
 {
     protected readonly entityName: string;
     protected repository: Repository<T>;
@@ -34,7 +34,7 @@ abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>
 
     async update(entity: T): Promise<T>
     {
-        return await this.repository.save(entity as any);
+        return await this.repository.save(entity);
     }
 
     async delete(id: string): Promise<T>
@@ -51,9 +51,9 @@ abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>
         return entity;
     }
 
-    async getOneBy(condition: Record<string, any>, options: IByOptions = {}): Promise<T>
+    async getOneBy(condition: Record<string, any>, options: IByOptions = { initThrow: true }): Promise<T | null>
     {
-        const { initThrow = true } = options;
+        const { initThrow } = options;
 
         const entity = await this.repository.findOneBy(condition as any);
 
@@ -67,9 +67,7 @@ abstract class BaseTypeORMRepository<T> implements IBaseRepository<T>
 
     async getBy(condition: Record<string, any>, options: IByOptions = { initThrow: false }): Promise<T[]>
     {
-        let { initThrow } = options;
-
-        initThrow = initThrow ?? false;
+        const { initThrow } = options;
 
         const entities = await this.repository.findBy(condition as any);
 

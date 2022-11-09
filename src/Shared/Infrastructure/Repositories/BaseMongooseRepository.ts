@@ -52,13 +52,11 @@ abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document 
         return entity as any;
     }
 
-    async getOneBy(condition: Record<string, any>, options: IByOptions = {}): Promise<T>
+    async getOneBy(condition: Record<string, any>, options: IByOptions = { initThrow: true, populate: undefined }): Promise<T | null>
     {
-        const { initThrow = true, populate = null } = options;
+        const entity = await this.repository.findOne(condition as FilterQuery<T>).populate(options?.populate as string | string[]).exec();
 
-        const entity = await this.repository.findOne(condition as FilterQuery<T>).populate(populate as string | string[]).exec();
-
-        if (initThrow && !entity)
+        if (options?.initThrow && !entity)
         {
             throw new NotFoundException(this.entityName);
         }
@@ -66,16 +64,11 @@ abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document 
         return entity as any;
     }
 
-    async getBy(condition: Record<string, any>, options: IByOptions = { initThrow: false, populate: null }): Promise<T[]>
+    async getBy(condition: Record<string, any>, options: IByOptions = { initThrow: false, populate: undefined }): Promise<T[]>
     {
-        let { initThrow, populate } = options;
+        const entities = await this.repository.find(condition as FilterQuery<T>).populate(options?.populate as string | string[]).exec();
 
-        initThrow = initThrow ?? false;
-        populate = populate ?? null;
-
-        const entities = await this.repository.find(condition as FilterQuery<T>).populate(populate as string | string[]).exec();
-
-        if (initThrow && entities.length === 0)
+        if (options?.initThrow && entities.length === 0)
         {
             throw new NotFoundException(this.entityName);
         }

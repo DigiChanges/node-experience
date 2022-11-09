@@ -8,7 +8,7 @@ class ErrorHttpException extends Error
     private _statusCode: IHttpStatusCode;
     private _errors: ValidationError[];
     private _metadata: Record<string, any>;
-    private _errorCode: string;
+    private _errorCode: string | null;
 
     constructor(statusCode: IHttpStatusCode = StatusCode.HTTP_INTERNAL_SERVER_ERROR, errorMessage: IErrorMessage  = { message: 'Internal Error' }, errors: ValidationError[] = [],  metadata: Record<string, any> = {})
     {
@@ -50,12 +50,12 @@ class ErrorHttpException extends Error
         this._metadata = metadata;
     }
 
-    public get errorCode(): string
+    public get errorCode(): string | null
     {
         return this._errorCode;
     }
 
-    public set errorCode(errorKey: string)
+    public set errorCode(errorKey: string | null)
     {
         this._errorCode = errorKey;
     }

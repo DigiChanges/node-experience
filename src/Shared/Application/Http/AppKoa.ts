@@ -22,8 +22,7 @@ import { ErrorKoaHandler } from './ErrorKoaHandler';
 import MainConfig from '../../../Config/MainConfig';
 
 import LoggerKoaMiddleware from '../../Presentation/Middlewares/LoggerKoaMiddleware';
-import container from '../../../register';
-import { createRequestContext, getRequestContext } from '../../Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../Presentation/Shared/RequestContext';
 import Logger from '../Logger/Logger';
 import ContextMikroORMKoaMiddleware from '../../Presentation/Middlewares/ContextMikroORMKoaMiddleware';
 import ContainerKoaMiddleware from '../../Presentation/Middlewares/ContainerKoaMiddleware';
@@ -97,7 +96,7 @@ class AppKoa implements IApp
         this.app.use(async(ctx, next) =>
         {
             const data = getRequestContext();
-            await data.container.dispose();
+            await data.container?.dispose();
             delete data.container;
 
             await next();

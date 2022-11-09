@@ -58,9 +58,9 @@ abstract class BaseMikroORMRepository<T extends object> implements IBaseReposito
         return entity;
     }
 
-    async getOneBy(condition: Record<string, any>, options: IByOptions = {}): Promise<T>
+    async getOneBy(condition: Record<string, any>, options: IByOptions = { initThrow: true, populate: [] }): Promise<T | null>
     {
-        const { initThrow = true, populate = [] } = options;
+        const { initThrow, populate } = options;
 
         const entity = await this.repository.findOne(condition, ({ populate } as FindOneOptions<T>));
 
@@ -72,12 +72,9 @@ abstract class BaseMikroORMRepository<T extends object> implements IBaseReposito
         return entity;
     }
 
-    async getBy(condition: Record<string, any>, options: IByOptions = { initThrow: false, populate: null }): Promise<T[]>
+    async getBy(condition: Record<string, any>, options: IByOptions = { initThrow: false, populate: [] }): Promise<T[]>
     {
-        let { initThrow, populate } = options;
-
-        initThrow = initThrow ?? false;
-        populate = populate ?? null;
+        const { initThrow, populate } = options;
 
         const entities = await this.repository.find(condition, { populate } as any);
 

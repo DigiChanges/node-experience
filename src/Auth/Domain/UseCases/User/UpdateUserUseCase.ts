@@ -4,7 +4,7 @@ import CheckUserRolePayload from '../../Payloads/User/CheckUserRolePayload';
 import Roles from '../../../../Config/Roles';
 import CantDisabledException from '../../Exceptions/CantDisabledException';
 import UserService from '../../Services/UserService';
-import { REPOSITORIES, SERVICES } from '../../../../Config/Injects';
+import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/IUserRepository';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
 
@@ -17,13 +17,13 @@ class UpdateUserUseCase
     {
         const { container } = getRequestContext();
         this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
-        this.userService = container.resolve<UserService>(SERVICES.UserService);
+        this.userService = new UserService();
     }
 
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {
         const { id } = payload;
-        const user: IUserDomain = await this.repository.getOneBy({ _id : id }, { populate: 'roles' });
+        const user: IUserDomain = await this.repository.getOneBy({ _id: id }, { populate: 'roles' });
         let enable = payload.enable;
 
         if (payload.tokenUserId === user.getId())

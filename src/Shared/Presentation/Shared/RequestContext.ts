@@ -29,13 +29,15 @@ export const createRequestContext = (container: DependencyContainer, requestId =
     store.clear();
     const requestInfo = { requestId, container };
     store.set(asyncHooks.executionAsyncId(), requestInfo);
+
     return requestInfo;
 };
 
-export const getRequestContext = (): { requestId: string, container: DependencyContainer } =>
+export const getRequestContext = (): { requestId: string, container?: DependencyContainer } =>
 {
     const data = store.get(asyncHooks.executionAsyncId());
     const container = data?.container ?? rContainer;
+
     return { ...data, container };
 };
 

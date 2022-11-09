@@ -5,8 +5,8 @@ abstract class Base implements IBaseDomain
 {
     _id: string;
 
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: Date | undefined;
+    updatedAt: Date | undefined;
 
     constructor()
     {

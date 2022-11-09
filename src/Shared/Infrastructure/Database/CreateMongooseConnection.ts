@@ -25,7 +25,7 @@ import ICreateConnection from './ICreateConnection';
 import FileMongooseDocument from '../../../File/Infrastructure/Schemas/FileMongooseDocument';
 import FileSchema from '../../../File/Infrastructure/Schemas/FileMongoose';
 
-export let connection: mongoose.Connection = null;
+export let connection: mongoose.Connection | null = null;
 
 class CreateMongooseConnection implements ICreateConnection
 {
@@ -86,7 +86,10 @@ class CreateMongooseConnection implements ICreateConnection
 
     async close(force = true): Promise<any>
     {
-        await connection.close(force);
+        if (connection)
+        {
+            await connection.close(force);
+        }
     }
 
     async synchronize(): Promise<void>
@@ -96,7 +99,7 @@ class CreateMongooseConnection implements ICreateConnection
 
     async drop(): Promise<any>
     {
-        const collections = await connection.db.collections();
+        const collections = connection ? await connection.db.collections() : [];
 
         for (const collection of collections)
         {

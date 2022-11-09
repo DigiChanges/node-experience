@@ -3,7 +3,6 @@ import Logger from '../../../Shared/Application/Logger/Logger';
 
 abstract class Cron
 {
-    private readonly name: string;
     private scheduledTask: ScheduledTask;
 
     constructor(scheduled = false)

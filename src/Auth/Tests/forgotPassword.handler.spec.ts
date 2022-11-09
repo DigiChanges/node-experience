@@ -8,12 +8,11 @@ describe('Start ForgotPassword Test', () =>
     let request: SuperAgentTest;
     let dbConnection: ICreateConnection;
     let token: any = null;
+    let spy;
 
     beforeAll(async() =>
     {
-        jest.mock('../../Notification/Shared/EmailStrategy', () => jest.fn());
-        // @ts-ignore
-        EmailStrategy.send = jest.fn(() => async() => new Promise<boolean>((resolve) => resolve(true)));
+        spy = jest.spyOn(EmailStrategy.prototype, 'send').mockImplementation(async() => new Promise<boolean>((resolve) => resolve(true)));
 
         const configServer = await initTestServer();
 
@@ -25,6 +24,7 @@ describe('Start ForgotPassword Test', () =>
     {
         await dbConnection.drop();
         await dbConnection.close();
+        spy.mockRestore();
     }));
 
     describe('ForgotPassword Success', () =>

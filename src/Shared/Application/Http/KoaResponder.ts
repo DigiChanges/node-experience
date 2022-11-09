@@ -21,7 +21,7 @@ class KoaResponder
         this.formatError = new FormatError();
     }
 
-    public async send(data: any, ctx: ParameterizedContext, status: IHttpStatusCode, transformer: Transformer = null)
+    public async send(data: any, ctx: ParameterizedContext, status: IHttpStatusCode, transformer?: Transformer)
     {
         if (!transformer)
         {
@@ -37,7 +37,7 @@ class KoaResponder
         return ctx.body = this.formatResponder.getFormatData(data, null);
     }
 
-    public async paginate(paginator: IPaginator, ctx: ParameterizedContext, status: IHttpStatusCode, transformer: Transformer = null)
+    public async paginate(paginator: IPaginator, ctx: ParameterizedContext, status: IHttpStatusCode, transformer?: Transformer)
     {
         const data = await paginator.paginate();
         const metadata = paginator.getMetadata();
@@ -76,7 +76,7 @@ class KoaResponder
         return ctx.body = fileDto.stream;
     }
 
-    public error(error: ErrorHttpException, ctx: ParameterizedContext, status: IHttpStatusCode, metadata: Record<string, any>)
+    public error(error: ErrorHttpException, ctx: ParameterizedContext, status: IHttpStatusCode, metadata: Record<string, any> | null)
     {
         ctx.status = status.code;
         return ctx.body = this.formatError.getFormat(error);

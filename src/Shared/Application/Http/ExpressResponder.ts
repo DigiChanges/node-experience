@@ -19,7 +19,7 @@ class ExpressResponder
         this.formatError = new FormatError();
     }
 
-    public async send(data: any, request: Request | any, response: Response, status: IHttpStatusCode, transformer: Transformer = null)
+    public async send(data: any, request: Request | any, response: Response, status: IHttpStatusCode, transformer?: Transformer)
     {
         let metadata = null;
 
@@ -41,7 +41,7 @@ class ExpressResponder
     }
 
     // TODO: Refactor to encapsulate this logic
-    public async paginate(paginator: IPaginator, request: Request | any, response: Response, status: IHttpStatusCode, transformer: Transformer = null)
+    public async paginate(paginator: IPaginator, request: Request | any, response: Response, status: IHttpStatusCode, transformer?: Transformer)
     {
         const data = await paginator.paginate();
         const metadata = paginator.getMetadata();
@@ -92,7 +92,7 @@ class ExpressResponder
         });
     }
 
-    public error(data: any, request: Request | any, response: Response, status: any, metadata: Record<string, any>)
+    public error(data: any, request: Request | any, response: Response, status: any, metadata?: Record<string, any>)
     {
         response.status(status.code).send({ ...this.formatError.getFormat(data), metadata });
     }
