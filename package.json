@@ -25,13 +25,13 @@
     "test:watch": "jest --watch --silent --coverage=false",
     "tsc": "tsc",
     "ts:check": "tsc -p tsconfig.json --noEmit",
-    "transpile": "node build.js",
     "sync:db": "ts-node src/Shared/Presentation/Commands/SynchronizeDb.ts"
   },
   "keywords": [],
   "author": "Digichanges",
   "license": "MIT",
   "dependencies": {
+    "@deepkit/type": "1.0.1-alpha.75",
     "@koa/multer": "^3.0.0",
     "@mikro-orm/core": "^5.4.2",
     "@mikro-orm/postgresql": "^5.4.2",
@@ -84,7 +84,6 @@
     "tslog": "^3.3.4",
     "tsyringe": "^4.7.0",
     "typeorm": "^0.3.10",
-    "uuid": "^8.3.2",
     "web-push": "^3.5.0"
   },
   "devDependencies": {
@@ -121,7 +120,6 @@
     "@types/qs": "^6.9.7",
     "@types/shelljs": "^0.8.11",
     "@types/supertest": "^2.0.12",
-    "@types/uuid": "^8.3.4",
     "@types/validator": "^13.7.1",
     "@types/web-push": "^3.3.2",
     "@typescript-eslint/eslint-plugin": "^5.39.0",

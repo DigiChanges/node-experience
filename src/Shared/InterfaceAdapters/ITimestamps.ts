@@ -1,8 +1,8 @@
 
 interface ITimestamps
 {
-    createdAt: Date | undefined;
-    updatedAt: Date | undefined;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export default ITimestamps;

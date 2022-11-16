@@ -1,3 +1,6 @@
+// @ts-ignore
+import { CWebp } from 'cwebp';
+import * as fs from 'fs';
 import IFileVersionDomain from '../Entities/IFileVersionDomain';
 import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 import { REPOSITORIES } from '../../../Config/Injects';
@@ -10,18 +13,13 @@ import FileBase64RepPayload from '../Payloads/FileBase64RepPayload';
 import FileMultipartRepPayload from '../Payloads/FileMultipartRepPayload';
 import FileRepPayload from '../Payloads/FileRepPayload';
 import CreateBucketPayload from '../Payloads/CreateBucketPayload';
-import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import FileVersionDTO from '../Models/FileVersionDTO';
 import IFileVersionDTO from '../Models/IFileVersionDTO';
-import { validate } from 'uuid';
 import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 import IFilesystem from '../../../Shared/Infrastructure/Filesystem/IFilesystem';
-// @ts-ignore
-import { CWebp } from 'cwebp';
 import IFileMultipart from '../Entities/IFileMultipart';
 import FileMultipartOptimizeDTO from '../../Presentation/Requests/FileMultipartOptimizeDTO';
 import FileBase64OptimizeDTO from '../../Presentation/Requests/FileBase64OptimizeDTO';
-import * as fs from 'fs';
 import FileUpdateMultipartPayload from '../Payloads/FileUpdateMultipartPayload';
 import FileUpdateMultipartOptimizeDTO from '../../Presentation/Requests/FileUpdateMultipartOptimizeDTO';
 import FileUpdateBase64Payload from '../Payloads/FileUpdateBase64Payload';

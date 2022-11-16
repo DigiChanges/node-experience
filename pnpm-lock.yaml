@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@commitlint/cli': ^17.1.2
   '@commitlint/config-conventional': ^17.1.0
+  '@deepkit/type': 1.0.1-alpha.75
   '@koa/multer': ^3.0.0
   '@mikro-orm/core': ^5.4.2
   '@mikro-orm/postgresql': ^5.4.2
@@ -37,7 +38,6 @@ specifiers:
   '@types/qs': ^6.9.7
   '@types/shelljs': ^0.8.11
   '@types/supertest': ^2.0.12
-  '@types/uuid': ^8.3.4
   '@types/validator': ^13.7.1
   '@types/web-push': ^3.3.2
   '@typescript-eslint/eslint-plugin': ^5.39.0
@@ -111,10 +111,10 @@ specifiers:
   tsyringe: ^4.7.0
   typeorm: ^0.3.10
   typescript: ^4.7.4
-  uuid: ^8.3.2
   web-push: ^3.5.0
 
 dependencies:
+  '@deepkit/type': 1.0.1-alpha.75_jghpb7uarz5krmpcpy6i6o4hne
   '@koa/multer': 3.0.0_multer@1.4.5-lts.1
   '@mikro-orm/core': 5.4.2_fk4ppjvwwrrwsuvcbipnp2oieu
   '@mikro-orm/postgresql': 5.4.2_@mikro-orm+core@5.4.2
@@ -167,7 +167,6 @@ dependencies:
   tslog: 3.3.4
   tsyringe: 4.7.0
   typeorm: 0.3.10_3uhpazrrxb2uqibsi63drezauq
-  uuid: 8.3.2
   web-push: 3.5.0
 
 devDependencies:
@@ -204,7 +203,6 @@ devDependencies:
   '@types/qs': 6.9.7
   '@types/shelljs': 0.8.11
   '@types/supertest': 2.0.12
-  '@types/uuid': 8.3.4
   '@types/validator': 13.7.7
   '@types/web-push': 3.3.2
   '@typescript-eslint/eslint-plugin': 5.39.0_fbzrb3mx6vzqsr2yqelg57y2hy
@@ -728,6 +726,29 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
+
+  /@deepkit/core/1.0.1-alpha.75:
+    resolution: {integrity: sha512-hLaRjqFWIBWqYhaUdIcg/SCtR0oFOA9MUieeaiYVIvih+q/0mm66OtqDWrCoyVnXaZHNN+4OPyfdqEzYYfg6LQ==}
+    dependencies:
+      dot-prop: 5.3.0
+      to-fast-properties: 3.0.1
+    dev: false
+
+  /@deepkit/type-spec/1.0.1-alpha.74:
+    resolution: {integrity: sha512-70nDIEKii42vhi8oe3cGOBIAd0fQwn+vaFfadHw0xXF77sBzNSunDQUoKpklKWoWFYdrwoRQLGJLDu3RmYEYkA==}
+    dev: false
+
+  /@deepkit/type/1.0.1-alpha.75_jghpb7uarz5krmpcpy6i6o4hne:
+    resolution: {integrity: sha512-SLlJDrcjXgm+oOKF9Gb109yWizFOWD8eCVK4AOzjWks14lQ05vEXxtMsRvzVRkLHq4qLEbnge+a0ir+86sqGGQ==}
+    peerDependencies:
+      '@deepkit/core': ^1.0.1-alpha.13
+    dependencies:
+      '@deepkit/core': 1.0.1-alpha.75
+      '@deepkit/type-spec': 1.0.1-alpha.74
+      '@types/uuid': 8.3.4
+      buffer: 5.7.1
+      uuid: 8.3.2
+    dev: false
 
   /@esbuild/android-arm/0.15.10:
     resolution: {integrity: sha512-FNONeQPy/ox+5NBkcSbYJxoXj9GWu8gVGJTVmUyoOCKQFDTrHVKgNSzChdNt0I8Aj/iKcsDf2r9BFwv+FSNUXg==}
@@ -1804,7 +1825,7 @@ packages:
 
   /@types/uuid/8.3.4:
     resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
-    dev: true
+    dev: false
 
   /@types/validator/13.7.7:
     resolution: {integrity: sha512-jiEw2kTUJ8Jsh4A1K4b5Pkjj9Xz6FktLLOQ36ZVLRkmxFbpTvAV2VRoKMojz8UlZxNg/2dZqzpigH4JYn1bkQg==}
@@ -3650,7 +3671,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       is-obj: 2.0.0
-    dev: true
 
   /dotenv/16.0.2:
     resolution: {integrity: sha512-JvpYKUmzQhYoIFgK2MOnF3bciIZoItIIoryihy0rIA+H4Jy0FmgyKYAHCTN98P5ybGSJcIFbh6QKeJdtZd1qhA==}
@@ -5572,7 +5592,6 @@ packages:
   /is-obj/2.0.0:
     resolution: {integrity: sha512-drqDG3cbczxxEJRoOXcOjtdp1J/lyp1mNn0xaznRs8+muBhgQcrnbspox5X5fOw0HnMnbfDzvnEMEtqDEJEo8w==}
     engines: {node: '>=8'}
-    dev: true
 
   /is-plain-obj/1.1.0:
     resolution: {integrity: sha512-yvkRyxmFKEOQ4pNXCmJG5AEQNlXJS5LaONXo5/cLdTZdWvsZ1ioJEonLGAosKlMWE8lwUy/bJzMjcw8az73+Fg==}
@@ -9108,6 +9127,11 @@ packages:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
     engines: {node: '>=4'}
     dev: true
+
+  /to-fast-properties/3.0.1:
+    resolution: {integrity: sha512-/wtNi1tW1F3nf0OL6AqVxGw9Tr1ET70InMhJuVxPwFdGqparF0nQ4UWGLf2DsoI2bFDtthlBnALncZpUzOnsUw==}
+    engines: {node: '>=8'}
+    dev: false
 
   /to-object-path/0.3.0:
     resolution: {integrity: sha512-9mWHdnGRuh3onocaHzukyvCZhzvr6tiflAy/JRFXcJX0TjgfWA9pk9t8CMbzmBE4Jfw58pXbkngtBtqYxzNEyg==}

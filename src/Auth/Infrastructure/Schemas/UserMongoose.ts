@@ -1,9 +1,9 @@
 import { Schema } from 'mongoose';
 import User from '../../Domain/Entities/User';
-import { v4 as uuidv4 } from 'uuid';
+import { uuid } from '@deepkit/type';
 
 const UserSchema: any = new Schema({
-    _id: { type: String, default: uuidv4 },
+    _id: { type: String, default: uuid },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },

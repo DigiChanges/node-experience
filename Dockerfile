@@ -17,6 +17,8 @@ WORKDIR /usr/app
 
 RUN npm install --location=global pnpm
 
+WORKDIR /usr/app
+
 COPY --chown=node:node package.json ./
 COPY --chown=node:node pnpm-lock.yaml ./
 COPY --chown=node:node src ./src
@@ -24,7 +26,7 @@ COPY --chown=node:node tsconfig.json ./
 COPY --chown=node:node ecosystem.config.js ./
 COPY --chown=node:node .env ./
 COPY --chown=node:node config ./config/
-COPY --chown=node:node build.js ./
+COPY --chown=node:node etsc.config.js ./
 COPY --chown=node:node nodemon.json ./
 COPY --chown=node:node .eslintrc.json ./
 
@@ -39,11 +41,11 @@ USER node
 FROM dev as build
 
 RUN pnpm install
-RUN pnpm transpile
+RUN pnpm build
 
 FROM build as prerelease
 
-RUN pnpm install --production
+RUN pnpm install --production --ignore-scripts
 
 FROM node:16-alpine as prod
 
@@ -58,8 +60,6 @@ COPY --from=prerelease --chown=node:node /usr/app/node_modules/ ./node_modules/
 COPY --from=prerelease --chown=node:node /usr/app/dist/ ./dist/
 COPY --from=prerelease --chown=node:node /usr/app/config/ ./config/
 COPY --from=prerelease --chown=node:node /usr/app/.env/ ./.env
-COPY --from=dev --chown=node:node /usr/app/src/Config/Locales ./dist/src/Config/Locales
-COPY --from=dev --chown=node:node /usr/app/src/App/Presentation/Views ./dist/src/App/Presentation/Views
 
 USER node
 

@@ -6,7 +6,7 @@ import supertest from 'supertest';
 
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 import EventHandler from './Shared/Infrastructure/Events/EventHandler';
-import { FACTORIES, REPOSITORIES } from './Config/Injects';
+import { REPOSITORIES } from './Config/Injects';
 import TokenMongooseRepository from './Auth/Infrastructure/Repositories/TokenMongooseRepository';
 import TokenTypeORMRepository from './Auth/Infrastructure/Repositories/TokenTypeORMRepository';
 import { validateEnv } from './Config/validateEnv';
@@ -16,13 +16,16 @@ import Locales from './Shared/Presentation/Shared/Locales';
 import MainConfig from './Config/MainConfig';
 import IApp from './Shared/Application/Http/IApp';
 import { Lifecycle } from 'tsyringe';
-import MockStrategy from './Notification/Tests/MockStrategy';
-import INotifierStrategy from './Notification/Shared/INotifierStrategy';
 import AppFactory from './Shared/Factories/AppFactory';
 import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
 import ITokenRepository from './Auth/Infrastructure/Repositories/ITokenRepository';
 
-const initTestServer = async(): Promise<any> =>
+type TestServerData = {
+    request: supertest.SuperAgentTest,
+    dbConnection: ICreateConnection
+}
+
+const initTestServer = async(): Promise<TestServerData> =>
 {
     validateEnv();
 
@@ -48,8 +51,6 @@ const initTestServer = async(): Promise<any> =>
     container.register<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository, { useClass:
         defaultDb === 'Mongoose' ? TokenMongooseRepository : TokenTypeORMRepository
     }, { lifecycle: Lifecycle.Singleton });
-
-    container.register<INotifierStrategy>(FACTORIES.EmailStrategy, { useClass: MockStrategy }, { lifecycle: Lifecycle.Singleton });
 
     const app: IApp = AppFactory.create(config.app.default);
 

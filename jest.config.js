@@ -33,7 +33,7 @@ module.exports = {
 
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
-    "<rootDir>/src/*/I[A-z]*.{js,ts}",
+    ".dist\/src\/.*\/I\w*\.js",
     "<rootDir>/node_modules/",
     "<rootDir>/.eslintrc.json",
     "<rootDir>/src/command.{js,ts}",
@@ -49,7 +49,6 @@ module.exports = {
     "<rootDir>/src/Shared/Infrastructure/Database/CreateTypeORMConnection.{js,ts}",
     "<rootDir>/src/Shared/Infrastructure/Orm/MikroORMPaginator.{js,ts}",
     "<rootDir>/src/Shared/Events/*.{js,ts}",
-    "<rootDir>/src/*/*.{js,ts}",
   ],
 
   // Indicates which provider should be used to instrument code for coverage
@@ -145,11 +144,11 @@ module.exports = {
   // restoreMocks: false,
 
   // The root directory that Jest should scan for tests and modules within
-  // rootDir: "./dist/src/Tests",
+  // rootDir: "./dist/src/*/Tests",
 
   // A list of paths to directories that Jest should use to search for files in
   roots: [
-    "<rootDir>/dist/src"
+    "./dist/src"
   ],
 
   // Allows you to use a custom runner instead of Jest's default test runner

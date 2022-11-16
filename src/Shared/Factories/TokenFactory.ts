@@ -1,5 +1,5 @@
 import MainConfig from '../../Config/MainConfig';
-import { v4 as uuidv4 } from 'uuid';
+import { uuid } from '@deepkit/type';
 
 import JWTToken from '../../Auth/Domain/Models/JWTToken';
 import IToken from '../../Auth/Domain/Models/IToken';
@@ -25,7 +25,7 @@ class TokenFactory
     {
         const jwtConfig = MainConfig.getInstance().getConfig().jwt;
 
-        const id = uuidv4();
+        const id = uuid();
         const jWTToken = new JWTToken(id, user, jwtConfig);
 
         const token: ITokenDomain = new Token();

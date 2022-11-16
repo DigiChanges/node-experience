@@ -1,9 +1,9 @@
 import { Schema } from 'mongoose';
 import Role from '../../Domain/Entities/Role';
-import { v4 as uuidv4 } from 'uuid';
+import { uuid } from '@deepkit/type';
 
 const RoleSchema: any = new Schema({
-    _id: { type: String, default: uuidv4 },
+    _id: { type: String, default: uuid },
     name: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
     enable: { type: Boolean, required: true },

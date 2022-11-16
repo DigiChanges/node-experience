@@ -1,9 +1,9 @@
 import { Schema } from 'mongoose';
 import FileVersion from '../../Domain/Entities/FileVersion';
-import { v4 as uuidV4 } from 'uuid';
+import { uuid } from '@deepkit/type';
 
 const FileVersionSchema: any = new Schema({
-    _id: { type: Schema.Types.String, default: uuidV4 },
+    _id: { type: Schema.Types.String, default: uuid },
     name: { type: Schema.Types.String, required: true },
     originalName: { type: Schema.Types.String, required: true },
     mimeType: { type: Schema.Types.String, required: true },
