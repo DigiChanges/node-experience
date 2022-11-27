@@ -21,7 +21,33 @@ module.exports = {
   collectCoverageFrom: [
       "src/**/*.{js,jsx,ts,tsx}",
       "dist/src/**/*.{js,jsx,ts,tsx}",
-      "!<rootDir>/node_modules/"
+      "!<rootDir>/node_modules/",
+      "!dist/src/Shared/Presentation/Commands/*.{js,ts}",
+      "!dist/src/**/I*.{js,ts}",
+      "!dist/src/**/*Payload.{js,ts}",
+      "!dist/src/**/Commands/*.{js,ts}",
+      "!dist/src/Infrastructure/Notifications/*.{js,ts}",
+      "!dist/src/**/Infrastructure/Repositories/*TypeORMRepository.{js,ts}",
+      "!dist/src/**/Infrastructure/Schemas/*TypeORMRepository.{js,ts}",
+      "!dist/src/**/Infrastructure/Repositories/*MikroORMRepository.{js,ts}",
+      "!dist/src/**/Infrastructure/Schemas/*MikroORMRepository.{js,ts}",
+      "!dist/src/Shared/Infrastructure/Database/CreateMikroORMConnection.{js,ts}",
+      "!dist/src/Shared/Infrastructure/Database/CreateTypeORMConnection.{js,ts}",
+      "!dist/src/Shared/Infrastructure/Orm/MikroORMPaginator.{js,ts}",
+      "!dist/src/Shared/Infrastructure/Orm/TypeORMPaginator.{js,ts}",
+      "!dist/src/Shared/Infrastructure/Repositories/RedisCacheRepository.{js,ts}",
+      "!dist/src/Shared/Events/*.{js,ts}",
+      "!dist/src/**/*Express*.{js,ts}",
+      "!dist/src/Shared/Infrastructure/Filesystem/MinioStrategy.{js,ts}",
+      "!dist/src/Shared/Infrastructure/Crons/*.{js,ts}",
+      "!dist/src/Notification/**/*.{js,ts}",
+      "!dist/src/Shared/Factories/AxiosFactory.{js,ts}",
+      "!dist/src/crons.{js,ts}",
+      "!dist/src/command.{js,ts}",
+      "!dist/src/index.{js,ts}",
+      "!dist/src/initCommand.{js,ts}",
+      "!dist/src/Auth/Infrastructure/Repositories/TokenRedisRepository.{js,ts}",
+      "!dist/src/**/*Command*.{js,ts}",
   ],
 
   // transform: tsjPreset.transform,
@@ -33,22 +59,8 @@ module.exports = {
 
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
-    ".dist\/src\/.*\/I\w*\.js",
     "<rootDir>/node_modules/",
     "<rootDir>/.eslintrc.json",
-    "<rootDir>/src/command.{js,ts}",
-    "<rootDir>/src/Infrastructure/Notifications/*.{js,ts}",
-    "<rootDir>/src/Auth/Presentation/Commands/*.{js,ts}",
-    "<rootDir>/src/FileVersion/Infrastructure/Repositories/FileVersionTypeORMRepository.{js,ts}",
-    "<rootDir>/src/File/Infrastructure/Repositories/FileTypeORMRepository.{js,ts}",
-    "<rootDir>/src/Auth/Infrastructure/Repositories/UserTypeORMRepository.{js,ts}",
-    "<rootDir>/src/Auth/Infrastructure/Repositories/RoleTypeORMRepository.{js,ts}",
-    "<rootDir>/src/Auth/Infrastructure/Repositories/TokenRedisRepository.{js,ts}",
-    "<rootDir>/src/Item/Infrastructure/Repositories/ItemTypeORMRepository.{js,ts}",
-    "<rootDir>/src/Shared/Infrastructure/Database/CreateMikroORMConnection.{js,ts}",
-    "<rootDir>/src/Shared/Infrastructure/Database/CreateTypeORMConnection.{js,ts}",
-    "<rootDir>/src/Shared/Infrastructure/Orm/MikroORMPaginator.{js,ts}",
-    "<rootDir>/src/Shared/Events/*.{js,ts}",
   ],
 
   // Indicates which provider should be used to instrument code for coverage
@@ -64,10 +76,10 @@ module.exports = {
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
     global: {
-      branches: '40',
-      functions: '40',
-      lines: '40',
-      statements: '40'
+      statements: '75',
+      branches: '50',
+      functions: '55',
+      lines: '75',
     }
   },
 

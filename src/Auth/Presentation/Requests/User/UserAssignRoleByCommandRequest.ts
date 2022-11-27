@@ -1,7 +1,7 @@
 import { IsString } from 'class-validator';
-import UserAssignRoleBySlug from '../../../Domain/Payloads/User/UserAssignRoleBySlug';
+import UserAssignRoleBySlugPayload from '../../../Domain/Payloads/User/UserAssignRoleBySlugPayload';
 
-class UserAssignRoleByCommandRequest implements UserAssignRoleBySlug
+class UserAssignRoleByCommandRequest implements UserAssignRoleBySlugPayload
 {
     private readonly _slug: string;
     private readonly _email: string;

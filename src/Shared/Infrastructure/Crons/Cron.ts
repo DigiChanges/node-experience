@@ -20,14 +20,14 @@ abstract class Cron
         });
     }
 
-    start(): ScheduledTask
+    start(): void
     {
-        return this.scheduledTask.start();
+        this.scheduledTask.start();
     }
 
-    stop(): ScheduledTask
+    stop(): void
     {
-        return this.scheduledTask.stop();
+        this.scheduledTask.stop();
     }
 
     abstract time(): string;
