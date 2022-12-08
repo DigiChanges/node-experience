@@ -104,7 +104,7 @@ class AppKoa implements IApp
         this.app.use(RedirectRouteNotFoundKoaMiddleware);
     }
 
-    public listen(): any
+    public listen(): Server
     {
         this.server = this.app.listen(this.port, () =>
         {

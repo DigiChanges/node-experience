@@ -4,7 +4,7 @@ import { DependencyContainer } from 'tsyringe';
 
 abstract class BaseSeed implements ISeed
 {
-    protected container: DependencyContainer;
+    protected container: DependencyContainer | undefined;
 
     constructor()
     {

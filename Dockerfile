@@ -15,13 +15,9 @@ RUN wget --no-check-certificate https://storage.googleapis.com/downloads.webmpro
 
 WORKDIR /usr/app
 
-RUN npm install --location=global pnpm
-
-WORKDIR /usr/app
-
+COPY --chown=node:node src ./src
 COPY --chown=node:node package.json ./
 COPY --chown=node:node pnpm-lock.yaml ./
-COPY --chown=node:node src ./src
 COPY --chown=node:node tsconfig.json ./
 COPY --chown=node:node ecosystem.config.js ./
 COPY --chown=node:node .env ./
@@ -40,26 +36,48 @@ USER node
 
 FROM dev as build
 
+USER root
+
+RUN npm install --location=global pnpm
 RUN pnpm install
+
+RUN mkdir /usr/app/dist
+RUN chown -R node:node /usr/app/dist
+
+USER node
+
 RUN pnpm build
+
+RUN ls -l
 
 FROM build as prerelease
 
+WORKDIR /usr/app
+
+USER root
+
+RUN rm -rf node_modules
 RUN pnpm install --production --ignore-scripts
 
 FROM node:16-alpine as prod
 
+ENV NODE_ENV production
+
 RUN apk add bash dumb-init
-RUN npm install -g pm2
+RUN npm install --location=global pm2
 
 WORKDIR /usr/app
 
+# Copy js files and change ownership to user node
 COPY --from=prerelease --chown=node:node /usr/app/package.json ./
+COPY --from=prerelease --chown=node:node /usr/app/pnpm-lock.yaml ./
 COPY --from=prerelease --chown=node:node /usr/app/ecosystem.config.js/ ./
 COPY --from=prerelease --chown=node:node /usr/app/node_modules/ ./node_modules/
 COPY --from=prerelease --chown=node:node /usr/app/dist/ ./dist/
 COPY --from=prerelease --chown=node:node /usr/app/config/ ./config/
 COPY --from=prerelease --chown=node:node /usr/app/.env/ ./.env
+
+
 
 USER node
 

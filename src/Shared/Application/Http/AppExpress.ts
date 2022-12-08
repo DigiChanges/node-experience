@@ -5,7 +5,6 @@ import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 import container from '../../../inversify.config';
-import newContainer from '../../../register';
 
 import '../../Presentation/Handlers/IndexExpressHandler';
 import '../../../Item/Presentation/Handlers/ItemExpressHandler';
@@ -26,7 +25,7 @@ import IAppConfig from './IAppConfig';
 import MainConfig from '../../../Config/MainConfig';
 
 import LoggerExpressMiddleware from '../../Presentation/Middlewares/LoggerExpressMiddleware';
-import { createRequestContext, getRequestContext } from '../../Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../Presentation/Shared/RequestContext';
 import Logger from '../Logger/Logger';
 import ContextMikroORMExpressMiddleware from '../../Presentation/Middlewares/ContextMikroORMExpressMiddleware';
 import ContainerExpressMiddleware from '../../Presentation/Middlewares/ContainerExpressMiddleware';

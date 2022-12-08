@@ -1,21 +1,26 @@
 import { Tedis } from 'tedis';
 import ICacheRepository from './ICacheRepository';
+import { CacheConfig } from '../../../Config/MainConfig';
 
 class RedisCacheRepository implements ICacheRepository
 {
-    private redis: Tedis; // TODO: Add construction builder
+    private redis: Tedis;
     private static instance: RedisCacheRepository;
 
-    async createConnection(config: any)
+    constructor(config: CacheConfig)
     {
         this.redis = new Tedis(config);
     }
 
-    static getInstance(): RedisCacheRepository
+    static getInstance(config?: CacheConfig): RedisCacheRepository
     {
-        if (!RedisCacheRepository.instance)
+        if (!config && RedisCacheRepository.instance)
         {
-            RedisCacheRepository.instance = new RedisCacheRepository();
+            throw Error('Config must be exist when instance is undefined'); // TODO: Add exception
+        }
+        if (config && !RedisCacheRepository.instance)
+        {
+            RedisCacheRepository.instance = new RedisCacheRepository(config);
         }
 
         return RedisCacheRepository.instance;

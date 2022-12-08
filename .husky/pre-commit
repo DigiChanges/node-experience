@@ -11,4 +11,4 @@ if command_exists winpty && test -t 1; then
 fi
 
 
-pnpm pre:commit
+pnpm pre-commit

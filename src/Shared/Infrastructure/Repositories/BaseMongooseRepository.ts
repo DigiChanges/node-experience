@@ -37,7 +37,7 @@ abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document 
 
     async update(entity: T): Promise<T>
     {
-        return this.repository.findOneAndUpdate({ _id: entity.getId() } as FilterQuery<T>, { $set: entity } as UpdateQuery<T>, { new: true }).populate(this.populate  as string | string[]) as any;
+        return this.repository.findOneAndUpdate({ _id: entity.getId() } as FilterQuery<T>, { $set: entity }, { new: true }).populate(this.populate  as string | string[]) as any;
     }
 
     async delete(id: string): Promise<T>

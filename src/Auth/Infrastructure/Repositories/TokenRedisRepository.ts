@@ -3,10 +3,10 @@ import MainConfig from '../../../Config/MainConfig';
 import ITokenDomain from '../../Domain/Entities/ITokenDomain';
 
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
-import CacheFactory from '../../../Shared/Factories/CacheFactory';
 import Token from '../../Domain/Entities/Token';
 import ITokenRepository from './ITokenRepository';
 import ICacheRepository from '../../../Shared/Infrastructure/Repositories/ICacheRepository';
+import RedisCacheRepository from '../../../Shared/Infrastructure/Repositories/RedisCacheRepository';
 
 class TokenRedisRepository implements ITokenRepository<ITokenDomain>
 {
@@ -15,7 +15,7 @@ class TokenRedisRepository implements ITokenRepository<ITokenDomain>
 
     constructor()
     {
-        this.repository = CacheFactory.createRedisCache();
+        this.repository = RedisCacheRepository.getInstance();
         const config = MainConfig.getInstance();
         this.expire = Math.floor((+config.getConfig().jwt.expires + 10) * 60);
     }

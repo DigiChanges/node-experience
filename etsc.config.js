@@ -2,6 +2,7 @@ module.exports = {
   esbuild: {
     minify: false,
     target: "es2020",
+    outdir: "./dist"
   },
   prebuild: async () => {
     console.log("prebuild");
