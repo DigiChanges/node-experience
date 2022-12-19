@@ -13,6 +13,8 @@ RUN wget --no-check-certificate https://storage.googleapis.com/downloads.webmpro
       cd .. && \
       rm -rf libwebp-1.0.0 libwebp-1.0.0.tar.gz
 
+RUN npm install --location=global pnpm
+
 WORKDIR /usr/app
 
 COPY --chown=node:node src ./src
@@ -48,8 +50,6 @@ USER node
 
 RUN pnpm build
 
-RUN ls -l
-
 FROM build as prerelease
 
 WORKDIR /usr/app
@@ -69,15 +69,11 @@ RUN npm install --location=global pm2
 WORKDIR /usr/app
 
 # Copy js files and change ownership to user node
-COPY --from=prerelease --chown=node:node /usr/app/package.json ./
-COPY --from=prerelease --chown=node:node /usr/app/pnpm-lock.yaml ./
-COPY --from=prerelease --chown=node:node /usr/app/ecosystem.config.js/ ./
+COPY --chown=node:node package.json pnpm-lock.yaml ecosystem.config.js ./
 COPY --from=prerelease --chown=node:node /usr/app/node_modules/ ./node_modules/
 COPY --from=prerelease --chown=node:node /usr/app/dist/ ./dist/
 COPY --from=prerelease --chown=node:node /usr/app/config/ ./config/
 COPY --from=prerelease --chown=node:node /usr/app/.env/ ./.env
-
-
 
 USER node
 
