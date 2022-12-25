@@ -29,15 +29,15 @@ class ItemBuilder
 
     update()
     {
-        this._item.lastModifiedBy = this._payload.authUser;
+        this._item.lastModifiedBy = this._payload.createdBy;
 
         return this._item;
     }
 
     create()
     {
-        this._item.createdBy = this._payload.authUser;
-        this._item.lastModifiedBy = this._payload.authUser;
+        this._item.createdBy = this._payload.createdBy;
+        this._item.lastModifiedBy = this._payload.createdBy;
 
         return this._item;
     }

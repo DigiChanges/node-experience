@@ -34,7 +34,7 @@ class ItemSeed extends BaseSeed
             const name = faker.name.title();
             const type = faker.datatype.number();
 
-            const item: IItemDomain = new ItemBuilder({ name, type, authUser })
+            const item: IItemDomain = new ItemBuilder({ name, type, createdBy: authUser })
                 .setItem()
                 .build()
                 .create();

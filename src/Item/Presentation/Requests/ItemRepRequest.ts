@@ -29,7 +29,7 @@ class ItemRepRequest implements ItemRepPayload
     }
 
     @decorate(IsObject())
-    get authUser(): IUserDomain
+    get createdBy(): IUserDomain
     {
         return this._authUser;
     }

@@ -1,14 +1,9 @@
 import IBaseDomain from '../../../Shared/Domain/Entities/IBaseDomain';
 import RoleRepPayload from '../Payloads/Role/RoleRepPayload';
 
-interface IRoleDomain extends IBaseDomain
+interface IRoleDomain extends IBaseDomain, RoleRepPayload
 {
-    name: string;
-    slug: string;
-    enable: boolean;
     ofSystem: boolean;
-    permissions: string[];
-
     updateBuild(payload: RoleRepPayload): void
 }
 

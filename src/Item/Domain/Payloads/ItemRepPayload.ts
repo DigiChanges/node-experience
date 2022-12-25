@@ -4,7 +4,7 @@ interface ItemRepPayload
 {
     name: string;
     type: number;
-    authUser: IUserDomain;
+    createdBy: IUserDomain;
 }
 
 export default ItemRepPayload;

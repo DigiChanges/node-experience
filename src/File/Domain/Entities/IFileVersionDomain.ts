@@ -1,20 +1,14 @@
 import IBaseDomain from '../../../Shared/Domain/Entities/IBaseDomain';
 import IFileDomain from './IFileDomain';
+import FileRepPayload from '../Payloads/FileRepPayload';
 
-interface IFileVersionDomain extends IBaseDomain
+interface IFileVersionDomain extends IBaseDomain, FileRepPayload
 {
     name: string;
-    originalName: string;
-    mimeType: string;
-    path: string;
-    extension: string;
-    size: number;
     version: number;
-    isPublic: boolean;
     isOptimized: boolean;
     file: IFileDomain;
     objectPath: string;
-    isImage: boolean;
     setName(hasOriginalName: boolean): void;
 }
 

@@ -12,6 +12,7 @@ package-lock.json
 .env.infisical
 .pnpm-store
 graph.svg
+.bun
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

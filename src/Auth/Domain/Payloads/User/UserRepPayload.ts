@@ -16,7 +16,7 @@ interface UserRepPayload
     enable: boolean;
     roles: IRoleDomain[];
     permissions: string[];
-    passwordRequestedAt?: null;
+    passwordRequestedAt?: Date;
     isSuperAdmin: boolean;
 }
 
