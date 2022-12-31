@@ -11,6 +11,7 @@ export enum FACTORIES  {
 }
 
 export enum REPOSITORIES  {
+    IProductRepository = 'IProductRepository',
     IItemRepository = 'IItemRepository',
     IUserRepository = 'IUserRepository',
     IRoleRepository = 'IRoleRepository',

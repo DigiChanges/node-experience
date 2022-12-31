@@ -2,6 +2,7 @@ import { MikroORM } from '@mikro-orm/core';
 import { newDb } from 'pg-mem';
 import User from '../../../Auth/Infrastructure/Schemas/UserMikroORM';
 import Role from '../../../Auth/Infrastructure/Schemas/RoleMikroORM';
+import Product from '../../../Product/Infrastructure/Schemas/ProductMikroORM';
 import Item from '../../../Item/Infrastructure/Schemas/ItemMikroORM';
 import File from '../../../File/Infrastructure/Schemas/FileMikroORM';
 import FileVersion from '../../../File/Infrastructure/Schemas/FileVersionMikroORM';
@@ -18,6 +19,7 @@ class CreateMikroORMConnection implements ICreateConnection
     private entities = [
         FileVersion,
         Role,
+        Product,
         User,
         Item,
         File

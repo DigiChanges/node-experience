@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 import { newDb } from 'pg-mem';
 import User from '../../../Auth/Infrastructure/Schemas/UserTypeORM';
 import Role from '../../../Auth/Infrastructure/Schemas/RoleTypeORM';
+import Product from '../../../Product/Infrastructure/Schemas/ProductTypeORM';
 import Item from '../../../Item/Infrastructure/Schemas/ItemTypeORM';
 import File from '../../../File/Infrastructure/Schemas/FileTypeORM';
 import FileVersion from '../../../File/Infrastructure/Schemas/FileVersionTypeORM';
@@ -19,6 +20,7 @@ class CreateTypeORMConnection implements ICreateConnection
         File,
         Notification,
         Role,
+        Product,
         User,
         Item
     ];

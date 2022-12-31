@@ -5,6 +5,7 @@ import { customAlphabet } from 'nanoid/async';
 
 import UserMongooseDocument from '../../../Auth/Infrastructure/Schemas/UserMongooseDocument';
 import RoleMongooseDocument from '../../../Auth/Infrastructure/Schemas/RoleMongooseDocument';
+import ProductMongooseDocument from '../../../Product/Infrastructure/Schemas/ProductMongooseDocument';
 import ItemMongooseDocument from '../../../Item/Infrastructure/Schemas/ItemMongooseDocument';
 import FileVersionMongooseDocument from '../../../File/Infrastructure/Schemas/FileVersionMongooseDocument';
 import NotificationMongooseDocument from '../../../Notification/Infrastructure/Schemas/NotificationMongooseDocument';
@@ -14,6 +15,7 @@ import ItemSchema from '../../../Item/Infrastructure/Schemas/ItemMongoose';
 
 import RoleSchema from '../../../Auth/Infrastructure/Schemas/RoleMongoose';
 import UserSchema from '../../../Auth/Infrastructure/Schemas/UserMongoose';
+import ProductSchema from '../../../Product/Infrastructure/Schemas/ProductMongoose';
 import FileVersionSchema from '../../../File/Infrastructure/Schemas/FileVersionMongoose';
 import {
     EmailNotificationSchema,
@@ -71,6 +73,7 @@ class CreateMongooseConnection implements ICreateConnection
         // Domain
         connection.model<UserMongooseDocument>('User', UserSchema);
         connection.model<RoleMongooseDocument>('Role', RoleSchema);
+        connection.model<ProductMongooseDocument>('Product', ProductSchema);
         connection.model<ItemMongooseDocument>('Item', ItemSchema);
         connection.model<FileVersionMongooseDocument>('FileVersion', FileVersionSchema);
         connection.model<FileMongooseDocument>('File', FileSchema);
