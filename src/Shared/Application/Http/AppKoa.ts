@@ -12,6 +12,7 @@ import bodyParser from 'koa-bodyparser';
 import IndexKoaHandler from '../../Presentation/Handlers/IndexKoaHandler';
 import ItemKoaHandler from '../../../Item/Presentation/Handlers/ItemKoaHandler';
 import RoleKoaHandler from '../../../Auth/Presentation/Handlers/RoleKoaHandler';
+import ProductKoaHandler from '../../../Product/Presentation/Handlers/ProductKoaHandler';
 import UserKoaHandler from '../../../Auth/Presentation/Handlers/UserKoaHandler';
 import NotificationKoaHandler from '../../../Notification/Presentation/Handlers/NotificationKoaHandler';
 import FileKoaHandler from '../../../File/Presentation/Handlers/FileKoaHandler';
@@ -80,6 +81,9 @@ class AppKoa implements IApp
 
         this.app.use(RoleKoaHandler.routes());
         this.app.use(RoleKoaHandler.allowedMethods());
+
+        this.app.use(ProductKoaHandler.routes());
+        this.app.use(ProductKoaHandler.allowedMethods());
 
         this.app.use(UserKoaHandler.routes());
         this.app.use(UserKoaHandler.allowedMethods());
