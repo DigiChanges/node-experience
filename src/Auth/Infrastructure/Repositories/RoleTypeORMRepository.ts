@@ -1,5 +1,4 @@
 import IRoleRepository from './IRoleRepository';
-import { injectable } from 'inversify';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
@@ -13,7 +12,6 @@ import RoleOfSystemNotDeletedException from '../../Domain/Exceptions/RoleOfSyste
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import Roles from '../../../Config/Roles';
 
-@injectable()
 class RoleTypeORMRepository extends BaseTypeORMRepository<IRoleDomain> implements IRoleRepository
 {
     constructor()
@@ -64,7 +62,7 @@ class RoleTypeORMRepository extends BaseTypeORMRepository<IRoleDomain> implement
         return new TypeORMPaginator(queryBuilder, criteria);
     }
 
-    async delete(id: string): Promise<IRoleDomain>
+    override async delete(id: string): Promise<IRoleDomain>
     {
         const isOfSystem = !!(await this.exist({ _id: id, ofSystem: true }, ['_id']));
 

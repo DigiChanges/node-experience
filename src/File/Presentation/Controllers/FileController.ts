@@ -7,7 +7,7 @@ import UploadBase64UseCase from '../../Domain/UseCases/UploadBase64UseCase';
 import DownloadUseCase from '../../Domain/UseCases/DownloadUseCase';
 import GetPresignedGetObjectUseCase from '../../Domain/UseCases/GetPresignedGetObjectUseCase';
 import UploadMultipartUseCase from '../../Domain/UseCases/UploadMultipartUseCase';
-import ValidatorRequest from '../../../Shared/Presentation/Shared/ValidatorRequest';
+import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
 import UpdateFileMultipartUseCase from '../../Domain/UseCases/UpdateFileMultipartUseCase';
 import UpdateFileBase64UseCase from '../../Domain/UseCases/UpdateFileBase64UseCase';
 import GetFileMetadataUserCase from '../../Domain/UseCases/GetFileMetadataUseCase';
@@ -19,101 +19,122 @@ import PresignedFileRepPayload from '../../Domain/Payloads/PresignedFileRepPaylo
 import FileUpdateBase64Payload from '../../Domain/Payloads/FileUpdateBase64Payload';
 import FileUpdateMultipartPayload from '../../Domain/Payloads/FileUpdateMultipartPayload';
 import RemoveFileUseCase from '../../Domain/UseCases/RemoveFileUseCase';
-import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 import IFileVersionDTO from '../../Domain/Models/IFileVersionDTO';
 import IFileDTO from '../../Domain/Models/IFileDTO';
 import OptimizeUseCase from '../../Domain/UseCases/OptimizeUseCase';
 import OptimizePayload from '../../Domain/Payloads/OptimizePayload';
-import DownloadRequest from '../Requests/DownloadRequest';
+import DownloadSchemaValidation from '../Validations/DownloadSchemaValidation';
+import FileBase64SchemaValidation from '../Validations/FileBase64SchemaValidation';
+import FileBase64UpdateSchemaValidation from '../Validations/FileBase64UpdateSchemaValidation';
+import DownloadPayload from '../../Domain/Payloads/DownloadPayload';
+import FileMultipartSchemaValidation from '../Validations/FileMultipartSchemaValidation';
+import CriteriaSchemaValidation from '../../../Shared/Presentation/Validations/CriteriaSchemaValidation';
+import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
+import RequestCriteria from '../../../Shared/Presentation/Requests/RequestCriteria';
+import FileFilter from '../Criterias/FileFilter';
+import FileSort from '../Criterias/FileSort';
+import Pagination from '../../../Shared/Presentation/Shared/Pagination';
+import ListObjectsSchemaValidation from '../Validations/ListObjectsSchemaValidation';
+import IdSchemaValidation from '../../../Shared/Presentation/Validations/IdSchemaValidation';
+import OptimizeSchemaValidation from '../Validations/OptimizeSchemaValidation';
+import PresignedFileSchemaValidation from '../Validations/PresignedFileSchemaValidation';
+import FileMultipartUpdateSchemaValidation from '../Validations/FileMultipartUpdateSchemaValidation';
 
 class FileController
 {
-    public async list(request: ICriteria): Promise<IPaginator>
+    public async list(payload: CriteriaPayload): Promise<IPaginator>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(CriteriaSchemaValidation, payload);
+
+        const requestCriteria: ICriteria = new RequestCriteria(
+            {
+                filter: new FileFilter(payload.query),
+                sort: new FileSort(payload.query),
+                pagination: new Pagination(payload.query, payload.url)
+            });
 
         const useCase = new ListFilesUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(requestCriteria);
     }
 
-    public async listFilesystemObjects(request: ListObjectsPayload): Promise<any>
+    public async listFilesystemObjects(payload: ListObjectsPayload): Promise<any>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(ListObjectsSchemaValidation, payload);
 
         const useCase = new ListObjectsUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async getFileMetadata(request: IdPayload): Promise<IFileDTO>
+    public async getFileMetadata(payload: IdPayload): Promise<IFileDTO>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(IdSchemaValidation, payload);
 
         const useCase = new GetFileMetadataUserCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async uploadBase64(request: FileBase64RepPayload): Promise<any>
+    public async uploadBase64(payload: FileBase64RepPayload): Promise<any>
     {
-        await ValidatorRequest.handle(request);
+        const cleanData = await ValidatorSchema.handle<FileBase64RepPayload>(FileBase64SchemaValidation, payload);
 
         const useCase = new UploadBase64UseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(cleanData as FileBase64RepPayload);
     }
 
-    public async optimize(request: OptimizePayload): Promise<any>
+    public async optimize(payload: OptimizePayload): Promise<any>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(OptimizeSchemaValidation, payload);
 
         const useCase = new OptimizeUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async uploadMultipart(request: FileMultipartRepPayload): Promise<any>
+    public async  uploadMultipart(payload: FileMultipartRepPayload): Promise<any>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(FileMultipartSchemaValidation, payload);
 
         const useCase = new UploadMultipartUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async getPresignedGetObject(request: PresignedFileRepPayload): Promise<string>
+    public async getPresignedGetObject(payload: PresignedFileRepPayload): Promise<string>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(PresignedFileSchemaValidation, payload);
 
         const useCase = new GetPresignedGetObjectUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async downloadStreamFile(request: DownloadRequest): Promise<IFileVersionDTO>
+    public async downloadStreamFile(payload: DownloadPayload): Promise<IFileVersionDTO>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(DownloadSchemaValidation, payload);
 
         const useCase = new DownloadUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async updateBase64(request: FileUpdateBase64Payload): Promise<any>
+    public async updateBase64(payload: FileUpdateBase64Payload): Promise<any>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(FileBase64UpdateSchemaValidation, payload);
 
         const useCase = new UpdateFileBase64UseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async updateMultipart(request: FileUpdateMultipartPayload): Promise<any>
+    public async updateMultipart(payload: FileUpdateMultipartPayload): Promise<any>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(FileMultipartUpdateSchemaValidation, payload);
 
         const useCase = new UpdateFileMultipartUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async removeFile(request: IdPayload): Promise<IFileDTO>
+    public async removeFile(payload: IdPayload): Promise<IFileDTO>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(IdSchemaValidation, payload);
 
         const useCase = new RemoveFileUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 }
 

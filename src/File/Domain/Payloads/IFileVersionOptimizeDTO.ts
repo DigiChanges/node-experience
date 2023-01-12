@@ -1,9 +1,9 @@
-import IFileMultipart from '../Entities/IFileMultipart';
+import IFileVersionPayload from '../Entities/IFileVersionPayload';
 import FileRepPayload from './FileRepPayload';
 
 interface IFileVersionOptimizeDTO extends FileRepPayload
 {
-    file: IFileMultipart;
+    file: IFileVersionPayload;
 }
 
 export default IFileVersionOptimizeDTO;

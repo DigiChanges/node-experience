@@ -6,21 +6,24 @@ import Locales from '../../../../Shared/Presentation/Shared/Locales';
 import RegisterPayload from '../../Payloads/Auth/RegisterPayload';
 import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
 import MainConfig from '../../../../Config/MainConfig';
+import AuthService from '../../Services/AuthService';
 
 class RegisterUseCase
 {
     private userService = new UserService();
+    private authService = new AuthService();
 
     constructor()
     {
         this.userService = new UserService();
+        this.authService = new AuthService();
     }
 
     async handle(payload: RegisterPayload): Promise<ILocaleMessage>
     {
         const { urlWeb } = MainConfig.getInstance().getConfig().url;
         const user = await this.userService.create(payload);
-        const confirmationToken = payload.confirmationToken;
+        const confirmationToken = this.authService.getConfirmationToken(payload.email);
 
         const urlConfirmationToken = `${urlWeb}/verify-your-account?token=${confirmationToken}`;
 

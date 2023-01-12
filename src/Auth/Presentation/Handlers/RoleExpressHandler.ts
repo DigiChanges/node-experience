@@ -5,10 +5,6 @@ import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder';
 import RoleTransformer from '../Transformers/RoleTransformer';
-import RoleRepRequest from '../Requests/Role/RoleRepRequest';
-import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
-import RoleRequestCriteria from '../Requests/Role/RoleRequestCriteria';
-import RoleUpdateRequest from '../Requests/Role/RoleUpdateRequest';
 import AuthorizeExpressMiddleware from '../Middlewares/AuthorizeExpressMiddleware';
 import Permissions from '../../../Config/Permissions';
 
@@ -16,6 +12,8 @@ import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 import RoleController from '../Controllers/RoleController';
 import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
 import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
+import RoleRepPayload from '../../Domain/Payloads/Role/RoleRepPayload';
+import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
 
 @controller('/api/roles')
 class RoleExpressHandler
@@ -32,9 +30,7 @@ class RoleExpressHandler
     @httpPost('/', void AuthorizeExpressMiddleware(Permissions.ROLES_SAVE))
     public async save(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new RoleRepRequest(req.body);
-
-        const role: IRoleDomain = await this.controller.save(_request);
+        const role: IRoleDomain = await this.controller.save(req.body as RoleRepPayload);
 
         void await this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
     }
@@ -42,9 +38,12 @@ class RoleExpressHandler
     @httpGet('/', void AuthorizeExpressMiddleware(Permissions.ROLES_LIST))
     public async list(@request() req: Request, @response() res: Response)
     {
-        const _request = new RoleRequestCriteria(req.query, req.url);
+        const data: CriteriaPayload = {
+            url: req.url,
+            query: req.query
+        };
 
-        const paginator: IPaginator = await this.controller.list(_request);
+        const paginator: IPaginator = await this.controller.list(data);
 
         await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
@@ -52,9 +51,11 @@ class RoleExpressHandler
     @httpGet('/:id', void AuthorizeExpressMiddleware(Permissions.ROLES_SHOW))
     public async get_one(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest({ id: req.params.id });
+        const data = {
+            id: req.params.id
+        };
 
-        const role: IRoleDomain = await this.controller.getOne(_request);
+        const role: IRoleDomain = await this.controller.getOne(data);
 
         void await this.responder.send(role, req, res, StatusCode.HTTP_OK, new RoleTransformer());
     }
@@ -67,9 +68,7 @@ class RoleExpressHandler
             ...req.body
         };
 
-        const _request = new RoleUpdateRequest(data);
-
-        const role: IRoleDomain = await this.controller.update(_request);
+        const role: IRoleDomain = await this.controller.update(data);
 
         void await this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
@@ -77,11 +76,13 @@ class RoleExpressHandler
     @httpDelete('/:id', void AuthorizeExpressMiddleware(Permissions.ROLES_DELETE))
     public async remove(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest({ id: req.params.id });
+        const data = {
+            id: req.params.id
+        };
 
-        const data = await this.controller.remove(_request);
+        const role: IRoleDomain = await this.controller.remove(data);
 
-        void await this.responder.send(data, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
+        void await this.responder.send(role, req, res, StatusCode.HTTP_CREATED, new RoleTransformer());
     }
 }
 

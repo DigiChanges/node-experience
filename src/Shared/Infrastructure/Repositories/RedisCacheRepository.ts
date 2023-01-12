@@ -14,7 +14,7 @@ class RedisCacheRepository implements ICacheRepository
 
     static getInstance(config?: CacheConfig): RedisCacheRepository
     {
-        if (!config && RedisCacheRepository.instance)
+        if (!config && !RedisCacheRepository.instance)
         {
             throw Error('Config must be exist when instance is undefined'); // TODO: Add exception
         }

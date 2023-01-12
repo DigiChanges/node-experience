@@ -1,4 +1,4 @@
-import { ParameterizedContext, Context } from 'koa';
+import { DefaultContext } from 'koa';
 
 import IFormatResponder from '../../Presentation/Shared/IFormatResponder';
 import IFileVersionDTO from '../../../File/Domain/Models/IFileVersionDTO';
@@ -21,7 +21,7 @@ class KoaResponder
         this.formatError = new FormatError();
     }
 
-    public async send(data: any, ctx: ParameterizedContext, status: IHttpStatusCode, transformer?: Transformer)
+    public async send(data: any, ctx: DefaultContext, status: IHttpStatusCode, transformer?: Transformer)
     {
         if (!transformer)
         {
@@ -37,7 +37,7 @@ class KoaResponder
         return ctx.body = this.formatResponder.getFormatData(data, null);
     }
 
-    public async paginate(paginator: IPaginator, ctx: ParameterizedContext, status: IHttpStatusCode, transformer?: Transformer)
+    public async paginate(paginator: IPaginator, ctx: DefaultContext, status: IHttpStatusCode, transformer?: Transformer)
     {
         const data = await paginator.paginate();
         const metadata = paginator.getMetadata();
@@ -68,7 +68,7 @@ class KoaResponder
         return ctx.body = result;
     }
 
-    public sendStream(fileDto: IFileVersionDTO, ctx: Context & any, status: IHttpStatusCode)
+    public sendStream(fileDto: IFileVersionDTO, ctx: DefaultContext & any, status: IHttpStatusCode)
     {
         ctx.status = status.code;
         ctx.response.set('Content-Type', fileDto.metadata.mimeType);
@@ -76,7 +76,7 @@ class KoaResponder
         return ctx.body = fileDto.stream;
     }
 
-    public error(error: ErrorHttpException, ctx: ParameterizedContext, status: IHttpStatusCode, metadata: Record<string, any> | null)
+    public error(error: ErrorHttpException, ctx: DefaultContext, status: IHttpStatusCode, metadata: Record<string, any> | null)
     {
         ctx.status = status.code;
         return ctx.body = this.formatError.getFormat(error);

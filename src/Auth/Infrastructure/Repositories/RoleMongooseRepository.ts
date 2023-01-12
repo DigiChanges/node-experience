@@ -58,7 +58,7 @@ class RoleMongooseRepository extends BaseMongooseRepository<IRoleDomain, IRole> 
         return new MongoosePaginator(queryBuilder, criteria);
     }
 
-    async delete(id: string): Promise<IRoleDomain>
+    override async delete(id: string): Promise<IRoleDomain>
     {
         const isOfSystem = !!(await this.exist({ _id: id, ofSystem: true }, ['_id']));
 

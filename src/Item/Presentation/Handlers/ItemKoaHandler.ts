@@ -1,19 +1,20 @@
-import Koa from 'koa';
+import { DefaultContext } from 'koa';
 import Router from 'koa-router';
+
 import StatusCode from '../../../Shared/Application/StatusCode';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import ItemController from '../Controllers/ItemController';
 import ItemTransformer from '../Transformers/ItemTransformer';
-import ItemRepRequest from '../Requests/ItemRepRequest';
 import { AuthUser } from '../../../Auth/Presentation/Helpers/AuthUser';
-import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
-import ItemRequestCriteria from '../Requests/ItemRequestCriteria';
-import ItemUpdateRequest from '../Requests/ItemUpdateRequest';
 import AuthorizeKoaMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeKoaMiddleware';
 import Permissions from '../../../Config/Permissions';
 import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
 import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
+import ItemRepPayload from '../../Domain/Payloads/ItemRepPayload';
+import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
+import ItemUpdatePayload from '../../Domain/Payloads/ItemUpdatePayload';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/items'
@@ -23,65 +24,55 @@ const ItemKoaHandler: Router = new Router(routerOpts);
 const responder: KoaResponder = new KoaResponder();
 const controller: ItemController = new ItemController();
 
-ItemKoaHandler.post('/', AuthorizeKoaMiddleware(Permissions.ITEMS_SAVE), async(ctx: Koa.ParameterizedContext & any) =>
+ItemKoaHandler.post('/', AuthorizeKoaMiddleware(Permissions.ITEMS_SAVE), async(ctx: DefaultContext) =>
 {
-    const data = {
+    const data: ItemRepPayload = {
         authUser: AuthUser(ctx),
         ...ctx.request.body
     };
 
-    const request = new ItemRepRequest(data);
-
-    const item = await controller.save(request);
+    const item = await controller.save(data);
 
     void await responder.send(item, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
 });
 
-ItemKoaHandler.get('/', AuthorizeKoaMiddleware(Permissions.ITEMS_LIST), async(ctx: Koa.ParameterizedContext & any) =>
+ItemKoaHandler.get('/', AuthorizeKoaMiddleware(Permissions.ITEMS_LIST), async(ctx: DefaultContext) =>
 {
-    const data = {
+    const data: CriteriaPayload = {
         url: ctx.request.url,
         query: ctx.request.query
     };
 
-    const _request = new ItemRequestCriteria(data);
-
-    const paginator: IPaginator = await controller.list(_request);
+    const paginator: IPaginator = await controller.list(data);
 
     await responder.paginate(paginator, ctx, StatusCode.HTTP_OK, new ItemTransformer());
 });
 
-ItemKoaHandler.get('/:id', AuthorizeKoaMiddleware(Permissions.ITEMS_SHOW), async(ctx: Koa.ParameterizedContext & any) =>
+ItemKoaHandler.get('/:id', AuthorizeKoaMiddleware(Permissions.ITEMS_SHOW), async(ctx: DefaultContext) =>
 {
-    const _request = new IdRequest(ctx.params);
-
-    const item = await controller.getOne(_request);
+    const item = await controller.getOne(ctx.params as IdPayload);
 
     void await responder.send(item, ctx, StatusCode.HTTP_OK, new ItemTransformer());
 });
 
-ItemKoaHandler.put('/:id', AuthorizeKoaMiddleware(Permissions.ITEMS_UPDATE), async(ctx: Koa.ParameterizedContext & any) =>
+ItemKoaHandler.put('/:id', AuthorizeKoaMiddleware(Permissions.ITEMS_UPDATE), async(ctx: DefaultContext) =>
 {
-    const data = {
+    const data: ItemUpdatePayload = {
         id: ctx.params.id,
         authUser: AuthUser(ctx),
         ...ctx.request.body
     };
 
-    const _request = new ItemUpdateRequest(data);
-
-    const item = await controller.update(_request);
+    const item = await controller.update(data);
 
     void await responder.send(item, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
 });
 
-ItemKoaHandler.delete('/:id', AuthorizeKoaMiddleware(Permissions.ITEMS_DELETE), async(ctx: Koa.ParameterizedContext & any) =>
+ItemKoaHandler.delete('/:id', AuthorizeKoaMiddleware(Permissions.ITEMS_DELETE), async(ctx: DefaultContext) =>
 {
-    const _request = new IdRequest(ctx.params);
+    const item = await controller.remove(ctx.params as IdPayload);
 
-    const item = await controller.remove(_request);
-
-    void await responder.send(item, ctx, StatusCode.HTTP_OK, new ItemTransformer());
+    void await responder.send(item, ctx, StatusCode.HTTP_CREATED, new ItemTransformer());
 });
 
 export default ItemKoaHandler;

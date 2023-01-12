@@ -5,6 +5,7 @@ import TokenExpiredHttpException from '../../Presentation/Exceptions/TokenExpire
 import TokenNotFoundHttpException from '../../Presentation/Exceptions/TokenNotFoundHttpException';
 import Auth from '../Types/Auth';
 import MainConfig from '../../../Config/MainConfig';
+import dayjs from 'dayjs';
 
 class AuthService
 {
@@ -132,6 +133,23 @@ class AuthService
         }
 
         return existMethodAndUrl;
+    }
+
+    getConfirmationToken(email: string): string
+    {
+        const { iss, secret, aud } = MainConfig.getInstance().getConfig().jwt;
+        const expires = dayjs().utc().add(5, 'minute').unix();
+
+        const payload = {
+            iss,
+            aud,
+            sub: email,
+            iat: expires,
+            exp: expires,
+            email
+        };
+
+        return jwt.encode(payload, secret, 'HS512');
     }
 }
 

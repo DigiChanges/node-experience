@@ -1,4 +1,3 @@
-import IFileVersionDomain from '../Entities/IFileVersionDomain';
 import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import FileService from '../Services/FileService';
 import IFileDTO from '../Models/IFileDTO';

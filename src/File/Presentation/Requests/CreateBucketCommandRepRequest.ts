@@ -1,4 +1,3 @@
-import { IsString } from 'class-validator';
 import CreateBucketPayload from '../../Domain/Payloads/CreateBucketPayload';
 
 class CreateBucketCommandRequest implements CreateBucketPayload
@@ -44,7 +43,6 @@ class CreateBucketCommandRequest implements CreateBucketPayload
         };
     }
 
-    @IsString()
     get name(): string
     {
         return this._name;
@@ -60,7 +58,6 @@ class CreateBucketCommandRequest implements CreateBucketPayload
         return JSON.stringify(this._privateBucketPolicy);
     }
 
-    @IsString()
     get region(): string
     {
         return this._region;

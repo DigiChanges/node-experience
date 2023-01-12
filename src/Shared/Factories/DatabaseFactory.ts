@@ -14,11 +14,12 @@ class DatabaseFactory
         this.dbDefault = dbDefault ?? mainConfig.getConfig().dbConfig.default;
     }
 
-    create(): ICreateConnection
+    create(db?: string): ICreateConnection
     {
+        const _db = db ?? this.dbDefault;
         const mainConfig = MainConfig.getInstance();
         const dbConfig: any = mainConfig.getConfig().dbConfig;
-        const config = dbConfig[this.dbDefault];
+        const config = dbConfig[_db];
 
         const createConnections: Record<string, any> = {
             TypeORM: CreateTypeORMConnection,
@@ -26,7 +27,7 @@ class DatabaseFactory
             MikroORM: CreateMikroORMConnection
         };
 
-        return new createConnections[this.dbDefault](config);
+        return new createConnections[_db](config);
     }
 }
 

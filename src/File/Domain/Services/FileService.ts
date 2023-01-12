@@ -1,6 +1,6 @@
 // @ts-ignore
 import { CWebp } from 'cwebp';
-import * as fs from 'fs';
+import { readFile, stat } from 'fs/promises';
 import IFileVersionDomain from '../Entities/IFileVersionDomain';
 import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 import { REPOSITORIES } from '../../../Config/Injects';
@@ -17,21 +17,21 @@ import FileVersionDTO from '../Models/FileVersionDTO';
 import IFileVersionDTO from '../Models/IFileVersionDTO';
 import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 import IFilesystem from '../../../Shared/Infrastructure/Filesystem/IFilesystem';
-import IFileMultipart from '../Entities/IFileMultipart';
-import FileMultipartOptimizeDTO from '../../Presentation/Requests/FileMultipartOptimizeDTO';
-import FileBase64OptimizeDTO from '../../Presentation/Requests/FileBase64OptimizeDTO';
+import IFileVersionPayload from '../Entities/IFileVersionPayload';
+import FileMultipartOptimizeDTO from '../../Presentation/DTO/FileMultipartOptimizeDTO';
+import FileBase64OptimizeDTO from '../../Presentation/DTO/FileBase64OptimizeDTO';
 import FileUpdateMultipartPayload from '../Payloads/FileUpdateMultipartPayload';
-import FileUpdateMultipartOptimizeDTO from '../../Presentation/Requests/FileUpdateMultipartOptimizeDTO';
+import FileUpdateMultipartOptimizeDTO from '../../Presentation/DTO/FileUpdateMultipartOptimizeDTO';
 import FileUpdateBase64Payload from '../Payloads/FileUpdateBase64Payload';
-import FileUpdateBase64OptimizeDTO from '../../Presentation/Requests/FileUpdateBase64OptimizeDTO';
+import FileUpdateBase64OptimizeDTO from '../../Presentation/DTO/FileUpdateBase64OptimizeDTO';
 import IFileRepository from '../../Infrastructure/Repositories/IFileRepository';
 import IFileDomain from '../Entities/IFileDomain';
 import File from '../Entities/File';
 import IFileVersionOptimizeDTO from '../Payloads/IFileVersionOptimizeDTO';
-import FileVersionOptimizeDTO from '../../Presentation/Requests/FileVersionOptimizeDTO';
-import DownloadRequest from '../../Presentation/Requests/DownloadRequest';
+import FileVersionOptimizeDTO from '../../Presentation/DTO/FileVersionOptimizeDTO';
 import IFileDTO from '../Models/IFileDTO';
 import FileDTO from '../Models/FileDTO';
+import DownloadPayload from '../Payloads/DownloadPayload';
 
 class FileService
 {
@@ -67,13 +67,8 @@ class FileService
         return await this.getFileUrl(fileVersion, expiry);
     }
 
-    async persistVersion(fileVersion: IFileVersionDomain, payload: FileRepPayload): Promise<IFileVersionDomain>
+    async persistVersion(fileVersion: IFileVersionDomain): Promise<IFileVersionDomain>
     {
-        fileVersion.extension = payload.extension;
-        fileVersion.mimeType = payload.mimeType;
-        fileVersion.size = payload.size;
-        fileVersion.isPublic = payload.isPublic;
-
         return await this.versionRepository.save(fileVersion);
     }
 
@@ -147,19 +142,11 @@ class FileService
         await this.fileSystem.setBucketPolicy(bucketPublicPolicy, bucketNamePublic);
     }
 
-    async download(payload: DownloadRequest): Promise<IFileVersionDTO>
+    async download(payload: DownloadPayload): Promise<IFileVersionDTO>
     {
         const { id, version } = payload;
-        let fileVersion: IFileVersionDomain;
 
-        if (!version)
-        {
-            fileVersion = await this.getLastVersions(id);
-        }
-        else
-        {
-            fileVersion = await this.getOneVersion(id, version);
-        }
+        const fileVersion = !version ? await this.getLastVersions(id) : await this.getOneVersion(id, version);
 
         const stream = await this.fileSystem.downloadStreamFile(fileVersion);
 
@@ -191,7 +178,7 @@ class FileService
         return new FileDTO(file, fileVersions);
     }
 
-    private async getFileVersionOptimized(fileVersion: IFileVersionDomain): Promise<IFileMultipart>
+    private async getFileVersionOptimized(fileVersion: IFileVersionDomain): Promise<IFileVersionPayload>
     {
         const path = await this.fileSystem.downloadFile(fileVersion);
         const encoder = CWebp(path);
@@ -199,32 +186,35 @@ class FileService
         await encoder.write(newPath);
 
         return {
-            fieldname: fileVersion.name,
-            originalname: fileVersion.originalName.replace(fileVersion.extension, 'webp'),
+            originalName: fileVersion.originalName.replace(fileVersion.extension, 'webp'),
             encoding: '',
-            mimetype: 'image/webp',
+            mimeType: 'image/webp',
             destination: '',
+            extension: 'webp',
             filename: fileVersion.name.replace(fileVersion.extension, 'webp'),
             path: newPath,
-            size: fileVersion.size
+            size: fileVersion.size,
+            isImage: true
         };
     }
 
-    private async getFileMultipartOptimized(payload: FileMultipartRepPayload): Promise<IFileMultipart>
+    private async getFileMultipartOptimized(payload: IFileVersionPayload): Promise<IFileVersionPayload>
     {
-        const encoder = CWebp(payload.file.path);
-        const newPath = payload.file.path.replace(payload.extension, 'webp');
+        const path = `${payload.destination}/${payload.filename}`;
+        const encoder = CWebp(path);
+        const newPath = path.replace(payload.extension, 'webp');
         await encoder.write(newPath);
 
         return {
-            fieldname: payload.file.fieldname,
-            originalname: payload.file.originalname.replace(payload.extension, 'webp'),
-            encoding: payload.file.encoding,
-            mimetype: 'image/webp',
-            destination: payload.file.destination,
-            filename: payload.file.filename.replace(payload.extension, 'webp'),
+            originalName: payload.originalName.replace(payload.extension, 'webp'),
+            mimeType: 'image/webp',
+            destination: payload.destination,
+            extension: 'webp',
+            filename: payload.filename.replace(payload.extension, 'webp'),
             path: newPath,
-            size: payload.size
+            size: (await stat(newPath)).size,
+            encoding: payload.encoding,
+            isImage: payload.isImage
         };
     }
 
@@ -235,22 +225,24 @@ class FileService
         const newPath = '/tmp/converted.webp';
         await encoder.write(newPath);
 
-        const buff = fs.readFileSync(newPath);
+        const buff = await readFile(newPath);
         return buff.toString('base64');
     }
 
     async optimizeMultipartToUpload(payload: FileMultipartRepPayload): Promise<FileMultipartRepPayload>
     {
-        const fileVersion = await this.getFileMultipartOptimized(payload);
+        const { file, query } = payload;
+        const fileVersion = await this.getFileMultipartOptimized(file);
 
-        return new FileMultipartOptimizeDTO(payload, fileVersion);
+        return new FileMultipartOptimizeDTO(fileVersion, query);
     }
 
     async optimizeMultipartToUpdate(payload: FileUpdateMultipartPayload): Promise<FileUpdateMultipartPayload>
     {
-        const fileVersion = await this.getFileMultipartOptimized(payload);
+        const { file, query } = payload;
+        const fileVersion = await this.getFileMultipartOptimized(file);
 
-        return new FileUpdateMultipartOptimizeDTO(payload, fileVersion);
+        return new FileUpdateMultipartOptimizeDTO(fileVersion, query);
     }
 
     async optimizeBase64ToUpload(payload: FileBase64RepPayload): Promise<FileBase64RepPayload>

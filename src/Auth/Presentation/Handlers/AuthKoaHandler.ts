@@ -1,25 +1,23 @@
-import Koa from 'koa';
+import Koa, { DefaultContext, DefaultContextExtends } from 'koa';
 import Router from 'koa-router';
 import dayjs from 'dayjs';
 import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
-import AuthRequest from '../Requests/Auth/AuthRequest';
 import AuthController from '../Controllers/AuthController';
 import AuthTransformer from '../Transformers/AuthTransformer';
-import RefreshTokenRequest from '../Requests/Auth/RefreshTokenRequest';
-import ForgotPasswordRequest from '../Requests/Auth/ForgotPasswordRequest';
-import ChangeForgotPasswordRequest from '../Requests/Auth/ChangeForgotPasswordRequest';
 import PermissionsTransformer from '../Transformers/PermissionsTransformer';
 import Permissions from '../../../Config/Permissions';
 import AuthorizeKoaMiddleware from '../Middlewares/AuthorizeKoaMiddleware';
 import { AuthUser } from '../Helpers/AuthUser';
 import UserTransformer from '../Transformers/UserTransformer';
 import DefaultTransformer from '../../../Shared/Presentation/Transformers/DefaultTransformer';
-import RegisterRequest from '../Requests/Auth/RegisterRequest';
-import UpdateMeRequest from '../Requests/Auth/UpdateMeRequest';
-import VerifyYourAccountRequest from '../Requests/Auth/VerifyYourAccountRequest';
 import RefreshTokenKoaMiddleware from '../Middlewares/RefreshTokenKoaMiddleware';
 import MainConfig from '../../../Config/MainConfig';
 import StatusCode from '../../../Shared/Application/StatusCode';
+import ForgotPasswordPayload from '../../Domain/Payloads/Auth/ForgotPasswordPayload';
+import RefreshTokenPayload from '../../Domain/Payloads/Auth/RefreshTokenPayload';
+import RegisterPayload from '../../Domain/Payloads/Auth/RegisterPayload';
+import UpdateMePayload from '../../Domain/Payloads/Auth/UpdateMePayload';
+import AuthPayload from '../../Domain/Payloads/Auth/AuthPayload';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/auth'
@@ -29,9 +27,9 @@ const AuthKoaHandler: Router = new Router(routerOpts);
 const responder: KoaResponder = new KoaResponder();
 const controller = new AuthController();
 
-AuthKoaHandler.get('/me', async(ctx: Koa.ParameterizedContext & any) =>
+AuthKoaHandler.get('/me', async(ctx: DefaultContextExtends) =>
 {
-    void await responder.send(AuthUser(ctx), ctx, StatusCode.HTTP_OK, new UserTransformer());
+    void await responder.send(AuthUser(ctx), ctx as DefaultContext, StatusCode.HTTP_OK, new UserTransformer());
 });
 
 AuthKoaHandler.put('/me', async(ctx: Koa.ParameterizedContext & any) =>
@@ -41,18 +39,14 @@ AuthKoaHandler.put('/me', async(ctx: Koa.ParameterizedContext & any) =>
         ...ctx.request.body
     };
 
-    const _request = new UpdateMeRequest(data);
-
-    const payload = await controller.updateMe(_request);
+    const payload = await controller.updateMe(data as UpdateMePayload);
 
     void await responder.send(payload, ctx, StatusCode.HTTP_CREATED, new UserTransformer());
 });
 
 AuthKoaHandler.post('/login', async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new AuthRequest(ctx.request.body);
-
-    const payload = await controller.login(_request);
+    const payload = await controller.login(ctx.request.body as AuthPayload);
 
     ctx.cookies.set(
         'refreshToken',
@@ -71,23 +65,19 @@ AuthKoaHandler.post('/login', async(ctx: Koa.ParameterizedContext & any) =>
 
 AuthKoaHandler.post('/signup', async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new RegisterRequest(ctx.request.body);
-
-    const payload = await controller.register(_request);
+    const payload = await controller.register(ctx.request.body as RegisterPayload);
 
     void await responder.send(payload, ctx, StatusCode.HTTP_CREATED, new DefaultTransformer());
 });
 
 AuthKoaHandler.post('/logout', async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const data = {
+    const data: RefreshTokenPayload = {
         refreshToken: ctx.refreshToken,
         decodeToken: AuthUser(ctx, 'decodeToken')
     };
 
-    const _request = new RefreshTokenRequest(data);
-
-    const payload = await controller.logout(_request);
+    const payload = await controller.logout(data);
 
     ctx.cookies.set(
         'refreshToken',
@@ -106,9 +96,12 @@ AuthKoaHandler.post('/logout', async(ctx: Koa.ParameterizedContext & any) =>
 
 AuthKoaHandler.post('/refresh-token', RefreshTokenKoaMiddleware, async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new RefreshTokenRequest(ctx);
+    const data: RefreshTokenPayload = {
+        refreshToken: ctx.refreshToken,
+        decodeToken: AuthUser(ctx, 'decodeToken')
+    };
 
-    const payload = await controller.refreshToken(_request);
+    const payload = await controller.refreshToken(data);
 
     ctx.cookies.set(
         'refreshToken',
@@ -127,27 +120,27 @@ AuthKoaHandler.post('/refresh-token', RefreshTokenKoaMiddleware, async(ctx: Koa.
 
 AuthKoaHandler.post('/forgot-password', async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new ForgotPasswordRequest(ctx.request.body);
+    const data: ForgotPasswordPayload = {
+        email: ctx.request.body.email,
+        confirmationToken: ctx.request.body.confirmationToken,
+        passwordRequestedAt: dayjs().toDate()
+    };
 
-    const payload = await controller.forgotPassword(_request);
+    const payload = await controller.forgotPassword(data);
 
     void await responder.send(payload, ctx, StatusCode.HTTP_CREATED);
 });
 
 AuthKoaHandler.post('/change-forgot-password', async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new ChangeForgotPasswordRequest(ctx.request.body);
-
-    const payload = await controller.changeForgotPassword(_request);
+    const payload = await controller.changeForgotPassword(ctx.request.body);
 
     void await responder.send(payload, ctx, StatusCode.HTTP_CREATED);
 });
 
 AuthKoaHandler.put('/verify-your-account/:confirmationToken', async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const _request = new VerifyYourAccountRequest(ctx.params.confirmationToken);
-
-    const payload = await controller.verifyYourAccount(_request);
+    const payload = await controller.verifyYourAccount(ctx.params);
 
     void await responder.send(payload, ctx, StatusCode.HTTP_CREATED, new DefaultTransformer());
 });
@@ -159,7 +152,7 @@ AuthKoaHandler.get('/permissions', AuthorizeKoaMiddleware(Permissions.GET_PERMIS
     void await responder.send(payload, ctx, StatusCode.HTTP_OK, new PermissionsTransformer());
 });
 
-AuthKoaHandler.post('/sync-roles-permissions', AuthorizeKoaMiddleware(Permissions.AUTH_SYNC_PERMISSIONS), async(ctx: Koa.ParameterizedContext & any) =>
+AuthKoaHandler.post('/sync-roles-permissions', AuthorizeKoaMiddleware(Permissions.AUTH_SYNC_PERMISSIONS), async(ctx: Koa.ParameterizedContext) =>
 {
     await controller.syncRolesPermissions();
 

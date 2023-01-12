@@ -26,7 +26,7 @@ class UpdateUserUseCase
         const user: IUserDomain = await this.repository.getOneBy({ _id: id }, { populate: 'roles' });
         let enable = payload.enable;
 
-        if (payload.tokenUserId === user.getId())
+        if (payload.userId === user.getId())
         {
             enable = true;
         }

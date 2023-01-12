@@ -55,7 +55,7 @@ describe('Start User Test', () =>
                 birthday: '1991-08-04',
                 documentType: 'dni',
                 documentNumber: '35319112',
-                gender: 'male',
+                gender: 'M',
                 phone: '2234456999',
                 country: 'AR',
                 address: 'Norway 123',
@@ -86,7 +86,7 @@ describe('Start User Test', () =>
                 birthday: '1992-08-04',
                 documentType: 'dni',
                 documentNumber: '35319321',
-                gender: 'male',
+                gender: 'M',
                 phone: '2234456999',
                 country: 'AR',
                 address: 'Norway 123',
@@ -145,7 +145,7 @@ describe('Start User Test', () =>
                 birthday: '1991-08-04',
                 documentType: 'dni',
                 documentNumber: '35319131',
-                gender: 'female',
+                gender: 'F',
                 phone: '22344569121',
                 country: 'UR',
                 address: 'Norway 124',
@@ -212,7 +212,7 @@ describe('Start User Test', () =>
                 birthday: '1992-08-04',
                 documentType: 'dni',
                 documentNumber: '25319112',
-                gender: 'male',
+                gender: 'M',
                 phone: '2234456999',
                 country: 'AR',
                 address: 'Norway 126',
@@ -354,11 +354,10 @@ describe('Start User Test', () =>
             const { body: { message, errors: [error] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
-            expect(message).toStrictEqual('Failed Request.');
+            expect(message).toStrictEqual('Request Failed.');
 
-            expect(error.property).toStrictEqual('permissions');
-            expect(error.constraints.isString).toBeDefined();
-            expect(error.constraints.isString).toStrictEqual('each value in permissions must be a string');
+            expect(error.code).toStrictEqual('invalid_type');
+            expect(error.message).toStrictEqual('Required');
         });
 
         test('Get User /users/:id', async() =>
@@ -372,11 +371,10 @@ describe('Start User Test', () =>
             const { body: { message, errors: [error] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
-            expect(message).toStrictEqual('Failed Request.');
+            expect(message).toStrictEqual('Request Failed.');
 
-            expect(error.property).toStrictEqual('id');
-            expect(error.constraints.isUuid).toBeDefined();
-            expect(error.constraints.isUuid).toStrictEqual('id must be a UUID');
+            expect(error.code).toStrictEqual('invalid_string');
+            expect(error.message).toStrictEqual('Invalid uuid');
         });
 
         test('Update User /users/:id', async() =>
@@ -388,7 +386,7 @@ describe('Start User Test', () =>
                 birthday: '1990-08-04',
                 documentType: 'dni',
                 documentNumber: '35319132',
-                gender: 'male',
+                gender: 'M',
                 phone: '22344569123',
                 country: 'AR',
                 address: 'Norway 120',
@@ -404,11 +402,10 @@ describe('Start User Test', () =>
             const { body: { message, errors: [error] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
-            expect(message).toStrictEqual('Failed Request.');
+            expect(message).toStrictEqual('Request Failed.');
 
-            expect(error.property).toStrictEqual('permissions');
-            expect(error.constraints.isString).toBeDefined();
-            expect(error.constraints.isString).toStrictEqual('each value in permissions must be a string');
+            expect(error.code).toStrictEqual('invalid_type');
+            expect(error.message).toStrictEqual('Expected string, received number');
         });
 
         test('Delete User error /users/:id', async() =>

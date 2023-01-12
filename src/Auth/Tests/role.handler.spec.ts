@@ -311,11 +311,10 @@ describe('Start Role Test', () =>
             const { body: { message, errors: [error] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
-            expect(message).toStrictEqual('Failed Request.');
+            expect(message).toStrictEqual('Request Failed.');
 
-            expect(error.property).toStrictEqual('name');
-            expect(error.constraints.isString).toBeDefined();
-            expect(error.constraints.isString).toStrictEqual('name must be a string');
+            expect(error.code).toStrictEqual('invalid_type');
+            expect(error.message).toStrictEqual('Required');
         });
 
         test('Get Role /roles/:id', async() =>
@@ -329,11 +328,10 @@ describe('Start Role Test', () =>
             const { body: { message, errors: [error] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
-            expect(message).toStrictEqual('Failed Request.');
+            expect(message).toStrictEqual('Request Failed.');
 
-            expect(error.property).toStrictEqual('id');
-            expect(error.constraints.isUuid).toBeDefined();
-            expect(error.constraints.isUuid).toStrictEqual('id must be a UUID');
+            expect(error.code).toStrictEqual('invalid_string');
+            expect(error.message).toStrictEqual('Invalid uuid');
         });
 
         test('Update Role /roles/:id', async() =>
@@ -353,15 +351,13 @@ describe('Start Role Test', () =>
             const { body: { message, errors: [error1, error2] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
-            expect(message).toStrictEqual('Failed Request.');
+            expect(message).toStrictEqual('Request Failed.');
 
-            expect(error1.property).toStrictEqual('permissions');
-            expect(error1.constraints.isArray).toBeDefined();
-            expect(error1.constraints.isArray).toStrictEqual('permissions must be an array');
+            expect(error1.code).toStrictEqual('invalid_type');
+            expect(error1.message).toStrictEqual('Expected string, received number');
 
-            expect(error2.property).toStrictEqual('name');
-            expect(error2.constraints.isString).toBeDefined();
-            expect(error2.constraints.isString).toStrictEqual('name must be a string');
+            expect(error2.code).toStrictEqual('invalid_type');
+            expect(error2.message).toStrictEqual('Required');
         });
 
         test('Delete Role error /roles/:id', async() =>

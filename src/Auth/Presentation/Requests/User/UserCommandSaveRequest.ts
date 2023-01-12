@@ -1,4 +1,3 @@
-import { IsArray, IsBoolean, IsString, Length } from 'class-validator';
 import IRoleDomain from '../../../Domain/Entities/IRoleDomain';
 import UserSavePayload from '../../../Domain/Payloads/User/UserSavePayload';
 
@@ -39,110 +38,86 @@ class UserCommandSaveRequest implements UserSavePayload
         this._isSuperAdmin = data.isSuperAdmin === 'true';
     }
 
-    @IsString()
     get firstName(): string
     {
         return this._firstName;
     }
 
-    @IsString()
     get lastName(): string
     {
         return this._lastName;
     }
 
-    @IsString()
     get email(): string
     {
         return this._email;
     }
 
-    @Length(3, 10)
-    @IsString()
     get birthday(): string
     {
         return this._birthday;
     }
 
-    @Length(2, 3)
-    @IsString()
     get documentNumber(): string
     {
         return this._documentNumber;
     }
 
-    @Length(3, 16)
-    @IsString()
     get documentType(): string
     {
         return this._documentType;
     }
 
-    @Length(1, 20)
-    @IsString()
     get gender(): string
     {
         return this._gender;
     }
 
-    @Length(3, 20)
-    @IsString()
     get phone(): string
     {
         return this._phone;
     }
 
-    @Length(2, 20)
-    @IsString()
     get country(): string
     {
         return this._country;
     }
 
-    @Length(3, 60)
-    @IsString()
     get address(): string
     {
         return this._address;
     }
 
-    @IsString()
     get password(): string
     {
         return this._password;
     }
 
-    @IsString()
     get passwordConfirmation(): string
     {
         return this._password;
     }
 
-    @IsBoolean()
     get enable(): boolean
     {
         return this._enable;
     }
 
-    @IsArray()
     get passwordRequestedAt(): null
     {
         return null;
     }
 
-    @IsBoolean()
     get roles(): IRoleDomain[]
     {
         return this._roles;
     }
 
-    @IsArray()
     get permissions(): string[]
     {
         return this._permissions;
     }
 
-    @IsBoolean()
     get isSuperAdmin(): boolean
     {
         return this._isSuperAdmin;

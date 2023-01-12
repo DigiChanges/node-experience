@@ -1,3 +1,4 @@
+
 interface VersionPayload
 {
     version: number;

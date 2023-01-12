@@ -156,7 +156,7 @@ class EmailStrategy implements INotifierStrategy
                     throw new ErrorException({ message: `Something is wrong. Please try again later, ${err.message}` }, 'EmailStrategy');
                 });
         }
-        catch (e)
+        catch (e: any)
         {
             throw new ErrorException({ message: e.message }, 'EmailStrategy');
         }

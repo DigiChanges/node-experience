@@ -10,20 +10,18 @@ import Permissions from '../../../Config/Permissions';
 
 import UserTransformer from '../Transformers/UserTransformer';
 
-import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
-import UserRequestCriteria from '../Requests/User/UserRequestCriteria';
-import UserUpdateRequest from '../Requests/User/UserUpdateRequest';
-import UserAssignRoleRequest from '../Requests/User/UserAssignRoleRequest';
-import ChangeUserPasswordRequest from '../Requests/User/ChangeUserPasswordRequest';
-import ChangeMyPasswordRequest from '../Requests/User/ChangeMyPasswordRequest';
-
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 import UserController from '../Controllers/UserControllers';
-import UserSaveRequest from '../Requests/User/UserSaveRequest';
 import { AuthUser } from '../Helpers/AuthUser';
 import IDecodeToken from '../../Domain/Models/IDecodeToken';
 import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
 import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
+import UserSavePayload from '../../Domain/Payloads/User/UserSavePayload';
+import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
+import UserUpdatePayload from '../../Domain/Payloads/User/UserUpdatePayload';
+import UserAssignRolePayload from '../../Domain/Payloads/User/UserAssignRolePayload';
+import ChangeMyPasswordPayload from '../../Domain/Payloads/User/ChangeMyPasswordPayload';
+import ChangeUserPasswordPayload from '../../Domain/Payloads/User/ChangeUserPasswordPayload';
 
 @controller('/api/users')
 class UserExpressHandler
@@ -40,9 +38,7 @@ class UserExpressHandler
     @httpPost('/', void AuthorizeExpressMiddleware(Permissions.USERS_SAVE))
     public async save(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const _request = new UserSaveRequest(req.body);
-
-        const user: IUserDomain = await this.controller.save(_request);
+        const user: IUserDomain = await this.controller.save(req.body as UserSavePayload);
 
         void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
     }
@@ -50,14 +46,12 @@ class UserExpressHandler
     @httpGet('/', void AuthorizeExpressMiddleware(Permissions.USERS_LIST))
     public async list(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const data = {
-            query: req.query,
-            url: req.url
+        const data: CriteriaPayload = {
+            url: req.url,
+            query: req.query
         };
 
-        const _request = new UserRequestCriteria(data);
-
-        const paginator: IPaginator = await this.controller.list(_request);
+        const paginator: IPaginator = await this.controller.list(data);
 
         await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -65,9 +59,11 @@ class UserExpressHandler
     @httpGet('/:id', void AuthorizeExpressMiddleware(Permissions.USERS_SHOW))
     public async getOne(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const _request = new IdRequest({ id: req.params.id });
+        const data = {
+            id: req.params.id
+        };
 
-        const user: IUserDomain = await this.controller.getOne(_request);
+        const user: IUserDomain = await this.controller.getOne(data);
 
         void await this.responder.send(user, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -81,9 +77,7 @@ class UserExpressHandler
             ...req.body
         };
 
-        const _request = new UserUpdateRequest(data);
-
-        const user: IUserDomain = await this.controller.update(_request);
+        const user: IUserDomain = await this.controller.update(data as UserUpdatePayload);
 
         void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
@@ -96,34 +90,33 @@ class UserExpressHandler
             ...req.body
         };
 
-        const _request = new UserAssignRoleRequest(data);
+        const user: IUserDomain = await this.controller.assignRole(data as UserAssignRolePayload);
 
-        const _response: IUserDomain = await this.controller.assignRole(_request);
-
-        void await this.responder.send(_response, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     @httpDelete('/:id', void AuthorizeExpressMiddleware(Permissions.USERS_DELETE))
     public async remove(@request() req: Request, @response() res: Response): Promise<void>
     {
-        const _request = new IdRequest({ id: req.params.id });
+        const data = {
+            id: req.params.id
+        };
 
-        const data = await this.controller.remove(_request);
+        const user: IUserDomain = await this.controller.remove(data);
 
-        void await this.responder.send(data, req, res, StatusCode.HTTP_OK, new UserTransformer());
+        void await this.responder.send(user, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
 
     @httpPost('/change-my-password', void AuthorizeExpressMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD))
     public async changeMyPassword(@request() req: any, @response() res: Response): Promise<void>
     {
         const data = {
-            userId: AuthUser<IDecodeToken>(req, 'decodeToken').userId,
+            id: AuthUser<IDecodeToken>(req, 'decodeToken').userId,
             ...req.body
         };
 
-        const _request = new ChangeMyPasswordRequest(data);
+        const user: IUserDomain = await this.controller.changeMyPassword(data as ChangeMyPasswordPayload);
 
-        const user: IUserDomain = await this.controller.changeMyPassword(_request);
         void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
     }
 
@@ -135,9 +128,7 @@ class UserExpressHandler
             ...req.body
         };
 
-        const _request = new ChangeUserPasswordRequest(data);
-
-        const user: IUserDomain = await this.controller.changeUserPassword(_request);
+        const user: IUserDomain = await this.controller.changeUserPassword(data as ChangeUserPasswordPayload);
 
         void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }

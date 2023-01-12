@@ -1,5 +1,11 @@
-export interface IClassValidatorErrorResponse
+
+interface IClassValidatorErrorResponse
 {
-    property: string;
-    constraints: any;
+    code: string;
+    expected: string;
+    received: string;
+    path: string[];
+    message: string;
 }
+
+export default IClassValidatorErrorResponse;

@@ -12,7 +12,7 @@ class UpdateFileMultipartUseCase
     {
         const { id } = payload;
 
-        if (payload.isOptimize && payload.isImage)
+        if (payload.query.isOptimize && payload.file.isImage)
         {
             payload = await this.fileService.optimizeMultipartToUpdate(payload);
         }
@@ -20,14 +20,19 @@ class UpdateFileMultipartUseCase
         let file = await this.fileService.getOne(id);
 
         const build = {
-            hasOriginalName: payload.isOriginalName,
-            originalName: payload.originalName,
-            isOptimized: payload.isOptimize && payload.isImage,
+            isOriginalName: payload.query.isOriginalName,
+            originalName: payload.file.originalName,
+            isOptimized: payload.query.isOptimize && payload.file.isImage,
+            mimeType: payload.file.mimeType,
+            extension: payload.file.extension,
+            isPublic: payload.query.isPublic,
+            size: payload.file.size,
+            path: payload.file.path,
             file
         };
 
         let fileVersion: IFileVersionDomain = new FileVersion(build);
-        fileVersion = await this.fileService.persistVersion(fileVersion, payload);
+        fileVersion = await this.fileService.persistVersion(fileVersion);
         file = await this.fileService.update(file);
         await this.fileService.uploadFileMultipart(fileVersion, payload);
 

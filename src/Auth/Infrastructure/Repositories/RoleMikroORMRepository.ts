@@ -1,4 +1,3 @@
-import { injectable } from 'inversify';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
@@ -12,7 +11,6 @@ import BaseMikroORMRepository from '../../../Shared/Infrastructure/Repositories/
 import RoleSchema from '../Schemas/RoleMikroORM';
 import MikroORMPaginator from '../../../Shared/Infrastructure/Orm/MikroORMPaginator';
 
-@injectable()
 class RoleMikroORMRepository extends BaseMikroORMRepository<IRoleDomain> implements IRoleRepository
 {
     constructor()
@@ -45,7 +43,7 @@ class RoleMikroORMRepository extends BaseMikroORMRepository<IRoleDomain> impleme
         return new MikroORMPaginator(queryBuilder, criteria);
     }
 
-    async delete(id: string): Promise<IRoleDomain>
+    override async delete(id: string): Promise<IRoleDomain>
     {
         const isOfSystem = !!(await this.exist({ _id: id, ofSystem: true }, ['_id']));
 
@@ -67,4 +65,5 @@ class RoleMikroORMRepository extends BaseMikroORMRepository<IRoleDomain> impleme
     }
 }
 
+// @ts-ignore
 export default RoleMikroORMRepository;

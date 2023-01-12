@@ -25,6 +25,7 @@ class ExceptionFactory
         exception.statusCode = err?.statusCode ?? statusCode;
         exception.errors = err?.errors ?? [];
 
+        // TODO: Remove ifs
         if (err instanceof Error && err.message === 'Token expired')
         {
             exception = new TokenExpiredHttpException();
@@ -39,6 +40,12 @@ class ExceptionFactory
         else if (err?.name === 'UniqueConstraintViolationException')
         {
             exception = new DuplicateEntityHttpException();
+        }
+        else if (err?.name === 'ValidatorSchemaError')
+        {
+            exception.errors = err.metadata.issues;
+            exception.metadata = null;
+            exception.statusCode = StatusCode.HTTP_UNPROCESSABLE_ENTITY;
         }
 
         return exception;

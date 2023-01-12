@@ -20,11 +20,15 @@ class FileVersion extends Base implements IFileVersionDomain
     {
         super();
         this.file = data?.file;
+        this.originalName = data?.originalName;
         this.version = data?.file.currentVersion + 1;
-        this.isPublic = false;
+        this.isPublic = data?.isPublic ?? false;
         this.isOptimized = data?.isOptimized;
-        this.originalName = data?.originalName ?? 'empty.jpg';
-        this.setName(data?.hasOriginalName ?? false);
+        this.mimeType = data.mimeType;
+        this.path = data?.path ?? '/';
+        this.extension = data.extension;
+        this.size = data.size;
+        this.setName(data?.isOriginalName ?? false);
         this.setPath();
     }
 

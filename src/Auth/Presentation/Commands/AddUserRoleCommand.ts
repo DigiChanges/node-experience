@@ -25,7 +25,7 @@ AddUserRoleCommand
     .option('-a, --address <address>', 'User`s address')
     .option('-bir, --birthday <birthday>', 'User`s birthday')
     .option('-isa, --isSuperAdmin <isSuperAdmin>', 'Set if user is super admin')
-    .action(async(env: any) =>
+    .action(async(env: Record<string, string>) =>
     {
         const saveUserUseCase = new SaveUserUseCase();
         const saveRoleUseCase = new SaveRoleUseCase();

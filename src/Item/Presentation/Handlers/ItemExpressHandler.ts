@@ -8,10 +8,6 @@ import AuthorizeExpressMiddleware from '../../../Auth/Presentation/Middlewares/A
 import Permissions from '../../../Config/Permissions';
 
 import ItemTransformer from '../Transformers/ItemTransformer';
-import ItemRepRequest from '../Requests/ItemRepRequest';
-import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
-import ItemRequestCriteria from '../Requests/ItemRequestCriteria';
-import ItemUpdateRequest from '../Requests/ItemUpdateRequest';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 
 import ItemController from '../Controllers/ItemController';
@@ -39,9 +35,7 @@ class ItemExpressHandler
             ...req.body
         };
 
-        const _request = new ItemRepRequest(data);
-
-        const item: IItemDomain = await this.controller.save(_request);
+        const item: IItemDomain = await this.controller.save(data);
 
         void await this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
     }
@@ -54,9 +48,7 @@ class ItemExpressHandler
             url: req.url
         };
 
-        const _request = new ItemRequestCriteria(data);
-
-        const paginator: IPaginator = await this.controller.list(_request);
+        const paginator: IPaginator = await this.controller.list(data);
 
         await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
@@ -64,9 +56,11 @@ class ItemExpressHandler
     @httpGet('/:id', void AuthorizeExpressMiddleware(Permissions.ITEMS_SHOW))
     public async getOne(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest({ id: req.params.id });
+        const data = {
+            id: req.params.id
+        };
 
-        const item: IItemDomain = await this.controller.getOne(_request);
+        const item: IItemDomain = await this.controller.getOne(data);
 
         void await this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }
@@ -80,9 +74,7 @@ class ItemExpressHandler
             ...req.body
         };
 
-        const _request = new ItemUpdateRequest(data);
-
-        const item: IItemDomain = await this.controller.update(_request);
+        const item: IItemDomain = await this.controller.update(data);
 
         void await this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
@@ -90,9 +82,11 @@ class ItemExpressHandler
     @httpDelete('/:id', void AuthorizeExpressMiddleware(Permissions.ITEMS_DELETE))
     public async remove(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest({ id: req.params.id });
+        const data = {
+            id: req.params.id
+        };
 
-        const item: IItemDomain = await this.controller.remove(_request);
+        const item: IItemDomain = await this.controller.remove(data);
 
         void await this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
     }

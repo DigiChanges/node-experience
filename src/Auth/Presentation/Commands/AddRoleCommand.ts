@@ -1,8 +1,6 @@
 import Logger from '../../../Shared/Application/Logger/Logger';
 import commander from 'commander';
-import RoleRepPayload from '../../Domain/Payloads/Role/RoleRepPayload';
 import SaveRoleUseCase from '../../Domain/UseCases/Role/SaveRoleUseCase';
-import RoleRepRequest from '../Requests/Role/RoleRepRequest';
 
 const AddRoleCommand = new commander.Command('addRole');
 
@@ -11,12 +9,18 @@ AddRoleCommand
     .description('Add role to the system')
     .option('-n, --name <name>', 'Name of the role')
     .option('-s, --slug <slug>', 'Slug of the role')
-    .action(async(env: any) =>
+    .action(async(env: Record<string, any>) =>
     {
         const saveRoleUseCase = new SaveRoleUseCase();
 
-        const roleCommandRepRequest: RoleRepPayload = new RoleRepRequest(env);
-        const role = await saveRoleUseCase.handle(roleCommandRepRequest);
+        const body = {
+            name: env.name,
+            slug: env.slug?.toLowerCase() ?? env.name?.toLowerCase(),
+            permissions: env.permissions ?? [],
+            enable: env.enable ?? true
+        };
+
+        const role = await saveRoleUseCase.handle(body);
 
         if (role)
         {

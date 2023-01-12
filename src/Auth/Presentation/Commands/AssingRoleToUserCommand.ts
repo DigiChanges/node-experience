@@ -11,7 +11,7 @@ AssignRoleToUserCommand
     .description('Assign role to user')
     .option('-s, --slug <slug>', 'Slug of the role')
     .option('-e, --email <email>', 'Email of the user')
-    .action(async(env: any) =>
+    .action(async(env: Record<string, string>) =>
     {
         const assignRoleBySlugUseCase = new AssignRoleBySlugUseCase();
 

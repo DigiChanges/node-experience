@@ -126,7 +126,7 @@ describe('Start Item Test', () =>
 
             const { body: { data } } = deleteResponse;
 
-            expect(deleteResponse.statusCode).toStrictEqual(200);
+            expect(deleteResponse.statusCode).toStrictEqual(201);
 
             expect(data.name).toStrictEqual(payload.name);
             expect(data.type).toStrictEqual(payload.type);
@@ -246,10 +246,10 @@ describe('Start Item Test', () =>
             const { body: { message, errors: [error] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
-            expect(message).toStrictEqual('Failed Request.');
+            expect(message).toStrictEqual('Request Failed.');
 
-            expect(error.property).toStrictEqual('type');
-            expect(error.constraints.isInt).toStrictEqual('type must be an integer number');
+            expect(error.code).toStrictEqual('invalid_type');
+            expect(error.message).toStrictEqual('Expected number, received string');
         });
 
         test('Get Item /items/:id', async() =>
@@ -263,11 +263,10 @@ describe('Start Item Test', () =>
             const { body: { message, errors: [error] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
-            expect(message).toStrictEqual('Failed Request.');
+            expect(message).toStrictEqual('Request Failed.');
 
-            expect(error.property).toStrictEqual('id');
-            expect(error.constraints.isUuid).toBeDefined();
-            expect(error.constraints.isUuid).toStrictEqual('id must be a UUID');
+            expect(error.code).toStrictEqual('invalid_string');
+            expect(error.message).toStrictEqual('Invalid uuid');
         });
 
         test('Update Item /items/:id', async() =>
@@ -286,15 +285,13 @@ describe('Start Item Test', () =>
             const { body: { message, errors: [errorName, errorType] } } = response;
 
             expect(response.statusCode).toStrictEqual(422);
-            expect(message).toStrictEqual('Failed Request.');
+            expect(message).toStrictEqual('Request Failed.');
 
-            expect(errorName.property).toStrictEqual('name');
-            expect(errorName.constraints.isString).toBeDefined();
-            expect(errorName.constraints.isString).toStrictEqual('name must be a string');
+            expect(errorName.code).toStrictEqual('invalid_type');
+            expect(errorName.message).toStrictEqual('Expected string, received number');
 
-            expect(errorType.property).toStrictEqual('type');
-            expect(errorType.constraints.isInt).toBeDefined();
-            expect(errorType.constraints.isInt).toStrictEqual('type must be an integer number');
+            expect(errorType.code).toStrictEqual('invalid_type');
+            expect(errorType.message).toStrictEqual('Expected number, received string');
         });
 
         test('Delete Item error /items/:id', async() =>

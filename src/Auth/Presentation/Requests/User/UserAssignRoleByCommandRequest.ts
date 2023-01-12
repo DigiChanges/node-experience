@@ -1,4 +1,3 @@
-import { IsString } from 'class-validator';
 import UserAssignRoleBySlugPayload from '../../../Domain/Payloads/User/UserAssignRoleBySlugPayload';
 
 class UserAssignRoleByCommandRequest implements UserAssignRoleBySlugPayload
@@ -12,13 +11,11 @@ class UserAssignRoleByCommandRequest implements UserAssignRoleBySlugPayload
         this._email = env.email;
     }
 
-    @IsString()
     get slugRole(): string
     {
         return this._slug;
     }
 
-    @IsString()
     get email(): string
     {
         return this._email;

@@ -6,11 +6,6 @@ import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder'
 import AuthorizeExpressMiddleware from '../Middlewares/AuthorizeExpressMiddleware';
 import Permissions from '../../../Config/Permissions';
 
-import AuthRequest from '../Requests/Auth/AuthRequest';
-import ForgotPasswordRequest from '../Requests/Auth/ForgotPasswordRequest';
-import ChangeForgotPasswordRequest from '../Requests/Auth/ChangeForgotPasswordRequest';
-import RefreshTokenRequest from '../Requests/Auth/RefreshTokenRequest';
-
 import AuthTransformer from '../Transformers/AuthTransformer';
 import PermissionsTransformer from '../Transformers/PermissionsTransformer';
 
@@ -19,12 +14,16 @@ import { AuthUser } from '../Helpers/AuthUser';
 import UserTransformer from '../Transformers/UserTransformer';
 import dayjs from 'dayjs';
 import DefaultTransformer from '../../../Shared/Presentation/Transformers/DefaultTransformer';
-import RegisterRequest from '../Requests/Auth/RegisterRequest';
-import UpdateMeRequest from '../Requests/Auth/UpdateMeRequest';
-import VerifyYourAccountRequest from '../Requests/Auth/VerifyYourAccountRequest';
 import RefreshTokenExpressMiddleware from '../Middlewares/RefreshTokenExpressMiddleware';
 import MainConfig from '../../../Config/MainConfig';
 import StatusCode from '../../../Shared/Application/StatusCode';
+import UpdateMePayload from '../../Domain/Payloads/Auth/UpdateMePayload';
+import AuthPayload from '../../Domain/Payloads/Auth/AuthPayload';
+import RegisterPayload from '../../Domain/Payloads/Auth/RegisterPayload';
+import RefreshTokenPayload from '../../Domain/Payloads/Auth/RefreshTokenPayload';
+import ForgotPasswordPayload from '../../Domain/Payloads/Auth/ForgotPasswordPayload';
+import ChangeForgotPasswordPayload from '../../Domain/Payloads/Auth/ChangeForgotPasswordPayload';
+import VerifyYourAccountPayload from '../../Domain/Payloads/Auth/VerifyYourAccountPayload';
 
 @controller('/api/auth')
 class AuthExpressHandler
@@ -52,8 +51,7 @@ class AuthExpressHandler
             ...req.body
         };
 
-        const _request = new UpdateMeRequest(data);
-        const payload = await this.controller.updateMe(_request);
+        const payload = await this.controller.updateMe(data as UpdateMePayload);
 
         void await this.responder.send(payload, req, res, StatusCode.HTTP_OK, new UserTransformer());
     }
@@ -61,9 +59,7 @@ class AuthExpressHandler
     @httpPost('/login')
     public async login(@request() req: any, @response() res: Response): Promise<void>
     {
-        const _request = new AuthRequest(req.body);
-
-        const payload = await this.controller.login(_request);
+        const payload = await this.controller.login(req.body as AuthPayload);
 
         res.cookie(
             'refreshToken',
@@ -83,9 +79,7 @@ class AuthExpressHandler
     @httpPost('/signup')
     public async register(@request() req: any, @response() res: Response): Promise<void>
     {
-        const _request = new RegisterRequest(req.body);
-
-        const payload = await this.controller.register(_request);
+        const payload = await this.controller.register(req.body as RegisterPayload);
 
         void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
@@ -93,14 +87,12 @@ class AuthExpressHandler
     @httpPost('/logout')
     public async logout(@request() req: any, @response() res: Response)
     {
-        const data = {
+        const data: RefreshTokenPayload = {
             refreshToken: req.refreshToken,
             decodeToken: AuthUser(req, 'decodeToken')
         };
 
-        const _request = new RefreshTokenRequest(data);
-
-        const payload = await this.controller.logout(_request);
+        const payload = await this.controller.logout(data);
 
         res.cookie(
             'refreshToken',
@@ -120,9 +112,7 @@ class AuthExpressHandler
     @httpPost('/refresh-token', void RefreshTokenExpressMiddleware)
     public async refreshToken(@request() req: any, @response() res: Response)
     {
-        const _request = new RefreshTokenRequest(req);
-
-        const payload = await this.controller.refreshToken(_request);
+        const payload = await this.controller.refreshToken(req as RefreshTokenPayload);
 
         res.cookie(
             'refreshToken',
@@ -142,29 +132,29 @@ class AuthExpressHandler
     @httpPost('/forgot-password')
     public async forgotPassword(@request() req: any, @response() res: Response)
     {
-        const _request = new ForgotPasswordRequest(req.body);
+        const data: ForgotPasswordPayload = {
+            email: req.body.email,
+            confirmationToken: req.body.confirmationToken,
+            passwordRequestedAt: dayjs().toDate()
+        };
 
-        const payload = await this.controller.forgotPassword(_request);
+        const payload = await this.controller.forgotPassword(data);
 
-        void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, null);
+        void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED);
     }
 
     @httpPost('/change-forgot-password')
     public async changeForgotPassword(@request() req: any, @response() res: Response)
     {
-        const _request = new ChangeForgotPasswordRequest(req.body);
+        const payload = await this.controller.changeForgotPassword(req.body as ChangeForgotPasswordPayload);
 
-        const payload = await this.controller.changeForgotPassword(_request);
-
-        void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, null);
+        void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED);
     }
 
     @httpPut('/verify-your-account/:confirmationToken')
     public async verifyYourAccount(@request() req: any, @response() res: Response)
     {
-        const _request = new VerifyYourAccountRequest(req.params.confirmationToken);
-
-        const payload = await this.controller.verifyYourAccount(_request);
+        const payload = await this.controller.verifyYourAccount(req.params as VerifyYourAccountPayload);
 
         void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
@@ -182,6 +172,6 @@ class AuthExpressHandler
     {
         await this.controller.syncRolesPermissions();
 
-        void await this.responder.send({ message: 'Sync Successfully' }, req, res, StatusCode.HTTP_CREATED, null);
+        void await this.responder.send({ message: 'Sync Successfully' }, req, res, StatusCode.HTTP_CREATED);
     }
 }

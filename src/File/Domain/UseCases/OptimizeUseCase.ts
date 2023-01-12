@@ -23,14 +23,19 @@ class OptimizeUseCase
             const optimizePayload = await this.fileService.optimizeFileVersion(lastVersion);
 
             const build = {
-                hasOriginalName: payload.isOriginalName,
-                originalName: optimizePayload.file.originalname,
+                originalName: optimizePayload.originalName,
+                isOriginalName: payload.isOriginalName,
+                mimeType: optimizePayload.mimeType,
+                extension: optimizePayload.extension,
+                isPublic: payload.isPublic,
+                size: optimizePayload.size,
+                path: optimizePayload.path,
                 isOptimized: true,
                 file
             };
 
             let newFileVersion: IFileVersionDomain = new FileVersion(build);
-            newFileVersion = await this.fileService.persistVersion(newFileVersion, optimizePayload);
+            newFileVersion = await this.fileService.persistVersion(newFileVersion);
             await this.fileService.uploadFileVersionOptimized(newFileVersion, optimizePayload);
             file = await this.fileService.update(file);
 

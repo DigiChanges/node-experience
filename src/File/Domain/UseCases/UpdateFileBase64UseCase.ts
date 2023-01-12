@@ -12,7 +12,7 @@ class UpdateFileBase64UseCase
     {
         const { id } = payload;
 
-        if (payload.isOptimize && payload.isImage)
+        if (payload.query.isOptimize && payload.isImage)
         {
             payload = await this.fileService.optimizeBase64ToUpdate(payload);
         }
@@ -20,14 +20,19 @@ class UpdateFileBase64UseCase
         let file = await this.fileService.getOne(id);
 
         const build = {
-            hasOriginalName: payload.isOriginalName,
+            isOriginalName: payload.query.isOriginalName,
             originalName: payload.originalName,
-            isOptimized: payload.isOptimize && payload.isImage,
+            isOptimized: payload.query.isOptimize && payload.isImage,
+            mimeType: payload.mimeType,
+            extension: payload.extension,
+            isPublic: payload.query.isPublic,
+            size: payload.size,
+            path: payload.path,
             file
         };
 
         let fileVersion: IFileVersionDomain = new FileVersion(build);
-        fileVersion = await this.fileService.persistVersion(fileVersion, payload);
+        fileVersion = await this.fileService.persistVersion(fileVersion);
         file = await this.fileService.update(file);
         await this.fileService.uploadFileBase64(fileVersion, payload);
 

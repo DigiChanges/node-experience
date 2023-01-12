@@ -9,7 +9,7 @@ import UpdateMeUseCase from '../../Domain/UseCases/Auth/UpdateMeUseCase';
 import LogoutUseCase from '../../Domain/UseCases/Auth/LogoutUseCase';
 import VerifyYourAccountUseCase from '../../Domain/UseCases/Auth/VerifyYourAccountUseCase';
 
-import ValidatorRequest from '../../../Shared/Presentation/Shared/ValidatorRequest';
+import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
 import ChangeForgotPasswordPayload from '../../Domain/Payloads/Auth/ChangeForgotPasswordPayload';
 import AuthPayload from '../../Domain/Payloads/Auth/AuthPayload';
 import RefreshTokenPayload from '../../Domain/Payloads/Auth/RefreshTokenPayload';
@@ -21,69 +21,78 @@ import IToken from '../../Domain/Models/IToken';
 import ILocaleMessage from '../../../Shared/InterfaceAdapters/ILocaleMessage';
 import IGroupPermission from '../../../Config/IGroupPermission';
 import UpdateMePayload from '../../Domain/Payloads/Auth/UpdateMePayload';
+import AuthSchemaValidation from '../Validations/Auth/AuthSchemaValidation';
+import RegisterSchemaValidation from '../Validations/Auth/RegisterSchemaValidation';
+import UpdateMeSchemaValidation from '../Validations/Auth/UpdateMeSchemaValidation';
+import RefreshTokenSchemaValidation from '../Validations/Auth/RefreshTokenSchemaValidation';
+import ForgotPasswordSchemaValidation from '../Validations/Auth/ForgotPasswordSchemaValidation';
+import ChangeForgotPasswordSchemaValidation from '../Validations/Auth/ChangeForgotPasswordSchemaValidation';
+import VerifyYourAccountSchemaValidation from '../Validations/Auth/VerifyYourAccountSchemaValidation';
 
 class AuthController
 {
-    public async login(request: AuthPayload): Promise<IToken>
+    public async login(payload: AuthPayload): Promise<IToken>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(AuthSchemaValidation, payload);
 
         const useCase = new LoginUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async register(request: RegisterPayload): Promise<ILocaleMessage>
+    public async register(payload: RegisterPayload): Promise<ILocaleMessage>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(RegisterSchemaValidation, payload);
 
         const useCase = new RegisterUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async updateMe(request: UpdateMePayload): Promise<IUserDomain>
+    public async updateMe(payload: UpdateMePayload): Promise<IUserDomain>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(UpdateMeSchemaValidation, payload);
 
         const useCase = new UpdateMeUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async logout(request: RefreshTokenPayload): Promise<ILocaleMessage>
+    public async logout(payload: RefreshTokenPayload): Promise<ILocaleMessage>
     {
+        await ValidatorSchema.handle(RefreshTokenSchemaValidation, payload);
+
         const useCase = new LogoutUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async refreshToken(request: RefreshTokenPayload): Promise<IToken>
+    public async refreshToken(payload: RefreshTokenPayload): Promise<IToken>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(RefreshTokenSchemaValidation, payload);
 
         const useCase = new RefreshTokenUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async forgotPassword(request: ForgotPasswordPayload): Promise<ILocaleMessage>
+    public async forgotPassword(payload: ForgotPasswordPayload): Promise<ILocaleMessage>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(ForgotPasswordSchemaValidation, payload);
 
         const useCase = new ForgotPasswordUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async changeForgotPassword(request: ChangeForgotPasswordPayload)
+    public async changeForgotPassword(payload: ChangeForgotPasswordPayload)
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(ChangeForgotPasswordSchemaValidation, payload);
 
         const useCase = new ChangeForgotPasswordUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
-    public async verifyYourAccount(request: VerifyYourAccountPayload): Promise<ILocaleMessage>
+    public async verifyYourAccount(payload: VerifyYourAccountPayload): Promise<ILocaleMessage>
     {
-        await ValidatorRequest.handle(request);
+        await ValidatorSchema.handle(VerifyYourAccountSchemaValidation, payload);
 
         const useCase = new VerifyYourAccountUseCase();
-        return await useCase.handle(request);
+        return await useCase.handle(payload);
     }
 
     public permissions(): IGroupPermission[]

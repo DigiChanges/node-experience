@@ -22,6 +22,7 @@ void (async() =>
 
     const databaseFactory = new DatabaseFactory();
     const createConnection: ICreateConnection = databaseFactory.create();
+
     const cache: ICacheRepository = CacheFactory.createRedisCache(config.cache.redis);
     const eventHandler = EventHandler.getInstance();
 

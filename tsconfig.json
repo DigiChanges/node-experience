@@ -1,5 +1,17 @@
 {
+  "compileOnSave": false,
+  "reflection": true,
   "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "importHelpers": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": false,
+    "skipDefaultLibCheck": true,
+    "inlineSourceMap": false,
+    "useUnknownInCatchVariables": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "target": "ESNext",
@@ -10,7 +22,7 @@
     "allowJs": true,
     "outDir": "./dist",
     "baseUrl": "./src",
-    "module": "commonjs",
+    "module": "CommonJS",
     "esModuleInterop": true,
     "strict": false,
     "types": [
@@ -31,6 +43,6 @@
   "include": [
     "./src",
     "./typings/*",
-    ".eslintrc.json",
+    ".eslintrc.json"
   ]
 }

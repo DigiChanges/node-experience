@@ -7,21 +7,12 @@ import AuthorizeExpressMiddleware from '../../../Auth/Presentation/Middlewares/A
 import Permissions from '../../../Config/Permissions';
 
 import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder';
-import ListObjectsRequest from '../Requests/ListObjectsRequest';
 import FileExpressReqMulterMiddleware from '../Middlewares/FileExpressReqMulterMiddleware';
-import FileBase64RepRequest from '../Requests/FileBase64RepRequest';
-import FileMultipartRepRequest from '../Requests/FileMultipartRepRequest';
-import PresignedFileRepRequest from '../Requests/PresignedFileRepRequest';
-import FileRequestCriteria from '../Requests/FileRequestCriteria';
 import FileVersionTransformer from '../Transformers/FileVersionTransformer';
-import IdRequest from '../../../Shared/Presentation/Requests/IdRequest';
-import FileUpdateMultipartRequest from '../Requests/FileUpdateMultipartRequest';
-import FileUpdateBase64Request from '../Requests/FileUpdateBase64Request';
 import ObjectTransformer from '../Transformers/ObjectTransformer';
 import FileController from '../Controllers/FileController';
 import FileTransformer from '../Transformers/FileTransformer';
-import OptimizeRequest from '../Requests/OptimizeRequest';
-import DownloadRequest from '../Requests/DownloadRequest';
+import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
 
 @controller('/api/files')
 class FileExpressHandler
@@ -38,9 +29,12 @@ class FileExpressHandler
     @httpGet('/', void AuthorizeExpressMiddleware(Permissions.FILES_LIST))
     public async list(@request() req: Request, @response() res: Response)
     {
-        const _request = new FileRequestCriteria(req.query, req.url);
+        const body: CriteriaPayload = {
+            query: req.query,
+            url: req.url
+        };
 
-        const paginator: IPaginator = await this.controller.list(_request);
+        const paginator: IPaginator = await this.controller.list(body);
 
         await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new FileVersionTransformer());
     }
@@ -48,9 +42,15 @@ class FileExpressHandler
     @httpGet('/objects', void AuthorizeExpressMiddleware(Permissions.FILES_LIST))
     public async listFilesystemObjects(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new ListObjectsRequest(req.query);
+        const query = req.query as any;
 
-        const objects = await this.controller.listFilesystemObjects(_request);
+        const body = {
+            ...query,
+            recursive: query.recursive ? String(query.recursive) : undefined,
+            prefix: query.prefix ? String(query.prefix) : undefined
+        };
+
+        const objects = await this.controller.listFilesystemObjects(body);
 
         void await this.responder.send(objects, req, res, StatusCode.HTTP_OK, new ObjectTransformer());
     }
@@ -58,9 +58,11 @@ class FileExpressHandler
     @httpGet('/metadata/:id', void AuthorizeExpressMiddleware(Permissions.FILES_SHOW_METADATA))
     public async getFileMetadata(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest({ id: req.params.id });
+        const body = {
+            id: req.params.id
+        };
 
-        const file = await this.controller.getFileMetadata(_request);
+        const file = await this.controller.getFileMetadata(body);
 
         void await this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileTransformer());
     }
@@ -70,12 +72,10 @@ class FileExpressHandler
     {
         const body = {
             id: req.params.id,
-            query: req.query
+            ...req.query as any
         };
 
-        const _request = new OptimizeRequest(body);
-
-        const file = await this.controller.optimize(_request);
+        const file = await this.controller.optimize(body);
 
         void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
@@ -83,14 +83,25 @@ class FileExpressHandler
     @httpPost('/base64', void AuthorizeExpressMiddleware(Permissions.FILES_UPLOAD))
     public async uploadBase64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
+        const { filename, base64 } = req.body;
+        const partialBase64 = base64.split(';base64,');
+        const _base64: string = partialBase64.pop();
+        const mimeType = partialBase64.shift().split('data:').pop();
+        const extension = filename.includes('.') ? filename.split('.').pop() : null;
+        const { length } = Buffer.from(_base64.substring(_base64.indexOf(',') + 1));
+
         const body = {
-            data: req.body,
-            query: req.query
+            ...req.body,
+            query: req.query,
+            originalName: req.body.filename,
+            base64: _base64,
+            mimeType,
+            extension,
+            size: length,
+            isImage: mimeType.includes('image')
         };
 
-        const _request = new FileBase64RepRequest(body);
-
-        const file = await this.controller.uploadBase64(_request);
+        const file = await this.controller.uploadBase64(body);
 
         void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
@@ -98,13 +109,30 @@ class FileExpressHandler
     @httpPost('/', FileExpressReqMulterMiddleware.single('file'), void AuthorizeExpressMiddleware(Permissions.FILES_UPLOAD))
     public async uploadMultipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
+        const { originalname, encoding, mimetype, destination, filename, size } = req.file;
+        const { isOriginalName, isPublic, isOverwrite, isOptimize } = req.query;
+
         const body = {
-            file: req.file,
-            query: req.query
+            file: {
+                originalName: originalname,
+                mimeType: mimetype,
+                destination,
+                extension: originalname.includes('.') ? originalname.split('.').pop() : '',
+                filename,
+                path: '/',
+                size,
+                encoding,
+                isImage: mimetype.includes('image')
+            },
+            query: {
+                isOriginalName: isOriginalName === 'true',
+                isPublic: isPublic === 'true',
+                isOverwrite: isOverwrite === 'true',
+                isOptimize: isOptimize === 'true'
+            }
         };
 
-        const _request = new FileMultipartRepRequest(body);
-        const file = await this.controller.uploadMultipart(_request);
+        const file = await this.controller.uploadMultipart(body);
 
         void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
@@ -113,13 +141,11 @@ class FileExpressHandler
     public async getPresignedGetObject(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
         const body = {
-            data: req.body,
+            ...req.body,
             query: req.query
         };
 
-        const _request = new PresignedFileRepRequest(body);
-
-        const presignedGetObject = await this.controller.getPresignedGetObject(_request);
+        const presignedGetObject = await this.controller.getPresignedGetObject(body);
 
         void await this.responder.send({ presignedGetObject }, req, res, StatusCode.HTTP_OK, null);
     }
@@ -127,13 +153,12 @@ class FileExpressHandler
     @httpGet('/:id', void AuthorizeExpressMiddleware(Permissions.FILES_DOWNLOAD))
     public async downloadStreamFile(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const data = {
+        const body = {
             id: req.params.id,
-            query: req.query
+            version: req.query?.version ? +req.query.version : null
         };
-        const _request = new DownloadRequest(data);
 
-        const fileDto = await this.controller.downloadStreamFile(_request);
+        const fileDto = await this.controller.downloadStreamFile(body);
 
         this.responder.sendStream(fileDto, req, res, StatusCode.HTTP_OK);
     }
@@ -141,9 +166,11 @@ class FileExpressHandler
     @httpDelete('/:id', void AuthorizeExpressMiddleware(Permissions.FILES_DELETE))
     public async removeFile(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
-        const _request = new IdRequest({ id: req.params.id });
+        const body = {
+            id: req.params.id
+        };
 
-        const file = await this.controller.removeFile(_request);
+        const file = await this.controller.removeFile(body);
 
         void await this.responder.send(file, req, res, StatusCode.HTTP_OK, new FileTransformer());
     }
@@ -151,15 +178,26 @@ class FileExpressHandler
     @httpPut('/base64/:id', void AuthorizeExpressMiddleware(Permissions.FILES_UPDATE))
     public async updateBase64(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
+        const { filename, base64 } = req.body;
+        const partialBase64 = base64.split(';base64,');
+        const _base64: string = partialBase64.pop();
+        const mimeType = partialBase64.shift().split('data:').pop();
+        const extension = filename.includes('.') ? filename.split('.').pop() : null;
+        const { length } = Buffer.from(_base64.substring(_base64.indexOf(',') + 1));
+
         const body = {
-            data: req.body,
-            query: req.query,
-            id: req.params.id
+            ...req.body,
+            id: req.params.id,
+            query: req.query as unknown,
+            originalName: req.body.filename,
+            base64: _base64,
+            mimeType,
+            extension,
+            size: length,
+            isImage: mimeType.includes('image')
         };
 
-        const _request = new FileUpdateBase64Request(body);
-
-        const file = await this.controller.updateBase64(_request);
+        const file = await this.controller.updateBase64(body);
 
         void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
@@ -167,18 +205,35 @@ class FileExpressHandler
     @httpPut('/:id', FileExpressReqMulterMiddleware.single('file'), void AuthorizeExpressMiddleware(Permissions.FILES_UPDATE))
     public async updateMultipart(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
+        const { originalname, encoding, mimetype, destination, filename, size } = req.file;
+        const { isOriginalName, isPublic, isOverwrite, isOptimize } = req.query;
+
         const body = {
-            file: req.file,
-            query: req.query,
-            id: req.params.id
+            id: req.params.id,
+            file: {
+                originalName: originalname,
+                mimeType: mimetype,
+                destination,
+                extension: originalname.includes('.') ? originalname.split('.').pop() : '',
+                filename,
+                path: '/',
+                size,
+                encoding,
+                isImage: mimetype.includes('image')
+            },
+            query: {
+                isOriginalName: isOriginalName === 'true',
+                isPublic: isPublic === 'true',
+                isOverwrite: isOverwrite === 'true',
+                isOptimize: isOptimize === 'true'
+            }
         };
 
-        const _request = new FileUpdateMultipartRequest(body);
-
-        const file = await this.controller.updateMultipart(_request);
+        const file = await this.controller.updateMultipart(body);
 
         void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileTransformer());
     }
+
     @httpDelete('/:id', void AuthorizeExpressMiddleware(Permissions.FILES_DELETE))
     public async deleteFile(@request() req: Request, @response() res: Response, @next() nex: NextFunction)
     {
@@ -186,9 +241,7 @@ class FileExpressHandler
             id: req.params.id
         };
 
-        const _request = new IdRequest(body);
-
-        const file = await this.controller.removeFile(_request);
+        const file = await this.controller.removeFile(body);
 
         void await this.responder.send(file, req, res, StatusCode.HTTP_CREATED, new FileVersionTransformer());
     }

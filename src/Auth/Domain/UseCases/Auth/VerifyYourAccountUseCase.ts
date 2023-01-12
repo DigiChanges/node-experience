@@ -23,7 +23,7 @@ class VerifyYourAccountUseCase
 
     async handle(payload: VerifyYourAccountPayload): Promise<ILocaleMessage>
     {
-        const confirmationToken = payload.confirmationToken;
+        const confirmationToken = `Bearer ${payload.confirmationToken}`;
         const { email } = this.authService.validateToken(confirmationToken);
         const user = await this.repository.getOneByEmail(email);
 

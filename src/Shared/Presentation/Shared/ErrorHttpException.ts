@@ -1,4 +1,3 @@
-import { ValidationError } from 'class-validator';
 import IHttpStatusCode from '../../Application/IHttpStatusCode';
 import StatusCode from '../../Application/StatusCode';
 import IErrorMessage from './IErrorMessage';
@@ -6,11 +5,11 @@ import IErrorMessage from './IErrorMessage';
 class ErrorHttpException extends Error
 {
     private _statusCode: IHttpStatusCode;
-    private _errors: ValidationError[];
+    private _errors: any[];
     private _metadata: Record<string, any>;
     private _errorCode: string | null;
 
-    constructor(statusCode: IHttpStatusCode = StatusCode.HTTP_INTERNAL_SERVER_ERROR, errorMessage: IErrorMessage  = { message: 'Internal Error' }, errors: ValidationError[] = [],  metadata: Record<string, any> = {})
+    constructor(statusCode: IHttpStatusCode = StatusCode.HTTP_INTERNAL_SERVER_ERROR, errorMessage: IErrorMessage  = { message: 'Internal Error' }, errors: any[] = [],  metadata: Record<string, any> = {})
     {
         super();
         this._statusCode = statusCode;
@@ -30,12 +29,12 @@ class ErrorHttpException extends Error
         this._statusCode = value;
     }
 
-    public get errors(): ValidationError[]
+    public get errors(): any[]
     {
         return this._errors;
     }
 
-    public set errors(err: ValidationError[])
+    public set errors(err: any[])
     {
         this._errors = err;
     }

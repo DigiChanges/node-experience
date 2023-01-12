@@ -2,18 +2,19 @@ import ICriteria from './ICriteria';
 import ISort from './ISort';
 import IFilter from './IFilter';
 import IPagination from './IPagination';
+import IRequestCriteria from './IRequestCriteria';
 
-abstract class RequestCriteria implements ICriteria
+class RequestCriteria implements ICriteria
 {
     private readonly sort: ISort;
     private readonly filter: IFilter;
     private readonly pagination: IPagination;
 
-    constructor(sort: ISort, filter: IFilter, pagination: IPagination)
+    constructor(criteria: IRequestCriteria)
     {
-        this.sort = sort;
-        this.filter = filter;
-        this.pagination = pagination;
+        this.sort = criteria.sort;
+        this.filter = criteria.filter;
+        this.pagination = criteria.pagination;
     }
 
     getSort(): ISort
