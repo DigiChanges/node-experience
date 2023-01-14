@@ -5,7 +5,7 @@ class ItemSort extends Sort
     static readonly NAME: string = 'name';
     static readonly TYPE: string = 'type';
 
-    getFields(): any
+    getFields(): string[]
     {
         return [
             ItemSort.NAME,
@@ -13,7 +13,7 @@ class ItemSort extends Sort
         ];
     }
 
-    getDefaultSorts(): any
+    getDefaultSorts(): Record<string, 'asc' | 'desc'>[]
     {
         return [
             { [ItemSort.NAME]: 'asc' }

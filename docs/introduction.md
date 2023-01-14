@@ -4,20 +4,21 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://github.com/DigiChanges/node-experience/blob/master/LICENSE)
 
 ## Basic Description
-Hello! **NExp** *(Node Experience)* is a boilerplate for [**Node**](https://nodejs.org/en/), which makes use of a Hexagonal architecture, in addition to all the power of [**TypeScript**](https://www.typescriptlang.org/) that combined allow a perfect cohesion thus achieving a clean and at the same time very powerful implementation.
+Hello! **NExp** *(Node Experience)* is a boilerplate for [**Node**](https://nodejs.org/en/), which makes use of a Hexagonal architecture and clean architecture with some of DDD principles, in addition to all the power of [**TypeScript**](https://www.typescriptlang.org/) that combined allow a perfect cohesion thus achieving a clean and at the same time very powerful implementation.
 
 ### Boilerplate Documentation
 
-[Boilerplate Documentation](https://digichanges.github.io/nexp-docs)
+[Boilerplate Documentation](https://nexp.digichanges.com)
 
 Each module is divided by business domain:
 
 - Auth
-- File
+    - Authentication / Authorization
+    - Role
+    - User
 - Item
 - Notification
-- Role
-- User
+- File
 
 There are also two particular cases:
 
@@ -46,7 +47,7 @@ The directory structures for business domains are as follows:
 │   ├── Exceptions
 │   ├── Handlers
 │   ├── Middlewares
-│   ├── Requests
+│   ├── Validations
 │   └── Transformers
 ├── Tests
  ```

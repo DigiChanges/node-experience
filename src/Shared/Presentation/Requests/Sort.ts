@@ -52,8 +52,8 @@ abstract class Sort implements ISort
         return this.sorts;
     }
 
-    abstract getFields(): any;
-    abstract getDefaultSorts(): any;
+    abstract getFields(): string[];
+    abstract getDefaultSorts(): Record<string, 'asc' | 'desc'>[];
 }
 
 export default Sort;

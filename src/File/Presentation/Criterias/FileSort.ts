@@ -4,14 +4,14 @@ class FileSort extends Sort
 {
     static readonly NAME: string = 'name';
 
-    getFields(): any
+    getFields(): string[]
     {
         return [
             FileSort.NAME
         ];
     }
 
-    getDefaultSorts(): any
+    getDefaultSorts(): Record<string, 'asc' | 'desc'>[]
     {
         return [
             { [FileSort.NAME]: 'asc' }

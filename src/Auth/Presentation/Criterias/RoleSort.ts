@@ -4,14 +4,14 @@ class RoleSort extends Sort
 {
     static readonly SLUG: string = 'slug';
 
-    getFields(): any
+    getFields(): string[]
     {
         return [
             RoleSort.SLUG
         ];
     }
 
-    getDefaultSorts(): any
+    getDefaultSorts(): Record<string, 'asc' | 'desc'>[]
     {
         return [
             { [RoleSort.SLUG]: 'asc' }

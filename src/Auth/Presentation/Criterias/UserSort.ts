@@ -5,7 +5,7 @@ class UserSort extends Sort
     static readonly EMAIL: string = 'email';
     static readonly CREATED_AT: string = 'createdAt';
 
-    getFields(): any
+    getFields(): string[]
     {
         return [
             UserSort.EMAIL,
@@ -13,10 +13,10 @@ class UserSort extends Sort
         ];
     }
 
-    getDefaultSorts(): any
+    getDefaultSorts(): Record<string, 'asc' | 'desc'>[]
     {
         return [
-            { [UserSort.CREATED_AT]: 'DESC' }
+            { [UserSort.CREATED_AT]: 'desc' }
         ];
     }
 }
