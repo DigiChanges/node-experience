@@ -19,9 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-    
+
     steps:
-      
+
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -32,3 +32,29 @@ jobs:
         with:
           disable-changelog: true
           node-module: true
+
+  # This workflow contains a single job called "build"
+  build:
+    name: Submodule update
+    runs-on: ubuntu-latest
+    steps:
+      ##########################
+      # Checkout the code base #
+      ##########################
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      ####################################
+      # Run the action against code base #
+      ####################################
+      - name: run action
+        id: run_action
+        uses: fatjyc/update-submodule-action@v1.0
+        with:
+          user: Murzbul
+          token: ${{ secrets.GH_TOKEN }}
+          repo: nexp-cli
+          repo_owner: DigiChanges
+          committor_username: nrusso
+          committor_email: natanaelrusso18@hotmail.com
+          path: templates/node-experience
