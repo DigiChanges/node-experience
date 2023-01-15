@@ -55,6 +55,3 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           repo: nexp-cli
           repo_owner: DigiChanges
-          committor_username: nrusso
-          committor_email: natanaelrusso18@hotmail.com
-          path: templates/node-experience
