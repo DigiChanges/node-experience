@@ -28,14 +28,14 @@ class CreateMikroORMConnection implements ICreateConnection
         this.config = config;
     }
 
-    initConfig(): any
+    async initConfig(): Promise<void>
     {
         this.createInstanceConnection = async() =>
         {
             orm = await MikroORM.init({
                 entities: this.entities,
                 dbName: this.config.dbName,
-                type: this.config.type,
+                type: this.config.type, // TODO: see docs to change type deprecated attribute
                 host: this.config.host,
                 port: this.config.port,
                 user: this.config.user,
@@ -64,9 +64,9 @@ class CreateMikroORMConnection implements ICreateConnection
         await generator.refreshDatabase();
     }
 
-    async create(): Promise<any>
+    async create(): Promise<void>
     {
-        return await this.createInstanceConnection();
+        await this.createInstanceConnection();
     }
 
     async close(force = true): Promise<void>
@@ -74,11 +74,11 @@ class CreateMikroORMConnection implements ICreateConnection
         await orm.close(force);
     }
 
-    async drop(): Promise<any>
+    async drop(): Promise<void>
     {
         const generator = orm.getSchemaGenerator();
         await generator.getDropSchemaSQL();
-        return await generator.refreshDatabase();
+        await generator.refreshDatabase();
     }
 
     async synchronize(): Promise<void>

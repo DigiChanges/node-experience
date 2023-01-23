@@ -1,8 +1,11 @@
-import { Schema } from 'mongoose';
-import Role from '../../Domain/Entities/Role';
+import { Schema, Document } from 'mongoose';
 import { uuid } from '@deepkit/type';
+import Role from '../../Domain/Entities/Role';
+import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 
-const RoleSchema: any = new Schema({
+export type RoleMongooseDocument = Document & IRoleDomain;
+
+const RoleSchema = new Schema({
     _id: { type: String, default: uuid },
     name: { type: String, required: true },
     slug: { type: String, required: true, unique: true },

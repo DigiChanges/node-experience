@@ -4,30 +4,30 @@ import CreateMongooseConnection from '../Infrastructure/Database/CreateMongooseC
 import CreateMikroORMConnection from '../Infrastructure/Database/CreateMikroORMConnection';
 import ICreateConnection from '../Infrastructure/Database/ICreateConnection';
 
+type DbValueProp = typeof CreateTypeORMConnection | typeof CreateMongooseConnection | typeof CreateMikroORMConnection;
+
 class DatabaseFactory
 {
     private readonly dbDefault: string;
+    private config = MainConfig.getInstance().getConfig();
 
     constructor(dbDefault?: string)
     {
-        const mainConfig = MainConfig.getInstance();
-        this.dbDefault = dbDefault ?? mainConfig.getConfig().dbConfig.default;
+        this.dbDefault = dbDefault ?? this.config.dbConfig.default;
     }
 
-    create(db?: string): ICreateConnection
+    create(_db?: string): ICreateConnection
     {
-        const _db = db ?? this.dbDefault;
-        const mainConfig = MainConfig.getInstance();
-        const dbConfig: any = mainConfig.getConfig().dbConfig;
-        const config = dbConfig[_db];
+        const db = _db ?? this.dbDefault;
+        const { dbConfig } = this.config;
+        const config = dbConfig[db];
 
-        const createConnections: Record<string, any> = {
-            TypeORM: CreateTypeORMConnection,
-            Mongoose: CreateMongooseConnection,
-            MikroORM: CreateMikroORMConnection
-        };
+        const strategy = new Map<string, DbValueProp>();
+        strategy.set('TypeORM', CreateTypeORMConnection);
+        strategy.set('Mongoose', CreateMongooseConnection);
+        strategy.set('MikroORM', CreateMikroORMConnection);
 
-        return new createConnections[_db](config);
+        return new (strategy.get(db))(config);
     }
 }
 

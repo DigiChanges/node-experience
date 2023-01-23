@@ -1,9 +1,8 @@
+import { Query } from 'mongoose';
 import IUserRepository from './IUserRepository';
 
 import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
 import UserFilter from '../../Presentation/Criterias/UserFilter';
-import IUser from '../Schemas/UserMongooseDocument';
-import { Query } from 'mongoose';
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
@@ -11,8 +10,9 @@ import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/
 import User from '../../Domain/Entities/User';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
+import { UserMongooseDocument } from '../Schemas/UserMongoose';
 
-class UserMongooseRepository extends BaseMongooseRepository<IUserDomain, IUser> implements IUserRepository
+class UserMongooseRepository extends BaseMongooseRepository<IUserDomain, UserMongooseDocument> implements IUserRepository
 {
     constructor()
     {
@@ -33,7 +33,7 @@ class UserMongooseRepository extends BaseMongooseRepository<IUserDomain, IUser> 
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        const queryBuilder: Query<IUser[], IUser> = this.repository.find({});
+        const queryBuilder: Query<UserMongooseDocument[], UserMongooseDocument> = this.repository.find({});
         const filter = criteria.getFilter();
 
         if (filter.has(UserFilter.ENABLE))

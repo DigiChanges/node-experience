@@ -1,9 +1,12 @@
-import { Schema } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 import { uuid } from '@deepkit/type';
 import Notification from '../../Domain/Entities/Notification';
 import EmailNotification from '../../Domain/Entities/EmailNotification';
 import PushNotification from '../../Domain/Entities/PushNotification';
 import StatusNotificationEnum from '../../Domain/Enum/StatusNotificationEnum';
+import INotificationDomain from '../../Domain/Entities/INotificationDomain';
+
+export type NotificationMongooseDocument = Document & INotificationDomain;
 
 const options = { discriminatorKey: 'kind', timestamps: true };
 
@@ -12,7 +15,7 @@ export const NotificationSchema: any = new Schema<Notification>({
     name: { type:String, required: true }
 }, options).loadClass(Notification);
 
-export const EmailNotificationSchema: any = new Schema<EmailNotification>({
+export const EmailNotificationSchema = new Schema<EmailNotification>({
     status: { type: String, enum: StatusNotificationEnum, default: StatusNotificationEnum.SUCCESS },
     emailTemplatePath: { type: String, required: true },
     htmlRender: { type: String, default : null },
@@ -27,6 +30,7 @@ export const EmailNotificationSchema: any = new Schema<EmailNotification>({
     data: { type: Object,  required: false }
 }, options).loadClass(EmailNotification);
 
-export const PushNotificationSchema: any = new Schema({
+export const PushNotificationSchema = new Schema({
     url: { type: String, required: true }
 }, options).loadClass(PushNotification);
+

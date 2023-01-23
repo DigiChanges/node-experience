@@ -2,19 +2,20 @@ import MainConfig from '../../Config/MainConfig';
 import MinioStrategy from '../Infrastructure/Filesystem/MinioStrategy';
 import IFilesystem from '../Infrastructure/Filesystem/IFilesystem';
 
+type FilesystemValueProp = typeof MinioStrategy;
+
 class FilesystemFactory
 {
-    static create(fileSystem: string =  MainConfig.getInstance().getConfig().filesystem.default): IFilesystem
+    static create(_default?: 'minio'): IFilesystem
     {
-        const fileSystems: Record<string, any> = {
-            minio: MinioStrategy
-        };
+        const config = MainConfig.getInstance().getConfig().filesystem;
+        const filesystemKey = _default ?? config.default;
+        const filesystemConfig =  config[filesystemKey];
 
-        const fileSystemConfig: Record<string, any> = {
-            minio: MainConfig.getInstance().getConfig().filesystem.minio
-        };
+        const strategy = new Map<string, FilesystemValueProp>();
+        strategy.set('minio', MinioStrategy);
 
-        return new fileSystems[fileSystem](fileSystemConfig[fileSystem]);
+        return new (strategy.get(filesystemKey))(filesystemConfig);
     }
 }
 

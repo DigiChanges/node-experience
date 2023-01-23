@@ -1,10 +1,10 @@
 
 interface ICreateConnection
 {
-    create(): Promise<any>;
-    close(force?: boolean): Promise<any>;
-    drop(): Promise<any>;
-    initConfig(): Promise<any>;
+    create(): Promise<void>;
+    close(force?: boolean): Promise<void>;
+    drop(): Promise<void>;
+    initConfig(): Promise<void>;
     initConfigTest(): Promise<void>;
     synchronize(): Promise<void>;
 }

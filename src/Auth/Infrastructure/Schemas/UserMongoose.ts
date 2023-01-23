@@ -1,8 +1,11 @@
-import { Schema } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 import User from '../../Domain/Entities/User';
 import { uuid } from '@deepkit/type';
+import IUserDomain from '../../Domain/Entities/IUserDomain';
 
-const UserSchema: any = new Schema({
+export type UserMongooseDocument = Document & IUserDomain;
+
+const UserSchema = new Schema({
     _id: { type: String, default: uuid },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },

@@ -9,7 +9,7 @@ import Notification from '../../../Notification/Infrastructure/Schemas/Notificat
 import TokenSchema from '../../../Auth/Infrastructure/Schemas/TokenTypeORM';
 import ICreateConnection from './ICreateConnection';
 
-export let dataSource: DataSource;
+export let dataSource: DataSource; // TODO: Change this global var
 
 class CreateTypeORMConnection implements ICreateConnection
 {
@@ -28,10 +28,9 @@ class CreateTypeORMConnection implements ICreateConnection
         this.config = config;
     }
 
-    async initConfig(): Promise<DataSource>
+    async initConfig(): Promise<void>
     {
         dataSource = new DataSource({ ...this.config, entities: this.entities });
-        return dataSource;
     }
 
     async initConfigTest(): Promise<void>
@@ -101,9 +100,9 @@ class CreateTypeORMConnection implements ICreateConnection
         });
     }
 
-    async create(): Promise<any>
+    async create(): Promise<void>
     {
-        return await dataSource.initialize();
+        await dataSource.initialize();
     }
 
     async close(force = true): Promise<void>
@@ -116,9 +115,9 @@ class CreateTypeORMConnection implements ICreateConnection
         await dataSource.synchronize(true);
     }
 
-    async drop(): Promise<any>
+    async drop(): Promise<void>
     {
-        return await dataSource.dropDatabase();
+        await dataSource.dropDatabase();
     }
 }
 

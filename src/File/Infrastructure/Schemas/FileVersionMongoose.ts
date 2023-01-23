@@ -1,6 +1,9 @@
-import { Schema } from 'mongoose';
-import FileVersion from '../../Domain/Entities/FileVersion';
+import { Schema, Document } from 'mongoose';
 import { uuid } from '@deepkit/type';
+import FileVersion from '../../Domain/Entities/FileVersion';
+import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
+
+export type FileVersionMongooseDocument = Document & IFileVersionDomain;
 
 const FileVersionSchema: any = new Schema({
     _id: { type: Schema.Types.String, default: uuid },

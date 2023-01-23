@@ -1,6 +1,9 @@
-import { Schema } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 import { uuid } from '@deepkit/type';
 import Token from '../../Domain/Entities/Token';
+import ITokenDomain from '../../Domain/Entities/ITokenDomain';
+
+export type TokenMongooseDocument = Document & ITokenDomain;
 
 const TokenSchema: any = new Schema({
     _id: { type: Schema.Types.String, default: uuid },

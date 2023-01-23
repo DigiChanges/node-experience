@@ -52,6 +52,13 @@ type MikroORMConfig = {
     password: string;
 };
 
+export type DbConfigType = {
+    TypeORM: TypeORMConfig,
+    Mongoose: MongooseConfig,
+    MikroORM: MikroORMConfig,
+    default: string
+}
+
 export type CacheConfig = {
     host: string;
     port: number;
@@ -122,12 +129,7 @@ type ConfigType = {
         authorization: boolean
     };
     app: AppConfig,
-    dbConfig: {
-        TypeORM: TypeORMConfig,
-        Mongoose: MongooseConfig,
-        MikroORM: MikroORMConfig,
-        default: string
-    },
+    dbConfig: DbConfigType,
     cache: {
         redis: CacheConfig,
     };

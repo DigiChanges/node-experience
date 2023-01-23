@@ -1,5 +1,4 @@
-import { Document, FilterQuery, Model, UpdateQuery } from 'mongoose';
-import { connection } from '../Database/CreateMongooseConnection';
+import { Document, FilterQuery, Model, connection } from 'mongoose';
 import NotFoundException from '../../Exceptions/NotFoundException';
 import IByOptions from './IByOptions';
 import IBaseRepository from './IBaseRepository';

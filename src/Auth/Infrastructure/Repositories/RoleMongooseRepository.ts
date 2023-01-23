@@ -1,11 +1,11 @@
+import { Query } from 'mongoose';
+
 import IRoleRepository from './IRoleRepository';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
 import RoleFilter from '../../Presentation/Criterias/RoleFilter';
-import { Query } from 'mongoose';
-import IRole from '../Schemas/RoleMongooseDocument';
 import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 
 import Roles from '../../../Config/Roles';
@@ -13,8 +13,9 @@ import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/
 import Role from '../../Domain/Entities/Role';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import RoleOfSystemNotDeletedException from '../../Domain/Exceptions/RoleOfSystemNotDeletedException';
+import { RoleMongooseDocument } from '../Schemas/RoleMongoose';
 
-class RoleMongooseRepository extends BaseMongooseRepository<IRoleDomain, IRole> implements IRoleRepository
+class RoleMongooseRepository extends BaseMongooseRepository<IRoleDomain, RoleMongooseDocument> implements IRoleRepository
 {
     constructor()
     {
@@ -28,7 +29,7 @@ class RoleMongooseRepository extends BaseMongooseRepository<IRoleDomain, IRole> 
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        const queryBuilder: Query<IRole[], IRole> = this.repository.find();
+        const queryBuilder: Query<RoleMongooseDocument[], RoleMongooseDocument> = this.repository.find();
         const filter = criteria.getFilter();
 
         if (filter.has(RoleFilter.ENABLE))

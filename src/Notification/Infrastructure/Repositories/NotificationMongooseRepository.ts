@@ -1,12 +1,11 @@
-import { Query, Model } from 'mongoose';
+import { Query, Model, connection } from 'mongoose';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import INotificationRepository from './INotificationRepository';
+import { NotificationMongooseDocument } from '../Schemas/NotificationMongoose';
 
 import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
-import INotification from '../Schemas/NotificationMongooseDocument';
-import { connection } from '../../../Shared/Infrastructure/Database/CreateMongooseConnection';
 import INotificationDomain from '../../Domain/Entities/INotificationDomain';
 import EmailNotification from '../../Domain/Entities/EmailNotification';
 import PushNotification from '../../Domain/Entities/PushNotification';
@@ -15,13 +14,13 @@ import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 
 class NotificationMongooseRepository implements INotificationRepository<INotificationDomain>
 {
-    private readonly repository: Model<INotification>;
-    private readonly emailRepository: Model<INotification>;
-    private readonly pushRepository: Model<INotification>;
+    private readonly repository: Model<NotificationMongooseDocument>;
+    private readonly emailRepository: Model<NotificationMongooseDocument>;
+    private readonly pushRepository: Model<NotificationMongooseDocument>;
 
     constructor()
     {
-        this.repository = connection.model<INotification>('Notification');
+        this.repository = connection.model<NotificationMongooseDocument>('Notification');
         this.emailRepository = this.repository.discriminators.EmailNotification;
         this.pushRepository = this.repository.discriminators.PushNotification;
     }
@@ -46,7 +45,7 @@ class NotificationMongooseRepository implements INotificationRepository<INotific
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        const queryBuilder: Query<INotification[], INotification> = this.repository.find();
+        const queryBuilder: Query<NotificationMongooseDocument[], NotificationMongooseDocument> = this.repository.find();
         const filter = criteria.getFilter();
 
         if (filter.has(NotificationFilter.KIND))
@@ -66,7 +65,7 @@ class NotificationMongooseRepository implements INotificationRepository<INotific
         return new MongoosePaginator(queryBuilder, criteria);
     }
 
-    private getRepository(kind: any)
+    private getRepository(kind: INotificationDomain)
     {
         if (kind instanceof EmailNotification)
         {
