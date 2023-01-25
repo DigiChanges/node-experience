@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { controller, httpDelete, httpGet, httpPost, httpPut, request, response } from 'inversify-express-utils';
-import StatusCode from '../../../Shared/Application/StatusCode';
+import MainConfig, { IHttpStatusCode } from '../../../Config/MainConfig';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder';
@@ -28,11 +28,13 @@ class UserExpressHandler
 {
     private responder: ExpressResponder;
     private readonly controller: UserController;
+    private readonly config: Record<string, IHttpStatusCode>;
 
     constructor()
     {
         this.responder = new ExpressResponder();
         this.controller = new UserController();
+        this.config = MainConfig.getInstance().getConfig().statusCode;
     }
 
     @httpPost('/', void AuthorizeExpressMiddleware(Permissions.USERS_SAVE))
@@ -40,7 +42,7 @@ class UserExpressHandler
     {
         const user: IUserDomain = await this.controller.save(req.body as UserSavePayload);
 
-        void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
+        void await this.responder.send(user, req, res, this.config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
     }
 
     @httpGet('/', void AuthorizeExpressMiddleware(Permissions.USERS_LIST))
@@ -53,7 +55,7 @@ class UserExpressHandler
 
         const paginator: IPaginator = await this.controller.list(data);
 
-        await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new UserTransformer());
+        await this.responder.paginate(paginator, req, res, this.config['HTTP_OK'], new UserTransformer());
     }
 
     @httpGet('/:id', void AuthorizeExpressMiddleware(Permissions.USERS_SHOW))
@@ -65,7 +67,7 @@ class UserExpressHandler
 
         const user: IUserDomain = await this.controller.getOne(data);
 
-        void await this.responder.send(user, req, res, StatusCode.HTTP_OK, new UserTransformer());
+        void await this.responder.send(user, req, res, this.config['HTTP_OK'], new UserTransformer());
     }
 
     @httpPut('/:id', void AuthorizeExpressMiddleware(Permissions.USERS_UPDATE))
@@ -79,7 +81,7 @@ class UserExpressHandler
 
         const user: IUserDomain = await this.controller.update(data as UserUpdatePayload);
 
-        void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        void await this.responder.send(user, req, res, this.config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     @httpPut('/assign-role/:id', void AuthorizeExpressMiddleware(Permissions.USERS_ASSIGN_ROLE))
@@ -92,7 +94,7 @@ class UserExpressHandler
 
         const user: IUserDomain = await this.controller.assignRole(data as UserAssignRolePayload);
 
-        void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        void await this.responder.send(user, req, res, this.config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     @httpDelete('/:id', void AuthorizeExpressMiddleware(Permissions.USERS_DELETE))
@@ -104,7 +106,7 @@ class UserExpressHandler
 
         const user: IUserDomain = await this.controller.remove(data);
 
-        void await this.responder.send(user, req, res, StatusCode.HTTP_OK, new UserTransformer());
+        void await this.responder.send(user, req, res, this.config['HTTP_OK'], new UserTransformer());
     }
 
     @httpPost('/change-my-password', void AuthorizeExpressMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD))
@@ -117,7 +119,7 @@ class UserExpressHandler
 
         const user: IUserDomain = await this.controller.changeMyPassword(data as ChangeMyPasswordPayload);
 
-        void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new UserTransformer());
+        void await this.responder.send(user, req, res, this.config['HTTP_CREATED'], new UserTransformer());
     }
 
     @httpPut('/change-user-password/:id', void AuthorizeExpressMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD))
@@ -130,7 +132,7 @@ class UserExpressHandler
 
         const user: IUserDomain = await this.controller.changeUserPassword(data as ChangeUserPasswordPayload);
 
-        void await this.responder.send(user, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        void await this.responder.send(user, req, res, this.config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 }
 

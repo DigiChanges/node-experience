@@ -5,10 +5,10 @@ import IFileVersionDTO from '../../../File/Domain/Models/IFileVersionDTO';
 import FormatError from '../../Presentation/Shared/FormatError';
 import ErrorHttpException from '../../Presentation/Shared/ErrorHttpException';
 import FormatResponder from '../../Presentation/Shared/FormatResponder';
-import IHttpStatusCode from '../IHttpStatusCode';
 import Transformer from '../../../Shared/Presentation/Shared/Transformer';
 import IPaginator from '../../Infrastructure/Orm/IPaginator';
 import PaginatorTransformer from '../../Presentation/Shared/PaginatorTransformer';
+import { IHttpStatusCode } from '../../../Config/MainConfig';
 
 class KoaResponder
 {

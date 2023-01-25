@@ -8,6 +8,7 @@ import { validateEnv } from './validateEnv';
 
 type AppConfig = {
     default: string;
+    path: string;
 }
 
 type TypeORMConfig = {
@@ -119,9 +120,15 @@ type ApiWhiteType = {
     urlRegExp?: RegExp;
 };
 
+export type IHttpStatusCode =
+{
+    code: number;
+    statusCode: string;
+    status: string;
+}
+
 type ConfigType = {
     env: string,
-    nodePath: string,
     setCookieSecure: boolean,
     setCookieSameSite: boolean | 'None' | 'Lax' | 'Strict',
     serverPort: number,
@@ -135,9 +142,6 @@ type ConfigType = {
     };
     filesystem: {
         minio: MinioConfig,
-        local: {
-            type: string
-        };
         default: string,
         expiry: number
     };
@@ -155,9 +159,10 @@ type ConfigType = {
     productInfo: {
         name: string
     };
+    executeCrons: boolean,
     validationSettings: ValidateSettingsType,
     apiWhitelist: ApiWhiteType[],
-    executeCrons: boolean
+    statusCode: Record<string, IHttpStatusCode>
 }
 
 type DomainInfoConfig = {

@@ -1,7 +1,7 @@
 import { DefaultContext } from 'koa';
 import Router from 'koa-router';
 
-import StatusCode from '../../../Shared/Application/StatusCode';
+import MainConfig from '../../../Config/MainConfig';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import ItemController from '../Controllers/ItemController';
@@ -23,6 +23,7 @@ const routerOpts: Router.IRouterOptions = {
 const ItemKoaHandler: Router = new Router(routerOpts);
 const responder: KoaResponder = new KoaResponder();
 const controller: ItemController = new ItemController();
+const config = MainConfig.getInstance().getConfig().statusCode;
 
 ItemKoaHandler.post('/', AuthorizeKoaMiddleware(Permissions.ITEMS_SAVE), async(ctx: DefaultContext) =>
 {
@@ -33,7 +34,7 @@ ItemKoaHandler.post('/', AuthorizeKoaMiddleware(Permissions.ITEMS_SAVE), async(c
 
     const item = await controller.save(data);
 
-    void await responder.send(item, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
+    void await responder.send(item, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
 });
 
 ItemKoaHandler.get('/', AuthorizeKoaMiddleware(Permissions.ITEMS_LIST), async(ctx: DefaultContext) =>
@@ -45,14 +46,14 @@ ItemKoaHandler.get('/', AuthorizeKoaMiddleware(Permissions.ITEMS_LIST), async(ct
 
     const paginator: IPaginator = await controller.list(data);
 
-    await responder.paginate(paginator, ctx, StatusCode.HTTP_OK, new ItemTransformer());
+    await responder.paginate(paginator, ctx, config['HTTP_OK'], new ItemTransformer());
 });
 
 ItemKoaHandler.get('/:id', AuthorizeKoaMiddleware(Permissions.ITEMS_SHOW), async(ctx: DefaultContext) =>
 {
     const item = await controller.getOne(ctx.params as IdPayload);
 
-    void await responder.send(item, ctx, StatusCode.HTTP_OK, new ItemTransformer());
+    void await responder.send(item, ctx, config['HTTP_OK'], new ItemTransformer());
 });
 
 ItemKoaHandler.put('/:id', AuthorizeKoaMiddleware(Permissions.ITEMS_UPDATE), async(ctx: DefaultContext) =>
@@ -65,14 +66,14 @@ ItemKoaHandler.put('/:id', AuthorizeKoaMiddleware(Permissions.ITEMS_UPDATE), asy
 
     const item = await controller.update(data);
 
-    void await responder.send(item, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+    void await responder.send(item, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
 });
 
 ItemKoaHandler.delete('/:id', AuthorizeKoaMiddleware(Permissions.ITEMS_DELETE), async(ctx: DefaultContext) =>
 {
     const item = await controller.remove(ctx.params as IdPayload);
 
-    void await responder.send(item, ctx, StatusCode.HTTP_CREATED, new ItemTransformer());
+    void await responder.send(item, ctx, config['HTTP_CREATED'], new ItemTransformer());
 });
 
 export default ItemKoaHandler;

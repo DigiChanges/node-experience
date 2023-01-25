@@ -1,10 +1,12 @@
 import throttle from 'koa-ratelimit';
-import StatusCode from '../../Application/StatusCode';
+import MainConfig from '../../../Config/MainConfig';
+
+const config = MainConfig.getInstance().getConfig().statusCode;
 
 const meta: any = {
-    status: StatusCode.HTTP_TOO_MANY_REQUESTS.status,
-    code: StatusCode.HTTP_TOO_MANY_REQUESTS.code,
-    statusCode: StatusCode.HTTP_TOO_MANY_REQUESTS.statusCode,
+    status: config['HTTP_TOO_MANY_REQUESTS'].status,
+    code: config['HTTP_TOO_MANY_REQUESTS'].code,
+    statusCode: config['HTTP_TOO_MANY_REQUESTS'].statusCode,
     message: 'Exceed 30 request per second',
     errors: null
 };

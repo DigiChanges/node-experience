@@ -2,20 +2,22 @@ import ErrorHttpException from './ErrorHttpException';
 import TokenExpiredHttpException from '../../../Auth/Presentation/Exceptions/TokenExpiredHttpException';
 import DuplicateEntityHttpException from '../Exceptions/DuplicateEntityHttpException';
 import exceptions from '../../../exceptions';
-import StatusCode from '../../../Shared/Application/StatusCode';
+import MainConfig from '../../../Config/MainConfig';
+
+const config = MainConfig.getInstance().getConfig().statusCode;
 
 class ExceptionFactory
 {
     private static exceptionsMapper = {
         ...exceptions,
-        Error: StatusCode.HTTP_INTERNAL_SERVER_ERROR,
-        TypeError: StatusCode.HTTP_INTERNAL_SERVER_ERROR,
-        [ErrorHttpException.name]: StatusCode.HTTP_INTERNAL_SERVER_ERROR
+        Error: config['HTTP_INTERNAL_SERVER_ERROR'],
+        TypeError: config['HTTP_INTERNAL_SERVER_ERROR'],
+        [ErrorHttpException.name]: config['HTTP_INTERNAL_SERVER_ERROR']
     };
 
     public static getException(err: any): ErrorHttpException
     {
-        const statusCode = ExceptionFactory.exceptionsMapper[err?.name] ?? StatusCode.HTTP_INTERNAL_SERVER_ERROR;
+        const statusCode = ExceptionFactory.exceptionsMapper[err?.name] ?? config['HTTP_INTERNAL_SERVER_ERROR'];
 
         let exception = new ErrorHttpException();
 
@@ -45,7 +47,7 @@ class ExceptionFactory
         {
             exception.errors = err.metadata.issues;
             exception.metadata = null;
-            exception.statusCode = StatusCode.HTTP_UNPROCESSABLE_ENTITY;
+            exception.statusCode = config['HTTP_UNPROCESSABLE_ENTITY'];
         }
 
         return exception;

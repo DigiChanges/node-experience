@@ -1,6 +1,7 @@
-import IHttpStatusCode from '../../Application/IHttpStatusCode';
-import StatusCode from '../../Application/StatusCode';
+import MainConfig, { IHttpStatusCode } from '../../../Config/MainConfig';
 import IErrorMessage from './IErrorMessage';
+
+const config = MainConfig.getInstance().getConfig().statusCode;
 
 class ErrorHttpException extends Error
 {
@@ -9,7 +10,7 @@ class ErrorHttpException extends Error
     private _metadata: Record<string, any>;
     private _errorCode: string | null;
 
-    constructor(statusCode: IHttpStatusCode = StatusCode.HTTP_INTERNAL_SERVER_ERROR, errorMessage: IErrorMessage  = { message: 'Internal Error' }, errors: any[] = [],  metadata: Record<string, any> = {})
+    constructor(statusCode: IHttpStatusCode = config['HTTP_INTERNAL_SERVER_ERROR'], errorMessage: IErrorMessage  = { message: 'Internal Error' }, errors: any[] = [],  metadata: Record<string, any> = {})
     {
         super();
         this._statusCode = statusCode;

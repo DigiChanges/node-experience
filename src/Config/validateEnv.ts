@@ -4,6 +4,7 @@ export function validateEnv()
 {
     return cleanEnv(process.env, {
         NODE_ENV: str(),
+        NODE_PATH: str(),
         SERVER_PORT: port(),
 
         DB_HOST: str(),

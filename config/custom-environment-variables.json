@@ -1,6 +1,5 @@
 {
   "env": "NODE_ENV",
-  "nodePath": "NODE_PATH",
   "serverPort": "SERVER_PORT",
   "setCookieSecure": "SET_COOKIE_SECURE",
   "setCookieSameSite": "SET_COOKIE_SAME_SITE",
@@ -8,7 +7,8 @@
       "authorization": "AUTHORIZATION"
   },
   "app": {
-    "default": "APP_DEFAULT"
+    "default": "APP_DEFAULT",
+    "path": "APP_PATH"
   },
   "dbConfig": {
     "TypeORM": {
@@ -61,7 +61,6 @@
       "rootPath": "MINIO_ROOT_PATH",
       "region": "MINIO_REGION"
     },
-    "local": "",
     "default": "FILESYSTEM_DEFAULT"
   },
   "jwt": {

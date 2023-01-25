@@ -1,6 +1,6 @@
 import { DefaultContext } from 'koa';
 import Router from 'koa-router';
-import StatusCode from '../../../Shared/Application/StatusCode';
+import MainConfig from '../../../Config/MainConfig';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import IRoleDomain from '../../Domain/Entities/IRoleDomain';
@@ -22,12 +22,13 @@ const routerOpts: Router.IRouterOptions = {
 const RoleKoaHandler: Router = new Router(routerOpts);
 const responder: KoaResponder = new KoaResponder();
 const controller = new RoleController();
+const config = MainConfig.getInstance().getConfig().statusCode;
 
 RoleKoaHandler.post('/', AuthorizeKoaMiddleware(Permissions.ROLES_SAVE), async(ctx: DefaultContext) =>
 {
     const role: IRoleDomain = await controller.save(ctx.request.body as RoleRepPayload);
 
-    void await responder.send(role, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
+    void await responder.send(role, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
 });
 
 RoleKoaHandler.get('/', AuthorizeKoaMiddleware(Permissions.ROLES_LIST), async(ctx: DefaultContext) =>
@@ -39,14 +40,14 @@ RoleKoaHandler.get('/', AuthorizeKoaMiddleware(Permissions.ROLES_LIST), async(ct
 
     const paginator: IPaginator = await controller.list(data);
 
-    await responder.paginate(paginator, ctx, StatusCode.HTTP_OK, new RoleTransformer());
+    await responder.paginate(paginator, ctx, config['HTTP_OK'], new RoleTransformer());
 });
 
 RoleKoaHandler.get('/:id', AuthorizeKoaMiddleware(Permissions.ROLES_SHOW), async(ctx: DefaultContext) =>
 {
     const role: IRoleDomain = await controller.getOne(ctx.params as IdPayload);
 
-    void await responder.send(role, ctx, StatusCode.HTTP_OK, new RoleTransformer());
+    void await responder.send(role, ctx, config['HTTP_OK'], new RoleTransformer());
 });
 
 RoleKoaHandler.put('/:id', AuthorizeKoaMiddleware(Permissions.ROLES_UPDATE), async(ctx: DefaultContext) =>
@@ -58,14 +59,14 @@ RoleKoaHandler.put('/:id', AuthorizeKoaMiddleware(Permissions.ROLES_UPDATE), asy
 
     const role: IRoleDomain = await controller.update(data);
 
-    void await responder.send(role, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+    void await responder.send(role, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
 });
 
 RoleKoaHandler.delete('/:id', AuthorizeKoaMiddleware(Permissions.ROLES_DELETE), async(ctx: DefaultContext) =>
 {
     const role: IRoleDomain = await controller.remove(ctx.params as IdPayload);
 
-    void await responder.send(role, ctx, StatusCode.HTTP_CREATED, new RoleTransformer());
+    void await responder.send(role, ctx, config['HTTP_CREATED'], new RoleTransformer());
 });
 
 export default RoleKoaHandler;

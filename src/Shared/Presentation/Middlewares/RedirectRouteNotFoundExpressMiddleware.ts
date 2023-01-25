@@ -1,12 +1,14 @@
 import ExpressResponder from '../../Application/Http/ExpressResponder';
 import RouteNotFoundHttpException from '../Exceptions/RouteNotFoundHttpException';
-import StatusCode from '../../Application/StatusCode';
+import MainConfig from '../../../Config/MainConfig';
+
+const config = MainConfig.getInstance().getConfig().statusCode;
 
 const RedirectRouteNotFoundExpressMiddleware = (req: any, res: any) =>
 {
     const responder = new ExpressResponder();
 
-    responder.error(new RouteNotFoundHttpException(), req, res, StatusCode.HTTP_NOT_FOUND);
+    responder.error(new RouteNotFoundHttpException(), req, res, config['HTTP_NOT_FOUND']);
 };
 
 export default RedirectRouteNotFoundExpressMiddleware;

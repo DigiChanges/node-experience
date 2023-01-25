@@ -4,9 +4,9 @@ import IFormatResponder from '../../Presentation/Shared/IFormatResponder';
 import FormatResponder from '../../Presentation/Shared/FormatResponder';
 import FormatError from '../../Presentation/Shared/FormatError';
 import IPaginator from '../../Infrastructure/Orm/IPaginator';
-import IHttpStatusCode from '../IHttpStatusCode';
 import PaginatorTransformer from '../../Presentation/Shared/PaginatorTransformer';
 import Transformer from '../../../Shared/Presentation/Shared/Transformer';
+import { IHttpStatusCode } from '../../../Config/MainConfig';
 
 class ExpressResponder
 {

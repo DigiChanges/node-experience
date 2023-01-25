@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { controller, httpDelete, httpGet, httpPost, httpPut, next, request, response } from 'inversify-express-utils';
-import StatusCode from '../../../Shared/Application/StatusCode';
+import MainConfig, { IHttpStatusCode } from '../../../Config/MainConfig';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder';
@@ -20,11 +20,13 @@ class ItemExpressHandler
 {
     private responder: ExpressResponder;
     private readonly controller: ItemController;
+    private readonly config: Record<string, IHttpStatusCode>;
 
     constructor()
     {
         this.responder = new ExpressResponder();
         this.controller = new ItemController();
+        this.config = MainConfig.getInstance().getConfig().statusCode;
     }
 
     @httpPost('/', void AuthorizeExpressMiddleware(Permissions.ITEMS_SAVE))
@@ -37,7 +39,7 @@ class ItemExpressHandler
 
         const item: IItemDomain = await this.controller.save(data);
 
-        void await this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
+        void await this.responder.send(item, req, res, this.config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
     }
 
     @httpGet('/', void AuthorizeExpressMiddleware(Permissions.ITEMS_LIST))
@@ -50,7 +52,7 @@ class ItemExpressHandler
 
         const paginator: IPaginator = await this.controller.list(data);
 
-        await this.responder.paginate(paginator, req, res, StatusCode.HTTP_OK, new ItemTransformer());
+        await this.responder.paginate(paginator, req, res, this.config['HTTP_OK'], new ItemTransformer());
     }
 
     @httpGet('/:id', void AuthorizeExpressMiddleware(Permissions.ITEMS_SHOW))
@@ -62,7 +64,7 @@ class ItemExpressHandler
 
         const item: IItemDomain = await this.controller.getOne(data);
 
-        void await this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
+        void await this.responder.send(item, req, res, this.config['HTTP_OK'], new ItemTransformer());
     }
 
     @httpPut('/:id', void AuthorizeExpressMiddleware(Permissions.ITEMS_UPDATE))
@@ -76,7 +78,7 @@ class ItemExpressHandler
 
         const item: IItemDomain = await this.controller.update(data);
 
-        void await this.responder.send(item, req, res, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        void await this.responder.send(item, req, res, this.config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     @httpDelete('/:id', void AuthorizeExpressMiddleware(Permissions.ITEMS_DELETE))
@@ -88,7 +90,7 @@ class ItemExpressHandler
 
         const item: IItemDomain = await this.controller.remove(data);
 
-        void await this.responder.send(item, req, res, StatusCode.HTTP_OK, new ItemTransformer());
+        void await this.responder.send(item, req, res, this.config['HTTP_OK'], new ItemTransformer());
     }
 }
 

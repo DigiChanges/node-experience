@@ -5,18 +5,20 @@ import NotificationSubscriptionRequest from '../Requests/NotificationCreateSuscr
 import NotificationSendMessageRequest from '../Requests/NotificationSendMessageRequest';
 import ExpressResponder from '../../../Shared/Application/Http/ExpressResponder';
 import NotificationController from '../Controller/NotificationController';
-import StatusCode from '../../../Shared/Application/StatusCode';
+import MainConfig, { IHttpStatusCode } from '../../../Config/MainConfig';
 
 @controller('/api/notifications')
 class NotificationExpressHandler
 {
     private responder: ExpressResponder;
     private readonly controller: NotificationController;
+    private readonly config: Record<string, IHttpStatusCode>;
 
     constructor()
     {
         this.responder = new ExpressResponder();
         this.controller = new NotificationController();
+        this.config = MainConfig.getInstance().getConfig().statusCode;
     }
 
     @httpPost('/subscription')
@@ -26,7 +28,7 @@ class NotificationExpressHandler
 
         const notification = this.controller.uploadTestNotificationBase64(_request);
 
-        void await this.responder.send(notification, req, res, StatusCode.HTTP_CREATED, null);
+        void await this.responder.send(notification, req, res, this.config['HTTP_CREATED'], null);
     }
 
     @httpPost('/message')
@@ -36,7 +38,7 @@ class NotificationExpressHandler
 
         const notification = this.controller.sendPushNotification(_request);
 
-        void await this.responder.send(notification, req, res, StatusCode.HTTP_CREATED, null);
+        void await this.responder.send(notification, req, res, this.config['HTTP_CREATED'], null);
     }
 }
 

@@ -4,7 +4,7 @@ import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import NotificationController from '../Controller/NotificationController';
 import NotificationSubscriptionRequest from '../Requests/NotificationCreateSuscriptionRequest';
 import NotificationSendMessageRequest from '../Requests/NotificationSendMessageRequest';
-import StatusCode from '../../../Shared/Application/StatusCode';
+import MainConfig from '../../../Config/MainConfig';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/notifications'
@@ -13,6 +13,7 @@ const routerOpts: Router.IRouterOptions = {
 const NotificationKoaHandler: Router = new Router(routerOpts);
 const responder: KoaResponder = new KoaResponder();
 const controller = new NotificationController();
+const config = MainConfig.getInstance().getConfig().statusCode;
 
 NotificationKoaHandler.post('/subscription', async(ctx: Koa.ParameterizedContext & any) =>
 {
@@ -20,7 +21,7 @@ NotificationKoaHandler.post('/subscription', async(ctx: Koa.ParameterizedContext
 
     const notification = await controller.uploadTestNotificationBase64(_request);
 
-    void await responder.send(notification, ctx, StatusCode.HTTP_CREATED);
+    void await responder.send(notification, ctx, config['HTTP_CREATED']);
 });
 
 NotificationKoaHandler.post('/message', async(ctx: Koa.ParameterizedContext & any) =>
@@ -29,7 +30,7 @@ NotificationKoaHandler.post('/message', async(ctx: Koa.ParameterizedContext & an
 
     const notification = await controller.sendPushNotification(_request);
 
-    void await responder.send(notification, ctx, StatusCode.HTTP_CREATED);
+    void await responder.send(notification, ctx, config['HTTP_CREATED']);
 });
 
 export default NotificationKoaHandler;

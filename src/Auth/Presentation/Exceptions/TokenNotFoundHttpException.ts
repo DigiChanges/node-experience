@@ -1,6 +1,8 @@
 import ErrorHttpException from '../../../Shared/Presentation/Shared/ErrorHttpException';
 import Locales from '../../../Shared/Presentation/Shared/Locales';
-import StatusCode from '../../../Shared/Application/StatusCode';
+import MainConfig from '../../../Config/MainConfig';
+
+const config = MainConfig.getInstance().getConfig().statusCode;
 
 class TokenNotFoundHttpException extends ErrorHttpException
 {
@@ -8,7 +10,7 @@ class TokenNotFoundHttpException extends ErrorHttpException
     {
         const locales = Locales.getInstance().getLocales();
         const key = 'auth.presentation.exceptions.tokenNotFound';
-        super(StatusCode.HTTP_FORBIDDEN, {
+        super(config['HTTP_FORBIDDEN'], {
             message: locales.__(key),
             errorCode: key
         });

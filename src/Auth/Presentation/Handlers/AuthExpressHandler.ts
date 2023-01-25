@@ -15,8 +15,7 @@ import UserTransformer from '../Transformers/UserTransformer';
 import dayjs from 'dayjs';
 import DefaultTransformer from '../../../Shared/Presentation/Transformers/DefaultTransformer';
 import RefreshTokenExpressMiddleware from '../Middlewares/RefreshTokenExpressMiddleware';
-import MainConfig from '../../../Config/MainConfig';
-import StatusCode from '../../../Shared/Application/StatusCode';
+import MainConfig, { IHttpStatusCode } from '../../../Config/MainConfig';
 import UpdateMePayload from '../../Domain/Payloads/Auth/UpdateMePayload';
 import AuthPayload from '../../Domain/Payloads/Auth/AuthPayload';
 import RegisterPayload from '../../Domain/Payloads/Auth/RegisterPayload';
@@ -30,17 +29,19 @@ class AuthExpressHandler
 {
     private responder: ExpressResponder;
     private controller: AuthController;
+    private config: Record<string, IHttpStatusCode>;
 
     constructor()
     {
         this.responder = new ExpressResponder();
         this.controller = new AuthController();
+        this.config = MainConfig.getInstance().getConfig().statusCode;
     }
 
     @httpGet('/me')
     public async me(@request() req: any, @response() res: Response): Promise<void>
     {
-        void await this.responder.send(AuthUser(req), null, res, StatusCode.HTTP_OK, new UserTransformer());
+        void await this.responder.send(AuthUser(req), null, res, this.config['HTTP_OK'], new UserTransformer());
     }
 
     @httpPut('/me')
@@ -53,7 +54,7 @@ class AuthExpressHandler
 
         const payload = await this.controller.updateMe(data as UpdateMePayload);
 
-        void await this.responder.send(payload, req, res, StatusCode.HTTP_OK, new UserTransformer());
+        void await this.responder.send(payload, req, res, this.config['HTTP_OK'], new UserTransformer());
     }
 
     @httpPost('/login')
@@ -73,7 +74,7 @@ class AuthExpressHandler
                 sameSite: MainConfig.getInstance().getConfig().setCookieSameSite as any
             });
 
-        void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new AuthTransformer());
+        void await this.responder.send(payload, req, res, this.config['HTTP_CREATED'], new AuthTransformer());
     }
 
     @httpPost('/signup')
@@ -81,7 +82,7 @@ class AuthExpressHandler
     {
         const payload = await this.controller.register(req.body as RegisterPayload);
 
-        void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
+        void await this.responder.send(payload, req, res, this.config['HTTP_CREATED'], new DefaultTransformer());
     }
 
     @httpPost('/logout')
@@ -106,7 +107,7 @@ class AuthExpressHandler
                 sameSite: MainConfig.getInstance().getConfig().setCookieSameSite as any
             });
 
-        void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
+        void await this.responder.send(payload, req, res, this.config['HTTP_CREATED'], new DefaultTransformer());
     }
 
     @httpPost('/refresh-token', void RefreshTokenExpressMiddleware)
@@ -126,7 +127,7 @@ class AuthExpressHandler
                 sameSite: MainConfig.getInstance().getConfig().setCookieSameSite as any
             });
 
-        void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new AuthTransformer());
+        void await this.responder.send(payload, req, res, this.config['HTTP_CREATED'], new AuthTransformer());
     }
 
     @httpPost('/forgot-password')
@@ -140,7 +141,7 @@ class AuthExpressHandler
 
         const payload = await this.controller.forgotPassword(data);
 
-        void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED);
+        void await this.responder.send(payload, req, res, this.config['HTTP_CREATED']);
     }
 
     @httpPost('/change-forgot-password')
@@ -148,7 +149,7 @@ class AuthExpressHandler
     {
         const payload = await this.controller.changeForgotPassword(req.body as ChangeForgotPasswordPayload);
 
-        void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED);
+        void await this.responder.send(payload, req, res, this.config['HTTP_CREATED']);
     }
 
     @httpPut('/verify-your-account/:confirmationToken')
@@ -156,7 +157,7 @@ class AuthExpressHandler
     {
         const payload = await this.controller.verifyYourAccount(req.params as VerifyYourAccountPayload);
 
-        void await this.responder.send(payload, req, res, StatusCode.HTTP_CREATED, new DefaultTransformer());
+        void await this.responder.send(payload, req, res, this.config['HTTP_CREATED'], new DefaultTransformer());
     }
 
     @httpGet('/permissions', void AuthorizeExpressMiddleware(Permissions.GET_PERMISSIONS))
@@ -164,7 +165,7 @@ class AuthExpressHandler
     {
         const payload = this.controller.permissions();
 
-        void await this.responder.send(payload, req, res, StatusCode.HTTP_OK, new PermissionsTransformer());
+        void await this.responder.send(payload, req, res, this.config['HTTP_OK'], new PermissionsTransformer());
     }
 
     @httpPost('/sync-roles-permissions', void AuthorizeExpressMiddleware(Permissions.AUTH_SYNC_PERMISSIONS))
@@ -172,6 +173,6 @@ class AuthExpressHandler
     {
         await this.controller.syncRolesPermissions();
 
-        void await this.responder.send({ message: 'Sync Successfully' }, req, res, StatusCode.HTTP_CREATED);
+        void await this.responder.send({ message: 'Sync Successfully' }, req, res, this.config['HTTP_CREATED']);
     }
 }

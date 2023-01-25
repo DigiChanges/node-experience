@@ -1,6 +1,8 @@
 import ErrorHttpException from '../Shared/ErrorHttpException';
 import Locales from '../Shared/Locales';
-import StatusCode from '../../Application/StatusCode';
+import MainConfig from '../../../Config/MainConfig';
+
+const config = MainConfig.getInstance().getConfig().statusCode;
 
 class DuplicateEntityHttpException extends ErrorHttpException
 {
@@ -8,7 +10,7 @@ class DuplicateEntityHttpException extends ErrorHttpException
     {
         const locales = Locales.getInstance().getLocales();
         const key = 'app.presentation.exceptions.duplicateEntity';
-        super(StatusCode.HTTP_BAD_REQUEST, {
+        super(config['HTTP_BAD_REQUEST'], {
             message: locales.__(key),
             errorCode: key
         });
