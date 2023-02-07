@@ -9,6 +9,10 @@ import { validateEnv } from './validateEnv';
 type AppConfig = {
     default: string;
     path: string;
+    setAppProxy: boolean;
+    setCookieSecure: boolean,
+    setCookieSameSite: boolean | 'None' | 'Lax' | 'Strict',
+    serverPort: number,
 }
 
 type TypeORMConfig = {
@@ -129,9 +133,6 @@ export type IHttpStatusCode =
 
 type ConfigType = {
     env: string,
-    setCookieSecure: boolean,
-    setCookieSameSite: boolean | 'None' | 'Lax' | 'Strict',
-    serverPort: number,
     auth: {
         authorization: boolean
     };

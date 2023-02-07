@@ -1,11 +1,12 @@
 {
   "env": "local",
-  "serverPort": 8089,
-  "setCookieSecure": false,
-  "setCookieSameSite": "Lax",
   "app": {
     "default": "AppKoa",
-    "path": "/usr/app"
+    "path": "/usr/app",
+    "serverPort": 8089,
+    "setAppProxy": false,
+    "setCookieSecure": false,
+    "setCookieSameSite": "Lax"
   },
   "auth": {
     "authorization": false

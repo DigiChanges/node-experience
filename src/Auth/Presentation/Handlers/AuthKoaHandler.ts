@@ -55,9 +55,9 @@ AuthKoaHandler.post('/login', async(ctx: Koa.ParameterizedContext & any) =>
             expires: dayjs.unix(payload.getExpires()).toDate(),
             maxAge: payload.getExpires(),
             path: '/api/auth',
-            secure: MainConfig.getInstance().getConfig().setCookieSecure,
+            secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
             httpOnly: true,
-            sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
+            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
         });
 
     void await responder.send(payload, ctx, config['HTTP_CREATED'], new AuthTransformer());
@@ -65,7 +65,13 @@ AuthKoaHandler.post('/login', async(ctx: Koa.ParameterizedContext & any) =>
 
 AuthKoaHandler.post('/signup', async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const payload = await controller.register(ctx.request.body as RegisterPayload);
+    const data = {
+        ...ctx.request.body,
+        birthday: dayjs(ctx.request.body.birthday, 'yyyy-mm-dd').toDate(),
+        roles: []
+    };
+
+    const payload = await controller.register(data as RegisterPayload);
 
     void await responder.send(payload, ctx, config['HTTP_CREATED'], new DefaultTransformer());
 });
@@ -86,9 +92,9 @@ AuthKoaHandler.post('/logout', async(ctx: Koa.ParameterizedContext & any) =>
             expires: dayjs.unix(0).toDate(),
             maxAge: 0,
             path: '/api/auth',
-            secure: MainConfig.getInstance().getConfig().setCookieSecure,
+            secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
             httpOnly: true,
-            sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
+            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
         });
 
     void await responder.send(payload, ctx, config['HTTP_OK'], new DefaultTransformer());
@@ -110,9 +116,9 @@ AuthKoaHandler.post('/refresh-token', RefreshTokenKoaMiddleware, async(ctx: Koa.
             expires: dayjs.unix(payload.getExpires()).toDate(),
             maxAge: payload.getExpires(),
             path: '/api/auth',
-            secure: MainConfig.getInstance().getConfig().setCookieSecure,
+            secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
             httpOnly: true,
-            sameSite: MainConfig.getInstance().getConfig().setCookieSameSite
+            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
         });
 
     void await responder.send(payload, ctx, config['HTTP_OK'], new AuthTransformer());

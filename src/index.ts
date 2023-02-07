@@ -39,7 +39,7 @@ void (async() =>
         cronFactory.start();
 
         app.initConfig({
-            serverPort: config.serverPort
+            serverPort: config.app.serverPort
         });
         await app.build();
         app.listen();

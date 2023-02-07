@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.6'
 
 services:
   node:
@@ -28,7 +28,7 @@ services:
       context: docker/mongo/
       dockerfile: Dockerfile
     ports:
-      - "27017:27017"
+      - "27018:27017"
     networks:
      - experiencenet
     environment:

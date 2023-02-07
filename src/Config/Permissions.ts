@@ -2,8 +2,6 @@ import IGroupPermission from './IGroupPermission';
 
 class Permissions
 {
-    static readonly ALL: string = 'all';
-
     // AUTH
     static readonly AUTH_SYNC_PERMISSIONS: string = 'authSyncPermissions';
     static readonly GET_PERMISSIONS: string = 'getPermissions';
@@ -92,12 +90,6 @@ class Permissions
                     Permissions.ROLES_SHOW,
                     Permissions.ROLES_LIST,
                     Permissions.ROLES_DELETE
-                ]
-            },
-            {
-                group: 'OTHERS',
-                permissions: [
-                    Permissions.ALL
                 ]
             }
         ];

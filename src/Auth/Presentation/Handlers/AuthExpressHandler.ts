@@ -69,9 +69,9 @@ class AuthExpressHandler
                 expires: dayjs.unix(payload.getExpires()).toDate(),
                 maxAge: payload.getExpires(),
                 path: '/api/auth',
-                secure: MainConfig.getInstance().getConfig().setCookieSecure,
+                secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
                 httpOnly: true,
-                sameSite: MainConfig.getInstance().getConfig().setCookieSameSite as any
+                sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite as any
             });
 
         void await this.responder.send(payload, req, res, this.config['HTTP_CREATED'], new AuthTransformer());
@@ -80,6 +80,12 @@ class AuthExpressHandler
     @httpPost('/signup')
     public async register(@request() req: any, @response() res: Response): Promise<void>
     {
+        const data = {
+            ...req.body,
+            birthday: dayjs(req.body.birthday, 'yyyy-mm-dd').toDate(),
+            roles: []
+        };
+
         const payload = await this.controller.register(req.body as RegisterPayload);
 
         void await this.responder.send(payload, req, res, this.config['HTTP_CREATED'], new DefaultTransformer());
@@ -102,9 +108,9 @@ class AuthExpressHandler
                 expires: dayjs.unix(0).toDate(),
                 maxAge: 0,
                 path: '/api/auth',
-                secure: MainConfig.getInstance().getConfig().setCookieSecure,
+                secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
                 httpOnly: true,
-                sameSite: MainConfig.getInstance().getConfig().setCookieSameSite as any
+                sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite as any
             });
 
         void await this.responder.send(payload, req, res, this.config['HTTP_CREATED'], new DefaultTransformer());
@@ -122,9 +128,9 @@ class AuthExpressHandler
                 expires: dayjs.unix(payload.getExpires()).toDate(),
                 maxAge: payload.getExpires(),
                 path: '/api/auth',
-                secure: MainConfig.getInstance().getConfig().setCookieSecure,
+                secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
                 httpOnly: true,
-                sameSite: MainConfig.getInstance().getConfig().setCookieSameSite as any
+                sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite as any
             });
 
         void await this.responder.send(payload, req, res, this.config['HTTP_CREATED'], new AuthTransformer());

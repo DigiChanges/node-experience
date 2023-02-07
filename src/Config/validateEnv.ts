@@ -4,8 +4,13 @@ export function validateEnv()
 {
     return cleanEnv(process.env, {
         NODE_ENV: str(),
-        NODE_PATH: str(),
-        SERVER_PORT: port(),
+
+        APP_DEFAULT: str(),
+        APP_PATH: str(),
+        APP_PORT: port(),
+        APP_SET_APP_PROXY: bool(),
+        APP_SET_COOKIE_SECURE: bool(),
+        APP_SET_COOKIE_SAME_SITE: str(),
 
         DB_HOST: str(),
         DB_USER: str(),
@@ -38,8 +43,6 @@ export function validateEnv()
         JWT_EXPIRES: num(),
         JWT_ISS: str(),
         JWT_AUD: str(),
-        SET_COOKIE_SECURE: bool(),
-        SET_COOKIE_SAME_SITE: str(),
 
         SMTP_HOST: str(),
         SMTP_PORT: num(),

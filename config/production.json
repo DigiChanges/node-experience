@@ -1,9 +1,13 @@
 {
   "env": "production",
-  "nodePath": "/app",
-  "serverPort": 80,
-  "setCookieSecure": true,
-  "setCookieSameSite": "None",
+  "app": {
+    "default": "AppKoa",
+    "path": "/usr/app",
+    "serverPort": 80,
+    "setAppProxy": true,
+    "setCookieSecure": false,
+    "setCookieSameSite": "None"
+  },
   "auth": {
       "authorization": true
   }

@@ -1,14 +1,15 @@
 {
   "env": "NODE_ENV",
-  "serverPort": "SERVER_PORT",
-  "setCookieSecure": "SET_COOKIE_SECURE",
-  "setCookieSameSite": "SET_COOKIE_SAME_SITE",
   "auth": {
       "authorization": "AUTHORIZATION"
   },
   "app": {
     "default": "APP_DEFAULT",
-    "path": "APP_PATH"
+    "path": "APP_PATH",
+    "serverPort": "APP_PORT",
+    "setAppProxy": "APP_SET_APP_PROXY",
+    "setCookieSecure": "APP_SET_COOKIE_SECURE",
+    "setCookieSameSite": "APP_SET_COOKIE_SAME_SITE"
   },
   "dbConfig": {
     "TypeORM": {
