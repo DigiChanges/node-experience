@@ -1,4 +1,5 @@
 import cors from '@koa/cors';
+import koaQs from 'koa-qs';
 import helmet from 'koa-helmet';
 import { Server } from 'http';
 
@@ -37,8 +38,7 @@ class AppKoa implements IApp
     public initConfig(config: IAppConfig)
     {
         this.port = config.serverPort || 8090;
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        this.app = require('koa-qs')(new Koa());
+        this.app = koaQs(new Koa());
         this.config = config;
 
         this.app.use(cors({
@@ -113,6 +113,7 @@ class AppKoa implements IApp
 
             await next();
         });
+
         this.app.use(RedirectRouteNotFoundKoaMiddleware);
     }
 
@@ -120,7 +121,7 @@ class AppKoa implements IApp
     {
         this.server = this.app.listen(this.port, () =>
         {
-            Logger.info(`Koa is listening to http://localhost:${this.port}`);
+            void Logger.info(`Koa is listening to http://localhost:${this.port}`);
         });
 
         return this.server;

@@ -13,10 +13,10 @@ CreateVapID
 
         if (vapidKeys)
         {
-            Logger.info('publicKey:');
-            Logger.info(vapidKeys.publicKey);
-            Logger.info('privateKey:');
-            Logger.info(vapidKeys.privateKey);
+            void Logger.info('publicKey:');
+            void Logger.info(vapidKeys.publicKey);
+            void Logger.info('privateKey:');
+            void Logger.info(vapidKeys.privateKey);
         }
     });
 

@@ -87,13 +87,13 @@ class CreateMikroORMConnection implements ICreateConnection
 
         /* This isn't necessary, but informative */
         const dropDump = await generator.getDropSchemaSQL();
-        Logger.debug(dropDump);
+        await Logger.info(dropDump);
 
         const createDump = await generator.getCreateSchemaSQL();
-        Logger.debug(createDump);
+        await Logger.info(createDump);
 
         const updateDump = await generator.getUpdateSchemaSQL();
-        Logger.debug(updateDump);
+        await Logger.info(updateDump);
 
         await generator.refreshDatabase(); // without this, the schema 'll not update
     }

@@ -1,5 +1,4 @@
 {
-  "compileOnSave": false,
   "reflection": true,
   "compilerOptions": {
     "composite": true,
@@ -19,7 +18,6 @@
       "ESNext",
       "DOM"
     ],
-    "allowJs": true,
     "outDir": "./dist",
     "baseUrl": "./src",
     "module": "CommonJS",

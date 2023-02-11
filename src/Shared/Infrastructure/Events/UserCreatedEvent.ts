@@ -8,7 +8,7 @@ class UserCreatedEvent
     {
         const { email } = props;
 
-        Logger.info(`User ${email} Created!`);
+        await Logger.info(`User ${email} Created!`);
     };
 }
 

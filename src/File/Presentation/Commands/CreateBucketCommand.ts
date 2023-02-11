@@ -18,7 +18,7 @@ CreateBucketCommand
 
         await useCase.handle(request);
 
-        Logger.info('Bucket was created successfully');
+        await Logger.info('Bucket was created successfully');
     });
 
 export default CreateBucketCommand;

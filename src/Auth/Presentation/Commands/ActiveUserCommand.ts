@@ -20,7 +20,7 @@ ActiveUserCommand
 
         await activeUserUseCase.handle(request);
 
-        Logger.info('User activated successfully.');
+        await Logger.info('User activated successfully.');
     });
 
 export default ActiveUserCommand;

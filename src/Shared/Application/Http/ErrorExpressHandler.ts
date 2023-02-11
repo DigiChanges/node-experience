@@ -10,9 +10,9 @@ export class ErrorExpressHandler
         const responder = new ExpressResponder();
         const exception: ErrorHttpException = ExceptionFactory.getException(err);
 
-        if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test')
+        if (process.env.NODE_ENV !== 'test')
         {
-            Logger.trace(err.stack);
+            void Logger.error(err.stack);
         }
 
         responder.error(exception, req, res, exception.statusCode, exception.metadata);

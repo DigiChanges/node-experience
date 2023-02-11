@@ -20,7 +20,7 @@ AssignRoleToUserCommand
 
         if (user)
         {
-            Logger.info('Assign user to role successfully.');
+            void Logger.info('Assign user to role successfully.');
         }
     });
 

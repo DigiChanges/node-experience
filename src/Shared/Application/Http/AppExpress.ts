@@ -93,7 +93,7 @@ class AppExpress implements IApp
     {
         this.serverExpress = this.app.listen(this.port, () =>
         {
-            Logger.debug(`App listening on the port ${this.port}`);
+            void Logger.info(`App listening on the port ${this.port}`);
         });
     }
 
