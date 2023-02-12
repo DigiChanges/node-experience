@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "etsc",
-    "build-tsc": "tsc -p tsconfig.json --incremental",
+    "build-tsc": "node rimraf_cpy.mjs && tsc -p tsconfig.json --incremental",
     "ci": "npm run cpy-ci && npm run ts-check && npm run lint",
     "circular": "madge --circular dist/src/index.js",
     "circular-graph": "madge --circular --image graph.svg dist/src/index.js",

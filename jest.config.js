@@ -23,6 +23,8 @@ module.exports = {
       "dist/src/**/*.{js,jsx,ts,tsx}",
       "!<rootDir>/node_modules/",
       "!dist/src/initTestServer.{js,ts}",
+      "!dist/src/**/*.d.ts",
+      "!dist/src/**/*.d.ts.map",
       "!dist/src/register.{js,ts}",
       "!dist/src/seed.{js,ts}",
       "!dist/src/exceptions.{js,ts}",
