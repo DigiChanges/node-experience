@@ -23,6 +23,43 @@ services:
     networks:
      - experiencenet
 
+  keycloak:
+    container_name: experience_auth_1
+    image: docker.io/bitnami/keycloak:18
+    ports:
+      - "8080:8080"
+    environment:
+      - KEYCLOAK_CREATE_ADMIN_USER=true
+      - KEYCLOAK_ADMIN_USER=user
+      - KEYCLOAK_ADMIN_PASSWORD=db_experience123
+      - KEYCLOAK_MANAGEMENT_USER=manager
+      - KEYCLOAK_MANAGEMENT_PASSWORD=db_experience123
+      - KEYCLOAK_DATABASE_HOST=db_sql
+      - KEYCLOAK_DATABASE_PORT=5432
+      - KEYCLOAK_DATABASE_NAME=experience
+      - KEYCLOAK_DATABASE_USER=experience
+      - KEYCLOAK_DATABASE_PASSWORD=experience
+      - KEYCLOAK_DATABASE_SCHEMA=public
+    networks:
+     - experiencenet
+
+  db_sql:
+    container_name: experience_db_sql_1
+    restart: always
+    build:
+      context: docker/postgres/
+      dockerfile: Dockerfile
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=experience
+      - POSTGRES_DB=experience
+      - POSTGRES_PASSWORD=experience
+    volumes:
+      - data_sql:/var/lib/postgresql/data
+    networks:
+      - experiencenet
+
   db:
     container_name: experience_db_1
     restart: always
@@ -92,6 +129,8 @@ networks:
 
 volumes:
   data:
+    driver: "local"
+  data_sql:
     driver: "local"
   minio:
     driver: "local"
