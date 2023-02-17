@@ -33,6 +33,7 @@
   "license": "MIT",
   "dependencies": {
     "@deepkit/core": "1.0.1-alpha.77",
+    "@deepkit/event": "1.0.1-alpha.85",
     "@deepkit/type": "1.0.1-alpha.85",
     "@koa/cors": "^4.0.0",
     "@koa/multer": "^3.0.0",
@@ -77,7 +78,6 @@
     "nodemailer": "6.7.7",
     "pg-promise": "^10.11.1",
     "pino": "^8.10.0",
-    "promise-events": "^0.2.4",
     "qs": "^6.11.0",
     "reflect-metadata": "^0.1.13",
     "shelljs": "^0.8.5",
@@ -89,8 +89,9 @@
     "zod": "^3.20.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.3.0",
-    "@commitlint/config-conventional": "^17.3.0",
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@deepkit/type-compiler": "1.0.1-alpha.83",
     "@shelf/jest-mongodb": "^4.1.4",
     "@types/bcrypt": "^5.0.0",
     "@types/compression": "^1.7.2",
