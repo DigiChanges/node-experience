@@ -38,7 +38,7 @@ AddUserRoleCommand
 
         if (user && role)
         {
-            Logger.info('User and Role created successfully.');
+            await Logger.info('User and Role created successfully.');
         }
     });
 

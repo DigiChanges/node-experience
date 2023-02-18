@@ -17,9 +17,9 @@ export class ErrorKoaHandler
             const responder = new KoaResponder();
             const exception: ErrorHttpException = ExceptionFactory.getException(err);
 
-            if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test')
+            if (process.env.NODE_ENV !== 'test')
             {
-                Logger.trace(err.stack);
+                await Logger.error(err.stack);
             }
 
             responder.error(exception, ctx, exception.statusCode, exception.metadata);

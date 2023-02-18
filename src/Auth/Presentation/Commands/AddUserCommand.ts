@@ -30,7 +30,7 @@ AddUserCommand
 
         if (user)
         {
-            Logger.info('User created successfully.');
+            await Logger.info('User created successfully.');
         }
     });
 

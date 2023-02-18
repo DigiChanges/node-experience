@@ -12,7 +12,7 @@ SyncRolesPermissionCommand
         const controller = new AuthController();
         await controller.syncRolesPermissions();
 
-        Logger.info('Sync successfully.');
+        await Logger.info('Sync successfully.');
     });
 
 export default SyncRolesPermissionCommand;

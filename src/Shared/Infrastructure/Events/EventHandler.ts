@@ -1,17 +1,21 @@
-import EventEmitter from 'promise-events';
+import { DataEventToken, EventDispatcher } from '@deepkit/event';
 import UserCreatedEvent from './UserCreatedEvent';
 import ForgotPasswordEvent from './ForgotPasswordEvent';
 import SendMessageEvent from './SendMessageEvent';
 import RegisterEvent from './RegisterEvent';
 import VerifiedAccountEvent from './VerifiedAccountEvent';
+import IDataEvent from './IDataEvent';
 
-class EventHandler extends EventEmitter
+class EventHandler
 {
     private static instance: EventHandler;
+    private dispatcher: EventDispatcher;
+    private readonly events: Map<string, IDataEvent & DataEventToken<any>>;
 
     private constructor()
     {
-        super();
+        this.dispatcher = new EventDispatcher();
+        this.events = new Map<string, IDataEvent & DataEventToken<any>>();
     }
 
     static getInstance(): EventHandler
@@ -24,27 +28,30 @@ class EventHandler extends EventEmitter
         return EventHandler.instance;
     }
 
-    public async execute(event: string | symbol, ...args: any[])
+    public async execute(eventName: string, ...args: any[])
     {
-        await this.emit(event, ...args);
+        const eventToken = this.events.get(eventName);
+        await this.dispatcher.dispatch(eventToken, ...args);
     }
 
     public async setListeners()
     {
-        await this.on(UserCreatedEvent.USER_CREATED_EVENT, UserCreatedEvent.handle);
-        await this.on(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT, ForgotPasswordEvent.handle);
-        await this.on(SendMessageEvent.SEND_MESSAGE_EVENT, SendMessageEvent.handle);
-        await this.on(RegisterEvent.REGISTER_EVENT, RegisterEvent.handle);
-        await this.on(VerifiedAccountEvent.VERIFIED_ACCOUNT_EVENT, VerifiedAccountEvent.handle);
+        this.events.set(UserCreatedEvent.USER_CREATED_EVENT, new UserCreatedEvent());
+        this.events.set(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT, new ForgotPasswordEvent());
+        this.events.set(SendMessageEvent.SEND_MESSAGE_EVENT, new SendMessageEvent());
+        this.events.set(RegisterEvent.REGISTER_EVENT, new RegisterEvent());
+        this.events.set(VerifiedAccountEvent.VERIFIED_ACCOUNT_EVENT, new VerifiedAccountEvent());
+
+        for (const tuple of this.events)
+        {
+            const [, eventToken] = tuple;
+            this.dispatcher.listen(eventToken, eventToken.handle);
+        }
     }
 
     public async removeListeners()
     {
-        await this.removeAllListeners(UserCreatedEvent.USER_CREATED_EVENT);
-        await this.removeAllListeners(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT);
-        await this.removeAllListeners(SendMessageEvent.SEND_MESSAGE_EVENT);
-        await this.removeAllListeners(RegisterEvent.REGISTER_EVENT);
-        await this.removeAllListeners(VerifiedAccountEvent.VERIFIED_ACCOUNT_EVENT);
+        // TODO: removeListeners
     }
 }
 

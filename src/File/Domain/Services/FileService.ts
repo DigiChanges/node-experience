@@ -5,10 +5,8 @@ import IFileVersionDomain from '../Entities/IFileVersionDomain';
 import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IFileVersionRepository from '../../Infrastructure/Repositories/IFileVersionRepository';
-import PresignedFileRepPayload from 'File/Domain/Payloads/PresignedFileRepPayload';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
-import ListObjectsPayload from 'File/Domain/Payloads/ListObjectsPayload';
 import FileBase64RepPayload from '../Payloads/FileBase64RepPayload';
 import FileMultipartRepPayload from '../Payloads/FileMultipartRepPayload';
 import CreateBucketPayload from '../Payloads/CreateBucketPayload';
@@ -31,6 +29,8 @@ import FileVersionOptimizeDTO from '../../Presentation/DTO/FileVersionOptimizeDT
 import IFileDTO from '../Models/IFileDTO';
 import FileDTO from '../Models/FileDTO';
 import DownloadPayload from '../Payloads/DownloadPayload';
+import PresignedFileRepPayload from '../Payloads/PresignedFileRepPayload';
+import ListObjectsPayload from '../Payloads/ListObjectsPayload';
 
 // TODO: Refactor this file and separate responsibilities
 class FileService

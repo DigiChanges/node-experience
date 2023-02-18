@@ -24,7 +24,7 @@ AddRoleCommand
 
         if (role)
         {
-            Logger.info('Role created successfully.');
+            await Logger.info('Role created successfully.');
         }
     });
 

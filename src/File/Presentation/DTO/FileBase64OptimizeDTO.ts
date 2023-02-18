@@ -1,4 +1,4 @@
-import FileOptionsQueryPayload from 'File/Domain/Payloads/FileOptionsQueryPayload';
+import FileOptionsQueryPayload from '../../Domain/Payloads/FileOptionsQueryPayload';
 import FileBase64RepPayload from '../../Domain/Payloads/FileBase64RepPayload';
 
 class FileBase64OptimizeDTO implements FileBase64RepPayload
