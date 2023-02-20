@@ -13,6 +13,20 @@ class Permissions
     static readonly ITEMS_LIST: string = 'itemsList';
     static readonly ITEMS_DELETE: string = 'itemsDelete';
 
+    // CATEGORY
+    static readonly CATEGORY_SAVE: string = 'categorySave';
+    static readonly CATEGORY_UPDATE: string = 'categoryUpdate';
+    static readonly CATEGORY_SHOW: string = 'categoryShow';
+    static readonly CATEGORY_LIST: string = 'categoryList';
+    static readonly CATEGORY_DELETE: string = 'categoryDelete';
+
+    // PRODUCT
+    static readonly PRODUCT_SAVE: string = 'productsSave';
+    static readonly PRODUCT_UPDATE: string = 'productsUpdate';
+    static readonly PRODUCT_SHOW: string = 'productsShow';
+    static readonly PRODUCT_LIST: string = 'productsList';
+    static readonly PRODUCT_DELETE: string = 'productsDelete';
+
     // USERS
     static readonly USERS_SAVE: string = 'usersSave';
     static readonly USERS_UPDATE: string = 'usersUpdate';
