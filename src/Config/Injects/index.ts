@@ -17,7 +17,9 @@ export enum REPOSITORIES  {
     IFileRepository = 'IFileRepository',
     IFileVersionRepository = 'IFileVersionRepository',
     ITokenRepository = 'ITokenRepository',
-    INotificationRepository = 'INotificationRepository'
+    INotificationRepository = 'INotificationRepository',
+    ICategoryRepository = 'ICategoryRepository',
+    IProductRepository = 'IProductRepository'
 }
 
 export enum SERVICES {

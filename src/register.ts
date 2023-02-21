@@ -1,3 +1,4 @@
+import { IProductResponse } from './Product/Tests/types';
 import 'reflect-metadata';
 import { container, Lifecycle } from 'tsyringe';
 
@@ -41,6 +42,11 @@ import IFileRepository from './File/Infrastructure/Repositories/IFileRepository'
 import FileTypeORMRepository from './File/Infrastructure/Repositories/FileTypeORMRepository';
 import FileMongooseRepository from './File/Infrastructure/Repositories/FileMongooseRepository';
 import FileMikroORMRepository from './File/Infrastructure/Repositories/FileMikroORMRepository';
+import CategoryMongooseRepository from './Category/Infrastructure/Repositories/CategoryMongooseRepository';
+import ICategoryRepository from './Category/Infrastructure/Repositories/ICategoryRepository';
+import ProductMongooseRepository from './Product/Infrastructure/Repositories/ProductMongooseRepository';
+import IProductRepository from './Product/Infrastructure/Repositories/IProductRepository';
+
 
 // Services
 container.register(SERVICES.AuthService, { useClass: AuthService }, { lifecycle: Lifecycle.Singleton });
@@ -64,6 +70,8 @@ else if (defaultDbConfig === 'Mongoose')
     container.register<IFileVersionRepository>(REPOSITORIES.IFileVersionRepository, { useClass: FileVersionMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<IFileRepository>(REPOSITORIES.IFileRepository, { useClass: FileMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository, { useClass: NotificationMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
+    container.register<ICategoryRepository>(REPOSITORIES.ICategoryRepository, { useClass: CategoryMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
+    container.register<IProductRepository>(REPOSITORIES.IProductRepository, { useClass: ProductMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
 }
 else if (defaultDbConfig === 'MikroORM')
 {

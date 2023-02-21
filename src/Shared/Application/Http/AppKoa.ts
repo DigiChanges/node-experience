@@ -26,6 +26,9 @@ import { getRequestContext } from '../../Presentation/Shared/RequestContext';
 import Logger from '../Logger/Logger';
 import ContextMikroORMKoaMiddleware from '../../Presentation/Middlewares/ContextMikroORMKoaMiddleware';
 import ContainerKoaMiddleware from '../../Presentation/Middlewares/ContainerKoaMiddleware';
+import CategoryKoaHandler from '../../../Category/Presentation/Handlers/CategoryKoaHandler';
+import ProductKoaHandler from '../../../Product/Presentation/Handlers/ProductKoaHandler';
+
 
 class AppKoa implements IApp
 {
@@ -104,6 +107,12 @@ class AppKoa implements IApp
 
         this.app.use(AuthKoaHandler.routes());
         this.app.use(AuthKoaHandler.allowedMethods());
+
+        this.app.use(CategoryKoaHandler.routes());
+        this.app.use(CategoryKoaHandler.allowedMethods());
+
+        this.app.use(ProductKoaHandler.routes());
+        this.app.use(ProductKoaHandler.allowedMethods());
 
         this.app.use(async(ctx, next) =>
         {

@@ -27,7 +27,7 @@ dev:
 	@echo '************                               ************'
 	@echo '************        DEV INIT     	      ************'
 	@echo '************                               ************'
-	STAGE=dev docker-compose up --build -d
+	STAGE=dev docker-compose up --build
 
 prod:
 	@echo '************                               ************'
