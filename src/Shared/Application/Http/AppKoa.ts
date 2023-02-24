@@ -12,6 +12,8 @@ import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import IndexKoaHandler from '../../Presentation/Handlers/IndexKoaHandler';
 import ItemKoaHandler from '../../../Item/Presentation/Handlers/ItemKoaHandler';
+import CategoryKoaHandler from '../../../Category/Presentation/Handlers/CategoryKoaHandler';
+import ProductKoaHandler from '../../../Product/Presentation/Handlers/ProductKoaHandler';
 import RoleKoaHandler from '../../../Auth/Presentation/Handlers/RoleKoaHandler';
 import UserKoaHandler from '../../../Auth/Presentation/Handlers/UserKoaHandler';
 import NotificationKoaHandler from '../../../Notification/Presentation/Handlers/NotificationKoaHandler';
@@ -27,6 +29,7 @@ import { getRequestContext } from '../../Presentation/Shared/RequestContext';
 import Logger from '../Logger/Logger';
 import ContextMikroORMKoaMiddleware from '../../Presentation/Middlewares/ContextMikroORMKoaMiddleware';
 import ContainerKoaMiddleware from '../../Presentation/Middlewares/ContainerKoaMiddleware';
+
 
 class AppKoa implements IApp
 {
@@ -89,6 +92,12 @@ class AppKoa implements IApp
 
         this.app.use(ItemKoaHandler.routes());
         this.app.use(ItemKoaHandler.allowedMethods());
+
+        this.app.use(CategoryKoaHandler.routes());
+        this.app.use(CategoryKoaHandler.allowedMethods());
+
+        this.app.use(ProductKoaHandler.routes());
+        this.app.use(ProductKoaHandler.allowedMethods());
 
         this.app.use(RoleKoaHandler.routes());
         this.app.use(RoleKoaHandler.allowedMethods());

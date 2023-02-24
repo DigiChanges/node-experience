@@ -1,5 +1,5 @@
 
-export enum FACTORIES  {
+export enum FACTORIES {
     BcryptEncryptionStrategy = 'BcryptEncryptionStrategy',
     Md5EncryptionStrategy = 'Md5EncryptionStrategy',
 
@@ -10,7 +10,9 @@ export enum FACTORIES  {
     AppKoa = 'AppKoa'
 }
 
-export enum REPOSITORIES  {
+export enum REPOSITORIES {
+    IProductRepository = 'IProductRepository',
+    ICategoryRepository = 'ICategoryRepository',
     IItemRepository = 'IItemRepository',
     IUserRepository = 'IUserRepository',
     IRoleRepository = 'IRoleRepository',
@@ -24,7 +26,7 @@ export enum SERVICES {
     AuthService = 'AuthService'
 }
 
-export enum TYPES  {
+export enum TYPES {
     IFormatResponder = 'IFormatResponder',
     Responder = 'Responder',
     IErrorHandler = 'IErrorHandler',

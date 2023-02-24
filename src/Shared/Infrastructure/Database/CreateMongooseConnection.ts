@@ -4,7 +4,8 @@ import { urlAlphabet } from 'nanoid';
 import { customAlphabet } from 'nanoid/async';
 
 import ItemSchema, { ItemMongooseDocument } from '../../../Item/Infrastructure/Schemas/ItemMongoose';
-
+import CategorySchema, { CategoryMongooseDocument } from '../../../Category/Infrastructure/Schemas/CategoryMongoose';
+import ProductSchema, { ProductMongooseDocument } from '../../../Product/Infrastructures/Schemas/ProductMongoose';
 import RoleSchema, { RoleMongooseDocument } from '../../../Auth/Infrastructure/Schemas/RoleMongoose';
 import UserSchema, { UserMongooseDocument } from '../../../Auth/Infrastructure/Schemas/UserMongoose';
 import FileVersionSchema, {
@@ -18,6 +19,7 @@ import {
 import TokenSchema, { TokenMongooseDocument } from '../../../Auth/Infrastructure/Schemas/TokenMongoose';
 import ICreateConnection from './ICreateConnection';
 import FileSchema, { FileMongooseDocument } from '../../../File/Infrastructure/Schemas/FileMongoose';
+
 
 class CreateMongooseConnection implements ICreateConnection
 {
@@ -64,6 +66,8 @@ class CreateMongooseConnection implements ICreateConnection
         connection.model<UserMongooseDocument>('User', UserSchema);
         connection.model<RoleMongooseDocument>('Role', RoleSchema);
         connection.model<ItemMongooseDocument>('Item', ItemSchema);
+        connection.model<CategoryMongooseDocument>('Category', CategorySchema);
+        connection.model<ProductMongooseDocument>('Product', ProductSchema);
         connection.model<FileVersionMongooseDocument>('FileVersion', FileVersionSchema);
         connection.model<FileMongooseDocument>('File', FileSchema);
 

@@ -2,6 +2,20 @@ import IGroupPermission from './IGroupPermission';
 
 class Permissions
 {
+    // PRODUCTS
+    static readonly PRODUCTS_SAVE: string = 'productsSave';
+    static readonly PRODUCTS_UPDATE: string = 'productsUpdate';
+    static readonly PRODUCTS_SHOW: string = 'productsShow';
+    static readonly PRODUCTS_LIST: string = 'productsList';
+    static readonly PRODUCTS_DELETE: string = 'productsDelete';
+
+    // CATEGORIES
+    static readonly CATEGORIES_SAVE: string = 'categoriesSave';
+    static readonly CATEGORIES_UPDATE: string = 'categoriesUpdate';
+    static readonly CATEGORIES_SHOW: string = 'categoriesShow';
+    static readonly CATEGORIES_LIST: string = 'categoriesList';
+    static readonly CATEGORIES_DELETE: string = 'categoriesDelete';
+
     // AUTH
     static readonly AUTH_SYNC_PERMISSIONS: string = 'authSyncPermissions';
     static readonly GET_PERMISSIONS: string = 'getPermissions';
