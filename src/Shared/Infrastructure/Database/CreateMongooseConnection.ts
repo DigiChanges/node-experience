@@ -3,96 +3,113 @@ import MainConfig from '../../../Config/MainConfig';
 import { urlAlphabet } from 'nanoid';
 import { customAlphabet } from 'nanoid/async';
 
-import ItemSchema, { ItemMongooseDocument } from '../../../Item/Infrastructure/Schemas/ItemMongoose';
-
-import RoleSchema, { RoleMongooseDocument } from '../../../Auth/Infrastructure/Schemas/RoleMongoose';
-import UserSchema, { UserMongooseDocument } from '../../../Auth/Infrastructure/Schemas/UserMongoose';
+import ItemSchema, {
+  ItemMongooseDocument,
+} from '../../../Item/Infrastructure/Schemas/ItemMongoose';
+import CategorySchema, {
+  CategoryMongooseDocument,
+} from '../../../Category/Infrastructure/Schemas/CategoryMongoose';
+import ProductSchema, {
+  ProductMongooseDocument,
+} from '../../../Product/Infrastructures/Schemas/ProductMongoose';
+import RoleSchema, {
+  RoleMongooseDocument,
+} from '../../../Auth/Infrastructure/Schemas/RoleMongoose';
+import UserSchema, {
+  UserMongooseDocument,
+} from '../../../Auth/Infrastructure/Schemas/UserMongoose';
 import FileVersionSchema, {
-    FileVersionMongooseDocument
+  FileVersionMongooseDocument,
 } from '../../../File/Infrastructure/Schemas/FileVersionMongoose';
 import {
-    EmailNotificationSchema, NotificationMongooseDocument,
-    NotificationSchema,
-    PushNotificationSchema
+  EmailNotificationSchema,
+  NotificationMongooseDocument,
+  NotificationSchema,
+  PushNotificationSchema,
 } from '../../../Notification/Infrastructure/Schemas/NotificationMongoose';
-import TokenSchema, { TokenMongooseDocument } from '../../../Auth/Infrastructure/Schemas/TokenMongoose';
+import TokenSchema, {
+  TokenMongooseDocument,
+} from '../../../Auth/Infrastructure/Schemas/TokenMongoose';
 import ICreateConnection from './ICreateConnection';
-import FileSchema, { FileMongooseDocument } from '../../../File/Infrastructure/Schemas/FileMongoose';
+import FileSchema, {
+  FileMongooseDocument,
+} from '../../../File/Infrastructure/Schemas/FileMongoose';
 
-class CreateMongooseConnection implements ICreateConnection
-{
-    private readonly config: any;
-    private uri: string;
-    private readonly options: any;
+class CreateMongooseConnection implements ICreateConnection {
+  private readonly config: any;
+  private uri: string;
+  private readonly options: any;
 
-    constructor(config: any)
-    {
-        this.config = config;
-        this.uri = '';
-        this.options = {
-            autoIndex: true
-        };
+  constructor(config: any) {
+    this.config = config;
+    this.uri = '';
+    this.options = {
+      autoIndex: true,
+    };
+  }
+
+  async initConfig(): Promise<void> {
+    const config = MainConfig.getInstance().getConfig().dbConfig.Mongoose;
+    this.uri = `mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`;
+
+    if (config.ssl) {
+      this.options['ssl'] = config.ssl;
+      this.options['sslValidate'] = config.sslValidate;
+      this.options['sslCA'] = config.sslCA;
+      this.options['replicaSet'] = config.replicaSet;
+      this.uri = `${config.driver}://${config.username}:${config.password}@${config.host}/${config.database}?authSource=admin`;
     }
+  }
 
-    async initConfig(): Promise<void>
-    {
-        const config = MainConfig.getInstance().getConfig().dbConfig.Mongoose;
-        this.uri = `mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`;
+  async initConfigTest(): Promise<void> {
+    const nanoId = customAlphabet(urlAlphabet, 5);
+    const dbName = await nanoId();
+    this.uri = `${process.env.MONGO_URL}${dbName}`;
+  }
 
-        if (config.ssl)
-        {
-            this.options['ssl'] = config.ssl;
-            this.options['sslValidate'] = config.sslValidate;
-            this.options['sslCA'] = config.sslCA;
-            this.options['replicaSet'] = config.replicaSet;
-            this.uri = `${config.driver}://${config.username}:${config.password}@${config.host}/${config.database}?authSource=admin`;
-        }
+  async create(): Promise<void> {
+    await connect(this.uri);
+
+    // Domain
+    connection.model<UserMongooseDocument>('User', UserSchema);
+    connection.model<RoleMongooseDocument>('Role', RoleSchema);
+    connection.model<ItemMongooseDocument>('Item', ItemSchema);
+    connection.model<CategoryMongooseDocument>('Category', CategorySchema);
+    connection.model<ProductMongooseDocument>('Product', ProductSchema);
+    connection.model<FileVersionMongooseDocument>(
+      'FileVersion',
+      FileVersionSchema
+    );
+    connection.model<FileMongooseDocument>('File', FileSchema);
+
+    // Infrastructure
+    const NotificationModel = connection.model<NotificationMongooseDocument>(
+      'Notification',
+      NotificationSchema
+    );
+    NotificationModel.discriminator(
+      'EmailNotification',
+      EmailNotificationSchema
+    );
+    NotificationModel.discriminator('PushNotification', PushNotificationSchema);
+    connection.model<TokenMongooseDocument>('Token', TokenSchema);
+  }
+
+  async close(force = true): Promise<any> {
+    await connection.close(force);
+  }
+
+  async synchronize(): Promise<void> {
+    return Promise.resolve(undefined); // There is no need to synchronize
+  }
+
+  async drop(): Promise<void> {
+    const collections = connection ? await connection.db.collections() : [];
+
+    for (const collection of collections) {
+      await collection.drop();
     }
-
-    async initConfigTest(): Promise<void>
-    {
-        const nanoId = customAlphabet(urlAlphabet, 5);
-        const dbName = await nanoId();
-        this.uri = `${process.env.MONGO_URL}${dbName}`;
-    }
-
-    async create(): Promise<void>
-    {
-        await connect(this.uri);
-
-        // Domain
-        connection.model<UserMongooseDocument>('User', UserSchema);
-        connection.model<RoleMongooseDocument>('Role', RoleSchema);
-        connection.model<ItemMongooseDocument>('Item', ItemSchema);
-        connection.model<FileVersionMongooseDocument>('FileVersion', FileVersionSchema);
-        connection.model<FileMongooseDocument>('File', FileSchema);
-
-        // Infrastructure
-        const NotificationModel = connection.model<NotificationMongooseDocument>('Notification', NotificationSchema);
-        NotificationModel.discriminator('EmailNotification', EmailNotificationSchema);
-        NotificationModel.discriminator('PushNotification', PushNotificationSchema);
-        connection.model<TokenMongooseDocument>('Token', TokenSchema);
-    }
-
-    async close(force = true): Promise<any>
-    {
-        await connection.close(force);
-    }
-
-    async synchronize(): Promise<void>
-    {
-        return Promise.resolve(undefined); // There is no need to synchronize
-    }
-
-    async drop(): Promise<void>
-    {
-        const collections = connection ? await connection.db.collections() : [];
-
-        for (const collection of collections)
-        {
-            await collection.drop();
-        }
-    }
+  }
 }
 
 export default CreateMongooseConnection;

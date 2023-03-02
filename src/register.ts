@@ -41,43 +41,132 @@ import IFileRepository from './File/Infrastructure/Repositories/IFileRepository'
 import FileTypeORMRepository from './File/Infrastructure/Repositories/FileTypeORMRepository';
 import FileMongooseRepository from './File/Infrastructure/Repositories/FileMongooseRepository';
 import FileMikroORMRepository from './File/Infrastructure/Repositories/FileMikroORMRepository';
+import ICategoryRepository from './Category/Infrastructure/Repositories/ICategoryRepository';
+import IProductRepository from './Product/Infrastructures/Repositories/IProductRepository';
+import CategoryMongooseRepository from './Category/Infrastructure/Repositories/CategoryMongooseRepository';
+import ProductMongooseRepository from './Product/Infrastructures/Repositories/ProductMongooseRepository';
 
 // Services
-container.register(SERVICES.AuthService, { useClass: AuthService }, { lifecycle: Lifecycle.Singleton });
+container.register(
+  SERVICES.AuthService,
+  { useClass: AuthService },
+  { lifecycle: Lifecycle.Singleton }
+);
 
 // Repositories
 const defaultDbConfig = MainConfig.getInstance().getConfig().dbConfig.default;
 
-if (defaultDbConfig === 'TypeORM')
-{
-    container.register<IUserRepository>(REPOSITORIES.IUserRepository, { useClass: UserTypeORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IRoleRepository>(REPOSITORIES.IRoleRepository, { useClass: RoleTypeORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IItemRepository>(REPOSITORIES.IItemRepository, { useClass: ItemTypeORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IFileVersionRepository>(REPOSITORIES.IFileVersionRepository, { useClass: FileVersionTypeORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IFileRepository>(REPOSITORIES.IFileRepository, { useClass: FileTypeORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
-}
-else if (defaultDbConfig === 'Mongoose')
-{
-    container.register<IUserRepository>(REPOSITORIES.IUserRepository, { useClass: UserMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IRoleRepository>(REPOSITORIES.IRoleRepository, { useClass: RoleMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IItemRepository>(REPOSITORIES.IItemRepository, { useClass: ItemMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IFileVersionRepository>(REPOSITORIES.IFileVersionRepository, { useClass: FileVersionMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IFileRepository>(REPOSITORIES.IFileRepository, { useClass: FileMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository, { useClass: NotificationMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
-}
-else if (defaultDbConfig === 'MikroORM')
-{
-    container.register<IUserRepository>(REPOSITORIES.IUserRepository, { useClass: UserMikroORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IRoleRepository>(REPOSITORIES.IRoleRepository, { useClass: RoleMikroORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IItemRepository>(REPOSITORIES.IItemRepository, { useClass: ItemMikroORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IFileVersionRepository>(REPOSITORIES.IFileVersionRepository, { useClass: FileVersionMikroORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IFileRepository>(REPOSITORIES.IFileRepository, { useClass: FileMikroORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
+if (defaultDbConfig === 'TypeORM') {
+  container.register<IUserRepository>(
+    REPOSITORIES.IUserRepository,
+    { useClass: UserTypeORMRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<IRoleRepository>(
+    REPOSITORIES.IRoleRepository,
+    { useClass: RoleTypeORMRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<IItemRepository>(
+    REPOSITORIES.IItemRepository,
+    { useClass: ItemTypeORMRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<IFileVersionRepository>(
+    REPOSITORIES.IFileVersionRepository,
+    { useClass: FileVersionTypeORMRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<IFileRepository>(
+    REPOSITORIES.IFileRepository,
+    { useClass: FileTypeORMRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+} else if (defaultDbConfig === 'Mongoose') {
+  container.register<IUserRepository>(
+    REPOSITORIES.IUserRepository,
+    { useClass: UserMongooseRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<IRoleRepository>(
+    REPOSITORIES.IRoleRepository,
+    { useClass: RoleMongooseRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<IItemRepository>(
+    REPOSITORIES.IItemRepository,
+    { useClass: ItemMongooseRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<ICategoryRepository>(
+    REPOSITORIES.ICategoryRepository,
+    { useClass: CategoryMongooseRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<IProductRepository>(
+    REPOSITORIES.IProductRepository,
+    { useClass: ProductMongooseRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<IFileVersionRepository>(
+    REPOSITORIES.IFileVersionRepository,
+    { useClass: FileVersionMongooseRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<IFileRepository>(
+    REPOSITORIES.IFileRepository,
+    { useClass: FileMongooseRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<INotificationRepository<INotificationDomain>>(
+    REPOSITORIES.INotificationRepository,
+    { useClass: NotificationMongooseRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+} else if (defaultDbConfig === 'MikroORM') {
+  container.register<IUserRepository>(
+    REPOSITORIES.IUserRepository,
+    { useClass: UserMikroORMRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<IRoleRepository>(
+    REPOSITORIES.IRoleRepository,
+    { useClass: RoleMikroORMRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<IItemRepository>(
+    REPOSITORIES.IItemRepository,
+    { useClass: ItemMikroORMRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<IFileVersionRepository>(
+    REPOSITORIES.IFileVersionRepository,
+    { useClass: FileVersionMikroORMRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
+  container.register<IFileRepository>(
+    REPOSITORIES.IFileRepository,
+    { useClass: FileMikroORMRepository },
+    { lifecycle: Lifecycle.ContainerScoped }
+  );
 }
 
-container.register<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository, { useClass: TokenRedisRepository }, { lifecycle: Lifecycle.ContainerScoped });
+container.register<ITokenRepository<ITokenDomain>>(
+  REPOSITORIES.ITokenRepository,
+  { useClass: TokenRedisRepository },
+  { lifecycle: Lifecycle.ContainerScoped }
+);
 
 // Shared
-container.register<IEncryption>(FACTORIES.BcryptEncryptionStrategy, { useClass: BcryptEncryptionStrategy }, { lifecycle: Lifecycle.Singleton });
-container.register<IEncryption>(FACTORIES.Md5EncryptionStrategy, { useClass: Md5EncryptionStrategy }, { lifecycle: Lifecycle.Singleton });
+container.register<IEncryption>(
+  FACTORIES.BcryptEncryptionStrategy,
+  { useClass: BcryptEncryptionStrategy },
+  { lifecycle: Lifecycle.Singleton }
+);
+container.register<IEncryption>(
+  FACTORIES.Md5EncryptionStrategy,
+  { useClass: Md5EncryptionStrategy },
+  { lifecycle: Lifecycle.Singleton }
+);
 
 export default container;
