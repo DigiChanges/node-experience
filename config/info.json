@@ -1,0 +1,11 @@
+{
+  "http": [
+    "Express",
+    "Koa"
+  ],
+  "orm": [
+    "Mongoose",
+    "TypeORM",
+    "MikroORM"
+  ]
+}

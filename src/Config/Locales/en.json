@@ -1,0 +1,63 @@
+{
+	"greetings": "Welcome to Node Experience",
+	"app": {
+		"domain": {
+			"exceptions": {
+				"invalidPassword": "Invalid Password.",
+				"uniqueAttribute": "The  property is already in use."
+			}
+		},
+		"presentation": {
+			"exceptions": {
+				"duplicateEntity": "Duplicate entity.",
+				"routeNotFound": "Route not found."
+			}
+		}
+	},
+	"auth": {
+		"domain": {
+			"exceptions": {
+				"badCredentials": "Error credentials.",
+				"cantDisabled": "Disabled forbidden.",
+				"passwordWrong": "Wrong password.",
+				"wrongPermissions": "Wrong permissions."
+			},
+			"messages": {
+				"logout": "You have logged out successfully.",
+				"forgotPassword": "We've sent you an email.",
+				"changeForgotPassword": "You have change your password successfully.",
+				"register": "You have sign up successfully."
+			}
+		},
+		"presentation": {
+			"exceptions": {
+				"forbidden": "Forbidden.",
+				"tokenBlackListed": "Token not allowed.",
+				"tokenExpired": "Invalid token.",
+				"tokenNotFound": "Token not found."
+			}
+		}
+	},
+	"role": {
+		"domain": {
+			"exceptions": {
+				"roleDisabled": "Your role is disable.",
+				"roleOfSystemNotDeleted": "Forbidden delete role of system."
+			}
+		}
+	},
+	"shared": {
+		"exceptions": {
+			"decryptForbidden": "Decrypt forbidden.",
+			"notFound": "not found."
+		}
+	},
+	"user": {
+		"domain": {
+			"exceptions": {
+				"userDisabled": "Your user is disable.",
+				"unverifiedUser": "This user is not verified."
+			}
+		}
+	}
+}

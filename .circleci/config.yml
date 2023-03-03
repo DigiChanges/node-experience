@@ -1,0 +1,22 @@
+version: 2.1
+jobs:
+  test:
+    working_directory: ~/circleci
+    docker:
+      - image: cimg/node:16.14
+    steps:
+      - checkout
+      - run: echo "Running tests"
+      - run: npm install --force
+      - run: npm run ci
+      - run: npm run build
+      - run: npm run test-ci
+      - store_artifacts:
+          path: ~/circleci/coverage
+          destination: reports/
+
+workflows:
+  version: 2
+  test_build:
+    jobs:
+      - test

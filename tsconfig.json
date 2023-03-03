@@ -1,0 +1,48 @@
+{
+  "compileOnSave": false,
+  "reflection": true,
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "importHelpers": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": false,
+    "skipDefaultLibCheck": true,
+    "inlineSourceMap": false,
+    "useUnknownInCatchVariables": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "target": "ESNext",
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "allowJs": true,
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "strict": false,
+    "types": [
+      "node",
+      "reflect-metadata",
+      "jest"
+    ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "./src",
+    "./typings/*",
+    ".eslintrc.json"
+  ]
+}

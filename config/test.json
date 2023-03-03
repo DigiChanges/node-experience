@@ -1,0 +1,172 @@
+{
+  "env": "test",
+  "nodePath": "/app",
+  "serverPort": 8089,
+  "setCookieSecure": false,
+  "setCookieSameSite": "Lax",
+  "auth": {
+    "authorization": true
+  },
+  "app": {
+    "default": "AppKoa"
+  },
+  "dbConfig": {
+    "TypeORM": {
+      "type": "postgres",
+      "host": "db",
+      "port": 5432,
+      "database": "experience",
+      "username": "experience",
+      "password": "experience",
+      "synchronize": false,
+      "migrationsRun": false,
+      "logging": true
+    },
+    "Mongoose": {
+      "host": "db",
+      "port": 27017,
+      "database": "experience",
+      "username": "experience",
+      "password": "experience",
+      "driver": "mongo",
+      "ssl": false,
+      "sslValidate": false,
+      "sslCA": "",
+      "replicaSet": ""
+    },
+    "MikroORM": {
+      "type": "postgresql",
+      "host": "db",
+      "port": 5432,
+      "dbName": "experience",
+      "user": "experience",
+      "password": "experience"
+    },
+    "default": "Mongoose"
+  },
+  "cache": {
+    "redis": {
+      "port": 6379,
+      "host": "redis",
+      "password": "ewsua132435"
+    }
+  },
+  "filesystem": {
+    "minio": {
+      "endPoint": "minio",
+      "accessKey": "minio",
+      "secretKey": "12345678",
+      "useSSL": false,
+      "port": 9000,
+      "publicBucket": "experience",
+      "privateBucket": "experience",
+      "rootPath": "",
+      "region": "us-east-1"
+    },
+    "local": {
+      "type": "local"
+    },
+    "default": "minio",
+    "expiry": 241920
+  },
+  "encryption": {
+    "bcrypt": {
+      "type": "bcrypt",
+      "saltRounds": 10,
+      "algorithm": "HS512"
+    },
+    "default": "bcrypt"
+  },
+  "jwt": {
+    "secret": "mySecretJWT",
+    "expires": 3600,
+    "iss": "digichanges",
+    "aud": "digichanges.com"
+  },
+  "mail": {
+    "host": "mail",
+    "port": 1025,
+    "username": "",
+    "password": "",
+    "secure": false,
+    "senderName": "Notifications",
+    "senderEmailDefault": "notification@localhost.com",
+    "templateDir": "src/Shared/Infrastructure/templates/emails"
+  },
+  "push": {
+    "privateKey": "BFbzNLYCWO7Ei0cmBco43ZCsEbhFAOzcfop1eHYiK8CVCBK_-xeWEWzHHlQiPEUPvuxwMHc1koGj40t2hcgiWvk",
+    "publicKey": "k8sGjPBnD8iabMkB6toD8payp9plozw4t4FSfjhUPhQ"
+  },
+  "url":{
+    "urlApi": "http://localhost:8089/api",
+    "urlWeb": "http://localhost:3000"
+  },
+  "productInfo": {
+    "productName": "experience"
+  },
+  "validationSettings": {
+    "password": {
+      "min": 3,
+      "max": 15
+    }
+  },
+  "executeCrons": false,
+  "apiWhitelist": [
+    {
+      "methods": ["GET"],
+      "url": "/"
+    },
+    {
+      "methods": ["POST"],
+      "url": "/api/auth/login"
+    },
+    {
+      "methods": ["POST"],
+      "url": "/api/auth/signup"
+    },
+    {
+      "methods": ["POST"],
+      "url": "/api/auth/forgot-password"
+    },
+    {
+      "methods": ["POST"],
+      "url": "/api/auth/change-forgot-password"
+    },
+    {
+      "methods": ["PUT"],
+      "url": "/api/auth/verify-your-account/**"
+    },
+    {
+      "methods": ["PUT"],
+      "url": "/api/auth/verify-your-account/**"
+    },
+    {
+      "methods": ["POST"],
+      "url": "/api/auth/refresh-token"
+    },
+    {
+      "methods": ["*"],
+      "url": "/test/all/*"
+    },
+    {
+      "methods": ["GET"],
+      "url": "/test/countries"
+    },
+    {
+      "methods": ["GET"],
+      "url": "/test/countries/**"
+    },
+    {
+      "methods": ["GET"],
+      "url": "/test/countries/**/states"
+    },
+    {
+      "methods": ["GET"],
+      "url": "/test/countries/**/states/**/cities"
+    },
+    {
+      "methods": ["GET"],
+      "url": "/test/countries/**/states/*"
+    }
+  ]
+}
