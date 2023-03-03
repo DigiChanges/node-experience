@@ -11,7 +11,6 @@ import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import ListObjectsPayload from 'File/Domain/Payloads/ListObjectsPayload';
 import FileBase64RepPayload from '../Payloads/FileBase64RepPayload';
 import FileMultipartRepPayload from '../Payloads/FileMultipartRepPayload';
-import FileRepPayload from '../Payloads/FileRepPayload';
 import CreateBucketPayload from '../Payloads/CreateBucketPayload';
 import FileVersionDTO from '../Models/FileVersionDTO';
 import IFileVersionDTO from '../Models/IFileVersionDTO';
@@ -32,7 +31,6 @@ import FileVersionOptimizeDTO from '../../Presentation/DTO/FileVersionOptimizeDT
 import IFileDTO from '../Models/IFileDTO';
 import FileDTO from '../Models/FileDTO';
 import DownloadPayload from '../Payloads/DownloadPayload';
-
 class FileService
 {
     private versionRepository: IFileVersionRepository;

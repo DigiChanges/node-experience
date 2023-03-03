@@ -1,4 +1,3 @@
-
 # Created by https://www.gitignore.io/api/node,phpstorm+all
 # Edit at https://www.gitignore.io/?templates=node,phpstorm+all
 
@@ -10,6 +9,10 @@ yarn-error.log*
 lerna-debug.log*
 package-lock.json
 .nexp
+.env.infisical
+.pnpm-store
+graph.svg
+.bun
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -242,4 +245,3 @@ extend.tsconfig.json
 .vscode
 
 # End of https://www.gitignore.io/api/node,phpstorm+all
-		

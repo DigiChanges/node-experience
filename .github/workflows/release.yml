@@ -1,0 +1,57 @@
+name: Release
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  release:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+    steps:
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ env.GITHUB_TOKEN }}
+
+      - name: Release
+        uses: ridedott/release-me-action@master
+        with:
+          disable-changelog: true
+          node-module: true
+
+  # This workflow contains a single job called "build"
+  build:
+    name: Submodule update
+    runs-on: ubuntu-latest
+    steps:
+      ##########################
+      # Checkout the code base #
+      ##########################
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      ####################################
+      # Run the action against code base #
+      ####################################
+      - name: run action
+        id: run_action
+        uses: fatjyc/update-submodule-action@v1.0
+        with:
+          user: Murzbul
+          token: ${{ secrets.GH_TOKEN }}
+          repo: nexp-cli
+          repo_owner: DigiChanges

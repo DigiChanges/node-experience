@@ -1,8 +1,8 @@
-version: '3.4'
+version: '3.6'
 
 services:
   node:
-    container_name: digCExp_node_1
+    container_name: experience_node_1
     restart: always
     build:
       context: .
@@ -10,46 +10,58 @@ services:
       target: ${STAGE}
     ports:
       - "8089:8089"
+      - "9229:9229"
+    labels:
+      - traefik.http.routers.api.rule=Host(`api.domain.com`)
+      - traefik.http.routers.api.tls=true
+      - traefik.http.routers.api.tls.certresolver=lets-encrypt
+      - traefik.port=80
     volumes:
       - .:/usr/app:cached
     networks:
-     - digCExp_net
+     - experiencenet
+
   db:
-    container_name: digCExp_db_1
+    container_name: experience_db_1
     restart: always
     build:
       context: docker/mongo/
       dockerfile: Dockerfile
     ports:
-      - "27017:27017"
+      - "27018:27017"
     networks:
-     - digCExp_net
+     - experiencenet
     environment:
       MONGODB_ROOT_PASSWORD: 123456
-      MONGODB_USERNAME: digCExp
-      MONGODB_PASSWORD: digCExp123
-      MONGODB_DATABASE: db_digCExp
+      MONGODB_USERNAME: experience
+      MONGODB_PASSWORD: experience
+      MONGODB_DATABASE: experience
     volumes:
-      - data:/bitnami/mongodb   
+      - data:/bitnami/mongodb
 
   mail:
-    container_name: digCExp_mail_1
+    container_name: experience_mail_1
     restart: always
     image: mailhog/mailhog:latest
     ports:
       - "8025:8025"
     networks:
-     - digCExp_net
+     - experiencenet
 
   minio:
-    container_name: digCExp_minio_1
+    container_name: experience_minio_1
     restart: always
     image: minio/minio
     ports:
       - "9000:9000"
       - "9001:9001"
+    labels:
+      - traefik.http.routers.api.rule=Host(`minio.domain.com`)
+      - traefik.http.routers.api.tls=true
+      - traefik.http.routers.api.tls.certresolver=lets-encrypt
+      - traefik.port=80
     networks:
-     - digCExp_net
+     - experiencenet
     environment:
       MINIO_ROOT_USER: minio
       MINIO_ROOT_PASSWORD: 12345678
@@ -61,19 +73,19 @@ services:
   redis:
     image: bitnami/redis:latest
     restart: always
-    container_name: digCExp_redis_1
+    container_name: experience_redis_1
     environment:
       - REDIS_PASSWORD=ewsua132435 # Security reasons
       - DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG # Security reasons
     ports:
       - "6379:6379"
     networks:
-     - digCExp_net
+     - experiencenet
     volumes:
       - redis:/bitnami/redis/data
 
 networks:
-  digCExp_net:
+  experiencenet:
     driver: "bridge"
 
 volumes:

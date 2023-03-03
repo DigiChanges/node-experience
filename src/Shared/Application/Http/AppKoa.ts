@@ -25,7 +25,6 @@ import MainConfig from '../../../Config/MainConfig';
 import LoggerKoaMiddleware from '../../Presentation/Middlewares/LoggerKoaMiddleware';
 import { getRequestContext } from '../../Presentation/Shared/RequestContext';
 import Logger from '../Logger/Logger';
-
 import ContainerKoaMiddleware from '../../Presentation/Middlewares/ContainerKoaMiddleware';
 
 class AppKoa implements IApp

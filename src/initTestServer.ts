@@ -8,7 +8,6 @@ import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 import EventHandler from './Shared/Infrastructure/Events/EventHandler';
 import { REPOSITORIES } from './Config/Injects';
 import TokenMongooseRepository from './Auth/Infrastructure/Repositories/TokenMongooseRepository';
-
 import { validateEnv } from './Config/validateEnv';
 import ITokenDomain from './Auth/Domain/Entities/ITokenDomain';
 import SeedFactory from './Shared/Factories/SeedFactory';
@@ -20,7 +19,12 @@ import AppFactory from './Shared/Factories/AppFactory';
 import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
 import ITokenRepository from './Auth/Infrastructure/Repositories/ITokenRepository';
 
-const initTestServer = async(): Promise<any> =>
+type TestServerData = {
+    request: supertest.SuperAgentTest,
+    dbConnection: ICreateConnection
+}
+
+const initTestServer = async(): Promise<TestServerData> =>
 {
     validateEnv();
 
@@ -38,10 +42,14 @@ const initTestServer = async(): Promise<any> =>
 
     void Locales.getInstance();
 
+    const defaultDb = config.dbConfig.default;
+
     // @ts-ignore
     container._registry._registryMap.delete('ITokenRepository');
 
-    container.register<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository, { useClass: TokenMongooseRepository }, { lifecycle: Lifecycle.Singleton });
+    container.register<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository, { useClass:
+        defaultDb === 'Mongoose' ? TokenMongooseRepository : undefined
+    }, { lifecycle: Lifecycle.Singleton });
 
     const app: IApp = AppFactory.create(config.app.default);
 

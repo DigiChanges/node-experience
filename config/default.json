@@ -1,0 +1,213 @@
+{
+  "env": "local",
+  "app": {
+    "default": "AppKoa",
+    "path": "/usr/app",
+    "serverPort": 8089,
+    "setAppProxy": false,
+    "setCookieSecure": false,
+    "setCookieSameSite": "Lax"
+  },
+  "auth": {
+    "authorization": false
+  },
+  "dbConfig": {
+    "TypeORM": {
+      "type": "postgres",
+      "host": "db",
+      "port": 5432,
+      "database": "experience",
+      "username": "experience",
+      "password": "experience",
+      "synchronize": false,
+      "migrationsRun": false,
+      "logging": true
+    },
+    "Mongoose": {
+      "host": "db",
+      "port": 27017,
+      "database": "experience",
+      "username": "experience",
+      "password": "experience",
+      "driver": "mongo",
+      "ssl": false,
+      "sslValidate": false,
+      "sslCA": "",
+      "replicaSet": ""
+    },
+    "MikroORM": {
+      "type": "postgresql",
+      "host": "db",
+      "port": 5432,
+      "dbName": "experience",
+      "user": "experience",
+      "password": "experience"
+    },
+    "default": "Mongoose"
+  },
+  "cache": {
+    "redis": {
+      "port": 6379,
+      "host": "redis",
+      "password": "ewsua132435"
+    }
+  },
+  "filesystem": {
+    "minio": {
+      "endPoint": "minio",
+      "accessKey": "minio",
+      "secretKey": "12345678",
+      "useSSL": false,
+      "port": 9000,
+      "publicBucket": "experience",
+      "privateBucket": "experience",
+      "rootPath": "",
+      "region": "us-east-1"
+    },
+    "default": "minio",
+    "expiry": 241920
+  },
+  "encryption": {
+    "bcrypt": {
+      "type": "bcrypt",
+      "saltRounds": 10,
+      "algorithm": "HS512"
+    },
+    "default": "bcrypt"
+  },
+  "jwt": {
+    "secret": "mySecretJWT",
+    "expires": 3600,
+    "iss": "digichanges",
+    "aud": "digichanges.com"
+  },
+  "mail": {
+    "host": "mail",
+    "port": 1025,
+    "username": "",
+    "password": "",
+    "secure": false,
+    "senderName": "Notifications",
+    "senderEmailDefault": "notification@localhost.com",
+    "templateDir": "src/Shared/Infrastructure/templates/emails"
+  },
+  "push": {
+    "privateKey": "BFbzNLYCWO7Ei0cmBco43ZCsEbhFAOzcfop1eHYiK8CVCBK_-xeWEWzHHlQiPEUPvuxwMHc1koGj40t2hcgiWvk",
+    "publicKey": "k8sGjPBnD8iabMkB6toD8payp9plozw4t4FSfjhUPhQ"
+  },
+  "url":{
+    "urlApi": "http://localhost:8089/api",
+    "urlWeb": "http://localhost:3000"
+  },
+  "productInfo": {
+    "productName": "experience"
+  },
+  "validationSettings": {
+    "password": {
+      "min": 3,
+      "max": 15
+    }
+  },
+  "executeCrons": false,
+  "apiWhitelist": [
+    {
+      "methods": ["GET"],
+      "url": "/"
+    },
+    {
+      "methods": ["POST"],
+      "url": "/api/auth/login"
+    },
+    {
+      "methods": ["POST"],
+      "url": "/api/auth/signup"
+    },
+    {
+      "methods": ["POST"],
+      "url": "/api/auth/forgot-password"
+    },
+    {
+      "methods": ["POST"],
+      "url": "/api/auth/change-forgot-password"
+    },
+    {
+      "methods": ["PUT"],
+      "url": "/api/auth/verify-your-account/**"
+    },
+    {
+      "methods": ["PUT"],
+      "url": "/api/auth/verify-your-account/**"
+    },
+    {
+      "methods": ["GET"],
+      "url": "/log"
+    },
+    {
+      "methods": ["POST"],
+      "url": "/api/auth/refresh-token"
+    }
+  ],
+  "statusCode": {
+    "HTTP_CONTINUE": {  "code": 100, "statusCode": "HTTP_CONTINUE", "status": ""  },
+    "HTTP_SWITCHING_PROTOCOLS": { "code": 101, "statusCode": "HTTP_SWITCHING_PROTOCOLS", "status": "" },
+    "HTTP_PROCESSING": {  "code": 102, "statusCode": "HTTP_PROCESSING", "status": "" },
+    "HTTP_EARLY_HINTS": { "code": 103, "statusCode": "HTTP_EARLY_HINTS", "status": "" },
+    "HTTP_OK": { "code": 200, "statusCode": "HTTP_OK", "status": "success" },
+    "HTTP_CREATED": { "code": 201, "statusCode": "HTTP_CREATED", "status": "success" },
+    "HTTP_ACCEPTED": { "code": 202, "statusCode": "HTTP_ACCEPTED", "status": "success" },
+    "HTTP_NON_AUTHORITATIVE_INFORMATION": { "code": 203, "statusCode": "HTTP_NON_AUTHORITATIVE_INFORMATION", "status": "success" },
+    "HTTP_NO_CONTENT": { "code": 204, "statusCode": "HTTP_NO_CONTENT", "status": "success" },
+    "HTTP_RESET_CONTENT": { "code": 205, "statusCode": "HTTP_RESET_CONTENT", "status": "success"  },
+    "HTTP_PARTIAL_CONTENT": { "code": 206, "statusCode": "HTTP_PARTIAL_CONTENT", "status": "success" },
+    "HTTP_MULTI_STATUS": { "code": 207, "statusCode": "HTTP_MULTI_STATUS", "status": "success" },
+    "HTTP_ALREADY_REPORTED": {  "code": 208, "statusCode": "HTTP_ALREADY_REPORTED", "status": "success" },
+    "HTTP_IM_USED": { "code": 226, "statusCode": "HTTP_IM_USED", "status": "success" },
+    "HTTP_MULTIPLE_CHOICES": { "code": 300, "statusCode": "HTTP_MULTIPLE_CHOICES", "status": "" },
+    "HTTP_MOVED_PERMANENTLY": { "code": 301, "statusCode": "HTTP_MOVED_PERMANENTLY", "status": "" },
+    "HTTP_FOUND": { "code": 302, "statusCode": "HTTP_FOUND", "status": "" },
+    "HTTP_SEE_OTHER": { "code": 303, "statusCode": "HTTP_SEE_OTHER", "status": "" },
+    "HTTP_NOT_MODIFIED": { "code": 304, "statusCode": "HTTP_NOT_MODIFIED", "status": "" },
+    "HTTP_USE_PROXY": { "code": 305, "statusCode": "HTTP_USE_PROXY", "status": ""  },
+    "HTTP_RESERVED": { "code": 306, "statusCode": "HTTP_RESERVED", "status": "" },
+    "HTTP_TEMPORARY_REDIRECT": { "code": 307, "statusCode": "HTTP_TEMPORARY_REDIRECT", "status": "" },
+    "HTTP_PERMANENTLY_REDIRECT": {  "code": 308, "statusCode": "HTTP_PERMANENTLY_REDIRECT", "status": "" },
+    "HTTP_BAD_REQUEST": { "code": 400, "statusCode": "HTTP_BAD_REQUEST", "status": "error" },
+    "HTTP_UNAUTHORIZED": { "code": 401, "statusCode": "HTTP_UNAUTHORIZED", "status": "error" },
+    "HTTP_PAYMENT_REQUIRED": { "code": 402, "statusCode": "HTTP_PAYMENT_REQUIRED", "status": "error" },
+    "HTTP_FORBIDDEN": { "code": 403, "statusCode": "HTTP_FORBIDDEN", "status": "error" },
+    "HTTP_NOT_FOUND": { "code": 404, "statusCode": "HTTP_NOT_FOUND", "status": "error" },
+    "HTTP_METHOD_NOT_ALLOWED": { "code": 405, "statusCode": "HTTP_METHOD_NOT_ALLOWED", "status": "error" },
+    "HTTP_NOT_ACCEPTABLE": { "code": 406, "statusCode": "HTTP_NOT_ACCEPTABLE", "status": "error"  },
+    "HTTP_PROXY_AUTHENTICATION_REQUIRED": { "code": 407, "statusCode": "HTTP_PROXY_AUTHENTICATION_REQUIRED", "status": "error" },
+    "HTTP_REQUEST_TIMEOUT": { "code": 408, "statusCode": "HTTP_REQUEST_TIMEOUT", "status": "error" },
+    "HTTP_CONFLICT": {  "code": 409, "statusCode": "HTTP_CONFLICT", "status": "error" },
+    "HTTP_GONE": { "code": 410, "statusCode": "HTTP_GONE", "status": "error" },
+    "HTTP_LENGTH_REQUIRED": { "code": 411, "statusCode": "HTTP_LENGTH_REQUIRED", "status": "error" },
+    "HTTP_PRECONDITION_FAILED": { "code": 412, "statusCode": "HTTP_PRECONDITION_FAILED", "status": "error" },
+    "HTTP_REQUEST_ENTITY_TOO_LARGE": { "code": 413, "statusCode": "HTTP_REQUEST_ENTITY_TOO_LARGE", "status": "error" },
+    "HTTP_REQUEST_URI_TOO_LONG": { "code": 414, "statusCode": "HTTP_REQUEST_URI_TOO_LONG", "status": "error" },
+    "HTTP_UNSUPPORTED_MEDIA_TYPE": { "code": 415, "statusCode": "HTTP_UNSUPPORTED_MEDIA_TYPE", "status": "error" },
+    "HTTP_REQUESTED_RANGE_NOT_SATISFIABLE": { "code": 416, "statusCode": "HTTP_REQUESTED_RANGE_NOT_SATISFIABLE", "status": "error"  },
+    "HTTP_EXPECTATION_FAILED": { "code": 417, "statusCode": "HTTP_EXPECTATION_FAILED", "status": "error" },
+    "HTTP_I_AM_A_TEAPOT": { "code": 418, "statusCode": "HTTP_I_AM_A_TEAPOT", "status": "error" },
+    "HTTP_MISDIRECTED_REQUEST": {  "code": 421, "statusCode": "HTTP_MISDIRECTED_REQUEST", "status": "error" },
+    "HTTP_UNPROCESSABLE_ENTITY": { "code": 422, "statusCode": "HTTP_UNPROCESSABLE_ENTITY", "status": "error" },
+    "HTTP_LOCKED": { "code": 423, "statusCode": "HTTP_LOCKED", "status": "error" },
+    "HTTP_FAILED_DEPENDENCY": { "code": 424, "statusCode": "HTTP_FAILED_DEPENDENCY", "status": "error" },
+    "HTTP_TOO_EARLY": { "code": 425, "statusCode": "HTTP_TOO_EARLY", "status": "error" },
+    "HTTP_UPGRADE_REQUIRED": { "code": 426, "statusCode": "HTTP_UPGRADE_REQUIRED", "status": "error" },
+    "HTTP_PRECONDITION_REQUIRED": { "code": 428, "statusCode": "HTTP_PRECONDITION_REQUIRED", "status": "error" },
+    "HTTP_TOO_MANY_REQUESTS": { "code": 429, "statusCode": "HTTP_TOO_MANY_REQUESTS", "status": "error"  },
+    "HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE": { "code": 431, "statusCode": "HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE", "status": "error" },
+    "HTTP_UNAVAILABLE_FOR_LEGAL_REASONS": { "code": 451, "statusCode": "HTTP_UNAVAILABLE_FOR_LEGAL_REASONS", "status": "error" },
+    "HTTP_INTERNAL_SERVER_ERROR": {  "code": 500, "statusCode": "HTTP_INTERNAL_SERVER_ERROR", "status": "error" },
+    "HTTP_NOT_IMPLEMENTED": { "code": 501, "statusCode": "HTTP_NOT_IMPLEMENTED", "status": "error" },
+    "HTTP_BAD_GATEWAY": { "code": 502, "statusCode": "HTTP_BAD_GATEWAY", "status": "error" },
+    "HTTP_SERVICE_UNAVAILABLE": { "code": 503, "statusCode": "HTTP_SERVICE_UNAVAILABLE", "status": "error" },
+    "HTTP_GATEWAY_TIMEOUT": { "code": 504, "statusCode": "HTTP_GATEWAY_TIMEOUT", "status": "error" },
+    "HTTP_VERSION_NOT_SUPPORTED": { "code": 505, "statusCode": "HTTP_VERSION_NOT_SUPPORTED", "status": "error" },
+    "HTTP_INSUFFICIENT_STORAGE": { "code": 507, "statusCode": "HTTP_INSUFFICIENT_STORAGE", "status": "error" },
+    "HTTP_LOOP_DETECTED": { "code": 508, "statusCode": "HTTP_LOOP_DETECTED", "status": "error"  },
+    "HTTP_NOT_EXTENDED": { "code": 510, "statusCode": "HTTP_NOT_EXTENDED", "status": "error" }
+  }
+}

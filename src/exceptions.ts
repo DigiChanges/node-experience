@@ -1,3 +1,5 @@
+import MainConfig from './Config/MainConfig';
+
 import DecryptForbiddenException from './Shared/Exceptions/DecryptForbiddenException';
 import BadCredentialsException from './Auth/Domain/Exceptions/BadCredentialsException';
 import UserDisabledException from './Auth/Domain/Exceptions/UserDisabledException';
@@ -10,21 +12,22 @@ import WrongPermissionsException from './Auth/Domain/Exceptions/WrongPermissions
 import InvalidPasswordException from './Shared/Domain/Exceptions/InvalidPasswordException';
 import UniqueAttributeException from './Shared/Domain/Exceptions/UniqueAttributeException';
 import UnverifiedUserException from './Auth/Domain/Exceptions/UnverifiedUserException';
-import StatusCode from './Shared/Application/StatusCode';
+
+const config = MainConfig.getInstance().getConfig().statusCode;
 
 const exceptions = {
-    [DecryptForbiddenException.name]: StatusCode.HTTP_FORBIDDEN,
-    [BadCredentialsException.name]: StatusCode.HTTP_FORBIDDEN,
-    [UserDisabledException.name]: StatusCode.HTTP_FORBIDDEN,
-    [RoleDisabledException.name]: StatusCode.HTTP_FORBIDDEN,
-    [RoleOfSystemNotDeletedException.name]: StatusCode.HTTP_FORBIDDEN,
-    [CantDisabledException.name]: StatusCode.HTTP_FORBIDDEN,
-    [PasswordWrongException.name]: StatusCode.HTTP_FORBIDDEN,
-    [NotFoundException.name]: StatusCode.HTTP_BAD_REQUEST,
-    [WrongPermissionsException.name]: StatusCode.HTTP_BAD_REQUEST,
-    [InvalidPasswordException.name]: StatusCode.HTTP_UNPROCESSABLE_ENTITY,
-    [UniqueAttributeException.name]: StatusCode.HTTP_BAD_REQUEST,
-    [UnverifiedUserException.name]: StatusCode.HTTP_FORBIDDEN
+    [DecryptForbiddenException.name]: config['HTTP_FORBIDDEN'],
+    [BadCredentialsException.name]: config['HTTP_FORBIDDEN'],
+    [UserDisabledException.name]: config['HTTP_FORBIDDEN'],
+    [RoleDisabledException.name]: config['HTTP_FORBIDDEN'],
+    [RoleOfSystemNotDeletedException.name]: config['HTTP_FORBIDDEN'],
+    [CantDisabledException.name]: config['HTTP_FORBIDDEN'],
+    [PasswordWrongException.name]: config['HTTP_FORBIDDEN'],
+    [NotFoundException.name]: config['HTTP_BAD_REQUEST'],
+    [WrongPermissionsException.name]: config['HTTP_BAD_REQUEST'],
+    [InvalidPasswordException.name]: config['HTTP_UNPROCESSABLE_ENTITY'],
+    [UniqueAttributeException.name]: config['HTTP_BAD_REQUEST'],
+    [UnverifiedUserException.name]: config['HTTP_FORBIDDEN']
 };
 
 export default exceptions;
