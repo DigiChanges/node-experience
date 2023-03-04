@@ -1,4 +1,4 @@
-import ICategoryDomain from '../../../Category/Domain/Entities/ICategoryDomain';
+import Category from '../../../Category/Domain/Entities/Category';
 import IUserMinimalDataTransformer from '../../../Auth/Presentation/Transformers/IUserMinimalDataTransformer';
 
 interface IProductTransformer
@@ -7,7 +7,7 @@ interface IProductTransformer
     price: number;
     title: string;
     enable: boolean;
-    category: ICategoryDomain,
+    category: Category,
     createdBy: IUserMinimalDataTransformer;
     lastModifiedBy: IUserMinimalDataTransformer;
     createdAt: number;

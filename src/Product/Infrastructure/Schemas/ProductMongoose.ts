@@ -2,7 +2,6 @@ import { Schema, Document } from 'mongoose';
 import Product from '../../Domain/Entities/Product';
 import { uuid } from '@deepkit/type';
 import IProductDomain from '../../Domain/Entities/IProductDomain';
-import Category from 'Category/Domain/Entities/Category';
 
 export type ProductMongooseDocument = Document & IProductDomain;
 

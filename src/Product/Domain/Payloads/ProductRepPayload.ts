@@ -1,4 +1,4 @@
-import ICategoryDomain from '../../../Category/Domain/Entities/ICategoryDomain';
+import Category from '../../../Category/Domain/Entities/Category';
 import IUserDomain from '../../../Auth/Domain/Entities/IUserDomain';
 
 interface ProductRepPayload
@@ -6,7 +6,7 @@ interface ProductRepPayload
     price: number;
     title: string;
     enable: boolean;
-    category: ICategoryDomain;
+    category: Category;
     createdBy: IUserDomain;
 }
 

@@ -5,7 +5,6 @@ import IProductRepository from '../../Infrastructure/Repositories/IProductReposi
 import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 import ProductBuilder from '../Factories/ProductBuilder';
 import ICategoryDomain from '../../../Category/Domain/Entities/ICategoryDomain';
-
 class SaveProductUseCase
 {
     private repository: IProductRepository;
@@ -18,14 +17,10 @@ class SaveProductUseCase
 
     async handle(payload: ProductRepPayload): Promise<IProductDomain>
     {
-        const categoryId = payload.category.getId();
-        const category: ICategoryDomain = await this.repository.getOne(categoryId);
-
         const product: IProductDomain = new ProductBuilder(payload)
             .setProduct()
             .build()
             .create();
-        product.category = category;
 
         return await this.repository.save(product);
     }

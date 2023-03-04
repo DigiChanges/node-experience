@@ -11,6 +11,8 @@ import BaseSeed from '../../../Shared/Infrastructure/Seeds/BaseSeed';
 import IProductDomain from '../../Domain/Entities/IProductDomain';
 import ProductBuilder from '../../Domain/Factories/ProductBuilder';
 import ICategoryDomain from '../../../Category/Domain/Entities/ICategoryDomain';
+import Category from '../../../Category/Domain/Entities/Category';
+import { UUID } from '@deepkit/type';
 
 class ProductSeed extends BaseSeed
 {
@@ -35,7 +37,15 @@ class ProductSeed extends BaseSeed
             const price = faker.datatype.number();
             const title = faker.name.title();
             const enable = faker.datatype.boolean();
-            const category = {} as ICategoryDomain;
+            const category = {
+                title: faker.name.title(),
+                enable: faker.datatype.boolean(),
+                createdBy: undefined,
+                lastModifiedBy: undefined,
+                _id: faker.datatype.uuid(),
+                createdAt: undefined,
+                updatedAt: undefined
+            } as Category;
 
             const product: IProductDomain = new ProductBuilder({ price, title, enable, category, createdBy: authUser })
                 .setProduct()

@@ -10,6 +10,7 @@ import IProductDomain from '../../Domain/Entities/IProductDomain';
 import Product from '../../Domain/Entities/Product';
 import { ProductMongooseDocument } from '../Schemas/ProductMongoose';
 import ProductFilter from '../../Presentation/Criterias/ProductFilter';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 
 class ProductMongooseRepository extends BaseMongooseRepository<IProductDomain, ProductMongooseDocument> implements IProductRepository
 {
@@ -40,6 +41,12 @@ class ProductMongooseRepository extends BaseMongooseRepository<IProductDomain, P
         }
 
         return new MongoosePaginator(queryBuilder, criteria);
+    }
+
+    async getOneCategoryEnable(payload: IdPayload): Promise<IProductDomain>
+    {
+        const queryBuilder: Query<ProductMongooseDocument[], ProductMongooseDocument> = this.repository.find({ id: payload.id });
+        return void queryBuilder.populate('category', { enable: true });
     }
 }
 
