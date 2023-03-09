@@ -1,8 +1,5 @@
 {
   "env": "NODE_ENV",
-  "auth": {
-      "authorization": "AUTHORIZATION"
-  },
   "app": {
     "default": "APP_DEFAULT",
     "path": "APP_PATH",
@@ -10,6 +7,12 @@
     "setAppProxy": "APP_SET_APP_PROXY",
     "setCookieSecure": "APP_SET_COOKIE_SECURE",
     "setCookieSameSite": "APP_SET_COOKIE_SAME_SITE"
+  },
+  "auth": {
+      "clientId": "KEYCLOAK_CLIENT_ID",
+      "clientSecret": "KEYCLOAK_CLIENT_SECRET",
+      "host": "KEYCLOAK_HOST",
+      "authorization": "KEYCLOAK_AUTHORIZATION"
   },
   "dbConfig": {
     "TypeORM": {

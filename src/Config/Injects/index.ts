@@ -6,11 +6,11 @@ export enum FACTORIES  {
     EmailStrategy = 'EmailStrategy',
     WebPushStrategy = 'WebPushStrategy',
 
-    AppExpress = 'AppExpress',
     AppKoa = 'AppKoa'
 }
 
 export enum REPOSITORIES  {
+    IAuthRepository = 'IAuthRepository',
     IItemRepository = 'IItemRepository',
     IUserRepository = 'IUserRepository',
     IRoleRepository = 'IRoleRepository',

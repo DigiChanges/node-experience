@@ -12,6 +12,10 @@ export function validateEnv()
         APP_SET_COOKIE_SECURE: bool(),
         APP_SET_COOKIE_SAME_SITE: str(),
 
+        KEYCLOAK_CLIENT_ID: str(),
+        KEYCLOAK_CLIENT_SECRET: str(),
+        KEYCLOAK_AUTHORIZATION: bool(),
+
         DB_HOST: str(),
         DB_USER: str(),
         DB_DATABASE: str(),
@@ -53,7 +57,6 @@ export function validateEnv()
         URL_API: url(),
         URL_WEB: url(),
 
-        AUTHORIZATION: bool(),
         PRODUCT_NAME: str(),
         ENCRYPTION_DEFAULT: str(),
         PUSH_PRIVATE_KEY: str(),

@@ -25,21 +25,23 @@ services:
 
   keycloak:
     container_name: experience_auth_1
-    image: docker.io/bitnami/keycloak:18
+    build:
+      context: ./docker/keycloak
+      dockerfile: Dockerfile
+      target: ${STAGE}
     ports:
       - "8080:8080"
-    environment:
-      - KEYCLOAK_CREATE_ADMIN_USER=true
-      - KEYCLOAK_ADMIN_USER=user
-      - KEYCLOAK_ADMIN_PASSWORD=db_experience123
-      - KEYCLOAK_MANAGEMENT_USER=manager
-      - KEYCLOAK_MANAGEMENT_PASSWORD=db_experience123
-      - KEYCLOAK_DATABASE_HOST=db_sql
-      - KEYCLOAK_DATABASE_PORT=5432
-      - KEYCLOAK_DATABASE_NAME=experience
-      - KEYCLOAK_DATABASE_USER=experience
-      - KEYCLOAK_DATABASE_PASSWORD=experience
-      - KEYCLOAK_DATABASE_SCHEMA=public
+#    environment:
+#      - KEYCLOAK_ADMIN=superadmin@node.com
+#      - KEYCLOAK_ADMIN_PASSWORD=db_experience123
+#      - KEYCLOAK_DATABASE_HOST=db_sql
+#      - KC_DB=postgres
+#      - KC_DB_PORT=5432
+#      - KC_DB_DATABASE=experience
+#      - KC_DB_USERNAME=experience
+#      - KC_DB_PASSWORD=experience
+#      - KC_DB_SCHEMA=public
+#      - WAIT_FOR_DB=true
     networks:
      - experiencenet
 

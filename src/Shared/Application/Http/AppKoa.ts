@@ -3,7 +3,6 @@ import koaQs from 'koa-qs';
 import helmet from 'koa-helmet';
 import { Server } from 'http';
 
-import AuthenticationKoaMiddleware from '../../../Auth/Presentation/Middlewares/AuthenticationKoaMiddleware';
 import RedirectRouteNotFoundKoaMiddleware from '../../Presentation/Middlewares/RedirectRouteNotFoundKoaMiddleware';
 import ThrottleKoaMiddleware from '../../Presentation/Middlewares/ThrottleKoaMiddleware';
 import VerifyTokenKoaMiddleware from '../../../Auth/Presentation/Middlewares/VerifyTokenKoaMiddleware';
@@ -27,6 +26,7 @@ import { getRequestContext } from '../../Presentation/Shared/RequestContext';
 import Logger from '../Logger/Logger';
 import ContextMikroORMKoaMiddleware from '../../Presentation/Middlewares/ContextMikroORMKoaMiddleware';
 import ContainerKoaMiddleware from '../../Presentation/Middlewares/ContainerKoaMiddleware';
+import AuthenticationKoaMiddleware from '../../Presentation/Middlewares/AuthenticationKoaMiddleware';
 
 class AppKoa implements IApp
 {
