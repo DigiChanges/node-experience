@@ -41,6 +41,8 @@ import IFileRepository from './File/Infrastructure/Repositories/IFileRepository'
 import FileTypeORMRepository from './File/Infrastructure/Repositories/FileTypeORMRepository';
 import FileMongooseRepository from './File/Infrastructure/Repositories/FileMongooseRepository';
 import FileMikroORMRepository from './File/Infrastructure/Repositories/FileMikroORMRepository';
+import IAuthRepository from './Auth/Infrastructure/Repositories/Auth/IAuthRepository';
+import AuthKeycloakRepository from './Auth/Infrastructure/Repositories/Auth/AuthKeycloakRepository';
 
 // Services
 container.register(SERVICES.AuthService, { useClass: AuthService }, { lifecycle: Lifecycle.Singleton });
@@ -74,6 +76,7 @@ else if (defaultDbConfig === 'MikroORM')
     container.register<IFileRepository>(REPOSITORIES.IFileRepository, { useClass: FileMikroORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
 }
 
+container.register<IAuthRepository>(REPOSITORIES.IAuthRepository, { useClass: AuthKeycloakRepository }, { lifecycle: Lifecycle.ContainerScoped });
 container.register<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository, { useClass: TokenRedisRepository }, { lifecycle: Lifecycle.ContainerScoped });
 
 // Shared

@@ -9,6 +9,9 @@
     "setCookieSameSite": "Lax"
   },
   "auth": {
+    "clientId": "experience",
+    "clientSecret": "XxZ5vETEKmLDEccP9Tq1G8eDCagUaeHq",
+    "host": "http://localhost:8080",
     "authorization": false
   },
   "dbConfig": {
@@ -115,36 +118,8 @@
       "url": "/"
     },
     {
-      "methods": ["POST"],
-      "url": "/api/auth/login"
-    },
-    {
-      "methods": ["POST"],
-      "url": "/api/auth/signup"
-    },
-    {
-      "methods": ["POST"],
-      "url": "/api/auth/forgot-password"
-    },
-    {
-      "methods": ["POST"],
-      "url": "/api/auth/change-forgot-password"
-    },
-    {
-      "methods": ["PUT"],
-      "url": "/api/auth/verify-your-account/**"
-    },
-    {
-      "methods": ["PUT"],
-      "url": "/api/auth/verify-your-account/**"
-    },
-    {
       "methods": ["GET"],
       "url": "/log"
-    },
-    {
-      "methods": ["POST"],
-      "url": "/api/auth/refresh-token"
     }
   ],
   "statusCode": {
