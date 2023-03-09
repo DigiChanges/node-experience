@@ -6,6 +6,13 @@ import Config from 'config';
 import { TAlgorithm } from 'jwt-simple';
 import { validateEnv } from './validateEnv';
 
+type AuthConfig = {
+    clientId: string
+    clientSecret: string
+    authorization: boolean
+    host: string
+};
+
 type AppConfig = {
     default: string;
     path: string;
@@ -133,9 +140,7 @@ export type IHttpStatusCode =
 
 type ConfigType = {
     env: string,
-    auth: {
-        authorization: boolean
-    };
+    auth: AuthConfig;
     app: AppConfig,
     dbConfig: DbConfigType,
     cache: {

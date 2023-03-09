@@ -9,6 +9,9 @@
     "setCookieSameSite": "None"
   },
   "auth": {
-      "authorization": true
+    "clientId": "experience",
+    "clientSecret": "XxZ5vETEKmLDEccP9Tq1G8eDCagUaeHq",
+    "host": "http://localhost:8080",
+    "authorization": true
   }
 }

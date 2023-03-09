@@ -25,7 +25,7 @@ https://github.com/DigiChanges/node-experience
 We can run the project directly with docker compose and then bash where the basic commands to feed the database are located.
 
 1. Install dependencies. `pnpm install`.
-2. Copy `.env.dev` file to `.env`. (**.env.dev** it's a environment example file)
+2. Copy `.env.dev` file to `.env`. (**.env.dev** it's an environment example file)
 3. Then execute `STAGE=dev docker-compose up --build` to up all containers.
 4. Basically generates an admin user, add roles with permission and get a bucket for minIO. `docker-compose exec node bash dev.init.sh`
 
@@ -40,12 +40,11 @@ npm install -g nexp-cli
 Then generate your new project:
 
 ```bash
-nexp-cli setPayload
+nexp-cli create
 ```
 
 Each module is divided by business domain:
 
-- Auth
 - File
 - Item
 - Notification
@@ -57,7 +56,7 @@ There are also two particular cases:
 
 The directory structures for business domains are as follows: 
 
-**Folder structure of a module**
+**Folder structure of a domain (business logic)**
 
 ```sh 
 ├── Domain
@@ -94,13 +93,12 @@ As it is only a boilerplate, you have the freedom to structure the code whatever
 
 Common structures found within this project are: 
 
-- Basic authentication and authorization.
+- Authentication and authorization with [Keycloak](https://www.keycloak.org).
 - Filesystem with minIO, 100% S3 compatible.
-- Basic push Notification and Email.
+- Basic push Notification and Email with nodemailer.
 - TypeORM, MikroORM and Mongoose Integration.
-- Express and Koa integration.
-- Business logic independent of the HTTP and persistence libraries. 
-- Esbuild compiler.
+- Koa integration.
+- Business logic independent of the HTTP and persistence libraries.
 
 ## License
 

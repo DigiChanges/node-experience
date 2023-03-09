@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import './inversify.config';
 import './register';
 
 import MainConfig from './Config/MainConfig';

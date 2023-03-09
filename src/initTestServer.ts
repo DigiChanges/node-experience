@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import './inversify.config';
 import container from './register';
 
 import supertest from 'supertest';

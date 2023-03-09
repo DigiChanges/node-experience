@@ -48,19 +48,19 @@ AuthKoaHandler.post('/login', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const payload = await controller.login(ctx.request.body as AuthPayload);
 
-    ctx.cookies.set(
-        'refreshToken',
-        payload.getRefreshHash(),
-        {
-            expires: dayjs.unix(payload.getExpires()).toDate(),
-            maxAge: payload.getExpires(),
-            path: '/api/auth',
-            secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
-            httpOnly: true,
-            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
-        });
+    // ctx.cookies.set(
+    //     'refreshToken',
+    //     payload.getRefreshHash(),
+    //     {
+    //         expires: dayjs.unix(payload.getExpires()).toDate(),
+    //         maxAge: payload.getExpires(),
+    //         path: '/api/auth',
+    //         secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
+    //         httpOnly: true,
+    //         sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
+    //     });
 
-    void await responder.send(payload, ctx, config['HTTP_CREATED'], new AuthTransformer());
+    void await responder.send(payload, ctx, config['HTTP_CREATED'], null);
 });
 
 AuthKoaHandler.post('/signup', async(ctx: Koa.ParameterizedContext & any) =>
