@@ -17,7 +17,9 @@ services:
       - traefik.http.routers.api.tls.certresolver=lets-encrypt
       - traefik.port=80
     volumes:
-      - .:/usr/app:cached
+      - ./src:/usr/app/src:cached
+      - ./config:/usr/app/config:cached
+      - ./.env:/usr/app/.env
     networks:
      - experiencenet
 

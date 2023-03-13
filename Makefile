@@ -69,7 +69,7 @@ init:
 	@echo '************                               ************'
 	@echo '************           Init NODE    	      ************'
 	@echo '************                               ************'
-	docker-compose exec node sh dev.init.sh
+	docker-compose exec node sh tools/dev.init.sh
 
 clean:
 	docker-compose down -v --remove-orphans
