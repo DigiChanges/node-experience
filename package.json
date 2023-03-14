@@ -1,6 +1,6 @@
 {
   "name": "node-experience",
-  "version": "1.36.6",
+  "version": "1.36.7",
   "description": "",
   "scripts": {
     "add-type-compiler": "node_modules/.bin/deepkit-type-install",
