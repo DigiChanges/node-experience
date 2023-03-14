@@ -1,0 +1,29 @@
+name: Update nexp-cli
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  update-nexp-cli:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Clone nexp-cli repository
+        run: |
+          git clone --recurse-submodules https://Murzbul:${{env.GITHUB_TOKEN}}@github.com/DigiChanges/nexp-cli.git 
+          cd nexp-cli
+          git config user.email "github@action.com"
+          git config user.name "GitHub Action"
+
+      - name: Update submodule
+        run: |
+          cd nexp-cli
+          git submodule update --remote --merge
+          git add .
+          git commit -m "feat: update nexp verion: ${{github.event.release.tag_name}}"
+          git push https://Murzbul:${{env.GITHUB_TOKEN}}@github.com/DigiChanges/nexp-cli.git HEAD:master

@@ -9,7 +9,7 @@ jobs:
       - run: echo "Running tests"
       - run: npm install --force
       - run: npm run ci
-      - run: npm run build
+      - run: npm run build-tsc
       - run: npm run test-ci
       - store_artifacts:
           path: ~/circleci/coverage
@@ -20,3 +20,8 @@ workflows:
   test_build:
     jobs:
       - test
+    filters:
+      branches:
+        only: master
+      tags:
+        only: /^\d+\.\d+\.\d+$/

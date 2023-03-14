@@ -40,9 +40,6 @@ RUN chown node:node dist
 # Run development server
 ENTRYPOINT [ "dumb-init", "pnpm", "dev" ]
 
-EXPOSE 8089
-EXPOSE 9229
-
 USER node
 
 FROM dev as build

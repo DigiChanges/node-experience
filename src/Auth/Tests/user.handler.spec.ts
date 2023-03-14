@@ -52,16 +52,16 @@ describe('Start User Test', () =>
                 firstName: 'Jhon',
                 lastName: 'Doe',
                 email: 'user2@node.com',
-                birthday: '1991-08-04',
+                birthday: '1900-11-25',
                 documentType: 'dni',
                 documentNumber: '35319112',
                 gender: 'M',
-                phone: '2234456999',
+                phone: '2234456998',
                 country: 'AR',
                 address: 'Norway 123',
                 password: '12345678',
                 passwordConfirmation: '12345678',
-                permissions: []
+                permissions: ['rolesSave']
             };
 
             const response: IUserResponse = await request
