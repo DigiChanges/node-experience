@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import MainConfig from '../../Config/MainConfig';
+import AxiosHandler from '../Infrastructure/AxiosHandler';
 
 const port = MainConfig.getInstance().getConfig().app.serverPort;
 const baseURL = `http://localhost:${port}/api/`;
@@ -28,4 +29,10 @@ export class AxiosFactory
 
         return axios.create(config);
     }
+    static getAxiosHandlerInstance(): AxiosHandler
+    {
+        return new AxiosHandler(axios.create());
+    }
 }
+
+export default AxiosFactory;
