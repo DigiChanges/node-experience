@@ -1,6 +1,6 @@
 import { getRequestContext } from '../../Presentation/Shared/RequestContext';
-import ISeed from '../../../Shared/Infrastructure/Seeds/ISeed';
 import { DependencyContainer } from 'tsyringe';
+import ISeed from './ISeed';
 
 abstract class BaseSeed implements ISeed
 {
