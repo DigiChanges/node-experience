@@ -1,5 +1,4 @@
 import LoginResponse from './Responses/LoginResponse';
-import VerifyTokenResponse from './Responses/VerifyTokenResponse';
 import AuthPayload from '../../../Domain/Payloads/Auth/AuthPayload';
 import IUserDomain from '../../../Domain/Entities/IUserDomain';
 
