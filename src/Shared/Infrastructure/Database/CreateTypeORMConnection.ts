@@ -1,12 +1,9 @@
 import { DataSource } from 'typeorm';
 import { newDb } from 'pg-mem';
-import User from '../../../Auth/Infrastructure/Schemas/UserTypeORM';
-import Role from '../../../Auth/Infrastructure/Schemas/RoleTypeORM';
 import Item from '../../../Item/Infrastructure/Schemas/ItemTypeORM';
 import File from '../../../File/Infrastructure/Schemas/FileTypeORM';
 import FileVersion from '../../../File/Infrastructure/Schemas/FileVersionTypeORM';
 import Notification from '../../../Notification/Infrastructure/Schemas/NotificationTypeORM';
-import TokenSchema from '../../../Auth/Infrastructure/Schemas/TokenTypeORM';
 import ICreateConnection from './ICreateConnection';
 
 export let dataSource: DataSource; // TODO: Change this global var
@@ -18,8 +15,6 @@ class CreateTypeORMConnection implements ICreateConnection
         FileVersion,
         File,
         Notification,
-        Role,
-        User,
         Item
     ];
 
@@ -96,7 +91,7 @@ class CreateTypeORMConnection implements ICreateConnection
 
         dataSource = db.adapters.createTypeormDataSource({
             type: 'postgres',
-            entities: [...this.entities, TokenSchema]
+            entities: [...this.entities]
         });
     }
 

@@ -1,7 +1,7 @@
 import IUserDomain from '../../Entities/IUserDomain';
 import UpdateMePayload from '../../Payloads/Auth/UpdateMePayload';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import IUserRepository from '../../../Infrastructure/Repositories/IUserRepository';
+import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
 
 class UpdateMeUseCase

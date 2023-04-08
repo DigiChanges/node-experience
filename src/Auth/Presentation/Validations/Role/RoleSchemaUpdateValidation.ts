@@ -1,6 +1,8 @@
+import { z } from 'zod';
 import RoleSchemaSaveValidation from './RoleSchemaSaveValidation';
-import IdSchemaValidation from '../../../../Shared/Presentation/Validations/IdSchemaValidation';
 
-const RoleSchemaUpdateValidation = RoleSchemaSaveValidation.merge(IdSchemaValidation);
+const RoleSchemaUpdateValidation = RoleSchemaSaveValidation.extend({
+    id: z.string()
+});
 
 export default RoleSchemaUpdateValidation;

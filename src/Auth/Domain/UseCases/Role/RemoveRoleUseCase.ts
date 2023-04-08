@@ -1,7 +1,6 @@
-import IdPayload from '../../../../Shared/Presentation/Requests/IdPayload';
 import IRoleDomain from '../../Entities/IRoleDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import IRoleRepository from '../../../Infrastructure/Repositories/IRoleRepository';
+import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
 
 class RemoveRoleUseCase
@@ -14,9 +13,9 @@ class RemoveRoleUseCase
         this.repository = container.resolve<IRoleRepository>(REPOSITORIES.IRoleRepository);
     }
 
-    async handle(payload: IdPayload): Promise<IRoleDomain>
+    async handle(name: string): Promise<IRoleDomain>
     {
-        return await this.repository.delete(payload.id);
+        return await this.repository.delete(name);
     }
 }
 

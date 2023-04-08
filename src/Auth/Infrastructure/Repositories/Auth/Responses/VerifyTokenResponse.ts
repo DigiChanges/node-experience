@@ -21,7 +21,11 @@ interface VerifyTokenResponse
     realm_access: Record<any, any>;
     resource_access: Record<any, any>;
     scope: string;
+    genre: string;
+    country: string;
+    phone: string;
     sid: string;
+    birthdate: string;
     client_id: string;
     username: string;
     active: boolean;

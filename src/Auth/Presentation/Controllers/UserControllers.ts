@@ -30,6 +30,7 @@ import UserUpdateSchemaValidation from '../Validations/User/UserUpdateSchemaVali
 import UserAssignSchemaValidation from '../Validations/User/UserAssignSchemaValidation';
 import ChangeMyPasswordSchemaValidation from '../Validations/User/ChangeMyPasswordSchemaValidation';
 import ChangeUserPasswordSchemaValidation from '../Validations/User/ChangeUserPasswordSchemaValidation';
+import ActiveUserUseCase from '../../Domain/UseCases/User/ActiveUserUseCase';
 
 class UserController
 {
@@ -72,12 +73,12 @@ class UserController
         return await useCase.handle(payload);
     }
 
-    public async assignRole(payload: UserAssignRolePayload): Promise<IUserDomain>
+    public async assignRole(payload: UserAssignRolePayload): Promise<void>
     {
         await ValidatorSchema.handle(UserAssignSchemaValidation, payload);
 
         const useCase = new AssignRoleUseCase();
-        return await useCase.handle(payload);
+        await useCase.handle(payload);
     }
 
     public async remove(payload: IdPayload): Promise<IUserDomain>
@@ -102,6 +103,14 @@ class UserController
 
         const useCase = new ChangeUserPasswordUseCase();
         return await useCase.handle(payload);
+    }
+
+    public async active(payload: IdPayload): Promise<void>
+    {
+        await ValidatorSchema.handle(IdSchemaValidation, payload);
+
+        const useCase = new ActiveUserUseCase();
+        await useCase.handle(payload);
     }
 }
 

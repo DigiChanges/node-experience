@@ -1,36 +1,39 @@
 import VerifyYourAccountPayload from '../../Payloads/Auth/VerifyYourAccountPayload';
-import { REPOSITORIES } from '../../../../Config/Injects';
-import IUserRepository from '../../../Infrastructure/Repositories/IUserRepository';
-import SendEmailService from '../../../../Notification/Domain/Services/SendEmailService';
-import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../../Shared/Presentation/Shared/Locales';
-import VerifiedAccountEvent from '../../../../Shared/Infrastructure/Events/VerifiedAccountEvent';
 import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
-import AuthService from '../../Services/AuthService';
+import AuthHelperService from '../../Services/AuthHelperService';
+import { REPOSITORIES } from '../../../../Config/Injects';
+import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
+import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
+import IUserDomain from '../../Entities/IUserDomain';
+import SendEmailService from '../../../../Notification/Domain/Services/SendEmailService';
+import VerifiedAccountEvent from '../../../../Shared/Infrastructure/Events/VerifiedAccountEvent';
+import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotificationEnum';
 
 class VerifyYourAccountUseCase
 {
-    private repository: IUserRepository;
-    private authService: AuthService;
+    private authHelperService: AuthHelperService;
+    private repository: IAuthRepository;
+    private userRepository: IUserRepository;
 
     constructor()
     {
         const { container } = getRequestContext();
-        this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
-        this.authService = new AuthService();
+        this.repository = container.resolve<IAuthRepository>(REPOSITORIES.IAuthRepository);
+        this.userRepository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+        this.authHelperService = new AuthHelperService();
     }
 
     async handle(payload: VerifyYourAccountPayload): Promise<ILocaleMessage>
     {
-        const confirmationToken = `Bearer ${payload.confirmationToken}`;
-        const { email } = this.authService.validateToken(confirmationToken);
-        const user = await this.repository.getOneByEmail(email);
+        const { confirmationToken } = payload;
 
-        user.verify = true;
-        user.enable = true;
+        const { email } = this.authHelperService.validateToken(confirmationToken);
 
-        await this.repository.update(user);
+        const user: IUserDomain = await this.userRepository.getOneByEmail(email);
+
+        await this.repository.verifyAccount({ id: user.getId() });
 
         void await SendEmailService.handle({
             event: VerifiedAccountEvent.VERIFIED_ACCOUNT_EVENT,

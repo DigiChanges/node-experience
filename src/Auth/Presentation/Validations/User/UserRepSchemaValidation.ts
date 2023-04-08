@@ -2,8 +2,7 @@ import { z } from 'zod';
 import UserWithoutPermissionsSchemaValidation from './UserWithoutPermissionsSchemaValidation';
 
 const PartialUserRepSchemaValidation = z.object({
-    enable: z.boolean().nullish(),
-    permissions: z.array(z.string()).min(0)
+    enable: z.boolean().nullish()
 });
 
 const UserRepSchemaValidation = UserWithoutPermissionsSchemaValidation.merge(PartialUserRepSchemaValidation);

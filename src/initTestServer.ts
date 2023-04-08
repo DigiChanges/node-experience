@@ -5,19 +5,13 @@ import supertest from 'supertest';
 
 import DatabaseFactory from './Shared/Factories/DatabaseFactory';
 import EventHandler from './Shared/Infrastructure/Events/EventHandler';
-import { REPOSITORIES } from './Config/Injects';
-import TokenMongooseRepository from './Auth/Infrastructure/Repositories/TokenMongooseRepository';
-import TokenTypeORMRepository from './Auth/Infrastructure/Repositories/TokenTypeORMRepository';
 import { validateEnv } from './Config/validateEnv';
-import ITokenDomain from './Auth/Domain/Entities/ITokenDomain';
 import SeedFactory from './Shared/Factories/SeedFactory';
 import Locales from './Shared/Presentation/Shared/Locales';
 import MainConfig from './Config/MainConfig';
 import IApp from './Shared/Application/Http/IApp';
-import { Lifecycle } from 'tsyringe';
 import AppFactory from './Shared/Factories/AppFactory';
 import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
-import ITokenRepository from './Auth/Infrastructure/Repositories/ITokenRepository';
 
 type TestServerData = {
     request: supertest.SuperAgentTest,
@@ -42,14 +36,8 @@ const initTestServer = async(): Promise<TestServerData> =>
 
     void Locales.getInstance();
 
-    const defaultDb = config.dbConfig.default;
-
     // @ts-ignore
-    container._registry._registryMap.delete('ITokenRepository');
-
-    container.register<ITokenRepository<ITokenDomain>>(REPOSITORIES.ITokenRepository, { useClass:
-        defaultDb === 'Mongoose' ? TokenMongooseRepository : TokenTypeORMRepository
-    }, { lifecycle: Lifecycle.Singleton });
+    container._registry._registryMap.delete('IAuthRepository');
 
     const app: IApp = AppFactory.create(config.app.default);
 
@@ -68,4 +56,3 @@ const initTestServer = async(): Promise<TestServerData> =>
 };
 
 export default initTestServer;
-

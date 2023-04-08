@@ -1,7 +1,7 @@
 import RoleRepPayload from '../../Payloads/Role/RoleRepPayload';
 import IRoleDomain from '../../Entities/IRoleDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import IRoleRepository from '../../../Infrastructure/Repositories/IRoleRepository';
+import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 import Role from '../../Entities/Role';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
 

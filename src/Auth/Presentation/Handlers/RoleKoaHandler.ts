@@ -40,7 +40,7 @@ RoleKoaHandler.get('/', AuthorizeKoaMiddleware(Permissions.ROLES_LIST), async(ct
 
     const paginator: IPaginator = await controller.list(data);
 
-    await responder.paginate(paginator, ctx, config['HTTP_OK'], new RoleTransformer());
+    await responder.send(paginator, ctx, config['HTTP_OK'], new RoleTransformer());
 });
 
 RoleKoaHandler.get('/:id', AuthorizeKoaMiddleware(Permissions.ROLES_SHOW), async(ctx: DefaultContext) =>
@@ -64,9 +64,9 @@ RoleKoaHandler.put('/:id', AuthorizeKoaMiddleware(Permissions.ROLES_UPDATE), asy
 
 RoleKoaHandler.delete('/:id', AuthorizeKoaMiddleware(Permissions.ROLES_DELETE), async(ctx: DefaultContext) =>
 {
-    const role: IRoleDomain = await controller.remove(ctx.params as IdPayload);
+    await controller.remove(ctx.params.id);
 
-    void await responder.send(role, ctx, config['HTTP_CREATED'], new RoleTransformer());
+    void await responder.send(ctx.params, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.DELETED));
 });
 
 export default RoleKoaHandler;

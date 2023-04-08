@@ -9,24 +9,19 @@ class User extends Base implements IUserDomain
     firstName: string;
     lastName: string;
     email: string;
-    birthday: string;
-    documentType: string;
-    documentNumber: string;
-    gender: string;
+    birthdate: string;
+    genre: string;
     phone: string;
     country: string;
-    address: string;
     password: Password;
     roles: IRoleDomain[];
-    permissions: string[];
     enable: boolean;
     verify: boolean;
-    isSuperAdmin: boolean;
-    passwordRequestedAt?: Date;
 
     constructor(payload: UserRepPayload)
     {
         super();
+        this._id = payload?._id ?? this._id;
         this.updateRep(payload);
     }
 
@@ -35,18 +30,12 @@ class User extends Base implements IUserDomain
         this.firstName = payload?.firstName ?? this.firstName;
         this.lastName = payload?.lastName ?? this.lastName;
         this.email = payload?.email ?? this.email;
-        this.birthday = payload?.birthday ?? this.birthday;
-        this.documentType = payload?.documentType ?? this.documentType;
-        this.documentNumber = payload?.documentNumber ?? this.documentNumber;
-        this.gender = payload?.gender ?? this.gender;
+        this.birthdate = payload?.birthdate ?? this.birthdate;
+        this.genre = payload?.genre ?? this.genre;
         this.phone = payload?.phone ?? this.phone;
         this.country = payload?.country ?? this.country;
-        this.address = payload?.address ?? this.address;
         this.enable = payload?.enable !== undefined || payload?.enable !== null ? payload?.enable : this.enable;
         this.roles = payload?.roles ?? this.roles;
-        this.permissions = payload?.permissions ?? this.permissions;
-        this.passwordRequestedAt = payload?.passwordRequestedAt ?? this.passwordRequestedAt ?? null;
-        this.isSuperAdmin = this.isSuperAdmin ?? payload?.isSuperAdmin ?? this.isSuperAdmin;
     }
 
     setPassword(value: Password)

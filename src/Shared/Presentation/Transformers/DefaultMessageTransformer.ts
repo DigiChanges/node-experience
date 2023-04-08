@@ -16,7 +16,7 @@ class DefaultMessageTransformer<T extends Base> extends Transformer
     public async transform(data: T): Promise<IDefaultMessageTransformer>
     {
         return {
-            id: data._id,
+            id: data?._id,
             message: this.#typeResponse
         };
     }
