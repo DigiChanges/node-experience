@@ -1,73 +1,24 @@
 import axios from 'axios';
 import qs from 'qs';
 import IAuthRepository from './IAuthRepository';
-import MainConfig from '../../../../Config/MainConfig';
-import BaseAxiosRepository from './BaseAxiosRepository';
-import LoginResponse from './Responses/LoginResponse';
-import AuthPayload from '../../../Domain/Payloads/Auth/AuthPayload';
 import IUserDomain from '../../../Domain/Entities/IUserDomain';
 import VerifyTokenResponse from './Responses/VerifyTokenResponse';
 import User from '../../../Domain/Entities/User';
+import KeycloakAxiosRepository from './KeycloakAxiosRepository';
 
-class AuthKeycloakRepository extends BaseAxiosRepository implements IAuthRepository
+class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRepository
 {
-    private readonly clientId: string;
-    private readonly clientSecret: string;
-    private readonly host: string;
-    private readonly mainRealm: string;
-    private readonly username: string;
-    private readonly password: string;
-    private readonly basicBody: Record<string, string>;
+    private readonly mainUrl: string;
 
     constructor()
     {
         super();
-        const config = MainConfig.getInstance().getConfig();
-        const { clientId, clientSecret, host, mainRealm, username, password } = config.auth;
-
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
-        this.mainRealm = mainRealm;
-        this.username = username;
-        this.password = password;
-        this.host = host;
-
-        this.basicBody = {
-            client_id: clientId,
-            client_secret: clientSecret,
-            grant_type: 'password',
-            scope: 'openid'
-        };
+        this.mainUrl = `${this.host}/realms/${this.mainRealm}/protocol/openid-connect`;
     }
 
     public async getPermissions(payload: any): Promise<any>
     {
         return Promise.resolve(undefined);
-    }
-
-    public async login(payload: AuthPayload): Promise<LoginResponse>
-    {
-        const { username, password, clientId } = payload;
-
-        const data = qs.stringify({
-            ...this.basicBody,
-            client_id: clientId ?? this.basicBody.client_id,
-            scope: 'openid uma_authorization',
-            username,
-            password
-        });
-
-        const config = {
-            ...this.config,
-            method: 'post',
-            url: `${this.host}/realms/${this.mainRealm}/protocol/openid-connect/token`,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            data
-        };
-
-        return (await axios(config)).data;
     }
 
     public async logout(payload: any): Promise<any>
@@ -84,7 +35,7 @@ class AuthKeycloakRepository extends BaseAxiosRepository implements IAuthReposit
         const config = {
             ...this.config,
             method: 'post',
-            url: `${this.host}/realms/${this.mainRealm}/protocol/openid-connect/logout`,
+            url: `${this.mainUrl}/logout`,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -114,7 +65,7 @@ class AuthKeycloakRepository extends BaseAxiosRepository implements IAuthReposit
         const config = {
             ...this.config,
             method: 'post',
-            url: `${this.host}/realms/${this.mainRealm}/protocol/openid-connect/token`,
+            url: `${this.mainUrl}/token`,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -197,7 +148,7 @@ class AuthKeycloakRepository extends BaseAxiosRepository implements IAuthReposit
         const config = {
             ...this.config,
             method: 'post',
-            url: `${this.host}/realms/${this.mainRealm}/protocol/openid-connect/token/introspect`,
+            url: `${this.mainUrl}/token/introspect`,
             headers: {
                 'Authorization': `Bearer ${payload.token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -256,7 +207,7 @@ class AuthKeycloakRepository extends BaseAxiosRepository implements IAuthReposit
         const config = {
             ...this.config,
             method: 'post',
-            url: `${this.host}/realms/${this.mainRealm}/protocol/openid-connect/token`,
+            url: `${this.mainUrl}/token`,
             headers: {
                 'Authorization': `Basic ${auth_token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
