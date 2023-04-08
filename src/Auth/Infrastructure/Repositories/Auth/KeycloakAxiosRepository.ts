@@ -3,6 +3,7 @@ import MainConfig from '../../../../Config/MainConfig';
 import AuthPayload from '../../../Domain/Payloads/Auth/AuthPayload';
 import qs from 'qs';
 import axios from 'axios';
+import ErrorHttpException from '../../../../Shared/Presentation/Shared/ErrorHttpException';
 
 class KeycloakAxiosRepository extends BaseAxiosRepository
 {

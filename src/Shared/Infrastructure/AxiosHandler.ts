@@ -41,7 +41,7 @@ class AxiosHandler
         }
         catch (e: any)
         {
-            Logger.error(e.response.data);
+            await Logger.error(e.response.data);
         }
     }
 

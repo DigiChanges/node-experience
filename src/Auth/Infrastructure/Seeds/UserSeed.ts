@@ -5,7 +5,6 @@ import User from '../../Domain/Entities/User';
 import IUserRepository from '../Repositories/User/IUserRepository';
 import IRoleRepository from '../Repositories/Role/IRoleRepository';
 import { REPOSITORIES } from '../../../Config/Injects';
-import Password from '../../../Shared/Domain/ValueObjects/Password';
 import Permissions from '../../../Config/Permissions';
 import MainConfig from '../../../Config/MainConfig';
 import BaseSeed from '../../../Shared/Infrastructure/Seeds/BaseSeed';
@@ -28,14 +27,6 @@ class UserSeed extends BaseSeed
 
         const { minLength, maxLength } = config.getConfig().validationSettings.password;
 
-        const payloadSuperAdmin = {
-            name: 'SuperAdmin',
-            permissions: ['rolesSave']
-        };
-
-        const roleSuperAdmin: IRoleDomain = new Role(payloadSuperAdmin);
-        await this.roleRepository.save(roleSuperAdmin);
-
         const payloadAdmin = {
             name: 'Admin',
             permissions: Permissions.permissions()
@@ -46,56 +37,24 @@ class UserSeed extends BaseSeed
 
         const payloadOperator = {
             name: 'Operator',
-            slug: 'operator',
-            permissions: ['rolesSave'],
-            enable: true
+            permissions: []
         };
 
         const roleOperator: IRoleDomain = new Role(payloadOperator);
         await this.roleRepository.save(roleOperator);
 
-        const payloadOperatorDisabled = {
-            name: 'OperatorDisabled',
-            permissions: ['rolesSave']
-        };
-
-        const roleOperatorDisabled: IRoleDomain = new Role(payloadOperatorDisabled);
-        await this.roleRepository.save(roleOperatorDisabled);
-
-        const payloadUserSuperAdmin = {
-            firstName: 'Super',
-            lastName: 'Admin',
-            email: 'superadmin@node.com',
-            birthdate: '04/07/1990',
-            genre: 'M',
-            phone: '2234456999',
-            country: 'Argentina',
-            enable: true,
-            roles: [roleSuperAdmin]
-        };
-
-        const userSuperAdmin: IUserDomain = new User(payloadUserSuperAdmin);
-        // userSuperAdmin.password = await (new Password('12345678', minLength, maxLength)).ready();
-        userSuperAdmin.verify = true;
-
-        await this.userRepository.save(userSuperAdmin, '12345678');
-
         const payloadUserAdmin = {
             firstName: 'user',
             lastName: 'node',
             email: 'user@node.com',
-            birthdate: '04/07/1991',
+            birthdate: '1991-07-04',
             genre: 'M',
             phone: '2234456999',
-            country: 'Argentina',
-            enable: true,
-            roles: [roleAdmin]
+            country: 'AR',
+            enable: true
         };
 
         const userAdmin: IUserDomain = new User(payloadUserAdmin);
-        // userAdmin.password = await (new Password('12345678', minLength, maxLength)).ready();
-        userAdmin.verify = true;
-
         await this.userRepository.save(userAdmin, '12345678');
 
         const payloadUserOperator = {
@@ -111,9 +70,6 @@ class UserSeed extends BaseSeed
         };
 
         const userOperator: IUserDomain = new User(payloadUserOperator);
-        // userOperator.password = await (new Password('123456789', minLength, maxLength)).ready();
-        userOperator.verify = true;
-
         await this.userRepository.save(userOperator, '123456789');
 
         const payloadUserOperatorDisabled = {
@@ -124,13 +80,10 @@ class UserSeed extends BaseSeed
             genre: 'F',
             phone: '2234456999',
             country: 'Argentina',
-            enable: false,
-            roles: [roleOperator]
+            enable: false
         };
 
         const userOperatorDisabled: IUserDomain = new User(payloadUserOperatorDisabled);
-        // userOperatorDisabled.password = await (new Password('1234567901', minLength, maxLength)).ready();
-        userOperator.verify = false;
 
         await this.userRepository.save(userOperatorDisabled, '1234567901');
         const payloadUserOperatorRoleDisabled = {
@@ -141,14 +94,10 @@ class UserSeed extends BaseSeed
             genre: 'F',
             phone: '2234456999',
             country: 'Argentina',
-            enable: true,
-            roles: [roleOperatorDisabled]
+            enable: true
         };
 
         const userOperatorRoleDisabled: IUserDomain = new User(payloadUserOperatorRoleDisabled);
-        userOperatorRoleDisabled.password = await (new Password('1234567901', minLength, maxLength)).ready();
-        userOperatorRoleDisabled.verify = true;
-
         await this.userRepository.save(userOperatorRoleDisabled, '1234567901');
     }
 }

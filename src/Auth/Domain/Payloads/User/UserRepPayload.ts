@@ -1,4 +1,3 @@
-import IRoleDomain from '../../../Domain/Entities/IRoleDomain';
 
 interface UserRepPayload
 {
@@ -10,9 +9,7 @@ interface UserRepPayload
     genre: string;
     phone: string;
     country: string;
-    verify?: boolean;
     enable: boolean;
-    roles: IRoleDomain[];
 }
 
 export default UserRepPayload;

@@ -1,7 +1,5 @@
 import ChangeUserPasswordPayload from '../../Payloads/User/ChangeUserPasswordPayload';
 import IUserDomain from '../../Entities/IUserDomain';
-import Password from '../../../../Shared/Domain/ValueObjects/Password';
-import MainConfig from '../../../../Config/MainConfig';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
