@@ -5,7 +5,6 @@ import { Server } from 'http';
 
 import RedirectRouteNotFoundKoaMiddleware from '../../Presentation/Middlewares/RedirectRouteNotFoundKoaMiddleware';
 import ThrottleKoaMiddleware from '../../Presentation/Middlewares/ThrottleKoaMiddleware';
-import VerifyTokenKoaMiddleware from '../../../Auth/Presentation/Middlewares/VerifyTokenKoaMiddleware';
 import IApp from './IApp';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
@@ -17,7 +16,6 @@ import NotificationKoaHandler from '../../../Notification/Presentation/Handlers/
 import FileKoaHandler from '../../../File/Presentation/Handlers/FileKoaHandler';
 import AuthKoaHandler from '../../../Auth/Presentation/Handlers/AuthKoaHandler';
 import IAppConfig from './IAppConfig';
-import WhiteListKoaHandler from '../../Tests/WhiteListKoaHandler';
 import { ErrorKoaHandler } from './ErrorKoaHandler';
 import MainConfig from '../../../Config/MainConfig';
 
@@ -26,7 +24,6 @@ import { getRequestContext } from '../../Presentation/Shared/RequestContext';
 import Logger from '../Logger/Logger';
 import ContextMikroORMKoaMiddleware from '../../Presentation/Middlewares/ContextMikroORMKoaMiddleware';
 import ContainerKoaMiddleware from '../../Presentation/Middlewares/ContainerKoaMiddleware';
-import AuthenticationKoaMiddleware from '../../Presentation/Middlewares/AuthenticationKoaMiddleware';
 
 class AppKoa implements IApp
 {
@@ -74,8 +71,6 @@ class AppKoa implements IApp
         this.app.use(ContainerKoaMiddleware);
         this.app.use(LoggerKoaMiddleware);
         this.app.use(ThrottleKoaMiddleware);
-        this.app.use(AuthenticationKoaMiddleware);
-        this.app.use(VerifyTokenKoaMiddleware);
     }
 
     public async build(): Promise<void>
@@ -83,9 +78,6 @@ class AppKoa implements IApp
         // Route middleware.
         this.app.use(IndexKoaHandler.routes());
         this.app.use(IndexKoaHandler.allowedMethods());
-
-        this.app.use(WhiteListKoaHandler.routes());
-        this.app.use(WhiteListKoaHandler.allowedMethods());
 
         this.app.use(ItemKoaHandler.routes());
         this.app.use(ItemKoaHandler.allowedMethods());

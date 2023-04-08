@@ -3,7 +3,7 @@ import IUserDomain from '../../Entities/IUserDomain';
 import Password from '../../../../Shared/Domain/ValueObjects/Password';
 import MainConfig from '../../../../Config/MainConfig';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import IUserRepository from '../../../Infrastructure/Repositories/IUserRepository';
+import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
 
 class ChangeUserPasswordUseCase
@@ -21,11 +21,9 @@ class ChangeUserPasswordUseCase
         const { id } = payload;
         const user: IUserDomain = await this.repository.getOne(id);
 
-        const { minLength, maxLength } = MainConfig.getInstance().getConfig().validationSettings.password;
+        await this.repository.updatePassword(user.getId(), payload.password);
 
-        user.password = await (new Password(payload.password, minLength, maxLength)).ready();
-
-        return await this.repository.update(user);
+        return user;
     }
 }
 

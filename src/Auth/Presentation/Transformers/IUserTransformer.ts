@@ -1,10 +1,5 @@
-import IRoleTransformer from './IRoleTransformer';
-import BaseTransformer, { BasePropertiesTransformer } from '../../../Shared/Presentation/Transformers/BaseTransformer';
-import IUserDomain from '../../Domain/Entities/IUserDomain';
+import UserRepPayload from '../../Domain/Payloads/User/UserRepPayload';
 
-type IUserTransformer = BaseTransformer<IUserDomain> & BasePropertiesTransformer &
-{
-    roles: IRoleTransformer[];
-}
+type IUserTransformer = Omit<UserRepPayload, 'roles'> & { id: string };
 
 export default IUserTransformer;

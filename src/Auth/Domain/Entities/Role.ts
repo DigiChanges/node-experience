@@ -6,14 +6,12 @@ import AuthHelper from '../../../Shared/Helpers/AuthHelper';
 class Role extends Base implements IRoleDomain
 {
     name: string;
-    slug: string;
-    enable: boolean;
-    ofSystem: boolean;
     permissions: string[];
 
     constructor(payload: RoleRepPayload)
     {
         super();
+        this._id = payload?._id ?? this._id;
         this.updateBuild(payload);
     }
 
@@ -22,8 +20,6 @@ class Role extends Base implements IRoleDomain
         AuthHelper.validatePermissions(payload.permissions);
 
         this.name = payload?.name;
-        this.slug = payload?.slug;
-        this.enable = payload?.enable;
         this.permissions = payload?.permissions;
     }
 }

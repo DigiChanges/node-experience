@@ -2,7 +2,7 @@ import { getRequestContext } from '../../../../Shared/Presentation/Shared/Reques
 import ICriteria from '../../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../../Shared/Infrastructure/Orm/IPaginator';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import IUserRepository from '../../../Infrastructure/Repositories/IUserRepository';
+import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 
 class ListUsersUseCase
 {

@@ -28,18 +28,6 @@ const ItemSchema = new EntitySchema<Item>({
             type: 'Date',
             onCreate: () => new Date(),
             onUpdate: () => new Date(), nullable: true
-        },
-        createdBy: {
-            reference: 'm:1',
-            entity: 'User',
-            lazy: false,
-            nullable: true
-        },
-        lastModifiedBy: {
-            reference: 'm:1',
-            entity: 'User',
-            lazy: false,
-            nullable: true
         }
     }
 });

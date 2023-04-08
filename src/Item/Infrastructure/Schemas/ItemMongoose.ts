@@ -8,9 +8,7 @@ export type ItemMongooseDocument = Document & IItemDomain;
 const ItemSchema: any = new Schema<Item>({
     _id: { type: String, default: uuid },
     name: { type: String, required: true },
-    type: { type: Number, required: true },
-    createdBy: { type: Schema.Types.String, ref: 'User' },
-    lastModifiedBy: { type: Schema.Types.String, ref: 'User' }
+    type: { type: Number, required: true }
 }, { timestamps: true });
 
 ItemSchema.loadClass(Item);

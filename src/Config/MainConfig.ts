@@ -7,10 +7,14 @@ import { TAlgorithm } from 'jwt-simple';
 import { validateEnv } from './validateEnv';
 
 type AuthConfig = {
-    clientId: string
-    clientSecret: string
-    authorization: boolean
-    host: string
+    clientId: string;
+    clientUuid: string;
+    clientSecret: string;
+    mainRealm: string;
+    host: string;
+    username: string;
+    password: string;
+    authorization: boolean;
 };
 
 type AppConfig = {
@@ -125,12 +129,6 @@ type ValidateSettingsType = {
     };
 };
 
-type ApiWhiteType = {
-    methods: string[];
-    url: string;
-    urlRegExp?: RegExp;
-};
-
 export type IHttpStatusCode =
 {
     code: number;
@@ -167,7 +165,6 @@ type ConfigType = {
     };
     executeCrons: boolean,
     validationSettings: ValidateSettingsType,
-    apiWhitelist: ApiWhiteType[],
     statusCode: Record<string, IHttpStatusCode>
 }
 

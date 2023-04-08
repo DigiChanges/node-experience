@@ -4,6 +4,9 @@ import { REPOSITORIES } from '../../../../Config/Injects';
 
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
+import ErrorHttpException from '../../../../Shared/Presentation/Shared/ErrorHttpException';
+import MainConfig from '../../../../Config/MainConfig';
+import ILoginResponse from '../../Models/ILoginResponse';
 
 class LoginUseCase
 {
@@ -16,22 +19,32 @@ class LoginUseCase
         this.repository = container.resolve<IAuthRepository>(REPOSITORIES.IAuthRepository);
     }
 
-    async handle(payload: AuthPayload): Promise<any>
+    async handle(payload: AuthPayload): Promise<ILoginResponse>
     {
-        // TODO: Add enable functionality
-        // TODO: Add role validation when its enable false
+        const config = MainConfig.getInstance().getConfig();
+        // ! Remove it from here on another exception without http
+        const statusCode = config.statusCode;
+        const { authorization: hasActiveAuthorization } = config.auth;
+
         const loginData = await this.repository.login(payload);
 
-        if(loginData?.access_token)
+        if (loginData?.error)
         {
-
+            // ! Add Custom Exception with mapping on an HttpException
+            throw new ErrorHttpException(statusCode['HTTP_UNAUTHORIZED'], { message: 'Invalid Credentials.' });
         }
 
-        const tokenContent = await this.repository.verifyToken({ token: loginData.access_token });
+        const user = await this.repository.verifyToken({
+            token: loginData.access_token,
+            hasActiveAuthorization
+        });
 
         return {
-            tokens: loginData,
-
+            accessToken: loginData.access_token,
+            refreshToken: loginData.refresh_token,
+            expiresIn: loginData.expires_in,
+            refreshExpiresIn: loginData.refresh_expires_in,
+            user
         };
     }
 }

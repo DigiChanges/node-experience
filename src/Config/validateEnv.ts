@@ -13,7 +13,12 @@ export function validateEnv()
         APP_SET_COOKIE_SAME_SITE: str(),
 
         KEYCLOAK_CLIENT_ID: str(),
+        KEYCLOAK_CLIENT_UUID: str(),
         KEYCLOAK_CLIENT_SECRET: str(),
+        KEYCLOAK_MAIN_REALM: str(),
+        KEYCLOAK_HOST: str(),
+        KEYCLOAK_USERNAME: str(),
+        KEYCLOAK_PASSWORD: str(),
         KEYCLOAK_AUTHORIZATION: bool(),
 
         DB_HOST: str(),

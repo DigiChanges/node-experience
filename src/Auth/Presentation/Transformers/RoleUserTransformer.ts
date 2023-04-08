@@ -13,10 +13,7 @@ class RoleUserTransformer extends Transformer
         return {
             id: role.getId(),
             name: role.name,
-            slug: role.slug,
-            enable: role.enable,
-            createdAt: dayjs(role.createdAt).utc().unix(),
-            updatedAt: dayjs(role.updatedAt).utc().unix()
+            permissions: role.permissions
         };
     }
 }

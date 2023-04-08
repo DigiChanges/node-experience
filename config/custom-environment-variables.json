@@ -10,8 +10,12 @@
   },
   "auth": {
       "clientId": "KEYCLOAK_CLIENT_ID",
+      "clientUuid": "KEYCLOAK_CLIENT_UUID",
       "clientSecret": "KEYCLOAK_CLIENT_SECRET",
+      "mainRealm": "KEYCLOAK_MAIN_REALM",
       "host": "KEYCLOAK_HOST",
+      "username": "KEYCLOAK_USERNAME",
+      "password": "KEYCLOAK_PASSWORD",
       "authorization": "KEYCLOAK_AUTHORIZATION"
   },
   "dbConfig": {

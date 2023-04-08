@@ -3,7 +3,6 @@ import RoleRepPayload from '../Payloads/Role/RoleRepPayload';
 
 interface IRoleDomain extends IBaseDomain, RoleRepPayload
 {
-    ofSystem: boolean;
     updateBuild(payload: RoleRepPayload): void
 }
 

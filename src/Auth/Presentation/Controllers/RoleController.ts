@@ -20,6 +20,7 @@ import Pagination from '../../../Shared/Presentation/Shared/Pagination';
 import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
 import IdSchemaValidation from '../../../Shared/Presentation/Validations/IdSchemaValidation';
 import RoleSchemaUpdateValidation from '../Validations/Role/RoleSchemaUpdateValidation';
+import NameSchemaValidation from '../../../Shared/Presentation/Validations/NameSchemaValidation';
 
 class RoleController
 {
@@ -62,9 +63,9 @@ class RoleController
         return await useCase.handle(payload);
     }
 
-    public async remove(payload: IdPayload): Promise<IRoleDomain>
+    public async remove(payload: string): Promise<IRoleDomain>
     {
-        await ValidatorSchema.handle(IdSchemaValidation, payload);
+        await ValidatorSchema.handle(NameSchemaValidation, payload);
 
         const useCase = new RemoveRoleUseCase();
         return await useCase.handle(payload);
