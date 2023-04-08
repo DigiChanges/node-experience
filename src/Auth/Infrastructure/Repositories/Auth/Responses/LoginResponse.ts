@@ -1,5 +1,6 @@
+import ErrorResponse from './ErrorResponse';
 
-interface LoginResponse
+interface LoginResponse extends ErrorResponse
 {
     access_token: string;
     expires_in: number;

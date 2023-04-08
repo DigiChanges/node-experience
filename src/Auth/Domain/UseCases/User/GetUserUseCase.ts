@@ -2,7 +2,7 @@ import { getRequestContext } from '../../../../Shared/Presentation/Shared/Reques
 import IdPayload from '../../../../Shared/Presentation/Requests/IdPayload';
 import IUserDomain from '../../Entities/IUserDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import IUserRepository from '../../../Infrastructure/Repositories/IUserRepository';
+import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 
 class GetUserUseCase
 {

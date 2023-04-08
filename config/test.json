@@ -2,38 +2,12 @@
   "env": "test",
   "auth": {
     "clientId": "experience",
+    "clientUuid": "5ffa84ea-702f-4f13-96f0-2e2237305591",
     "clientSecret": "XxZ5vETEKmLDEccP9Tq1G8eDCagUaeHq",
+    "mainRealm": "digichanges",
+    "username": "admin",
+    "password": "12345678",
     "host": "http://localhost:8080",
     "authorization": true
-  },
-  "apiWhitelist": [
-    {
-      "methods": ["GET"],
-      "url": "/"
-    },
-    {
-      "methods": ["*"],
-      "url": "/test/all/*"
-    },
-    {
-      "methods": ["GET"],
-      "url": "/test/countries"
-    },
-    {
-      "methods": ["GET"],
-      "url": "/test/countries/**"
-    },
-    {
-      "methods": ["GET"],
-      "url": "/test/countries/**/states"
-    },
-    {
-      "methods": ["GET"],
-      "url": "/test/countries/**/states/**/cities"
-    },
-    {
-      "methods": ["GET"],
-      "url": "/test/countries/**/states/*"
-    }
-  ]
+  }
 }

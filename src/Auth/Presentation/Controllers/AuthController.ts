@@ -3,7 +3,6 @@ import ChangeForgotPasswordUseCase from '../../Domain/UseCases/Auth/ChangeForgot
 import ForgotPasswordUseCase from '../../Domain/UseCases/Auth/ForgotPasswordUseCase';
 import RefreshTokenUseCase from '../../Domain/UseCases/Auth/RefreshTokenUseCase';
 import PermissionUseCase from '../../Domain/UseCases/Auth/PermissionUseCase';
-import SyncRolesPermissionUseCase from '../../Domain/UseCases/Auth/SyncRolesPermissionUseCase';
 import RegisterUseCase from '../../Domain/UseCases/Auth/RegisterUseCase';
 import UpdateMeUseCase from '../../Domain/UseCases/Auth/UpdateMeUseCase';
 import LogoutUseCase from '../../Domain/UseCases/Auth/LogoutUseCase';
@@ -17,7 +16,6 @@ import ForgotPasswordPayload from '../../Domain/Payloads/Auth/ForgotPasswordPayl
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 import RegisterPayload from '../../Domain/Payloads/Auth/RegisterPayload';
 import VerifyYourAccountPayload from '../../Domain/Payloads/Auth/VerifyYourAccountPayload';
-import IToken from '../../Domain/Models/IToken';
 import ILocaleMessage from '../../../Shared/InterfaceAdapters/ILocaleMessage';
 import IGroupPermission from '../../../Config/IGroupPermission';
 import UpdateMePayload from '../../Domain/Payloads/Auth/UpdateMePayload';
@@ -28,10 +26,12 @@ import RefreshTokenSchemaValidation from '../Validations/Auth/RefreshTokenSchema
 import ForgotPasswordSchemaValidation from '../Validations/Auth/ForgotPasswordSchemaValidation';
 import ChangeForgotPasswordSchemaValidation from '../Validations/Auth/ChangeForgotPasswordSchemaValidation';
 import VerifyYourAccountSchemaValidation from '../Validations/Auth/VerifyYourAccountSchemaValidation';
+import ILoginResponse from '../../Domain/Models/ILoginResponse';
+import LogoutPayload from '../../Domain/Payloads/Auth/LogoutPayload';
 
 class AuthController
 {
-    public async login(payload: AuthPayload): Promise<IToken>
+    public async login(payload: AuthPayload): Promise<ILoginResponse>
     {
         await ValidatorSchema.handle(AuthSchemaValidation, payload);
 
@@ -55,15 +55,13 @@ class AuthController
         return await useCase.handle(payload);
     }
 
-    public async logout(payload: RefreshTokenPayload): Promise<ILocaleMessage>
+    public async logout(payload: LogoutPayload): Promise<ILocaleMessage>
     {
-        await ValidatorSchema.handle(RefreshTokenSchemaValidation, payload);
-
         const useCase = new LogoutUseCase();
         return await useCase.handle(payload);
     }
 
-    public async refreshToken(payload: RefreshTokenPayload): Promise<IToken>
+    public async refreshToken(payload: RefreshTokenPayload): Promise<any>
     {
         await ValidatorSchema.handle(RefreshTokenSchemaValidation, payload);
 
@@ -101,10 +99,9 @@ class AuthController
         return useCase.handle();
     }
 
-    public syncRolesPermissions(): Promise<string[]>
+    public async syncRolesPermissions(): Promise<void>
     {
-        const useCase = new SyncRolesPermissionUseCase();
-        return useCase.handle();
+        // TODO: Add sync use case on keycloak
     }
 }
 

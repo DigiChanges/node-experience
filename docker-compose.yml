@@ -17,6 +17,7 @@ services:
       - traefik.http.routers.api.tls.certresolver=lets-encrypt
       - traefik.port=80
     volumes:
+      - ./dist:/usr/app/dist
       - ./src:/usr/app/src:cached
       - ./config:/usr/app/config:cached
       - ./.env:/usr/app/.env
@@ -31,17 +32,16 @@ services:
       target: ${STAGE}
     ports:
       - "8080:8080"
-#    environment:
-#      - KEYCLOAK_ADMIN=superadmin@node.com
-#      - KEYCLOAK_ADMIN_PASSWORD=db_experience123
-#      - KEYCLOAK_DATABASE_HOST=db_sql
-#      - KC_DB=postgres
-#      - KC_DB_PORT=5432
-#      - KC_DB_DATABASE=experience
-#      - KC_DB_USERNAME=experience
-#      - KC_DB_PASSWORD=experience
-#      - KC_DB_SCHEMA=public
-#      - WAIT_FOR_DB=true
+    environment:
+      -  KEYCLOAK_ADMIN=superadmin@node.com
+      -  KEYCLOAK_ADMIN_PASSWORD=db_experience123
+      -  KEYCLOAK_ADMIN_THEME=base
+      -  KC_DB=postgres
+      -  KC_DB_URL=jdbc:postgresql://db_sql:5432/experience?user=experience&password=experience&charSet=UTF-8
+      -  WAIT_FOR_DB=true
+      -  KC_HOSTNAME=localhost
+      -  KC_HEALTH_ENABLED=true
+      -  KC_METRICS_ENABLED=true
     networks:
      - experiencenet
 

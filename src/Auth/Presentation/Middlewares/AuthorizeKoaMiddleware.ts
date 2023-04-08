@@ -2,38 +2,34 @@ import Koa from 'koa';
 import MainConfig from '../../../Config/MainConfig';
 import { SERVICES } from '../../../Config/Injects';
 
-import IUserDomain from '../../Domain/Entities/IUserDomain';
-import ForbiddenHttpException from '../Exceptions/ForbiddenHttpException';
-import AuthService from '../../Domain/Services/AuthService';
 import { DependencyContainer } from 'tsyringe';
+import AuthorizeService from '../../Domain/Services/AuthorizeService';
+import AuthHelperService from '../../Domain/Services/AuthHelperService';
 
 const AuthorizeKoaMiddleware = (...handlerPermissions: string[]) =>
 {
     return async(ctx: Koa.ParameterizedContext, next: Koa.Next) =>
     {
         const container: DependencyContainer = ctx.container;
-        const authService: AuthService = container.resolve<AuthService>(SERVICES.AuthService);
+
+        const authorizationHeader = ctx.get('Authorization');
+        const authorizeService: AuthorizeService = container.resolve<AuthorizeService>(SERVICES.AuthorizeService);
+        const authHelperService = new AuthHelperService();
+        const token = authHelperService.getToken(authorizationHeader);
+
         const config = MainConfig.getInstance().getConfig();
 
-        let isAllowed = !config.auth.authorization;
+        const { authorization: hasActiveAuthorization } = config.auth;
 
-        const authUser = ctx.authUser as IUserDomain;
-
-        const authorize = await authService.authorize(authUser, handlerPermissions);
-
-        if (authorize)
+        if (hasActiveAuthorization)
         {
-            isAllowed = true;
+            await authorizeService.authorize(token, handlerPermissions);
         }
 
-        if (isAllowed)
-        {
-            await next();
-        }
-        else
-        {
-            throw new ForbiddenHttpException();
-        }
+        ctx.accessToken = token;
+        ctx.authUser = await authorizeService.getAuthUser(token, hasActiveAuthorization);
+
+        await next();
     };
 };
 

@@ -1,33 +1,26 @@
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
 import ChangeMyPasswordPayload from '../../Payloads/User/ChangeMyPasswordPayload';
 import IUserDomain from '../../Entities/IUserDomain';
-import PasswordWrongException from '../../Exceptions/PasswordWrongException';
-import UserService from '../../Services/UserService';
-import { FACTORIES } from '../../../../Config/Injects';
-import IEncryption from '../../../../Shared/Infrastructure/Encryption/IEncryption';
+import { REPOSITORIES } from '../../../../Config/Injects';
+import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 
 class ChangeMyPasswordUseCase
 {
-    private encryption: IEncryption;
-    private userService: UserService;
+    private repository: IUserRepository;
 
     constructor()
     {
         const { container } = getRequestContext();
-        this.userService = new UserService();
-        this.encryption = container.resolve<IEncryption>(FACTORIES.BcryptEncryptionStrategy);
+        this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
     }
 
-    async handle(payload: ChangeMyPasswordPayload): Promise<IUserDomain>
+    async handle(payload: ChangeMyPasswordPayload): Promise<any>
     {
-        const user: IUserDomain = await this.userService.getOne(payload.id);
+        const user: IUserDomain = await this.repository.getOne(payload.id);
 
-        if (! await this.encryption.compare(payload.currentPassword, user.password.toString()))
-        {
-            throw new PasswordWrongException();
-        }
+        await this.repository.updatePassword(user.getId(), payload.password);
 
-        return await this.userService.updatePassword(user, payload);
+        return user;
     }
 }
 

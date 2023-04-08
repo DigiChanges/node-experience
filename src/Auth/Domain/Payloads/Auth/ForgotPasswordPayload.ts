@@ -1,9 +1,7 @@
-import ConfirmationTokenPayload from './ConfirmationTokenPayload';
 
-interface ForgotPasswordPayload extends ConfirmationTokenPayload
+interface ForgotPasswordPayload
 {
     email: string;
-    passwordRequestedAt: Date;
 }
 
 export default ForgotPasswordPayload;

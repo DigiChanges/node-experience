@@ -1,10 +1,9 @@
 
 interface RoleRepPayload
 {
+    _id?: string;
     name: string;
-    slug: string;
     permissions: string[];
-    enable: boolean;
 }
 
 export default RoleRepPayload;

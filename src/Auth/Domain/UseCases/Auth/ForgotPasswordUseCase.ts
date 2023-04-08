@@ -1,6 +1,6 @@
 import MainConfig from '../../../../Config/MainConfig';
 import ForgotPasswordPayload from '../../Payloads/Auth/ForgotPasswordPayload';
-import IUserRepository from '../../../Infrastructure/Repositories/IUserRepository';
+import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import ForgotPasswordEvent from '../../../../Shared/Infrastructure/Events/ForgotPasswordEvent';
 import SendEmailService from '../../../../Notification/Domain/Services/SendEmailService';
@@ -8,27 +8,27 @@ import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotif
 import Locales from '../../../../Shared/Presentation/Shared/Locales';
 import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import AuthHelperService from '../../Services/AuthHelperService';
 
 class ForgotPasswordUseCase
 {
     private repository: IUserRepository;
+    private authHelperService: AuthHelperService;
 
     constructor()
     {
         const { container } = getRequestContext();
         this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
+        this.authHelperService = new AuthHelperService();
     }
 
     async handle(payload: ForgotPasswordPayload): Promise<ILocaleMessage>
     {
         const { urlWeb } = MainConfig.getInstance().getConfig().url;
-        const { confirmationToken, passwordRequestedAt, email } = payload;
+        const { email } = payload;
         const user = await this.repository.getOneByEmail(email);
 
-        user.passwordRequestedAt = passwordRequestedAt;
-
-        await this.repository.save(user);
-
+        const confirmationToken = this.authHelperService.getConfirmationToken(payload.email);
         const urlConfirmationToken = `${urlWeb}/change-forgot-password?token=${confirmationToken}`;
 
         void await SendEmailService.handle({

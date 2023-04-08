@@ -17,8 +17,7 @@ import UserAssignRolePayload from '../../Domain/Payloads/User/UserAssignRolePayl
 import ChangeMyPasswordPayload from '../../Domain/Payloads/User/ChangeMyPasswordPayload';
 import ChangeUserPasswordPayload from '../../Domain/Payloads/User/ChangeUserPasswordPayload';
 import dayjs from 'dayjs';
-import { AuthUser } from '../Helpers/AuthUser';
-import IDecodeToken from '../../Domain/Models/IDecodeToken';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/users'
@@ -33,7 +32,7 @@ UserKoaHandler.post('/', AuthorizeKoaMiddleware(Permissions.USERS_SAVE), async(c
 {
     const data = {
         ...ctx.request.body,
-        birthday: dayjs(ctx.request.body.birthday, 'yyyy-mm-dd').toDate(),
+        birthdate: dayjs(ctx.request.body.birthdate, 'yyyy-mm-dd').toDate(),
         roles: []
     };
 
@@ -51,7 +50,7 @@ UserKoaHandler.get('/', AuthorizeKoaMiddleware(Permissions.USERS_LIST), async(ct
 
     const paginator: IPaginator = await controller.list(data);
 
-    await responder.paginate(paginator, ctx, config['HTTP_OK'], new UserTransformer());
+    await responder.send(paginator, ctx, config['HTTP_OK'], new UserTransformer()); // TODO: Change to paginate
 });
 
 UserKoaHandler.get('/:id', AuthorizeKoaMiddleware(Permissions.USERS_SHOW), async(ctx: DefaultContext) =>
@@ -70,8 +69,8 @@ UserKoaHandler.put('/:id', AuthorizeKoaMiddleware(Permissions.USERS_UPDATE), asy
     const data = {
         ...ctx.request.body,
         id: ctx.params.id,
-        userId: ctx.decodeToken.userId,
-        birthday: dayjs(ctx.request.body.birthday, 'yyyy-mm-dd').toDate(),
+        userId: ctx.authUser.getId(),
+        birthdate: dayjs(ctx.request.body.birthdate, 'yyyy-mm-dd').toDate(),
         roles: []
     };
 
@@ -87,9 +86,9 @@ UserKoaHandler.put('/assign-role/:id', AuthorizeKoaMiddleware(Permissions.USERS_
         id: ctx.params.id
     };
 
-    const user: IUserDomain = await controller.assignRole(data as UserAssignRolePayload);
+    await controller.assignRole(data as UserAssignRolePayload);
 
-    void await responder.send(user, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+    void await responder.send({ message: 'Role assigned successfully.' }, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
 });
 
 UserKoaHandler.delete('/:id', AuthorizeKoaMiddleware(Permissions.USERS_DELETE), async(ctx: DefaultContext) =>
@@ -100,14 +99,14 @@ UserKoaHandler.delete('/:id', AuthorizeKoaMiddleware(Permissions.USERS_DELETE), 
 
     const user: IUserDomain = await controller.remove(data);
 
-    void await responder.send(user, ctx, config['HTTP_OK'], new UserTransformer());
+    void await responder.send(user, ctx, config['HTTP_OK'], new DefaultMessageTransformer(ResponseMessageEnum.DELETED));
 });
 
 UserKoaHandler.post('/change-my-password', AuthorizeKoaMiddleware(Permissions.USERS_CHANGE_MY_PASSWORD), async(ctx: DefaultContext) =>
 {
     const data = {
         ...ctx.request.body,
-        id: AuthUser<IDecodeToken>(ctx, 'decodeToken').userId
+        id: ctx.authUser.getId()
     };
 
     const user: IUserDomain = await controller.changeMyPassword(data as ChangeMyPasswordPayload);
@@ -119,12 +118,19 @@ UserKoaHandler.put('/change-user-password/:id', AuthorizeKoaMiddleware(Permissio
 {
     const data = {
         ...ctx.request.body,
-        userId: ctx.params.id
+        id: ctx.params.id
     };
 
     const user: IUserDomain = await controller.changeUserPassword(data as ChangeUserPasswordPayload);
 
     void await responder.send(user, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+});
+
+UserKoaHandler.post('/active/:id', AuthorizeKoaMiddleware(Permissions.USERS_CHANGE_USER_PASSWORD), async(ctx: DefaultContext) =>
+{
+    await controller.active(ctx.params as IdPayload);
+
+    void await responder.send({ message: 'User activated successfully' }, ctx, config['HTTP_OK']);
 });
 
 export default UserKoaHandler;

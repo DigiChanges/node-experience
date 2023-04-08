@@ -1,6 +1,6 @@
 import commander from 'commander';
 import Logger from '../../../Shared/Application/Logger/Logger';
-import ActiveUserUseCase from '../../Domain/UseCases/User/ActiveUserUseCase';
+import ActiveUserByEmailUseCase from '../../Domain/UseCases/User/ActiveUserByEmailUseCase';
 import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
 
 const ActiveUserCommand = new commander.Command('activeUser');
@@ -12,7 +12,7 @@ ActiveUserCommand
     .option('-e, --email <email>', 'Email of user')
     .action(async(env: Record<string, string>) =>
     {
-        const activeUserUseCase = new ActiveUserUseCase();
+        const activeUserUseCase = new ActiveUserByEmailUseCase();
 
         const request = {
             email: env.email

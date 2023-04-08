@@ -5,8 +5,6 @@ import { customAlphabet } from 'nanoid/async';
 
 import ItemSchema, { ItemMongooseDocument } from '../../../Item/Infrastructure/Schemas/ItemMongoose';
 
-import RoleSchema, { RoleMongooseDocument } from '../../../Auth/Infrastructure/Schemas/RoleMongoose';
-import UserSchema, { UserMongooseDocument } from '../../../Auth/Infrastructure/Schemas/UserMongoose';
 import FileVersionSchema, {
     FileVersionMongooseDocument
 } from '../../../File/Infrastructure/Schemas/FileVersionMongoose';
@@ -15,7 +13,6 @@ import {
     NotificationSchema,
     PushNotificationSchema
 } from '../../../Notification/Infrastructure/Schemas/NotificationMongoose';
-import TokenSchema, { TokenMongooseDocument } from '../../../Auth/Infrastructure/Schemas/TokenMongoose';
 import ICreateConnection from './ICreateConnection';
 import FileSchema, { FileMongooseDocument } from '../../../File/Infrastructure/Schemas/FileMongoose';
 
@@ -61,8 +58,6 @@ class CreateMongooseConnection implements ICreateConnection
         await connect(this.uri);
 
         // Domain
-        connection.model<UserMongooseDocument>('User', UserSchema);
-        connection.model<RoleMongooseDocument>('Role', RoleSchema);
         connection.model<ItemMongooseDocument>('Item', ItemSchema);
         connection.model<FileVersionMongooseDocument>('FileVersion', FileVersionSchema);
         connection.model<FileMongooseDocument>('File', FileSchema);
@@ -71,7 +66,6 @@ class CreateMongooseConnection implements ICreateConnection
         const NotificationModel = connection.model<NotificationMongooseDocument>('Notification', NotificationSchema);
         NotificationModel.discriminator('EmailNotification', EmailNotificationSchema);
         NotificationModel.discriminator('PushNotification', PushNotificationSchema);
-        connection.model<TokenMongooseDocument>('Token', TokenSchema);
     }
 
     async close(force = true): Promise<any>

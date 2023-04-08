@@ -131,9 +131,7 @@ describe('Start Role Test', () =>
             expect(response.statusCode).toStrictEqual(200);
 
             expect(data.name).toStrictEqual(payload.name);
-            expect(data.slug).toStrictEqual(payload.slug);
             expect(data.permissions).toStrictEqual(payload.permissions);
-            expect(data.enable).toStrictEqual(payload.enable);
         });
 
         test('Update Role /roles/:id', async() =>
@@ -180,7 +178,6 @@ describe('Start Role Test', () =>
             expect(deleteResponse.statusCode).toStrictEqual(201);
 
             expect(data.name).toStrictEqual(payload.name);
-            expect(data.slug).toStrictEqual(payload.slug);
             expect(data.permissions).toStrictEqual(payload.permissions);
             expect(data.enable).toStrictEqual(payload.enable);
         });
@@ -258,8 +255,8 @@ describe('Start Role Test', () =>
 
             expect(response.statusCode).toStrictEqual(200);
 
-            expect(role1.slug).toStrictEqual('superAdmin');
-            expect(role2.slug).toStrictEqual('role3testupdate');
+            expect(role1.name).toStrictEqual('superAdmin');
+            expect(role2.name).toStrictEqual('role3testupdate');
         });
 
         test('Sync roles permissions /sync-roles-permissions', async() =>

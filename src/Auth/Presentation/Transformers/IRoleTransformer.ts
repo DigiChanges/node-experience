@@ -1,6 +1,5 @@
-import BaseTransformer, { BasePropertiesTransformer } from '../../../Shared/Presentation/Transformers/BaseTransformer';
-import IRoleDomain from '../../Domain/Entities/IRoleDomain';
+import RoleRepPayload from '../../Domain/Payloads/Role/RoleRepPayload';
 
-type IRoleTransformer = BaseTransformer<IRoleDomain> & BasePropertiesTransformer;
+type IRoleTransformer = RoleRepPayload & { id: string };
 
 export default IRoleTransformer;

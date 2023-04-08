@@ -6,7 +6,6 @@ import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import ItemController from '../Controllers/ItemController';
 import ItemTransformer from '../Transformers/ItemTransformer';
-import { AuthUser } from '../../../Auth/Presentation/Helpers/AuthUser';
 import AuthorizeKoaMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeKoaMiddleware';
 import Permissions from '../../../Config/Permissions';
 import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
@@ -28,7 +27,6 @@ const config = MainConfig.getInstance().getConfig().statusCode;
 ItemKoaHandler.post('/', AuthorizeKoaMiddleware(Permissions.ITEMS_SAVE), async(ctx: DefaultContext) =>
 {
     const data: ItemRepPayload = {
-        authUser: AuthUser(ctx),
         ...ctx.request.body
     };
 
@@ -60,7 +58,6 @@ ItemKoaHandler.put('/:id', AuthorizeKoaMiddleware(Permissions.ITEMS_UPDATE), asy
 {
     const data: ItemUpdatePayload = {
         id: ctx.params.id,
-        authUser: AuthUser(ctx),
         ...ctx.request.body
     };
 

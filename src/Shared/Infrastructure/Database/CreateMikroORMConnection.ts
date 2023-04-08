@@ -1,13 +1,10 @@
 import { MikroORM } from '@mikro-orm/core';
 import { newDb } from 'pg-mem';
-import User from '../../../Auth/Infrastructure/Schemas/UserMikroORM';
-import Role from '../../../Auth/Infrastructure/Schemas/RoleMikroORM';
 import Item from '../../../Item/Infrastructure/Schemas/ItemMikroORM';
 import File from '../../../File/Infrastructure/Schemas/FileMikroORM';
 import FileVersion from '../../../File/Infrastructure/Schemas/FileVersionMikroORM';
 import ICreateConnection from './ICreateConnection';
 import Logger from '../../Application/Logger/Logger';
-import TokenSchema from '../../../Auth/Infrastructure/Schemas/TokenMikroORM';
 
 export let orm: MikroORM;
 
@@ -17,8 +14,6 @@ class CreateMikroORMConnection implements ICreateConnection
     private createInstanceConnection: any;
     private entities = [
         FileVersion,
-        Role,
-        User,
         Item,
         File
     ];
@@ -52,7 +47,7 @@ class CreateMikroORMConnection implements ICreateConnection
         const db = newDb();
 
         orm = await db.adapters.createMikroOrm({
-            entities: [...this.entities, TokenSchema]
+            entities: [...this.entities]
         });
 
         const generator = orm.getSchemaGenerator();

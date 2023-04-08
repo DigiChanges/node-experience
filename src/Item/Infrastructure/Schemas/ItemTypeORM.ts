@@ -28,21 +28,6 @@ const ItemSchema = new EntitySchema<Item>({
             updateDate: true
         }
     },
-    relations: {
-        createdBy: {
-            type: 'many-to-one',
-            target: 'User',
-            joinColumn: true,
-            eager: true
-        }
-        // TODO: duplicate reference error.
-        // lastModifiedBy: {
-        //     type: 'many-to-one',
-        //     target: 'User',
-        //     joinColumn: true,
-        //     eager: false
-        // }
-    },
     indices: [
         {
             name: 'id_item_1',

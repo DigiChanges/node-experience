@@ -19,7 +19,7 @@ AddUserCommand
     .option('-ph, --phone <phone>', 'User`s phone')
     .option('-c, --country <country>', 'User`s country')
     .option('-a, --address <address>', 'User`s address')
-    .option('-bir, --birthday <birthday>', 'User`s birthday')
+    .option('-bir, --birthdate <birthdate>', 'User`s birthdate')
     .option('-isa, --isSuperAdmin <isSuperAdmin>', 'Set if user is super admin')
     .action(async(env: Record<string, string>) =>
     {

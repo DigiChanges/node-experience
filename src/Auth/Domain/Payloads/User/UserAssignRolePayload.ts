@@ -2,7 +2,7 @@ import IdPayload from '../../../../Shared/Presentation/Requests/IdPayload';
 
 interface UserAssignRolePayload extends IdPayload
 {
-    rolesId: string[];
+    roles: Record<string, any>[];
 }
 
 export default UserAssignRolePayload;

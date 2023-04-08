@@ -21,7 +21,9 @@ export enum REPOSITORIES  {
 }
 
 export enum SERVICES {
-    AuthService = 'AuthService'
+    AuthService = 'AuthService',
+    KeycloakAuthService = 'KeycloakAuthService',
+    AuthorizeService = 'AuthorizeService'
 }
 
 export enum TYPES  {

@@ -5,6 +5,7 @@ import { FACTORIES } from '../../../Config/Injects';
 
 class Password
 {
+    private hashed: string;
     private value: string;
     private encryption: IEncryption;
 

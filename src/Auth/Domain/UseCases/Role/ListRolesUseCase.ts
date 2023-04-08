@@ -1,7 +1,7 @@
 import ICriteria from '../../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../../Shared/Infrastructure/Orm/IPaginator';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import IRoleRepository from '../../../Infrastructure/Repositories/IRoleRepository';
+import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
 
 class ListRolesUseCase

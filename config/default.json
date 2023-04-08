@@ -10,7 +10,11 @@
   },
   "auth": {
     "clientId": "experience",
+    "clientUuid": "5ffa84ea-702f-4f13-96f0-2e2237305591",
     "clientSecret": "XxZ5vETEKmLDEccP9Tq1G8eDCagUaeHq",
+    "mainRealm": "digichanges",
+    "username": "admin",
+    "password": "12345678",
     "host": "http://localhost:8080",
     "authorization": false
   },
@@ -112,16 +116,6 @@
     }
   },
   "executeCrons": false,
-  "apiWhitelist": [
-    {
-      "methods": ["GET"],
-      "url": "/"
-    },
-    {
-      "methods": ["GET"],
-      "url": "/log"
-    }
-  ],
   "statusCode": {
     "HTTP_CONTINUE": {  "code": 100, "statusCode": "HTTP_CONTINUE", "status": ""  },
     "HTTP_SWITCHING_PROTOCOLS": { "code": 101, "statusCode": "HTTP_SWITCHING_PROTOCOLS", "status": "" },
