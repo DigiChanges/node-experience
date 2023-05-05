@@ -75,6 +75,7 @@
     "port": "SMTP_PORT",
     "username": "SMTP_USERNAME",
     "password": "SMTP_PASSWORD",
+    "secure": "SMTP_SECURE_SSL",
     "senderName": "SMTP_SENDER_NAME",
     "senderEmailDefault": "SMTP_SENDER_EMAIL_DEFAULT"
   },
