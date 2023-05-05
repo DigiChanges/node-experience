@@ -115,6 +115,14 @@
       "url": "/"
     },
     {
+      "methods": ["GET"],
+      "url": "/api/category"
+    },
+    {
+      "methods": ["GET"],
+      "url": "api/products"
+    },
+    {
       "methods": ["POST"],
       "url": "/api/auth/login"
     },

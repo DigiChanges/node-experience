@@ -14,6 +14,7 @@ import IndexKoaHandler from '../../Presentation/Handlers/IndexKoaHandler';
 import ItemKoaHandler from '../../../Item/Presentation/Handlers/ItemKoaHandler';
 import RoleKoaHandler from '../../../Auth/Presentation/Handlers/RoleKoaHandler';
 import UserKoaHandler from '../../../Auth/Presentation/Handlers/UserKoaHandler';
+import CategoryKoaHandler from '../../../Category/Presentation/Handlers/CategoryKoaHandler';
 import NotificationKoaHandler from '../../../Notification/Presentation/Handlers/NotificationKoaHandler';
 import FileKoaHandler from '../../../File/Presentation/Handlers/FileKoaHandler';
 import AuthKoaHandler from '../../../Auth/Presentation/Handlers/AuthKoaHandler';
@@ -21,12 +22,12 @@ import IAppConfig from './IAppConfig';
 import WhiteListKoaHandler from '../../Tests/WhiteListKoaHandler';
 import { ErrorKoaHandler } from './ErrorKoaHandler';
 import MainConfig from '../../../Config/MainConfig';
-
 import LoggerKoaMiddleware from '../../Presentation/Middlewares/LoggerKoaMiddleware';
 import { getRequestContext } from '../../Presentation/Shared/RequestContext';
 import Logger from '../Logger/Logger';
 import ContextMikroORMKoaMiddleware from '../../Presentation/Middlewares/ContextMikroORMKoaMiddleware';
 import ContainerKoaMiddleware from '../../Presentation/Middlewares/ContainerKoaMiddleware';
+
 
 class AppKoa implements IApp
 {
@@ -83,6 +84,8 @@ class AppKoa implements IApp
         // Route middleware.
         this.app.use(IndexKoaHandler.routes());
         this.app.use(IndexKoaHandler.allowedMethods());
+
+        this.app.use(CategoryKoaHandler.routes());
 
         this.app.use(WhiteListKoaHandler.routes());
         this.app.use(WhiteListKoaHandler.allowedMethods());
