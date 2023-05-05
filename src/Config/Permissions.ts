@@ -38,6 +38,10 @@ class Permissions
     static readonly ROLES_LIST: string = 'rolesList';
     static readonly ROLES_DELETE: string = 'rolesDelete';
 
+    // CATEGORY
+    static readonly CATEGORY_LIST: string = 'categoryList';
+    static readonly CATEGORY_SAVE: string = 'categorySave';
+
     static groupPermissions(): IGroupPermission[]
     {
         return [
@@ -90,6 +94,14 @@ class Permissions
                     Permissions.ROLES_SHOW,
                     Permissions.ROLES_LIST,
                     Permissions.ROLES_DELETE
+                ]
+            },
+            {
+                group: 'CATEGORY',
+                permissions: [
+                    Permissions.CATEGORY_LIST,
+                    Permissions.CATEGORY_SAVE
+
                 ]
             }
         ];

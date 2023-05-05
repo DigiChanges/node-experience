@@ -3,6 +3,7 @@ import CategorySavePayload from '../Payloads/CategorySavePayload';
 import ICategoryRepository from '../../Infraestructure/Repositories/ICategoryRepository';
 import { REPOSITORIES } from '../../../Config/Injects';
 import Category from '../Entities/Category';
+import ICategoryDomain from '../Entities/ICategoryDomain';
 
 class CategoryService
 {
@@ -15,11 +16,15 @@ class CategoryService
 
     async create(payload: CategorySavePayload): Promise<Category>
     {
-        console.log('Soy service body', payload);
         const category = new Category(payload);
-        console.log('soy category transformada', category);
-        // await this.repository.save(category);
+        const data = await this.repository.save(category);
         return category;
+    }
+
+    async list(): Promise<ICategoryDomain[]>
+    {
+        const data = await this.repository.list();
+        return data;
     }
 }
 

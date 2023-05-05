@@ -1,8 +1,13 @@
-import Koa from 'koa';
+import Koa, { DefaultContext } from 'koa';
 import Router from 'koa-router';
 import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import MainConfig, { IHttpStatusCode } from '../../../Config/MainConfig';
 import CategoryController from '../Controllers/CategoryController';
+import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
+import ICategoryDomain from '../../Domain/Entities/ICategoryDomain';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
+import AuthorizeKoaMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeKoaMiddleware';
+import Permissions from '../../../Config/Permissions';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/category'
@@ -13,10 +18,14 @@ const responder: KoaResponder = new KoaResponder();
 const controller = new CategoryController();
 const config: Record<string, IHttpStatusCode> = MainConfig.getInstance().getConfig().statusCode;
 
-CategoryKoaHandler.get('/', async(ctx: Koa.ParameterizedContext & any): Promise<void> =>
+
+CategoryKoaHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
-    void await responder.send('Welcome to category', ctx, config['HTTP_OK']);
+    const data: ICategoryDomain[] = await controller.list();
+
+    await responder.send(data, ctx, config['HTTP_OK']);
 });
+
 
 CategoryKoaHandler.put('/', async(ctx: Koa.ParameterizedContext & any): Promise<void> =>
 {
@@ -26,8 +35,8 @@ CategoryKoaHandler.put('/', async(ctx: Koa.ParameterizedContext & any): Promise<
 CategoryKoaHandler.post('/', async(ctx: Koa.ParameterizedContext & any): Promise<void> =>
 {
     const { body } = ctx.request;
-    const category = await controller.save(body);
-    void await responder.send('Category created', category, config['HTTP_OK']);
+    await controller.save(body);
+    void await responder.send('Category created', ctx, config['HTTP_CREATED']);
 });
 
 export default CategoryKoaHandler;

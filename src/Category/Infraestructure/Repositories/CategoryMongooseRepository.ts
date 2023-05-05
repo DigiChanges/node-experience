@@ -10,6 +10,12 @@ class CategoryMongooseRepository extends BaseMongooseRepository<ICategoryDomain,
     {
         super(Category.name);
     }
+
+    async list(): Promise<ICategoryDomain[]>
+    {
+        const data = await this.repository.find();
+        return data;
+    }
 }
 
 export default CategoryMongooseRepository;
