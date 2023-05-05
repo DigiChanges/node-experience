@@ -1,5 +1,5 @@
-import ICategoryDomain from 'Category/Domain/Entities/ICategoryDomain';
-import BaseMongooseRepository from 'Shared/Infrastructure/Repositories/BaseMongooseRepository';
+import ICategoryDomain from '../../Domain/Entities/ICategoryDomain';
+import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/BaseMongooseRepository';
 import { CategoryMongooseDocument } from '../Schemas/CategoryMongoose';
 import Category from '../../Domain/Entities/Category';
 import ICategoryRepository from './ICategoryRepository';
@@ -11,3 +11,5 @@ class CategoryMongooseRepository extends BaseMongooseRepository<ICategoryDomain,
         super(Category.name);
     }
 }
+
+export default CategoryMongooseRepository;

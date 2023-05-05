@@ -10,7 +10,7 @@ class CategoryService
     constructor()
     {
         const { container } = getRequestContext();
-        // this.repository = container.resolve<ICategoryRepository>(REPOSITORIES.ICategoryRepository);
+        this.repository = container.resolve<ICategoryRepository>(REPOSITORIES.ICategoryRepository);
     }
 
     async create(payload: CategorySavePayload): Promise<Category>

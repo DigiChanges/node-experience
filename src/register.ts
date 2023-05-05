@@ -23,6 +23,8 @@ import RoleMongooseRepository from './Auth/Infrastructure/Repositories/RoleMongo
 import FileVersionMongooseRepository from './File/Infrastructure/Repositories/FileVersionMongooseRepository';
 import ItemMongooseRepository from './Item/Infrastructure/Repositories/ItemMongooseRepository';
 import NotificationMongooseRepository from './Notification/Infrastructure/Repositories/NotificationMongooseRepository';
+import CategoryMongooseRepository from './Category/Infraestructure/Repositories/CategoryMongooseRepository';
+import ICategoryRepository from './Category/Infraestructure/Repositories/ICategoryRepository';
 
 import UserTypeORMRepository from './Auth/Infrastructure/Repositories/UserTypeORMRepository';
 import RoleTypeORMRepository from './Auth/Infrastructure/Repositories/RoleTypeORMRepository';
@@ -41,6 +43,7 @@ import IFileRepository from './File/Infrastructure/Repositories/IFileRepository'
 import FileTypeORMRepository from './File/Infrastructure/Repositories/FileTypeORMRepository';
 import FileMongooseRepository from './File/Infrastructure/Repositories/FileMongooseRepository';
 import FileMikroORMRepository from './File/Infrastructure/Repositories/FileMikroORMRepository';
+
 
 // Services
 container.register(SERVICES.AuthService, { useClass: AuthService }, { lifecycle: Lifecycle.Singleton });
@@ -64,6 +67,7 @@ else if (defaultDbConfig === 'Mongoose')
     container.register<IFileVersionRepository>(REPOSITORIES.IFileVersionRepository, { useClass: FileVersionMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<IFileRepository>(REPOSITORIES.IFileRepository, { useClass: FileMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository, { useClass: NotificationMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
+    container.register<ICategoryRepository>(REPOSITORIES.ICategoryRepository, { useClass: CategoryMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
 }
 else if (defaultDbConfig === 'MikroORM')
 {
