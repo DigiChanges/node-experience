@@ -10,7 +10,7 @@ const ProductSchema = new Schema({
     title: { type: String, required: true },
     enable: { type: Boolean, required: true, default: true },
     category: { type: Schema.Types.String, ref: 'Category', required: true }
-});
+}, { timestamps: true });
 
 ProductSchema.loadClass(Product);
 

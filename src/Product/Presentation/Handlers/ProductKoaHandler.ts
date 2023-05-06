@@ -15,17 +15,11 @@ const controller = new ProductController();
 const config: Record<string, IHttpStatusCode> = MainConfig.getInstance().getConfig().statusCode;
 
 
-/* ProductKoaHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
+ProductKoaHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const data: IProductDomain[] = await controller.list();
 
     await responder.send(data, ctx, config['HTTP_OK']);
-}); */
-
-
-ProductKoaHandler.put('/', async(ctx: Koa.ParameterizedContext & any): Promise<void> =>
-{
-    void await responder.send('Welcome to Put', ctx, config['HTTP_OK']);
 });
 
 ProductKoaHandler.post('/', async(ctx: Koa.ParameterizedContext & any): Promise<void> =>

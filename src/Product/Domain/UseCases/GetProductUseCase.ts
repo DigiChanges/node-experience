@@ -1,20 +1,19 @@
 import IProductDomain from '../Entities/IProductDomain';
-// import ProductSavePayload from '../Payloads/ProductSavePayload';
-// import ProductService from '../Services/ProductService';
+import ProductService from '../Services/ProductService';
 
-class GetCategoryUseCase
+class GetProductUseCase
 {
-    // private categoryService: ProductService;
+    private productService: ProductService;
     constructor()
     {
-        // this.categoryService = new ProductService();
+        this.productService = new ProductService();
     }
 
-    async handle(): Promise<void>
+    async handle(): Promise<IProductDomain[]>
     {
-        // const category: IProductDomain[] = await this.categoryService.list();
-        // return category;
+        const product: IProductDomain[] = await this.productService.list();
+        return product;
     }
 }
 
-export default GetCategoryUseCase;
+export default GetProductUseCase;

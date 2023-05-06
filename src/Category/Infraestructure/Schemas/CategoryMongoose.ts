@@ -9,7 +9,7 @@ const CategorySchema = new Schema({
     _id: { type: Schema.Types.String, default: uuid },
     title: { type: String, required: true },
     enable: { type: Boolean, required: true }
-});
+}, { timestamps: true });
 
 CategorySchema.loadClass(Category);
 

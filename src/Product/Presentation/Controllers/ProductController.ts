@@ -1,5 +1,7 @@
 import SaveProductUseCase from '../../Domain/UseCases/SaveProductUseCase';
 import ProductRepPayload from '../../Domain/Payloads/ProductRepPayload';
+import GetProductUseCase from '../../Domain/UseCases/GetProductUseCase';
+import IProductDomain from '../../Domain/Entities/IProductDomain';
 
 class ProductController
 {
@@ -10,12 +12,12 @@ class ProductController
         return await useCase.handle(payload);
     }
 
-    /* public async list(): Promise<IProductDomain[]>
+    public async list(): Promise<IProductDomain[]>
     {
         const useCase = new GetProductUseCase();
-        const allCategory = useCase.handle();
-        return allCategory;
-    } */
+        const allProducts = useCase.handle();
+        return allProducts;
+    }
 }
 
 export default ProductController;
