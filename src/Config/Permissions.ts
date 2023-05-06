@@ -42,6 +42,11 @@ class Permissions
     static readonly CATEGORY_LIST: string = 'categoryList';
     static readonly CATEGORY_SAVE: string = 'categorySave';
 
+    // PRODUCT
+
+    static readonly PRODUCT_LIST: string = 'productList';
+    static readonly PRODUCT_SAVE: string = 'productSave';
+
     static groupPermissions(): IGroupPermission[]
     {
         return [
@@ -101,7 +106,13 @@ class Permissions
                 permissions: [
                     Permissions.CATEGORY_LIST,
                     Permissions.CATEGORY_SAVE
-
+                ]
+            },
+            {
+                group: 'PRODUCT',
+                permissions: [
+                    Permissions.PRODUCT_SAVE,
+                    Permissions.PRODUCT_LIST
                 ]
             }
         ];

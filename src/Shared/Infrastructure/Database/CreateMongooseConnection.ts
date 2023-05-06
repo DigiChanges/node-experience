@@ -19,6 +19,7 @@ import TokenSchema, { TokenMongooseDocument } from '../../../Auth/Infrastructure
 import ICreateConnection from './ICreateConnection';
 import FileSchema, { FileMongooseDocument } from '../../../File/Infrastructure/Schemas/FileMongoose';
 import CategorySchema, { CategoryMongooseDocument } from '../../../Category/Infraestructure/Schemas/CategoryMongoose';
+import ProductSchema, { ProductMongooseDocument } from '../../../Product/Infraestructure/Schemas/ProductMongoose';
 
 class CreateMongooseConnection implements ICreateConnection
 {
@@ -68,6 +69,7 @@ class CreateMongooseConnection implements ICreateConnection
         connection.model<FileVersionMongooseDocument>('FileVersion', FileVersionSchema);
         connection.model<FileMongooseDocument>('File', FileSchema);
         connection.model<CategoryMongooseDocument>('Category', CategorySchema);
+        connection.model<ProductMongooseDocument>('Product', ProductSchema);
 
         // Infrastructure
         const NotificationModel = connection.model<NotificationMongooseDocument>('Notification', NotificationSchema);

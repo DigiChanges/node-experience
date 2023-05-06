@@ -115,12 +115,12 @@
       "url": "/"
     },
     {
-      "methods": ["PUT", "GET", "POST"],
+      "methods": ["GET", "POST"],
       "url": "/api/category"
     },
     {
-      "methods": ["GET", "POST", "PUT"],
-      "url": "api/products"
+      "methods": ["GET", "POST"],
+      "url": "/api/product"
     },
     {
       "methods": ["POST"],

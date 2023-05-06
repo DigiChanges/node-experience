@@ -6,7 +6,7 @@ import Category from '../../Domain/Entities/Category';
 export type CategoryMongooseDocument = Document & ICategoryDomain;
 
 const CategorySchema = new Schema({
-    _id: { type: String, default: uuid },
+    _id: { type: Schema.Types.String, default: uuid },
     title: { type: String, required: true },
     enable: { type: Boolean, required: true }
 });

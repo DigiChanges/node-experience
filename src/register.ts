@@ -25,6 +25,8 @@ import ItemMongooseRepository from './Item/Infrastructure/Repositories/ItemMongo
 import NotificationMongooseRepository from './Notification/Infrastructure/Repositories/NotificationMongooseRepository';
 import CategoryMongooseRepository from './Category/Infraestructure/Repositories/CategoryMongooseRepository';
 import ICategoryRepository from './Category/Infraestructure/Repositories/ICategoryRepository';
+import ProductMongooseRepository from './Product/Infraestructure/Repositories/ProductMongooseRepository';
+import IProductRepository from './Product/Infraestructure/Repositories/IProductRepository';
 
 import UserTypeORMRepository from './Auth/Infrastructure/Repositories/UserTypeORMRepository';
 import RoleTypeORMRepository from './Auth/Infrastructure/Repositories/RoleTypeORMRepository';
@@ -68,6 +70,7 @@ else if (defaultDbConfig === 'Mongoose')
     container.register<IFileRepository>(REPOSITORIES.IFileRepository, { useClass: FileMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository, { useClass: NotificationMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<ICategoryRepository>(REPOSITORIES.ICategoryRepository, { useClass: CategoryMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
+    container.register<IProductRepository>(REPOSITORIES.IProductRepository, { useClass: ProductMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
 }
 else if (defaultDbConfig === 'MikroORM')
 {

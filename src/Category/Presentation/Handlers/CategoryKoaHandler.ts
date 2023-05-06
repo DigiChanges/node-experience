@@ -1,13 +1,9 @@
-import Koa, { DefaultContext } from 'koa';
+import Koa from 'koa';
 import Router from 'koa-router';
 import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import MainConfig, { IHttpStatusCode } from '../../../Config/MainConfig';
 import CategoryController from '../Controllers/CategoryController';
-import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
 import ICategoryDomain from '../../Domain/Entities/ICategoryDomain';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
-import AuthorizeKoaMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeKoaMiddleware';
-import Permissions from '../../../Config/Permissions';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/category'
@@ -24,12 +20,6 @@ CategoryKoaHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
     const data: ICategoryDomain[] = await controller.list();
 
     await responder.send(data, ctx, config['HTTP_OK']);
-});
-
-
-CategoryKoaHandler.put('/', async(ctx: Koa.ParameterizedContext & any): Promise<void> =>
-{
-    void await responder.send('Welcome to Put', ctx, config['HTTP_OK']);
 });
 
 CategoryKoaHandler.post('/', async(ctx: Koa.ParameterizedContext & any): Promise<void> =>
