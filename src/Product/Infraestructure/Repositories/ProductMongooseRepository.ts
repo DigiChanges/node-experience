@@ -13,8 +13,7 @@ class ProductMongooseRepository extends BaseMongooseRepository<IProductDomain, P
 
     async list(): Promise<IProductDomain[]>
     {
-        const data = await this.repository.find();
-        return data;
+        return this.repository.find();
     }
 }
 

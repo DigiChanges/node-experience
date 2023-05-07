@@ -123,6 +123,10 @@
       "url": "/api/product"
     },
     {
+      "methods": ["GET"],
+      "url": "/api/product/list"
+    },
+    {
       "methods": ["POST"],
       "url": "/api/auth/login"
     },

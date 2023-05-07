@@ -1,9 +1,13 @@
+import { url } from 'envalid';
+import { Query } from 'mongoose';
 import Koa from 'koa';
 import Router from 'koa-router';
 import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import MainConfig, { IHttpStatusCode } from '../../../Config/MainConfig';
 import ProductController from '../Controllers/ProductController';
 import IProductDomain from '../../Domain/Entities/IProductDomain';
+import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
+import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/product'

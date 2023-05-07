@@ -1,7 +1,7 @@
 import SaveProductUseCase from '../../Domain/UseCases/SaveProductUseCase';
 import ProductRepPayload from '../../Domain/Payloads/ProductRepPayload';
-import GetProductUseCase from '../../Domain/UseCases/GetProductUseCase';
 import IProductDomain from '../../Domain/Entities/IProductDomain';
+import GetProductUseCase from '../../Domain/UseCases/GetProductUseCase';
 
 class ProductController
 {
