@@ -37,7 +37,6 @@ export const getRequestContext = (): { requestId: string, container?: Dependency
 {
     const data = store.get(asyncHooks.executionAsyncId());
     const container = data?.container ?? rContainer;
-
     return { ...data, container };
 };
 

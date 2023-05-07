@@ -2,12 +2,14 @@ import SaveProductUseCase from '../../Domain/UseCases/SaveProductUseCase';
 import ProductRepPayload from '../../Domain/Payloads/ProductRepPayload';
 import IProductDomain from '../../Domain/Entities/IProductDomain';
 import GetProductUseCase from '../../Domain/UseCases/GetProductUseCase';
+import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
+import ProductRepSchemaValidation from '../Validations/ProductRepSchemaValidation';
 
 class ProductController
 {
     public async save(payload: ProductRepPayload): Promise<any>
     {
-        // validar
+        await ValidatorSchema.handle(ProductRepSchemaValidation, payload);
         const useCase = new SaveProductUseCase();
         return await useCase.handle(payload);
     }
