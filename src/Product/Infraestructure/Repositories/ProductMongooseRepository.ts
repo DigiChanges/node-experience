@@ -13,7 +13,26 @@ class ProductMongooseRepository extends BaseMongooseRepository<IProductDomain, P
 
     async list(): Promise<IProductDomain[]>
     {
-        return this.repository.find();
+        const pipeline = [
+            {
+                $lookup: {
+                    from: 'categories',
+                    localField: 'category',
+                    foreignField: '_id',
+                    as: 'category'
+                }
+            },
+            {
+                $match: {
+                    $or: [
+                        { category: { $exists: false } },
+                        { 'category.enable': true }
+                    ]
+                }
+            }
+        ];
+
+        return await this.repository.aggregate(pipeline).exec();
     }
 }
 
