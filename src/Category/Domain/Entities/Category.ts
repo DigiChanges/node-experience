@@ -13,18 +13,6 @@ class Category extends Base implements ICategoryDomain
         this.title = payload.title;
         this.enable = payload.enable;
     }
-
-    createRep(payload: CategoryRepPayload): void
-    {
-        this.title = payload.title;
-        this.enable = payload.enable;
-    }
-
-    updateRep(payload: CategoryRepPayload): void
-    {
-        this.title = payload.title;
-        this.enable = payload.enable;
-    }
 }
 
 export default Category;

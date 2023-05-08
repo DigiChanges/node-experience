@@ -4,6 +4,9 @@ import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
 import MainConfig, { IHttpStatusCode } from '../../../Config/MainConfig';
 import CategoryController from '../Controllers/CategoryController';
 import ICategoryDomain from '../../Domain/Entities/ICategoryDomain';
+import CategoryTransformer from '../Transformers/CategoryTransformer';
+import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
+import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/category'
@@ -19,14 +22,14 @@ CategoryKoaHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
     const data: ICategoryDomain[] = await controller.list();
 
-    await responder.send(data, ctx, config['HTTP_OK']);
+    await responder.send(data, ctx, config['HTTP_OK'], new CategoryTransformer());
 });
 
 CategoryKoaHandler.post('/', async(ctx: Koa.ParameterizedContext & any): Promise<void> =>
 {
     const { body } = ctx.request;
-    await controller.save(body);
-    void await responder.send('Category created', ctx, config['HTTP_CREATED']);
+    const category = await controller.save(body);
+    void await responder.send(category, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
 });
 
 export default CategoryKoaHandler;
