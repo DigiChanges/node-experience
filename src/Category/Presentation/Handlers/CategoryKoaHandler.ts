@@ -7,6 +7,7 @@ import ICategoryDomain from '../../Domain/Entities/ICategoryDomain';
 import CategoryTransformer from '../Transformers/CategoryTransformer';
 import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
 import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
+import CategoryUpdatePayload from 'Category/Domain/Payloads/CategoryUpdatePayload';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/category'
@@ -25,11 +26,39 @@ CategoryKoaHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
     await responder.send(data, ctx, config['HTTP_OK'], new CategoryTransformer());
 });
 
+CategoryKoaHandler.get('/:id', async(ctx: Koa.ParameterizedContext & any) =>
+{
+    const data = {
+        id: ctx.params.id
+    };
+
+    const category: ICategoryDomain = await controller.getOne(data);
+
+    await responder.send(category, ctx, config['HTTP_OK'], new CategoryTransformer());
+});
+
 CategoryKoaHandler.post('/', async(ctx: Koa.ParameterizedContext & any): Promise<void> =>
 {
     const { body } = ctx.request;
     const category = await controller.save(body);
     void await responder.send(category, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
+});
+
+CategoryKoaHandler.delete('/:id', async(ctx: Koa.ParameterizedContext & any): Promise<void> =>
+{
+    const { params } = ctx.request;
+    const category = await controller.remove(params);
+    void await responder.send(category, ctx, config['HTTP_OK'], new CategoryTransformer());
+});
+
+CategoryKoaHandler.put('/:id', async(ctx: Koa.ParameterizedContext & any): Promise<void> =>
+{
+    const data = {
+        ...ctx.request.body,
+        id: ctx.params.id
+    };
+    const category: ICategoryDomain = await controller.update(data as CategoryUpdatePayload);
+    void await responder.send(category, ctx, config['HTTP_OK'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
 });
 
 export default CategoryKoaHandler;

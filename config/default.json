@@ -119,8 +119,16 @@
       "url": "/api/category"
     },
     {
+      "methods": ["PUT", "DELETE", "GET"],
+      "url": "/api/category/**"
+    },
+    {
       "methods": ["GET", "POST"],
       "url": "/api/product"
+    },
+    {
+      "methods": ["PUT", "DELETE", "GET"],
+      "url": "/api/product/**"
     },
     {
       "methods": ["GET"],

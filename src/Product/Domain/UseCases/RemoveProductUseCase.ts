@@ -1,12 +1,13 @@
-import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
+import IProductRepository from '../../Infraestructure/Repositories/IProductRepository';
 import { REPOSITORIES } from '../../../Config/Injects';
 import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
-import IProductRepository from '../../Infraestructure/Repositories/IProductRepository';
 import IProductDomain from '../Entities/IProductDomain';
+import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 
-class GetProductUseCase
+class RemoveProductUseCase
 {
     private repository: IProductRepository;
+
     constructor()
     {
         const { container } = getRequestContext();
@@ -15,8 +16,9 @@ class GetProductUseCase
 
     async handle(payload: IdPayload): Promise<IProductDomain>
     {
-        return await this.repository.getOneProduct(payload);
+        const { id } = payload;
+        return await this.repository.delete(id);
     }
 }
 
-export default GetProductUseCase;
+export default RemoveProductUseCase;

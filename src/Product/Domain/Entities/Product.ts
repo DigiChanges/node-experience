@@ -17,6 +17,14 @@ class Product extends Base implements IProductDomain
         this.enable = payload.enable;
         this.category = payload.category;
     }
+
+    updateBuild(payload: ProductRepPayload): void
+    {
+        this.price = payload.price;
+        this.title = payload.title;
+        this.enable = payload.enable;
+        this.category = payload.category;
+    }
 }
 
 export default Product;
