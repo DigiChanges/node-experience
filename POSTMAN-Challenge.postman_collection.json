@@ -42,7 +42,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"price\": 450,\n    \"title\": \"Razer DeathAdder Headset 1\",\n    \"enable\": true,\n    \"category\": \"f4f0b646-6274-41bf-bd9b-2f417c651a5a\"\n}",
+					"raw": "{\n    \"price\": 450,\n    \"title\": \"Razer DeathAdder Keyboard 1\",\n    \"enable\": true,\n    \"category\": \"f4f0b646-6274-41bf-bd9b-2f417c651a5a\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -85,6 +85,48 @@
 			"response": []
 		},
 		{
+			"name": "Get Category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8089/api/category/676dc598-eca5-4125-bd88-8363f5c9df1f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"api",
+						"category",
+						"676dc598-eca5-4125-bd88-8363f5c9df1f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8089/api/product/9e2b16f7-0383-4731-b382-a3c0ff89a0c6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"api",
+						"product",
+						"9e2b16f7-0383-4731-b382-a3c0ff89a0c6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "List product",
 			"request": {
 				"method": "GET",
@@ -99,6 +141,108 @@
 					"path": [
 						"api",
 						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Category",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Headset\",\n    \"enable\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8089/api/category/f4f0b646-6274-41bf-bd9b-2f417c651a5a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"api",
+						"category",
+						"f4f0b646-6274-41bf-bd9b-2f417c651a5a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"price\": 450,\n    \"title\": \"Razer DeathAdder Headset 1\",\n    \"enable\": true,\n    \"category\": \"f4f0b646-6274-41bf-bd9b-2f417c651a5a\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8089/api/product/56a647bd-bde2-47b4-b45d-66bbc41a5459",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"api",
+						"product",
+						"56a647bd-bde2-47b4-b45d-66bbc41a5459"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Category",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8089/api/category/34c885c1-1457-4275-ab64-44d320a8dd93",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"api",
+						"category",
+						"34c885c1-1457-4275-ab64-44d320a8dd93"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8089/api/product/56a647bd-bde2-47b4-b45d-66bbc41a5459",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"api",
+						"product",
+						"56a647bd-bde2-47b4-b45d-66bbc41a5459"
 					]
 				}
 			},
