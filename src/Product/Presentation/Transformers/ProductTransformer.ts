@@ -20,7 +20,7 @@ export class ProductTransformer extends Transformer
             price: payload.price,
             title: payload.title,
             enable: payload.enable,
-            category: payload.category[0]._id,
+            category: payload.category[0].title,
             createdAt: dayjs(payload.createdAt).utc().unix(),
             updatedAt: dayjs(payload.updatedAt).utc().unix()
         };

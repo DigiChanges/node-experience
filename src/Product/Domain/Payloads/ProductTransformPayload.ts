@@ -3,11 +3,11 @@ import IProductDomain from '../Entities/IProductDomain';
 
 interface ProductTransformPayload extends Omit<IProductDomain, 'category'> {
     _id: string;
-    category: CategoryID;
+    category: CategoryTitle;
 }
 
-interface CategoryID {
-    _id: string;
+interface CategoryTitle {
+    title: string;
 }
 
 export default ProductTransformPayload;
