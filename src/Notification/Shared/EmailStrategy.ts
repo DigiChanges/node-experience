@@ -80,13 +80,13 @@ class EmailStrategy implements INotifierStrategy
         {
             const host: string = config.mail.host;
             const port: number = config.mail.port;
-            const secure: boolean = config.mail.secure === true;
+            const secure: boolean = config.mail.secure;
             const templateRoot: string = config.mail.templateDir;
             const templateDir = `${process.cwd()}/${templateRoot}/${this._templatePathNameFile}`;
 
             const smtp_config = { host, port, secure };
 
-            if (smtp_config.secure)
+            if (config.mail.username && config.mail.password)
             {
                 const auth = {
                     auth: {
