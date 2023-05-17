@@ -22,7 +22,6 @@ RUN pnpm install
 RUN mkdir dist
 RUN chown node:node dist
 RUN chown -R node:node node_modules
-
 # Run development server
 ENTRYPOINT [ "dumb-init", "pnpm", "dev" ]
 
