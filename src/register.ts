@@ -8,9 +8,14 @@ import Md5EncryptionStrategy from './Shared/Infrastructure/Encryption/Md5Encrypt
 
 import MainConfig from './Config/MainConfig';
 
+import IEncryption from './Shared/Infrastructure/Encryption/IEncryption';
+
+import IAuthRepository from './Auth/Infrastructure/Repositories/Auth/IAuthRepository';
+import IAuthzRepository from './Auth/Infrastructure/Repositories/Auth/IAuthzRepository';
 import IUserRepository from './Auth/Infrastructure/Repositories/User/IUserRepository';
 import IRoleRepository from './Auth/Infrastructure/Repositories/Role/IRoleRepository';
 import IItemRepository from './Item/Infrastructure/Repositories/IItemRepository';
+import IFileRepository from './File/Infrastructure/Repositories/IFileRepository';
 import IFileVersionRepository from './File/Infrastructure/Repositories/IFileVersionRepository';
 import INotificationRepository from './Notification/Infrastructure/Repositories/INotificationRepository';
 import INotificationDomain from './Notification/Domain/Entities/INotificationDomain';
@@ -25,18 +30,17 @@ import ItemTypeORMRepository from './Item/Infrastructure/Repositories/ItemTypeOR
 import ItemMikroORMRepository from './Item/Infrastructure/Repositories/ItemMikroORMRepository';
 import FileVersionMikroORMRepository from './File/Infrastructure/Repositories/FileVersionMikroORMRepository';
 
-import IEncryption from './Shared/Infrastructure/Encryption/IEncryption';
-import IFileRepository from './File/Infrastructure/Repositories/IFileRepository';
 import FileTypeORMRepository from './File/Infrastructure/Repositories/FileTypeORMRepository';
 import FileMongooseRepository from './File/Infrastructure/Repositories/FileMongooseRepository';
 import FileMikroORMRepository from './File/Infrastructure/Repositories/FileMikroORMRepository';
-import IAuthRepository from './Auth/Infrastructure/Repositories/Auth/IAuthRepository';
 import AuthKeycloakRepository from './Auth/Infrastructure/Repositories/Auth/AuthKeycloakRepository';
-import AuthorizeService from './Auth/Domain/Services/AuthorizeService';
 
-import KeycloakAuthService from './Auth/Domain/Services/KeyacloakAuthService';
+import AuthzKeycloakRepository from './Auth/Infrastructure/Repositories/Auth/AuthzKeycloakRepository';
 import UserKeycloakRepository from './Auth/Infrastructure/Repositories/User/UserKeycloakRepository';
 import RoleKeycloakRepository from './Auth/Infrastructure/Repositories/Role/RoleKeycloakRepository';
+
+import AuthorizeService from './Auth/Domain/Services/AuthorizeService';
+import KeycloakAuthService from './Auth/Domain/Services/KeyacloakAuthService';
 
 // Services
 container.register(SERVICES.KeycloakAuthService, { useClass: KeycloakAuthService }, { lifecycle: Lifecycle.Singleton });
@@ -66,6 +70,7 @@ else if (defaultDbConfig === 'MikroORM')
 }
 
 container.register<IAuthRepository>(REPOSITORIES.IAuthRepository, { useClass: AuthKeycloakRepository }, { lifecycle: Lifecycle.ContainerScoped });
+container.register<IAuthzRepository>(REPOSITORIES.IAuthzRepository, { useClass: AuthzKeycloakRepository }, { lifecycle: Lifecycle.ContainerScoped });
 container.register<IUserRepository>(REPOSITORIES.IUserRepository, { useClass: UserKeycloakRepository }, { lifecycle: Lifecycle.ContainerScoped });
 container.register<IRoleRepository>(REPOSITORIES.IRoleRepository, { useClass: RoleKeycloakRepository }, { lifecycle: Lifecycle.ContainerScoped });
 

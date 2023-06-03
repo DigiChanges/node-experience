@@ -6,6 +6,7 @@ import IPaginator from '../../../../Shared/Infrastructure/Orm/IPaginator';
 interface IRoleRepository extends Omit<IBaseRepository<IRoleDomain>, 'getInBy' | 'getBy' | 'getOneBy' | 'delete' | 'update'>
 {
     list(criteria: ICriteria): Promise<IPaginator>;
+    getAll(): Promise<IRoleDomain[]>;
     delete(name: string): Promise<any>;
     update(element: IRoleDomain, id: string): Promise<IRoleDomain>;
 }

@@ -78,11 +78,6 @@ class UserCommandSaveRequest implements UserSavePayload
         return this._enable;
     }
 
-    get passwordRequestedAt(): null
-    {
-        return null;
-    }
-
     get roles(): IRoleDomain[]
     {
         return this._roles;
