@@ -11,12 +11,12 @@ export enum FACTORIES  {
 
 export enum REPOSITORIES  {
     IAuthRepository = 'IAuthRepository',
+    IAuthzRepository = 'IAuthzRepository',
     IItemRepository = 'IItemRepository',
     IUserRepository = 'IUserRepository',
     IRoleRepository = 'IRoleRepository',
     IFileRepository = 'IFileRepository',
     IFileVersionRepository = 'IFileVersionRepository',
-    ITokenRepository = 'ITokenRepository',
     INotificationRepository = 'INotificationRepository'
 }
 

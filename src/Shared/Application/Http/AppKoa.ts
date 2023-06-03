@@ -37,23 +37,25 @@ class AppKoa implements IApp
         this.port = config.serverPort || 8090;
         this.app = koaQs(new Koa());
         this.config = config;
-
         this.app.use(cors({
-            credentials: true,
-            origin: (ctx) =>
-            {
-                const { env } = MainConfig.getInstance().getConfig();
-                const validDomains = env === 'development' ? ['http://localhost:5173'] : ['https://domain.com'];
-
-                if (validDomains.indexOf(ctx.request.header.origin) !== -1)
-                {
-                    return ctx.request.header.origin;
-                }
-
-                return validDomains[0]; // we can't return void, so let's return one of the valid domains
-            }
+            credentials: true
         }));
-        this.app.proxy = MainConfig.getInstance().getConfig().app.setAppProxy;
+        // this.app.use(cors({
+        //     credentials: true,
+        //     origin: (ctx) =>
+        //     {
+        //         const { env } = MainConfig.getInstance().getConfig();
+        //         const validDomains = env === 'development' ? ['http://localhost:5173'] : ['https://domain.com'];
+        //
+        //         if (validDomains.indexOf(ctx.request.header.origin) !== -1)
+        //         {
+        //             return ctx.request.header.origin;
+        //         }
+        //
+        //         return validDomains[0]; // we can't return void, so let's return one of the valid domains
+        //     }
+        // }));
+        this.app.proxy = false;
         this.app.use(helmet());
 
         this.app.use(bodyParser({
