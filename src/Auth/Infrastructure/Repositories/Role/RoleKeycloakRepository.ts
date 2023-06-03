@@ -19,7 +19,29 @@ class RoleKeycloakRepository extends KeycloakAxiosRepository implements IRoleRep
         this.mainUrl = `${this.host}/admin/realms/${this.mainRealm}/clients/${this.clientUuid}/roles`;
     }
 
-    async list(criteria: ICriteria): Promise<any>
+    async getAll(): Promise<IRoleDomain[]>
+    {
+        const loginRes = await this.loginAdmin();
+
+        const config = {
+            ...this.config,
+            method: 'get',
+            url: this.mainUrl,
+            headers: {
+                'Authorization': `Bearer ${loginRes.access_token}`,
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const roles = (await axios(config)).data;
+
+        return roles.map(role =>
+        {
+            return new Role({ _id: role.id, name: role.name, permissions: [] });
+        });
+    }
+
+    async list(criteria?: ICriteria): Promise<any>
     {
         const filter = criteria.getFilter();
         const queryString = {};
@@ -74,14 +96,14 @@ class RoleKeycloakRepository extends KeycloakAxiosRepository implements IRoleRep
         }
     }
 
-    async getOne(id: string): Promise<IRoleDomain>
+    async getOne(name: string): Promise<IRoleDomain>
     {
         const loginRes = await this.loginAdmin();
 
         const config = {
             ...this.config,
             method: 'get',
-            url: `${this.mainUrl}/${id}`,
+            url: `${this.mainUrl}/${name}`,
             headers: {
                 'Authorization': `Bearer ${loginRes.access_token}`,
                 'Content-Type': 'application/json'

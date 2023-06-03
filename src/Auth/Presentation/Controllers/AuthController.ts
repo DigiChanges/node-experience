@@ -28,6 +28,7 @@ import ChangeForgotPasswordSchemaValidation from '../Validations/Auth/ChangeForg
 import VerifyYourAccountSchemaValidation from '../Validations/Auth/VerifyYourAccountSchemaValidation';
 import ILoginResponse from '../../Domain/Models/ILoginResponse';
 import LogoutPayload from '../../Domain/Payloads/Auth/LogoutPayload';
+import SyncPermissionsUseCase from '../../Domain/UseCases/Auth/SyncPermissionsUseCase';
 
 class AuthController
 {
@@ -101,7 +102,8 @@ class AuthController
 
     public async syncRolesPermissions(): Promise<void>
     {
-        // TODO: Add sync use case on keycloak
+        const useCase = new SyncPermissionsUseCase();
+        await useCase.handle();
     }
 }
 

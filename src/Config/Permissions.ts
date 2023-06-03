@@ -9,10 +9,10 @@ class Permissions
 
     // ITEMS
     static readonly ITEMS_SAVE: string = 'res:items#scopes:create';
-    static readonly ITEMS_UPDATE: string = 'res:items:#scopes:update';
-    static readonly ITEMS_SHOW: string = 'res:items:#scopes:show';
-    static readonly ITEMS_LIST: string = 'res:items:#scopes:list';
-    static readonly ITEMS_DELETE: string = 'res:items:#scopes:delete';
+    static readonly ITEMS_UPDATE: string = 'res:items#scopes:update';
+    static readonly ITEMS_SHOW: string = 'res:items#scopes:show';
+    static readonly ITEMS_LIST: string = 'res:items#scopes:list';
+    static readonly ITEMS_DELETE: string = 'res:items#scopes:delete';
 
     // USERS
     static readonly USERS_SAVE: string = 'res:users#scopes:create';
