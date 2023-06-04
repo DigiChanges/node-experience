@@ -153,7 +153,7 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
         const config = {
             ...this.config,
             method: 'post',
-            url: `${this.mainUrl}/clients/${this.clientUuid}/authz/resource-server/permission/resource`,
+            url: `${this.mainUrl}/clients/${this.clientUuid}/authz/resource-server/permission/scope`,
             headers: {
                 'Authorization': `Bearer ${loginRes.access_token}`,
                 'Content-Type': 'application/json'
@@ -171,7 +171,7 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
         const config = {
             ...this.config,
             method: 'post',
-            url: `${this.mainUrl}/clients/${this.clientUuid}/authz/resource-server/permission/resource/${payload.id}`,
+            url: `${this.mainUrl}/clients/${this.clientUuid}/authz/resource-server/permission/scope/${payload.id}`,
             headers: {
                 'Authorization': `Bearer ${loginRes.access_token}`,
                 'Content-Type': 'application/json'
@@ -189,7 +189,7 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
         const config = {
             ...this.config,
             method: 'get',
-            url: `${this.mainUrl}/clients/${this.clientUuid}/authz/resource-server/permission/resource`,
+            url: `${this.mainUrl}/clients/${this.clientUuid}/authz/resource-server/permission/scope`,
             headers: {
                 'Authorization': `Bearer ${loginRes.access_token}`,
                 'Content-Type': 'application/json'
@@ -210,7 +210,7 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
             const config = {
                 ...this.config,
                 method: 'delete',
-                url: `${this.mainUrl}/clients/${this.clientUuid}/authz/resource-server/permission/resource/${permission.id}`,
+                url: `${this.mainUrl}/clients/${this.clientUuid}/authz/resource-server/permission/scope/${permission.id}`,
                 headers: {
                     'Authorization': `Bearer ${loginRes.access_token}`,
                     'Content-Type': 'application/json'

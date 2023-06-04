@@ -196,10 +196,12 @@ class SyncPermissionsUseCase
         await this.repository.removeAllPermissions();
         const resourcesList = await this.repository.listResources();
         const policies = await this.repository.listPolicies();
+        const scopes = await this.repository.listScopes();
 
         for await (const permission of permissions)
         {
             const resourceName = permission.split('#')[0];
+            const scopeName = permission.split('#')[1];
             const resource = resourcesList.find(resourceObject => resourceObject.name === resourceName);
 
             const rolesName = [...roles.keys()];
@@ -218,6 +220,8 @@ class SyncPermissionsUseCase
                 }
             });
 
+            const scopesId = scopes.reduce((acc, scope) => scope.name === scopeName ? acc.push(scope.id) : acc, []);
+
             const payload = {
                 resources: [
                     resource._id
@@ -225,7 +229,8 @@ class SyncPermissionsUseCase
                 policies: policiesId,
                 name: permission,
                 description: permission,
-                decisionStrategy: 'UNANIMOUS'
+                scopes: scopesId,
+                decisionStrategy: 'AFFIRMATIVE'
             };
 
             await this.repository.createPermission(payload);

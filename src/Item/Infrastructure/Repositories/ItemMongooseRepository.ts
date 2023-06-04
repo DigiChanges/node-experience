@@ -15,7 +15,7 @@ class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, ItemMon
 {
     constructor()
     {
-        super(Item.name, ['createdBy', 'lastModifiedBy']);
+        super(Item.name);
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
@@ -37,8 +37,6 @@ class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, ItemMon
 
             void queryBuilder.where(ItemFilter.NAME).regex(rSearch);
         }
-
-        void queryBuilder.populate(this.populate);
 
         return new MongoosePaginator(queryBuilder, criteria);
     }

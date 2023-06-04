@@ -6,7 +6,7 @@ abstract class BaseSeed implements ISeed
 {
     protected container: DependencyContainer | undefined;
 
-    constructor()
+    protected constructor()
     {
         this.container = getRequestContext().container;
     }

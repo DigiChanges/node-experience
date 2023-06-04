@@ -42,9 +42,6 @@ class ItemTypeORMRepository extends BaseTypeORMRepository<Item> implements IItem
             queryBuilder.setParameter(ItemFilter.NAME, `%${name}%`);
         }
 
-        queryBuilder.leftJoinAndSelect('i.createdBy', 'createdBy');
-        queryBuilder.leftJoinAndSelect('i.lastModifiedBy', 'lastModifiedBy');
-
         return new TypeORMPaginator(queryBuilder, criteria);
     }
 }
