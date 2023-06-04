@@ -22,7 +22,7 @@ class AuthorizeService
         const permission = handlerPermissions[0]; // ! TODO: Warning, to be refactor ?
         const verified = await this.repository.checkPermissions({ token, permission });
 
-        if (verified.error === 'unauthorized_client' || verified.error === 'unauthorized_client')
+        if (verified.error === 'access_denied' || verified.error === 'unauthorized_client')
         {
             throw new ForbiddenHttpException();
         }
