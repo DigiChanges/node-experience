@@ -1,12 +1,12 @@
 import { Schema, Document } from 'mongoose';
-import { uuid } from '@deepkit/type';
+import { randomUUID } from 'crypto';
 import FileVersion from '../../Domain/Entities/FileVersion';
 import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 
 export type FileVersionMongooseDocument = Document & IFileVersionDomain;
 
 const FileVersionSchema: any = new Schema({
-    _id: { type: Schema.Types.String, default: uuid },
+    _id: { type: Schema.Types.String, default: randomUUID },
     name: { type: Schema.Types.String, required: true },
     originalName: { type: Schema.Types.String, required: true },
     mimeType: { type: Schema.Types.String, required: true },

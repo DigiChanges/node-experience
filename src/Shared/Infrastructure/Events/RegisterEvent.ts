@@ -1,20 +1,13 @@
 import { FACTORIES } from '../../../Config/Injects';
 import NotifierFactory from '../../../Notification/Shared/NotifierFactory';
-import { DataEventToken } from '@deepkit/event';
-import IDataEvent from './IDataEvent';
 
-class RegisterEvent extends DataEventToken<any> implements IDataEvent
+class RegisterEvent
 {
     public static REGISTER_EVENT = 'REGISTER_EVENT';
 
-    constructor()
+    public static handle = async(props: any) =>
     {
-        super(RegisterEvent.REGISTER_EVENT);
-    }
-
-    public handle = async(props: any) =>
-    {
-        const { emailNotification, args } =  props.data;
+        const { emailNotification, args } =  props;
 
         const emailNotifier: any = NotifierFactory.create(FACTORIES.EmailStrategy);
 

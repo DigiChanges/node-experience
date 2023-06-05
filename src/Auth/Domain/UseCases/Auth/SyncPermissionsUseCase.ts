@@ -35,7 +35,7 @@ class SyncPermissionsUseCase
 
     getResourceScopesList(permissions: string[]): Record<string, string[]>
     {
-        const resourceScopes: { [resource: string]: Set<string> } = {};
+        const resourceScopes: Record<string, Set<string>> = {};
 
         for (const permission of permissions)
         {
@@ -49,7 +49,8 @@ class SyncPermissionsUseCase
             resourceScopes[resource] = scopes;
         }
 
-        const resourceScopesList: { [resource: string]: string[] } = {};
+        const resourceScopesList: Record<string, string[]> = {};
+
         for (const resource in resourceScopes)
         {
             resourceScopesList[resource] = [...resourceScopes[resource]];
@@ -60,7 +61,7 @@ class SyncPermissionsUseCase
 
     getResourceUrisList(permissions: string[]): Record<string, string>
     {
-        const resourceUris: { [resource: string]: string } = {};
+        const resourceUris: Record<string, string> = {};
 
         for (const permission of permissions)
         {
