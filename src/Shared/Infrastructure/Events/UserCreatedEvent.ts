@@ -1,19 +1,12 @@
 import Logger from '../../Application/Logger/Logger';
-import { DataEventToken } from '@deepkit/event';
-import IDataEvent from './IDataEvent';
 
-class UserCreatedEvent extends DataEventToken<any> implements IDataEvent
+class UserCreatedEvent
 {
     public static USER_CREATED_EVENT = 'USER_CREATED_EVENT';
 
-    constructor()
+    public static handle = async(props: any) =>
     {
-        super(UserCreatedEvent.USER_CREATED_EVENT);
-    }
-
-    public handle = async(props: any) =>
-    {
-        const { email } = props.data;
+        const { email } = props;
 
         await Logger.info(`User ${email} Created!`);
     };

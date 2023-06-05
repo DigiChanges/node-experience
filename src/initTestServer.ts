@@ -32,7 +32,7 @@ const initTestServer = async(): Promise<TestServerData> =>
     await dbConnection.synchronize();
 
     const eventHandler = EventHandler.getInstance();
-    await eventHandler.setListeners();
+    eventHandler.setListeners();
 
     void Locales.getInstance();
 

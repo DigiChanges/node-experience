@@ -1,21 +1,21 @@
-import { DataEventToken, EventDispatcher } from '@deepkit/event';
+import { Subject } from 'rxjs';
 import UserCreatedEvent from './UserCreatedEvent';
+import Logger from '../../Application/Logger/Logger';
 import ForgotPasswordEvent from './ForgotPasswordEvent';
 import SendMessageEvent from './SendMessageEvent';
 import RegisterEvent from './RegisterEvent';
 import VerifiedAccountEvent from './VerifiedAccountEvent';
-import IDataEvent from './IDataEvent';
 
 class EventHandler
 {
     private static instance: EventHandler;
-    private dispatcher: EventDispatcher;
-    private readonly events: Map<string, IDataEvent & DataEventToken<any>>;
+    private eventSubject: Subject<any>;
+    private events: Map<string, (args: any) => Promise<void>>;
 
     private constructor()
     {
-        this.dispatcher = new EventDispatcher();
-        this.events = new Map<string, IDataEvent & DataEventToken<any>>();
+        this.events = new Map<string, (args: any) => Promise<void>>();
+        this.eventSubject = new Subject<any>();
     }
 
     static getInstance(): EventHandler
@@ -28,30 +28,44 @@ class EventHandler
         return EventHandler.instance;
     }
 
-    public async execute(eventName: string, ...args: any[])
+    public execute(eventName: string, args: any)
     {
-        const eventToken = this.events.get(eventName);
-        await this.dispatcher.dispatch(eventToken, ...args);
+        this.eventSubject.next({ eventName, args });
     }
 
-    public async setListeners()
+    public setListeners()
     {
-        this.events.set(UserCreatedEvent.USER_CREATED_EVENT, new UserCreatedEvent());
-        this.events.set(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT, new ForgotPasswordEvent());
-        this.events.set(SendMessageEvent.SEND_MESSAGE_EVENT, new SendMessageEvent());
-        this.events.set(RegisterEvent.REGISTER_EVENT, new RegisterEvent());
-        this.events.set(VerifiedAccountEvent.VERIFIED_ACCOUNT_EVENT, new VerifiedAccountEvent());
+        this.events.set(UserCreatedEvent.USER_CREATED_EVENT, UserCreatedEvent.handle);
+        this.events.set(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT, ForgotPasswordEvent.handle);
+        this.events.set(SendMessageEvent.SEND_MESSAGE_EVENT, SendMessageEvent.handle);
+        this.events.set(RegisterEvent.REGISTER_EVENT, RegisterEvent.handle);
+        this.events.set(VerifiedAccountEvent.VERIFIED_ACCOUNT_EVENT, VerifiedAccountEvent.handle);
 
-        for (const tuple of this.events)
+        this.eventSubject.subscribe((event) =>
         {
-            const [, eventToken] = tuple;
-            this.dispatcher.listen(eventToken, eventToken.handle);
-        }
+            const { eventName, args } = event;
+            const eventHandler = this.events.get(eventName);
+
+            if (eventHandler)
+            {
+                void (async() =>
+                {
+                    try
+                    {
+                        await eventHandler(args);
+                    }
+                    catch (error)
+                    {
+                        await Logger.error(error);
+                    }
+                })();
+            }
+        });
     }
 
     public async removeListeners()
     {
-        // TODO: removeListeners
+        this.eventSubject.complete();
     }
 }
 

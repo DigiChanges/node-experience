@@ -13,7 +13,7 @@ class NotificationService
     {
         pushNotification.subscription = payload.getSubscription();
         pushNotification.name = name;
-        await this.eventHandler.execute(SendMessageEvent.SEND_MESSAGE_EVENT, { push_notification: pushNotification, message });
+        this.eventHandler.execute(SendMessageEvent.SEND_MESSAGE_EVENT, { push_notification: pushNotification, message });
 
         return { message: 'We\'ve sent you a notification' };
     }

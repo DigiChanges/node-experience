@@ -1,20 +1,13 @@
 import { FACTORIES } from '../../../Config/Injects';
 import NotifierFactory from '../../../Notification/Shared/NotifierFactory';
-import { DataEventToken } from '@deepkit/event';
-import IDataEvent from './IDataEvent';
 
-class ForgotPasswordEvent extends DataEventToken<any> implements IDataEvent
+class ForgotPasswordEvent
 {
     public static FORGOT_PASSWORD_EVENT = 'FORGOT_PASSWORD_EVENT';
 
-    constructor()
+    public static handle = async(props: any) =>
     {
-        super(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT);
-    }
-
-    public handle = async(props: any) =>
-    {
-        const { emailNotification, args } =  props.data;
+        const { emailNotification, args } =  props;
 
         const emailNotificator: any = NotifierFactory.create(FACTORIES.EmailStrategy);
 

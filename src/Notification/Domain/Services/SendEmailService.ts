@@ -22,7 +22,7 @@ class SendEmailService
 
         const eventHandler = EventHandler.getInstance();
 
-        await eventHandler.execute(event, { emailNotification, args });
+        eventHandler.execute(event, { emailNotification, args });
     }
 }
 
