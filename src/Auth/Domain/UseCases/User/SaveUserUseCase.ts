@@ -24,7 +24,7 @@ class SaveUserUseCase
         const user: IUserDomain = new User(payload);
         await this.repository.save(user, payload.password);
 
-        await this.eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, { email: user.email });
+        this.eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, { email: user.email });
 
         return user;
     }

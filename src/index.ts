@@ -32,7 +32,7 @@ void (async() =>
 
         await cache.cleanAll();
 
-        await eventHandler.setListeners();
+        eventHandler.setListeners();
 
         const cronFactory = new CronFactory();
         cronFactory.start();

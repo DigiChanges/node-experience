@@ -1,16 +1,16 @@
-import { UUID, uuid } from '@deepkit/type';
+import { randomUUID } from 'crypto';
 import IBaseDomain from './IBaseDomain';
 
 abstract class Base implements IBaseDomain
 {
-    _id: UUID;
+    _id: string;
 
     createdAt: Date;
     updatedAt: Date;
 
     constructor()
     {
-        this._id = uuid();
+        this._id = randomUUID();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
@@ -20,7 +20,7 @@ abstract class Base implements IBaseDomain
         return this._id;
     }
 
-    setId(id: UUID)
+    setId(id: string)
     {
         this._id = id;
     }

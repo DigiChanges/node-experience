@@ -1,5 +1,5 @@
 import { Schema, Document } from 'mongoose';
-import { uuid } from '@deepkit/type';
+import { randomUUID } from 'crypto';
 import Notification from '../../Domain/Entities/Notification';
 import EmailNotification from '../../Domain/Entities/EmailNotification';
 import PushNotification from '../../Domain/Entities/PushNotification';
@@ -11,7 +11,7 @@ export type NotificationMongooseDocument = Document & INotificationDomain;
 const options = { discriminatorKey: 'kind', timestamps: true };
 
 export const NotificationSchema: any = new Schema<Notification>({
-    _id: { type: String, default: uuid },
+    _id: { type: String, default: randomUUID },
     name: { type:String, required: true }
 }, options).loadClass(Notification);
 
