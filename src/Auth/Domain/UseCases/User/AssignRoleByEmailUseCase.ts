@@ -19,7 +19,7 @@ class AssignRoleByEmailUseCase
     async handle(payload: UserAssignRoleByEmailPayload): Promise<void>
     {
         const { email, rolesName } = payload;
-        const user = void await this.repository.getOneByEmail(email);
+        const user = await this.repository.getOneByEmail(email);
         const roles: Record<string, any>[] = [];
 
         for await (const name of rolesName)

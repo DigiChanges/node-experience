@@ -165,7 +165,7 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
             genre: 'O',
             phone: '5555554422',
             country: 'AR',
-            verify: false,
+            emailVerified: false,
             enable: false,
             roles: []
         };
@@ -184,7 +184,7 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
                 genre: response.genre,
                 phone: response.phone,
                 country: response.country,
-                verify: response.email_verified,
+                emailVerified: response.email_verified,
                 enable: true,
                 roles: []
             };

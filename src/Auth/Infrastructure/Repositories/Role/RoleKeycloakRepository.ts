@@ -71,7 +71,6 @@ class RoleKeycloakRepository extends KeycloakAxiosRepository implements IRoleRep
         {
             return new Role({ _id: role.id, name: role.name, permissions: [] });
         });
-        // ! todo create a KeycloakPaginator
     }
 
     async delete(name: string): Promise<any>
@@ -118,7 +117,7 @@ class RoleKeycloakRepository extends KeycloakAxiosRepository implements IRoleRep
         }
 
         const payload = {
-            _id: role.sub,
+            _id: role.id,
             name: role.name,
             permissions: []
         };

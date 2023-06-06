@@ -205,7 +205,7 @@ class SyncPermissionsUseCase
             const scopeName = permission.split('#')[1];
             const resource = resourcesList.find(resourceObject => resourceObject.name === resourceName);
 
-            const rolesName = [...roles.keys()];
+            const rolesName: string[] = [...roles.keys()];
             const rolesPermissions = rolesName.map(name => ({ permissions: roles.get(name), name: name.toLowerCase() }));
             const policiesId: string[] = [];
 
@@ -221,7 +221,8 @@ class SyncPermissionsUseCase
                 }
             });
 
-            const scopesId = scopes.reduce((acc, scope) => scope.name === scopeName ? acc.push(scope.id) : acc, []);
+            const scopesId: string[] = [];
+            scopes.reduce((acc, scope) => scope.name === scopeName ? scopesId.push(scope.id) : acc, []);
 
             const payload = {
                 resources: [

@@ -10,6 +10,7 @@ interface UserRepPayload
     phone: string;
     country: string;
     enable: boolean;
+    emailVerified: boolean;
 }
 
 export default UserRepPayload;
