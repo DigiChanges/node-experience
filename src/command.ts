@@ -7,7 +7,6 @@ dotenv.config(); // Need before get config
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
 
 import './register';
-import AddUserRoleCommand from './Auth/Presentation/Commands/AddUserRoleCommand';
 import AddUserCommand from './Auth/Presentation/Commands/AddUserCommand';
 import AddRoleCommand from './Auth/Presentation/Commands/AddRoleCommand';
 import CreateVapID from './File/Presentation/Commands/CreateVapID';
@@ -29,7 +28,6 @@ void (async() =>
 
         const program = commander.program;
 
-        program.addCommand(AddUserRoleCommand);
         program.addCommand(AddUserCommand);
         program.addCommand(AddRoleCommand);
         program.addCommand(AssignRoleToUserCommand);

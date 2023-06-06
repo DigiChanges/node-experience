@@ -12,12 +12,12 @@ class User extends Base implements IUserDomain
     phone: string;
     country: string;
     enable: boolean;
+    emailVerified: boolean;
 
     constructor(payload: UserRepPayload)
     {
         super();
         this._id = payload?._id ?? this._id;
-        // this.password = payload?.password;
         this.updateRep(payload);
     }
 
@@ -31,6 +31,7 @@ class User extends Base implements IUserDomain
         this.phone = payload?.phone ?? this.phone;
         this.country = payload?.country ?? this.country;
         this.enable = payload?.enable !== undefined || payload?.enable !== null ? payload?.enable : this.enable;
+        this.emailVerified = payload?.emailVerified  ?? this.emailVerified;
     }
 }
 
