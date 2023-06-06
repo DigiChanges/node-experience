@@ -51,7 +51,8 @@ class UserSeed extends BaseSeed
             genre: 'M',
             phone: '2234456999',
             country: 'AR',
-            enable: true
+            enable: true,
+            emailVerified: true
         };
 
         const userAdmin: IUserDomain = new User(payloadUserAdmin);
@@ -66,6 +67,7 @@ class UserSeed extends BaseSeed
             phone: '2234456999',
             country: 'Argentina',
             enable: true,
+            emailVerified: true,
             roles: [roleOperator]
         };
 
@@ -80,7 +82,8 @@ class UserSeed extends BaseSeed
             genre: 'F',
             phone: '2234456999',
             country: 'Argentina',
-            enable: false
+            enable: false,
+            emailVerified: false
         };
 
         const userOperatorDisabled: IUserDomain = new User(payloadUserOperatorDisabled);
@@ -94,7 +97,8 @@ class UserSeed extends BaseSeed
             genre: 'F',
             phone: '2234456999',
             country: 'Argentina',
-            enable: true
+            enable: true,
+            emailVerified: true
         };
 
         const userOperatorRoleDisabled: IUserDomain = new User(payloadUserOperatorRoleDisabled);

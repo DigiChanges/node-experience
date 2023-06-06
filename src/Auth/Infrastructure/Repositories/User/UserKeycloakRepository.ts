@@ -51,7 +51,7 @@ class UserKeycloakRepository extends KeycloakAxiosRepository implements IUserRep
             genre: user.attributes.genre[0],
             phone: user.attributes.phone[0],
             country: user.attributes.country[0],
-            verify: user.emailVerified,
+            emailVerified: user.emailVerified,
             enable: user.enabled,
             roles: []
         };
@@ -131,7 +131,6 @@ class UserKeycloakRepository extends KeycloakAxiosRepository implements IUserRep
             throw new ErrorHttpException(); // TODO: Add custom exception
         }
 
-        // return new MongoosePaginator(queryBuilder, criteria);
         return users.map(user =>
         {
             const payload = {
@@ -143,7 +142,7 @@ class UserKeycloakRepository extends KeycloakAxiosRepository implements IUserRep
                 genre: user.attributes.genre[0],
                 phone: user.attributes.phone[0],
                 country: user.attributes.country[0],
-                verify: user.emailVerified,
+                emailVerified: user.emailVerified,
                 enable: user.enabled,
                 roles: []
             };
@@ -206,7 +205,7 @@ class UserKeycloakRepository extends KeycloakAxiosRepository implements IUserRep
             genre: user.attributes.genre[0],
             phone: user.attributes.phone[0],
             country: user.attributes.country[0],
-            verify: user.emailVerified,
+            emailVerified: user.emailVerified,
             enable: user.enabled,
             roles: []
         };
@@ -223,7 +222,8 @@ class UserKeycloakRepository extends KeycloakAxiosRepository implements IUserRep
             email: element.email,
             firstName: element.firstName,
             lastName: element.lastName,
-            enabled: true,
+            enabled: element.enable,
+            emailVerified: element.emailVerified,
             attributes: {
                 genre: [element.genre],
                 country: [element.country],
@@ -272,6 +272,7 @@ class UserKeycloakRepository extends KeycloakAxiosRepository implements IUserRep
             firstName: element.firstName,
             lastName: element.lastName,
             enabled: element.enable,
+            emailVerified: element.emailVerified,
             attributes: {
                 genre: [element.genre],
                 country: [element.country],

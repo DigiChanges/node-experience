@@ -12,6 +12,7 @@ class UserCommandSaveRequest implements UserSavePayload
     private readonly _country: string;
     private readonly _password: string;
     private readonly _enable: boolean;
+    private readonly _emailVerified: boolean;
     private readonly _roles: IRoleDomain[];
 
     constructor(data: Record<string, any>, role: any = null)
@@ -25,6 +26,7 @@ class UserCommandSaveRequest implements UserSavePayload
         this._phone = data.phone;
         this._country = data.country;
         this._enable = true;
+        this._emailVerified = true;
         this._roles = role ? [role] : [];
     }
 
@@ -76,6 +78,11 @@ class UserCommandSaveRequest implements UserSavePayload
     get enable(): boolean
     {
         return this._enable;
+    }
+
+    get emailVerified(): boolean
+    {
+        return this._emailVerified;
     }
 
     get roles(): IRoleDomain[]

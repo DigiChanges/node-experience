@@ -1,32 +1,41 @@
-import UserCommandSaveRequest from '../Requests/User/UserCommandSaveRequest';
 import commander from 'commander';
+import UserCommandSaveRequest from '../Requests/User/UserCommandSaveRequest';
 import SaveUserUseCase from '../../Domain/UseCases/User/SaveUserUseCase';
+import ActiveUserByEmailUseCase from '../../Domain/UseCases/User/ActiveUserByEmailUseCase';
 import UserSavePayload from '../../Domain/Payloads/User/UserSavePayload';
 import Logger from '../../../Shared/Application/Logger/Logger';
+import GetRoleUseCase from '../../Domain/UseCases/Role/GetRoleUseCase';
+import AssignRoleByEmailUseCase from '../../Domain/UseCases/User/AssignRoleByEmailUseCase';
 
 const AddUserCommand = new commander.Command('addUser');
 
 AddUserCommand
-    .version('0.0.1')
+    .version('0.0.2')
     .description('Add user to the system')
+    .option('-r, --role <role>', 'User`s role')
     .option('-e, --email <email>', 'User`s email')
     .option('-fn, --firstName <firstName>', 'User`s first name')
     .option('-ln, --lastName <lastName>', 'User`s last name')
     .option('-p, --password <password>', 'User`s password')
-    .option('-dt, --documentType <documentType>', 'User`s document type')
-    .option('-dn, --documentNumber <documentNumber>', 'User`s document Number')
-    .option('-g, --gender <gender>', 'User`s gender')
+    .option('-g, --genre <genre>', 'User`s genre')
     .option('-ph, --phone <phone>', 'User`s phone')
     .option('-c, --country <country>', 'User`s country')
-    .option('-a, --address <address>', 'User`s address')
     .option('-bir, --birthdate <birthdate>', 'User`s birthdate')
-    .option('-isa, --isSuperAdmin <isSuperAdmin>', 'Set if user is super admin')
     .action(async(env: Record<string, string>) =>
     {
         const saveUserUseCase = new SaveUserUseCase();
 
         const userCommandRepRequest: UserSavePayload = new UserCommandSaveRequest(env);
-        const user = await saveUserUseCase.handle(userCommandRepRequest);
+        await saveUserUseCase.handle(userCommandRepRequest);
+
+        const activeUserUseCase = new ActiveUserByEmailUseCase();
+        const user = await activeUserUseCase.handle({ email: env.email });
+
+        const getOneRoleUseCase = new GetRoleUseCase();
+        const role = await getOneRoleUseCase.handle({ id: env.role });
+
+        const assignRoleByEmailUseCase = new AssignRoleByEmailUseCase();
+        await assignRoleByEmailUseCase.handle({ rolesName: [role.name], email: user.email });
 
         if (user)
         {
