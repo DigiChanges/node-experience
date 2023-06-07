@@ -3,7 +3,6 @@ import MainConfig from '../../../../Config/MainConfig';
 import AuthPayload from '../../../Domain/Payloads/Auth/AuthPayload';
 import qs from 'qs';
 import axios from 'axios';
-import ErrorHttpException from '../../../../Shared/Presentation/Shared/ErrorHttpException';
 
 class KeycloakAxiosRepository extends BaseAxiosRepository
 {
@@ -46,7 +45,6 @@ class KeycloakAxiosRepository extends BaseAxiosRepository
             ...this.basicBody,
             client_id: clientId ?? this.basicBody.client_id,
             client_secret: clientId === 'admin-cli' ? undefined : this.basicBody.client_secret,
-            scope: clientId === 'admin-cli' ? undefined : 'openid uma_authorization',
             username,
             password
         });
