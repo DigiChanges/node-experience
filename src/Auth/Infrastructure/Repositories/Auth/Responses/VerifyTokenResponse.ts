@@ -1,4 +1,3 @@
-
 interface VerifyTokenResponse
 {
     exp: number,

@@ -1,6 +1,16 @@
 import axios from 'axios';
 import IAuthzRepository from './IAuthzRepository';
 import KeycloakAxiosRepository from './KeycloakAxiosRepository';
+import ResourceUpdatePayload from './Payload/ResourceUpdatePayload';
+import ResourceResponse from './Responses/ResourceResponse';
+import ResourceRepPayload from './Payload/ResourceRepPayload';
+import PermissionResponse from './Responses/PermissionResponse';
+import PermissionUpdatePayload from './Payload/PermissionUpdatePayload';
+import PermissionRepPayload from './Payload/PermissionRepPayload';
+import PolicyResponse from './Responses/PolicyResponse';
+import PolicyRepPayload from './Payload/PolicyRepPayload';
+import ScopeResponse from './Payload/ScopeRepPayload';
+import ScopePayload from './Payload/ScopePayload';
 
 class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzRepository
 {
@@ -12,7 +22,7 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
         this.mainUrl = `${this.host}/admin/realms/${this.mainRealm}`;
     }
 
-    public async createResource(payload: any): Promise<any>
+    public async createResource(payload: ResourceRepPayload): Promise<ResourceResponse>
     {
         const loginRes = await this.loginAdmin();
 
@@ -41,14 +51,14 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
         return (await axios(config)).data;
     }
 
-    public async updateResource(payload: any): Promise<any>
+    public async updateResource(payload: ResourceUpdatePayload): Promise<ResourceResponse>
     {
         const loginRes = await this.loginAdmin();
 
         const config = {
             ...this.config,
             method: 'put',
-            url: `${this.mainUrl}/clients/${this.clientUuid}/authz/resource-server/resource/${payload._id}`,
+            url: `${this.mainUrl}/clients/${this.clientUuid}/authz/resource-server/resource/${payload.id}`,
             headers: {
                 'Authorization': `Bearer ${loginRes.access_token}`,
                 'Content-Type': 'application/json'
@@ -59,7 +69,7 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
         return (await axios(config)).data;
     }
 
-    async listResources(): Promise<any>
+    async listResources(): Promise<ResourceResponse[]>
     {
         const loginRes = await this.loginAdmin();
 
@@ -76,7 +86,7 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
         return (await axios(config)).data;
     }
 
-    async createScopes(data: any): Promise<any>
+    async createScopes(data: ScopePayload): Promise<ScopeResponse>
     {
         const loginRes = await this.loginAdmin();
 
@@ -94,7 +104,7 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
         return (await axios(config)).data;
     }
 
-    async listScopes(): Promise<any>
+    async listScopes(): Promise<ScopeResponse[]>
     {
         const loginRes = await this.loginAdmin();
 
@@ -111,7 +121,7 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
         return (await axios(config)).data;
     }
 
-    async createPolicy(payload: any): Promise<any>
+    async createPolicy(payload: PolicyRepPayload): Promise<PolicyResponse>
     {
         const loginRes = await this.loginAdmin();
 
@@ -129,7 +139,7 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
         return (await axios(config)).data;
     }
 
-    async listPolicies(): Promise<any>
+    async listPolicies(): Promise<PolicyResponse[]>
     {
         const loginRes = await this.loginAdmin();
 
@@ -146,7 +156,7 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
         return (await axios(config)).data;
     }
 
-    async createPermission(payload: any): Promise<any>
+    async createPermission(payload: PermissionRepPayload): Promise<PermissionResponse>
     {
         const loginRes = await this.loginAdmin();
 
@@ -164,7 +174,7 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
         return (await axios(config)).data;
     }
 
-    async updatePermission(payload: any): Promise<any>
+    async updatePermission(payload: PermissionUpdatePayload): Promise<PermissionResponse>
     {
         const loginRes = await this.loginAdmin();
 
@@ -182,7 +192,7 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
         return (await axios(config)).data;
     }
 
-    async listPermissions(): Promise<any>
+    async listPermissions(): Promise<PermissionResponse[]>
     {
         const loginRes = await this.loginAdmin();
 
@@ -199,7 +209,7 @@ class AuthzKeycloakRepository extends KeycloakAxiosRepository implements IAuthzR
         return (await axios(config)).data;
     }
 
-    async removeAllPermissions(): Promise<any>
+    async removeAllPermissions(): Promise<void>
     {
         const loginRes = await this.loginAdmin();
         const permissions = await this.listPermissions();
