@@ -27,7 +27,7 @@ const AuthorizeKoaMiddleware = (...handlerPermissions: string[]) =>
         }
 
         ctx.accessToken = token;
-        ctx.authUser = await authorizeService.getAuthUser(token, hasActiveAuthorization);
+        ctx.authUser = await authorizeService.getAuthUser({ token, hasActiveAuthorization });
 
         await next();
     };

@@ -4,6 +4,7 @@ import IAuthRepository from '../../Infrastructure/Repositories/Auth/IAuthReposit
 import ForbiddenHttpException from '../../Presentation/Exceptions/ForbiddenHttpException';
 import IUserRepository from '../../Infrastructure/Repositories/User/IUserRepository';
 import IUserDomain from '../Entities/IUserDomain';
+import VerifyTokenPayload from '../../Infrastructure/Repositories/Auth/Payload/VerifyTokenPayload';
 
 class AuthorizeService
 {
@@ -28,7 +29,7 @@ class AuthorizeService
         }
     }
 
-    public async getAuthUser(token: string, hasActiveAuthorization: boolean): Promise<IUserDomain>
+    public async getAuthUser({ token, hasActiveAuthorization }: VerifyTokenPayload): Promise<IUserDomain>
     {
         return await this.repository.verifyToken({ token, hasActiveAuthorization });
     }

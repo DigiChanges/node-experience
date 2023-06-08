@@ -5,6 +5,8 @@ import IAuthzRepository from '../../../Infrastructure/Repositories/Auth/IAuthzRe
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import Role from '../../Entities/Role';
+import ScopePayload from '../../../Infrastructure/Repositories/Auth/Payload/ScopePayload';
+import ResourceUpdatePayload from '../../../Infrastructure/Repositories/Auth/Payload/ResourceUpdatePayload';
 
 class SyncPermissionsUseCase
 {
@@ -107,7 +109,7 @@ class SyncPermissionsUseCase
 
         for await (const name of scopes)
         {
-            const payload = {
+            const payload: ScopePayload = {
                 name,
                 displayName: name,
                 iconUri: ''
@@ -145,8 +147,8 @@ class SyncPermissionsUseCase
             }
             else
             {
-                const payload = {
-                    _id: resourceObject._id,
+                const payload: ResourceUpdatePayload = {
+                    id: resourceObject._id,
                     name: resourceObject.name,
                     displayName: resourceObject.displayName,
                     type: resourceObject.type,

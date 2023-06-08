@@ -5,6 +5,12 @@ import IUserDomain from '../../../Domain/Entities/IUserDomain';
 import VerifyTokenResponse from './Responses/VerifyTokenResponse';
 import User from '../../../Domain/Entities/User';
 import KeycloakAxiosRepository from './KeycloakAxiosRepository';
+import PermissionPayload from './Payload/PermissionPayload';
+import VerifyTokenPayload from './Payload/VerifyTokenPayload';
+import LoginResponse from './Responses/LoginResponse';
+import SignUpPayload from './Payload/SignUpPayload';
+import RefreshTokenPayload from '../../../Domain/Payloads/Auth/RefreshTokenPayload';
+import LogoutPayload from '../../../Domain/Payloads/Auth/LogoutPayload';
 
 class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRepository
 {
@@ -16,12 +22,7 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
         this.mainUrl = `${this.host}/realms/${this.mainRealm}/protocol/openid-connect`;
     }
 
-    public async getPermissions(payload: any): Promise<any>
-    {
-        return Promise.resolve(undefined);
-    }
-
-    public async logout(payload: any): Promise<any>
+    public async logout(payload: LogoutPayload): Promise<Record<string, unknown>>
     {
         const { token: refresh_token  } = payload;
 
@@ -45,12 +46,12 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
         return (await axios(config)).data;
     }
 
-    public async me({ token }: any): Promise<any>
+    public async me({ token }: { token: string }): Promise<IUserDomain>
     {
         return await this.verifyToken({ token });
     }
 
-    public async refreshToken(payload: any): Promise<any>
+    public async refreshToken(payload: RefreshTokenPayload): Promise<LoginResponse>
     {
         const { refreshToken: refresh_token  } = payload;
 
@@ -75,7 +76,7 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
         return (await axios(config)).data;
     }
 
-    public async signUp(payload: any): Promise<any>
+    public async signUp(payload: SignUpPayload): Promise<Record<string, unknown>>
     {
         const loginRes = await this.login({ username: this.username, password: this.password, clientId: 'admin-cli'  });
 
@@ -114,7 +115,7 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
         return (await axios(config)).data;
     }
 
-    public async verifyAccount(payload: any): Promise<any>
+    public async verifyAccount(payload: Record<string, unknown>): Promise<Record<string, unknown>>
     {
         const loginRes = await this.login({ username: this.username, password: this.password, clientId: 'admin-cli'  });
 
@@ -137,7 +138,7 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
         return (await axios(config)).data;
     }
 
-    public async verifyToken(payload: any): Promise<IUserDomain>
+    public async verifyToken(payload: VerifyTokenPayload): Promise<IUserDomain>
     {
         const data = qs.stringify({
             client_id: this.clientId,
@@ -193,7 +194,7 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
         return new User(_payload);
     }
 
-    public async checkPermissions({ token, permission }: { token: string, permission: string }): Promise<any>
+    public async checkPermissions({ token, permission }: PermissionPayload): Promise<Record<string, unknown>>
     {
         const data = qs.stringify({
             grant_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
