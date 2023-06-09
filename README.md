@@ -86,6 +86,26 @@ The directory structures for business domains are as follows:
 
 > **Tip** I know it may sound repetitive, but it is not a framework. NExp is a set of tools or libraries working together through a common structure. All structural code within this project is not fixed and can be changed freely.
 
+## Creation of realm and client in Keycloak
+Once you already login in the keycloak administration console, you can create the realm from the side menu
+
+![Screenshot](docs/images/createRealm_1.png)
+
+then you just need to add a name to it and click on "Create"
+
+![Screenshot](docs/images/createRealm_2.png)
+
+To add a client, first you need to select the realm, then go to the side menu "Clients", you will see the option "Create client"
+
+![Screenshot](docs/images/createClient_1.png)
+
+complete the required fields and then click on "Next", after finish all the steps then you can save it
+
+![Screenshot](docs/images/createClient_2.png)
+![Screenshot](docs/images/createClient_3.png)
+
+
+
 ## Advantages
 
 The advantages of using this boilerplate is to save time thinking about certain basic structures common to any project to make an API without having to get everything from scratch. 
