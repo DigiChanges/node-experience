@@ -4,6 +4,8 @@ import { getRequestContext } from '../../../../Shared/Presentation/Shared/Reques
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
 import MainConfig from '../../../../Config/MainConfig';
 import ErrorHttpException from '../../../../Shared/Presentation/Shared/ErrorHttpException';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import RefreshTokenSchemaValidation from '../../../Presentation/Validations/Auth/RefreshTokenSchemaValidation';
 
 class RefreshTokenUseCase
 {
@@ -17,6 +19,8 @@ class RefreshTokenUseCase
 
     async handle(payload: RefreshTokenPayload): Promise<any>
     {
+        await ValidatorSchema.handle(RefreshTokenSchemaValidation, payload);
+
         // ! Remove it from here on another exception without http
         const statusCode = MainConfig.getInstance().getConfig().statusCode;
 

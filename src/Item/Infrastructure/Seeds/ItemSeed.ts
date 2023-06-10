@@ -5,8 +5,9 @@ import IUserRepository from '../../../Auth/Infrastructure/Repositories/User/IUse
 import BaseSeed from '../../../Shared/Infrastructure/Seeds/BaseSeed';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 import ItemBuilder from '../../Domain/Factories/ItemBuilder';
+import ISeed from '../../../Shared/Infrastructure/Seeds/ISeed';
 
-class ItemSeed extends BaseSeed
+class ItemSeed extends BaseSeed implements ISeed
 {
     private repository: IItemRepository;
     private userRepository: IUserRepository;

@@ -1,4 +1,3 @@
-import { injectable } from 'inversify';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
@@ -10,7 +9,6 @@ import IFileDomain from '../../Domain/Entities/IFileDomain';
 import IFileRepository from './IFileRepository';
 import FileSchema from '../Schemas/FileMikroORM';
 
-@injectable()
 class FileMikroORMRepository extends BaseMikroORMRepository<IFileDomain> implements IFileRepository
 {
     constructor()

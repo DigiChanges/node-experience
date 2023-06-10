@@ -1,19 +1,16 @@
 import IFileVersionRepository from './IFileVersionRepository';
-import { injectable } from 'inversify';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
 import Paginator from '../../../Shared/Infrastructure/Orm/MikroORMPaginator';
 import FileFilter from '../../Presentation/Criterias/FileFilter';
 import FileVersionSchema from '../Schemas/FileVersionMikroORM';
-import FileVersion from '../../Domain/Entities/FileVersion';
 import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 
 import BaseMikroORMRepository from '../../../Shared/Infrastructure/Repositories/BaseMikroORMRepository';
 import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IByOptions from '../../../Shared/Infrastructure/Repositories/IByOptions';
 
-@injectable()
 class FileVersionMikroORMRepository extends BaseMikroORMRepository<IFileVersionDomain> implements IFileVersionRepository
 {
     constructor()

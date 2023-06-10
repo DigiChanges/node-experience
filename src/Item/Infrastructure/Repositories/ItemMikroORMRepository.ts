@@ -1,6 +1,5 @@
 import IItemRepository from './IItemRepository';
 import Item from '../../Domain/Entities/Item';
-import { injectable } from 'inversify';
 import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 
@@ -11,7 +10,6 @@ import ItemSchema from '../Schemas/ItemMikroORM';
 import BaseMikroORMRepository from '../../../Shared/Infrastructure/Repositories/BaseMikroORMRepository';
 import { QueryBuilder } from '@mikro-orm/postgresql';
 
-@injectable()
 class ItemMikroORMRepository extends BaseMikroORMRepository<Item> implements IItemRepository
 {
     constructor()
