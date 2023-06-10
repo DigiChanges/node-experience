@@ -3,6 +3,8 @@ import UpdateMePayload from '../../Payloads/Auth/UpdateMePayload';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import UpdateMeSchemaValidation from '../../../Presentation/Validations/Auth/UpdateMeSchemaValidation';
 
 class UpdateMeUseCase
 {
@@ -16,6 +18,8 @@ class UpdateMeUseCase
 
     async handle(payload: UpdateMePayload): Promise<IUserDomain>
     {
+        await ValidatorSchema.handle(UpdateMeSchemaValidation, payload);
+
         const authUser = payload.authUser;
         authUser.updateRep(payload);
 

@@ -40,10 +40,12 @@ class SyncPermissionsUseCase
         for (const permission of permissions)
         {
             const [resource, scope] = permission.split('#');
+
             if (!resource || !scope)
             {
                 continue;
             }
+
             const scopes = resourceScopes[resource] || new Set<string>();
             scopes.add(scope);
             resourceScopes[resource] = scopes;

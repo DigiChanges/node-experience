@@ -10,6 +10,8 @@ import { REPOSITORIES } from '../../../../Config/Injects';
 import ErrorHttpException from '../../../../Shared/Presentation/Shared/ErrorHttpException';
 import MainConfig from '../../../../Config/MainConfig';
 import AuthHelperService from '../../Services/AuthHelperService';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import RegisterSchemaValidation from '../../../Presentation/Validations/Auth/RegisterSchemaValidation';
 
 class RegisterUseCase
 {
@@ -25,6 +27,8 @@ class RegisterUseCase
 
     async handle(payload: RegisterPayload): Promise<ILocaleMessage>
     {
+        await ValidatorSchema.handle(RegisterSchemaValidation, payload);
+
         const statusCode = MainConfig.getInstance().getConfig().statusCode;
         const response = await this.repository.signUp(payload);
         const error = 'User exists with same username';

@@ -24,13 +24,9 @@ import FileVersionMongooseRepository from './File/Infrastructure/Repositories/Fi
 import ItemMongooseRepository from './Item/Infrastructure/Repositories/ItemMongooseRepository';
 import NotificationMongooseRepository from './Notification/Infrastructure/Repositories/NotificationMongooseRepository';
 
-import FileVersionTypeORMRepository from './File/Infrastructure/Repositories/FileVersionTypeORMRepository';
-import ItemTypeORMRepository from './Item/Infrastructure/Repositories/ItemTypeORMRepository';
-
 import ItemMikroORMRepository from './Item/Infrastructure/Repositories/ItemMikroORMRepository';
 import FileVersionMikroORMRepository from './File/Infrastructure/Repositories/FileVersionMikroORMRepository';
 
-import FileTypeORMRepository from './File/Infrastructure/Repositories/FileTypeORMRepository';
 import FileMongooseRepository from './File/Infrastructure/Repositories/FileMongooseRepository';
 import FileMikroORMRepository from './File/Infrastructure/Repositories/FileMikroORMRepository';
 import AuthKeycloakRepository from './Auth/Infrastructure/Repositories/Auth/AuthKeycloakRepository';
@@ -49,13 +45,7 @@ container.register(SERVICES.AuthorizeService, { useClass: AuthorizeService }, { 
 // Repositories
 const defaultDbConfig = MainConfig.getInstance().getConfig().dbConfig.default;
 
-if (defaultDbConfig === 'TypeORM')
-{
-    container.register<IItemRepository>(REPOSITORIES.IItemRepository, { useClass: ItemTypeORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IFileVersionRepository>(REPOSITORIES.IFileVersionRepository, { useClass: FileVersionTypeORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IFileRepository>(REPOSITORIES.IFileRepository, { useClass: FileTypeORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
-}
-else if (defaultDbConfig === 'Mongoose')
+if (defaultDbConfig === 'Mongoose')
 {
     container.register<IItemRepository>(REPOSITORIES.IItemRepository, { useClass: ItemMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<IFileVersionRepository>(REPOSITORIES.IFileVersionRepository, { useClass: FileVersionMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });

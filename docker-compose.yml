@@ -44,6 +44,8 @@ services:
       -  KC_METRICS_ENABLED=true
     networks:
      - experiencenet
+    volumes:
+      - ./keycloak/themes:/opt/keycloak/themes
 
   db_sql:
     container_name: experience_db_sql_1

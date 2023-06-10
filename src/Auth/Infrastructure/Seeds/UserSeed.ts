@@ -8,8 +8,9 @@ import { REPOSITORIES } from '../../../Config/Injects';
 import Permissions from '../../../Config/Permissions';
 import MainConfig from '../../../Config/MainConfig';
 import BaseSeed from '../../../Shared/Infrastructure/Seeds/BaseSeed';
+import ISeed from '../../../Shared/Infrastructure/Seeds/ISeed';
 
-class UserSeed extends BaseSeed
+class UserSeed extends BaseSeed implements ISeed
 {
     private userRepository: IUserRepository;
     private roleRepository: IRoleRepository;

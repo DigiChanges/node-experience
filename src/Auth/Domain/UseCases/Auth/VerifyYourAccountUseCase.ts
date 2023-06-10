@@ -10,6 +10,9 @@ import IUserDomain from '../../Entities/IUserDomain';
 import SendEmailService from '../../../../Notification/Domain/Services/SendEmailService';
 import VerifiedAccountEvent from '../../../../Shared/Infrastructure/Events/VerifiedAccountEvent';
 import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotificationEnum';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import VerifyYourAccountSchemaValidation
+    from '../../../Presentation/Validations/Auth/VerifyYourAccountSchemaValidation';
 
 class VerifyYourAccountUseCase
 {
@@ -27,6 +30,8 @@ class VerifyYourAccountUseCase
 
     async handle(payload: VerifyYourAccountPayload): Promise<ILocaleMessage>
     {
+        await ValidatorSchema.handle(VerifyYourAccountSchemaValidation, payload);
+
         const { confirmationToken } = payload;
 
         const { email } = this.authHelperService.validateToken(confirmationToken);
