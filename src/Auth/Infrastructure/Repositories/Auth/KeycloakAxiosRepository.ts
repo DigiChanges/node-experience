@@ -3,6 +3,7 @@ import MainConfig from '../../../../Config/MainConfig';
 import AuthPayload from '../../../Domain/Payloads/Auth/AuthPayload';
 import qs from 'qs';
 import axios from 'axios';
+import LoginResponse from './Responses/LoginResponse';
 
 class KeycloakAxiosRepository extends BaseAxiosRepository
 {
@@ -37,7 +38,7 @@ class KeycloakAxiosRepository extends BaseAxiosRepository
         };
     }
 
-    public async login(payload: AuthPayload): Promise<any>
+    public async login(payload: AuthPayload): Promise<LoginResponse>
     {
         const { username, password, clientId } = payload;
 
