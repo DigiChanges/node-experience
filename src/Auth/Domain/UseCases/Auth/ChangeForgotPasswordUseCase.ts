@@ -6,6 +6,9 @@ import Locales from '../../../../Shared/Presentation/Shared/Locales';
 import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
 import AuthHelperService from '../../Services/AuthHelperService';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import ChangeForgotPasswordSchemaValidation
+    from '../../../Presentation/Validations/Auth/ChangeForgotPasswordSchemaValidation';
 
 class ChangeForgotPasswordUseCase
 {
@@ -21,6 +24,8 @@ class ChangeForgotPasswordUseCase
 
     async handle(payload: ChangeForgotPasswordPayload): Promise<ILocaleMessage>
     {
+        await ValidatorSchema.handle(ChangeForgotPasswordSchemaValidation, payload);
+
         const { password, confirmationToken } = payload;
 
         const decodeToken = this.authHelperService.validateToken(confirmationToken);

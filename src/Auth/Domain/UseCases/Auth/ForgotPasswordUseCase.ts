@@ -9,6 +9,8 @@ import Locales from '../../../../Shared/Presentation/Shared/Locales';
 import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
 import AuthHelperService from '../../Services/AuthHelperService';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import ForgotPasswordSchemaValidation from '../../../Presentation/Validations/Auth/ForgotPasswordSchemaValidation';
 
 class ForgotPasswordUseCase
 {
@@ -24,6 +26,8 @@ class ForgotPasswordUseCase
 
     async handle(payload: ForgotPasswordPayload): Promise<ILocaleMessage>
     {
+        await ValidatorSchema.handle(ForgotPasswordSchemaValidation, payload);
+
         const { urlWeb } = MainConfig.getInstance().getConfig().url;
         const { email } = payload;
         const user = await this.repository.getOneByEmail(email);

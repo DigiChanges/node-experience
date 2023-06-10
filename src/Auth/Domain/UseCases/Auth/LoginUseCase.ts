@@ -7,6 +7,8 @@ import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepo
 import ErrorHttpException from '../../../../Shared/Presentation/Shared/ErrorHttpException';
 import MainConfig from '../../../../Config/MainConfig';
 import ILoginResponse from '../../Models/ILoginResponse';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import AuthSchemaValidation from '../../../Presentation/Validations/Auth/AuthSchemaValidation';
 
 class LoginUseCase
 {
@@ -21,11 +23,11 @@ class LoginUseCase
 
     async handle(payload: AuthPayload): Promise<ILoginResponse>
     {
-        const config = MainConfig.getInstance().getConfig();
-        // ! Remove it from here on another exception without http
-        const statusCode = config.statusCode;
-        const { authorization: hasActiveAuthorization } = config.auth;
+        await ValidatorSchema.handle(AuthSchemaValidation, payload);
 
+        const { statusCode, auth } = MainConfig.getInstance().getConfig();
+        // ! Remove it from here on another exception without http
+        const { authorization: hasActiveAuthorization } = auth;
         const loginData = await this.repository.login(payload);
 
         if (loginData?.error)

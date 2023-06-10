@@ -1,10 +1,9 @@
 import MainConfig from '../../Config/MainConfig';
-import CreateTypeORMConnection from '../Infrastructure/Database/CreateTypeORMConnection';
 import CreateMongooseConnection from '../Infrastructure/Database/CreateMongooseConnection';
 import CreateMikroORMConnection from '../Infrastructure/Database/CreateMikroORMConnection';
 import ICreateConnection from '../Infrastructure/Database/ICreateConnection';
 
-type DbValueProp = typeof CreateTypeORMConnection | typeof CreateMongooseConnection | typeof CreateMikroORMConnection;
+type DbValueProp = typeof CreateMongooseConnection | typeof CreateMikroORMConnection;
 
 class DatabaseFactory
 {
@@ -23,7 +22,6 @@ class DatabaseFactory
         const config = dbConfig[db];
 
         const strategy = new Map<string, DbValueProp>();
-        strategy.set('TypeORM', CreateTypeORMConnection);
         strategy.set('Mongoose', CreateMongooseConnection);
         strategy.set('MikroORM', CreateMikroORMConnection);
 
