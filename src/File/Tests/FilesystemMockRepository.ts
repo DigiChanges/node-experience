@@ -3,7 +3,7 @@ import IFilesystem from '../../Shared/Infrastructure/Filesystem/IFilesystem';
 import IFileVersionDomain from '../Domain/Entities/IFileVersionDomain';
 import ListObjectsPayload from '../Domain/Payloads/ListObjectsPayload';
 
-class MockMinioStrategy implements IFilesystem
+class FilesystemMockRepository implements IFilesystem
 {
     private readonly filesystem: string;
     private readonly pathTemp: string;
@@ -70,4 +70,4 @@ class MockMinioStrategy implements IFilesystem
     }
 }
 
-export default MockMinioStrategy;
+export default FilesystemMockRepository;

@@ -3,7 +3,7 @@ import initTestServer from '../../initTestServer';
 import FilesystemFactory from '../../Shared/Factories/FilesystemFactory';
 import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
 import { UploadFileBase64 } from './fixture';
-import MockMinioStrategy from './MockMinioStrategy';
+import FilesystemMockRepository from './FilesystemMockRepository';
 import { IFileResponse } from './types';
 import ICreateConnection from '../../Shared/Infrastructure/Database/ICreateConnection';
 
@@ -21,7 +21,7 @@ describe('Start File Test', () =>
         request = configServer.request;
         dbConnection = configServer.dbConnection;
 
-        jest.spyOn(FilesystemFactory, 'create').mockImplementation(() => new MockMinioStrategy());
+        jest.spyOn(FilesystemFactory, 'create').mockImplementation(() => new FilesystemMockRepository());
     });
 
     afterAll((async() =>
