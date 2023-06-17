@@ -11,7 +11,6 @@ import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers
 import MainConfig from '../../../Config/MainConfig';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import UserSavePayload from '../../Domain/Payloads/User/UserSavePayload';
-import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
 import UserUpdatePayload from '../../Domain/Payloads/User/UserUpdatePayload';
 import UserAssignRolePayload from '../../Domain/Payloads/User/UserAssignRolePayload';
 import ChangeMyPasswordPayload from '../../Domain/Payloads/User/ChangeMyPasswordPayload';
@@ -43,7 +42,7 @@ UserKoaHandler.post('/', AuthorizeKoaMiddleware(Permissions.USERS_SAVE), async(c
 
 UserKoaHandler.get('/', AuthorizeKoaMiddleware(Permissions.USERS_LIST), async(ctx: DefaultContext) =>
 {
-    const data: CriteriaPayload = {
+    const data: any = {
         query: ctx.request.query,
         url: ctx.request.url
     };

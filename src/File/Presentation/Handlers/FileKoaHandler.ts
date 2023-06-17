@@ -10,7 +10,6 @@ import ObjectTransformer from '../Transformers/ObjectTransformer';
 import AuthorizeKoaMiddleware from '../../../Auth/Presentation/Middlewares/AuthorizeKoaMiddleware';
 import Permissions from '../../../Config/Permissions';
 import FileTransformer from '../Transformers/FileTransformer';
-import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/api/files'
@@ -23,7 +22,7 @@ const config = MainConfig.getInstance().getConfig().statusCode;
 
 FileKoaHandler.get('/', AuthorizeKoaMiddleware(Permissions.FILES_LIST), async(ctx: Koa.ParameterizedContext & any) =>
 {
-    const data: CriteriaPayload = {
+    const data: any = {
         query: ctx.request.query,
         url: ctx.request.url
     };

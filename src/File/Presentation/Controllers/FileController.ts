@@ -29,7 +29,6 @@ import FileBase64UpdateSchemaValidation from '../Validations/FileBase64UpdateSch
 import DownloadPayload from '../../Domain/Payloads/DownloadPayload';
 import FileMultipartSchemaValidation from '../Validations/FileMultipartSchemaValidation';
 import CriteriaSchemaValidation from '../../../Shared/Presentation/Validations/CriteriaSchemaValidation';
-import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
 import RequestCriteria from '../../../Shared/Presentation/Requests/RequestCriteria';
 import FileFilter from '../Criterias/FileFilter';
 import FileSort from '../Criterias/FileSort';
@@ -42,7 +41,7 @@ import FileMultipartUpdateSchemaValidation from '../Validations/FileMultipartUpd
 
 class FileController
 {
-    public async list(payload: CriteriaPayload): Promise<IPaginator>
+    public async list(payload: any): Promise<IPaginator>
     {
         await ValidatorSchema.handle(CriteriaSchemaValidation, payload);
 
