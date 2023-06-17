@@ -13,7 +13,6 @@ import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import ItemSchemaSaveValidation from '../Validations/ItemSchemaSaveValidation';
 import CriteriaSchemaValidation from '../../../Shared/Presentation/Validations/CriteriaSchemaValidation';
-import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
 import ItemFilter from '../Criterias/ItemFilter';
 import ItemSort from '../Criterias/ItemSort';
 import Pagination from '../../../Shared/Presentation/Shared/Pagination';
@@ -31,7 +30,7 @@ class ItemController
         return await useCase.handle(payload);
     }
 
-    public async list(payload: CriteriaPayload): Promise<IPaginator>
+    public async list(payload: any): Promise<IPaginator>
     {
         await ValidatorSchema.handle(CriteriaSchemaValidation, payload);
 

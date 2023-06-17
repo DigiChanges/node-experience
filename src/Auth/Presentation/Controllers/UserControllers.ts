@@ -20,7 +20,6 @@ import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import CriteriaSchemaValidation from '../../../Shared/Presentation/Validations/CriteriaSchemaValidation';
 import RequestCriteria from '../../../Shared/Presentation/Requests/RequestCriteria';
-import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
 import UserFilter from '../Criterias/UserFilter';
 import UserSort from '../Criterias/UserSort';
 import Pagination from '../../../Shared/Presentation/Shared/Pagination';
@@ -42,7 +41,7 @@ class UserController
         return await useCase.handle(payload);
     }
 
-    public async list(payload: CriteriaPayload): Promise<IPaginator>
+    public async list(payload: any): Promise<IPaginator>
     {
         await ValidatorSchema.handle(CriteriaSchemaValidation, payload);
 

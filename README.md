@@ -20,6 +20,8 @@ https://github.com/DigiChanges/node-experience
 
 [Boilerplate Documentation](https://digichanges.github.io/nexp-docs)
 
+*NOTE*: The v1 it's deprecated and don't have support in the future.
+
 ## Quick Start
 
 We can run the project directly with docker compose and then bash where the basic commands to feed the database are located.
@@ -28,6 +30,54 @@ We can run the project directly with docker compose and then bash where the basi
 2. Copy `.env.dev` file to `.env`. (**.env.dev** it's an environment example file)
 3. Then execute `STAGE=dev docker-compose up --build` to up all containers.
 4. Basically generates an admin user, add roles with permission and get a bucket for minIO. `docker-compose exec node bash dev.init.sh`
+
+> **Tip** I know it may sound repetitive, but it is not a framework. NExp is a set of tools or libraries working together through a common structure. All structural code within this project is not fixed and can be changed freely.
+
+## Creation of realm and client in Keycloak
+Once you already log in on the keycloak administration console, https://localhost:8080, you can create the realm from the side menu.
+
+![Screenshot](docs/images/keycloak_1.png)
+
+Then you just need to add a name to it and click on "Create"
+
+![Screenshot](docs/images/keycloak_2.png)
+
+To add a client, first you need to select the realm, then go to the side menu "Clients", you will see the option "Create client".
+
+![Screenshot](docs/images/keycloak_3.png)
+
+Complete the required fields and then click on "Next", after finish all the steps then you can save it.
+
+![Screenshot](docs/images/keycloak_4.png)
+![Screenshot](docs/images/keycloak_5.png)
+
+Finally, you need to select the new client and on credential tab copy the client secret and copy UUID client from URL.
+
+Go to .env file and replace this values.
+
+Example: 
+
+```
+KEYCLOAK_CLIENT_ID=experience
+KEYCLOAK_CLIENT_SECRET=eSKReacL00dAjlrQfv5HM8BWLcCDmkCK
+KEYCLOAK_CLIENT_UUID=4693fe5e-4d33-43a0-b016-e19e827ca332
+```
+
+And .env file complete this is like this:
+
+```
+KEYCLOAK_CLIENT_ID=experience
+KEYCLOAK_CLIENT_SECRET=eSKReacL00dAjlrQfv5HM8BWLcCDmkCK
+KEYCLOAK_CLIENT_UUID=4693fe5e-4d33-43a0-b016-e19e827ca332
+KEYCLOAK_MAIN_REALM=chespirito
+KEYCLOAK_HOST=http://keycloak:8080
+KEYCLOAK_USERNAME=superadmin@node.com
+KEYCLOAK_PASSWORD=db_experience123
+KEYCLOAK_AUTHORIZATION=true
+```
+
+![Screenshot](docs/images/keycloak_6.png)
+
 
 ## Installation
 
@@ -83,28 +133,6 @@ The directory structures for business domains are as follows:
 
 ---
 
-> **Tip** I know it may sound repetitive, but it is not a framework. NExp is a set of tools or libraries working together through a common structure. All structural code within this project is not fixed and can be changed freely.
-
-## Creation of realm and client in Keycloak
-Once you already login in the keycloak administration console, you can create the realm from the side menu
-
-![Screenshot](docs/images/createRealm_1.png)
-
-then you just need to add a name to it and click on "Create"
-
-![Screenshot](docs/images/createRealm_2.png)
-
-To add a client, first you need to select the realm, then go to the side menu "Clients", you will see the option "Create client"
-
-![Screenshot](docs/images/createClient_1.png)
-
-complete the required fields and then click on "Next", after finish all the steps then you can save it
-
-![Screenshot](docs/images/createClient_2.png)
-![Screenshot](docs/images/createClient_3.png)
-
-
-
 ## Advantages
 
 The advantages of using this boilerplate is to save time thinking about certain basic structures common to any project to make an API without having to get everything from scratch. 
@@ -114,9 +142,9 @@ As it is only a boilerplate, you have the freedom to structure the code whatever
 Common structures found within this project are: 
 
 - Authentication and authorization with [Keycloak](https://www.keycloak.org).
-- Filesystem with minIO, 100% S3 compatible.
+- Filesystem with [MinIO](https://min.io), 100% S3 compatible.
 - Basic push Notification and Email with nodemailer.
-- TypeORM, MikroORM and Mongoose Integration.
+- MikroORM and Mongoose Integration.
 - Koa integration.
 - Business logic independent of the HTTP and persistence libraries.
 
