@@ -3,6 +3,8 @@ import IRoleDomain from '../../Entities/IRoleDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import RoleSchemaUpdateValidation from '../../../Presentation/Validations/Role/RoleSchemaUpdateValidation';
 
 class UpdateRoleUseCase
 {
@@ -16,6 +18,8 @@ class UpdateRoleUseCase
 
     async handle(payload: RoleUpdatePayload): Promise<IRoleDomain>
     {
+        await ValidatorSchema.handle(RoleSchemaUpdateValidation, payload);
+
         const role: IRoleDomain = await this.repository.getOne(payload.id);
         role.updateBuild(payload);
 

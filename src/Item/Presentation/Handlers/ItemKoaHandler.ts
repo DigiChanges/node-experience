@@ -11,7 +11,6 @@ import Permissions from '../../../Config/Permissions';
 import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
 import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
 import ItemRepPayload from '../../Domain/Payloads/ItemRepPayload';
-import CriteriaPayload from '../../../Shared/Presentation/Validations/CriteriaPayload';
 import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import ItemUpdatePayload from '../../Domain/Payloads/ItemUpdatePayload';
 
@@ -37,7 +36,7 @@ ItemKoaHandler.post('/', AuthorizeKoaMiddleware(Permissions.ITEMS_SAVE), async(c
 
 ItemKoaHandler.get('/', AuthorizeKoaMiddleware(Permissions.ITEMS_LIST), async(ctx: DefaultContext) =>
 {
-    const data: CriteriaPayload = {
+    const data: any = {
         url: ctx.request.url,
         query: ctx.request.query
     };

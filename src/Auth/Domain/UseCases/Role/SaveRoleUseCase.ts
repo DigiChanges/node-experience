@@ -4,6 +4,8 @@ import { REPOSITORIES } from '../../../../Config/Injects';
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 import Role from '../../Entities/Role';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import RoleSchemaSaveValidation from '../../../Presentation/Validations/Role/RoleSchemaSaveValidation';
 
 class SaveRoleUseCase
 {
@@ -17,6 +19,8 @@ class SaveRoleUseCase
 
     async handle(payload: RoleRepPayload): Promise<IRoleDomain>
     {
+        await ValidatorSchema.handle(RoleSchemaSaveValidation, payload);
+
         const role = new Role(payload);
         return await this.repository.save(role);
     }
