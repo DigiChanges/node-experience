@@ -1,4 +1,4 @@
-FROM digichanges/nexp:1.0 as dev
+FROM digichanges/nexp:1.1 as dev
 
 WORKDIR /usr/app
 
@@ -17,16 +17,12 @@ COPY --chown=node:node .husky ./
 COPY --chown=node:node .huskyrc ./
 COPY --chown=node:node .npmrc ./
 
-RUN pnpm install
+RUN npm install --location=global pnpm pm2
 
-RUN mkdir dist
-RUN chown node:node dist
-RUN chown -R node:node node_modules
+RUN pnpm install
 
 # Run development server
 ENTRYPOINT [ "dumb-init", "pnpm", "dev" ]
-
-USER node
 
 FROM dev as build
 
@@ -53,7 +49,7 @@ RUN chown node:node node_modules
 
 RUN cd node_modules/bcrypt && npm rebuild bcrypt --build-from-source
 
-FROM digichanges/nexp:1.0 as prod
+FROM digichanges/nexp:1.1 as prod
 
 ENV NODE_ENV production
 
@@ -70,4 +66,3 @@ COPY --from=prerelease --chown=node:node /usr/app/package.json/ ./package.json
 USER node
 
 ENTRYPOINT ["dumb-init", "pm2-runtime", "start", "ecosystem.config.js"]
-#ENTRYPOINT ["dumb-init", "pnpm", "start"]
