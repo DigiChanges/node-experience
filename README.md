@@ -26,19 +26,18 @@ https://github.com/DigiChanges/node-experience
 
 We can run the project directly with docker compose and then bash where the basic commands to feed the database are located.
 
-1. Install dependencies. `pnpm install`.
+1. git clone https://github.com/DigiChanges/node-experience
+2. Install dependencies. `pnpm install`.
 2. Copy `.env.dev` file to `.env`. (**.env.dev** it's an environment example file)
 3. Then execute `STAGE=dev docker-compose up --build` to up all containers.
-4. Basically generates an admin user, add roles with permission and get a bucket for minIO. `docker-compose exec node bash dev.init.sh`
+4. Configure Keycloak.
 
-> **Tip** I know it may sound repetitive, but it is not a framework. NExp is a set of tools or libraries working together through a common structure. All structural code within this project is not fixed and can be changed freely.
-
-## Creation of realm and client in Keycloak
-Once you already log in on the keycloak administration console, https://localhost:8080, you can create the realm from the side menu.
+#### Creation of realm and client in Keycloak
+Once you already login in the keycloak administration console, you can create the realm from the side menu
 
 ![Screenshot](docs/images/keycloak_1.png)
 
-Then you just need to add a name to it and click on "Create"
+Then you just need to add a name to it and click on "Create".
 
 ![Screenshot](docs/images/keycloak_2.png)
 
@@ -51,7 +50,10 @@ Complete the required fields and then click on "Next", after finish all the step
 ![Screenshot](docs/images/keycloak_4.png)
 ![Screenshot](docs/images/keycloak_5.png)
 
-Finally, you need to select the new client and on credential tab copy the client secret and copy UUID client from URL.
+NOTE: In **docker/keycloak/themes** folder you can find a theme for keycloak, you can use it to customize the login page.
+      It's made with https://github.com/keycloakify/keycloakify
+
+You need to select the new client and on credential tab copy the client secret and copy UUID client from URL.
 
 Go to .env file and replace this values.
 
@@ -77,7 +79,9 @@ KEYCLOAK_AUTHORIZATION=true
 ```
 
 ![Screenshot](docs/images/keycloak_6.png)
+5. Finally, generates an **admin user**, add **roles** with **permissions** and get a **bucket** for **MinIO**. 
 
+`docker-compose exec node bash dev.init.sh`
 
 ## Installation
 
@@ -132,6 +136,8 @@ The directory structures for business domains are as follows:
  ```
 
 ---
+
+> **Tip** I know it may sound repetitive, but it is not a framework. NExp is a set of tools or libraries working together through a common structure. All structural code within this project is not fixed and can be changed freely.
 
 ## Advantages
 
