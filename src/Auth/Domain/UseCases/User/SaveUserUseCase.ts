@@ -6,6 +6,8 @@ import User from '../../Entities/User';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
 import { REPOSITORIES } from '../../../../Config/Injects';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import UserRepSchemaValidation from '../../../Presentation/Validations/User/UserRepSchemaValidation';
 
 class SaveUserUseCase
 {
@@ -21,6 +23,8 @@ class SaveUserUseCase
 
     async handle(payload: UserSavePayload): Promise<IUserDomain>
     {
+        await ValidatorSchema.handle(UserRepSchemaValidation, payload);
+
         const user: IUserDomain = new User(payload);
         await this.repository.save(user, payload.password);
 

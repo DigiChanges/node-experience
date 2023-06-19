@@ -3,6 +3,9 @@ import IUserDomain from '../../Entities/IUserDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import ChangeUserPasswordSchemaValidation
+    from '../../../Presentation/Validations/User/ChangeUserPasswordSchemaValidation';
 
 class ChangeUserPasswordUseCase
 {
@@ -16,6 +19,8 @@ class ChangeUserPasswordUseCase
 
     async handle(payload: ChangeUserPasswordPayload): Promise<IUserDomain>
     {
+        await ValidatorSchema.handle(ChangeUserPasswordSchemaValidation, payload);
+
         const { id } = payload;
         const user: IUserDomain = await this.repository.getOne(id);
 

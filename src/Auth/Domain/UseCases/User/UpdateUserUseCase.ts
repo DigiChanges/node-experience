@@ -3,6 +3,8 @@ import IUserDomain from '../../Entities/IUserDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import UserUpdateSchemaValidation from '../../../Presentation/Validations/User/UserUpdateSchemaValidation';
 
 class UpdateUserUseCase
 {
@@ -16,6 +18,8 @@ class UpdateUserUseCase
 
     async handle(payload: UserUpdatePayload): Promise<IUserDomain>
     {
+        await ValidatorSchema.handle(UserUpdateSchemaValidation, payload);
+
         const { id } = payload;
         const user: IUserDomain = await this.repository.getOne(payload.id);
         payload.enable = payload.userId === user.getId() ?? payload.enable;
