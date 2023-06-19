@@ -2,10 +2,10 @@ import LoginResponse from '../Infrastructure/Repositories/Auth/Responses/LoginRe
 import AuthPayload from '../Domain/Payloads/Auth/AuthPayload';
 import IUserDomain from '../Domain/Entities/IUserDomain';
 import VerifyTokenPayload from '../Infrastructure/Repositories/Auth/Payload/VerifyTokenPayload';
-import LogoutPayload from '../../../dist/src/Auth/Domain/Payloads/Auth/LogoutPayload';
 import RefreshTokenPayload from '../Domain/Payloads/Auth/RefreshTokenPayload';
 import SignUpPayload from '../Infrastructure/Repositories/Auth/Payload/SignUpPayload';
 import PermissionPayload from '../Infrastructure/Repositories/Auth/Payload/PermissionPayload';
+import LogoutPayload from '../Domain/Payloads/Auth/LogoutPayload';
 
 const responseLoginResponse: LoginResponse = {
     'not-before-policy': 0,

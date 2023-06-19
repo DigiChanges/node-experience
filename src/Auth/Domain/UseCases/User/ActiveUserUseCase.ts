@@ -2,6 +2,8 @@ import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
 import IdPayload from '../../../../Shared/Presentation/Requests/IdPayload';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import IdSchemaValidation from '../../../../Shared/Presentation/Validations/IdSchemaValidation';
 
 class ActiveUserUseCase
 {
@@ -15,6 +17,8 @@ class ActiveUserUseCase
 
     async handle(payload: IdPayload): Promise<void>
     {
+        await ValidatorSchema.handle(IdSchemaValidation, payload);
+
         const { id } = payload;
         const user = await this.repository.getOne(id);
 

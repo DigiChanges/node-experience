@@ -3,6 +3,8 @@ import ChangeMyPasswordPayload from '../../Payloads/User/ChangeMyPasswordPayload
 import IUserDomain from '../../Entities/IUserDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import ChangeMyPasswordSchemaValidation from '../../../Presentation/Validations/User/ChangeMyPasswordSchemaValidation';
 
 class ChangeMyPasswordUseCase
 {
@@ -16,6 +18,8 @@ class ChangeMyPasswordUseCase
 
     async handle(payload: ChangeMyPasswordPayload): Promise<any>
     {
+        await ValidatorSchema.handle(ChangeMyPasswordSchemaValidation, payload);
+
         const user: IUserDomain = await this.repository.getOne(payload.id);
 
         await this.repository.updatePassword(user.getId(), payload.password);
