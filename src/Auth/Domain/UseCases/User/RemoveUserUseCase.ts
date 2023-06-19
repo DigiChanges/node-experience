@@ -3,6 +3,8 @@ import IdPayload from '../../../../Shared/Presentation/Requests/IdPayload';
 import IUserDomain from '../../Entities/IUserDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
+import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import IdSchemaValidation from '../../../../Shared/Presentation/Validations/IdSchemaValidation';
 
 class RemoveUserUseCase
 {
@@ -16,6 +18,8 @@ class RemoveUserUseCase
 
     async handle(payload: IdPayload): Promise<IUserDomain>
     {
+        await ValidatorSchema.handle(IdSchemaValidation, payload);
+
         const { id } = payload;
         return await this.repository.delete(id);
     }
