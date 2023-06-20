@@ -1,5 +1,7 @@
 import ListObjectsPayload from '../Payloads/ListObjectsPayload';
 import FileService from '../Services/FileService';
+import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
+import ListObjectsSchemaValidation from '../../Presentation/Validations/ListObjectsSchemaValidation';
 
 class ListObjectsUseCase
 {
@@ -7,6 +9,8 @@ class ListObjectsUseCase
 
     async handle(payload: ListObjectsPayload): Promise<any>
     {
+        await ValidatorSchema.handle(ListObjectsSchemaValidation, payload);
+
         return await this.fileService.listObjects(payload);
     }
 }
