@@ -4,6 +4,8 @@ import { REPOSITORIES } from '../../../Config/Injects';
 import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
 import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
 import ItemBuilder from '../Factories/ItemBuilder';
+import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
+import ItemSchemaSaveValidation from '../../Presentation/Validations/ItemSchemaSaveValidation';
 
 class SaveItemUseCase
 {
@@ -17,6 +19,8 @@ class SaveItemUseCase
 
     async handle(payload: ItemRepPayload): Promise<IItemDomain>
     {
+        await ValidatorSchema.handle(ItemSchemaSaveValidation, payload);
+
         const item: IItemDomain = new ItemBuilder(payload)
             .setItem()
             .build()
