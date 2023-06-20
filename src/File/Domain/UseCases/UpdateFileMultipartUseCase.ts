@@ -3,6 +3,8 @@ import IFileVersionDomain from '../Entities/IFileVersionDomain';
 import FileService from '../Services/FileService';
 import FileVersion from '../Entities/FileVersion';
 import FileDTO from '../Models/FileDTO';
+import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
+import FileMultipartUpdateSchemaValidation from '../../Presentation/Validations/FileMultipartUpdateSchemaValidation';
 
 class UpdateFileMultipartUseCase
 {
@@ -10,6 +12,8 @@ class UpdateFileMultipartUseCase
 
     async handle(payload: FileUpdateMultipartPayload): Promise<any>
     {
+        await ValidatorSchema.handle(FileMultipartUpdateSchemaValidation, payload);
+
         const { id } = payload;
 
         if (payload.query.isOptimize && payload.file.isImage)

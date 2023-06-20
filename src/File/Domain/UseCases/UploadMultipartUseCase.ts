@@ -4,6 +4,8 @@ import FileVersion from '../Entities/FileVersion';
 import FileService from '../Services/FileService';
 import IFileDTO from '../Models/IFileDTO';
 import FileDTO from '../Models/FileDTO';
+import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
+import FileMultipartSchemaValidation from '../../Presentation/Validations/FileMultipartSchemaValidation';
 
 class UploadMultipartUseCase
 {
@@ -11,6 +13,8 @@ class UploadMultipartUseCase
 
     async handle(payload: FileMultipartRepPayload): Promise<IFileDTO>
     {
+        await ValidatorSchema.handle(FileMultipartSchemaValidation, payload);
+
         if (payload.query?.isOptimize && payload.file.isImage)
         {
             payload = await this.fileService.optimizeMultipartToUpload(payload);

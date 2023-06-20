@@ -1,5 +1,7 @@
 import PresignedFileRepPayload from '../Payloads/PresignedFileRepPayload';
 import FileService from '../Services/FileService';
+import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
+import PresignedFileSchemaValidation from '../../Presentation/Validations/PresignedFileSchemaValidation';
 
 class GetPresignedGetObjectUseCase
 {
@@ -7,6 +9,8 @@ class GetPresignedGetObjectUseCase
 
     async handle(payload: PresignedFileRepPayload): Promise<string>
     {
+        await ValidatorSchema.handle(PresignedFileSchemaValidation, payload);
+
         return this.fileService.getPresignedGetObject(payload);
     }
 }

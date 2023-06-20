@@ -4,6 +4,8 @@ import FileService from '../Services/FileService';
 import IFileDTO from '../Models/IFileDTO';
 import FileDTO from '../Models/FileDTO';
 import OptimizePayload from '../Payloads/OptimizePayload';
+import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
+import OptimizeSchemaValidation from '../../Presentation/Validations/OptimizeSchemaValidation';
 
 class OptimizeUseCase
 {
@@ -11,6 +13,8 @@ class OptimizeUseCase
 
     async handle(payload: OptimizePayload): Promise<IFileDTO>
     {
+        await ValidatorSchema.handle(OptimizeSchemaValidation, payload);
+
         const { id } = payload;
         let file = await this.fileService.getOne(id);
         const fileVersions = await this.fileService.getVersions(id);
