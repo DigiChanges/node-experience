@@ -11,6 +11,7 @@ import LoginResponse from './Responses/LoginResponse';
 import SignUpPayload from './Payload/SignUpPayload';
 import RefreshTokenPayload from '../../../Domain/Payloads/Auth/RefreshTokenPayload';
 import LogoutPayload from '../../../Domain/Payloads/Auth/LogoutPayload';
+import dayjs from 'dayjs';
 
 class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRepository
 {
@@ -162,7 +163,7 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
             firstName: 'The',
             lastName: 'Guest',
             email: 'email@email.com',
-            birthdate: '1970-01-01',
+            birthdate: dayjs('1970-01-01', 'yyyy-mm-dd').toDate(),
             genre: 'O',
             phone: '5555554422',
             country: 'AR',
@@ -181,7 +182,7 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
                 firstName,
                 lastName,
                 email: response.email,
-                birthdate: response.birthdate,
+                birthdate: dayjs(response.birthdate, 'yyyy-mm-dd').toDate(),
                 genre: response.genre,
                 phone: response.phone,
                 country: response.country,

@@ -6,6 +6,8 @@ import RefreshTokenPayload from '../Domain/Payloads/Auth/RefreshTokenPayload';
 import SignUpPayload from '../Infrastructure/Repositories/Auth/Payload/SignUpPayload';
 import PermissionPayload from '../Infrastructure/Repositories/Auth/Payload/PermissionPayload';
 import LogoutPayload from '../Domain/Payloads/Auth/LogoutPayload';
+import User from '../Domain/Entities/User';
+import { payloadUser } from './DataMock';
 
 const responseLoginResponse: LoginResponse = {
     'not-before-policy': 0,
@@ -19,20 +21,6 @@ const responseLoginResponse: LoginResponse = {
     'token_type': undefined
 };
 
-const responseIUserDomain = {
-    birthdate: '',
-    country: '',
-    createdAt: undefined,
-    email: '',
-    emailVerified: false,
-    enable: false,
-    firstName: '',
-    genre: '',
-    lastName: '',
-    phone: '',
-    updatedAt: undefined
-} as IUserDomain;
-
 class AuthMockRepository
 {
     async login(payload: AuthPayload): Promise<LoginResponse>
@@ -42,7 +30,8 @@ class AuthMockRepository
 
     async verifyToken(payload: VerifyTokenPayload): Promise<IUserDomain>
     {
-        return new Promise<IUserDomain>((resolve) => resolve(responseIUserDomain));
+        const user = new User(payloadUser);
+        return new Promise<IUserDomain>((resolve) => resolve(user));
     }
 
     async verifyAccount(payload): Promise<Record<string, unknown>>
@@ -62,7 +51,8 @@ class AuthMockRepository
 
     async me(payload: { token: string }): Promise<IUserDomain>
     {
-        return new Promise<IUserDomain>((resolve) => resolve(responseIUserDomain));
+        const user = new User(payloadUser);
+        return new Promise<IUserDomain>((resolve) => resolve(user));
     }
 
     async signUp(payload: SignUpPayload): Promise<Record<string, unknown>>

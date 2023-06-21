@@ -36,17 +36,11 @@ class LoginUseCase
             throw new ErrorHttpException(statusCode['HTTP_UNAUTHORIZED'], { message: 'Invalid Credentials.' });
         }
 
-        const user = await this.repository.verifyToken({
-            token: loginData.access_token,
-            hasActiveAuthorization
-        });
-
         return {
             accessToken: loginData.access_token,
             refreshToken: loginData.refresh_token,
             expiresIn: loginData.expires_in,
-            refreshExpiresIn: loginData.refresh_expires_in,
-            user
+            refreshExpiresIn: loginData.refresh_expires_in
         };
     }
 }

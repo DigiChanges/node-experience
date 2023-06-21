@@ -9,12 +9,12 @@ import IApp from './IApp';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import IndexKoaHandler from '../../Presentation/Handlers/IndexKoaHandler';
-import ItemKoaHandler from '../../../Item/Presentation/Handlers/ItemKoaHandler';
-import RoleKoaHandler from '../../../Auth/Presentation/Handlers/RoleKoaHandler';
-import UserKoaHandler from '../../../Auth/Presentation/Handlers/UserKoaHandler';
+import ItemKoaRouter from '../../../Item/Presentation/Routes/ItemKoaRouter';
+import RoleKoaRouter from '../../../Auth/Presentation/Routers/RoleKoaRouter';
+import UserKoaRouter from '../../../Auth/Presentation/Routers/UserKoaRouter';
 import NotificationKoaHandler from '../../../Notification/Presentation/Handlers/NotificationKoaHandler';
-import FileKoaHandler from '../../../File/Presentation/Handlers/FileKoaHandler';
-import AuthKoaHandler from '../../../Auth/Presentation/Handlers/AuthKoaHandler';
+import FileKoaRouter from '../../../File/Presentation/Routes/FileKoaRouter';
+import AuthKoaRouter from '../../../Auth/Presentation/Routers/AuthKoaRouter';
 import IAppConfig from './IAppConfig';
 import { ErrorKoaHandler } from './ErrorKoaHandler';
 import MainConfig from '../../../Config/MainConfig';
@@ -81,23 +81,23 @@ class AppKoa implements IApp
         this.app.use(IndexKoaHandler.routes());
         this.app.use(IndexKoaHandler.allowedMethods());
 
-        this.app.use(ItemKoaHandler.routes());
-        this.app.use(ItemKoaHandler.allowedMethods());
+        this.app.use(ItemKoaRouter.routes());
+        this.app.use(ItemKoaRouter.allowedMethods());
 
-        this.app.use(RoleKoaHandler.routes());
-        this.app.use(RoleKoaHandler.allowedMethods());
+        this.app.use(RoleKoaRouter.routes());
+        this.app.use(RoleKoaRouter.allowedMethods());
 
-        this.app.use(UserKoaHandler.routes());
-        this.app.use(UserKoaHandler.allowedMethods());
+        this.app.use(UserKoaRouter.routes());
+        this.app.use(UserKoaRouter.allowedMethods());
 
         this.app.use(NotificationKoaHandler.routes());
         this.app.use(NotificationKoaHandler.allowedMethods());
 
-        this.app.use(FileKoaHandler.routes());
-        this.app.use(FileKoaHandler.allowedMethods());
+        this.app.use(FileKoaRouter.routes());
+        this.app.use(FileKoaRouter.allowedMethods());
 
-        this.app.use(AuthKoaHandler.routes());
-        this.app.use(AuthKoaHandler.allowedMethods());
+        this.app.use(AuthKoaRouter.routes());
+        this.app.use(AuthKoaRouter.allowedMethods());
 
         this.app.use(async(ctx, next) =>
         {
