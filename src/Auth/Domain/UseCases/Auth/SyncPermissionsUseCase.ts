@@ -7,6 +7,7 @@ import { REPOSITORIES } from '../../../../Config/Injects';
 import Role from '../../Entities/Role';
 import ScopePayload from '../../../Infrastructure/Repositories/Auth/Payload/ScopePayload';
 import ResourceUpdatePayload from '../../../Infrastructure/Repositories/Auth/Payload/ResourceUpdatePayload';
+import logger from '../../../../Shared/Application/Logger/Logger';
 
 class SyncPermissionsUseCase
 {
@@ -94,7 +95,7 @@ class SyncPermissionsUseCase
             };
             const role = new Role(payload);
             const rolesEntity = await this.roleRepository.getAll();
-            const findUser = rolesEntity.filter(roleEntity => roleEntity.name === name);
+            const findUser = rolesEntity.find(roleEntity => roleEntity.name === name);
 
             if (!findUser)
             {

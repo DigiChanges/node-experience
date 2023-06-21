@@ -3,8 +3,8 @@ import IRoleDomain from '../../Entities/IRoleDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
-import IdSchemaValidation from '../../../../Shared/Presentation/Validations/IdSchemaValidation';
 import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import NameSchemaValidation from '../../../../Shared/Presentation/Validations/NameSchemaValidation';
 
 class GetRoleUseCase
 {
@@ -18,7 +18,7 @@ class GetRoleUseCase
 
     async handle(payload: IdPayload): Promise<IRoleDomain>
     {
-        await ValidatorSchema.handle(IdSchemaValidation, payload);
+        await ValidatorSchema.handle(NameSchemaValidation, payload.id);
 
         return await this.repository.getOne(payload.id);
     }

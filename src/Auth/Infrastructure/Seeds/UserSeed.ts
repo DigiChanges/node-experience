@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 import Role from '../../Domain/Entities/Role';
 import IUserDomain from '../../Domain/Entities/IUserDomain';
@@ -48,7 +50,7 @@ class UserSeed extends BaseSeed implements ISeed
             firstName: 'user',
             lastName: 'node',
             email: 'user@node.com',
-            birthdate: '1991-07-04',
+            birthdate: dayjs('1970-01-01', 'yyyy-mm-dd').toDate(),
             genre: 'M',
             phone: '2234456999',
             country: 'AR',
@@ -63,7 +65,7 @@ class UserSeed extends BaseSeed implements ISeed
             firstName: 'operator',
             lastName: 'enable',
             email: 'operator@enable.com',
-            birthdate: '04/07/1992',
+            birthdate: dayjs('1970-01-01', 'yyyy-mm-dd').toDate(),
             genre: 'M',
             phone: '2234456999',
             country: 'Argentina',
@@ -79,7 +81,7 @@ class UserSeed extends BaseSeed implements ISeed
             firstName: 'operator',
             lastName: 'disabled',
             email: 'operator@disabled.com',
-            birthdate: '04/07/1994',
+            birthdate: dayjs('1970-01-01', 'yyyy-mm-dd').toDate(),
             genre: 'F',
             phone: '2234456999',
             country: 'Argentina',
@@ -94,10 +96,10 @@ class UserSeed extends BaseSeed implements ISeed
             firstName: 'operator',
             lastName: 'roleDisabled',
             email: 'operator@roleDisabled.com',
-            birthdate: '04/07/1995',
+            birthdate: dayjs('1970-01-01', 'yyyy-mm-dd').toDate(),
             genre: 'F',
             phone: '2234456999',
-            country: 'Argentina',
+            country: 'AR',
             enable: true,
             emailVerified: true
         };

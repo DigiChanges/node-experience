@@ -3,7 +3,7 @@ interface SignUpPayload
     firstName: string;
     lastName: string;
     email: string;
-    birthdate: string;
+    birthdate: Date;
     password: string;
     passwordConfirmation: string;
     genre?: string;

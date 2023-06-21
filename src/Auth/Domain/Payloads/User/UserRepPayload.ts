@@ -5,7 +5,7 @@ interface UserRepPayload
     firstName: string;
     lastName: string;
     email: string;
-    birthdate: string;
+    birthdate: Date;
     genre: string;
     phone: string;
     country: string;

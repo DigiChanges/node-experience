@@ -2,32 +2,21 @@ import IUserDomain from '../Domain/Entities/IUserDomain';
 import ICriteria from '../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../Shared/Infrastructure/Orm/IPaginator';
 import UserAssignRolePayload from '../Domain/Payloads/User/UserAssignRolePayload';
-import { responseIPaginator } from './DataMock';
-
-const reponseIUserDomain: IUserDomain = {
-    birthdate: '',
-    country: '',
-    createdAt: undefined,
-    email: '',
-    emailVerified: false,
-    enable: false,
-    firstName: '',
-    genre: '',
-    lastName: '',
-    phone: '',
-    updatedAt: undefined
-} as IUserDomain;
+import { payloadUser, responseIPaginator } from './DataMock';
+import User from '../Domain/Entities/User';
 
 class UserMockRepository
 {
     async save(element: IUserDomain, password: string): Promise<IUserDomain>
     {
-        return new Promise<IUserDomain>((resolve) => resolve(reponseIUserDomain));
+        const user = new User(payloadUser);
+        return new Promise<IUserDomain>((resolve) => resolve(user));
     }
 
     async getOneByEmail(email: string): Promise<IUserDomain>
     {
-        return new Promise<IUserDomain>((resolve) => resolve(reponseIUserDomain));
+        const user = new User(payloadUser);
+        return new Promise<IUserDomain>((resolve) => resolve(user));
     }
 
     async updatePassword(id: string, password: string): Promise<unknown>

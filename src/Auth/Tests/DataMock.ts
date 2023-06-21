@@ -1,4 +1,19 @@
 import IPaginator from '../../Shared/Infrastructure/Orm/IPaginator';
+import dayjs from 'dayjs';
+
+export const payloadUser = {
+    birthdate: dayjs('1970-01-01', 'yyyy-mm-dd').toDate(),
+    country: 'AR',
+    createdAt: 1663779723,
+    email: 'jhon@doe.com',
+    emailVerified: false,
+    enable: false,
+    firstName: 'Jhon',
+    genre: 'M',
+    lastName: 'Doe',
+    phone: '2234487968',
+    updatedAt: 1663779723
+};
 
 export const responseIPaginator: IPaginator = {
     getCurrentPage(): number
