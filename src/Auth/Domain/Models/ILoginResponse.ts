@@ -1,4 +1,3 @@
-import IUserDomain from '../Entities/IUserDomain';
 
 interface ILoginResponse
 {
@@ -6,7 +5,6 @@ interface ILoginResponse
     refreshToken: string;
     expiresIn: number;
     refreshExpiresIn: number;
-    user: IUserDomain;
 }
 
 export default ILoginResponse;
