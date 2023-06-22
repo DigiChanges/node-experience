@@ -4,7 +4,10 @@ import { IFetchResponse } from './IFetchResponse';
 interface ILoginBody extends IBodyResponse
 {
     data: {
-        token: string;
+        accessToken: string;
+        refreshToken: string;
+        expiresIn: number;
+        refreshExpiresIn: number;
     }
 }
 

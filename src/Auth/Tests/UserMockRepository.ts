@@ -4,8 +4,9 @@ import IPaginator from '../../Shared/Infrastructure/Orm/IPaginator';
 import UserAssignRolePayload from '../Domain/Payloads/User/UserAssignRolePayload';
 import { payloadUser, responseIPaginator } from './DataMock';
 import User from '../Domain/Entities/User';
+import IUserRepository from '../Infrastructure/Repositories/User/IUserRepository';
 
-class UserMockRepository
+class UserMockRepository implements IUserRepository
 {
     async save(element: IUserDomain, password: string): Promise<IUserDomain>
     {
@@ -37,6 +38,21 @@ class UserMockRepository
     async assignRoles(payload: UserAssignRolePayload): Promise<void>
     {
         return new Promise<void>((resolve) => resolve());
+    }
+
+    delete(id: string): Promise<IUserDomain>
+    {
+        return Promise.resolve(undefined);
+    }
+
+    getOne(id: string): Promise<IUserDomain>
+    {
+        return Promise.resolve(undefined);
+    }
+
+    update(element: IUserDomain): Promise<IUserDomain>
+    {
+        return Promise.resolve(undefined);
     }
 }
 

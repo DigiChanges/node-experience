@@ -32,7 +32,7 @@ describe('Start Item Test', () =>
         beforeAll(async() =>
         {
             const payload = {
-                email: 'user@node.com',
+                username: 'user@node.com',
                 password: '12345678'
             };
 
@@ -43,7 +43,7 @@ describe('Start Item Test', () =>
 
             const { body: { data } } = response;
 
-            token = data.token;
+            token = data.accessToken;
         });
 
         test('Add Item /items', async() =>
@@ -216,7 +216,7 @@ describe('Start Item Test', () =>
         beforeAll(async() =>
         {
             const payload = {
-                email: 'user@node.com',
+                username: 'user@node.com',
                 password: '12345678'
             };
 
@@ -226,8 +226,7 @@ describe('Start Item Test', () =>
                 .send(payload);
 
             const { body: { data } } = response;
-
-            token = data.token;
+            token = data.accessToken;
         });
 
         test('Add Item /items', async() =>

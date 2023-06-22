@@ -35,7 +35,13 @@ class Roles
             Permissions.ROLES_SHOW,
             Permissions.ROLES_LIST,
             Permissions.ROLES_DELETE,
-            Permissions.FILES_SHOW_METADATA
+
+            Permissions.FILES_SHOW_METADATA,
+            Permissions.FILES_UPDATE,
+            Permissions.FILES_UPLOAD,
+            Permissions.FILES_DOWNLOAD,
+            Permissions.FILES_LIST,
+            Permissions.FILES_DELETE
         ]);
         map.set(Roles.OPERATOR, [
             Permissions.USERS_CHANGE_MY_PASSWORD,
