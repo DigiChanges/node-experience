@@ -15,6 +15,13 @@ export const payloadUser = {
     updatedAt: 1663779723
 };
 
+export const payloadRole = {
+    createdAt: 1663779723,
+    name: 'Admin',
+    permissions: [],
+    updatedAt: 1663779723
+};
+
 export const responseIPaginator: IPaginator = {
     getCurrentPage(): number
     {
