@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import container from './register';
 
 import supertest from 'supertest';
@@ -10,7 +9,7 @@ import SeedFactory from './Shared/Factories/SeedFactory';
 import Locales from './Shared/Presentation/Shared/Locales';
 import MainConfig from './Config/MainConfig';
 import IApp from './Shared/Application/Http/IApp';
-import AppFactory from './Shared/Factories/AppFactory';
+import AppBootstrapFactory from './Shared/Factories/AppBootstrapFactory';
 import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
 import IAuthRepository from './Auth/Infrastructure/Repositories/Auth/IAuthRepository';
 import IAuthzRepository from './Auth/Infrastructure/Repositories/Auth/IAuthzRepository';
@@ -62,12 +61,12 @@ const initTestServer = async(): Promise<TestServerData> =>
     container.register<IUserRepository>(REPOSITORIES.IUserRepository, { useClass: UserMockRepository }, { lifecycle: Lifecycle.ContainerScoped });
     container.register<IRoleRepository>(REPOSITORIES.IRoleRepository, { useClass: RoleMockRepository }, { lifecycle: Lifecycle.ContainerScoped });
 
-    const app: IApp = AppFactory.create(config.app.default);
+    const appBootstrap = AppBootstrapFactory.create(config.app.default);
 
-    app.initConfig({
-        serverPort: 8088
+    const app: IApp = await appBootstrap({
+        serverPort: 8088,
+        proxy: false
     });
-    await app.build();
 
     const application = app.callback();
     const request: supertest.SuperAgentTest = supertest.agent(application);

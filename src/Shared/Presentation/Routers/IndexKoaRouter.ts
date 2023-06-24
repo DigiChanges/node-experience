@@ -7,13 +7,13 @@ const routerOpts: Router.IRouterOptions = {
     prefix: '/'
 };
 
-const IndexKoaHandler: Router = new Router(routerOpts);
+const IndexKoaRouter: Router = new Router(routerOpts);
 const responder: KoaResponder = new KoaResponder();
 const config: Record<string, IHttpStatusCode> = MainConfig.getInstance().getConfig().statusCode;
 
-IndexKoaHandler.get('/', async(ctx: Koa.ParameterizedContext & any) =>
+IndexKoaRouter.get('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
     void await responder.send('Welcome to Node Experience', ctx, config['HTTP_OK']);
 });
 
-export default IndexKoaHandler;
+export default IndexKoaRouter;

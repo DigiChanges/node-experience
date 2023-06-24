@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import './register';
 
 import MainConfig from './Config/MainConfig';
@@ -10,20 +9,33 @@ import ICacheRepository from './Shared/Infrastructure/Repositories/ICacheReposit
 
 import CronFactory from './Shared/Factories/CronFactory';
 import IApp from './Shared/Application/Http/IApp';
-import AppFactory from './Shared/Factories/AppFactory';
+import AppBootstrapFactory from './Shared/Factories/AppBootstrapFactory';
 import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
 import Logger from './Shared/Application/Logger/Logger';
+import closedApplication from './closed';
 
 void (async() =>
 {
     const config = MainConfig.getInstance().getConfig();
-    const app: IApp = AppFactory.create(config.app.default);
+    const appBootstrap = AppBootstrapFactory.create(config.app.default);
 
     const databaseFactory = new DatabaseFactory();
     const createConnection: ICreateConnection = databaseFactory.create();
 
     const cache: ICacheRepository = CacheFactory.createRedisCache(config.cache.redis);
     const eventHandler = EventHandler.getInstance();
+
+    const app: IApp = await appBootstrap({
+        serverPort: config.app.serverPort,
+        proxy: config.app.setAppProxy
+    });
+
+    const server = app.listen(() =>
+    {
+        void Logger.info(`Koa is listening to http://localhost:${config.app.serverPort}`);
+    });
+
+    closedApplication(server, cache, createConnection, eventHandler);
 
     try
     {
@@ -36,33 +48,10 @@ void (async() =>
 
         const cronFactory = new CronFactory();
         cronFactory.start();
-
-        app.initConfig({
-            serverPort: config.app.serverPort
-        });
-        await app.build();
-        app.listen();
     }
     catch (error)
     {
         await Logger.info('Error while connecting to the database', error);
         throw error;
     }
-
-    async function closeGracefully(signal: NodeJS.Signals)
-    {
-        app.close();
-        await createConnection.close(true);
-        cache.close();
-        await eventHandler.removeListeners();
-
-        process.kill(process.pid, signal);
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    process.once('SIGINT', closeGracefully);
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    process.once('SIGTERM', closeGracefully);
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    process.once('SIGUSR2', closeGracefully);
 })();
