@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@godaddy/terminus':
+    specifier: ^4.12.1
+    version: 4.12.1
   '@koa/cors':
     specifier: ^4.0.0
     version: 4.0.0
@@ -13,6 +16,9 @@ dependencies:
   '@mikro-orm/postgresql':
     specifier: ^5.7.11
     version: 5.7.11(@mikro-orm/core@5.7.11)
+  '@moebius/http-graceful-shutdown':
+    specifier: ^1.1.0
+    version: 1.1.0
   axios:
     specifier: ^1.4.0
     version: 1.4.0
@@ -1923,6 +1929,12 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
+  /@godaddy/terminus@4.12.1:
+    resolution: {integrity: sha512-Tm+wVu1/V37uZXcT7xOhzdpFoovQReErff8x3y82k6YyWa1gzxWBjTyrx4G2enjEqoXPnUUmJ3MOmwH+TiP6Sw==}
+    dependencies:
+      stoppable: 1.1.0
+    dev: false
+
   /@humanwhocodes/config-array@0.11.10:
     resolution: {integrity: sha512-KVVjQmNUepDVGXNuoRRdmmEjruj0KfiGSbS8LVc12LMsWDQzRXJ0qdhN8L8uUigKpfEHRhlaQFY0ib1tnUbNeQ==}
     engines: {node: '>=10.10.0'}
@@ -2495,6 +2507,10 @@ packages:
       - sqlite3
       - supports-color
       - tedious
+    dev: false
+
+  /@moebius/http-graceful-shutdown@1.1.0:
+    resolution: {integrity: sha512-cjODgYTIGuCwgsuVMZNDh8RBK697ULAoQAmLqMVpqnqF3nOlPaJHqtGrdLooyn81l83wzHYwG6kPvEIv+Fo+sQ==}
     dev: false
 
   /@nodelib/fs.scandir@2.1.5:
@@ -9984,6 +10000,11 @@ packages:
   /statuses@2.0.1:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
     engines: {node: '>= 0.8'}
+    dev: false
+
+  /stoppable@1.1.0:
+    resolution: {integrity: sha512-KXDYZ9dszj6bzvnEMRYvxgeTHU74QBFL54XKtP3nyMuJ81CFYtABZ3bAzL2EdFUaEwJOBOgENyFj3R7oTzDyyw==}
+    engines: {node: '>=4', npm: '>=6'}
     dev: false
 
   /stream-to-array@2.3.0:

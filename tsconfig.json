@@ -25,7 +25,6 @@
     "strict": false,
     "types": [
       "node",
-      "reflect-metadata",
       "jest"
     ],
     "typeRoots": [
