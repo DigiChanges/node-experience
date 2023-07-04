@@ -1,6 +1,6 @@
 import { REPOSITORIES } from '../../../../Config/Injects';
 
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
 import IUserDomain from '../../Entities/IUserDomain';
 

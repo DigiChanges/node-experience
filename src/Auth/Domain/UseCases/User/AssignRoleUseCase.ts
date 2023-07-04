@@ -1,8 +1,8 @@
 import UserAssignRolePayload from '../../Payloads/User/UserAssignRolePayload';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
-import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
 import UserAssignSchemaValidation from '../../../Presentation/Validations/User/UserAssignSchemaValidation';
 
 class AssignRoleUseCase

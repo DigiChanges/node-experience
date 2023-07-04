@@ -1,6 +1,6 @@
 import MainConfig from '../../../Config/MainConfig';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
-import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
+import KoaResponder from '../../../Main/Presentation/Utils/KoaResponder';
 import FileVersionTransformer from '../Transformers/FileVersionTransformer';
 import ObjectTransformer from '../Transformers/ObjectTransformer';
 import FileTransformer from '../Transformers/FileTransformer';
@@ -8,11 +8,11 @@ import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import RequestCriteria from '../../../Shared/Presentation/Requests/RequestCriteria';
 import FileFilter from '../Criterias/FileFilter';
 import FileSort from '../Criterias/FileSort';
-import Pagination from '../../../Shared/Presentation/Shared/Pagination';
+import Pagination from '../../../Shared/Utils/Pagination';
 import ListFilesUseCase from '../../Domain/UseCases/ListFilesUseCase';
 import ListObjectsUseCase from '../../Domain/UseCases/ListObjectsUseCase';
 import GetFileMetadataUseCase from '../../Domain/UseCases/GetFileMetadataUseCase';
-import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
+import ValidatorSchema from '../../../Shared/Utils/ValidatorSchema';
 import FileBase64RepPayload from '../../Domain/Payloads/FileBase64RepPayload';
 import FileBase64SchemaValidation from '../Validations/FileBase64SchemaValidation';
 import UploadBase64UseCase from '../../Domain/UseCases/UploadBase64UseCase';
@@ -26,6 +26,7 @@ import IFileDTO from '../../Domain/Models/IFileDTO';
 import FileUpdateBase64Payload from '../../Domain/Payloads/FileUpdateBase64Payload';
 import UpdateFileMultipartUseCase from '../../Domain/UseCases/UpdateFileMultipartUseCase';
 import RemoveFileUseCase from '../../Domain/UseCases/RemoveFileUseCase';
+import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 
 const responder: KoaResponder = new KoaResponder();
 const config = MainConfig.getInstance().getConfig().statusCode;
@@ -45,7 +46,7 @@ class FileController
         const useCase = new ListFilesUseCase();
         const paginator: IPaginator = await useCase.handle(requestCriteria);
 
-        await responder.paginate(paginator, ctx, config['HTTP_OK'], new FileVersionTransformer());
+        await responder.paginate<IFileVersionDomain>(paginator, ctx, config['HTTP_OK'], new FileVersionTransformer());
     }
 
     static async listObjects(ctx: any): Promise<void>

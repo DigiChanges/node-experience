@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import { exit } from 'shelljs';
 import commander from 'commander';
 import dotenv from 'dotenv';
@@ -16,9 +15,8 @@ import SyncRolesPermissionCommand from './Auth/Presentation/Commands/SyncRolesPe
 import CreateBucketCommand from './File/Presentation/Commands/CreateBucketCommand';
 import Seed from './Shared/Presentation/Commands/SeedCommand';
 import initCommand from './initCommand';
-import CreateFolderLogger from './Shared/Presentation/Commands/CreateFolderLogger';
 import ActiveUserCommand from './Auth/Presentation/Commands/ActiveUserCommand';
-import Logger from './Shared/Application/Logger/Logger';
+import Logger from './Shared/Helpers/Logger/Logger';
 
 void (async() =>
 {
@@ -35,7 +33,6 @@ void (async() =>
         program.addCommand(SyncRolesPermissionCommand);
         program.addCommand(CreateBucketCommand);
         program.addCommand(Seed);
-        program.addCommand(CreateFolderLogger);
         program.addCommand(ActiveUserCommand);
 
         await program.parseAsync(process.argv);

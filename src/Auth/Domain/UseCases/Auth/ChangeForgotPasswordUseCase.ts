@@ -2,11 +2,11 @@ import ChangeForgotPasswordPayload from '../../Payloads/Auth/ChangeForgotPasswor
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 
 import { REPOSITORIES } from '../../../../Config/Injects';
-import Locales from '../../../../Shared/Presentation/Shared/Locales';
+import Locales from '../../../../Shared/Utils/Locales';
 import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import AuthHelperService from '../../Services/AuthHelperService';
-import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
 import ChangeForgotPasswordSchemaValidation
     from '../../../Presentation/Validations/Auth/ChangeForgotPasswordSchemaValidation';
 

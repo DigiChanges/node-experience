@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
+import KoaResponder from '../../../Main/Presentation/Utils/KoaResponder';
 import NotificationSubscriptionRequest from '../Requests/NotificationCreateSuscriptionRequest';
 import NotificationSendMessageRequest from '../Requests/NotificationSendMessageRequest';
 import MainConfig from '../../../Config/MainConfig';

@@ -1,7 +1,7 @@
 
 interface IPaginator
 {
-    paginate(): Promise<unknown>;
+    paginate<T>(): Promise<T[]>;
     getTotal(): number;
     getPerPage(): number;
     getCurrentPage(): number;

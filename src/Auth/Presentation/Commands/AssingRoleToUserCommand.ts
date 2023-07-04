@@ -1,5 +1,5 @@
 import commander from 'commander';
-import Logger from '../../../Shared/Application/Logger/Logger';
+import Logger from '../../../Shared/Helpers/Logger/Logger';
 import AssignRoleByEmailUseCase from '../../Domain/UseCases/User/AssignRoleByEmailUseCase';
 
 const AssignRoleToUserCommand = new commander.Command('assignRoleToUser');

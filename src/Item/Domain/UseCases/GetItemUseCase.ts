@@ -2,8 +2,8 @@ import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import IItemDomain from '../Entities/IItemDomain';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
-import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
-import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
+import { getRequestContext } from '../../../Shared/Utils/RequestContext';
+import ValidatorSchema from '../../../Shared/Utils/ValidatorSchema';
 import IdSchemaValidation from '../../../Shared/Presentation/Validations/IdSchemaValidation';
 
 class GetItemUseCase

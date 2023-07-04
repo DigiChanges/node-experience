@@ -6,7 +6,7 @@ import ICriteria from '../../../../Shared/Presentation/Requests/ICriteria';
 import NotFoundException from '../../../../Shared/Exceptions/NotFoundException';
 import UserFilter from '../../../Presentation/Criterias/UserFilter';
 import User from '../../../Domain/Entities/User';
-import ErrorHttpException from '../../../../Shared/Presentation/Shared/ErrorHttpException';
+import ErrorHttpException from '../../../../Shared/Exceptions/ErrorHttpException';
 import KeycloakAxiosRepository from '../Auth/KeycloakAxiosRepository';
 import UserAssignRolePayload from '../../../Domain/Payloads/User/UserAssignRolePayload';
 

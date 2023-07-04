@@ -1,4 +1,4 @@
-import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Utils/RequestContext';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IAuthRepository from '../../Infrastructure/Repositories/Auth/IAuthRepository';
 import ForbiddenHttpException from '../../Presentation/Exceptions/ForbiddenHttpException';

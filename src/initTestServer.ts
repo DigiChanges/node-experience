@@ -2,14 +2,14 @@ import container from './register';
 
 import supertest from 'supertest';
 
-import DatabaseFactory from './Shared/Factories/DatabaseFactory';
+import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
 import EventHandler from './Shared/Infrastructure/Events/EventHandler';
 import { validateEnv } from './Config/validateEnv';
 import SeedFactory from './Shared/Factories/SeedFactory';
-import Locales from './Shared/Presentation/Shared/Locales';
+import Locales from './Shared/Utils/Locales';
 import MainConfig from './Config/MainConfig';
-import IApp from './Shared/Application/Http/IApp';
-import AppBootstrapFactory from './Shared/Factories/AppBootstrapFactory';
+import IApp from './Shared/Application/IApp';
+import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFactory';
 import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
 import IAuthRepository from './Auth/Infrastructure/Repositories/Auth/IAuthRepository';
 import IAuthzRepository from './Auth/Infrastructure/Repositories/Auth/IAuthzRepository';
@@ -21,6 +21,11 @@ import AuthzMockRepository from './Auth/Tests/AuthzMockRepository';
 import UserMockRepository from './Auth/Tests/UserMockRepository';
 import RoleMockRepository from './Auth/Tests/RoleMockRepository';
 import { Lifecycle } from 'tsyringe';
+import UserCreatedEvent from './Auth/Infrastructure/Events/UserCreatedEvent';
+import ForgotPasswordEvent from './Auth/Infrastructure/Events/ForgotPasswordEvent';
+import RegisterEvent from './Auth/Infrastructure/Events/RegisterEvent';
+import VerifiedAccountEvent from './Auth/Infrastructure/Events/VerifiedAccountEvent';
+import SendMessageEvent from './Notification/Infrastructure/Events/SendMessageEvent';
 
 type TestServerData = {
     request: supertest.SuperAgentTest,
@@ -41,7 +46,11 @@ const initTestServer = async(): Promise<TestServerData> =>
     await dbConnection.synchronize();
 
     const eventHandler = EventHandler.getInstance();
-    eventHandler.setListeners();
+    eventHandler.setEvent(new UserCreatedEvent());
+    eventHandler.setEvent(new ForgotPasswordEvent());
+    eventHandler.setEvent(new RegisterEvent());
+    eventHandler.setEvent(new VerifiedAccountEvent());
+    eventHandler.setEvent(new SendMessageEvent());
 
     void Locales.getInstance();
 

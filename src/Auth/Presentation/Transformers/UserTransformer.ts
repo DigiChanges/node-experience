@@ -1,6 +1,6 @@
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 import IUserTransformer from './IUserTransformer';
-import Transformer from '../../../Shared/Presentation/Shared/Transformer';
+import Transformer from '../../../Shared/Utils/Transformer';
 
 class UserTransformer extends Transformer
 {

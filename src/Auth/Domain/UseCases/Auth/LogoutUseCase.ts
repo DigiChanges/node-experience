@@ -1,8 +1,8 @@
 import { DependencyContainer } from 'tsyringe';
 import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
-import Locales from '../../../../Shared/Presentation/Shared/Locales';
+import Locales from '../../../../Shared/Utils/Locales';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import LogoutPayload from '../../Payloads/Auth/LogoutPayload';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
 

@@ -1,6 +1,6 @@
 import MainConfig from '../../Config/MainConfig';
-import MinioStrategy from '../Infrastructure/Filesystem/MinioStrategy';
-import IFilesystem from '../Infrastructure/Filesystem/IFilesystem';
+import MinioStrategy from '../../File/Infrastructure/Filesystem/MinioStrategy';
+import IFilesystem from '../../File/Infrastructure/Filesystem/IFilesystem';
 
 type FilesystemValueProp = typeof MinioStrategy;
 

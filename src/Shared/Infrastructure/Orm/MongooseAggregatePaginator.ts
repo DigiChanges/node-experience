@@ -6,15 +6,15 @@ import BasePaginator from './BasePaginator';
 
 class MongooseAggregatePaginator extends BasePaginator implements IPaginator
 {
-    private aggregate: Aggregate<any[]>;
+    private aggregate: Aggregate<unknown[]>;
 
-    constructor(aggregate: Aggregate<any[]>, criteria: ICriteria, config: IPaginatorConfig = { metadata: {}, helper: undefined })
+    constructor(aggregate: Aggregate<unknown[]>, criteria: ICriteria, config: IPaginatorConfig = { metadata: {}, helper: undefined })
     {
         super(criteria, config);
         this.aggregate = aggregate;
     }
 
-    public async paginate(): Promise<any>
+    public async paginate<T>(): Promise<T[]>
     {
         this.addOrderBy();
         this.addPagination();
@@ -34,7 +34,7 @@ class MongooseAggregatePaginator extends BasePaginator implements IPaginator
             data = await this.helper(data);
         }
 
-        return data;
+        return data as T[];
     }
 
     // TODO: See when multiple sorts

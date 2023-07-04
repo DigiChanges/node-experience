@@ -2,12 +2,12 @@ import AuthPayload from '../../Payloads/Auth/AuthPayload';
 
 import { REPOSITORIES } from '../../../../Config/Injects';
 
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
-import ErrorHttpException from '../../../../Shared/Presentation/Shared/ErrorHttpException';
+import ErrorHttpException from '../../../../Shared/Exceptions/ErrorHttpException';
 import MainConfig from '../../../../Config/MainConfig';
 import ILoginResponse from '../../Models/ILoginResponse';
-import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
 import AuthSchemaValidation from '../../../Presentation/Validations/Auth/AuthSchemaValidation';
 
 class LoginUseCase

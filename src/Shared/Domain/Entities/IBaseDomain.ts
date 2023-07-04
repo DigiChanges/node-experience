@@ -1,4 +1,4 @@
-import ITimestamps from '../../InterfaceAdapters/ITimestamps';
+import ITimestamps from './ITimestamps';
 
 interface IBaseDomain extends ITimestamps
 {

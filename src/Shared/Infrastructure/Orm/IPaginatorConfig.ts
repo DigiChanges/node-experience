@@ -1,8 +1,8 @@
 
 interface IPaginatorConfig
 {
-    helper?: (data: any) => Promise<any>;
-    metadata?: Record<string, any>;
+    helper?: (data: unknown) => Promise<unknown>;
+    metadata?: Record<string, unknown>;
 }
 
 export default IPaginatorConfig;

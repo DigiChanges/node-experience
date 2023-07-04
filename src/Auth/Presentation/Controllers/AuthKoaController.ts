@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import dayjs from 'dayjs';
-import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
+import KoaResponder from '../../../Main/Presentation/Utils/KoaResponder';
 import AuthTransformer from '../Transformers/AuthTransformer';
 import PermissionsTransformer from '../Transformers/PermissionsTransformer';
 import { AuthUser } from '../Helpers/AuthUser';

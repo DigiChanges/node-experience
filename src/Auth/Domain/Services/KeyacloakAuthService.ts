@@ -1,4 +1,4 @@
-import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Utils/RequestContext';
 import IUserDomain from '../Entities/IUserDomain';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IAuthRepository from '../../Infrastructure/Repositories/Auth/IAuthRepository';

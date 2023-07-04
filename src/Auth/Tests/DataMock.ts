@@ -26,52 +26,68 @@ export const responseIPaginator: IPaginator = {
     getCurrentPage(): number
     {
         return 0;
-    }, getCurrentUrl(): string
+    },
+    getCurrentUrl(): string
     {
         return '';
-    }, getExist(): boolean
+    },
+    getExist(): boolean
     {
         return false;
-    }, getFirstUrl(): string
+    },
+    getFirstUrl(): string
     {
         return '';
-    }, getFrom(): number
+    },
+    getFrom(): number
     {
         return 0;
-    }, getLasPage(): number
+    },
+    getLasPage(): number
     {
         return 0;
-    }, getLastUrl(): string
+    },
+    getLastUrl(): string
     {
         return '';
-    }, getLimit(): number
+    },
+    getLimit(): number
     {
         return 0;
-    }, getMetadata(): Record<string, unknown>
+    },
+    getMetadata(): Record<string, unknown>
     {
         return undefined;
-    }, getNextUrl(): string | null
+    },
+    getNextUrl(): string | null
     {
         return undefined;
-    }, getOffset(): number
+    },
+    getOffset(): number
     {
         return 0;
-    }, getPath(): string
+    },
+    getPath(): string
     {
         return '';
-    }, getPerPage(): number
+    },
+    getPerPage(): number
     {
         return 0;
-    }, getPrevUrl(): string | null
+    },
+    getPrevUrl(): string | null
     {
         return undefined;
-    }, getTo(): number
+    },
+    getTo(): number
     {
         return 0;
-    }, getTotal(): number
+    },
+    getTotal(): number
     {
         return 0;
-    }, paginate(): Promise<unknown>
+    },
+    paginate<T>(): Promise<T>
     {
         return Promise.resolve(undefined);
     }

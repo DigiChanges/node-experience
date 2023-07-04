@@ -1,12 +1,12 @@
 import IUserDomain from '../../Entities/IUserDomain';
 import EventHandler from '../../../../Shared/Infrastructure/Events/EventHandler';
-import UserCreatedEvent from '../../../../Shared/Infrastructure/Events/UserCreatedEvent';
+import UserCreatedEvent from '../../../Infrastructure/Events/UserCreatedEvent';
 import UserSavePayload from '../../Payloads/User/UserSavePayload';
 import User from '../../Entities/User';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
 import UserRepSchemaValidation from '../../../Presentation/Validations/User/UserRepSchemaValidation';
 
 class SaveUserUseCase
@@ -28,7 +28,7 @@ class SaveUserUseCase
         const user: IUserDomain = new User(payload);
         await this.repository.save(user, payload.password);
 
-        this.eventHandler.execute(UserCreatedEvent.USER_CREATED_EVENT, { email: user.email });
+        this.eventHandler.execute(UserCreatedEvent.name, { email: user.email });
 
         return user;
     }

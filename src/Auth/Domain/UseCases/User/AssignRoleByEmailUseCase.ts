@@ -1,6 +1,6 @@
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import UserAssignRoleByEmailPayload from '../../Payloads/User/UserAssignRoleByEmailPayload';
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 

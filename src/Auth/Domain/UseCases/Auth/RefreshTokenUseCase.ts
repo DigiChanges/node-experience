@@ -1,10 +1,10 @@
 import RefreshTokenPayload from '../../Payloads/Auth/RefreshTokenPayload';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
 import MainConfig from '../../../../Config/MainConfig';
-import ErrorHttpException from '../../../../Shared/Presentation/Shared/ErrorHttpException';
-import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import ErrorHttpException from '../../../../Shared/Exceptions/ErrorHttpException';
+import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
 import RefreshTokenSchemaValidation from '../../../Presentation/Validations/Auth/RefreshTokenSchemaValidation';
 
 class RefreshTokenUseCase

@@ -1,4 +1,4 @@
-import Locales from '../Presentation/Shared/Locales';
+import Locales from '../Utils/Locales';
 import ErrorException from './ErrorException';
 
 class DecryptForbiddenException extends ErrorException
