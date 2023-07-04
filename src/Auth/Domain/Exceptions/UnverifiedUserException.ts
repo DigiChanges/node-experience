@@ -1,5 +1,5 @@
 import ErrorException from '../../../Shared/Exceptions/ErrorException';
-import Locales from '../../../Shared/Presentation/Shared/Locales';
+import Locales from '../../../Shared/Utils/Locales';
 
 class UnverifiedUserException extends ErrorException
 {

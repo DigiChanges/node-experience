@@ -1,4 +1,4 @@
-import Transformer from '../../../Shared/Presentation/Shared/Transformer';
+import Transformer from '../../../Shared/Utils/Transformer';
 
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 import IUserMinimalDataTransformer from './IUserMinimalDataTransformer';

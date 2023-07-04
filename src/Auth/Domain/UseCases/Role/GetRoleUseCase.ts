@@ -2,8 +2,8 @@ import IdPayload from '../../../../Shared/Presentation/Requests/IdPayload';
 import IRoleDomain from '../../Entities/IRoleDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
-import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
 import NameSchemaValidation from '../../../../Shared/Presentation/Validations/NameSchemaValidation';
 
 class GetRoleUseCase

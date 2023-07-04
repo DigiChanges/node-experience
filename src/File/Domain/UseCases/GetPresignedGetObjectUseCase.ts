@@ -1,6 +1,6 @@
 import PresignedFileRepPayload from '../Payloads/PresignedFileRepPayload';
 import FileService from '../Services/FileService';
-import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
+import ValidatorSchema from '../../../Shared/Utils/ValidatorSchema';
 import PresignedFileSchemaValidation from '../../Presentation/Validations/PresignedFileSchemaValidation';
 
 class GetPresignedGetObjectUseCase

@@ -1,7 +1,7 @@
 import { createTerminus } from '@godaddy/terminus';
 
 import ICacheRepository from './Shared/Infrastructure/Repositories/ICacheRepository';
-import Logger from './Shared/Application/Logger/Logger';
+import Logger from './Shared/Helpers/Logger/Logger';
 import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
 import EventHandler from './Shared/Infrastructure/Events/EventHandler';
 import { Server } from 'http';

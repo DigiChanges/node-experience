@@ -1,4 +1,4 @@
-import { getRequestContext } from '../../Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../Utils/RequestContext';
 import { DependencyContainer } from 'tsyringe';
 import ISeed from './ISeed';
 

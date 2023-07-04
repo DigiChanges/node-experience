@@ -7,8 +7,8 @@ import CantDisabledException from './Auth/Domain/Exceptions/CantDisabledExceptio
 import PasswordWrongException from './Auth/Domain/Exceptions/PasswordWrongException';
 import NotFoundException from './Shared/Exceptions/NotFoundException';
 import WrongPermissionsException from './Auth/Domain/Exceptions/WrongPermissionsException';
-import InvalidPasswordException from './Shared/Domain/Exceptions/InvalidPasswordException';
-import UniqueAttributeException from './Shared/Domain/Exceptions/UniqueAttributeException';
+import InvalidPasswordException from './Main/Domain/Exceptions/InvalidPasswordException';
+import UniqueAttributeException from './Main/Domain/Exceptions/UniqueAttributeException';
 import UnverifiedUserException from './Auth/Domain/Exceptions/UnverifiedUserException';
 
 const config = MainConfig.getInstance().getConfig().statusCode;

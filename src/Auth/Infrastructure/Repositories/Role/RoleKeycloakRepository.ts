@@ -6,7 +6,7 @@ import ICriteria from '../../../../Shared/Presentation/Requests/ICriteria';
 import NotFoundException from '../../../../Shared/Exceptions/NotFoundException';
 import RoleFilter from '../../../Presentation/Criterias/RoleFilter';
 import Role from '../../../Domain/Entities/Role';
-import ErrorHttpException from '../../../../Shared/Presentation/Shared/ErrorHttpException';
+import ErrorHttpException from '../../../../Shared/Exceptions/ErrorHttpException';
 import KeycloakAxiosRepository from '../Auth/KeycloakAxiosRepository';
 import MainConfig, { IHttpStatusCode } from '../../../../Config/MainConfig';
 

@@ -1,7 +1,7 @@
 import UserActivePayload from '../../Payloads/User/UserActivePayload';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import IUserDomain from '../../Entities/IUserDomain';
 
 class ActiveUserByEmailUseCase

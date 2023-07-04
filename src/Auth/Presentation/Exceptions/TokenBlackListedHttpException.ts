@@ -1,5 +1,5 @@
-import ErrorHttpException from '../../../Shared/Presentation/Shared/ErrorHttpException';
-import Locales from '../../../Shared/Presentation/Shared/Locales';
+import ErrorHttpException from '../../../Shared/Exceptions/ErrorHttpException';
+import Locales from '../../../Shared/Utils/Locales';
 import MainConfig from '../../../Config/MainConfig';
 
 const config = MainConfig.getInstance().getConfig().statusCode;

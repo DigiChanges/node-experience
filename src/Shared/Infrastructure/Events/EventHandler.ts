@@ -1,10 +1,6 @@
 import { Subject } from 'rxjs';
-import UserCreatedEvent from './UserCreatedEvent';
-import Logger from '../../Application/Logger/Logger';
-import ForgotPasswordEvent from './ForgotPasswordEvent';
-import SendMessageEvent from './SendMessageEvent';
-import RegisterEvent from './RegisterEvent';
-import VerifiedAccountEvent from './VerifiedAccountEvent';
+import Logger from '../../Helpers/Logger/Logger';
+import IEvent from './IEvent';
 
 class EventHandler
 {
@@ -33,13 +29,9 @@ class EventHandler
         this.eventSubject.next({ eventName, args });
     }
 
-    public setListeners()
+    public setEvent(_event: IEvent)
     {
-        this.events.set(UserCreatedEvent.USER_CREATED_EVENT, UserCreatedEvent.handle);
-        this.events.set(ForgotPasswordEvent.FORGOT_PASSWORD_EVENT, ForgotPasswordEvent.handle);
-        this.events.set(SendMessageEvent.SEND_MESSAGE_EVENT, SendMessageEvent.handle);
-        this.events.set(RegisterEvent.REGISTER_EVENT, RegisterEvent.handle);
-        this.events.set(VerifiedAccountEvent.VERIFIED_ACCOUNT_EVENT, VerifiedAccountEvent.handle);
+        this.events.set(_event.name, _event.handle);
 
         this.eventSubject.subscribe((event) =>
         {

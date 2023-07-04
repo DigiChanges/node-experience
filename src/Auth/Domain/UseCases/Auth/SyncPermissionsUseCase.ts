@@ -1,13 +1,13 @@
 import Permissions from '../../../../Config/Permissions';
 import Roles from '../../../../Config/Roles';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import IAuthzRepository from '../../../Infrastructure/Repositories/Auth/IAuthzRepository';
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import Role from '../../Entities/Role';
 import ScopePayload from '../../../Infrastructure/Repositories/Auth/Payload/ScopePayload';
 import ResourceUpdatePayload from '../../../Infrastructure/Repositories/Auth/Payload/ResourceUpdatePayload';
-import logger from '../../../../Shared/Application/Logger/Logger';
+import logger from '../../../../Shared/Helpers/Logger/Logger';
 
 class SyncPermissionsUseCase
 {

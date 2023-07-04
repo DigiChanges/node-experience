@@ -2,11 +2,11 @@ import commander from 'commander';
 import SaveUserUseCase from '../../Domain/UseCases/User/SaveUserUseCase';
 import ActiveUserByEmailUseCase from '../../Domain/UseCases/User/ActiveUserByEmailUseCase';
 import UserSavePayload from '../../Domain/Payloads/User/UserSavePayload';
-import Logger from '../../../Shared/Application/Logger/Logger';
+import Logger from '../../../Shared/Helpers/Logger/Logger';
 import GetRoleUseCase from '../../Domain/UseCases/Role/GetRoleUseCase';
 import AssignRoleByEmailUseCase from '../../Domain/UseCases/User/AssignRoleByEmailUseCase';
 import dayjs from 'dayjs';
-import logger from '../../../Shared/Application/Logger/Logger';
+import logger from '../../../Shared/Helpers/Logger/Logger';
 
 const AddUserCommand = new commander.Command('addUser');
 

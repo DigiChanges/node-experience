@@ -1,16 +1,16 @@
 import SendEmailService from '../../../../Notification/Domain/Services/SendEmailService';
-import RegisterEvent from '../../../../Shared/Infrastructure/Events/RegisterEvent';
+import RegisterEvent from '../../../Infrastructure/Events/RegisterEvent';
 import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotificationEnum';
-import Locales from '../../../../Shared/Presentation/Shared/Locales';
+import Locales from '../../../../Shared/Utils/Locales';
 import RegisterPayload from '../../Payloads/Auth/RegisterPayload';
 import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import ErrorHttpException from '../../../../Shared/Presentation/Shared/ErrorHttpException';
+import ErrorHttpException from '../../../../Shared/Exceptions/ErrorHttpException';
 import MainConfig from '../../../../Config/MainConfig';
 import AuthHelperService from '../../Services/AuthHelperService';
-import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
 import RegisterSchemaValidation from '../../../Presentation/Validations/Auth/RegisterSchemaValidation';
 
 class RegisterUseCase
@@ -45,7 +45,7 @@ class RegisterUseCase
         const urlConfirmationToken = `${urlWeb}/verify-your-account?token=${confirmationToken}`;
 
         void await SendEmailService.handle({
-            event: RegisterEvent.REGISTER_EVENT,
+            event: RegisterEvent.name,
             type: TypeNotificationEnum.VERIFY_ACCOUNT,
             to: payload.email,
             name: 'Verify your account',

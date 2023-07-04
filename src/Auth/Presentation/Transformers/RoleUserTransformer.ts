@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import Transformer from '../../../Shared/Presentation/Shared/Transformer';
+import Transformer from '../../../Shared/Utils/Transformer';
 import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 import IRoleTransformer from './IRoleTransformer';
 

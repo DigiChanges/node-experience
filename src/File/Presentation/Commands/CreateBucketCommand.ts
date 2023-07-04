@@ -1,4 +1,4 @@
-import Logger from '../../../Shared/Application/Logger/Logger';
+import Logger from '../../../Shared/Helpers/Logger/Logger';
 import commander from 'commander';
 import CreateBucketCommandRequest from '../Requests/CreateBucketCommandRepRequest';
 import CreateBucketPayload from '../../Domain/Payloads/CreateBucketPayload';
