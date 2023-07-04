@@ -1,6 +1,6 @@
-import Transformer from '../../../Shared/Presentation/Shared/Transformer';
+import Transformer from '../../Utils/Transformer';
 import IDefaultMessageTransformer from './IDefaultMessageTransformer';
-import ResponseMessageEnum from '../../Domain/Enum/ResponseMessageEnum';
+import ResponseMessageEnum from '../Enum/ResponseMessageEnum';
 import Base from '../../Domain/Entities/Base';
 
 class DefaultMessageTransformer<T extends Base> extends Transformer

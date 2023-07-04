@@ -1,4 +1,4 @@
-import Transformer from '../../../Shared/Presentation/Shared/Transformer';
+import Transformer from '../../Utils/Transformer';
 
 class DefaultTransformer extends Transformer
 {

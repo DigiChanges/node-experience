@@ -1,7 +1,7 @@
-import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
+import KoaResponder from '../../../Main/Presentation/Utils/KoaResponder';
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 import UserTransformer from '../Transformers/UserTransformer';
-import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
+import ResponseMessageEnum from '../../../Shared/Presentation/Enum/ResponseMessageEnum';
 import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
 import MainConfig from '../../../Config/MainConfig';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
@@ -18,7 +18,7 @@ import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import RequestCriteria from '../../../Shared/Presentation/Requests/RequestCriteria';
 import UserFilter from '../Criterias/UserFilter';
 import UserSort from '../Criterias/UserSort';
-import Pagination from '../../../Shared/Presentation/Shared/Pagination';
+import Pagination from '../../../Shared/Utils/Pagination';
 import GetUserUseCase from '../../Domain/UseCases/User/GetUserUseCase';
 import UpdateUserUseCase from '../../Domain/UseCases/User/UpdateUserUseCase';
 import AssignRoleUseCase from '../../Domain/UseCases/User/AssignRoleUseCase';
@@ -27,11 +27,11 @@ import ChangeMyPasswordUseCase from '../../Domain/UseCases/User/ChangeMyPassword
 import ChangeUserPasswordUseCase from '../../Domain/UseCases/User/ChangeUserPasswordUseCase';
 import ActiveUserUseCase from '../../Domain/UseCases/User/ActiveUserUseCase';
 
+const responder: KoaResponder = new KoaResponder();
+const config = MainConfig.getInstance().getConfig().statusCode;
+
 class UserKoaController
 {
-    static responder: KoaResponder = new KoaResponder();
-    static config = MainConfig.getInstance().getConfig().statusCode;
-
     static async save(ctx: any)
     {
         const payload: UserSavePayload = {
@@ -43,7 +43,7 @@ class UserKoaController
         const useCase = new SaveUserUseCase();
         const user: IUserDomain = await useCase.handle(payload);
 
-        void await UserKoaController.responder.send(user, ctx, UserKoaController.config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
+        await responder.send(user, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
     }
 
     static async list(ctx: any)
@@ -60,7 +60,7 @@ class UserKoaController
         const useCase = new ListUsersUseCase();
         const paginator: IPaginator = await useCase.handle(requestCriteria);
 
-        await UserKoaController.responder.send(paginator, ctx, UserKoaController.config['HTTP_OK'], new UserTransformer()); // TODO: Change to paginate
+        await responder.send(paginator, ctx, config['HTTP_OK'], new UserTransformer()); // TODO: Change to paginate
     }
 
     static async getOne(ctx: any)
@@ -72,7 +72,7 @@ class UserKoaController
         const useCase = new GetUserUseCase();
         const user: IUserDomain = await useCase.handle(payload);
 
-        void await UserKoaController.responder.send(user, ctx, UserKoaController.config['HTTP_OK'], new UserTransformer());
+        await responder.send(user, ctx, config['HTTP_OK'], new UserTransformer());
     }
 
     static async update(ctx: any)
@@ -88,7 +88,7 @@ class UserKoaController
         const useCase = new UpdateUserUseCase();
         const user: IUserDomain = await useCase.handle(payload);
 
-        void await UserKoaController.responder.send(user, ctx, UserKoaController.config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        await responder.send(user, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     static async assignRole(ctx: any)
@@ -101,7 +101,7 @@ class UserKoaController
         const useCase = new AssignRoleUseCase();
         await useCase.handle(payload);
 
-        void await UserKoaController.responder.send({ message: 'Role assigned successfully.' }, ctx, UserKoaController.config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        await responder.send({ message: 'Role assigned successfully.' }, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     static async remove(ctx: any)
@@ -113,7 +113,7 @@ class UserKoaController
         const useCase = new RemoveUserUseCase();
         const user: IUserDomain = await useCase.handle(payload);
 
-        void await UserKoaController.responder.send(user, ctx, UserKoaController.config['HTTP_OK'], new DefaultMessageTransformer(ResponseMessageEnum.DELETED));
+        await responder.send(user, ctx, config['HTTP_OK'], new DefaultMessageTransformer(ResponseMessageEnum.DELETED));
     }
 
     static async changeMyPassword(ctx: any)
@@ -126,7 +126,7 @@ class UserKoaController
         const useCase = new ChangeMyPasswordUseCase();
         const user: IUserDomain = await useCase.handle(payload);
 
-        void await UserKoaController.responder.send(user, ctx, UserKoaController.config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        await responder.send(user, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     static async changeUserPassword(ctx: any)
@@ -139,7 +139,7 @@ class UserKoaController
         const useCase = new ChangeUserPasswordUseCase();
         const user: IUserDomain = await useCase.handle(payload);
 
-        void await UserKoaController.responder.send(user, ctx, UserKoaController.config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        await responder.send(user, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     static async activeUser(ctx: any)
@@ -147,7 +147,7 @@ class UserKoaController
         const useCase = new ActiveUserUseCase();
         await useCase.handle(ctx.params as IdPayload);
 
-        void await UserKoaController.responder.send({ message: 'User activated successfully' }, ctx, UserKoaController.config['HTTP_OK']);
+        await responder.send({ message: 'User activated successfully' }, ctx, config['HTTP_OK']);
     }
 }
 

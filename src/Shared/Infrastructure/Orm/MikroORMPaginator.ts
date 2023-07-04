@@ -8,9 +8,9 @@ import BasePaginator from './BasePaginator';
 
 class MikroORMPaginator extends BasePaginator implements IPaginator
 {
-    private queryBuilder: QueryBuilder<any>;
+    private queryBuilder: QueryBuilder;
 
-    constructor(queryBuilder: QueryBuilder<any>, criteria: ICriteria, config: IPaginatorConfig = { metadata: {}, helper: undefined })
+    constructor(queryBuilder: QueryBuilder, criteria: ICriteria, config: IPaginatorConfig = { metadata: {}, helper: undefined })
     {
         super(criteria, config);
         this.queryBuilder = queryBuilder;

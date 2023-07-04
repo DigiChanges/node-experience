@@ -1,9 +1,9 @@
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import ChangeMyPasswordPayload from '../../Payloads/User/ChangeMyPasswordPayload';
 import IUserDomain from '../../Entities/IUserDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
-import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
 import ChangeMyPasswordSchemaValidation from '../../../Presentation/Validations/User/ChangeMyPasswordSchemaValidation';
 
 class ChangeMyPasswordUseCase

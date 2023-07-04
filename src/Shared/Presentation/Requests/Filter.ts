@@ -7,7 +7,7 @@ abstract class Filter implements IFilter
 
     constructor(query: ParsedQs)
     {
-        this.filters = new Map<string, any>();
+        this.filters = new Map<string, unknown>();
         const queryFilters: any = query.filter ?? [];
         const defaultFilters: any = this.getDefaultFilters();
         const keys = this.getFields();
@@ -22,7 +22,7 @@ abstract class Filter implements IFilter
 
         const newFilters = Object.keys(queryFilters).map((key: string) =>
         {
-            const filter: Record<string, any> = query.filter as Record<string, any>;
+            const filter: Record<string, unknown> = query.filter as Record<string, unknown>;
 
             return {
                 [key]: filter[key]
@@ -42,7 +42,7 @@ abstract class Filter implements IFilter
         });
     }
 
-    get(key: string): string
+    get<T>(key: string): T
     {
         return this.filters.has(key) ? this.filters.get(key) : '';
     }
@@ -62,13 +62,13 @@ abstract class Filter implements IFilter
         return this.filters.size === 0;
     }
 
-    values(): Map<string, any>
+    values(): Map<string, unknown>
     {
         return this.filters;
     }
 
     abstract getFields(): string[];
-    abstract getDefaultFilters(): any[];
+    abstract getDefaultFilters(): unknown[];
 }
 
 export default Filter;

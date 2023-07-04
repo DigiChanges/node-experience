@@ -2,9 +2,9 @@ import ItemUpdatePayload from '../Payloads/ItemUpdatePayload';
 import IItemDomain from '../Entities/IItemDomain';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
-import { getRequestContext } from '../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../Shared/Utils/RequestContext';
 import ItemBuilder from '../Factories/ItemBuilder';
-import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
+import ValidatorSchema from '../../../Shared/Utils/ValidatorSchema';
 import ItemSchemaUpdateValidation from '../../Presentation/Validations/ItemSchemaUpdateValidation';
 
 class UpdateItemUseCase

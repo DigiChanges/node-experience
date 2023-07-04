@@ -17,10 +17,11 @@ services:
       - traefik.http.routers.api.tls.certresolver=lets-encrypt
       - traefik.port=80
     volumes:
-      - ./dist:/usr/app/dist
-      - ./src:/usr/app/src:cached
-      - ./config:/usr/app/config:cached
-      - ./.env:/usr/app/.env
+      - ./dist:/home/node/app/dist
+      - ./src:/home/node/src/app/:cached
+      - ./config:/home/node/app/config:cached
+      - ./.env:/home/node/app/.env
+    user: 'node:node'
     networks:
      - experiencenet
 

@@ -4,7 +4,7 @@ import FileVersion from '../Entities/FileVersion';
 import FileService from '../Services/FileService';
 import IFileDTO from '../Models/IFileDTO';
 import FileDTO from '../Models/FileDTO';
-import ValidatorSchema from '../../../Shared/Presentation/Shared/ValidatorSchema';
+import ValidatorSchema from '../../../Shared/Utils/ValidatorSchema';
 import FileMultipartSchemaValidation from '../../Presentation/Validations/FileMultipartSchemaValidation';
 
 class UploadMultipartUseCase

@@ -4,11 +4,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://github.com/DigiChanges/node-experience/blob/master/LICENSE)
 
 <div style="text-align:center">
-    <img width="125" src="https://raw.githubusercontent.com/DigiChanges/node-experience/docs/RABC/readme/NExp.svg" alt="logo NExp">
+    <img width="125" src="nexp.svg" alt="logo NExp">
 </div>
 
 ## Basic Description
-Hello! **NExp** *(Node Experience)* is a boilerplate for [**Node**](https://nodejs.org/en/), which makes use of a Hexagonal architecture, in addition to all the power of [**TypeScript**](https://www.typescriptlang.org/) that combined allow a perfect cohesion thus achieving a clean and at the same time very powerful implementation.
+Hello! **NExp** *(Node Experience)* is a boilerplate for [**Node**](https://nodejs.org/en/), which makes use of a Clean Architecture + DDD, with [**TypeScript**](https://www.typescriptlang.org/) that combined allow a perfect cohesion thus achieving a clean and at the same time very powerful implementation.
 
 ## Base project
 
@@ -27,10 +27,11 @@ https://github.com/DigiChanges/node-experience
 We can run the project directly with docker compose and then bash where the basic commands to feed the database are located.
 
 1. git clone https://github.com/DigiChanges/node-experience
-2. Install dependencies. `pnpm install`.
-2. Copy `.env.dev` file to `.env`. (**.env.dev** it's an environment example file)
-3. Then execute `STAGE=dev docker-compose up --build` to up all containers.
-4. Configure Keycloak.
+2. Create a folder on project root call it `dist`.
+3. Install dependencies. `pnpm install`.
+4. Copy `.env.dev` file to `.env`. (**.env.dev** it's an environment example file)
+5. Then execute `STAGE=dev docker-compose up --build` to up all containers.
+6. Configure Keycloak.
 
 #### Creation of realm and client in Keycloak
 Once you already login in the keycloak administration console, you can create the realm from the side menu

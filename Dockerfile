@@ -1,28 +1,26 @@
-FROM digichanges/nexp:1.1 as dev
+FROM digichanges/nexp:1.2 as dev
 
-WORKDIR /usr/app
+WORKDIR /home/node/app
 
-COPY --chown=node:node src ./src
-COPY --chown=node:node tools ./tools
-COPY --chown=node:node package.json ./
-COPY --chown=node:node pnpm-lock.yaml ./
-COPY --chown=node:node tsconfig.json ./
-COPY --chown=node:node ecosystem.config.js ./
-COPY --chown=node:node .env ./
-COPY --chown=node:node config ./config/
-COPY --chown=node:node nodemon.json ./
 COPY --chown=node:node .eslintrc.json ./
-COPY --chown=node:node rimraf_cpy.mjs ./
 COPY --chown=node:node .husky ./
 COPY --chown=node:node .huskyrc ./
 COPY --chown=node:node .npmrc ./
+COPY --chown=node:node config ./config/
+COPY --chown=node:node ecosystem.config.js ./
+COPY --chown=node:node nodemon.json ./
+COPY --chown=node:node src ./src
+COPY --chown=node:node rimraf_cpy.mjs ./
+COPY --chown=node:node tsconfig.json ./
+COPY --chown=node:node tools ./tools
+COPY --chown=node:node package.json ./
+COPY --chown=node:node pnpm-lock.yaml ./
 
-RUN npm install --location=global pnpm pm2
+USER node
 
 RUN pnpm install
 
-# Run development server
-ENTRYPOINT [ "dumb-init", "pnpm", "dev" ]
+ENTRYPOINT ["dumb-init", "pnpm", "dev"]
 
 FROM dev as build
 
@@ -50,6 +48,8 @@ RUN chown node:node node_modules
 RUN cd node_modules/bcrypt && npm rebuild bcrypt --build-from-source
 
 FROM digichanges/nexp:1.1 as prod
+
+RUN npm install -g pnpm pm2
 
 ENV NODE_ENV production
 

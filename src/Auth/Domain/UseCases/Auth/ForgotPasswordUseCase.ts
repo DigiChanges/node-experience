@@ -2,14 +2,14 @@ import MainConfig from '../../../../Config/MainConfig';
 import ForgotPasswordPayload from '../../Payloads/Auth/ForgotPasswordPayload';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import ForgotPasswordEvent from '../../../../Shared/Infrastructure/Events/ForgotPasswordEvent';
+import ForgotPasswordEvent from '../../../Infrastructure/Events/ForgotPasswordEvent';
 import SendEmailService from '../../../../Notification/Domain/Services/SendEmailService';
 import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotificationEnum';
-import Locales from '../../../../Shared/Presentation/Shared/Locales';
+import Locales from '../../../../Shared/Utils/Locales';
 import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import AuthHelperService from '../../Services/AuthHelperService';
-import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
 import ForgotPasswordSchemaValidation from '../../../Presentation/Validations/Auth/ForgotPasswordSchemaValidation';
 
 class ForgotPasswordUseCase
@@ -36,7 +36,7 @@ class ForgotPasswordUseCase
         const urlConfirmationToken = `${urlWeb}/change-forgot-password?token=${confirmationToken}`;
 
         void await SendEmailService.handle({
-            event: ForgotPasswordEvent.FORGOT_PASSWORD_EVENT,
+            event: ForgotPasswordEvent.name,
             type: TypeNotificationEnum.FORGOT_PASSWORD,
             to: user.email,
             name: 'Forgot password',

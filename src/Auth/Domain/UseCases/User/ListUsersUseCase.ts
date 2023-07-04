@@ -1,4 +1,4 @@
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import ICriteria from '../../../../Shared/Presentation/Requests/ICriteria';
 import IPaginator from '../../../../Shared/Infrastructure/Orm/IPaginator';
 import { REPOSITORIES } from '../../../../Config/Injects';

@@ -1,5 +1,5 @@
 import internal from 'stream';
-import IFilesystem from '../../Shared/Infrastructure/Filesystem/IFilesystem';
+import IFilesystem from '../Infrastructure/Filesystem/IFilesystem';
 import IFileVersionDomain from '../Domain/Entities/IFileVersionDomain';
 import ListObjectsPayload from '../Domain/Payloads/ListObjectsPayload';
 

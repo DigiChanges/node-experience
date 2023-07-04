@@ -6,36 +6,36 @@ import BasePaginator from './BasePaginator';
 
 class MongoosePaginator extends BasePaginator implements IPaginator
 {
-    private documentQuery: Query<any[], any>;
+    private documentQuery: Query<unknown[], unknown>;
 
-    constructor(documentQuery: Query<any[], any>, criteria: ICriteria, config: IPaginatorConfig = { metadata: {}, helper: undefined })
+    constructor(documentQuery: Query<unknown[], unknown>, criteria: ICriteria, config: IPaginatorConfig = { metadata: {}, helper: undefined })
     {
         super(criteria, config);
         this.documentQuery = documentQuery;
     }
 
-    public async paginate(): Promise<any>
+    public async paginate<T>(): Promise<T[]>
     {
-        this.total = await ((this.documentQuery as any).clone()).count();
+        this.total = await ((this.documentQuery).clone()).count();
 
         this.addOrderBy();
         this.addPagination();
 
-        this._perPage = await ((this.documentQuery as any).clone()).count();
+        this._perPage = await ((this.documentQuery).clone()).count();
         this.setPerPage(this._perPage);
         this.setCurrentPage();
         this.setLasPage();
         this.setFrom();
         this.setTo();
 
-        let data = await this.documentQuery.find().exec();
+        let data  = await this.documentQuery.find().exec();
 
         if (this.helper)
         {
             data = await this.helper(data);
         }
 
-        return data;
+        return data as T[];
     }
 
     // TODO: See when multiple sorts

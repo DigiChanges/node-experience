@@ -1,4 +1,4 @@
-import IErrorMessage from '../Presentation/Shared/IErrorMessage';
+import IErrorMessage from '../Utils/IErrorMessage';
 
 class ErrorException extends Error
 {

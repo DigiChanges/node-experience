@@ -1,16 +1,16 @@
 import VerifyYourAccountPayload from '../../Payloads/Auth/VerifyYourAccountPayload';
-import Locales from '../../../../Shared/Presentation/Shared/Locales';
+import Locales from '../../../../Shared/Utils/Locales';
 import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import AuthHelperService from '../../Services/AuthHelperService';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import IUserDomain from '../../Entities/IUserDomain';
 import SendEmailService from '../../../../Notification/Domain/Services/SendEmailService';
-import VerifiedAccountEvent from '../../../../Shared/Infrastructure/Events/VerifiedAccountEvent';
+import VerifiedAccountEvent from '../../../Infrastructure/Events/VerifiedAccountEvent';
 import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotificationEnum';
-import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
 import VerifyYourAccountSchemaValidation
     from '../../../Presentation/Validations/Auth/VerifyYourAccountSchemaValidation';
 
@@ -41,7 +41,7 @@ class VerifyYourAccountUseCase
         await this.repository.verifyAccount({ id: user.getId() });
 
         void await SendEmailService.handle({
-            event: VerifiedAccountEvent.VERIFIED_ACCOUNT_EVENT,
+            event: VerifiedAccountEvent.name,
             type: TypeNotificationEnum.VERIFIED_ACCOUNT,
             to: user.email,
             name: 'Verified account',

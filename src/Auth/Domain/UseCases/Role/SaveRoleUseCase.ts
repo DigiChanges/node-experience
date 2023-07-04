@@ -3,8 +3,8 @@ import IRoleDomain from '../../Entities/IRoleDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 import Role from '../../Entities/Role';
-import { getRequestContext } from '../../../../Shared/Presentation/Shared/RequestContext';
-import ValidatorSchema from '../../../../Shared/Presentation/Shared/ValidatorSchema';
+import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
 import RoleSchemaSaveValidation from '../../../Presentation/Validations/Role/RoleSchemaSaveValidation';
 
 class SaveRoleUseCase

@@ -10,7 +10,7 @@ import StatusNotificationEnum from '../Domain/Enum/StatusNotificationEnum';
 import EmailNotification from '../Domain/Entities/EmailNotification';
 import INotifierStrategy from './INotifierStrategy';
 import ErrorException from '../../Shared/Exceptions/ErrorException';
-import { getRequestContext } from '../../Shared/Presentation/Shared/RequestContext';
+import { getRequestContext } from '../../Shared/Utils/RequestContext';
 
 class EmailStrategy implements INotifierStrategy
 {

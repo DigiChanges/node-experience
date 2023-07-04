@@ -1,8 +1,8 @@
 import MainConfig from '../../../Config/MainConfig';
 import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
-import KoaResponder from '../../../Shared/Application/Http/KoaResponder';
+import KoaResponder from '../../../Main/Presentation/Utils/KoaResponder';
 import ItemTransformer from '../Transformers/ItemTransformer';
-import ResponseMessageEnum from '../../../Shared/Domain/Enum/ResponseMessageEnum';
+import ResponseMessageEnum from '../../../Shared/Presentation/Enum/ResponseMessageEnum';
 import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
 import ItemRepPayload from '../../Domain/Payloads/ItemRepPayload';
 import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
@@ -12,11 +12,12 @@ import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
 import RequestCriteria from '../../../Shared/Presentation/Requests/RequestCriteria';
 import ItemFilter from '../Criterias/ItemFilter';
 import ItemSort from '../Criterias/ItemSort';
-import Pagination from '../../../Shared/Presentation/Shared/Pagination';
+import Pagination from '../../../Shared/Utils/Pagination';
 import ListItemsUseCase from '../../Domain/UseCases/ListItemsUseCase';
 import GetItemUseCase from '../../Domain/UseCases/GetItemUseCase';
 import UpdateItemUseCase from '../../Domain/UseCases/UpdateItemUseCase';
 import RemoveItemUseCase from '../../Domain/UseCases/RemoveItemUseCase';
+import IItemDomain from '../../Domain/Entities/IItemDomain';
 
 const responder: KoaResponder = new KoaResponder();
 const config = MainConfig.getInstance().getConfig().statusCode;
@@ -48,7 +49,7 @@ class ItemController
         const useCase = new ListItemsUseCase();
         const paginator: IPaginator = await useCase.handle(requestCriteria);
 
-        await responder.paginate(paginator, ctx, config['HTTP_OK'], new ItemTransformer());
+        await responder.paginate<IItemDomain>(paginator, ctx, config['HTTP_OK'], new ItemTransformer());
     }
 
     static async show(ctx: any): Promise<void>
