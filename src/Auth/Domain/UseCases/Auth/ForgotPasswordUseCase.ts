@@ -2,7 +2,6 @@ import MainConfig from '../../../../Config/MainConfig';
 import ForgotPasswordPayload from '../../Payloads/Auth/ForgotPasswordPayload';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import ForgotPasswordEvent from '../../../Infrastructure/Events/ForgotPasswordEvent';
 import SendEmailService from '../../../../Notification/Domain/Services/SendEmailService';
 import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../../Shared/Utils/Locales';
@@ -36,7 +35,6 @@ class ForgotPasswordUseCase
         const urlConfirmationToken = `${urlWeb}/change-forgot-password?token=${confirmationToken}`;
 
         void await SendEmailService.handle({
-            event: ForgotPasswordEvent.name,
             type: TypeNotificationEnum.FORGOT_PASSWORD,
             to: user.email,
             name: 'Forgot password',
@@ -48,7 +46,8 @@ class ForgotPasswordUseCase
                 EMAIL_USER: user.email,
                 URL_CONFIRMATION_TOKEN: urlConfirmationToken
             },
-            external: true
+            external: true,
+            templatePathNameFile: 'auth/forgotPassword.hbs'
         });
 
         const locales = Locales.getInstance().getLocales();

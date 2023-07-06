@@ -22,10 +22,8 @@ import UserMockRepository from './Auth/Tests/UserMockRepository';
 import RoleMockRepository from './Auth/Tests/RoleMockRepository';
 import { Lifecycle } from 'tsyringe';
 import UserCreatedEvent from './Auth/Infrastructure/Events/UserCreatedEvent';
-import ForgotPasswordEvent from './Auth/Infrastructure/Events/ForgotPasswordEvent';
-import RegisterEvent from './Auth/Infrastructure/Events/RegisterEvent';
-import VerifiedAccountEvent from './Auth/Infrastructure/Events/VerifiedAccountEvent';
 import SendMessageEvent from './Notification/Infrastructure/Events/SendMessageEvent';
+import EmailEvent from './Auth/Infrastructure/Events/EmailEvent';
 
 type TestServerData = {
     request: supertest.SuperAgentTest,
@@ -47,9 +45,7 @@ const initTestServer = async(): Promise<TestServerData> =>
 
     const eventHandler = EventHandler.getInstance();
     eventHandler.setEvent(new UserCreatedEvent());
-    eventHandler.setEvent(new ForgotPasswordEvent());
-    eventHandler.setEvent(new RegisterEvent());
-    eventHandler.setEvent(new VerifiedAccountEvent());
+    eventHandler.setEvent(new EmailEvent());
     eventHandler.setEvent(new SendMessageEvent());
 
     void Locales.getInstance();

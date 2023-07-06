@@ -18,6 +18,7 @@ class EmailNotification extends Notification
     bcc: string;
     subject: string;
     external: boolean;
+    _templatePathNameFile?: string;
     attachedFiles?: IFileVersionDomain[];
     data?: IEmailNotificationData;
     tempFilesAttachments: IFilesAttachments[];
