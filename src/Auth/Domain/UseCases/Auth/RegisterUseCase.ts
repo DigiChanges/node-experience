@@ -1,5 +1,4 @@
 import SendEmailService from '../../../../Notification/Domain/Services/SendEmailService';
-import RegisterEvent from '../../../Infrastructure/Events/RegisterEvent';
 import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../../Shared/Utils/Locales';
 import RegisterPayload from '../../Payloads/Auth/RegisterPayload';
@@ -45,7 +44,6 @@ class RegisterUseCase
         const urlConfirmationToken = `${urlWeb}/verify-your-account?token=${confirmationToken}`;
 
         void await SendEmailService.handle({
-            event: RegisterEvent.name,
             type: TypeNotificationEnum.VERIFY_ACCOUNT,
             to: payload.email,
             name: 'Verify your account',
@@ -57,7 +55,8 @@ class RegisterUseCase
                 EMAIL_USER: payload.email,
                 URL_CONFIRMATION_TOKEN: urlConfirmationToken
             },
-            external: true
+            external: true,
+            templatePathNameFile: 'auth/register.hbs'
         });
 
         const locales = Locales.getInstance().getLocales();

@@ -4,9 +4,11 @@ import EmailNotification from '../Entities/EmailNotification';
 
 class SendEmailService
 {
+    private static emailEvent = 'EmailEvent';
     public static async handle(params: ISendEmailParams): Promise<void>
     {
-        const { type, args, event, name, files, data, cc, bcc, to, subject, external } = params;
+        const { type, args, name, files,
+            data, cc, bcc, to, subject, external, templatePathNameFile } = params;
 
         const emailNotification = new EmailNotification();
 
@@ -19,10 +21,11 @@ class SendEmailService
         emailNotification.attachedFiles = files ?? [];
         emailNotification.type = type;
         emailNotification.external = external ?? false;
+        args.templatePathNameFile = templatePathNameFile;
 
         const eventHandler = EventHandler.getInstance();
 
-        eventHandler.execute(event, { emailNotification, args });
+        eventHandler.execute(this.emailEvent, { emailNotification, args });
     }
 }
 
