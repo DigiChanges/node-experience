@@ -2,9 +2,9 @@ import { FACTORIES } from '../../../Config/Injects';
 import NotifierFactory from '../../../Notification/Shared/NotifierFactory';
 import IEvent from '../../../Shared/Infrastructure/Events/IEvent';
 
-class ForgotPasswordEvent implements IEvent
+class EmailEvent implements IEvent
 {
-    public name: string = ForgotPasswordEvent.name;
+    public name: string = EmailEvent.name;
 
     public handle = async(props: any) =>
     {
@@ -13,11 +13,11 @@ class ForgotPasswordEvent implements IEvent
         const emailNotificator: any = NotifierFactory.create(FACTORIES.EmailStrategy);
 
         emailNotificator.emailNotification = emailNotification;
-        emailNotificator.templatePathNameFile = 'auth/forgotPassword.hbs';
+        emailNotificator.templatePathNameFile = args.templatePathNameFile;
         emailNotificator.data = args;
 
-        await emailNotificator.send();
+        await emailNotificator.send(emailNotificator.templatePathNameFile);
     };
 }
 
-export default ForgotPasswordEvent;
+export default EmailEvent;

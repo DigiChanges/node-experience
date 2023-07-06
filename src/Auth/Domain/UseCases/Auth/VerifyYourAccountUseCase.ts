@@ -8,7 +8,6 @@ import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepo
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import IUserDomain from '../../Entities/IUserDomain';
 import SendEmailService from '../../../../Notification/Domain/Services/SendEmailService';
-import VerifiedAccountEvent from '../../../Infrastructure/Events/VerifiedAccountEvent';
 import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotificationEnum';
 import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
 import VerifyYourAccountSchemaValidation
@@ -41,7 +40,6 @@ class VerifyYourAccountUseCase
         await this.repository.verifyAccount({ id: user.getId() });
 
         void await SendEmailService.handle({
-            event: VerifiedAccountEvent.name,
             type: TypeNotificationEnum.VERIFIED_ACCOUNT,
             to: user.email,
             name: 'Verified account',
@@ -51,7 +49,8 @@ class VerifyYourAccountUseCase
             data: {
                 EMAIL_USER: user.email
             },
-            external: true
+            external: true,
+            templatePathNameFile: 'auth/verifiedAccount.hbs'
         });
 
         const locales = Locales.getInstance().getLocales();

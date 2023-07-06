@@ -14,10 +14,8 @@ import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnectio
 import Logger from './Shared/Helpers/Logger/Logger';
 import closedApplication from './closed';
 import UserCreatedEvent from './Auth/Infrastructure/Events/UserCreatedEvent';
-import ForgotPasswordEvent from './Auth/Infrastructure/Events/ForgotPasswordEvent';
-import RegisterEvent from './Auth/Infrastructure/Events/RegisterEvent';
-import VerifiedAccountEvent from './Auth/Infrastructure/Events/VerifiedAccountEvent';
 import SendMessageEvent from './Notification/Infrastructure/Events/SendMessageEvent';
+import EmailEvent from './Auth/Infrastructure/Events/EmailEvent';
 
 void (async() =>
 {
@@ -50,9 +48,7 @@ void (async() =>
         // Set EventHandler and all events
         const eventHandler = EventHandler.getInstance();
         eventHandler.setEvent(new UserCreatedEvent());
-        eventHandler.setEvent(new ForgotPasswordEvent());
-        eventHandler.setEvent(new RegisterEvent());
-        eventHandler.setEvent(new VerifiedAccountEvent());
+        eventHandler.setEvent(new EmailEvent());
         eventHandler.setEvent(new SendMessageEvent());
 
         // Create cron

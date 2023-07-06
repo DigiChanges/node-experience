@@ -1,7 +1,7 @@
 
 interface INotifierStrategy
 {
-    send(): void;
+    send(templatePathNameFile: string): void;
 }
 
 export default INotifierStrategy;

@@ -67,7 +67,7 @@ class EmailStrategy implements INotifierStrategy
         this._save = save;
     }
 
-    public async send()
+    public async send(templatePathNameFile)
     {
         if (!this._emailNotification && !this._templatePathNameFile && !this._data)
         {
@@ -82,6 +82,7 @@ class EmailStrategy implements INotifierStrategy
             const port: number = config.mail.port;
             const secure: boolean = config.mail.secure;
             const templateRoot: string = config.mail.templateDir;
+            this._templatePathNameFile = templatePathNameFile;
             const templateDir = `${process.cwd()}/${templateRoot}/${this._templatePathNameFile}`;
 
             const smtp_config = { host, port, secure };

@@ -5,7 +5,6 @@ import IFileVersionDomain from '../../../File/Domain/Entities/IFileVersionDomain
 interface ISendEmailParams
 {
     type: TypeNotificationEnum;
-    event: string;
     args: Record<string, any>
     name: string;
     subject?: string;
@@ -15,6 +14,7 @@ interface ISendEmailParams
     cc?: string[];
     bcc?: string[];
     external?: boolean;
+    templatePathNameFile?: string;
 }
 
 export default ISendEmailParams;
