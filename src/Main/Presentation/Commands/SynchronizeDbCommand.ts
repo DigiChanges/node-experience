@@ -1,5 +1,5 @@
-import DatabaseFactory from '../../../Main/Infrastructure/Factories/DatabaseFactory';
-import ICreateConnection from '../../Infrastructure/Database/ICreateConnection';
+import DatabaseFactory from '../../Infrastructure/Factories/DatabaseFactory';
+import ICreateConnection from '../../../Shared/Infrastructure/Database/ICreateConnection';
 
 const synchronize = async() =>
 {

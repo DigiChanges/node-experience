@@ -1,16 +1,21 @@
+import {
+    IdPayload,
+    RequestCriteria,
+    ICriteria,
+    IPaginator,
+    DefaultMessageTransformer,
+    ResponseMessageEnum,
+    StatusCode
+} from '@digichanges/shared-experience';
+
 import MainConfig from '../../../Config/MainConfig';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import KoaResponder from '../../../Main/Presentation/Utils/KoaResponder';
 import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 import RoleTransformer from '../Transformers/RoleTransformer';
-import ResponseMessageEnum from '../../../Shared/Presentation/Enum/ResponseMessageEnum';
-import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
+
 import RoleRepPayload from '../../Domain/Payloads/Role/RoleRepPayload';
-import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import RoleUpdatePayload from '../../Domain/Payloads/Role/RoleUpdatePayload';
 import SaveRoleUseCase from '../../Domain/UseCases/Role/SaveRoleUseCase';
-import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import RequestCriteria from '../../../Shared/Presentation/Requests/RequestCriteria';
 import RoleFilter from '../Criterias/RoleFilter';
 import RoleSort from '../Criterias/RoleSort';
 import Pagination from '../../../Shared/Utils/Pagination';
@@ -46,7 +51,7 @@ class RoleKoaController
         const useCase = new ListRolesUseCase();
         const paginator: IPaginator = await useCase.handle(requestCriteria);
 
-        await responder.send(paginator, ctx, config['HTTP_OK'], new RoleTransformer());
+        await responder.send(paginator, ctx, StatusCode.HTTP_OK, new RoleTransformer());
     }
 
     static async getOne(ctx: any)
@@ -54,7 +59,7 @@ class RoleKoaController
         const useCase = new GetRoleUseCase();
         const role: IRoleDomain = await useCase.handle(ctx.params as IdPayload);
 
-        await responder.send(role, ctx, config['HTTP_OK'], new RoleTransformer());
+        await responder.send(role, ctx, StatusCode.HTTP_OK, new RoleTransformer());
     }
 
     static async update(ctx: any)
@@ -77,7 +82,7 @@ class RoleKoaController
         const useCase = new RemoveRoleUseCase();
         await useCase.handle(name);
 
-        await responder.send(ctx.params, ctx, config['HTTP_OK'], new DefaultMessageTransformer(ResponseMessageEnum.DELETED));
+        await responder.send(ctx.params, ctx, StatusCode.HTTP_OK, new DefaultMessageTransformer(ResponseMessageEnum.DELETED));
     }
 }
 export default RoleKoaController;

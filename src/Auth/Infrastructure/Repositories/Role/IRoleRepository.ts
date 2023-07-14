@@ -1,7 +1,6 @@
 import IBaseRepository from '../../../../Shared/Infrastructure/Repositories/IBaseRepository';
 import IRoleDomain from '../../../Domain/Entities/IRoleDomain';
-import ICriteria from '../../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../../Shared/Infrastructure/Orm/IPaginator';
+import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 
 interface IRoleRepository extends Omit<IBaseRepository<IRoleDomain>, 'getInBy' | 'getBy' | 'getOneBy' | 'delete' | 'update'>
 {

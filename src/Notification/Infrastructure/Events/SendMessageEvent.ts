@@ -1,6 +1,6 @@
 import { FACTORIES } from '../../../Config/Injects';
 import NotifierFactory from '../../Shared/NotifierFactory';
-import IEvent from '../../../Shared/Infrastructure/Events/IEvent';
+import { IEvent } from '@digichanges/shared-experience';
 
 class SendMessageEvent implements IEvent
 {

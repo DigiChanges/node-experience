@@ -1,5 +1,5 @@
-import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
+import { ICriteria } from '@digichanges/shared-experience';
+import { IPaginator } from '@digichanges/shared-experience';
 import IBaseRepository from '../../../Shared/Infrastructure/Repositories/IBaseRepository';
 import IFileDomain from '../../Domain/Entities/IFileDomain';
 

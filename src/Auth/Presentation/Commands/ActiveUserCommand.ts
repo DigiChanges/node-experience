@@ -1,7 +1,6 @@
 import commander from 'commander';
-import Logger from '../../../Shared/Helpers/Logger/Logger';
+import Logger from '../../../Shared/Helpers/Logger';
 import ActiveUserByEmailUseCase from '../../Domain/UseCases/User/ActiveUserByEmailUseCase';
-import ValidatorSchema from '../../../Shared/Utils/ValidatorSchema';
 
 const ActiveUserCommand = new commander.Command('activeUser');
 

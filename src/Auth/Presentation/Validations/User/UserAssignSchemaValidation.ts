@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import IdSchemaValidation from '../../../../Shared/Presentation/Validations/IdSchemaValidation';
+import IdSchemaValidation from '../../../../Main/Presentation/Validations/IdSchemaValidation';
 
 const PartialUserAssignSchemaValidation = z.object({
     roles: z.array(z.object({

@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config(); // Need before get config
+
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'path';
 import Config from 'config';
@@ -26,26 +27,6 @@ type AppConfig = {
     serverPort: number,
 }
 
-type TypeORMConfig = {
-    type: string;
-    host: string;
-    port: number;
-    database: string;
-    username: string;
-    password: string;
-    synchronize: boolean;
-    migrationsRun: boolean;
-    logging: boolean;
-    entities: string[];
-    migrations: string[];
-    subscribers: string[];
-    cli: {
-        entitiesDir: string;
-        migrationsDir: string;
-        subscribersDir: string;
-    };
-};
-
 type MongooseConfig = {
     host: string;
     port: number;
@@ -69,7 +50,6 @@ type MikroORMConfig = {
 };
 
 export type DbConfigType = {
-    TypeORM: TypeORMConfig,
     Mongoose: MongooseConfig,
     MikroORM: MikroORMConfig,
     default: string

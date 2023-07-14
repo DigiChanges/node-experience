@@ -1,10 +1,9 @@
-import ICriteria from '../../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../../Shared/Infrastructure/Orm/IPaginator';
+import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
-import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
-import CriteriaSchemaValidation from '../../../../Shared/Presentation/Validations/CriteriaSchemaValidation';
+import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
+import CriteriaSchemaValidation from '../../../../Main/Presentation/Validations/CriteriaSchemaValidation';
 
 class ListRolesUseCase
 {

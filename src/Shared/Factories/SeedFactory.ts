@@ -1,7 +1,7 @@
 import { isUndefined } from 'lodash';
 
 import seeds from '../../seed';
-import Logger from '../Helpers/Logger/Logger';
+import Logger from '../Helpers/Logger';
 
 class SeedFactory
 {

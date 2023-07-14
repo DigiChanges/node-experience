@@ -19,17 +19,6 @@
     "authorization": false
   },
   "dbConfig": {
-    "TypeORM": {
-      "type": "postgres",
-      "host": "db",
-      "port": 5432,
-      "database": "experience",
-      "username": "experience",
-      "password": "experience",
-      "synchronize": false,
-      "migrationsRun": false,
-      "logging": true
-    },
     "Mongoose": {
       "host": "db",
       "port": 27017,

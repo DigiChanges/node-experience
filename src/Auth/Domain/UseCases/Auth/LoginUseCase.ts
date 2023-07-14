@@ -4,10 +4,10 @@ import { REPOSITORIES } from '../../../../Config/Injects';
 
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
-import ErrorHttpException from '../../../../Shared/Exceptions/ErrorHttpException';
+import { ErrorHttpException } from '@digichanges/shared-experience';
 import MainConfig from '../../../../Config/MainConfig';
 import ILoginResponse from '../../Models/ILoginResponse';
-import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
+import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import AuthSchemaValidation from '../../../Presentation/Validations/Auth/AuthSchemaValidation';
 
 class LoginUseCase

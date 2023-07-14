@@ -1,5 +1,5 @@
 import IFileVersionDomain from './IFileVersionDomain';
-import Base from '../../../Shared/Domain/Entities/Base';
+import { Base } from '@digichanges/shared-experience';
 import IFileBuild from './IFileBuild';
 import IFileDomain from './IFileDomain';
 

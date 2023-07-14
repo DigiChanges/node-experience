@@ -1,4 +1,4 @@
-import IBaseDomain from '../../../Shared/Domain/Entities/IBaseDomain';
+import { IBaseDomain } from '@digichanges/shared-experience';
 import IFileDomain from './IFileDomain';
 import FileRepPayload from '../Payloads/FileRepPayload';
 

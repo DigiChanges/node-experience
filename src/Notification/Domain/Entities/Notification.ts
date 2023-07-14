@@ -1,5 +1,5 @@
 import INotificationDomain from './INotificationDomain';
-import Base from '../../../Shared/Domain/Entities/Base';
+import { Base } from '@digichanges/shared-experience';
 
 class Notification extends Base implements INotificationDomain
 {

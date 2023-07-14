@@ -1,5 +1,5 @@
 import Cron from './Cron';
-import Logger from '../../../Shared/Helpers/Logger/Logger';
+import Logger from '../../../Shared/Helpers/Logger';
 
 class TestCron extends Cron
 {

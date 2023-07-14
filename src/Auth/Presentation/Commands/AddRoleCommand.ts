@@ -1,4 +1,4 @@
-import Logger from '../../../Shared/Helpers/Logger/Logger';
+import Logger from '../../../Shared/Helpers/Logger';
 import commander from 'commander';
 import SaveRoleUseCase from '../../Domain/UseCases/Role/SaveRoleUseCase';
 

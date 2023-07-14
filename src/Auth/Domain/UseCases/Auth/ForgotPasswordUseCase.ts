@@ -5,10 +5,10 @@ import { REPOSITORIES } from '../../../../Config/Injects';
 import SendEmailService from '../../../../Notification/Domain/Services/SendEmailService';
 import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../../Shared/Utils/Locales';
-import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
+import { ILocaleMessage } from '@digichanges/shared-experience';
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import AuthHelperService from '../../Services/AuthHelperService';
-import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
+import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import ForgotPasswordSchemaValidation from '../../../Presentation/Validations/Auth/ForgotPasswordSchemaValidation';
 
 class ForgotPasswordUseCase

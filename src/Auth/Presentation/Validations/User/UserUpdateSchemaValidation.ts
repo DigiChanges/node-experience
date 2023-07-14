@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import UserRepSchemaValidation from './UserRepSchemaValidation';
-import IdSchemaValidation from '../../../../Shared/Presentation/Validations/IdSchemaValidation';
+import IdSchemaValidation from '../../../../Main/Presentation/Validations/IdSchemaValidation';
 
 const PartialUserUpdateSchemaValidation = UserRepSchemaValidation.merge(IdSchemaValidation);
 

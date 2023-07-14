@@ -2,11 +2,9 @@ import axios from 'axios';
 import qs from 'qs';
 import IUserRepository from './IUserRepository';
 import IUserDomain from '../../../Domain/Entities/IUserDomain';
-import ICriteria from '../../../../Shared/Presentation/Requests/ICriteria';
-import NotFoundException from '../../../../Shared/Exceptions/NotFoundException';
+import { ErrorHttpException, NotFoundException, ICriteria } from '@digichanges/shared-experience';
 import UserFilter from '../../../Presentation/Criterias/UserFilter';
 import User from '../../../Domain/Entities/User';
-import ErrorHttpException from '../../../../Shared/Exceptions/ErrorHttpException';
 import KeycloakAxiosRepository from '../Auth/KeycloakAxiosRepository';
 import UserAssignRolePayload from '../../../Domain/Payloads/User/UserAssignRolePayload';
 

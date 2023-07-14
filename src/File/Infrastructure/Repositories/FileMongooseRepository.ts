@@ -1,6 +1,5 @@
 import { Query } from 'mongoose';
-import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
+import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 
 import FileFilter from '../../Presentation/Criterias/FileFilter';
 import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';

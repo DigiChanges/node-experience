@@ -1,4 +1,4 @@
-import Locales from '../Utils/Locales';
+import Locales from '../../Shared/Utils/Locales';
 
 describe('Locales', () =>
 {

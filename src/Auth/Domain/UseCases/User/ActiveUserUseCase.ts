@@ -1,9 +1,9 @@
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
-import IdPayload from '../../../../Shared/Presentation/Requests/IdPayload';
-import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
-import IdSchemaValidation from '../../../../Shared/Presentation/Validations/IdSchemaValidation';
+import { IdPayload } from '@digichanges/shared-experience';
+import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
+import IdSchemaValidation from '../../../../Main/Presentation/Validations/IdSchemaValidation';
 
 class ActiveUserUseCase
 {

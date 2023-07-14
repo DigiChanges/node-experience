@@ -1,5 +1,5 @@
 import { ScheduledTask, schedule } from 'node-cron';
-import Logger from '../../../Shared/Helpers/Logger/Logger';
+import Logger from '../../../Shared/Helpers/Logger';
 
 abstract class Cron
 {

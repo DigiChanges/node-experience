@@ -1,5 +1,5 @@
 import { EntityRepository, EntitySchema, FindOneOptions } from '@mikro-orm/core';
-import NotFoundException from '../../Exceptions/NotFoundException';
+import { NotFoundException } from '@digichanges/shared-experience';
 import IByOptions from './IByOptions';
 import IBaseRepository from './IBaseRepository';
 import EntityMikroORMManagerFactory from '../../../Main/Infrastructure/Factories/EntityMikroORMManagerFactory'; // TODO: Refactor

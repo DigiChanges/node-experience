@@ -1,4 +1,4 @@
-import MainConfig from '../../../Config/MainConfig';
+import MainConfig from '../../Config/MainConfig';
 import PinoLogger from 'pino';
 
 class DgLogger

@@ -1,4 +1,4 @@
-import Filter from '../../../Shared/Presentation/Requests/Filter';
+import { Filter } from '@digichanges/shared-experience';
 
 class NotificationFilter extends Filter
 {

@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import IItemRepository from '../Repositories/IItemRepository';
 import { REPOSITORIES } from '../../../Config/Injects';
 import BaseSeed from '../../../Shared/Infrastructure/Seeds/BaseSeed';
@@ -22,8 +22,8 @@ class ItemSeed extends BaseSeed implements ISeed
 
         for await (const index of indexes)
         {
-            const name = faker.name.title();
-            const type = faker.datatype.number();
+            const name = faker.person.firstName();
+            const type = faker.number.int({ max: 100 });
 
             const item: IItemDomain = new ItemBuilder({ name, type })
                 .setItem()

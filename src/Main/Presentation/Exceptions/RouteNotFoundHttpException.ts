@@ -1,17 +1,12 @@
-import ErrorHttpException from '../../../Shared/Exceptions/ErrorHttpException';
-import Locales from '../../../Shared/Utils/Locales';
-import MainConfig from '../../../Config/MainConfig';
-
-const config = MainConfig.getInstance().getConfig().statusCode;
+import { StatusCode, ErrorHttpException } from '@digichanges/shared-experience';
 
 class RouteNotFoundHttpException extends ErrorHttpException
 {
     constructor()
     {
-        const locales = Locales.getInstance().getLocales();
         const key = 'app.presentation.exceptions.routeNotFound';
-        super(config['HTTP_NOT_FOUND'], {
-            message: locales.__(key),
+        super(StatusCode.HTTP_NOT_FOUND, {
+            message: 'Route not found.',
             errorCode: key
         });
     }

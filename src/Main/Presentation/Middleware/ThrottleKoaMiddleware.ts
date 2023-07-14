@@ -1,12 +1,11 @@
+import { StatusCode } from '@digichanges/shared-experience';
 import throttle from 'koa-ratelimit';
 import MainConfig from '../../../Config/MainConfig';
 
 const config = MainConfig.getInstance().getConfig().statusCode;
 
 const meta: any = {
-    status: config['HTTP_TOO_MANY_REQUESTS'].status,
-    code: config['HTTP_TOO_MANY_REQUESTS'].code,
-    statusCode: config['HTTP_TOO_MANY_REQUESTS'].statusCode,
+    ...StatusCode.HTTP_TOO_MANY_REQUESTS,
     message: 'Exceed 30 request per second',
     errors: null
 };

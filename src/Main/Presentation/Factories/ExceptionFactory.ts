@@ -1,4 +1,4 @@
-import ErrorHttpException from '../../../Shared/Exceptions/ErrorHttpException';
+import { ErrorHttpException } from '@digichanges/shared-experience';
 import TokenExpiredHttpException from '../../../Auth/Presentation/Exceptions/TokenExpiredHttpException';
 import DuplicateEntityHttpException from '../Exceptions/DuplicateEntityHttpException';
 import exceptions from '../../../exceptions';

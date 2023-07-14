@@ -1,6 +1,6 @@
 import { SuperAgentTest } from 'supertest';
 import initTestServer from '../../initTestServer';
-import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
+import { ILoginResponse } from '../../Main/Tests/ILogin';
 import { IItemResponse, IListItemsResponse } from './types';
 import MainConfig from '../../Config/MainConfig';
 import ICreateConnection from '../../Shared/Infrastructure/Database/ICreateConnection';

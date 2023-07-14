@@ -5,7 +5,7 @@ import AuthTransformer from '../Transformers/AuthTransformer';
 import PermissionsTransformer from '../Transformers/PermissionsTransformer';
 import { AuthUser } from '../Helpers/AuthUser';
 import UserTransformer from '../Transformers/UserTransformer';
-import DefaultTransformer from '../../../Shared/Presentation/Transformers/DefaultTransformer';
+import { DefaultTransformer, StatusCode } from '@digichanges/shared-experience';
 import MainConfig from '../../../Config/MainConfig';
 import ForgotPasswordPayload from '../../Domain/Payloads/Auth/ForgotPasswordPayload';
 import RefreshTokenPayload from '../../Domain/Payloads/Auth/RefreshTokenPayload';
@@ -34,7 +34,7 @@ class AuthKoaController
         void await AuthKoaController.responder.send(
             AuthUser(ctx),
             ctx as Koa.DefaultContext,
-            AuthKoaController.config['HTTP_OK'],
+            StatusCode.HTTP_OK,
             new UserTransformer()
         );
     }
@@ -110,7 +110,7 @@ class AuthKoaController
             sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
         });
 
-        void await AuthKoaController.responder.send(payload, ctx, AuthKoaController.config['HTTP_OK'], new DefaultTransformer());
+        void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_OK, new DefaultTransformer());
     }
 
     static async refreshToken(ctx: Koa.ParameterizedContext & any)
@@ -131,7 +131,7 @@ class AuthKoaController
             sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
         });
 
-        void await AuthKoaController.responder.send(payload, ctx, AuthKoaController.config['HTTP_OK'], new AuthTransformer());
+        void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_OK, new AuthTransformer());
     }
 
     static async forgotPassword(ctx: Koa.ParameterizedContext & any)
@@ -167,7 +167,7 @@ class AuthKoaController
         const useCase = new PermissionUseCase();
         const payload: IGroupPermission[] = useCase.handle();
 
-        void await AuthKoaController.responder.send(payload, ctx, AuthKoaController.config['HTTP_OK'], new PermissionsTransformer());
+        void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_OK, new PermissionsTransformer());
     }
 
     static async syncRolesPermissions(ctx: Koa.ParameterizedContext & any)

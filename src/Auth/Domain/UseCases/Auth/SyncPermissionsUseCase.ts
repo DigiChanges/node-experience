@@ -7,7 +7,6 @@ import { REPOSITORIES } from '../../../../Config/Injects';
 import Role from '../../Entities/Role';
 import ScopePayload from '../../../Infrastructure/Repositories/Auth/Payload/ScopePayload';
 import ResourceUpdatePayload from '../../../Infrastructure/Repositories/Auth/Payload/ResourceUpdatePayload';
-import logger from '../../../../Shared/Helpers/Logger/Logger';
 
 class SyncPermissionsUseCase
 {

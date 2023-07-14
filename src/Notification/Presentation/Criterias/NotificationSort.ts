@@ -1,4 +1,4 @@
-import Sort from '../../../Shared/Presentation/Requests/Sort';
+import { Sort } from '@digichanges/shared-experience';
 
 class NotificationSort extends Sort
 {

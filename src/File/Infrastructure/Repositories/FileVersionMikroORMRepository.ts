@@ -1,6 +1,5 @@
 import IFileVersionRepository from './IFileVersionRepository';
-import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
+import { IPaginator, NotFoundException, ICriteria } from '@digichanges/shared-experience';
 
 import Paginator from '../../../Shared/Infrastructure/Orm/MikroORMPaginator';
 import FileFilter from '../../Presentation/Criterias/FileFilter';
@@ -8,7 +7,6 @@ import FileVersionSchema from '../Schemas/FileVersionMikroORM';
 import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 
 import BaseMikroORMRepository from '../../../Shared/Infrastructure/Repositories/BaseMikroORMRepository';
-import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IByOptions from '../../../Shared/Infrastructure/Repositories/IByOptions';
 
 class FileVersionMikroORMRepository extends BaseMikroORMRepository<IFileVersionDomain> implements IFileVersionRepository

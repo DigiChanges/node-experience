@@ -1,14 +1,11 @@
 import 'reflect-metadata';
 import { container, Lifecycle } from 'tsyringe';
+import { IEncryption, Md5EncryptionStrategy, BcryptEncryptionStrategy } from '@digichanges/shared-experience';
 
 import { FACTORIES, SERVICES, REPOSITORIES } from './Config/Injects';
 
-import BcryptEncryptionStrategy from './Shared/Infrastructure/Encryption/BcryptEncryptionStrategy';
-import Md5EncryptionStrategy from './Shared/Infrastructure/Encryption/Md5EncryptionStrategy';
 
 import MainConfig from './Config/MainConfig';
-
-import IEncryption from './Shared/Infrastructure/Encryption/IEncryption';
 
 import IAuthRepository from './Auth/Infrastructure/Repositories/Auth/IAuthRepository';
 import IAuthzRepository from './Auth/Infrastructure/Repositories/Auth/IAuthzRepository';

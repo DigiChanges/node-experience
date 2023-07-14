@@ -1,4 +1,4 @@
-import IBaseDomain from '../../../Shared/Domain/Entities/IBaseDomain';
+import { IBaseDomain } from '@digichanges/shared-experience';
 
 interface INotificationDomain extends IBaseDomain
 {

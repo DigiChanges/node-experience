@@ -1,9 +1,9 @@
 import { createTerminus } from '@godaddy/terminus';
 
 import ICacheRepository from './Shared/Infrastructure/Repositories/ICacheRepository';
-import Logger from './Shared/Helpers/Logger/Logger';
+import Logger from './Shared/Helpers/Logger';
 import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
-import EventHandler from './Shared/Infrastructure/Events/EventHandler';
+import { EventHandler } from '@digichanges/shared-experience';
 import { Server } from 'http';
 
 const closedApplication = (server: Server, cache: ICacheRepository, createConnection: ICreateConnection, eventHandler: EventHandler) =>

@@ -2,10 +2,7 @@ import { DefaultContext } from 'koa';
 
 import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
 import IFileVersionDTO from '../../../File/Domain/Models/IFileVersionDTO';
-import FormatError from '../../../Shared/Exceptions/FormatError';
-import ErrorHttpException from '../../../Shared/Exceptions/ErrorHttpException';
-import Transformer from '../../../Shared/Utils/Transformer';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
+import { IPaginator, Transformer, FormatError, ErrorHttpException } from '@digichanges/shared-experience';
 import PaginatorTransformer from '../../../Shared/Utils/PaginatorTransformer';
 import { IHttpStatusCode } from '../../../Config/MainConfig';
 

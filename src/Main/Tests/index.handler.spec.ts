@@ -1,6 +1,6 @@
 import { SuperAgentTest } from 'supertest';
 import initTestServer from '../../initTestServer';
-import ICreateConnection from '../Infrastructure/Database/ICreateConnection';
+import ICreateConnection from '../../Shared/Infrastructure/Database/ICreateConnection';
 
 describe('Start Index Test', () =>
 {

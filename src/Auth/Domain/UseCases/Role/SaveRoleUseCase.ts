@@ -4,7 +4,7 @@ import { REPOSITORIES } from '../../../../Config/Injects';
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 import Role from '../../Entities/Role';
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
-import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
+import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import RoleSchemaSaveValidation from '../../../Presentation/Validations/Role/RoleSchemaSaveValidation';
 
 class SaveRoleUseCase

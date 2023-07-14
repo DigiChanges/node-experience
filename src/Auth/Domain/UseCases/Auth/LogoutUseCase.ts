@@ -1,5 +1,5 @@
 import { DependencyContainer } from 'tsyringe';
-import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
+import { ILocaleMessage } from '@digichanges/shared-experience';
 import Locales from '../../../../Shared/Utils/Locales';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';

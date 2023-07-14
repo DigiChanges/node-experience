@@ -1,5 +1,5 @@
 import ResourceRepPayload from './ResourceRepPayload';
-import IdPayload from '../../../../../Shared/Presentation/Requests/IdPayload';
+import { IdPayload } from '@digichanges/shared-experience';
 
 interface ResourceUpdatePayload extends IdPayload, ResourceRepPayload {}
 

@@ -7,7 +7,7 @@
   "watch": [
     "src/*"
   ],
-  "exec": "pnpm build && node --inspect=0.0.0.0:9229 ./dist/src/index.js",
+  "exec": "npm run build && node --inspect=0.0.0.0:9229 ./dist/src/index.js",
   "legacyWatch": true,
   "ext": "js,ts,json,hbs"
 }

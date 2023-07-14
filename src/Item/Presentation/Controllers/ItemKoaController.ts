@@ -1,15 +1,17 @@
 import MainConfig from '../../../Config/MainConfig';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
+import {
+    ResponseMessageEnum,
+    DefaultMessageTransformer,
+    RequestCriteria,
+    IPaginator, StatusCode
+} from '@digichanges/shared-experience';
 import KoaResponder from '../../../Main/Presentation/Utils/KoaResponder';
 import ItemTransformer from '../Transformers/ItemTransformer';
-import ResponseMessageEnum from '../../../Shared/Presentation/Enum/ResponseMessageEnum';
-import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
 import ItemRepPayload from '../../Domain/Payloads/ItemRepPayload';
-import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
+import { IdPayload } from '@digichanges/shared-experience';
 import ItemUpdatePayload from '../../Domain/Payloads/ItemUpdatePayload';
 import SaveItemUseCase from '../../Domain/UseCases/SaveItemUseCase';
-import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import RequestCriteria from '../../../Shared/Presentation/Requests/RequestCriteria';
+import { ICriteria } from '@digichanges/shared-experience';
 import ItemFilter from '../Criterias/ItemFilter';
 import ItemSort from '../Criterias/ItemSort';
 import Pagination from '../../../Shared/Utils/Pagination';
@@ -49,7 +51,7 @@ class ItemController
         const useCase = new ListItemsUseCase();
         const paginator: IPaginator = await useCase.handle(requestCriteria);
 
-        await responder.paginate<IItemDomain>(paginator, ctx, config['HTTP_OK'], new ItemTransformer());
+        await responder.paginate<IItemDomain>(paginator, ctx, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
     static async show(ctx: any): Promise<void>
@@ -57,7 +59,7 @@ class ItemController
         const useCase = new GetItemUseCase();
         const item = await useCase.handle(ctx.params as IdPayload);
 
-        void await responder.send(item, ctx, config['HTTP_OK'], new ItemTransformer());
+        void await responder.send(item, ctx, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
     static async update(ctx: any): Promise<void>

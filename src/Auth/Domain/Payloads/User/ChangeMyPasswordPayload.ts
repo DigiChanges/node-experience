@@ -1,4 +1,4 @@
-import IdPayload from '../../../../Shared/Presentation/Requests/IdPayload';
+import { IdPayload } from '@digichanges/shared-experience';
 import UserPasswordRepPayload from './UserPasswordPayload';
 
 interface ChangeMyPasswordPayload extends IdPayload, UserPasswordRepPayload
