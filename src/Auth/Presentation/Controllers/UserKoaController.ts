@@ -34,7 +34,6 @@ import ChangeUserPasswordUseCase from '../../Domain/UseCases/User/ChangeUserPass
 import ActiveUserUseCase from '../../Domain/UseCases/User/ActiveUserUseCase';
 
 const responder: KoaResponder = new KoaResponder();
-const config = MainConfig.getInstance().getConfig().statusCode;
 
 class UserKoaController
 {
@@ -49,7 +48,7 @@ class UserKoaController
         const useCase = new SaveUserUseCase();
         const user: IUserDomain = await useCase.handle(payload);
 
-        await responder.send(user, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
+        await responder.send(user, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
     }
 
     static async list(ctx: any)
@@ -94,7 +93,7 @@ class UserKoaController
         const useCase = new UpdateUserUseCase();
         const user: IUserDomain = await useCase.handle(payload);
 
-        await responder.send(user, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        await responder.send(user, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     static async assignRole(ctx: any)
@@ -107,7 +106,7 @@ class UserKoaController
         const useCase = new AssignRoleUseCase();
         await useCase.handle(payload);
 
-        await responder.send({ message: 'Role assigned successfully.' }, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        await responder.send({ message: 'Role assigned successfully.' }, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     static async remove(ctx: any)
@@ -132,7 +131,7 @@ class UserKoaController
         const useCase = new ChangeMyPasswordUseCase();
         const user: IUserDomain = await useCase.handle(payload);
 
-        await responder.send(user, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        await responder.send(user, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     static async changeUserPassword(ctx: any)
@@ -145,7 +144,7 @@ class UserKoaController
         const useCase = new ChangeUserPasswordUseCase();
         const user: IUserDomain = await useCase.handle(payload);
 
-        await responder.send(user, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        await responder.send(user, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     static async activeUser(ctx: any)

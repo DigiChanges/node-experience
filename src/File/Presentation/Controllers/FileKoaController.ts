@@ -1,4 +1,3 @@
-import MainConfig from '../../../Config/MainConfig';
 import { RequestCriteria, ICriteria, IPaginator, StatusCode } from '@digichanges/shared-experience';
 import KoaResponder from '../../../Main/Presentation/Utils/KoaResponder';
 import FileVersionTransformer from '../Transformers/FileVersionTransformer';
@@ -27,7 +26,6 @@ import RemoveFileUseCase from '../../Domain/UseCases/RemoveFileUseCase';
 import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 
 const responder: KoaResponder = new KoaResponder();
-const config = MainConfig.getInstance().getConfig().statusCode;
 
 class FileController
 {
@@ -103,7 +101,7 @@ class FileController
         const useCase = new UploadBase64UseCase();
         const file = await useCase.handle(cleanData as FileBase64RepPayload);
 
-        void await responder.send(file, ctx, config['HTTP_CREATED'], new FileTransformer());
+        void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
     static async uploadMultipart(ctx: any): Promise<void>
@@ -134,7 +132,7 @@ class FileController
         const useCase = new UploadMultipartUseCase();
         const file = await useCase.handle(payload);
 
-        void await responder.send(file, ctx, config['HTTP_CREATED'], new FileTransformer());
+        void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
     static async getPresignedGetObject(ctx: any): Promise<void>
@@ -173,7 +171,7 @@ class FileController
         const useCase = new OptimizeUseCase();
         const file = await useCase.handle(payload);
 
-        void await responder.send(file, ctx, config['HTTP_CREATED'], new FileTransformer());
+        void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
     static async updateBase64(ctx: any): Promise<void>
@@ -200,7 +198,7 @@ class FileController
         const useCase = new UpdateFileBase64UseCase();
         const file: IFileDTO = await useCase.handle(payload);
 
-        void await responder.send(file, ctx, config['HTTP_CREATED'], new FileTransformer());
+        void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
     static async updateMultipart(ctx: any): Promise<void>
@@ -232,7 +230,7 @@ class FileController
         const useCase = new UpdateFileMultipartUseCase();
         const response = await useCase.handle(payload);
 
-        void await responder.send(response, ctx, config['HTTP_CREATED'], new FileTransformer());
+        void await responder.send(response, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 
     static async remove(ctx: any): Promise<void>
@@ -244,7 +242,7 @@ class FileController
         const useCase = new RemoveFileUseCase();
         const file = await useCase.handle(payload);
 
-        void await responder.send(file, ctx, config['HTTP_CREATED'], new FileTransformer());
+        void await responder.send(file, ctx, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 }
 
