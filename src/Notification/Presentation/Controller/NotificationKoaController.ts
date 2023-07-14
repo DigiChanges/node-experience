@@ -5,6 +5,7 @@ import NotificationSendMessageRequest from '../Requests/NotificationSendMessageR
 import MainConfig from '../../../Config/MainConfig';
 import CreateSubscriptionUseCase from '../../Domain/UseCases/CreateSubscriptionUseCase';
 import SendPushNotificationUseCase from '../../Domain/UseCases/SendPushNotificationUseCase';
+import { StatusCode } from '@digichanges/shared-experience';
 
 class NotificationKoaController
 {
@@ -18,7 +19,7 @@ class NotificationKoaController
         const useCase = new CreateSubscriptionUseCase();
         const notification = useCase.handle(_request);
 
-        void await NotificationKoaController.responder.send(notification, ctx, NotificationKoaController.config['HTTP_CREATED']);
+        void await NotificationKoaController.responder.send(notification, ctx, StatusCode.HTTP_CREATED);
     }
 
     static async handleMessage(ctx: Koa.ParameterizedContext & any)
@@ -28,7 +29,7 @@ class NotificationKoaController
         const useCase = new SendPushNotificationUseCase();
         const notification = useCase.handle(_request);
 
-        void await NotificationKoaController.responder.send(notification, ctx, NotificationKoaController.config['HTTP_CREATED']);
+        void await NotificationKoaController.responder.send(notification, ctx, StatusCode.HTTP_CREATED);
     }
 }
 

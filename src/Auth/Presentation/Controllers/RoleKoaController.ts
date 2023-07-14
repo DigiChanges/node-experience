@@ -8,7 +8,6 @@ import {
     StatusCode
 } from '@digichanges/shared-experience';
 
-import MainConfig from '../../../Config/MainConfig';
 import KoaResponder from '../../../Main/Presentation/Utils/KoaResponder';
 import IRoleDomain from '../../Domain/Entities/IRoleDomain';
 import RoleTransformer from '../Transformers/RoleTransformer';
@@ -25,7 +24,6 @@ import UpdateRoleUseCase from '../../Domain/UseCases/Role/UpdateRoleUseCase';
 import RemoveRoleUseCase from '../../Domain/UseCases/Role/RemoveRoleUseCase';
 
 const responder: KoaResponder = new KoaResponder();
-const config = MainConfig.getInstance().getConfig().statusCode;
 
 class RoleKoaController
 {
@@ -34,7 +32,7 @@ class RoleKoaController
         const useCase = new SaveRoleUseCase();
         const role: IRoleDomain = await useCase.handle(ctx.request.body as RoleRepPayload);
 
-        await responder.send(role, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
+        await responder.send(role, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
     }
 
     static async list(ctx: any)
@@ -72,7 +70,7 @@ class RoleKoaController
         const useCase = new UpdateRoleUseCase();
         const role: IRoleDomain = await useCase.handle(data);
 
-        await responder.send(role, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        await responder.send(role, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     static  async remove(ctx: any)

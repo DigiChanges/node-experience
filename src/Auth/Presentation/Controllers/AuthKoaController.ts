@@ -27,7 +27,6 @@ import SyncPermissionsUseCase from '../../Domain/UseCases/Auth/SyncPermissionsUs
 class AuthKoaController
 {
     private static responder: KoaResponder = new KoaResponder();
-    private static config = MainConfig.getInstance().getConfig().statusCode;
 
     static async getMe(ctx: Koa.ParameterizedContext & any)
     {
@@ -53,7 +52,7 @@ class AuthKoaController
         void await AuthKoaController.responder.send(
             payload,
             ctx,
-            AuthKoaController.config['HTTP_CREATED'],
+            StatusCode.HTTP_CREATED,
             new UserTransformer()
         );
     }
@@ -76,7 +75,7 @@ class AuthKoaController
             sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
         });
 
-        void await AuthKoaController.responder.send(payload, ctx, AuthKoaController.config['HTTP_CREATED'], new AuthTransformer());
+        void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
 
     static async signup(ctx: Koa.ParameterizedContext & any)
@@ -89,7 +88,7 @@ class AuthKoaController
         const useCase = new RegisterUseCase();
         const payload = await useCase.handle(data);
 
-        void await AuthKoaController.responder.send(payload, ctx, AuthKoaController.config['HTTP_CREATED'], new DefaultTransformer());
+        void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
 
     static async logout(ctx: Koa.ParameterizedContext & any)
@@ -143,7 +142,7 @@ class AuthKoaController
         const useCase = new ForgotPasswordUseCase();
         const payload = await useCase.handle(data);
 
-        void await AuthKoaController.responder.send(payload, ctx, AuthKoaController.config['HTTP_CREATED']);
+        void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_CREATED);
     }
 
     static async changeForgotPassword(ctx: Koa.ParameterizedContext & any)
@@ -151,7 +150,7 @@ class AuthKoaController
         const useCase = new ChangeForgotPasswordUseCase();
         const payload = await useCase.handle(ctx.request.body);
 
-        void await AuthKoaController.responder.send(payload, ctx, AuthKoaController.config['HTTP_CREATED']);
+        void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_CREATED);
     }
 
     static async verifyAccount(ctx: Koa.ParameterizedContext & any)
@@ -159,7 +158,7 @@ class AuthKoaController
         const useCase = new VerifyYourAccountUseCase();
         const payload = await useCase.handle(ctx.params);
 
-        void await AuthKoaController.responder.send(payload, ctx, AuthKoaController.config['HTTP_CREATED'], new DefaultTransformer());
+        void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
 
     static async getPermissions(ctx: Koa.ParameterizedContext & any)
@@ -175,7 +174,7 @@ class AuthKoaController
         const useCase = new SyncPermissionsUseCase();
         await useCase.handle();
 
-        void await AuthKoaController.responder.send({ message: 'Sync Successfully' }, ctx, AuthKoaController.config['HTTP_CREATED']);
+        void await AuthKoaController.responder.send({ message: 'Sync Successfully' }, ctx, StatusCode.HTTP_CREATED);
     }
 }
 

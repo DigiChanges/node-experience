@@ -1,4 +1,3 @@
-import MainConfig from '../../../Config/MainConfig';
 import {
     ResponseMessageEnum,
     DefaultMessageTransformer,
@@ -22,7 +21,6 @@ import RemoveItemUseCase from '../../Domain/UseCases/RemoveItemUseCase';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 
 const responder: KoaResponder = new KoaResponder();
-const config = MainConfig.getInstance().getConfig().statusCode;
 
 class ItemController
 {
@@ -35,7 +33,7 @@ class ItemController
         const useCase = new SaveItemUseCase();
         const item = await useCase.handle(payload);
 
-        void await responder.send(item, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
+        void await responder.send(item, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.CREATED));
     }
 
     static async list(ctx: any): Promise<void>
@@ -72,7 +70,7 @@ class ItemController
         const useCase = new UpdateItemUseCase();
         const item = await useCase.handle(payload);
 
-        void await responder.send(item, ctx, config['HTTP_CREATED'], new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
+        void await responder.send(item, ctx, StatusCode.HTTP_CREATED, new DefaultMessageTransformer(ResponseMessageEnum.UPDATED));
     }
 
     static async remove(ctx: any): Promise<void>
@@ -80,7 +78,7 @@ class ItemController
         const useCase = new RemoveItemUseCase();
         const item = await useCase.handle(ctx.params as IdPayload);
 
-        void await responder.send(item, ctx, config['HTTP_CREATED'], new ItemTransformer());
+        void await responder.send(item, ctx, StatusCode.HTTP_CREATED, new ItemTransformer());
     }
 }
 
