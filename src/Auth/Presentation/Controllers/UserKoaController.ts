@@ -1,21 +1,27 @@
+import {
+    IPaginator,
+    IdPayload,
+    ICriteria,
+    RequestCriteria,
+    DefaultMessageTransformer,
+    ResponseMessageEnum,
+    StatusCode
+} from '@digichanges/shared-experience';
+
+import dayjs from 'dayjs';
+
 import KoaResponder from '../../../Main/Presentation/Utils/KoaResponder';
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 import UserTransformer from '../Transformers/UserTransformer';
-import ResponseMessageEnum from '../../../Shared/Presentation/Enum/ResponseMessageEnum';
-import DefaultMessageTransformer from '../../../Shared/Presentation/Transformers/DefaultMessageTransformer';
+
 import MainConfig from '../../../Config/MainConfig';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
 import UserSavePayload from '../../Domain/Payloads/User/UserSavePayload';
 import UserUpdatePayload from '../../Domain/Payloads/User/UserUpdatePayload';
 import UserAssignRolePayload from '../../Domain/Payloads/User/UserAssignRolePayload';
 import ChangeMyPasswordPayload from '../../Domain/Payloads/User/ChangeMyPasswordPayload';
 import ChangeUserPasswordPayload from '../../Domain/Payloads/User/ChangeUserPasswordPayload';
-import dayjs from 'dayjs';
-import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
 import SaveUserUseCase from '../../Domain/UseCases/User/SaveUserUseCase';
 import ListUsersUseCase from '../../Domain/UseCases/User/ListUsersUseCase';
-import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import RequestCriteria from '../../../Shared/Presentation/Requests/RequestCriteria';
 import UserFilter from '../Criterias/UserFilter';
 import UserSort from '../Criterias/UserSort';
 import Pagination from '../../../Shared/Utils/Pagination';
@@ -60,7 +66,7 @@ class UserKoaController
         const useCase = new ListUsersUseCase();
         const paginator: IPaginator = await useCase.handle(requestCriteria);
 
-        await responder.send(paginator, ctx, config['HTTP_OK'], new UserTransformer()); // TODO: Change to paginate
+        await responder.send(paginator, ctx, StatusCode.HTTP_OK, new UserTransformer()); // TODO: Change to paginate
     }
 
     static async getOne(ctx: any)
@@ -72,7 +78,7 @@ class UserKoaController
         const useCase = new GetUserUseCase();
         const user: IUserDomain = await useCase.handle(payload);
 
-        await responder.send(user, ctx, config['HTTP_OK'], new UserTransformer());
+        await responder.send(user, ctx, StatusCode.HTTP_OK, new UserTransformer());
     }
 
     static async update(ctx: any)
@@ -113,7 +119,7 @@ class UserKoaController
         const useCase = new RemoveUserUseCase();
         const user: IUserDomain = await useCase.handle(payload);
 
-        await responder.send(user, ctx, config['HTTP_OK'], new DefaultMessageTransformer(ResponseMessageEnum.DELETED));
+        await responder.send(user, ctx, StatusCode.HTTP_OK, new DefaultMessageTransformer(ResponseMessageEnum.DELETED));
     }
 
     static async changeMyPassword(ctx: any)
@@ -147,7 +153,7 @@ class UserKoaController
         const useCase = new ActiveUserUseCase();
         await useCase.handle(ctx.params as IdPayload);
 
-        await responder.send({ message: 'User activated successfully' }, ctx, config['HTTP_OK']);
+        await responder.send({ message: 'User activated successfully' }, ctx, StatusCode.HTTP_OK);
     }
 }
 

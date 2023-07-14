@@ -3,7 +3,7 @@ import ChangeMyPasswordPayload from '../../Payloads/User/ChangeMyPasswordPayload
 import IUserDomain from '../../Entities/IUserDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
-import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
+import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import ChangeMyPasswordSchemaValidation from '../../../Presentation/Validations/User/ChangeMyPasswordSchemaValidation';
 
 class ChangeMyPasswordUseCase

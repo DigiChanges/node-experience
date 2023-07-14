@@ -1,17 +1,17 @@
+import { EventHandler, IApp } from '@digichanges/shared-experience';
+
 import './register';
 
 import MainConfig from './Config/MainConfig';
 import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
 
-import EventHandler from './Shared/Infrastructure/Events/EventHandler';
 import CacheFactory from './Main/Infrastructure/Factories/CacheFactory';
 import ICacheRepository from './Shared/Infrastructure/Repositories/ICacheRepository';
 
 import CronFactory from './Main/Infrastructure/Factories/CronFactory';
-import IApp from './Shared/Application/IApp';
 import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFactory';
 import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
-import Logger from './Shared/Helpers/Logger/Logger';
+import Logger from './Shared/Helpers/Logger';
 import closedApplication from './closed';
 import UserCreatedEvent from './Auth/Infrastructure/Events/UserCreatedEvent';
 import SendMessageEvent from './Notification/Infrastructure/Events/SendMessageEvent';

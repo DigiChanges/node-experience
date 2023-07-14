@@ -1,12 +1,12 @@
 import IUserDomain from '../../Entities/IUserDomain';
-import EventHandler from '../../../../Shared/Infrastructure/Events/EventHandler';
+import { EventHandler } from '@digichanges/shared-experience';
 import UserCreatedEvent from '../../../Infrastructure/Events/UserCreatedEvent';
 import UserSavePayload from '../../Payloads/User/UserSavePayload';
 import User from '../../Entities/User';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
+import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import UserRepSchemaValidation from '../../../Presentation/Validations/User/UserRepSchemaValidation';
 
 class SaveUserUseCase

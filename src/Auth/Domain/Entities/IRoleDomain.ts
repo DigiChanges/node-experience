@@ -1,4 +1,4 @@
-import IBaseDomain from '../../../Shared/Domain/Entities/IBaseDomain';
+import { IBaseDomain } from '@digichanges/shared-experience';
 import RoleRepPayload from '../Payloads/Role/RoleRepPayload';
 
 interface IRoleDomain extends IBaseDomain, RoleRepPayload

@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
-import Logger from '../Helpers/Logger/Logger';
+import Logger from '../Helpers/Logger';
 
 interface AxiosSendPayload
 {

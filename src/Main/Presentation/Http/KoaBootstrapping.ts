@@ -1,10 +1,10 @@
-import AppKoa from '../../../Shared/Application/AppKoa';
-import IApp from '../../../Shared/Application/IApp';
+import { IApp, AppKoa, IAppConfig } from '@digichanges/shared-experience';
 
 import Koa from 'koa';
 import Router from 'koa-router';
 import cors from '@koa/cors';
 import helmet from 'koa-helmet';
+import compress from 'koa-compress';
 
 import ThrottleKoaMiddleware from '../Middleware/ThrottleKoaMiddleware';
 import bodyParser from 'koa-bodyparser';
@@ -15,7 +15,6 @@ import UserKoaRouter from '../../../Auth/Presentation/Routers/UserKoaRouter';
 import NotificationKoaHandler from '../../../Notification/Presentation/Handlers/NotificationKoaHandler';
 import FileKoaRouter from '../../../File/Presentation/Routes/FileKoaRouter';
 import AuthKoaRouter from '../../../Auth/Presentation/Routers/AuthKoaRouter';
-import IAppConfig from '../../../Shared/Application/IAppConfig';
 import { ErrorKoaHandler } from '../Middleware/ErrorKoaHandler';
 import MainConfig from '../../../Config/MainConfig';
 
@@ -27,8 +26,7 @@ import GetRequestContextKoaMiddleware from '../Middleware/GetRequestContextKoaMi
 
 const KoaBootstrapping = async(config: IAppConfig) =>
 {
-    const app: IApp = new AppKoa();
-    app.initConfig(config);
+    const app: IApp = new AppKoa(config);
     app.addMiddleware<Koa.Middleware>(cors({
         credentials: true,
         origin: (ctx) =>
@@ -48,15 +46,14 @@ const KoaBootstrapping = async(config: IAppConfig) =>
     app.addMiddleware<Koa.Middleware>(bodyParser({
         jsonLimit: '5mb'
     }));
+    app.addMiddleware<Koa.Middleware>(compress());
 
-    // Generic error handling middleware.
     app.addMiddleware<Koa.Middleware>(ErrorKoaHandler.handle);
 
     if (MainConfig.getInstance().getConfig().dbConfig.default === 'MikroORM')
     {
         app.addMiddleware<Koa.Middleware>(ContextMikroORMKoaMiddleware);
     }
-
     app.addMiddleware<Koa.Middleware>(ContainerKoaMiddleware);
     app.addMiddleware<Koa.Middleware>(LoggerKoaMiddleware);
     app.addMiddleware<Koa.Middleware>(ThrottleKoaMiddleware);

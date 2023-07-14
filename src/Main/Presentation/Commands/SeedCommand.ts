@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import SeedFactory from '../../Factories/SeedFactory';
+import SeedFactory from '../../../Shared/Factories/SeedFactory';
 
 const Seed = new Command('seed');
 

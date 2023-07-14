@@ -1,7 +1,6 @@
 import IBaseRepository from '../../../../Shared/Infrastructure/Repositories/IBaseRepository';
 import IUserDomain from '../../../Domain/Entities/IUserDomain';
-import ICriteria from '../../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../../Shared/Infrastructure/Orm/IPaginator';
+import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 import UserAssignRolePayload from '../../../Domain/Payloads/User/UserAssignRolePayload';
 
 interface IUserRepository extends Omit<IBaseRepository<IUserDomain>, 'getInBy' | 'getBy' | 'getOneBy' | 'save'>

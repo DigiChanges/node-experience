@@ -1,14 +1,12 @@
 import KoaResponder from '../Utils/KoaResponder';
 import RouteNotFoundHttpException from '../Exceptions/RouteNotFoundHttpException';
-import MainConfig from '../../../Config/MainConfig';
-
-const config = MainConfig.getInstance().getConfig().statusCode;
+import { StatusCode } from '@digichanges/shared-experience';
 
 const RedirectRouteNotFoundKoaMiddleware = (ctx: any) =>
 {
     const responder = new KoaResponder();
 
-    responder.error(new RouteNotFoundHttpException(), ctx, config['HTTP_NOT_FOUND'], null);
+    responder.error(new RouteNotFoundHttpException(), ctx, StatusCode.HTTP_NOT_FOUND, null);
 };
 
 export default RedirectRouteNotFoundKoaMiddleware;

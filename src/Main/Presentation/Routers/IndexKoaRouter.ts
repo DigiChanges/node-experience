@@ -2,6 +2,7 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import KoaResponder from '../Utils/KoaResponder';
 import MainConfig, { IHttpStatusCode } from '../../../Config/MainConfig';
+import { StatusCode } from '@digichanges/shared-experience';
 
 const routerOpts: Router.IRouterOptions = {
     prefix: '/'
@@ -13,7 +14,7 @@ const config: Record<string, IHttpStatusCode> = MainConfig.getInstance().getConf
 
 IndexKoaRouter.get('/', async(ctx: Koa.ParameterizedContext & any) =>
 {
-    void await responder.send('Welcome to Node Experience', ctx, config['HTTP_OK']);
+    void await responder.send('Welcome to Node Experience', ctx, StatusCode.HTTP_OK);
 });
 
 export default IndexKoaRouter;

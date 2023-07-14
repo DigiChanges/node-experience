@@ -1,14 +1,12 @@
-import ErrorException from '../../../Shared/Exceptions/ErrorException';
-import Locales from '../../../Shared/Utils/Locales';
+import { ErrorException } from '@digichanges/shared-experience';
 
 class UniqueAttributeException extends ErrorException
 {
     constructor(name: string | any)
     {
-        const locales = Locales.getInstance().getLocales();
         const key = 'app.domain.exceptions.uniqueAttribute';
         super({
-            message: locales.__(key, { name }),
+            message: `The ${name} property is already in use.`,
             errorCode: key
         }, UniqueAttributeException.name, { replace:{ name } });
     }

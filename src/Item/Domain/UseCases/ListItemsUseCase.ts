@@ -1,5 +1,4 @@
-import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
+import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
 import { getRequestContext } from '../../../Shared/Utils/RequestContext';

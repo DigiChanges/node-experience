@@ -2,7 +2,7 @@ FROM digichanges/nexp:1.2 as dev
 
 WORKDIR /home/node/app
 
-COPY --chown=node:node .eslintrc.json ./
+COPY --chown=node:node .eslintrc ./
 COPY --chown=node:node .husky ./
 COPY --chown=node:node .huskyrc ./
 COPY --chown=node:node .npmrc ./
@@ -15,6 +15,8 @@ COPY --chown=node:node tsconfig.json ./
 COPY --chown=node:node tools ./tools
 COPY --chown=node:node package.json ./
 COPY --chown=node:node pnpm-lock.yaml ./
+COPY --chown=node:node jest-mongodb-config.js ./
+COPY --chown=node:node jest.config.js ./
 
 USER node
 

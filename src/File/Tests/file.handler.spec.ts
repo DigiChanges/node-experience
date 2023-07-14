@@ -1,7 +1,7 @@
 import { SuperAgentTest } from 'supertest';
 import initTestServer from '../../initTestServer';
 import FilesystemFactory from '../../Shared/Factories/FilesystemFactory';
-import { ILoginResponse } from '../../Shared/InterfaceAdapters/Tests/ILogin';
+import { ILoginResponse } from '../../Main/Tests/ILogin';
 import { UploadFileBase64 } from './fixture';
 import FilesystemMockRepository from './FilesystemMockRepository';
 import { IFileResponse } from './types';

@@ -3,7 +3,6 @@ import IUserDomain from '../Entities/IUserDomain';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IAuthRepository from '../../Infrastructure/Repositories/Auth/IAuthRepository';
 import ForbiddenHttpException from '../../Presentation/Exceptions/ForbiddenHttpException';
-import RegisterPayload from '../Payloads/Auth/RegisterPayload';
 
 class KeycloakAuthService
 {

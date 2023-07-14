@@ -1,5 +1,5 @@
-import { IBodyResponse } from '../../Shared/InterfaceAdapters/Tests/IBodyResponse';
-import { IFetchResponse } from '../../Shared/InterfaceAdapters/Tests/IFetchResponse';
+import { IBodyResponse } from '../../Main/Tests/IBodyResponse';
+import { IFetchResponse } from '../../Main/Tests/IFetchResponse';
 import IGroupPermission from '../../Config/IGroupPermission';
 import IRoleTransformer from '../../Auth/Presentation/Transformers/IRoleTransformer';
 import IUserTransformer from '../../Auth/Presentation/Transformers/IUserTransformer';

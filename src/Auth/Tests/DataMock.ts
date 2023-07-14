@@ -1,4 +1,4 @@
-import IPaginator from '../../Shared/Infrastructure/Orm/IPaginator';
+import { IPaginator } from '@digichanges/shared-experience';
 import dayjs from 'dayjs';
 
 export const payloadUser = {

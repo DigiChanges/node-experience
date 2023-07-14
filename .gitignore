@@ -13,6 +13,8 @@ package-lock.json
 .pnpm-store
 graph.svg
 .bun
+yalc.lock
+.yalc
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

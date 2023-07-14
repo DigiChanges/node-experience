@@ -3,10 +3,10 @@ import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepo
 
 import { REPOSITORIES } from '../../../../Config/Injects';
 import Locales from '../../../../Shared/Utils/Locales';
-import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
+import { ILocaleMessage } from '@digichanges/shared-experience';
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import AuthHelperService from '../../Services/AuthHelperService';
-import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
+import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import ChangeForgotPasswordSchemaValidation
     from '../../../Presentation/Validations/Auth/ChangeForgotPasswordSchemaValidation';
 

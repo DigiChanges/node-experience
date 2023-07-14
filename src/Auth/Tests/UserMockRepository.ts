@@ -1,6 +1,5 @@
 import IUserDomain from '../Domain/Entities/IUserDomain';
-import ICriteria from '../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../Shared/Infrastructure/Orm/IPaginator';
+import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 import UserAssignRolePayload from '../Domain/Payloads/User/UserAssignRolePayload';
 import { payloadUser, responseIPaginator } from './DataMock';
 import User from '../Domain/Entities/User';

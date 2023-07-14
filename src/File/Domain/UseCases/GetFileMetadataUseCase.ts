@@ -1,9 +1,9 @@
-import IdPayload from '../../../Shared/Presentation/Requests/IdPayload';
+import { IdPayload } from '@digichanges/shared-experience';
 import FileService from '../Services/FileService';
 import FileDTO from '../Models/FileDTO';
 import IFileDTO from '../Models/IFileDTO';
-import ValidatorSchema from '../../../Shared/Utils/ValidatorSchema';
-import IdSchemaValidation from '../../../Shared/Presentation/Validations/IdSchemaValidation';
+import ValidatorSchema from '../../../Main/Presentation/Utils/ValidatorSchema';
+import IdSchemaValidation from '../../../Main/Presentation/Validations/IdSchemaValidation';
 
 class GetFileMetadataUserCase
 {

@@ -1,7 +1,6 @@
 import IItemRepository from './IItemRepository';
 import Item from '../../Domain/Entities/Item';
-import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
+import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 
 import Paginator from '../../../Shared/Infrastructure/Orm/MikroORMPaginator';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';

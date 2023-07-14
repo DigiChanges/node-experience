@@ -18,10 +18,9 @@ services:
       - traefik.port=80
     volumes:
       - ./dist:/home/node/app/dist
-      - ./src:/home/node/src/app/:cached
+      - ./src:/home/node/app/src
       - ./config:/home/node/app/config:cached
       - ./.env:/home/node/app/.env
-    user: 'node:node'
     networks:
      - experiencenet
 

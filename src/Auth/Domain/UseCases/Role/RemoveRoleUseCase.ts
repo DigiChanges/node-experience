@@ -2,8 +2,8 @@ import IRoleDomain from '../../Entities/IRoleDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
-import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
-import NameSchemaValidation from '../../../../Shared/Presentation/Validations/NameSchemaValidation';
+import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
+import NameSchemaValidation from '../../../../Main/Presentation/Validations/NameSchemaValidation';
 
 class RemoveRoleUseCase
 {

@@ -8,15 +8,15 @@ process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
 import './register';
 import AddUserCommand from './Auth/Presentation/Commands/AddUserCommand';
 import AddRoleCommand from './Auth/Presentation/Commands/AddRoleCommand';
-import CreateVapID from './File/Presentation/Commands/CreateVapID';
+import CreateVapID from './Notification/Presentation/Commands/CreateVapID';
 
 import AssignRoleToUserCommand from './Auth/Presentation/Commands/AssingRoleToUserCommand';
 import SyncRolesPermissionCommand from './Auth/Presentation/Commands/SyncRolesPermissionCommand';
 import CreateBucketCommand from './File/Presentation/Commands/CreateBucketCommand';
-import Seed from './Shared/Presentation/Commands/SeedCommand';
+import Seed from './Main/Presentation/Commands/SeedCommand';
 import initCommand from './initCommand';
 import ActiveUserCommand from './Auth/Presentation/Commands/ActiveUserCommand';
-import Logger from './Shared/Helpers/Logger/Logger';
+import Logger from './Shared/Helpers/Logger';
 
 void (async() =>
 {

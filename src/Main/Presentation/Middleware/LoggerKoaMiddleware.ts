@@ -1,5 +1,5 @@
 import { ParameterizedContext, Next } from 'koa';
-import Logger from '../../../Shared/Helpers/Logger/Logger';
+import Logger from '../../../Shared/Helpers/Logger';
 
 const LoggerKoaMiddleware = async(ctx: ParameterizedContext, next: Next) =>
 {

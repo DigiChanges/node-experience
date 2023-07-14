@@ -4,7 +4,7 @@ import { REPOSITORIES } from '../../../Config/Injects';
 import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
 import { getRequestContext } from '../../../Shared/Utils/RequestContext';
 import ItemBuilder from '../Factories/ItemBuilder';
-import ValidatorSchema from '../../../Shared/Utils/ValidatorSchema';
+import ValidatorSchema from '../../../Main/Presentation/Utils/ValidatorSchema';
 import ItemSchemaSaveValidation from '../../Presentation/Validations/ItemSchemaSaveValidation';
 
 class SaveItemUseCase

@@ -1,5 +1,5 @@
-import Logger from '../../../Shared/Helpers/Logger/Logger';
-import IEvent from '../../../Shared/Infrastructure/Events/IEvent';
+import Logger from '../../../Shared/Helpers/Logger';
+import { IEvent } from '@digichanges/shared-experience';
 
 class UserCreatedEvent implements IEvent
 {

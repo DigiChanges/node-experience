@@ -1,5 +1,4 @@
-import ICriteria from '../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../Shared/Infrastructure/Orm/IPaginator';
+import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 import IRoleDomain from '../Domain/Entities/IRoleDomain';
 import { payloadRole, responseIPaginator } from './DataMock';
 import IRoleRepository from '../Infrastructure/Repositories/Role/IRoleRepository';

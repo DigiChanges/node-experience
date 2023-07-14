@@ -1,4 +1,4 @@
-import Transformer from '../../../Shared/Utils/Transformer';
+import { Transformer } from '@digichanges/shared-experience';
 
 import ILoginResponse from '../../Domain/Models/ILoginResponse';
 

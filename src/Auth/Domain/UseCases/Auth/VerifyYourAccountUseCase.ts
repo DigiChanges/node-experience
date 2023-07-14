@@ -1,6 +1,6 @@
 import VerifyYourAccountPayload from '../../Payloads/Auth/VerifyYourAccountPayload';
 import Locales from '../../../../Shared/Utils/Locales';
-import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
+import { ILocaleMessage } from '@digichanges/shared-experience';
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import AuthHelperService from '../../Services/AuthHelperService';
 import { REPOSITORIES } from '../../../../Config/Injects';
@@ -9,7 +9,7 @@ import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepo
 import IUserDomain from '../../Entities/IUserDomain';
 import SendEmailService from '../../../../Notification/Domain/Services/SendEmailService';
 import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotificationEnum';
-import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
+import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import VerifyYourAccountSchemaValidation
     from '../../../Presentation/Validations/Auth/VerifyYourAccountSchemaValidation';
 

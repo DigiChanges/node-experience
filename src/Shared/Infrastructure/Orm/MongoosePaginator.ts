@@ -1,8 +1,5 @@
 import { Query } from 'mongoose';
-import IPaginator from './IPaginator';
-import IPaginatorConfig from './IPaginatorConfig';
-import ICriteria from '../../Presentation/Requests/ICriteria';
-import BasePaginator from './BasePaginator';
+import { IPaginatorConfig, ICriteria, BasePaginator, IPaginator } from '@digichanges/shared-experience';
 
 class MongoosePaginator extends BasePaginator implements IPaginator
 {

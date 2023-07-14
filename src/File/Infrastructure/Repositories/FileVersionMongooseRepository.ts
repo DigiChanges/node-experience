@@ -1,6 +1,5 @@
 import { Query } from 'mongoose';
-import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
+import { NotFoundException, IPaginator, ICriteria } from '@digichanges/shared-experience';
 
 import IFileVersionRepository from './IFileVersionRepository';
 
@@ -10,7 +9,6 @@ import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 
 import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/BaseMongooseRepository';
 import FileVersion from '../../Domain/Entities/FileVersion';
-import NotFoundException from '../../../Shared/Exceptions/NotFoundException';
 import IByOptions from '../../../Shared/Infrastructure/Repositories/IByOptions';
 import { FileVersionMongooseDocument } from '../Schemas/FileVersionMongoose';
 

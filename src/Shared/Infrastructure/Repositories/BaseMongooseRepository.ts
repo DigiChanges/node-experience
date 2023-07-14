@@ -1,8 +1,7 @@
 import { Document, FilterQuery, Model, connection } from 'mongoose';
-import NotFoundException from '../../Exceptions/NotFoundException';
+import { IBaseDomain, NotFoundException } from '@digichanges/shared-experience';
 import IByOptions from './IByOptions';
 import IBaseRepository from './IBaseRepository';
-import IBaseDomain from '../../Domain/Entities/IBaseDomain';
 
 abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document & T> implements IBaseRepository<T>
 {

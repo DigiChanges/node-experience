@@ -1,18 +1,16 @@
 import MainConfig from '../../../Config/MainConfig';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
+import { RequestCriteria, ICriteria, IPaginator, StatusCode } from '@digichanges/shared-experience';
 import KoaResponder from '../../../Main/Presentation/Utils/KoaResponder';
 import FileVersionTransformer from '../Transformers/FileVersionTransformer';
 import ObjectTransformer from '../Transformers/ObjectTransformer';
 import FileTransformer from '../Transformers/FileTransformer';
-import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import RequestCriteria from '../../../Shared/Presentation/Requests/RequestCriteria';
 import FileFilter from '../Criterias/FileFilter';
 import FileSort from '../Criterias/FileSort';
 import Pagination from '../../../Shared/Utils/Pagination';
 import ListFilesUseCase from '../../Domain/UseCases/ListFilesUseCase';
 import ListObjectsUseCase from '../../Domain/UseCases/ListObjectsUseCase';
 import GetFileMetadataUseCase from '../../Domain/UseCases/GetFileMetadataUseCase';
-import ValidatorSchema from '../../../Shared/Utils/ValidatorSchema';
+import ValidatorSchema from '../../../Main/Presentation/Utils/ValidatorSchema';
 import FileBase64RepPayload from '../../Domain/Payloads/FileBase64RepPayload';
 import FileBase64SchemaValidation from '../Validations/FileBase64SchemaValidation';
 import UploadBase64UseCase from '../../Domain/UseCases/UploadBase64UseCase';
@@ -46,7 +44,7 @@ class FileController
         const useCase = new ListFilesUseCase();
         const paginator: IPaginator = await useCase.handle(requestCriteria);
 
-        await responder.paginate<IFileVersionDomain>(paginator, ctx, config['HTTP_OK'], new FileVersionTransformer());
+        await responder.paginate<IFileVersionDomain>(paginator, ctx, StatusCode.HTTP_OK, new FileVersionTransformer());
     }
 
     static async listObjects(ctx: any): Promise<void>
@@ -62,7 +60,7 @@ class FileController
         const useCase = new ListObjectsUseCase();
         const objects = await useCase.handle(payload);
 
-        void await responder.send(objects, ctx, config['HTTP_OK'], new ObjectTransformer());
+        void await responder.send(objects, ctx, StatusCode.HTTP_OK, new ObjectTransformer());
     }
 
     static async getFileMetadata(ctx: any): Promise<void>
@@ -74,7 +72,7 @@ class FileController
         const useCase = new GetFileMetadataUseCase();
         const file = await useCase.handle(payload);
 
-        void await responder.send(file, ctx, config['HTTP_OK'], new FileTransformer());
+        void await responder.send(file, ctx, StatusCode.HTTP_OK, new FileTransformer());
     }
 
     static async uploadBase64(ctx: any): Promise<void>
@@ -149,7 +147,7 @@ class FileController
         const useCase = new GetPresignedGetObjectUseCase();
         const presignedGetObject = await useCase.handle(payload);
 
-        void await responder.send({ presignedGetObject }, ctx, config['HTTP_OK'], null);
+        void await responder.send({ presignedGetObject }, ctx, StatusCode.HTTP_OK, null);
     }
 
     static async download(ctx: any): Promise<void>
@@ -162,7 +160,7 @@ class FileController
         const useCase = new DownloadUseCase();
         const fileDto = await useCase.handle(payload);
 
-        responder.sendStream(fileDto, ctx, config['HTTP_OK']);
+        responder.sendStream(fileDto, ctx, StatusCode.HTTP_OK);
     }
 
     static async optimize(ctx: any): Promise<void>

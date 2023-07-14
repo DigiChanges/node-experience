@@ -1,8 +1,5 @@
 import { Aggregate } from 'mongoose';
-import IPaginator from './IPaginator';
-import IPaginatorConfig from './IPaginatorConfig';
-import ICriteria from '../../Presentation/Requests/ICriteria';
-import BasePaginator from './BasePaginator';
+import { ICriteria, BasePaginator, IPaginatorConfig, IPaginator } from '@digichanges/shared-experience';
 
 class MongooseAggregatePaginator extends BasePaginator implements IPaginator
 {

@@ -1,3 +1,4 @@
+// Deprecated
 import { isEmpty, intersection } from 'lodash';
 import Permissions from '../../Config/Permissions';
 import WrongPermissionsException from '../../Auth/Domain/Exceptions/WrongPermissionsException';

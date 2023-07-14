@@ -1,5 +1,5 @@
 import IUserDomain from './IUserDomain';
-import Base from '../../../Shared/Domain/Entities/Base';
+import { Base } from '@digichanges/shared-experience';
 import UserRepPayload from '../Payloads/User/UserRepPayload';
 
 class User extends Base implements IUserDomain

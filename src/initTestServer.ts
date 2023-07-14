@@ -1,14 +1,15 @@
+import { IApp } from '@digichanges/shared-experience';
+
 import container from './register';
 
 import supertest from 'supertest';
 
 import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
-import EventHandler from './Shared/Infrastructure/Events/EventHandler';
+import { EventHandler } from '@digichanges/shared-experience';
 import { validateEnv } from './Config/validateEnv';
 import SeedFactory from './Shared/Factories/SeedFactory';
 import Locales from './Shared/Utils/Locales';
 import MainConfig from './Config/MainConfig';
-import IApp from './Shared/Application/IApp';
 import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFactory';
 import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
 import IAuthRepository from './Auth/Infrastructure/Repositories/Auth/IAuthRepository';

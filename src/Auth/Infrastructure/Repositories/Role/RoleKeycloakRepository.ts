@@ -1,12 +1,11 @@
 import axios from 'axios';
 import qs from 'qs';
+import { ErrorHttpException, NotFoundException, ICriteria } from '@digichanges/shared-experience';
+
 import IRoleRepository from './IRoleRepository';
 import IRoleDomain from '../../../Domain/Entities/IRoleDomain';
-import ICriteria from '../../../../Shared/Presentation/Requests/ICriteria';
-import NotFoundException from '../../../../Shared/Exceptions/NotFoundException';
 import RoleFilter from '../../../Presentation/Criterias/RoleFilter';
 import Role from '../../../Domain/Entities/Role';
-import ErrorHttpException from '../../../../Shared/Exceptions/ErrorHttpException';
 import KeycloakAxiosRepository from '../Auth/KeycloakAxiosRepository';
 import MainConfig, { IHttpStatusCode } from '../../../../Config/MainConfig';
 

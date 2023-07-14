@@ -1,6 +1,5 @@
 import KoaBootstrapping from '../Http/KoaBootstrapping';
-import IApp from '../../../Shared/Application/IApp';
-import IAppConfig from '../../../Shared/Application/IAppConfig';
+import { IAppConfig, IApp } from '@digichanges/shared-experience';
 
 type TypeAppBootstrap = (config: IAppConfig) => Promise<IApp>;
 

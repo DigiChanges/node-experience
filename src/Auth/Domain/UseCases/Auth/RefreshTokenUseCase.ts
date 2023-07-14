@@ -3,8 +3,8 @@ import { REPOSITORIES } from '../../../../Config/Injects';
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
 import MainConfig from '../../../../Config/MainConfig';
-import ErrorHttpException from '../../../../Shared/Exceptions/ErrorHttpException';
-import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
+import { ErrorHttpException } from '@digichanges/shared-experience';
+import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import RefreshTokenSchemaValidation from '../../../Presentation/Validations/Auth/RefreshTokenSchemaValidation';
 
 class RefreshTokenUseCase

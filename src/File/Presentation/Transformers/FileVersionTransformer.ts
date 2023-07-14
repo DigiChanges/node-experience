@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import Transformer from '../../../Shared/Utils/Transformer';
+import { Transformer } from '@digichanges/shared-experience';
 
 import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 import IFileVersionTransformer from './IFileVersionTransformer';

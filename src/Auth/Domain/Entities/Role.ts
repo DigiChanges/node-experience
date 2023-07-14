@@ -1,5 +1,5 @@
 import IRoleDomain from './IRoleDomain';
-import Base from '../../../Shared/Domain/Entities/Base';
+import { Base } from '@digichanges/shared-experience';
 import RoleRepPayload from '../Payloads/Role/RoleRepPayload';
 import AuthHelper from '../../../Shared/Helpers/AuthHelper';
 

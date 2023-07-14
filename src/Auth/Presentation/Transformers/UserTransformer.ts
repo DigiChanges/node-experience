@@ -1,6 +1,6 @@
 import IUserDomain from '../../Domain/Entities/IUserDomain';
 import IUserTransformer from './IUserTransformer';
-import Transformer from '../../../Shared/Utils/Transformer';
+import { Transformer } from '@digichanges/shared-experience';
 
 class UserTransformer extends Transformer
 {

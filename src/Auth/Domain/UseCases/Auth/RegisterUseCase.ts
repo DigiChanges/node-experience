@@ -2,14 +2,13 @@ import SendEmailService from '../../../../Notification/Domain/Services/SendEmail
 import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../../Shared/Utils/Locales';
 import RegisterPayload from '../../Payloads/Auth/RegisterPayload';
-import ILocaleMessage from '../../../../Shared/InterfaceAdapters/ILocaleMessage';
+import { ErrorHttpException, ILocaleMessage } from '@digichanges/shared-experience';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import ErrorHttpException from '../../../../Shared/Exceptions/ErrorHttpException';
 import MainConfig from '../../../../Config/MainConfig';
 import AuthHelperService from '../../Services/AuthHelperService';
-import ValidatorSchema from '../../../../Shared/Utils/ValidatorSchema';
+import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import RegisterSchemaValidation from '../../../Presentation/Validations/Auth/RegisterSchemaValidation';
 
 class RegisterUseCase

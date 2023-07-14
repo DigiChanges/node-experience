@@ -1,8 +1,8 @@
 import { Context } from 'koa';
 import KoaResponder from '../Utils/KoaResponder';
-import ErrorHttpException from '../../../Shared/Exceptions/ErrorHttpException';
+import { ErrorHttpException } from '@digichanges/shared-experience';
 import ExceptionFactory from '../Factories/ExceptionFactory';
-import Logger from '../../../Shared/Helpers/Logger/Logger';
+import Logger from '../../../Shared/Helpers/Logger';
 
 export class ErrorKoaHandler
 {

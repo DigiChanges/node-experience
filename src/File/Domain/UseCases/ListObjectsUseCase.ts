@@ -1,6 +1,6 @@
 import ListObjectsPayload from '../Payloads/ListObjectsPayload';
 import FileService from '../Services/FileService';
-import ValidatorSchema from '../../../Shared/Utils/ValidatorSchema';
+import ValidatorSchema from '../../../Main/Presentation/Utils/ValidatorSchema';
 import ListObjectsSchemaValidation from '../../Presentation/Validations/ListObjectsSchemaValidation';
 
 class ListObjectsUseCase
