@@ -66,6 +66,14 @@ class AuthKoaController
         const useCase = new LoginUseCase();
         const payload = await useCase.handle(data as AuthPayload);
 
+        ctx.cookies.set('accessToken', payload.accessToken, {
+            expires: dayjs().add(payload.expiresIn, 'second').toDate(),
+            path: '/api',
+            secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
+            httpOnly: true,
+            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
+        });
+
         ctx.cookies.set('refreshToken', payload.refreshToken, {
             expires: dayjs().add(payload.refreshExpiresIn, 'second').toDate(),
             path: '/api/auth',
@@ -99,9 +107,17 @@ class AuthKoaController
         const useCase = new LogoutUseCase();
         const payload = await useCase.handle(data);
 
+        ctx.cookies.set('accessToken', null, {
+            expires: dayjs.unix(0).toDate(),
+            path: '/api',
+            secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
+            httpOnly: true,
+            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
+        });
+
         ctx.cookies.set('refreshToken', null, {
             expires: dayjs.unix(0).toDate(),
-            path: '/api/auth',
+            path: '/api/auth/refresh-token',
             secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
             httpOnly: true,
             sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
@@ -127,6 +143,14 @@ class AuthKoaController
 
         const useCase = new RefreshTokenUseCase();
         const payload = await useCase.handle(data);
+
+        ctx.cookies.set('accessToken', payload.accessToken, {
+            expires: dayjs().add(payload.expiresIn, 'second').toDate(),
+            path: '/api',
+            secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
+            httpOnly: true,
+            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
+        });
 
         ctx.cookies.set('refreshToken', payload.refreshToken, {
             expires: dayjs().add(payload.refreshExpiresIn, 'second').toDate(),
