@@ -1,8 +1,8 @@
 import { createTerminus } from '@godaddy/terminus';
 
-import ICacheRepository from './Shared/Infrastructure/Repositories/ICacheRepository';
+import ICacheRepository from './Main/Infrastructure/Repositories/ICacheRepository';
 import Logger from './Shared/Helpers/Logger';
-import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
+import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
 import { EventHandler } from '@digichanges/shared-experience';
 import { Server } from 'http';
 

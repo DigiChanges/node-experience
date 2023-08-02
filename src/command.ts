@@ -12,7 +12,6 @@ import CreateVapID from './Notification/Presentation/Commands/CreateVapID';
 
 import AssignRoleToUserCommand from './Auth/Presentation/Commands/AssingRoleToUserCommand';
 import SyncRolesPermissionCommand from './Auth/Presentation/Commands/SyncRolesPermissionCommand';
-import CreateBucketCommand from './File/Presentation/Commands/CreateBucketCommand';
 import Seed from './Main/Presentation/Commands/SeedCommand';
 import initCommand from './initCommand';
 import ActiveUserCommand from './Auth/Presentation/Commands/ActiveUserCommand';
@@ -31,7 +30,6 @@ void (async() =>
         program.addCommand(AssignRoleToUserCommand);
         program.addCommand(CreateVapID);
         program.addCommand(SyncRolesPermissionCommand);
-        program.addCommand(CreateBucketCommand);
         program.addCommand(Seed);
         program.addCommand(ActiveUserCommand);
 

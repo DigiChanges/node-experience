@@ -5,7 +5,7 @@ import AuthTransformer from '../Transformers/AuthTransformer';
 import PermissionsTransformer from '../Transformers/PermissionsTransformer';
 import { AuthUser } from '../Helpers/AuthUser';
 import UserTransformer from '../Transformers/UserTransformer';
-import { DefaultTransformer, StatusCode } from '@digichanges/shared-experience';
+import { DefaultTransformer, ErrorHttpException, StatusCode } from '@digichanges/shared-experience';
 import MainConfig from '../../../Config/MainConfig';
 import ForgotPasswordPayload from '../../Domain/Payloads/Auth/ForgotPasswordPayload';
 import RefreshTokenPayload from '../../Domain/Payloads/Auth/RefreshTokenPayload';
@@ -68,10 +68,9 @@ class AuthKoaController
 
         ctx.cookies.set('refreshToken', payload.refreshToken, {
             expires: dayjs().add(payload.refreshExpiresIn, 'second').toDate(),
-            maxAge: payload.refreshExpiresIn,
             path: '/api/auth',
             secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
-            httpOnly: false,
+            httpOnly: true,
             sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
         });
 
@@ -102,7 +101,6 @@ class AuthKoaController
 
         ctx.cookies.set('refreshToken', null, {
             expires: dayjs.unix(0).toDate(),
-            maxAge: 0,
             path: '/api/auth',
             secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
             httpOnly: true,
@@ -114,8 +112,17 @@ class AuthKoaController
 
     static async refreshToken(ctx: Koa.ParameterizedContext & any)
     {
+        const cookies = ctx.get('Cookie');
+        const match = cookies.match(/refreshToken=([^;]*)/);
+        const refreshToken = match ? match[1] : null;
+
+        if (!refreshToken)
+        {
+            throw new ErrorHttpException(StatusCode.HTTP_FORBIDDEN,  { message: 'Refresh token not found' });
+        }
+
         const data: RefreshTokenPayload = {
-            refreshToken: new AuthHelperService().getToken(ctx.get('Authorization'))
+            refreshToken
         };
 
         const useCase = new RefreshTokenUseCase();
@@ -123,10 +130,9 @@ class AuthKoaController
 
         ctx.cookies.set('refreshToken', payload.refreshToken, {
             expires: dayjs().add(payload.refreshExpiresIn, 'second').toDate(),
-            maxAge: payload.refreshExpiresIn,
             path: '/api/auth',
             secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
-            httpOnly: false,
+            httpOnly: true,
             sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
         });
 

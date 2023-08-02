@@ -1,7 +1,7 @@
 import MainConfig from '../../../Config/MainConfig';
-import CreateMongooseConnection from '../../../Shared/Infrastructure/Database/CreateMongooseConnection';
-import CreateMikroORMConnection from '../../../Shared/Infrastructure/Database/CreateMikroORMConnection';
-import ICreateConnection from '../../../Shared/Infrastructure/Database/ICreateConnection';
+import CreateMongooseConnection from '../Database/CreateMongooseConnection';
+import CreateMikroORMConnection from '../Database/CreateMikroORMConnection';
+import ICreateConnection from '../Database/ICreateConnection';
 
 type DbValueProp = typeof CreateMongooseConnection | typeof CreateMikroORMConnection;
 

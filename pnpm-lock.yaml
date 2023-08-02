@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@digichanges/shared-experience':
-    specifier: ^1.0.0
-    version: 1.0.0
+    specifier: ^1.2.1
+    version: 1.2.1
   '@faker-js/faker':
     specifier: ^8.0.2
     version: 8.0.2
@@ -1685,15 +1685,16 @@ packages:
       node-source-walk: 5.0.2
     dev: true
 
-  /@digichanges/shared-experience@1.0.0:
-    resolution: {integrity: sha512-v2FKoMFARRk7hrDw8iYqA3Q75p49/cKNRiR0bWlNPsa9bR0FLoqsARI5cbeMgzqDkgPVR8IuZ0tMc4CUsxdQaQ==}
+  /@digichanges/shared-experience@1.2.1:
+    resolution: {integrity: sha512-WCOqK+lrAbyGAUsYPmS0pulfbXQhhtYkTRGqw0UNjU/UlylFSYW1fFmvvmk8205TriAqo7vsTfS9jJ28hZ9mhQ==}
     dependencies:
-      '@types/qs': 6.9.7
       bcrypt: 5.1.0
       koa: 2.14.2
       koa-qs: 3.0.0
       koa-router: 12.0.0
+      lodash: 4.17.21
       md5: 2.3.0
+      minio: 7.1.1
       qs: 6.11.2
       rxjs: 7.8.1
     transitivePeerDependencies:
@@ -2935,6 +2936,7 @@ packages:
 
   /@types/qs@6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
+    dev: true
 
   /@types/range-parser@1.2.4:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}

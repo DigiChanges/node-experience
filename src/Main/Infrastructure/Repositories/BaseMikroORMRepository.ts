@@ -2,7 +2,7 @@ import { EntityRepository, EntitySchema, FindOneOptions } from '@mikro-orm/core'
 import { NotFoundException } from '@digichanges/shared-experience';
 import IByOptions from './IByOptions';
 import IBaseRepository from './IBaseRepository';
-import EntityMikroORMManagerFactory from '../../../Main/Infrastructure/Factories/EntityMikroORMManagerFactory'; // TODO: Refactor
+import EntityMikroORMManagerFactory from '../Factories/EntityMikroORMManagerFactory'; // TODO: Refactor
 
 abstract class BaseMikroORMRepository<T extends object> implements IBaseRepository<T>
 {
