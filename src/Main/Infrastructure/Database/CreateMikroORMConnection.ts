@@ -1,10 +1,8 @@
 import { MikroORM } from '@mikro-orm/core';
 import { newDb } from 'pg-mem';
 import Item from '../../../Item/Infrastructure/Schemas/ItemMikroORM';
-import File from '../../../File/Infrastructure/Schemas/FileMikroORM';
-import FileVersion from '../../../File/Infrastructure/Schemas/FileVersionMikroORM';
 import ICreateConnection from './ICreateConnection';
-import Logger from '../../Helpers/Logger';
+import Logger from '../../../Shared/Helpers/Logger';
 
 export let orm: MikroORM;
 
@@ -13,9 +11,7 @@ class CreateMikroORMConnection implements ICreateConnection
     private readonly config: any;
     private createInstanceConnection: any;
     private entities = [
-        FileVersion,
-        Item,
-        File
+        Item
     ];
 
     constructor(config: any = null)

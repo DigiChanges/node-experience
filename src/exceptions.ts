@@ -1,5 +1,3 @@
-import MainConfig from './Config/MainConfig';
-
 import { StatusCode, DecryptForbiddenException, NotFoundException } from '@digichanges/shared-experience';
 import BadCredentialsException from './Auth/Domain/Exceptions/BadCredentialsException';
 import UserDisabledException from './Auth/Domain/Exceptions/UserDisabledException';
@@ -9,8 +7,6 @@ import WrongPermissionsException from './Auth/Domain/Exceptions/WrongPermissions
 import InvalidPasswordException from './Main/Domain/Exceptions/InvalidPasswordException';
 import UniqueAttributeException from './Main/Domain/Exceptions/UniqueAttributeException';
 import UnverifiedUserException from './Auth/Domain/Exceptions/UnverifiedUserException';
-
-const config = MainConfig.getInstance().getConfig().statusCode;
 
 const exceptions = {
     [DecryptForbiddenException.name]: StatusCode.HTTP_FORBIDDEN,

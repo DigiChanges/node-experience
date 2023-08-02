@@ -5,16 +5,12 @@ import { customAlphabet } from 'nanoid/async';
 
 import ItemSchema, { ItemMongooseDocument } from '../../../Item/Infrastructure/Schemas/ItemMongoose';
 
-import FileVersionSchema, {
-    FileVersionMongooseDocument
-} from '../../../File/Infrastructure/Schemas/FileVersionMongoose';
 import {
     EmailNotificationSchema, NotificationMongooseDocument,
     NotificationSchema,
     PushNotificationSchema
 } from '../../../Notification/Infrastructure/Schemas/NotificationMongoose';
 import ICreateConnection from './ICreateConnection';
-import FileSchema, { FileMongooseDocument } from '../../../File/Infrastructure/Schemas/FileMongoose';
 
 class CreateMongooseConnection implements ICreateConnection
 {
@@ -59,8 +55,6 @@ class CreateMongooseConnection implements ICreateConnection
 
         // Domain
         connection.model<ItemMongooseDocument>('Item', ItemSchema);
-        connection.model<FileVersionMongooseDocument>('FileVersion', FileVersionSchema);
-        connection.model<FileMongooseDocument>('File', FileSchema);
 
         // Infrastructure
         const NotificationModel = connection.model<NotificationMongooseDocument>('Notification', NotificationSchema);

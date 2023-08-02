@@ -1,4 +1,4 @@
-import IBaseRepository from '../../../Shared/Infrastructure/Repositories/IBaseRepository';
+import IBaseRepository from '../../../Main/Infrastructure/Repositories/IBaseRepository';
 import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 

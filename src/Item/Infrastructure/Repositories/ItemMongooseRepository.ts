@@ -3,9 +3,9 @@ import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 
 import IItemRepository from './IItemRepository';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
-import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
+import MongoosePaginator from '../../../Main/Infrastructure/Orm/MongoosePaginator';
 
-import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/BaseMongooseRepository';
+import BaseMongooseRepository from '../../../Main/Infrastructure/Repositories/BaseMongooseRepository';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 import Item from '../../Domain/Entities/Item';
 import { ItemMongooseDocument } from '../Schemas/ItemMongoose';

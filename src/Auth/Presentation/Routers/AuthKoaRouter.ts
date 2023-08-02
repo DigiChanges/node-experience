@@ -14,7 +14,7 @@ router.put('/me', AuthorizeKoaMiddleware(Permissions.AUTH_GET_ME), AuthKoaContro
 router.post('/login', AuthKoaController.login);
 router.post('/signup', AuthKoaController.signup);
 router.post('/logout', AuthorizeKoaMiddleware(Permissions.AUTH_GET_ME), AuthKoaController.logout);
-router.post('/refresh-token', AuthorizeKoaMiddleware(Permissions.AUTH_GET_ME), AuthKoaController.refreshToken);
+router.post('/refresh-token', AuthKoaController.refreshToken);
 router.post('/forgot-password', AuthKoaController.forgotPassword);
 router.post('/change-forgot-password', AuthKoaController.changeForgotPassword);
 router.put('/verify-your-account/:confirmationToken', AuthKoaController.verifyAccount);

@@ -1,4 +1,4 @@
-import IBaseRepository from '../../../../Shared/Infrastructure/Repositories/IBaseRepository';
+import IBaseRepository from '../../../../Main/Infrastructure/Repositories/IBaseRepository';
 import IUserDomain from '../../../Domain/Entities/IUserDomain';
 import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 import UserAssignRolePayload from '../../../Domain/Payloads/User/UserAssignRolePayload';

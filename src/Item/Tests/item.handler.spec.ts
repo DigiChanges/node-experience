@@ -3,7 +3,7 @@ import initTestServer from '../../initTestServer';
 import { ILoginResponse } from '../../Main/Tests/ILogin';
 import { IItemResponse, IListItemsResponse } from './types';
 import MainConfig from '../../Config/MainConfig';
-import ICreateConnection from '../../Shared/Infrastructure/Database/ICreateConnection';
+import ICreateConnection from '../../Main/Infrastructure/Database/ICreateConnection';
 
 describe('Start Item Test', () =>
 {

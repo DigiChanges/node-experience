@@ -1,5 +1,5 @@
-import RedisCacheRepository from '../../../Shared/Infrastructure/Repositories/RedisCacheRepository';
-import ICacheRepository from '../../../Shared/Infrastructure/Repositories/ICacheRepository';
+import RedisCacheRepository from '../Repositories/RedisCacheRepository';
+import ICacheRepository from '../Repositories/ICacheRepository';
 import { CacheConfig } from '../../../Config/MainConfig';
 
 class CacheFactory

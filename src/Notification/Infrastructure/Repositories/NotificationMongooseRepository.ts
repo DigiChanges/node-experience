@@ -4,7 +4,7 @@ import { NotFoundException, IPaginator, ICriteria } from '@digichanges/shared-ex
 import INotificationRepository from './INotificationRepository';
 import { NotificationMongooseDocument } from '../Schemas/NotificationMongoose';
 
-import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
+import MongoosePaginator from '../../../Main/Infrastructure/Orm/MongoosePaginator';
 import INotificationDomain from '../../Domain/Entities/INotificationDomain';
 import EmailNotification from '../../Domain/Entities/EmailNotification';
 import PushNotification from '../../Domain/Entities/PushNotification';

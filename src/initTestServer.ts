@@ -11,7 +11,7 @@ import SeedFactory from './Shared/Factories/SeedFactory';
 import Locales from './Shared/Utils/Locales';
 import MainConfig from './Config/MainConfig';
 import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFactory';
-import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
+import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
 import IAuthRepository from './Auth/Infrastructure/Repositories/Auth/IAuthRepository';
 import IAuthzRepository from './Auth/Infrastructure/Repositories/Auth/IAuthzRepository';
 import IUserRepository from './Auth/Infrastructure/Repositories/User/IUserRepository';

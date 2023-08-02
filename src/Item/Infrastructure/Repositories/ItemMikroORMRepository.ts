@@ -2,11 +2,11 @@ import IItemRepository from './IItemRepository';
 import Item from '../../Domain/Entities/Item';
 import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 
-import Paginator from '../../../Shared/Infrastructure/Orm/MikroORMPaginator';
+import Paginator from '../../../Main/Infrastructure/Orm/MikroORMPaginator';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import ItemSchema from '../Schemas/ItemMikroORM';
 
-import BaseMikroORMRepository from '../../../Shared/Infrastructure/Repositories/BaseMikroORMRepository';
+import BaseMikroORMRepository from '../../../Main/Infrastructure/Repositories/BaseMikroORMRepository';
 import { QueryBuilder } from '@mikro-orm/postgresql';
 
 class ItemMikroORMRepository extends BaseMikroORMRepository<Item> implements IItemRepository

@@ -1,7 +1,6 @@
 import { DefaultContext } from 'koa';
 
 import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
-import IFileVersionDTO from '../../../File/Domain/Models/IFileVersionDTO';
 import { IPaginator, Transformer, FormatError, ErrorHttpException } from '@digichanges/shared-experience';
 import PaginatorTransformer from '../../../Shared/Utils/PaginatorTransformer';
 import { IHttpStatusCode } from '../../../Config/MainConfig';
@@ -60,14 +59,6 @@ class KoaResponder
 
         ctx.status = status.code;
         return ctx.body = result;
-    }
-
-    public sendStream(fileDto: IFileVersionDTO, ctx: DefaultContext & any, status: IHttpStatusCode)
-    {
-        ctx.status = status.code;
-        ctx.response.set('Content-Type', fileDto.metadata.mimeType);
-
-        return ctx.body = fileDto.stream;
     }
 
     public error(error: ErrorHttpException, ctx: DefaultContext, status: IHttpStatusCode, metadata: Record<string, any> | null)

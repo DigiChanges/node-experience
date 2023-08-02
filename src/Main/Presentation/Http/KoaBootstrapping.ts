@@ -13,7 +13,6 @@ import ItemKoaRouter from '../../../Item/Presentation/Routes/ItemKoaRouter';
 import RoleKoaRouter from '../../../Auth/Presentation/Routers/RoleKoaRouter';
 import UserKoaRouter from '../../../Auth/Presentation/Routers/UserKoaRouter';
 import NotificationKoaHandler from '../../../Notification/Presentation/Handlers/NotificationKoaHandler';
-import FileKoaRouter from '../../../File/Presentation/Routes/FileKoaRouter';
 import AuthKoaRouter from '../../../Auth/Presentation/Routers/AuthKoaRouter';
 import { ErrorKoaHandler } from '../Middleware/ErrorKoaHandler';
 import MainConfig from '../../../Config/MainConfig';
@@ -32,7 +31,7 @@ const KoaBootstrapping = async(config: IAppConfig) =>
         origin: (ctx) =>
         {
             const { env } = MainConfig.getInstance().getConfig();
-            const validDomains = env === 'development' ? ['http://localhost:5173'] : ['https://domain.com'];
+            const validDomains = env === 'development' ? ['http://localhost:3000'] : ['https://domain.com'];
 
             if (validDomains.indexOf(ctx.request.header.origin) !== -1)
             {
@@ -63,7 +62,6 @@ const KoaBootstrapping = async(config: IAppConfig) =>
     app.addRouter<Router>(RoleKoaRouter);
     app.addRouter<Router>(UserKoaRouter);
     app.addRouter<Router>(NotificationKoaHandler);
-    app.addRouter<Router>(FileKoaRouter);
     app.addRouter<Router>(AuthKoaRouter);
 
     app.addMiddleware<Koa.Middleware>(GetRequestContextKoaMiddleware);
