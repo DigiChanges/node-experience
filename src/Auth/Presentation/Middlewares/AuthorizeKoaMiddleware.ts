@@ -12,7 +12,10 @@ const AuthorizeKoaMiddleware = (...handlerPermissions: string[]) =>
     {
         const container: DependencyContainer = ctx.container;
 
-        const authorizationHeader = ctx.get('Authorization');
+        const cookies = ctx.get('Cookie');
+        const match = cookies.match(/accessToken=([^;]*)/);
+        const authorizationHeader = match ? match[1] : null;
+
         const authorizeService: AuthorizeService = container.resolve<AuthorizeService>(SERVICES.AuthorizeService);
         const authHelperService = new AuthHelperService();
         const token = authHelperService.getToken(authorizationHeader);
