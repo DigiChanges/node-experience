@@ -2,7 +2,7 @@ import SendEmailService from '../../../../Notification/Domain/Services/SendEmail
 import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../../Shared/Utils/Locales';
 import RegisterPayload from '../../Payloads/Auth/RegisterPayload';
-import { ErrorHttpException, ILocaleMessage } from '@digichanges/shared-experience';
+import { ErrorHttpException, ILocaleMessage, StatusCode } from '@digichanges/shared-experience';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import { REPOSITORIES } from '../../../../Config/Injects';
@@ -27,14 +27,13 @@ class RegisterUseCase
     {
         await ValidatorSchema.handle(RegisterSchemaValidation, payload);
 
-        const statusCode = MainConfig.getInstance().getConfig().statusCode;
         const response = await this.repository.signUp(payload);
         const error = 'User exists with same username';
 
         if (response?.errorMessage === error)
         {
             // ! Add Custom Exception with mapping on an HttpException
-            throw new ErrorHttpException(statusCode['HTTP_CONFLICT'], { message: error });
+            throw new ErrorHttpException(StatusCode.HTTP_BAD_REQUEST, { message: error });
         }
 
         const { urlWeb } = MainConfig.getInstance().getConfig().url;

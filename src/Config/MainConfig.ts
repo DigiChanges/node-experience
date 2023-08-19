@@ -28,16 +28,7 @@ type AppConfig = {
 }
 
 type MongooseConfig = {
-    host: string;
-    port: number;
-    database: string;
-    username: string;
-    password: string;
-    driver: string;
-    ssl: boolean;
-    sslValidate: boolean;
-    sslCA: string | null;
-    replicaSet: string | null;
+    uri: string;
 };
 
 type MikroORMConfig = {
@@ -109,13 +100,6 @@ type ValidateSettingsType = {
     };
 };
 
-export type IHttpStatusCode =
-{
-    code: number;
-    statusCode: string;
-    status: string;
-}
-
 type ConfigType = {
     env: string,
     auth: AuthConfig;
@@ -144,8 +128,7 @@ type ConfigType = {
         name: string
     };
     executeCrons: boolean,
-    validationSettings: ValidateSettingsType,
-    statusCode: Record<string, IHttpStatusCode>
+    validationSettings: ValidateSettingsType
 }
 
 type DomainInfoConfig = {

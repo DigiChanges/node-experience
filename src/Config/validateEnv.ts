@@ -21,19 +21,8 @@ export function validateEnv()
         KEYCLOAK_PASSWORD: str(),
         KEYCLOAK_AUTHORIZATION: bool(),
 
-        DB_HOST: str(),
-        DB_USER: str(),
-        DB_DATABASE: str(),
-        DB_PASSWORD: str(),
-        DB_PORT: port(),
-        DB_DRIVER: str(),
-        SSL: bool(),
-        SSL_VALIDATE: bool(),
-        SSL_CA: str(),
-        REPLICA_SET: str(),
+        DB_URI: str(),
         DB_ORM_DEFAULT: str(),
-
-        DB_SYNCHRONIZE: bool(),
         DB_TYPE: str(),
 
         MINIO_HOST: str(),

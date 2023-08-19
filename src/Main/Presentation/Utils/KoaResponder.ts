@@ -1,9 +1,14 @@
 import { DefaultContext } from 'koa';
 
 import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
-import { IPaginator, Transformer, FormatError, ErrorHttpException } from '@digichanges/shared-experience';
+import {
+    IPaginator,
+    Transformer,
+    FormatError,
+    ErrorHttpException,
+    IHttpStatusCode
+} from '@digichanges/shared-experience';
 import PaginatorTransformer from '../../../Shared/Utils/PaginatorTransformer';
-import { IHttpStatusCode } from '../../../Config/MainConfig';
 
 class KoaResponder
 {

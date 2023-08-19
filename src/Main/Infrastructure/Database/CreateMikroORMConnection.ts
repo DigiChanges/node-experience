@@ -25,6 +25,7 @@ class CreateMikroORMConnection implements ICreateConnection
         {
             orm = await MikroORM.init({
                 entities: this.entities,
+                clientUrl: '',
                 dbName: this.config.dbName,
                 type: this.config.type, // TODO: see docs to change type deprecated attribute
                 host: this.config.host,

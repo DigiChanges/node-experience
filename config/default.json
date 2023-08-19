@@ -2,7 +2,7 @@
   "env": "local",
   "app": {
     "default": "AppKoa",
-    "path": "/usr/app",
+    "path": "/home/node/app",
     "serverPort": 8089,
     "setAppProxy": false,
     "setCookieSecure": false,
@@ -20,16 +20,7 @@
   },
   "dbConfig": {
     "Mongoose": {
-      "host": "db",
-      "port": 27017,
-      "database": "experience",
-      "username": "experience",
-      "password": "experience",
-      "driver": "mongo",
-      "ssl": false,
-      "sslValidate": false,
-      "sslCA": "",
-      "replicaSet": ""
+      "uri": "DB_URI"
     },
     "MikroORM": {
       "type": "postgresql",

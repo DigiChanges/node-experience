@@ -20,16 +20,7 @@
   },
   "dbConfig": {
     "Mongoose": {
-      "host": "DB_HOST",
-      "port": "DB_PORT",
-      "username": "DB_USER",
-      "password": "DB_PASSWORD",
-      "database": "DB_DATABASE",
-      "driver": "DB_DRIVER",
-      "ssl": "SSL",
-      "sslValidate": "SSL_VALIDATE",
-      "sslCA": "SSL_CA",
-      "replicaSet": "REPLICA_SET"
+      "uri": "DB_URI"
     },
     "MikroORM": {
       "host": "DB_HOST",

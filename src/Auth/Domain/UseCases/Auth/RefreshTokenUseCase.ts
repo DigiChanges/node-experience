@@ -2,8 +2,7 @@ import RefreshTokenPayload from '../../Payloads/Auth/RefreshTokenPayload';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
-import MainConfig from '../../../../Config/MainConfig';
-import { ErrorHttpException } from '@digichanges/shared-experience';
+import { ErrorHttpException, StatusCode } from '@digichanges/shared-experience';
 import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import RefreshTokenSchemaValidation from '../../../Presentation/Validations/Auth/RefreshTokenSchemaValidation';
 
@@ -21,15 +20,12 @@ class RefreshTokenUseCase
     {
         await ValidatorSchema.handle(RefreshTokenSchemaValidation, payload);
 
-        // ! Remove it from here on another exception without http
-        const statusCode = MainConfig.getInstance().getConfig().statusCode;
-
         const refreshData = await this.repository.refreshToken(payload);
 
         if (refreshData?.error)
         {
             // ! Add Custom Exception with mapping on an HttpException
-            throw new ErrorHttpException(statusCode['HTTP_UNAUTHORIZED'], { message: 'Invalid Credentials.' });
+            throw new ErrorHttpException(StatusCode.HTTP_UNAUTHORIZED, { message: 'Invalid Credentials.' });
         }
 
         return {

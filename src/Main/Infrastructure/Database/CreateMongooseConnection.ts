@@ -1,5 +1,4 @@
 import { connect, connection } from 'mongoose';
-import MainConfig from '../../../Config/MainConfig';
 import { urlAlphabet } from 'nanoid';
 import { customAlphabet } from 'nanoid/async';
 
@@ -12,16 +11,16 @@ import {
 } from '../../../Notification/Infrastructure/Schemas/NotificationMongoose';
 import ICreateConnection from './ICreateConnection';
 
+type MongooseOptions = { autoIndex: boolean };
+
 class CreateMongooseConnection implements ICreateConnection
 {
-    private readonly config: any;
     private uri: string;
-    private readonly options: any;
+    private readonly options: MongooseOptions;
 
-    constructor(config: any)
+    constructor(config: { uri: string })
     {
-        this.config = config;
-        this.uri = '';
+        this.uri = config.uri;
         this.options = {
             autoIndex: true
         };
@@ -29,17 +28,7 @@ class CreateMongooseConnection implements ICreateConnection
 
     async initConfig(): Promise<void>
     {
-        const config = MainConfig.getInstance().getConfig().dbConfig.Mongoose;
-        this.uri = `mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`;
-
-        if (config.ssl)
-        {
-            this.options['ssl'] = config.ssl;
-            this.options['sslValidate'] = config.sslValidate;
-            this.options['sslCA'] = config.sslCA;
-            this.options['replicaSet'] = config.replicaSet;
-            this.uri = `${config.driver}://${config.username}:${config.password}@${config.host}/${config.database}?authSource=admin`;
-        }
+        //
     }
 
     async initConfigTest(): Promise<void>
@@ -51,7 +40,7 @@ class CreateMongooseConnection implements ICreateConnection
 
     async create(): Promise<void>
     {
-        await connect(this.uri);
+        await connect(this.uri, this.options);
 
         // Domain
         connection.model<ItemMongooseDocument>('Item', ItemSchema);
