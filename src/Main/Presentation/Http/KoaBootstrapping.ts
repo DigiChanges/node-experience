@@ -15,22 +15,22 @@ import UserKoaRouter from '../../../Auth/Presentation/Routers/UserKoaRouter';
 import NotificationKoaHandler from '../../../Notification/Presentation/Handlers/NotificationKoaHandler';
 import AuthKoaRouter from '../../../Auth/Presentation/Routers/AuthKoaRouter';
 import { ErrorKoaHandler } from '../Middleware/ErrorKoaHandler';
-import MainConfig from '../../../Config/MainConfig';
 
 import LoggerKoaMiddleware from '../Middleware/LoggerKoaMiddleware';
 import ContextMikroORMKoaMiddleware from '../Middleware/ContextMikroORMKoaMiddleware';
 import ContainerKoaMiddleware from '../Middleware/ContainerKoaMiddleware';
 import RedirectRouteNotFoundKoaMiddleware from '../Middleware/RedirectRouteNotFoundKoaMiddleware';
 import GetRequestContextKoaMiddleware from '../Middleware/GetRequestContextKoaMiddleware';
+import IExtendAppConfig from './IExtendAppConfig';
 
-const KoaBootstrapping = async(config: IAppConfig) =>
+const KoaBootstrapping = async(config: IExtendAppConfig) =>
 {
     const app: IApp = new AppKoa(config);
     app.addMiddleware<Koa.Middleware>(cors({
         credentials: true,
         origin: (ctx) =>
         {
-            const { env } = MainConfig.getInstance().getConfig();
+            const { env } = config;
             const validDomains = env === 'development' ? ['http://localhost:3000'] : ['https://domain.com'];
 
             if (validDomains.indexOf(ctx.request.header.origin) !== -1)
@@ -49,7 +49,7 @@ const KoaBootstrapping = async(config: IAppConfig) =>
 
     app.addMiddleware<Koa.Middleware>(ErrorKoaHandler.handle);
 
-    if (MainConfig.getInstance().getConfig().dbConfig.default === 'MikroORM')
+    if (config.dbConfigDefault === 'MikroORM')
     {
         app.addMiddleware<Koa.Middleware>(ContextMikroORMKoaMiddleware);
     }

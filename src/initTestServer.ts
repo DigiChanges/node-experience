@@ -71,7 +71,9 @@ const initTestServer = async(): Promise<TestServerData> =>
 
     const app: IApp = await appBootstrap({
         serverPort: 8088,
-        proxy: false
+        proxy: false,
+        env: 'test',
+        dbConfigDefault: 'Mongoose' // TODO: Replace for a mock
     });
 
     const application = app.callback();

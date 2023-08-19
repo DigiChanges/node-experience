@@ -1,8 +1,5 @@
 import { StatusCode } from '@digichanges/shared-experience';
 import throttle from 'koa-ratelimit';
-import MainConfig from '../../../Config/MainConfig';
-
-const config = MainConfig.getInstance().getConfig().statusCode;
 
 const meta: any = {
     ...StatusCode.HTTP_TOO_MANY_REQUESTS,

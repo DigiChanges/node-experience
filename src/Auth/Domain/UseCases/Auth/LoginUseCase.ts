@@ -4,7 +4,7 @@ import { REPOSITORIES } from '../../../../Config/Injects';
 
 import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
-import { ErrorHttpException } from '@digichanges/shared-experience';
+import { ErrorHttpException, StatusCode } from '@digichanges/shared-experience';
 import MainConfig from '../../../../Config/MainConfig';
 import ILoginResponse from '../../Models/ILoginResponse';
 import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
@@ -25,15 +25,12 @@ class LoginUseCase
     {
         await ValidatorSchema.handle(AuthSchemaValidation, payload);
 
-        const { statusCode, auth } = MainConfig.getInstance().getConfig();
-        // ! Remove it from here on another exception without http
-        const { authorization: hasActiveAuthorization } = auth;
         const loginData = await this.repository.login(payload);
 
         if (loginData?.error)
         {
             // ! Add Custom Exception with mapping on an HttpException
-            throw new ErrorHttpException(statusCode['HTTP_UNAUTHORIZED'], { message: 'Invalid Credentials.' });
+            throw new ErrorHttpException(StatusCode.HTTP_UNAUTHORIZED, { message: 'Invalid Credentials.' });
         }
 
         return {

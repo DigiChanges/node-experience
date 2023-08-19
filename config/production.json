@@ -2,7 +2,7 @@
   "env": "production",
   "app": {
     "default": "AppKoa",
-    "path": "/usr/app",
+    "path": "/home/node/app",
     "serverPort": 80,
     "setAppProxy": true,
     "setCookieSecure": false,

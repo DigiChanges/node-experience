@@ -1,24 +1,26 @@
 import axios from 'axios';
 import qs from 'qs';
-import { ErrorHttpException, NotFoundException, ICriteria } from '@digichanges/shared-experience';
+import {
+    ErrorHttpException,
+    NotFoundException,
+    ICriteria,
+    StatusCode
+} from '@digichanges/shared-experience';
 
 import IRoleRepository from './IRoleRepository';
 import IRoleDomain from '../../../Domain/Entities/IRoleDomain';
 import RoleFilter from '../../../Presentation/Criterias/RoleFilter';
 import Role from '../../../Domain/Entities/Role';
 import KeycloakAxiosRepository from '../Auth/KeycloakAxiosRepository';
-import MainConfig, { IHttpStatusCode } from '../../../../Config/MainConfig';
 
 class RoleKeycloakRepository extends KeycloakAxiosRepository implements IRoleRepository
 {
     private readonly mainUrl: string;
-    private statusCode: Record<string, IHttpStatusCode>;
 
     constructor()
     {
         super();
         this.mainUrl = `${this.host}/admin/realms/${this.mainRealm}/clients/${this.clientUuid}/roles`;
-        this.statusCode = MainConfig.getInstance().getConfig().statusCode;
     }
 
     async getAll(): Promise<IRoleDomain[]>
@@ -39,7 +41,7 @@ class RoleKeycloakRepository extends KeycloakAxiosRepository implements IRoleRep
 
         if (roles?.error === 'Realm not found.')
         {
-            throw new ErrorHttpException(this.statusCode['HTTP_BAD_REQUEST'], {
+            throw new ErrorHttpException(StatusCode.HTTP_BAD_REQUEST, {
                 message: 'Realm not found.'
             });
         }

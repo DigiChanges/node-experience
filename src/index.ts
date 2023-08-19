@@ -25,9 +25,12 @@ void (async() =>
 
         // Init Application
         const appBootstrap = AppBootstrapFactory.create(config.app.default);
+
         const app: IApp = await appBootstrap({
             serverPort: config.app.serverPort,
-            proxy: config.app.setAppProxy
+            proxy: config.app.setAppProxy,
+            env: config.env,
+            dbConfigDefault: config.dbConfig.default
         });
 
         const server = app.listen(() =>
