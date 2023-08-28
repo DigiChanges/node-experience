@@ -13,7 +13,7 @@ router.get('/me', AuthorizeKoaMiddleware(Permissions.AUTH_GET_ME), AuthKoaContro
 router.put('/me', AuthorizeKoaMiddleware(Permissions.AUTH_GET_ME), AuthKoaController.updateMe);
 router.post('/login', AuthKoaController.login);
 router.post('/signup', AuthKoaController.signup);
-router.post('/logout', AuthorizeKoaMiddleware(Permissions.AUTH_GET_ME), AuthKoaController.logout);
+router.post('/logout', AuthKoaController.logout);
 router.post('/refresh-token', AuthKoaController.refreshToken);
 router.post('/forgot-password', AuthKoaController.forgotPassword);
 router.post('/change-forgot-password', AuthKoaController.changeForgotPassword);
