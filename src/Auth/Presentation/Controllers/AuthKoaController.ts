@@ -100,24 +100,26 @@ class AuthKoaController
 
     static async logout(ctx: Koa.ParameterizedContext & any)
     {
+        const cookies = ctx.get('Cookie');
+
         const data: LogoutPayload = {
-            token: new AuthHelperService().getToken(ctx.get('Authorization'))
+            token: new AuthHelperService().getToken(cookies, 'accessToken')
         };
 
         const useCase = new LogoutUseCase();
         const payload = await useCase.handle(data);
 
-        ctx.cookies.set('accessToken', null, {
-            expires: dayjs.unix(0).toDate(),
+        ctx.cookies.set('accessToken', '', {
+            expires: dayjs().add(0, 'second').toDate(),
             path: '/api',
             secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
             httpOnly: true,
             sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
         });
 
-        ctx.cookies.set('refreshToken', null, {
-            expires: dayjs.unix(0).toDate(),
-            path: '/api/auth/refresh-token',
+        ctx.cookies.set('refreshToken', '', {
+            expires: dayjs().add(0, 'second').toDate(),
+            path: '/api/auth',
             secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
             httpOnly: true,
             sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
@@ -129,13 +131,7 @@ class AuthKoaController
     static async refreshToken(ctx: Koa.ParameterizedContext & any)
     {
         const cookies = ctx.get('Cookie');
-        const match = cookies.match(/refreshToken=([^;]*)/);
-        const refreshToken = match ? match[1] : null;
-
-        if (!refreshToken)
-        {
-            throw new ErrorHttpException(StatusCode.HTTP_FORBIDDEN,  { message: 'Refresh token not found' });
-        }
+        const refreshToken = new AuthHelperService().getToken(cookies, 'refreshToken');
 
         const data: RefreshTokenPayload = {
             refreshToken

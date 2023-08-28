@@ -9,14 +9,18 @@ class AuthHelperService
 {
     private config = MainConfig.getInstance().getConfig();
 
-    public getToken(authorizationHeader: string): string
+    public getToken(cookies: string, key: string): string
     {
-        if (!authorizationHeader)
+        const regex = new RegExp(`${key}=([^;]*)`);
+        const match = cookies.match(regex);
+        const token = match ? match[1] : null;
+
+        if (!token)
         {
             throw new TokenNotFoundHttpException();
         }
 
-        return authorizationHeader.replaceAll('Bearer ', '');
+        return token;
     }
 
     public getConfirmationToken(email: string): string

@@ -35,6 +35,12 @@ prod:
 	@echo '************                               ************'
 	STAGE=prod docker compose up --build -d
 
+build_prod:
+	@echo '************                               ************'
+	@echo '************        PROD BUILD    	      ************'
+	@echo '************                               ************'
+	STAGE=prod docker compose build
+
 dev_sql:
 	@echo '************                               ************'
 	@echo '************        DEV SQL INIT  	      ************'
