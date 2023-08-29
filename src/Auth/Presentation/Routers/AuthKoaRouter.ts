@@ -9,8 +9,8 @@ const routerOpts: Router.IRouterOptions = {
 
 const router: Router = new Router(routerOpts);
 
-router.get('/me', AuthorizeKoaMiddleware(Permissions.AUTH_GET_ME), AuthKoaController.getMe);
-router.put('/me', AuthorizeKoaMiddleware(Permissions.AUTH_GET_ME), AuthKoaController.updateMe);
+router.get('/me', AuthKoaController.getMe);
+router.put('/me', AuthKoaController.updateMe);
 router.post('/login', AuthKoaController.login);
 router.post('/signup', AuthKoaController.signup);
 router.post('/logout', AuthKoaController.logout);

@@ -9,7 +9,7 @@ export const payloadUser = {
     emailVerified: false,
     enable: false,
     firstName: 'Jhon',
-    genre: 'M',
+    gender: 'M',
     lastName: 'Doe',
     phone: '2234487968',
     updatedAt: 1663779723

@@ -46,7 +46,7 @@ class UserKeycloakRepository extends KeycloakAxiosRepository implements IUserRep
             lastName: user.lastName,
             email: user.email,
             birthdate: user.attributes.birthdate[0],
-            genre: user.attributes.genre[0],
+            gender: user.attributes.gender[0],
             phone: user.attributes.phone[0],
             country: user.attributes.country[0],
             emailVerified: user.emailVerified,
@@ -137,7 +137,7 @@ class UserKeycloakRepository extends KeycloakAxiosRepository implements IUserRep
                 lastName: user.lastName,
                 email: user.email,
                 birthdate: user.attributes.birthdate[0],
-                genre: user.attributes.genre[0],
+                gender: user.attributes.gender[0],
                 phone: user.attributes.phone[0],
                 country: user.attributes.country[0],
                 emailVerified: user.emailVerified,
@@ -200,7 +200,7 @@ class UserKeycloakRepository extends KeycloakAxiosRepository implements IUserRep
             lastName: user.lastName,
             email: user.email,
             birthdate: user.attributes.birthdate[0],
-            genre: user.attributes.genre[0],
+            gender: user.attributes.gender[0],
             phone: user.attributes.phone[0],
             country: user.attributes.country[0],
             emailVerified: user.emailVerified,
@@ -223,7 +223,7 @@ class UserKeycloakRepository extends KeycloakAxiosRepository implements IUserRep
             enabled: element.enable,
             emailVerified: element.emailVerified,
             attributes: {
-                genre: [element.genre],
+                gender: [element.gender],
                 country: [element.country],
                 birthdate: [element.birthdate],
                 phone: [element.phone]
@@ -272,7 +272,7 @@ class UserKeycloakRepository extends KeycloakAxiosRepository implements IUserRep
             enabled: element.enable,
             emailVerified: element.emailVerified,
             attributes: {
-                genre: [element.genre],
+                gender: [element.gender],
                 country: [element.country],
                 birthdate: [element.birthdate],
                 phone: [element.phone]

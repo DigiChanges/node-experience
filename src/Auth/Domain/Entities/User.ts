@@ -8,7 +8,7 @@ class User extends Base implements IUserDomain
     lastName: string;
     email: string;
     birthdate: Date;
-    genre: string;
+    gender: string;
     phone: string;
     country: string;
     enable: boolean;
@@ -18,6 +18,7 @@ class User extends Base implements IUserDomain
     {
         super();
         this._id = payload?._id ?? this._id;
+        this.enable = false;
         this.updateRep(payload);
     }
 
@@ -27,10 +28,9 @@ class User extends Base implements IUserDomain
         this.lastName = payload?.lastName ?? this.lastName;
         this.email = payload?.email ?? this.email;
         this.birthdate = payload?.birthdate ?? this.birthdate;
-        this.genre = payload?.genre ?? this.genre;
+        this.gender = payload?.gender ?? this.gender;
         this.phone = payload?.phone ?? this.phone;
         this.country = payload?.country ?? this.country;
-        this.enable = payload?.enable !== undefined || payload?.enable !== null ? payload?.enable : this.enable;
         this.emailVerified = payload?.emailVerified  ?? this.emailVerified;
     }
 }

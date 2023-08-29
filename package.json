@@ -31,7 +31,7 @@
   "author": "Nathan M. Russo",
   "license": "MIT",
   "dependencies": {
-    "@digichanges/shared-experience": "^1.2.1",
+    "@digichanges/shared-experience": "^1.2.2",
     "@faker-js/faker": "^8.0.2",
     "@godaddy/terminus": "^4.12.1",
     "@koa/cors": "^4.0.0",

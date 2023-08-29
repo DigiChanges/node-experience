@@ -1,5 +1,5 @@
 
-interface UserRepPayload
+interface UserUpdateRepPayload
 {
     _id?: string;
     firstName: string;
@@ -9,8 +9,7 @@ interface UserRepPayload
     gender: string;
     phone: string;
     country: string;
-    enable: boolean;
     emailVerified: boolean;
 }
 
-export default UserRepPayload;
+export default UserUpdateRepPayload;

@@ -20,7 +20,7 @@ interface VerifyTokenResponse
     realm_access: Record<any, any>;
     resource_access: Record<any, any>;
     scope: string;
-    genre: string;
+    gender: string;
     country: string;
     phone: string;
     sid: string;

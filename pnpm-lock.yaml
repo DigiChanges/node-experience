@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@digichanges/shared-experience':
-    specifier: ^1.2.1
-    version: 1.2.1
+    specifier: ^1.2.2
+    version: 1.2.2
   '@faker-js/faker':
     specifier: ^8.0.2
     version: 8.0.2
@@ -1743,8 +1743,8 @@ packages:
       node-source-walk: 5.0.2
     dev: true
 
-  /@digichanges/shared-experience@1.2.1:
-    resolution: {integrity: sha512-WCOqK+lrAbyGAUsYPmS0pulfbXQhhtYkTRGqw0UNjU/UlylFSYW1fFmvvmk8205TriAqo7vsTfS9jJ28hZ9mhQ==}
+  /@digichanges/shared-experience@1.2.2:
+    resolution: {integrity: sha512-aS9hhkETzqSoGK1zvLDoASMi+dP5vPrA8WwK8PG4p0MFHdx/3OLFDlSS5tNkH9iiWQqdokozXla8wdMx0GRb+g==}
     dependencies:
       bcrypt: 5.1.0
       koa: 2.14.2
