@@ -6,7 +6,7 @@ interface SignUpPayload
     birthdate: Date;
     password: string;
     passwordConfirmation: string;
-    genre?: string;
+    gender?: string;
     country?: string;
     phone?: string;
 }

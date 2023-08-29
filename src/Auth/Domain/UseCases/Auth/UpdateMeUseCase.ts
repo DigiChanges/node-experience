@@ -20,8 +20,21 @@ class UpdateMeUseCase
     {
         await ValidatorSchema.handle(UpdateMeSchemaValidation, payload);
 
-        const authUser = payload.authUser;
-        authUser.updateRep(payload);
+        const { authUser } = payload;
+
+        const data = {
+            firstName: payload.firstName,
+            lastName: payload.lastName,
+            email: payload.email,
+            birthdate: payload.birthdate,
+            gender: payload.gender,
+            phone: payload.phone,
+            country: payload.country,
+            emailVerified: undefined
+        };
+
+        authUser.updateRep(data);
+        authUser.enable = payload.enable;
 
         return await this.repository.update(authUser);
     }

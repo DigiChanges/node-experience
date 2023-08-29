@@ -3,9 +3,8 @@ import dayjs from 'dayjs';
 import KoaResponder from '../../../Main/Presentation/Utils/KoaResponder';
 import AuthTransformer from '../Transformers/AuthTransformer';
 import PermissionsTransformer from '../Transformers/PermissionsTransformer';
-import { AuthUser } from '../Helpers/AuthUser';
 import UserTransformer from '../Transformers/UserTransformer';
-import { DefaultTransformer, ErrorHttpException, StatusCode } from '@digichanges/shared-experience';
+import { DefaultTransformer, StatusCode } from '@digichanges/shared-experience';
 import MainConfig from '../../../Config/MainConfig';
 import ForgotPasswordPayload from '../../Domain/Payloads/Auth/ForgotPasswordPayload';
 import RefreshTokenPayload from '../../Domain/Payloads/Auth/RefreshTokenPayload';
@@ -23,6 +22,7 @@ import VerifyYourAccountUseCase from '../../Domain/UseCases/Auth/VerifyYourAccou
 import PermissionUseCase from '../../Domain/UseCases/Auth/PermissionUseCase';
 import IGroupPermission from '../../../Config/IGroupPermission';
 import SyncPermissionsUseCase from '../../Domain/UseCases/Auth/SyncPermissionsUseCase';
+import AuthorizeService from '../../Domain/Services/AuthorizeService';
 
 class AuthKoaController
 {
@@ -30,19 +30,30 @@ class AuthKoaController
 
     static async getMe(ctx: Koa.ParameterizedContext & any)
     {
+        const cookies = ctx.get('Cookie');
+        const token = new AuthHelperService().getToken(cookies, 'accessToken');
+        const authUser = await (new AuthorizeService()).getAuthUser({
+            token, hasActiveAuthorization: true
+        });
+
         void await AuthKoaController.responder.send(
-            AuthUser(ctx),
+            authUser,
             ctx as Koa.DefaultContext,
-            StatusCode.HTTP_OK,
-            new UserTransformer()
+            StatusCode.HTTP_OK
         );
     }
 
     static async updateMe(ctx: Koa.ParameterizedContext & any)
     {
+        const cookies = ctx.get('Cookie');
+        const token = new AuthHelperService().getToken(cookies, 'accessToken');
+        const authUser = await (new AuthorizeService()).getAuthUser({
+            token, hasActiveAuthorization: true
+        });
+
         const data = {
             ...ctx.request.body,
-            authUser: AuthUser(ctx),
+            authUser,
             birthdate: dayjs(ctx.request.body.birthdate, 'yyyy-mm-dd').toDate()
         };
 

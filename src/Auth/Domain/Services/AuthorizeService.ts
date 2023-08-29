@@ -9,13 +9,11 @@ import VerifyTokenPayload from '../../Infrastructure/Repositories/Auth/Payload/V
 class AuthorizeService
 {
     private repository: IAuthRepository;
-    private userRepository: IUserRepository;
 
     constructor()
     {
         const { container } = getRequestContext();
         this.repository = container.resolve<IAuthRepository>(REPOSITORIES.IAuthRepository);
-        this.userRepository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
     }
 
     public async authorize(token: string, handlerPermissions: string[]): Promise<void>

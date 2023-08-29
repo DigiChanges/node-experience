@@ -88,7 +88,7 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
             lastName: payload.lastName,
             enabled: true,
             attributes: {
-                genre: [payload.genre],
+                gender: [payload.gender],
                 country: [payload.country],
                 birthdate: [payload.birthdate],
                 phone: [payload.phone]
@@ -164,7 +164,7 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
             lastName: 'Guest',
             email: 'email@email.com',
             birthdate: dayjs('1970-01-01', 'yyyy-mm-dd').toDate(),
-            genre: 'O',
+            gender: 'O',
             phone: '5555554422',
             country: 'AR',
             emailVerified: false,
@@ -183,7 +183,7 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
                 lastName,
                 email: response.email,
                 birthdate: dayjs(response.birthdate, 'yyyy-mm-dd').toDate(),
-                genre: response.genre,
+                gender: response.gender,
                 phone: response.phone,
                 country: response.country,
                 emailVerified: response.email_verified,

@@ -1,14 +1,16 @@
 import { z } from 'zod';
 
 const CriteriaSchemaValidation = z.object({
-    url: z.string(),
-    query: z.object({
+    sort: z.any().nullish(),
+    filter: z.any().nullish(),
+    pagination: z.object({
         pagination: z.object({
             limit: z.string(),
             offset: z.string()
         }).nullish(),
-        filter: z.any().nullish(),
-        sort: z.any().nullish()
+        url: z.string(),
+        host: z.string(),
+        exist: z.boolean()
     })
 });
 

@@ -32,7 +32,7 @@ class ForgotPasswordUseCase
         const user = await this.repository.getOneByEmail(email);
 
         const confirmationToken = this.authHelperService.getConfirmationToken(payload.email);
-        const urlConfirmationToken = `${urlWeb}/change-forgot-password?token=${confirmationToken}`;
+        const urlConfirmationToken = `${urlWeb}/auth/change-forgot-password?token=${confirmationToken}`;
 
         void await SendEmailService.handle({
             type: TypeNotificationEnum.FORGOT_PASSWORD,

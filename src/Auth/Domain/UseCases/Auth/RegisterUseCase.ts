@@ -39,7 +39,7 @@ class RegisterUseCase
         const { urlWeb } = MainConfig.getInstance().getConfig().url;
         const confirmationToken = this.authHelperService.getConfirmationToken(payload.email);
 
-        const urlConfirmationToken = `${urlWeb}/verify-your-account?token=${confirmationToken}`;
+        const urlConfirmationToken = `${urlWeb}/auth/verify-your-account?token=${confirmationToken}`;
 
         void await SendEmailService.handle({
             type: TypeNotificationEnum.VERIFY_ACCOUNT,

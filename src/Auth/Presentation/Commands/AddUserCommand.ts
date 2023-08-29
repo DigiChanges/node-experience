@@ -18,7 +18,7 @@ AddUserCommand
     .option('-fn, --firstName <firstName>', 'User`s first name')
     .option('-ln, --lastName <lastName>', 'User`s last name')
     .option('-p, --password <password>', 'User`s password')
-    .option('-g, --genre <genre>', 'User`s genre')
+    .option('-g, --gender <gender>', 'User`s gender')
     .option('-ph, --phone <phone>', 'User`s phone')
     .option('-c, --country <country>', 'User`s country')
     .option('-bir, --birthdate <birthdate>', 'User`s birthdate')

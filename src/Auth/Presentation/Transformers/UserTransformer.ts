@@ -17,7 +17,7 @@ class UserTransformer extends Transformer
             lastName: user.lastName,
             email: user.email,
             birthdate: user.birthdate,
-            genre: user.genre,
+            gender: user.gender,
             phone: user.phone,
             country: user.country,
             enable: user.enable
