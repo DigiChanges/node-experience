@@ -8,6 +8,7 @@ interface IRoleRepository extends Omit<IBaseRepository<IRoleDomain>, 'getInBy' |
     getAll(): Promise<IRoleDomain[]>;
     delete(name: string): Promise<any>;
     update(element: IRoleDomain, id: string): Promise<IRoleDomain>;
+    searchByUserId(id: string): Promise<IRoleDomain[]>;
 }
 
 export default IRoleRepository;
