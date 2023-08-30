@@ -271,6 +271,7 @@ class UserKeycloakRepository extends KeycloakAxiosRepository implements IUserRep
             lastName: element.lastName,
             enabled: element.enable,
             emailVerified: element.emailVerified,
+            requiredActions: element.emailVerified ? [] : ['VERIFY_EMAIL'],
             attributes: {
                 gender: [element.gender],
                 country: [element.country],
