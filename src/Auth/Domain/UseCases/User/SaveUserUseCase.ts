@@ -26,6 +26,7 @@ class SaveUserUseCase
         await ValidatorSchema.handle(UserRepSchemaValidation, payload);
 
         const user: IUserDomain = new User(payload);
+        user.enable = payload.enable;
         await this.repository.save(user, payload.password);
 
         this.eventHandler.execute(UserCreatedEvent.name, { email: user.email });

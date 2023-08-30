@@ -87,6 +87,7 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
             firstName: payload.firstName,
             lastName: payload.lastName,
             enabled: true,
+            requiredActions: ['VERIFY_EMAIL'],
             attributes: {
                 gender: [payload.gender],
                 country: [payload.country],
@@ -122,7 +123,8 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
 
         const data = {
             enabled: true,
-            emailVerified: true
+            emailVerified: true,
+            requiredActions: []
         };
 
         const config = {
