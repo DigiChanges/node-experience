@@ -195,6 +195,39 @@ class RoleKeycloakRepository extends KeycloakAxiosRepository implements IRoleRep
 
         return element;
     }
+
+    async searchByUserId(id: string): Promise<IRoleDomain[]>
+    {
+        const loginRes = await this.login({ username: this.username, password: this.password, clientId: 'admin-cli' });
+
+        const config = {
+            ...this.config,
+            method: 'get',
+            url: `${this.host}/admin/realms/${this.mainRealm}/users/${id}/role-mappings`,
+            headers: {
+                'Authorization': `Bearer ${loginRes.access_token}`,
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const response = (await axios(config)).data;
+
+        if (response?.errorMessage || response?.error)
+        {
+            throw new ErrorHttpException(); // TODO: Add custom exception
+        }
+
+        return response.clientMappings[this.clientId].mappings.map((role) =>
+        {
+            const payload = {
+                _id: role.id,
+                name: role.name,
+                permissions: []
+            };
+
+            return new Role(payload);
+        });
+    }
 }
 
 export default RoleKeycloakRepository;

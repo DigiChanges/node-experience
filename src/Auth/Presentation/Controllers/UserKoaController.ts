@@ -32,6 +32,7 @@ import RemoveUserUseCase from '../../Domain/UseCases/User/RemoveUserUseCase';
 import ChangeMyPasswordUseCase from '../../Domain/UseCases/User/ChangeMyPasswordUseCase';
 import ChangeUserPasswordUseCase from '../../Domain/UseCases/User/ChangeUserPasswordUseCase';
 import ActiveUserUseCase from '../../Domain/UseCases/User/ActiveUserUseCase';
+import UserRoleTransformer from '../Transformers/UserRoleTransformer';
 
 const responder: KoaResponder = new KoaResponder();
 
@@ -75,9 +76,9 @@ class UserKoaController
         };
 
         const useCase = new GetUserUseCase();
-        const user: IUserDomain = await useCase.handle(payload);
+        const data = await useCase.handle(payload);
 
-        await responder.send(user, ctx, StatusCode.HTTP_OK, new UserTransformer());
+        await responder.send(data, ctx, StatusCode.HTTP_OK, new UserRoleTransformer());
     }
 
     static async update(ctx: any)

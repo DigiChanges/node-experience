@@ -144,8 +144,10 @@ class UserKeycloakRepository extends KeycloakAxiosRepository implements IUserRep
                 enable: user.enabled,
                 roles: []
             };
+            const _user = new User(payload);
+            _user.enable = user.enabled;
 
-            return new User(payload);
+            return _user;
         });
     }
 
@@ -207,8 +209,10 @@ class UserKeycloakRepository extends KeycloakAxiosRepository implements IUserRep
             enable: user.enabled,
             roles: []
         };
+        const _user = new User(payload);
+        _user.enable = user.enabled;
 
-        return new User(payload);
+        return _user;
     }
 
     async save(element: IUserDomain, password: string): Promise<IUserDomain>
