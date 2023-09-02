@@ -39,7 +39,7 @@ RUN pnpm build
 
 FROM build as prerelease
 
-WORKDIR /usr/app
+WORKDIR /home/node/app
 
 USER root
 
@@ -49,21 +49,20 @@ RUN chown node:node node_modules
 
 RUN cd node_modules/bcrypt && npm rebuild bcrypt --build-from-source
 
-FROM digichanges/nexp:1.1 as prod
+FROM digichanges/nexp:1.2 as prod
 
 RUN npm install -g pnpm pm2
 
 ENV NODE_ENV production
 
-WORKDIR /usr/app
+WORKDIR /home/node/app
 
 # Copy js files and change ownership to user node
 COPY --chown=node:node package.json pnpm-lock.yaml ecosystem.config.js ./
-COPY --from=prerelease --chown=node:node /usr/app/node_modules/ ./node_modules/
-COPY --from=prerelease --chown=node:node /usr/app/dist/ ./dist/
-COPY --from=prerelease --chown=node:node /usr/app/config/ ./config/
-COPY --from=prerelease --chown=node:node /usr/app/.env/ ./.env
-COPY --from=prerelease --chown=node:node /usr/app/package.json/ ./package.json
+COPY --from=prerelease --chown=node:node /home/node/app/node_modules/ ./node_modules/
+COPY --from=prerelease --chown=node:node /home/node/app/dist/ ./dist/
+COPY --from=prerelease --chown=node:node /home/node/app/config/ ./config/
+COPY --from=prerelease --chown=node:node /home/node/app/package.json/ ./package.json
 
 USER node
 
