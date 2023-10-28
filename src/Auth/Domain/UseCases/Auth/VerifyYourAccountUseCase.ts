@@ -1,7 +1,7 @@
 import VerifyYourAccountPayload from '../../Payloads/Auth/VerifyYourAccountPayload';
 import Locales from '../../../../Shared/Utils/Locales';
 import { ILocaleMessage } from '@digichanges/shared-experience';
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import AuthHelperService from '../../Services/AuthHelperService';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
@@ -21,7 +21,6 @@ class VerifyYourAccountUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IAuthRepository>(REPOSITORIES.IAuthRepository);
         this.userRepository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
         this.authHelperService = new AuthHelperService();

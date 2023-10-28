@@ -2,7 +2,7 @@ import Koa from 'koa';
 import MainConfig from '../../../Config/MainConfig';
 import { SERVICES } from '../../../Config/Injects';
 
-import { DependencyContainer } from 'tsyringe';
+import container from '../../../register';
 import AuthorizeService from '../../Domain/Services/AuthorizeService';
 import AuthHelperService from '../../Domain/Services/AuthHelperService';
 
@@ -10,8 +10,6 @@ const AuthorizeKoaMiddleware = (...handlerPermissions: string[]) =>
 {
     return async(ctx: Koa.ParameterizedContext, next: Koa.Next) =>
     {
-        const container: DependencyContainer = ctx.container;
-
         const cookies = ctx.get('Cookie');
         const authHelperService = new AuthHelperService();
         const token = authHelperService.getToken(cookies, 'accessToken');

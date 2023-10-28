@@ -4,11 +4,11 @@ type ValidationType = { parseAsync: (data: unknown) => Promise<unknown> };
 
 class ValidatorSchema
 {
-    static async handle<T>(validation: ValidationType, data: T): Promise<unknown | T>
+    static async handle<T>(validation: ValidationType, data: T): Promise<T>
     {
         try
         {
-            return await validation.parseAsync(data);
+            return await validation.parseAsync(data) as T;
         }
         catch (e)
         {

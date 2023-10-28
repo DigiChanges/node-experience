@@ -1,4 +1,4 @@
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
@@ -9,7 +9,6 @@ class ListUsersUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
     }
 

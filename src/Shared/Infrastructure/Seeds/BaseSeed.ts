@@ -1,14 +1,14 @@
-import { getRequestContext } from '../../Utils/RequestContext';
 import { DependencyContainer } from 'tsyringe';
+import container from '../../../register';
 import ISeed from './ISeed';
 
 abstract class BaseSeed implements ISeed
 {
-    protected container: DependencyContainer | undefined;
+    protected container: DependencyContainer;
 
     protected constructor()
     {
-        this.container = getRequestContext().container;
+        this.container = container;
     }
 
     abstract init(): Promise<void>;

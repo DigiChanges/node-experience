@@ -1,7 +1,7 @@
 import { ILocaleMessage } from '@digichanges/shared-experience';
 import Locales from '../../../../Shared/Utils/Locales';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import LogoutPayload from '../../Payloads/Auth/LogoutPayload';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
 
@@ -11,7 +11,6 @@ class LogoutUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IAuthRepository>(REPOSITORIES.IAuthRepository);
     }
 

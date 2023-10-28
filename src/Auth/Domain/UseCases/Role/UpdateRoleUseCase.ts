@@ -2,7 +2,7 @@ import RoleUpdatePayload from '../../Payloads/Role/RoleUpdatePayload';
 import IRoleDomain from '../../Entities/IRoleDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import RoleSchemaUpdateValidation from '../../../Presentation/Validations/Role/RoleSchemaUpdateValidation';
 
@@ -12,7 +12,6 @@ class UpdateRoleUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IRoleRepository>(REPOSITORIES.IRoleRepository);
     }
 

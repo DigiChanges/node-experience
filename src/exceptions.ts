@@ -5,7 +5,6 @@ import CantDisabledException from './Auth/Domain/Exceptions/CantDisabledExceptio
 import PasswordWrongException from './Auth/Domain/Exceptions/PasswordWrongException';
 import WrongPermissionsException from './Auth/Domain/Exceptions/WrongPermissionsException';
 import InvalidPasswordException from './Main/Domain/Exceptions/InvalidPasswordException';
-import UniqueAttributeException from './Main/Domain/Exceptions/UniqueAttributeException';
 import UnverifiedUserException from './Auth/Domain/Exceptions/UnverifiedUserException';
 
 const exceptions = {
@@ -17,7 +16,6 @@ const exceptions = {
     [NotFoundException.name]: StatusCode.HTTP_BAD_REQUEST,
     [WrongPermissionsException.name]: StatusCode.HTTP_BAD_REQUEST,
     [InvalidPasswordException.name]: StatusCode.HTTP_UNPROCESSABLE_ENTITY,
-    [UniqueAttributeException.name]: StatusCode.HTTP_BAD_REQUEST,
     [UnverifiedUserException.name]: StatusCode.HTTP_FORBIDDEN
 };
 

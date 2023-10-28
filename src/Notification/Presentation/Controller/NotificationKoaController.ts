@@ -10,7 +10,7 @@ class NotificationKoaController
 {
     private static responder: KoaResponder = new KoaResponder();
 
-    static async handleSubscription(ctx: Koa.ParameterizedContext & any)
+    static async handleSubscription(ctx: Koa.ParameterizedContext)
     {
         const _request = new NotificationSubscriptionRequest(ctx.request.body);
 
@@ -20,7 +20,7 @@ class NotificationKoaController
         void await NotificationKoaController.responder.send(notification, ctx, StatusCode.HTTP_CREATED);
     }
 
-    static async handleMessage(ctx: Koa.ParameterizedContext & any)
+    static async handleMessage(ctx: Koa.ParameterizedContext)
     {
         const _request = new NotificationSendMessageRequest(ctx.request.body);
 

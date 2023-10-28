@@ -38,7 +38,7 @@ void (async() =>
             void Logger.info(`Koa is listening to http://localhost:${config.app.serverPort}`);
         });
 
-        // Create DB connection
+        // // Create DB connection
         const databaseFactory = new DatabaseFactory();
         const createConnection: ICreateConnection = databaseFactory.create();
         await createConnection.initConfig();

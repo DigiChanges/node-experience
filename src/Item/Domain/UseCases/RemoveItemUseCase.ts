@@ -2,7 +2,7 @@ import { IdPayload } from '@digichanges/shared-experience';
 import IItemDomain from '../Entities/IItemDomain';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
-import { getRequestContext } from '../../../Shared/Utils/RequestContext';
+import container from '../../../register';
 import ValidatorSchema from '../../../Main/Presentation/Utils/ValidatorSchema';
 import IdSchemaValidation from '../../../Main/Presentation/Validations/IdSchemaValidation';
 
@@ -12,7 +12,6 @@ class RemoveItemUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IItemRepository>(REPOSITORIES.IItemRepository);
     }
 

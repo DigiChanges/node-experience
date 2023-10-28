@@ -4,7 +4,7 @@ import UserCreatedEvent from '../../../Infrastructure/Events/UserCreatedEvent';
 import UserSavePayload from '../../Payloads/User/UserSavePayload';
 import User from '../../Entities/User';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import UserRepSchemaValidation from '../../../Presentation/Validations/User/UserRepSchemaValidation';
@@ -17,7 +17,7 @@ class SaveUserUseCase
     constructor()
     {
         this.eventHandler = EventHandler.getInstance();
-        const { container } = getRequestContext();
+
         this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
     }
 

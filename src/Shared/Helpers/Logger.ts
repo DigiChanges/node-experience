@@ -9,28 +9,28 @@ class DgLogger
     {
         const env = MainConfig.getInstance().getConfig().env;
 
-        const prettyTransport = {
-            name: 'main',
-            level: 'debug',
-            transport: {
-                target: 'pino-pretty',
-                options: {
-                    levelFirst: true,
-                    translateTime: 'HH:MM:ss.l',
-                    ignore: 'pid,hostname',
-                    colorize: true
-                }
-            }
-        };
+        // const prettyTransport = {
+        //     name: 'main',
+        //     level: 'debug',
+        //     transport: {
+        //         target: 'pino-pretty',
+        //         options: {
+        //             levelFirst: true,
+        //             translateTime: 'HH:MM:ss.l',
+        //             ignore: 'pid,hostname',
+        //             colorize: true
+        //         }
+        //     }
+        // };
 
         const stdoutTransport = {
             name: 'main',
             level: 'info'
         };
 
-        const settings = env === 'development' ? prettyTransport : stdoutTransport;
+        // const settings = env === 'development' ? prettyTransport : stdoutTransport;
 
-        this.logger = PinoLogger(settings);
+        this.logger = PinoLogger();
     }
 
     public async trace(...args: unknown[])
@@ -60,7 +60,7 @@ class DgLogger
 
     public async fatal(...args: unknown[])
     {
-        this.logger.fatal(...args);
+        this.logger.error(...args);
     }
 }
 

@@ -2,10 +2,9 @@ import AuthPayload from '../../Payloads/Auth/AuthPayload';
 
 import { REPOSITORIES } from '../../../../Config/Injects';
 
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
 import { ErrorHttpException, StatusCode } from '@digichanges/shared-experience';
-import MainConfig from '../../../../Config/MainConfig';
 import ILoginResponse from '../../Models/ILoginResponse';
 import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import AuthSchemaValidation from '../../../Presentation/Validations/Auth/AuthSchemaValidation';
@@ -16,8 +15,6 @@ class LoginUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
-
         this.repository = container.resolve<IAuthRepository>(REPOSITORIES.IAuthRepository);
     }
 

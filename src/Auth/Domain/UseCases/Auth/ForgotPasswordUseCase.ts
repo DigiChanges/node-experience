@@ -6,7 +6,7 @@ import SendEmailService from '../../../../Notification/Domain/Services/SendEmail
 import TypeNotificationEnum from '../../../../Notification/Domain/Enum/TypeNotificationEnum';
 import Locales from '../../../../Shared/Utils/Locales';
 import { ILocaleMessage } from '@digichanges/shared-experience';
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import AuthHelperService from '../../Services/AuthHelperService';
 import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import ForgotPasswordSchemaValidation from '../../../Presentation/Validations/Auth/ForgotPasswordSchemaValidation';
@@ -18,7 +18,6 @@ class ForgotPasswordUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
         this.authHelperService = new AuthHelperService();
     }

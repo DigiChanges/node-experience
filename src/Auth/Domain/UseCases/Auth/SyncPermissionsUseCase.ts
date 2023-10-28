@@ -1,6 +1,6 @@
 import Permissions from '../../../../Config/Permissions';
 import Roles from '../../../../Config/Roles';
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import IAuthzRepository from '../../../Infrastructure/Repositories/Auth/IAuthzRepository';
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 import { REPOSITORIES } from '../../../../Config/Injects';
@@ -15,7 +15,6 @@ class SyncPermissionsUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IAuthzRepository>(REPOSITORIES.IAuthzRepository);
         this.roleRepository = container.resolve<IRoleRepository>(REPOSITORIES.IRoleRepository);
     }

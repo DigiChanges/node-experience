@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { container, Lifecycle } from 'tsyringe';
-import { IEncryption, Md5EncryptionStrategy, BcryptEncryptionStrategy } from '@digichanges/shared-experience';
+import { IEncryption, Md5EncryptionStrategy } from '@digichanges/shared-experience';
 
 import { FACTORIES, SERVICES, REPOSITORIES } from './Config/Injects';
 
@@ -38,21 +38,20 @@ const defaultDbConfig = MainConfig.getInstance().getConfig().dbConfig.default;
 
 if (defaultDbConfig === 'Mongoose')
 {
-    container.register<IItemRepository>(REPOSITORIES.IItemRepository, { useClass: ItemMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository, { useClass: NotificationMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
+    container.register<IItemRepository>(REPOSITORIES.IItemRepository, { useClass: ItemMongooseRepository }, { lifecycle: Lifecycle.Singleton });
+    container.register<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository, { useClass: NotificationMongooseRepository }, { lifecycle: Lifecycle.Singleton });
 }
 else if (defaultDbConfig === 'MikroORM')
 {
-    container.register<IItemRepository>(REPOSITORIES.IItemRepository, { useClass: ItemMikroORMRepository }, { lifecycle: Lifecycle.ContainerScoped });
+    container.register<IItemRepository>(REPOSITORIES.IItemRepository, { useClass: ItemMikroORMRepository }, { lifecycle: Lifecycle.Singleton });
 }
 
-container.register<IAuthRepository>(REPOSITORIES.IAuthRepository, { useClass: AuthKeycloakRepository }, { lifecycle: Lifecycle.ContainerScoped });
-container.register<IAuthzRepository>(REPOSITORIES.IAuthzRepository, { useClass: AuthzKeycloakRepository }, { lifecycle: Lifecycle.ContainerScoped });
-container.register<IUserRepository>(REPOSITORIES.IUserRepository, { useClass: UserKeycloakRepository }, { lifecycle: Lifecycle.ContainerScoped });
-container.register<IRoleRepository>(REPOSITORIES.IRoleRepository, { useClass: RoleKeycloakRepository }, { lifecycle: Lifecycle.ContainerScoped });
+container.register<IAuthRepository>(REPOSITORIES.IAuthRepository, { useClass: AuthKeycloakRepository }, { lifecycle: Lifecycle.Singleton });
+container.register<IAuthzRepository>(REPOSITORIES.IAuthzRepository, { useClass: AuthzKeycloakRepository }, { lifecycle: Lifecycle.Singleton });
+container.register<IUserRepository>(REPOSITORIES.IUserRepository, { useClass: UserKeycloakRepository }, { lifecycle: Lifecycle.Singleton });
+container.register<IRoleRepository>(REPOSITORIES.IRoleRepository, { useClass: RoleKeycloakRepository }, { lifecycle: Lifecycle.Singleton });
 
 // Shared
-container.register<IEncryption>(FACTORIES.BcryptEncryptionStrategy, { useClass: BcryptEncryptionStrategy }, { lifecycle: Lifecycle.Singleton });
 container.register<IEncryption>(FACTORIES.Md5EncryptionStrategy, { useClass: Md5EncryptionStrategy }, { lifecycle: Lifecycle.Singleton });
 
 export default container;

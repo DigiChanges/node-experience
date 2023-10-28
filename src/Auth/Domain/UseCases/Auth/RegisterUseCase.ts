@@ -4,7 +4,7 @@ import Locales from '../../../../Shared/Utils/Locales';
 import RegisterPayload from '../../Payloads/Auth/RegisterPayload';
 import { ErrorHttpException, ILocaleMessage, StatusCode } from '@digichanges/shared-experience';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import MainConfig from '../../../../Config/MainConfig';
 import AuthHelperService from '../../Services/AuthHelperService';
@@ -18,7 +18,6 @@ class RegisterUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IAuthRepository>(REPOSITORIES.IAuthRepository);
         this.authHelperService = new AuthHelperService();
     }

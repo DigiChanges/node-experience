@@ -29,4 +29,13 @@ describe('Start Index Test', () =>
             expect(response.statusCode).toStrictEqual(200);
         });
     });
+
+    describe('Route Not Found', () =>
+    {
+        test('should have a status code of 404', async() =>
+        {
+            const response: any = await request.get('/api/test');
+            expect(response.statusCode).toStrictEqual(404);
+        });
+    });
 });

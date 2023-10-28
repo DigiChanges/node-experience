@@ -25,11 +25,3 @@ export enum SERVICES {
     KeycloakAuthService = 'KeycloakAuthService',
     AuthorizeService = 'AuthorizeService'
 }
-
-export enum TYPES  {
-    IFormatResponder = 'IFormatResponder',
-    Responder = 'Responder',
-    IErrorHandler = 'IErrorHandler',
-    IHandler = 'IHandler',
-    IController = 'IHandler'
-}

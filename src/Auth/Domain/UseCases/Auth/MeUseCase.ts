@@ -1,6 +1,6 @@
 import { REPOSITORIES } from '../../../../Config/Injects';
 
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
 import IUserDomain from '../../Entities/IUserDomain';
 
@@ -10,7 +10,6 @@ class MeUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IAuthRepository>(REPOSITORIES.IAuthRepository);
     }
 

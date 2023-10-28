@@ -26,11 +26,11 @@ class ItemMikroORMRepository extends BaseMikroORMRepository<Item> implements IIt
 
         if (filter.has(ItemFilter.TYPE))
         {
-            void queryBuilder.andWhere(`i.${ItemFilter.TYPE} = ?`, [`${filter.get(ItemFilter.TYPE)}`]);
+            void queryBuilder.andWhere(`i.${ItemFilter.TYPE} = ?`, [`${filter.get(ItemFilter.TYPE) as string}`]);
         }
         if (filter.has(ItemFilter.NAME))
         {
-            void queryBuilder.andWhere(`i.${ItemFilter.NAME} like ?`, [`${filter.get(ItemFilter.NAME)}`]);
+            void queryBuilder.andWhere(`i.${ItemFilter.NAME} like ?`, [`${filter.get(ItemFilter.NAME) as string}`]);
         }
 
         return new Paginator(queryBuilder, criteria);

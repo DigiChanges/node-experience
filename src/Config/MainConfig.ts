@@ -23,7 +23,7 @@ type AppConfig = {
     path: string;
     setAppProxy: boolean;
     setCookieSecure: boolean,
-    setCookieSameSite: boolean | 'None' | 'Lax' | 'Strict',
+    setCookieSameSite: boolean | 'None' | 'Lax' | 'Strict' | 'none' | 'lax' | 'strict',
     serverPort: number,
 }
 

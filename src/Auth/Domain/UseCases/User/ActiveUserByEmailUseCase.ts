@@ -1,7 +1,7 @@
 import UserActivePayload from '../../Payloads/User/UserActivePayload';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import IUserDomain from '../../Entities/IUserDomain';
 
 class ActiveUserByEmailUseCase
@@ -10,7 +10,6 @@ class ActiveUserByEmailUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
     }
 

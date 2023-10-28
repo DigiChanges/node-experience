@@ -7,7 +7,7 @@
   "overrides": [
     {
       "parserOptions": {
-        "ecmaVersion": 12,
+        "ecmaVersion": 2018,
         "sourceType": "module",
         "project": ["./tsconfig.json"]
       },
@@ -56,11 +56,11 @@
         "brace-style": ["error", "allman"],
         "prefer-const": ["warn"],
         "max-len": [
-          "error",
+          "warn",
           {
             "ignoreStrings": true,
             "ignoreRegExpLiterals": true,
-            "code": 200
+            "code": 300
           }
         ],
         "no-shadow-restricted-names": "error",

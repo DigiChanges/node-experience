@@ -13,9 +13,9 @@
     "useUnknownInCatchVariables": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "target": "ESNext",
+    "target": "esnext",
     "lib": [
-      "ESNext",
+      "esnext",
       "DOM"
     ],
     "outDir": "./dist",

@@ -9,7 +9,7 @@ class RedisCacheRepository implements ICacheRepository
 
     constructor(config: CacheConfig)
     {
-        this.redis = new Tedis(config);
+        this.redis = new Tedis({ ...config, port: +config.port });
     }
 
     static getInstance(config?: CacheConfig): RedisCacheRepository

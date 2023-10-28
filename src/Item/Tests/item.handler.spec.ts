@@ -1,6 +1,5 @@
 import { SuperAgentTest } from 'supertest';
 import initTestServer from '../../initTestServer';
-import { ILoginResponse } from '../../Main/Tests/ILogin';
 import { IItemResponse, IListItemsResponse } from './types';
 import MainConfig from '../../Config/MainConfig';
 import ICreateConnection from '../../Main/Infrastructure/Database/ICreateConnection';
@@ -9,7 +8,7 @@ describe('Start Item Test', () =>
 {
     let request: SuperAgentTest;
     let dbConnection: ICreateConnection;
-    let token: string = null;
+    let cookie;
     let itemId = '';
     let deleteResponse: any = null;
 
@@ -36,14 +35,12 @@ describe('Start Item Test', () =>
                 password: '12345678'
             };
 
-            const response: ILoginResponse = await request
+            const loginResponse = (await request
                 .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
-                .send(payload);
+                .send(payload)) as unknown as Record<string, string>;
 
-            const { body: { data } } = response;
-
-            token = data.accessToken;
+            cookie = `accessToken=${loginResponse.accessToken}`;
         });
 
         test('Add Item /items', async() =>
@@ -56,7 +53,7 @@ describe('Start Item Test', () =>
             const response: IItemResponse = await request
                 .post('/api/items')
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Cookie', cookie)
                 .send(payload);
 
             const { body: { data } } = response;
@@ -76,7 +73,7 @@ describe('Start Item Test', () =>
             const response: IItemResponse = await request
                 .get(`/api/items/${itemId}`)
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Cookie', cookie)
                 .send();
 
             const { body: { data } } = response;
@@ -97,10 +94,8 @@ describe('Start Item Test', () =>
             const response: IItemResponse = await request
                 .put(`/api/items/${itemId}`)
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Cookie', cookie)
                 .send(payload);
-
-            const { body: { data } } = response;
 
             expect(response.statusCode).toStrictEqual(201);
         });
@@ -115,13 +110,13 @@ describe('Start Item Test', () =>
             const createResponse: IItemResponse = await request
                 .post('/api/items')
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Cookie', cookie)
                 .send(payload);
 
             deleteResponse = await request
                 .delete(`/api/items/${createResponse.body.data.id}`)
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Cookie', cookie)
                 .send();
 
             const { body: { data } } = deleteResponse;
@@ -132,14 +127,14 @@ describe('Start Item Test', () =>
             expect(data.type).toStrictEqual(payload.type);
         });
 
-        test('Get Items /items', async() =>
+        test('Get Items /items with pagination', async() =>
         {
             const config = MainConfig.getInstance();
 
             const response: IListItemsResponse = await request
                 .get('/api/items?pagination[offset]=0&pagination[limit]=5')
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Cookie', cookie)
                 .send();
 
             const { body: { data, pagination } } = response;
@@ -166,7 +161,7 @@ describe('Start Item Test', () =>
             const response: IListItemsResponse = await request
                 .get('/api/items')
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Cookie', cookie)
                 .send();
 
             const { body: { data, pagination } } = response;
@@ -182,7 +177,7 @@ describe('Start Item Test', () =>
             const response: IListItemsResponse = await request
                 .get('/api/items?pagination[limit]=20&pagination[offset]=0&filter[type]=11')
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Cookie', cookie)
                 .send();
 
             const { body: { data, pagination } } = response;
@@ -200,7 +195,7 @@ describe('Start Item Test', () =>
             const response: IListItemsResponse = await request
                 .get('/api/items?pagination[limit]=20&pagination[offset]=0&sort[type]=desc')
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Cookie', cookie)
                 .send();
 
             const { body: { data: [item1, item2] } } = response;
@@ -220,13 +215,11 @@ describe('Start Item Test', () =>
                 password: '12345678'
             };
 
-            const response: ILoginResponse = await request
+            await request
                 .post('/api/auth/login?provider=local')
                 .set('Accept', 'application/json')
+                .set('Cookie', cookie)
                 .send(payload);
-
-            const { body: { data } } = response;
-            token = data.accessToken;
         });
 
         test('Add Item /items', async() =>
@@ -239,7 +232,7 @@ describe('Start Item Test', () =>
             const response: IItemResponse = await request
                 .post('/api/items')
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Cookie', cookie)
                 .send(payload);
 
             const { body: { message, errors: [error] } } = response;
@@ -256,7 +249,7 @@ describe('Start Item Test', () =>
             const response: IItemResponse = await request
                 .get(`/api/items/${itemId}dasdasda123`)
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Cookie', cookie)
                 .send();
 
             const { body: { message, errors: [error] } } = response;
@@ -278,7 +271,7 @@ describe('Start Item Test', () =>
             const response: IItemResponse = await request
                 .put(`/api/items/${itemId}`)
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Cookie', cookie)
                 .send(payload);
 
             const { body: { message, errors: [errorName, errorType] } } = response;
@@ -298,7 +291,7 @@ describe('Start Item Test', () =>
             const deleteErrorResponse: IItemResponse = await request
                 .delete(`/api/items/${deleteResponse.body.data.id}`)
                 .set('Accept', 'application/json')
-                .set('Authorization', `Bearer ${token}`)
+                .set('Cookie', cookie)
                 .send();
 
             const { body: { message } } = deleteErrorResponse;

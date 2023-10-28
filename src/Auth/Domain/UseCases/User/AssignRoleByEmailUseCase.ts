@@ -1,6 +1,6 @@
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import UserAssignRoleByEmailPayload from '../../Payloads/User/UserAssignRoleByEmailPayload';
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
 
@@ -11,7 +11,6 @@ class AssignRoleByEmailUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
         this.roleRepository = container.resolve<IRoleRepository>(REPOSITORIES.IRoleRepository);
     }

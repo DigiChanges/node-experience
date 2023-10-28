@@ -1,8 +1,8 @@
-import { getRequestContext } from '../../../Shared/Utils/RequestContext';
 import IUserDomain from '../Entities/IUserDomain';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IAuthRepository from '../../Infrastructure/Repositories/Auth/IAuthRepository';
 import ForbiddenHttpException from '../../Presentation/Exceptions/ForbiddenHttpException';
+import container from '../../../register';
 
 class KeycloakAuthService
 {
@@ -10,7 +10,6 @@ class KeycloakAuthService
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IAuthRepository>(REPOSITORIES.IAuthRepository);
     }
 

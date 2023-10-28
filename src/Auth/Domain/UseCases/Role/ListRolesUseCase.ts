@@ -1,7 +1,7 @@
 import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IRoleRepository from '../../../Infrastructure/Repositories/Role/IRoleRepository';
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import CriteriaSchemaValidation from '../../../../Main/Presentation/Validations/CriteriaSchemaValidation';
 
@@ -11,7 +11,6 @@ class ListRolesUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IRoleRepository>(REPOSITORIES.IRoleRepository);
     }
 

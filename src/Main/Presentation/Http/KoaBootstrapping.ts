@@ -1,4 +1,4 @@
-import { IApp, AppKoa, IAppConfig } from '@digichanges/shared-experience';
+import { IApp, AppKoa } from '@digichanges/shared-experience';
 
 import Koa from 'koa';
 import Router from 'koa-router';
@@ -18,9 +18,7 @@ import { ErrorKoaHandler } from '../Middleware/ErrorKoaHandler';
 
 import LoggerKoaMiddleware from '../Middleware/LoggerKoaMiddleware';
 import ContextMikroORMKoaMiddleware from '../Middleware/ContextMikroORMKoaMiddleware';
-import ContainerKoaMiddleware from '../Middleware/ContainerKoaMiddleware';
 import RedirectRouteNotFoundKoaMiddleware from '../Middleware/RedirectRouteNotFoundKoaMiddleware';
-import GetRequestContextKoaMiddleware from '../Middleware/GetRequestContextKoaMiddleware';
 import IExtendAppConfig from './IExtendAppConfig';
 
 const KoaBootstrapping = async(config: IExtendAppConfig) =>
@@ -46,14 +44,13 @@ const KoaBootstrapping = async(config: IExtendAppConfig) =>
         jsonLimit: '5mb'
     }));
     app.addMiddleware<Koa.Middleware>(compress());
-
     app.addMiddleware<Koa.Middleware>(ErrorKoaHandler.handle);
 
     if (config.dbConfigDefault === 'MikroORM')
     {
         app.addMiddleware<Koa.Middleware>(ContextMikroORMKoaMiddleware);
     }
-    app.addMiddleware<Koa.Middleware>(ContainerKoaMiddleware);
+
     app.addMiddleware<Koa.Middleware>(LoggerKoaMiddleware);
     app.addMiddleware<Koa.Middleware>(ThrottleKoaMiddleware);
 
@@ -64,7 +61,6 @@ const KoaBootstrapping = async(config: IExtendAppConfig) =>
     app.addRouter<Router>(NotificationKoaHandler);
     app.addRouter<Router>(AuthKoaRouter);
 
-    app.addMiddleware<Koa.Middleware>(GetRequestContextKoaMiddleware);
     app.addMiddleware<Koa.Middleware>(RedirectRouteNotFoundKoaMiddleware);
 
     return app;

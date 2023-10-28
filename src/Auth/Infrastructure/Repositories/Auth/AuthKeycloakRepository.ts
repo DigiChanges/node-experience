@@ -130,7 +130,7 @@ class AuthKeycloakRepository extends KeycloakAxiosRepository implements IAuthRep
         const config = {
             ...this.config,
             method: 'put',
-            url: `${this.host}/admin/realms/${this.mainRealm}/users/${payload.id}`,
+            url: `${this.host}/admin/realms/${this.mainRealm}/users/${payload.id as string}`,
             headers: {
                 'Authorization': `Bearer ${loginRes.access_token}`,
                 'Content-Type': 'application/json'

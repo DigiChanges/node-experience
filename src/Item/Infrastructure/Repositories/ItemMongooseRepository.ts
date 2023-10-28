@@ -1,4 +1,4 @@
-import { Query } from 'mongoose';
+import * as mongoose from 'mongoose';
 import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 
 import IItemRepository from './IItemRepository';
@@ -19,7 +19,7 @@ class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, ItemMon
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        const queryBuilder: Query<ItemMongooseDocument[], ItemMongooseDocument> = this.repository.find();
+        const queryBuilder: mongoose.Query<ItemMongooseDocument[], ItemMongooseDocument> = this.repository.find();
         const filter = criteria.getFilter();
 
         if (filter.has(ItemFilter.TYPE))

@@ -15,13 +15,13 @@ type MongooseOptions = { autoIndex: boolean };
 
 class CreateMongooseConnection implements ICreateConnection
 {
-    private uri: string;
-    private readonly options: MongooseOptions;
+    #uri: string;
+    readonly #options: MongooseOptions;
 
     constructor(config: { uri: string })
     {
-        this.uri = config.uri;
-        this.options = {
+        this.#uri = config.uri;
+        this.#options = {
             autoIndex: true
         };
     }
@@ -35,12 +35,12 @@ class CreateMongooseConnection implements ICreateConnection
     {
         const nanoId = customAlphabet(urlAlphabet, 5);
         const dbName = await nanoId();
-        this.uri = `${process.env.MONGO_URL}${dbName}`;
+        this.#uri = `${process.env.MONGO_URL}${dbName}`;
     }
 
     async create(): Promise<void>
     {
-        await connect(this.uri, this.options);
+        await connect(this.#uri, this.#options);
 
         // Domain
         connection.model<ItemMongooseDocument>('Item', ItemSchema);
@@ -53,7 +53,10 @@ class CreateMongooseConnection implements ICreateConnection
 
     async close(force = true): Promise<any>
     {
-        await connection.close(force);
+        if (connection)
+        {
+            await connection.close(force);
+        }
     }
 
     async synchronize(): Promise<void>

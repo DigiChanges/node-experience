@@ -1,10 +1,9 @@
-import { getRequestContext } from '../../../Shared/Utils/RequestContext';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IAuthRepository from '../../Infrastructure/Repositories/Auth/IAuthRepository';
 import ForbiddenHttpException from '../../Presentation/Exceptions/ForbiddenHttpException';
-import IUserRepository from '../../Infrastructure/Repositories/User/IUserRepository';
 import IUserDomain from '../Entities/IUserDomain';
 import VerifyTokenPayload from '../../Infrastructure/Repositories/Auth/Payload/VerifyTokenPayload';
+import container from '../../../register';
 
 class AuthorizeService
 {
@@ -12,7 +11,6 @@ class AuthorizeService
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IAuthRepository>(REPOSITORIES.IAuthRepository);
     }
 

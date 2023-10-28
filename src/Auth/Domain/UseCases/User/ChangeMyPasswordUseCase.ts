@@ -1,4 +1,4 @@
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import ChangeMyPasswordPayload from '../../Payloads/User/ChangeMyPasswordPayload';
 import IUserDomain from '../../Entities/IUserDomain';
 import { REPOSITORIES } from '../../../../Config/Injects';
@@ -12,7 +12,6 @@ class ChangeMyPasswordUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
     }
 

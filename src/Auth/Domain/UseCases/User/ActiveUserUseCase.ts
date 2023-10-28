@@ -1,6 +1,6 @@
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IUserRepository from '../../../Infrastructure/Repositories/User/IUserRepository';
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import { IdPayload } from '@digichanges/shared-experience';
 import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
 import IdSchemaValidation from '../../../../Main/Presentation/Validations/IdSchemaValidation';
@@ -11,7 +11,6 @@ class ActiveUserUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IUserRepository>(REPOSITORIES.IUserRepository);
     }
 

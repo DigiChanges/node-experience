@@ -23,12 +23,15 @@ import PermissionUseCase from '../../Domain/UseCases/Auth/PermissionUseCase';
 import IGroupPermission from '../../../Config/IGroupPermission';
 import SyncPermissionsUseCase from '../../Domain/UseCases/Auth/SyncPermissionsUseCase';
 import AuthorizeService from '../../Domain/Services/AuthorizeService';
+import ChangeForgotPasswordPayload from '../../Domain/Payloads/Auth/ChangeForgotPasswordPayload';
+import RegisterPayload from '../../Domain/Payloads/Auth/RegisterPayload';
+import UpdateMePayload from '../../Domain/Payloads/Auth/UpdateMePayload';
 
 class AuthKoaController
 {
     private static responder: KoaResponder = new KoaResponder();
 
-    static async getMe(ctx: Koa.ParameterizedContext & any)
+    static async getMe(ctx: Koa.ParameterizedContext)
     {
         const cookies = ctx.get('Cookie');
         const token = new AuthHelperService().getToken(cookies, 'accessToken');
@@ -43,7 +46,7 @@ class AuthKoaController
         );
     }
 
-    static async updateMe(ctx: Koa.ParameterizedContext & any)
+    static async updateMe(ctx: Koa.ParameterizedContext)
     {
         const cookies = ctx.get('Cookie');
         const token = new AuthHelperService().getToken(cookies, 'accessToken');
@@ -51,14 +54,16 @@ class AuthKoaController
             token, hasActiveAuthorization: true
         });
 
+        const body = ctx.request.body as Record<string, any>;
+
         const data = {
-            ...ctx.request.body,
+            ...body,
             authUser,
-            birthdate: dayjs(ctx.request.body.birthdate, 'yyyy-mm-dd').toDate()
+            birthdate: dayjs(body.birthdate, 'yyyy-mm-dd').toDate()
         };
 
         const useCase = new UpdateMeUseCase();
-        const payload = await useCase.handle(data);
+        const payload = await useCase.handle(data as UpdateMePayload);
 
         void await AuthKoaController.responder.send(
             payload,
@@ -68,21 +73,17 @@ class AuthKoaController
         );
     }
 
-    static async login(ctx: Koa.ParameterizedContext & any)
+    static async login(ctx: Koa.ParameterizedContext)
     {
-        const data = {
-            ...ctx.request.body
-        };
-
         const useCase = new LoginUseCase();
-        const payload = await useCase.handle(data as AuthPayload);
+        const payload = await useCase.handle(ctx.request.body as AuthPayload);
 
         ctx.cookies.set('accessToken', payload.accessToken, {
             expires: dayjs().add(payload.expiresIn, 'second').toDate(),
             path: '/api',
             secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
             httpOnly: true,
-            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
+            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite as boolean | 'none' | 'lax' | 'strict'
         });
 
         ctx.cookies.set('refreshToken', payload.refreshToken, {
@@ -90,26 +91,28 @@ class AuthKoaController
             path: '/api/auth',
             secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
             httpOnly: true,
-            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
+            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite as boolean | 'none' | 'lax' | 'strict'
         });
 
         void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_CREATED, new AuthTransformer());
     }
 
-    static async signup(ctx: Koa.ParameterizedContext & any)
+    static async signup(ctx: Koa.ParameterizedContext)
     {
+        const body = ctx.request.body as Record<string, any>;
+
         const data = {
-            ...ctx.request.body,
-            birthdate: dayjs(ctx.request.body.birthdate, 'yyyy-mm-dd').toDate()
+            ...body,
+            birthdate: dayjs(body.birthdate, 'yyyy-mm-dd').toDate()
         };
 
         const useCase = new RegisterUseCase();
-        const payload = await useCase.handle(data);
+        const payload = await useCase.handle(data as RegisterPayload);
 
         void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
 
-    static async logout(ctx: Koa.ParameterizedContext & any)
+    static async logout(ctx: Koa.ParameterizedContext)
     {
         const cookies = ctx.get('Cookie');
 
@@ -125,7 +128,7 @@ class AuthKoaController
             path: '/api',
             secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
             httpOnly: true,
-            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
+            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite as boolean | 'none' | 'lax' | 'strict'
         });
 
         ctx.cookies.set('refreshToken', '', {
@@ -133,13 +136,13 @@ class AuthKoaController
             path: '/api/auth',
             secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
             httpOnly: true,
-            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
+            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite as boolean | 'none' | 'lax' | 'strict'
         });
 
         void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_OK, new DefaultTransformer());
     }
 
-    static async refreshToken(ctx: Koa.ParameterizedContext & any)
+    static async refreshToken(ctx: Koa.ParameterizedContext)
     {
         const cookies = ctx.get('Cookie');
         const refreshToken = new AuthHelperService().getToken(cookies, 'refreshToken');
@@ -156,7 +159,7 @@ class AuthKoaController
             path: '/api',
             secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
             httpOnly: true,
-            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
+            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite as boolean | 'none' | 'lax' | 'strict'
         });
 
         ctx.cookies.set('refreshToken', payload.refreshToken, {
@@ -164,33 +167,29 @@ class AuthKoaController
             path: '/api/auth',
             secure: MainConfig.getInstance().getConfig().app.setCookieSecure,
             httpOnly: true,
-            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite
+            sameSite: MainConfig.getInstance().getConfig().app.setCookieSameSite as boolean | 'none' | 'lax' | 'strict'
         });
 
         void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_OK, new AuthTransformer());
     }
 
-    static async forgotPassword(ctx: Koa.ParameterizedContext & any)
+    static async forgotPassword(ctx: Koa.ParameterizedContext)
     {
-        const data: ForgotPasswordPayload = {
-            email: ctx.request.body.email
-        };
-
         const useCase = new ForgotPasswordUseCase();
-        const payload = await useCase.handle(data);
+        const payload = await useCase.handle(ctx.request.body as ForgotPasswordPayload);
 
         void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_CREATED);
     }
 
-    static async changeForgotPassword(ctx: Koa.ParameterizedContext & any)
+    static async changeForgotPassword(ctx: Koa.ParameterizedContext)
     {
         const useCase = new ChangeForgotPasswordUseCase();
-        const payload = await useCase.handle(ctx.request.body);
+        const payload = await useCase.handle(ctx.request.body as ChangeForgotPasswordPayload);
 
         void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_CREATED);
     }
 
-    static async verifyAccount(ctx: Koa.ParameterizedContext & any)
+    static async verifyAccount(ctx: Koa.ParameterizedContext)
     {
         const useCase = new VerifyYourAccountUseCase();
         const payload = await useCase.handle(ctx.params);
@@ -198,7 +197,7 @@ class AuthKoaController
         void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_CREATED, new DefaultTransformer());
     }
 
-    static async getPermissions(ctx: Koa.ParameterizedContext & any)
+    static async getPermissions(ctx: Koa.ParameterizedContext)
     {
         const useCase = new PermissionUseCase();
         const payload: IGroupPermission[] = useCase.handle();
@@ -206,7 +205,7 @@ class AuthKoaController
         void await AuthKoaController.responder.send(payload, ctx, StatusCode.HTTP_OK, new PermissionsTransformer());
     }
 
-    static async syncRolesPermissions(ctx: Koa.ParameterizedContext & any)
+    static async syncRolesPermissions(ctx: Koa.ParameterizedContext)
     {
         const useCase = new SyncPermissionsUseCase();
         await useCase.handle();

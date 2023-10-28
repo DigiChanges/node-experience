@@ -1,6 +1,6 @@
 import RefreshTokenPayload from '../../Payloads/Auth/RefreshTokenPayload';
 import { REPOSITORIES } from '../../../../Config/Injects';
-import { getRequestContext } from '../../../../Shared/Utils/RequestContext';
+import container from '../../../../register';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
 import { ErrorHttpException, StatusCode } from '@digichanges/shared-experience';
 import ValidatorSchema from '../../../../Main/Presentation/Utils/ValidatorSchema';
@@ -12,7 +12,6 @@ class RefreshTokenUseCase
 
     constructor()
     {
-        const { container } = getRequestContext();
         this.repository = container.resolve<IAuthRepository>(REPOSITORIES.IAuthRepository);
     }
 

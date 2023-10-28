@@ -62,10 +62,10 @@ const initTestServer = async(): Promise<TestServerData> =>
     // @ts-ignore
     container._registry._registryMap.delete('IRoleRepository');
 
-    container.register<IAuthRepository>(REPOSITORIES.IAuthRepository, { useClass: AuthMockRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IAuthzRepository>(REPOSITORIES.IAuthzRepository, { useClass: AuthzMockRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IUserRepository>(REPOSITORIES.IUserRepository, { useClass: UserMockRepository }, { lifecycle: Lifecycle.ContainerScoped });
-    container.register<IRoleRepository>(REPOSITORIES.IRoleRepository, { useClass: RoleMockRepository }, { lifecycle: Lifecycle.ContainerScoped });
+    container.register<IAuthRepository>(REPOSITORIES.IAuthRepository, { useClass: AuthMockRepository }, { lifecycle: Lifecycle.Singleton });
+    container.register<IAuthzRepository>(REPOSITORIES.IAuthzRepository, { useClass: AuthzMockRepository }, { lifecycle: Lifecycle.Singleton });
+    container.register<IUserRepository>(REPOSITORIES.IUserRepository, { useClass: UserMockRepository }, { lifecycle: Lifecycle.Singleton });
+    container.register<IRoleRepository>(REPOSITORIES.IRoleRepository, { useClass: RoleMockRepository }, { lifecycle: Lifecycle.Singleton });
 
     const appBootstrap = AppBootstrapFactory.create(config.app.default);
 
