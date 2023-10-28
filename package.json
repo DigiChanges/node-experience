@@ -91,7 +91,7 @@
     "tsyringe": "^4.7.0",
     "typeorm": "^0.3.11",
     "web-push": "^3.5.0",
-    "zod": "^3.20.2"
+    "zod": "^3.22.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",

@@ -180,8 +180,8 @@ dependencies:
     specifier: ^3.5.0
     version: 3.5.0
   zod:
-    specifier: ^3.20.2
-    version: 3.20.2
+    specifier: ^3.22.3
+    version: 3.22.3
 
 devDependencies:
   '@commitlint/cli':
@@ -11360,6 +11360,6 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zod@3.20.2:
-    resolution: {integrity: sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==}
+  /zod@3.22.3:
+    resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
     dev: false
