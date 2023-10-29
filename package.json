@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "",
   "scripts": {
-    "dagger": "dagger run node --loader ts-node/esm dagger.mjs",
+    "dagger": "node --loader ts-node/esm dagger.mjs",
     "build": "node rimraf_cpy.mjs && tsc -p tsconfig.json --incremental",
     "ci": "npm run cpy-ci && npm run ts-check && npm run lint",
     "circular": "madge --circular dist/src/index.js",
@@ -88,7 +88,7 @@
   "devDependencies": {
     "@commitlint/cli": "^18.2.0",
     "@commitlint/config-conventional": "^18.1.0",
-    "@dagger.io/dagger": "^0.9.0",
+    "@dagger.io/dagger": "^0.9.1",
     "@shelf/jest-mongodb": "^4.1.7",
     "@types/bcrypt": "^5.0.1",
     "@types/compression": "^1.7.4",

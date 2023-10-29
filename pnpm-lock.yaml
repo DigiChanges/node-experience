@@ -170,7 +170,7 @@ devDependencies:
     specifier: ^18.1.0
     version: 18.1.0
   '@dagger.io/dagger':
-    specifier: ^0.9.0
+    specifier: ^0.9.1
     version: 0.9.1
   '@shelf/jest-mongodb':
     specifier: ^4.1.7
