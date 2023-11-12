@@ -6,7 +6,7 @@ export enum FACTORIES  {
     EmailStrategy = 'EmailStrategy',
     WebPushStrategy = 'WebPushStrategy',
 
-    AppKoa = 'AppKoa'
+    AppFastify = 'AppFastify'
 }
 
 export enum REPOSITORIES  {

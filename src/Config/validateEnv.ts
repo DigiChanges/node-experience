@@ -4,7 +4,7 @@ export function validateEnv()
 {
     if (process.env.NODE_ENV === 'test')
     {
-        return cleanEnv(process.env, { NODE_ENV: str() });
+        return cleanEnv(process.env, { NODE_ENV: str(), AUTH_AUTHORIZATION: bool() });
     }
 
     return cleanEnv(process.env, {
@@ -17,14 +17,9 @@ export function validateEnv()
         APP_SET_COOKIE_SECURE: bool(),
         APP_SET_COOKIE_SAME_SITE: str(),
 
-        KEYCLOAK_CLIENT_ID: str(),
-        KEYCLOAK_CLIENT_UUID: str(),
-        KEYCLOAK_CLIENT_SECRET: str(),
-        KEYCLOAK_MAIN_REALM: str(),
-        KEYCLOAK_HOST: str(),
-        KEYCLOAK_USERNAME: str(),
-        KEYCLOAK_PASSWORD: str(),
-        KEYCLOAK_AUTHORIZATION: bool(),
+        AUTH_API_KEY: str(),
+        AUTH_HOST: str(),
+        AUTH_AUTHORIZATION: bool(),
 
         DB_URI: str(),
         DB_ORM_DEFAULT: str(),

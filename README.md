@@ -31,56 +31,6 @@ We can run the project directly with docker compose and then bash where the basi
 3. Install dependencies. `pnpm install`.
 4. Copy `.env.dev` file to `.env`. (**.env.dev** it's an environment example file)
 5. Then execute `STAGE=dev docker-compose up --build` to up all containers.
-6. Configure Keycloak.
-
-#### Creation of realm and client in Keycloak
-Once you already login in the keycloak administration console, you can create the realm from the side menu
-
-![Screenshot](docs/images/keycloak_1.png)
-
-Then you just need to add a name to it and click on "Create".
-
-![Screenshot](docs/images/keycloak_2.png)
-
-To add a client, first you need to select the realm, then go to the side menu "Clients", you will see the option "Create client".
-
-![Screenshot](docs/images/keycloak_3.png)
-
-Complete the required fields and then click on "Next", after finish all the steps then you can save it.
-
-![Screenshot](docs/images/keycloak_4.png)
-![Screenshot](docs/images/keycloak_5.png)
-
-NOTE: In **docker/keycloak/themes** folder you can find a theme for keycloak, you can use it to customize the login page.
-      It's made with https://github.com/keycloakify/keycloakify
-
-You need to select the new client and on credential tab copy the client secret and copy UUID client from URL.
-
-Go to .env file and replace this values.
-
-Example: 
-
-```
-KEYCLOAK_CLIENT_ID=experience
-KEYCLOAK_CLIENT_SECRET=eSKReacL00dAjlrQfv5HM8BWLcCDmkCK
-KEYCLOAK_CLIENT_UUID=4693fe5e-4d33-43a0-b016-e19e827ca332
-```
-
-And .env file complete this is like this:
-
-```
-KEYCLOAK_CLIENT_ID=experience
-KEYCLOAK_CLIENT_SECRET=eSKReacL00dAjlrQfv5HM8BWLcCDmkCK
-KEYCLOAK_CLIENT_UUID=4693fe5e-4d33-43a0-b016-e19e827ca332
-KEYCLOAK_MAIN_REALM=chespirito
-KEYCLOAK_HOST=http://keycloak:8080
-KEYCLOAK_USERNAME=superadmin@node.com
-KEYCLOAK_PASSWORD=db_experience123
-KEYCLOAK_AUTHORIZATION=true
-```
-
-![Screenshot](docs/images/keycloak_6.png)
-5. Finally, generates an **admin user**, add **roles** with **permissions** and get a **bucket** for **MinIO**. 
 
 `docker-compose exec node bash dev.init.sh`
 
@@ -100,7 +50,6 @@ nexp-cli create
 
 Each module is divided by business domain:
 
-- File
 - Item
 - Notification
 
@@ -148,12 +97,11 @@ As it is only a boilerplate, you have the freedom to structure the code whatever
 
 Common structures found within this project are: 
 
-- Authentication and authorization with [Keycloak](https://www.keycloak.org).
-- Filesystem with [MinIO](https://min.io), 100% S3 compatible.
-- Basic push Notification and Email with nodemailer.
+- Fastify's integration.
 - MikroORM and Mongoose Integration.
-- Koa integration.
+- Basic push Notification and Email with nodemailer.
 - Business logic independent of the HTTP and persistence libraries.
+- Supabse integration middleware
 
 ## License
 

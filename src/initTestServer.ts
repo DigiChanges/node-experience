@@ -13,18 +13,10 @@ import MainConfig from './Config/MainConfig';
 import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFactory';
 import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
 import IAuthRepository from './Auth/Infrastructure/Repositories/Auth/IAuthRepository';
-import IAuthzRepository from './Auth/Infrastructure/Repositories/Auth/IAuthzRepository';
-import IUserRepository from './Auth/Infrastructure/Repositories/User/IUserRepository';
-import IRoleRepository from './Auth/Infrastructure/Repositories/Role/IRoleRepository';
 import { REPOSITORIES } from './Config/Injects';
-import AuthMockRepository from './Auth/Tests/AuthMockRepository';
-import AuthzMockRepository from './Auth/Tests/AuthzMockRepository';
-import UserMockRepository from './Auth/Tests/UserMockRepository';
-import RoleMockRepository from './Auth/Tests/RoleMockRepository';
 import { Lifecycle } from 'tsyringe';
-import UserCreatedEvent from './Auth/Infrastructure/Events/UserCreatedEvent';
 import SendMessageEvent from './Notification/Infrastructure/Events/SendMessageEvent';
-import EmailEvent from './Auth/Infrastructure/Events/EmailEvent';
+import AuthMockRepository from './Auth/Tests/AuthMockRepository';
 
 type TestServerData = {
     request: supertest.SuperAgentTest,
@@ -45,27 +37,13 @@ const initTestServer = async(): Promise<TestServerData> =>
     await dbConnection.synchronize();
 
     const eventHandler = EventHandler.getInstance();
-    eventHandler.setEvent(new UserCreatedEvent());
-    eventHandler.setEvent(new EmailEvent());
     eventHandler.setEvent(new SendMessageEvent());
 
     void Locales.getInstance();
 
     // @ts-ignore
     container._registry._registryMap.delete('IAuthRepository');
-    // @ts-ignore
-    container._registry._registryMap.delete('IAuthzRepository');
-    // @ts-ignore
-    container._registry._registryMap.delete('IAuthzRepository');
-    // @ts-ignore
-    container._registry._registryMap.delete('IUserRepository');
-    // @ts-ignore
-    container._registry._registryMap.delete('IRoleRepository');
-
     container.register<IAuthRepository>(REPOSITORIES.IAuthRepository, { useClass: AuthMockRepository }, { lifecycle: Lifecycle.Singleton });
-    container.register<IAuthzRepository>(REPOSITORIES.IAuthzRepository, { useClass: AuthzMockRepository }, { lifecycle: Lifecycle.Singleton });
-    container.register<IUserRepository>(REPOSITORIES.IUserRepository, { useClass: UserMockRepository }, { lifecycle: Lifecycle.Singleton });
-    container.register<IRoleRepository>(REPOSITORIES.IRoleRepository, { useClass: RoleMockRepository }, { lifecycle: Lifecycle.Singleton });
 
     const appBootstrap = AppBootstrapFactory.create(config.app.default);
 
@@ -76,11 +54,13 @@ const initTestServer = async(): Promise<TestServerData> =>
         dbConfigDefault: 'Mongoose' // TODO: Replace for a mock
     });
 
-    const application = app.callback();
+    const application = await app.callback();
     const request: supertest.SuperAgentTest = supertest.agent(application);
 
     const seed = new SeedFactory();
     await seed.init();
+
+    await request.set({ Origin: config.url.urlWeb, Accept: 'application/json' });
 
     return { request, dbConnection };
 };

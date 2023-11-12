@@ -11,6 +11,11 @@ class AuthHelperService
 
     public getToken(cookies: string, key: string): string
     {
+        if (!cookies)
+        {
+            throw new TokenNotFoundHttpException();
+        }
+
         const regex = new RegExp(`${key}=([^;]*)`);
         const match = cookies.match(regex);
         const token = match ? match[1] : null;

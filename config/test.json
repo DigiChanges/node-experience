@@ -1,13 +1,12 @@
 {
   "env": "test",
   "auth": {
-    "clientId": "experience",
-    "clientUuid": "5ffa84ea-702f-4f13-96f0-2e2237305591",
-    "clientSecret": "XxZ5vETEKmLDEccP9Tq1G8eDCagUaeHq",
-    "mainRealm": "digichanges",
-    "username": "admin",
-    "password": "12345678",
+    "apiKey": "experience",
     "host": "http://localhost:8080",
-    "authorization": true
+    "authorization": false
+  },
+  "url": {
+    "urlApi": "http://localhost:8088",
+    "urlWeb": "http://localhost:3000"
   }
 }

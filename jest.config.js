@@ -72,9 +72,6 @@ module.exports = {
   roots: [
     "./dist/src"
   ],
-  setupFiles: [
-      'dotenv/config'
-  ],
   testEnvironment: "node",
   testRegex: '((\\.|/)(spec))\\.js?$',
   verbose: true,

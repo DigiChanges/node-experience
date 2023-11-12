@@ -1,15 +1,14 @@
-import KoaBootstrapping from '../Http/KoaBootstrapping';
-import { IApp } from '@digichanges/shared-experience';
 import IExtendAppConfig from '../Http/IExtendAppConfig';
+import FastifyBootstrapping from '../Http/FastifyBootstrapping';
 
-type TypeAppBootstrap = (config: IExtendAppConfig) => Promise<IApp>;
+type TypeAppBootstrap = (config: IExtendAppConfig) => Promise<any>;
 
 class AppBootstrapFactory
 {
-    static create(appBootstrapName = 'KoaBootstrapping'): TypeAppBootstrap
+    static create(appBootstrapName = 'FastifyBootstrapping'): TypeAppBootstrap
     {
         const strategy = new Map<string, TypeAppBootstrap>();
-        strategy.set('KoaBootstrapping', KoaBootstrapping);
+        strategy.set('FastifyBootstrapping', FastifyBootstrapping);
 
         return strategy.get(appBootstrapName);
     }

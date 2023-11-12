@@ -13,7 +13,6 @@ import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFacto
 import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
 import Logger from './Shared/Helpers/Logger';
 import closedApplication from './closed';
-import UserCreatedEvent from './Auth/Infrastructure/Events/UserCreatedEvent';
 import SendMessageEvent from './Notification/Infrastructure/Events/SendMessageEvent';
 import EmailEvent from './Auth/Infrastructure/Events/EmailEvent';
 
@@ -33,12 +32,10 @@ void (async() =>
             dbConfigDefault: config.dbConfig.default
         });
 
-        const server = app.listen(() =>
-        {
-            void Logger.info(`Koa is listening to http://localhost:${config.app.serverPort}`);
-        });
+        // @ts-ignore
+        const server = await app.listen();
 
-        // // Create DB connection
+        // Create DB connection
         const databaseFactory = new DatabaseFactory();
         const createConnection: ICreateConnection = databaseFactory.create();
         await createConnection.initConfig();
@@ -50,7 +47,6 @@ void (async() =>
 
         // Set EventHandler and all events
         const eventHandler = EventHandler.getInstance();
-        eventHandler.setEvent(new UserCreatedEvent());
         eventHandler.setEvent(new EmailEvent());
         eventHandler.setEvent(new SendMessageEvent());
 
@@ -59,7 +55,7 @@ void (async() =>
         cronFactory.start();
 
         // Close gracefully
-        closedApplication(server, cache, createConnection, eventHandler);
+        // closedApplication(server, cache, createConnection, eventHandler);
     }
     catch (error)
     {
