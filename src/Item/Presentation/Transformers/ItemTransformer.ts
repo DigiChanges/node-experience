@@ -4,7 +4,7 @@ import { Transformer } from '@digichanges/shared-experience';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 import IItemTransformer from './IItemTransformer';
 
-class ItemTransformer extends Transformer
+class ItemTransformer extends Transformer<IItemDomain, IItemTransformer>
 {
     constructor()
     {

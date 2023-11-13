@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@digichanges/shared-experience':
-    specifier: ^1.3.1
-    version: 1.3.1
+    specifier: ^1.4.1
+    version: 1.4.1
   '@faker-js/faker':
     specifier: ^8.2.0
     version: 8.2.0
@@ -1686,8 +1686,8 @@ packages:
       - encoding
     dev: true
 
-  /@digichanges/shared-experience@1.3.1:
-    resolution: {integrity: sha512-7bnHNVPFzFheFPANhRsW8HOGlnpcGbXrE7WlHX40Kh/TQSXo7DRlzDTT0xFrxTUDukPis8XVxrfTAXby/v9sDw==}
+  /@digichanges/shared-experience@1.4.1:
+    resolution: {integrity: sha512-oYWaEoOl9wZOwkaD9FH/kFrjMZEXdhwLEVpQZnQ3X4T0q7plx/0tWhr5IMw/W2zpV5x6nA4bv/Zm7Y8g1Gh0vA==}
     dependencies:
       bcrypt: 5.1.1
       koa: 2.14.2

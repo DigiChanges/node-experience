@@ -1,6 +1,7 @@
 import { IPaginator, Transformer } from '@digichanges/shared-experience';
+import { PaginatorTransformerResponse } from './PaginatorTransformerResponse';
 
-class PaginatorTransformer extends Transformer
+class PaginatorTransformer extends Transformer<IPaginator, PaginatorTransformerResponse>
 {
     public async transform(paginator: IPaginator)
     {

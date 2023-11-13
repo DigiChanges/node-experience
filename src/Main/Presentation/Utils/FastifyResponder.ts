@@ -44,10 +44,9 @@ class FastifyResponder
         if (paginator.getExist())
         {
             const paginatorTransformer = new PaginatorTransformer();
-            paginator = await paginatorTransformer.handle(paginator);
+            const pagination = await paginatorTransformer.handle(paginator);
 
-            const pagination = { pagination: paginator };
-            Object.assign(result, pagination);
+            Object.assign(result, { pagination });
         }
 
         await reply.code(status.code).send(result);

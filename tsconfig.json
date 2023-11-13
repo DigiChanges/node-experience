@@ -16,7 +16,8 @@
     "target": "esnext",
     "lib": [
       "esnext",
-      "DOM"
+      "DOM",
+      "es2015.symbol"
     ],
     "outDir": "./dist",
     "baseUrl": "./src",
