@@ -4,7 +4,7 @@ export function validateEnv()
 {
     if (process.env.NODE_ENV === 'test')
     {
-        return cleanEnv(process.env, { NODE_ENV: str(), AUTH_AUTHORIZATION: bool() });
+        return cleanEnv(process.env, { NODE_ENV: str() });
     }
 
     return cleanEnv(process.env, {
