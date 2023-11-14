@@ -19,6 +19,7 @@ export function validateEnv()
 
         AUTH_API_KEY: str(),
         AUTH_HOST: str(),
+        AUTH_SECRET: str(),
         AUTH_AUTHORIZATION: bool(),
 
         DB_URI: str(),

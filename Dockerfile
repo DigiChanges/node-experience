@@ -1,4 +1,4 @@
-FROM digichanges/nexp:1.2 as dev
+FROM digichanges/nexp:1.2 AS dev
 
 WORKDIR /home/node/app
 
@@ -24,7 +24,7 @@ RUN pnpm install
 
 ENTRYPOINT ["dumb-init", "pnpm", "dev"]
 
-FROM dev as build
+FROM dev AS build
 
 USER root
 
@@ -37,7 +37,7 @@ USER node
 
 RUN pnpm build
 
-FROM build as prerelease
+FROM build AS prerelease
 
 WORKDIR /home/node/app
 
@@ -49,7 +49,7 @@ RUN chown node:node node_modules
 
 RUN cd node_modules/bcrypt && npm rebuild bcrypt --build-from-source
 
-FROM digichanges/nexp:1.2 as prod
+FROM digichanges/nexp:1.2 AS prod
 
 RUN npm install -g pnpm pm2
 

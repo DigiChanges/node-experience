@@ -5,14 +5,13 @@ import MainConfig from '../../../Config/MainConfig';
 import { SERVICES } from '../../../Config/Injects';
 import container from '../../../register';
 import AuthorizeSupabaseService from '../../Domain/Services/AuthorizeSupabaseService';
-import AuthHelperService from '../../Domain/Services/AuthHelperService';
+// import AuthHelperService from '../../Domain/Services/AuthHelperService';
 
 const AuthorizeFastifyMiddleware = (...handlerPermissions: string[]) =>
 {
     return async(request: FastifyRequest, reply: FastifyReply) =>
     {
-        const cookies = request.headers.cookie;
-        let token: string;
+        const bearerToken = request.headers.authorization;
         const authorizeService: AuthorizeSupabaseService = container.resolve<AuthorizeSupabaseService>(SERVICES.AuthorizeService);
 
         const config = MainConfig.getInstance().getConfig();
@@ -22,9 +21,9 @@ const AuthorizeFastifyMiddleware = (...handlerPermissions: string[]) =>
         {
             try
             {
-                const authHelperService = new AuthHelperService();
-                token = authHelperService.getToken(cookies, 'accessToken');
-                await authorizeService.authorize(token, handlerPermissions);
+                // const authHelperService = new AuthHelperService();
+                // token = authHelperService.getToken(bearerToken, 'accessToken');
+                // await authorizeService.authorize(token, handlerPermissions);
 
                 // request.accessToken = token;
                 // request.authUser = await authorizeService.getAuthUser({ token, hasActiveAuthorization });

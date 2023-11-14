@@ -11,6 +11,7 @@
   "auth": {
       "apiKey": "AUTH_API_KEY",
       "host": "AUTH_HOST",
+      "secret": "AUTH_SECRET",
       "authorization": "AUTH_AUTHORIZATION"
   },
   "dbConfig": {

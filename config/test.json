@@ -3,6 +3,7 @@
   "auth": {
     "apiKey": "experience",
     "host": "http://localhost:8080",
+    "secret": "mySecret",
     "authorization": false
   },
   "url": {

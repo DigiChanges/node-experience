@@ -6,11 +6,11 @@ import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepo
 
 class SyncPermissionsUseCase
 {
-    private repository: IAuthRepository;
+    #repository: IAuthRepository;
 
     constructor()
     {
-        this.repository = container.resolve<IAuthRepository>(REPOSITORIES.IAuthzRepository);
+        this.#repository = container.resolve<IAuthRepository>(REPOSITORIES.IAuthRepository);
     }
 
     async handle(): Promise<void>

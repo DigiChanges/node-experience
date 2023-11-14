@@ -84,7 +84,7 @@
   "devDependencies": {
     "@commitlint/cli": "^18.2.0",
     "@commitlint/config-conventional": "^18.1.0",
-    "@dagger.io/dagger": "^0.9.1",
+    "@dagger.io/dagger": "^0.9.3",
     "@shelf/jest-mongodb": "^4.1.7",
     "@types/bcrypt": "^5.0.1",
     "@types/config": "^0.0.41",
