@@ -1,6 +1,6 @@
 {
   "name": "node-experience",
-  "version": "1.39.4",
+  "version": "1.39.5",
   "description": "",
   "scripts": {
     "dagger": "dagger run node dagger.mjs",
