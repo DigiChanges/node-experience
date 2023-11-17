@@ -42,8 +42,8 @@ dependencies:
     specifier: ^2.38.4
     version: 2.38.4
   axios:
-    specifier: ^1.5.1
-    version: 1.6.0
+    specifier: ^1.6.1
+    version: 1.6.1
   bcrypt:
     specifier: ^5.1.1
     version: 5.1.1
@@ -3393,8 +3393,8 @@ packages:
       - debug
     dev: false
 
-  /axios@1.6.0:
-    resolution: {integrity: sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==}
+  /axios@1.6.1:
+    resolution: {integrity: sha512-vfBmhDpKafglh0EldBEbVuoe7DyAavGSLWhuSm5ZSEKQnHhBf0xAAwybbNH1IkrJNGnS/VG4I5yxig1pCEXE4g==}
     dependencies:
       follow-redirects: 1.15.2
       form-data: 4.0.0
