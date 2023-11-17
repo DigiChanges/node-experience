@@ -1,4 +1,4 @@
-name: Build
+name: Test
 on:
   push:
     branches-ignore:
@@ -13,11 +13,12 @@ jobs:
     name: CI
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
-        name: Install Dagger CLI
+      - name: Install Dagger CLI
         run: cd /usr/local && { curl -L https://dl.dagger.io/dagger/install.sh | sh; cd -; }
 
       - name: Release and deploy with Dagger
@@ -29,6 +30,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-            args: >
-              -Dsonar.coverage.exclusions=**/node_modules/**,**/*.spec.ts
-              -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+          args: >
+            -Dsonar.coverage.exclusions=**/node_modules/**,**/*.spec.ts
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
