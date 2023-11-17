@@ -1,7 +1,7 @@
 {
   "env": "local",
   "app": {
-    "default": "AppKoa",
+    "default": "FastifyBootstrapping",
     "path": "/home/node/app",
     "serverPort": 8089,
     "setAppProxy": false,

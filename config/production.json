@@ -1,7 +1,7 @@
 {
   "env": "production",
   "app": {
-    "default": "AppKoa",
+    "default": "FastifyBootstrapping",
     "path": "/home/node/app",
     "serverPort": 80,
     "setAppProxy": true,

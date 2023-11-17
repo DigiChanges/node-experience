@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config(); // Need before get config
-
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'path';
 import Config from 'config';

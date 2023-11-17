@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config({ path: './.env.test' });
+
 import { IApp } from '@digichanges/shared-experience';
 
 import container from './register';
@@ -6,7 +9,6 @@ import supertest from 'supertest';
 
 import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
 import { EventHandler } from '@digichanges/shared-experience';
-import { validateEnv } from './Config/validateEnv';
 import SeedFactory from './Shared/Factories/SeedFactory';
 import Locales from './Shared/Utils/Locales';
 import MainConfig from './Config/MainConfig';
@@ -25,8 +27,6 @@ type TestServerData = {
 
 const initTestServer = async(): Promise<TestServerData> =>
 {
-    validateEnv();
-
     const config = MainConfig.getInstance().getConfig();
 
     const databaseFactory: DatabaseFactory = new DatabaseFactory();

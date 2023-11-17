@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { EventHandler, IApp } from '@digichanges/shared-experience';
 
 import './register';

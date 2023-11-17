@@ -2,11 +2,6 @@ import { cleanEnv, str, port, bool, num, url } from 'envalid';
 
 export function validateEnv()
 {
-    if (process.env.NODE_ENV === 'test')
-    {
-        return cleanEnv(process.env, { NODE_ENV: str() });
-    }
-
     return cleanEnv(process.env, {
         NODE_ENV: str(),
 
