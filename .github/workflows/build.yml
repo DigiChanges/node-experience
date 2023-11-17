@@ -1,16 +1,12 @@
 name: Build
 on:
   push:
-    branches:
-      - '**'
     branches-ignore:
-      - 'release/*'
+      - 'chore(release)/*'
   pull_request:
     types: [opened, synchronize, reopened]
     branches-ignore:
-      - 'release/*'
-    branches:
-      - '**'
+      - 'chore(release)/*'
 
 jobs:
   ci:
