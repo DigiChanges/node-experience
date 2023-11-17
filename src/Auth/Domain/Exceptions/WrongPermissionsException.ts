@@ -1,14 +1,12 @@
-import ErrorException from '../../../Shared/Exceptions/ErrorException';
-import Locales from '../../../Shared/Presentation/Shared/Locales';
+import { ErrorException } from '@digichanges/shared-experience';
 
 class WrongPermissionsException extends ErrorException
 {
     constructor()
     {
-        const locales = Locales.getInstance().getLocales();
         const key = 'auth.domain.exceptions.wrongPermissions';
         super({
-            message: locales.__(key),
+            message: 'Wrong permissions.',
             errorCode: key
         }, WrongPermissionsException.name);
     }

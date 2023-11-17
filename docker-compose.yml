@@ -17,9 +17,10 @@ services:
       - traefik.http.routers.api.tls.certresolver=lets-encrypt
       - traefik.port=80
     volumes:
-      - ./src:/usr/app/src:cached
-      - ./config:/usr/app/config:cached
-      - ./.env:/usr/app/.env
+      - ./dist:/home/node/app/dist
+      - ./src:/home/node/app/src
+      - ./config:/home/node/app/config:cached
+      - ./.env:/home/node/app/.env
     networks:
      - experiencenet
 
@@ -50,28 +51,6 @@ services:
     networks:
      - experiencenet
 
-  minio:
-    container_name: experience_minio_1
-    restart: always
-    image: minio/minio
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    labels:
-      - traefik.http.routers.api.rule=Host(`minio.domain.com`)
-      - traefik.http.routers.api.tls=true
-      - traefik.http.routers.api.tls.certresolver=lets-encrypt
-      - traefik.port=80
-    networks:
-     - experiencenet
-    environment:
-      MINIO_ROOT_USER: minio
-      MINIO_ROOT_PASSWORD: 12345678
-      MINIO_DOMAIN: localhost
-    volumes:
-      - minio:/data
-    command: server --address 0.0.0.0:9000 --console-address 0.0.0.0:9001 /data
-
   redis:
     image: bitnami/redis:latest
     restart: always
@@ -93,7 +72,7 @@ networks:
 volumes:
   data:
     driver: "local"
-  minio:
+  data_sql:
     driver: "local"
   redis:
     driver: "local"

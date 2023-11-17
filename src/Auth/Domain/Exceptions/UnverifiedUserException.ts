@@ -1,14 +1,12 @@
-import ErrorException from '../../../Shared/Exceptions/ErrorException';
-import Locales from '../../../Shared/Presentation/Shared/Locales';
+import { ErrorException } from '@digichanges/shared-experience';
 
 class UnverifiedUserException extends ErrorException
 {
     constructor()
     {
-        const locales = Locales.getInstance().getLocales();
         const key = 'user.domain.exceptions.unverifiedUser';
         super({
-            message: locales.__(key),
+            message: 'This user is not verified.',
             errorCode: key
         }, UnverifiedUserException.name);
     }

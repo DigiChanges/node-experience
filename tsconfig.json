@@ -13,10 +13,11 @@
     "useUnknownInCatchVariables": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "target": "ESNext",
+    "target": "esnext",
     "lib": [
-      "ESNext",
-      "DOM"
+      "esnext",
+      "DOM",
+      "es2015.symbol"
     ],
     "outDir": "./dist",
     "baseUrl": "./src",
@@ -25,7 +26,6 @@
     "strict": false,
     "types": [
       "node",
-      "reflect-metadata",
       "jest"
     ],
     "typeRoots": [
@@ -41,6 +41,6 @@
   "include": [
     "./src",
     "./typings/*",
-    ".eslintrc.json"
+    ".eslintrc"
   ]
 }

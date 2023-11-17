@@ -1,11 +1,9 @@
 {
   "http": [
-    "Express",
-    "Koa"
+    "Fastify"
   ],
   "orm": [
     "Mongoose",
-    "TypeORM",
     "MikroORM"
   ]
 }

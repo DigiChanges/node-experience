@@ -1,6 +1,5 @@
 import MainConfig from '../../Config/MainConfig';
-import MinioStrategy from '../Infrastructure/Filesystem/MinioStrategy';
-import IFilesystem from '../Infrastructure/Filesystem/IFilesystem';
+import { IFilesystem, MinioStrategy } from '@digichanges/shared-experience';
 
 type FilesystemValueProp = typeof MinioStrategy;
 

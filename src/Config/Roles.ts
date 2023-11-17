@@ -2,34 +2,33 @@ import Permissions from './Permissions';
 
 class Roles
 {
-    static readonly SUPER_ADMIN: string = 'SuperAdmin';
     static readonly ADMIN: string = 'Admin';
     static readonly OPERATOR: string = 'Operator';
 
-    static getRoles(): Record<string, string[]>
+    static getRoles(): Map<string, string[]>
     {
-        return {
-            [Roles.ADMIN]: [
-                Permissions.USERS_CHANGE_MY_PASSWORD,
-                Permissions.ITEMS_SAVE,
-                Permissions.ITEMS_UPDATE,
-                Permissions.ITEMS_SHOW,
-                Permissions.ITEMS_LIST,
-                Permissions.FILES_UPLOAD,
-                Permissions.FILES_DOWNLOAD,
-                Permissions.FILES_LIST
-            ],
-            [Roles.OPERATOR]: [
-                Permissions.USERS_CHANGE_MY_PASSWORD,
-                Permissions.ITEMS_SAVE,
-                Permissions.ITEMS_UPDATE,
-                Permissions.ITEMS_SHOW,
-                Permissions.ITEMS_LIST,
-                Permissions.FILES_UPLOAD,
-                Permissions.FILES_DOWNLOAD,
-                Permissions.FILES_LIST
-            ]
-        };
+        const map = new Map<string, string[]>();
+
+        map.set(Roles.ADMIN, [
+            Permissions.AUTH_SYNC_PERMISSIONS,
+            Permissions.AUTH_GET_ME,
+            Permissions.AUTH_GET_PERMISSIONS,
+
+            Permissions.ITEMS_SAVE,
+            Permissions.ITEMS_UPDATE,
+            Permissions.ITEMS_SHOW,
+            Permissions.ITEMS_LIST,
+            Permissions.ITEMS_DELETE
+        ]);
+        map.set(Roles.OPERATOR, [
+            Permissions.AUTH_GET_ME,
+            Permissions.ITEMS_SAVE,
+            Permissions.ITEMS_UPDATE,
+            Permissions.ITEMS_SHOW,
+            Permissions.ITEMS_LIST
+        ]);
+
+        return map;
     }
 }
 

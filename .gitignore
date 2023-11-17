@@ -13,6 +13,8 @@ package-lock.json
 .pnpm-store
 graph.svg
 .bun
+yalc.lock
+.yalc
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -84,7 +86,8 @@ typings/
 .nuxt
 
 # rollup.js default build output
-dist/
+dist/*
+!dist/.gitkeep
 
 # Uncomment the public line if your project uses Gatsby
 # https://nextjs.org/blog/next-9-1#public-directory-support

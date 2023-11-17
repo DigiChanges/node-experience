@@ -1,8 +1,5 @@
 {
   "env": "NODE_ENV",
-  "auth": {
-      "authorization": "AUTHORIZATION"
-  },
   "app": {
     "default": "APP_DEFAULT",
     "path": "APP_PATH",
@@ -11,27 +8,15 @@
     "setCookieSecure": "APP_SET_COOKIE_SECURE",
     "setCookieSameSite": "APP_SET_COOKIE_SAME_SITE"
   },
+  "auth": {
+      "apiKey": "AUTH_API_KEY",
+      "host": "AUTH_HOST",
+      "secret": "AUTH_SECRET",
+      "authorization": "AUTH_AUTHORIZATION"
+  },
   "dbConfig": {
-    "TypeORM": {
-      "host": "DB_HOST",
-      "port": "DB_PORT",
-      "username": "DB_USER",
-      "password": "DB_PASSWORD",
-      "synchronize": "DB_SYNCHRONIZE",
-      "database": "DB_DATABASE",
-      "type": "DB_TYPE"
-    },
     "Mongoose": {
-      "host": "DB_HOST",
-      "port": "DB_PORT",
-      "username": "DB_USER",
-      "password": "DB_PASSWORD",
-      "database": "DB_DATABASE",
-      "driver": "DB_DRIVER",
-      "ssl": "SSL",
-      "sslValidate": "SSL_VALIDATE",
-      "sslCA": "SSL_CA",
-      "replicaSet": "REPLICA_SET"
+      "uri": "DB_URI"
     },
     "MikroORM": {
       "host": "DB_HOST",

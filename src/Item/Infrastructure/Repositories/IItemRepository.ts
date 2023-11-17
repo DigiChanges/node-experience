@@ -1,6 +1,5 @@
-import IBaseRepository from '../../../Shared/Infrastructure/Repositories/IBaseRepository';
-import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
+import IBaseRepository from '../../../Main/Infrastructure/Repositories/IBaseRepository';
+import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 
 interface IItemRepository extends IBaseRepository<IItemDomain>

@@ -1,7 +1,5 @@
-import _ from 'lodash';
-
 import seeds from '../../seed';
-import Logger from '../Application/Logger/Logger';
+import Logger from '../Helpers/Logger';
 
 class SeedFactory
 {
@@ -11,7 +9,7 @@ class SeedFactory
 
     public async execute(name: string): Promise<any>
     {
-        return !_.isUndefined(name) ? await this.one(name) : await this.all();
+        return !((typeof name) === 'undefined') ? await this.one(name) : await this.all();
     }
 
     public list(): void

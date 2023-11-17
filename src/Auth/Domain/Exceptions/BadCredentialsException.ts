@@ -1,14 +1,12 @@
-import ErrorException from '../../../Shared/Exceptions/ErrorException';
-import Locales from '../../../Shared/Presentation/Shared/Locales';
+import { ErrorException } from '@digichanges/shared-experience';
 
 class BadCredentialsException extends ErrorException
 {
     constructor()
     {
-        const locales = Locales.getInstance().getLocales();
         const key = 'auth.domain.exceptions.badCredentials';
         super({
-            message: locales.__(key),
+            message: 'Error credentials.',
             errorCode: key
         }, BadCredentialsException.name);
     }

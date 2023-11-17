@@ -1,5 +1,5 @@
-import { IBodyResponse } from '../../Shared/InterfaceAdapters/Tests/IBodyResponse';
-import { IFetchResponse } from '../../Shared/InterfaceAdapters/Tests/IFetchResponse';
+import { IBodyResponse } from '../../Main/Tests/IBodyResponse';
+import { IFetchResponse } from '../../Main/Tests/IFetchResponse';
 import IItemTransformer from '../Presentation/Transformers/IItemTransformer';
 
 interface IItemBody extends IBodyResponse

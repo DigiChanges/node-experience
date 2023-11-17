@@ -1,69 +1,68 @@
-import 'reflect-metadata';
-import './inversify.config';
+import dotenv from 'dotenv';
+dotenv.config();
+
+import { EventHandler, IApp } from '@digichanges/shared-experience';
+
 import './register';
 
 import MainConfig from './Config/MainConfig';
-import DatabaseFactory from './Shared/Factories/DatabaseFactory';
+import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
 
-import EventHandler from './Shared/Infrastructure/Events/EventHandler';
-import CacheFactory from './Shared/Factories/CacheFactory';
-import ICacheRepository from './Shared/Infrastructure/Repositories/ICacheRepository';
+import CacheFactory from './Main/Infrastructure/Factories/CacheFactory';
+import ICacheRepository from './Main/Infrastructure/Repositories/ICacheRepository';
 
-import CronFactory from './Shared/Factories/CronFactory';
-import IApp from './Shared/Application/Http/IApp';
-import AppFactory from './Shared/Factories/AppFactory';
-import ICreateConnection from './Shared/Infrastructure/Database/ICreateConnection';
-import Logger from './Shared/Application/Logger/Logger';
+import CronFactory from './Main/Infrastructure/Factories/CronFactory';
+import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFactory';
+import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
+import Logger from './Shared/Helpers/Logger';
+import closedApplication from './closed';
+import SendMessageEvent from './Notification/Infrastructure/Events/SendMessageEvent';
+import EmailEvent from './Auth/Infrastructure/Events/EmailEvent';
 
 void (async() =>
 {
-    const config = MainConfig.getInstance().getConfig();
-    const app: IApp = AppFactory.create(config.app.default);
-
-    const databaseFactory = new DatabaseFactory();
-    const createConnection: ICreateConnection = databaseFactory.create();
-
-    const cache: ICacheRepository = CacheFactory.createRedisCache(config.cache.redis);
-    const eventHandler = EventHandler.getInstance();
-
     try
     {
+        const config = MainConfig.getInstance().getConfig();
+
+        // Init Application
+        const appBootstrap = AppBootstrapFactory.create(config.app.default);
+
+        const app: IApp = await appBootstrap({
+            serverPort: config.app.serverPort,
+            proxy: config.app.setAppProxy,
+            env: config.env,
+            dbConfigDefault: config.dbConfig.default
+        });
+
+        await app.listen();
+
+        // Create DB connection
+        const databaseFactory = new DatabaseFactory();
+        const createConnection: ICreateConnection = databaseFactory.create();
         await createConnection.initConfig();
         await createConnection.create();
 
+        // Create Cache connection
+        const cache: ICacheRepository = CacheFactory.createRedisCache(config.cache.redis);
         await cache.cleanAll();
 
-        await eventHandler.setListeners();
+        // Set EventHandler and all events
+        const eventHandler = EventHandler.getInstance();
+        eventHandler.setEvent(new EmailEvent());
+        eventHandler.setEvent(new SendMessageEvent());
 
+        // Create cron
         const cronFactory = new CronFactory();
         cronFactory.start();
 
-        app.initConfig({
-            serverPort: config.app.serverPort
-        });
-        await app.build();
-        app.listen();
+        // Close gracefully
+        const server = await app.getServer();
+        closedApplication(server, cache, createConnection, eventHandler);
     }
     catch (error)
     {
         await Logger.info('Error while connecting to the database', error);
         throw error;
     }
-
-    async function closeGracefully(signal: NodeJS.Signals)
-    {
-        app.close();
-        await createConnection.close(true);
-        cache.close();
-        await eventHandler.removeListeners();
-
-        process.kill(process.pid, signal);
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    process.once('SIGINT', closeGracefully);
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    process.once('SIGTERM', closeGracefully);
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    process.once('SIGUSR2', closeGracefully);
 })();

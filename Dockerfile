@@ -1,33 +1,30 @@
-FROM digichanges/nexp:1.0 as dev
+FROM digichanges/nexp:1.2 AS dev
 
-WORKDIR /usr/app
+WORKDIR /home/node/app
 
-COPY --chown=node:node src ./src
-COPY --chown=node:node tools ./tools
-COPY --chown=node:node package.json ./
-COPY --chown=node:node pnpm-lock.yaml ./
-COPY --chown=node:node tsconfig.json ./
-COPY --chown=node:node ecosystem.config.js ./
-COPY --chown=node:node .env ./
-COPY --chown=node:node config ./config/
-COPY --chown=node:node nodemon.json ./
-COPY --chown=node:node .eslintrc.json ./
-COPY --chown=node:node rimraf_cpy.mjs ./
+COPY --chown=node:node .eslintrc ./
 COPY --chown=node:node .husky ./
 COPY --chown=node:node .huskyrc ./
 COPY --chown=node:node .npmrc ./
-
-RUN pnpm install
-
-RUN mkdir dist
-RUN chown node:node dist
-RUN chown -R node:node node_modules
-# Run development server
-ENTRYPOINT [ "dumb-init", "pnpm", "dev" ]
+COPY --chown=node:node config ./config/
+COPY --chown=node:node ecosystem.config.js ./
+COPY --chown=node:node nodemon.json ./
+COPY --chown=node:node src ./src
+COPY --chown=node:node rimraf_cpy.mjs ./
+COPY --chown=node:node tsconfig.json ./
+COPY --chown=node:node tools ./tools
+COPY --chown=node:node package.json ./
+COPY --chown=node:node pnpm-lock.yaml ./
+COPY --chown=node:node jest-mongodb-config.js ./
+COPY --chown=node:node jest.config.js ./
 
 USER node
 
-FROM dev as build
+RUN --mount=type=cache,target=/home/node/app/node_modules pnpm install
+
+ENTRYPOINT ["dumb-init", "pnpm", "dev"]
+
+FROM dev AS build
 
 USER root
 
@@ -40,9 +37,9 @@ USER node
 
 RUN pnpm build
 
-FROM build as prerelease
+FROM build AS prerelease
 
-WORKDIR /usr/app
+WORKDIR /home/node/app
 
 USER root
 
@@ -52,21 +49,21 @@ RUN chown node:node node_modules
 
 RUN cd node_modules/bcrypt && npm rebuild bcrypt --build-from-source
 
-FROM digichanges/nexp:1.0 as prod
+FROM digichanges/nexp:1.2 AS prod
+
+RUN npm install -g pnpm pm2
 
 ENV NODE_ENV production
 
-WORKDIR /usr/app
+WORKDIR /home/node/app
 
 # Copy js files and change ownership to user node
 COPY --chown=node:node package.json pnpm-lock.yaml ecosystem.config.js ./
-COPY --from=prerelease --chown=node:node /usr/app/node_modules/ ./node_modules/
-COPY --from=prerelease --chown=node:node /usr/app/dist/ ./dist/
-COPY --from=prerelease --chown=node:node /usr/app/config/ ./config/
-COPY --from=prerelease --chown=node:node /usr/app/.env/ ./.env
-COPY --from=prerelease --chown=node:node /usr/app/package.json/ ./package.json
+COPY --from=prerelease --chown=node:node /home/node/app/node_modules/ ./node_modules/
+COPY --from=prerelease --chown=node:node /home/node/app/dist/ ./dist/
+COPY --from=prerelease --chown=node:node /home/node/app/config/ ./config/
+COPY --from=prerelease --chown=node:node /home/node/app/package.json/ ./package.json
 
 USER node
 
 ENTRYPOINT ["dumb-init", "pm2-runtime", "start", "ecosystem.config.js"]
-#ENTRYPOINT ["dumb-init", "pnpm", "start"]

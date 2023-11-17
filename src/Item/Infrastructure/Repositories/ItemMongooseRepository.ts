@@ -1,12 +1,11 @@
-import { Query } from 'mongoose';
-import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
+import * as mongoose from 'mongoose';
+import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 
 import IItemRepository from './IItemRepository';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
-import MongoosePaginator from '../../../Shared/Infrastructure/Orm/MongoosePaginator';
+import MongoosePaginator from '../../../Main/Infrastructure/Orm/MongoosePaginator';
 
-import BaseMongooseRepository from '../../../Shared/Infrastructure/Repositories/BaseMongooseRepository';
+import BaseMongooseRepository from '../../../Main/Infrastructure/Repositories/BaseMongooseRepository';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 import Item from '../../Domain/Entities/Item';
 import { ItemMongooseDocument } from '../Schemas/ItemMongoose';
@@ -15,12 +14,12 @@ class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, ItemMon
 {
     constructor()
     {
-        super(Item.name, ['createdBy', 'lastModifiedBy']);
+        super(Item.name);
     }
 
     async list(criteria: ICriteria): Promise<IPaginator>
     {
-        const queryBuilder: Query<ItemMongooseDocument[], ItemMongooseDocument> = this.repository.find();
+        const queryBuilder: mongoose.Query<ItemMongooseDocument[], ItemMongooseDocument> = this.repository.find();
         const filter = criteria.getFilter();
 
         if (filter.has(ItemFilter.TYPE))
@@ -37,8 +36,6 @@ class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, ItemMon
 
             void queryBuilder.where(ItemFilter.NAME).regex(rSearch);
         }
-
-        void queryBuilder.populate(this.populate);
 
         return new MongoosePaginator(queryBuilder, criteria);
     }

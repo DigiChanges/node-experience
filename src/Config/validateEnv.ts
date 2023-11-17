@@ -12,19 +12,13 @@ export function validateEnv()
         APP_SET_COOKIE_SECURE: bool(),
         APP_SET_COOKIE_SAME_SITE: str(),
 
-        DB_HOST: str(),
-        DB_USER: str(),
-        DB_DATABASE: str(),
-        DB_PASSWORD: str(),
-        DB_PORT: port(),
-        DB_DRIVER: str(),
-        SSL: bool(),
-        SSL_VALIDATE: bool(),
-        SSL_CA: str(),
-        REPLICA_SET: str(),
-        DB_ORM_DEFAULT: str(),
+        AUTH_API_KEY: str(),
+        AUTH_HOST: str(),
+        AUTH_SECRET: str(),
+        AUTH_AUTHORIZATION: bool(),
 
-        DB_SYNCHRONIZE: bool(),
+        DB_URI: str(),
+        DB_ORM_DEFAULT: str(),
         DB_TYPE: str(),
 
         MINIO_HOST: str(),
@@ -53,7 +47,6 @@ export function validateEnv()
         URL_API: url(),
         URL_WEB: url(),
 
-        AUTHORIZATION: bool(),
         PRODUCT_NAME: str(),
         ENCRYPTION_DEFAULT: str(),
         PUSH_PRIVATE_KEY: str(),

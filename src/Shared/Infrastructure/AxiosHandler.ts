@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
-import Logger from '../Application/Logger/Logger';
+import Logger from '../Helpers/Logger';
 
 interface AxiosSendPayload
 {
@@ -41,7 +41,7 @@ class AxiosHandler
         }
         catch (e: any)
         {
-            Logger.error(e.response.data);
+            await Logger.error(e.response.data);
         }
     }
 

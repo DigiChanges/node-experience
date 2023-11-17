@@ -1,17 +1,14 @@
 import IItemRepository from './IItemRepository';
 import Item from '../../Domain/Entities/Item';
-import { injectable } from 'inversify';
-import ICriteria from '../../../Shared/Presentation/Requests/ICriteria';
-import IPaginator from '../../../Shared/Infrastructure/Orm/IPaginator';
+import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 
-import Paginator from '../../../Shared/Infrastructure/Orm/MikroORMPaginator';
+import Paginator from '../../../Main/Infrastructure/Orm/MikroORMPaginator';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import ItemSchema from '../Schemas/ItemMikroORM';
 
-import BaseMikroORMRepository from '../../../Shared/Infrastructure/Repositories/BaseMikroORMRepository';
+import BaseMikroORMRepository from '../../../Main/Infrastructure/Repositories/BaseMikroORMRepository';
 import { QueryBuilder } from '@mikro-orm/postgresql';
 
-@injectable()
 class ItemMikroORMRepository extends BaseMikroORMRepository<Item> implements IItemRepository
 {
     constructor()
@@ -29,11 +26,11 @@ class ItemMikroORMRepository extends BaseMikroORMRepository<Item> implements IIt
 
         if (filter.has(ItemFilter.TYPE))
         {
-            void queryBuilder.andWhere(`i.${ItemFilter.TYPE} = ?`, [`${filter.get(ItemFilter.TYPE)}`]);
+            void queryBuilder.andWhere(`i.${ItemFilter.TYPE} = ?`, [`${filter.get(ItemFilter.TYPE) as string}`]);
         }
         if (filter.has(ItemFilter.NAME))
         {
-            void queryBuilder.andWhere(`i.${ItemFilter.NAME} like ?`, [`${filter.get(ItemFilter.NAME)}`]);
+            void queryBuilder.andWhere(`i.${ItemFilter.NAME} like ?`, [`${filter.get(ItemFilter.NAME) as string}`]);
         }
 
         return new Paginator(queryBuilder, criteria);

@@ -1,7 +1,7 @@
 import NotificationRepPayload from '../Payloads/NotificationRepPayload';
 import PushNotification from '../Entities/PushNotification';
-import EventHandler from '../../../Shared/Infrastructure/Events/EventHandler';
-import SendMessageEvent from '../../../Shared/Infrastructure/Events/SendMessageEvent';
+import { EventHandler } from '@digichanges/shared-experience';
+import SendMessageEvent from '../../Infrastructure/Events/SendMessageEvent';
 import NotificationSendMessagePayload from '../Payloads/NotificationSendMessagePayload';
 import INotificationResponse from '../Entities/INotificationResponse';
 
@@ -13,7 +13,7 @@ class NotificationService
     {
         pushNotification.subscription = payload.getSubscription();
         pushNotification.name = name;
-        await this.eventHandler.execute(SendMessageEvent.SEND_MESSAGE_EVENT, { push_notification: pushNotification, message });
+        this.eventHandler.execute(SendMessageEvent.name, { push_notification: pushNotification, message });
 
         return { message: 'We\'ve sent you a notification' };
     }

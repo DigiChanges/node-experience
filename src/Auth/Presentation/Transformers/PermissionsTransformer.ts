@@ -1,4 +1,4 @@
-import Transformer from '../../../Shared/Presentation/Shared/Transformer';
+import { Transformer } from '@digichanges/shared-experience';
 
 class PermissionsTransformer extends Transformer
 {

@@ -1,14 +1,17 @@
 {
   "env": "production",
   "app": {
-    "default": "AppKoa",
-    "path": "/usr/app",
+    "default": "FastifyBootstrapping",
+    "path": "/home/node/app",
     "serverPort": 80,
     "setAppProxy": true,
     "setCookieSecure": false,
     "setCookieSameSite": "None"
   },
   "auth": {
-      "authorization": true
+    "apiKey": "experience",
+    "host": "http://localhost:8080",
+    "secret": "mySecret",
+    "authorization": true
   }
 }

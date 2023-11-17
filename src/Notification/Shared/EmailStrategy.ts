@@ -9,67 +9,66 @@ import AttachmentsFilesService from '../Domain/Services/AttachmentsFilesService'
 import StatusNotificationEnum from '../Domain/Enum/StatusNotificationEnum';
 import EmailNotification from '../Domain/Entities/EmailNotification';
 import INotifierStrategy from './INotifierStrategy';
-import ErrorException from '../../Shared/Exceptions/ErrorException';
-import { getRequestContext } from '../../Shared/Presentation/Shared/RequestContext';
+import { ErrorException } from '@digichanges/shared-experience';
+import container from '../../register';
 
 class EmailStrategy implements INotifierStrategy
 {
-    private repository: INotificationRepository<INotificationDomain>;
-    private _emailNotification: EmailNotification;
-    private _templatePathNameFile: string;
-    private _data: Record<string, any>;
-    private _save: boolean;
+    #repository: INotificationRepository<INotificationDomain>;
+    #_emailNotification: EmailNotification;
+    #_templatePathNameFile: string;
+    #_data: Record<string, any>;
+    #_save: boolean;
 
     constructor()
     {
-        const { container } = getRequestContext();
-        this.repository = container.resolve<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository);
-        this._save = true;
+        this.#repository = container.resolve<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository);
+        this.#_save = true;
     }
 
     get emailNotification(): EmailNotification
     {
-        return this._emailNotification;
+        return this.#_emailNotification;
     }
 
     set emailNotification(emailNotification: EmailNotification)
     {
-        this._emailNotification = emailNotification;
+        this.#_emailNotification = emailNotification;
     }
 
     set templatePathNameFile(templatePathNameFile: string)
     {
-        this._templatePathNameFile = templatePathNameFile;
+        this.#_templatePathNameFile = templatePathNameFile;
     }
 
     get templatePathNameFile(): string
     {
-        return this._templatePathNameFile;
+        return this.#_templatePathNameFile;
     }
 
     get data(): Record<string, any>
     {
-        return this._data;
+        return this.#_data;
     }
 
     set data(data: Record<string, any>)
     {
-        this._data = data;
+        this.#_data = data;
     }
 
     get save(): boolean
     {
-        return this._save;
+        return this.#_save;
     }
 
     set save(save: boolean)
     {
-        this._save = save;
+        this.#_save = save;
     }
 
-    public async send()
+    public async send(templatePathNameFile)
     {
-        if (!this._emailNotification && !this._templatePathNameFile && !this._data)
+        if (!this.#_emailNotification && !this.#_templatePathNameFile && !this.#_data)
         {
             throw new ErrorException({ message: 'You need set an emailNotification, templatePathNameFile and data' }, 'NotificatorException');
         }
@@ -82,7 +81,8 @@ class EmailStrategy implements INotifierStrategy
             const port: number = config.mail.port;
             const secure: boolean = config.mail.secure;
             const templateRoot: string = config.mail.templateDir;
-            const templateDir = `${process.cwd()}/${templateRoot}/${this._templatePathNameFile}`;
+            this.#_templatePathNameFile = templatePathNameFile;
+            const templateDir = `${process.cwd()}/${templateRoot}/${this.#_templatePathNameFile}`;
 
             const smtp_config = { host, port, secure };
 
@@ -97,9 +97,9 @@ class EmailStrategy implements INotifierStrategy
                 Object.assign(smtp_config, auth);
             }
 
-            this._emailNotification.senderName = config.mail.senderName;
-            this._emailNotification.from = config.mail.senderEmailDefault;
-            this._emailNotification.emailTemplatePath = templateDir;
+            this.#_emailNotification.senderName = config.mail.senderName;
+            this.#_emailNotification.from = config.mail.senderEmailDefault;
+            this.#_emailNotification.emailTemplatePath = templateDir;
 
             const transporter = nodemailer.createTransport(smtp_config);
 
@@ -107,51 +107,51 @@ class EmailStrategy implements INotifierStrategy
 
             const template = Handlebars.compile(source);
 
-            const html = template(this._data);
+            const html = template(this.#_data);
 
             const mailData = {
-                from: `"${  this._emailNotification.senderName  }" <${  this._emailNotification.from  }>`,
-                to:  this._emailNotification.to,
-                subject: this._emailNotification.subject,
+                from: `"${  this.#_emailNotification.senderName  }" <${ this.#_emailNotification.from }>`,
+                to:  this.#_emailNotification.to,
+                subject: this.#_emailNotification.subject,
                 html
             };
 
-            if (this._emailNotification?.cc)
+            if (this.#_emailNotification?.cc)
             {
-                Object.assign(mailData, { cc: this._emailNotification.cc });
+                Object.assign(mailData, { cc: this.#_emailNotification.cc });
             }
 
-            if (this._emailNotification?.bcc)
+            if (this.#_emailNotification?.bcc)
             {
-                Object.assign(mailData, { bcc: this._emailNotification.bcc });
+                Object.assign(mailData, { bcc: this.#_emailNotification.bcc });
             }
 
-            if (this._emailNotification?.attachedFiles)
+            if (this.#_emailNotification?.attachedFiles)
             {
-                Object.assign(mailData, { attachments: await AttachmentsFilesService.getTempFilesAttachments(this._emailNotification) });
+                Object.assign(mailData, { attachments: await AttachmentsFilesService.getTempFilesAttachments(this.#_emailNotification) });
             }
 
             return await transporter.sendMail(mailData)
                 .then(() =>
                 {
-                    if (this._save)
+                    if (this.#_save)
                     {
-                        this._emailNotification.htmlRender = html;
-                        void this.repository.save(this._emailNotification);
+                        this.#_emailNotification.htmlRender = html;
+                        void this.#repository.save(this.#_emailNotification);
                     }
 
                     return true;
                 })
                 .catch((err: any) =>
                 {
-                    if (this._save)
+                    if (this.#_save)
                     {
-                        this._emailNotification.htmlRender = html;
-                        this._emailNotification.status = StatusNotificationEnum.FAILED;
-                        void this.repository.save(this._emailNotification);
+                        this.#_emailNotification.htmlRender = html;
+                        this.#_emailNotification.status = StatusNotificationEnum.FAILED;
+                        void this.#repository.save(this.#_emailNotification);
                     }
 
-                    AttachmentsFilesService.unlinkTempFilesAttachments(this._emailNotification.tempFilesAttachments);
+                    AttachmentsFilesService.unlinkTempFilesAttachments(this.#_emailNotification.tempFilesAttachments);
 
                     throw new ErrorException({ message: `Something is wrong. Please try again later, ${err.message}` }, 'EmailStrategy');
                 });
