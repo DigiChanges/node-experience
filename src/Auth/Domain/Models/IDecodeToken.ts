@@ -1,14 +1,15 @@
 
 interface IDecodeToken
 {
-    id: string;
-    iss: string;
     aud: string;
-    sub: string;
-    iat: number;
     exp: number;
-    userId: string;
+    iat: number;
+    iss: string;
+    sub: string;
     email: string;
+    role: string;
+    aal: string;
+    session_id: string;
 }
 
 export default IDecodeToken;

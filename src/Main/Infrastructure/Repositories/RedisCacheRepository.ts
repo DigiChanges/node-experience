@@ -1,6 +1,7 @@
 import { Tedis } from 'tedis';
 import ICacheRepository from './ICacheRepository';
 import { CacheConfig } from '../../../Config/MainConfig';
+import { ErrorHttpException, StatusCode } from '@digichanges/shared-experience';
 
 class RedisCacheRepository implements ICacheRepository
 {
@@ -16,7 +17,9 @@ class RedisCacheRepository implements ICacheRepository
     {
         if (!config && !RedisCacheRepository.instance)
         {
-            throw Error('Config must be exist when instance is undefined'); // TODO: Add exception
+            throw new ErrorHttpException(
+                StatusCode.HTTP_INTERNAL_SERVER_ERROR,
+                { message: 'Config must be exist when instance is undefined' });
         }
         if (config && !RedisCacheRepository.instance)
         {

@@ -11,7 +11,7 @@ class BaseAxiosRepository
             headers: {
                 'Content-Type': 'application/json'
             },
-            validateStatus: (status) =>
+            validateStatus: (status: number) =>
             {
                 return status < 500;
             }

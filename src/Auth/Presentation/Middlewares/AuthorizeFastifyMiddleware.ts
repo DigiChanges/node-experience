@@ -4,16 +4,13 @@ import { StatusCode } from '@digichanges/shared-experience';
 import MainConfig from '../../../Config/MainConfig';
 import { SERVICES } from '../../../Config/Injects';
 import container from '../../../register';
-import AuthorizeSupabaseService from '../../Domain/Services/AuthorizeSupabaseService';
-// import AuthHelperService from '../../Domain/Services/AuthHelperService';
+import TokenNotFoundHttpException from '../Exceptions/TokenNotFoundHttpException';
+import IAuthorizeService from '../../Domain/Services/IAuthorizeService';
 
 const AuthorizeFastifyMiddleware = (...handlerPermissions: string[]) =>
 {
     return async(request: FastifyRequest, reply: FastifyReply) =>
     {
-        const bearerToken = request.headers.authorization;
-        const authorizeService: AuthorizeSupabaseService = container.resolve<AuthorizeSupabaseService>(SERVICES.AuthorizeService);
-
         const config = MainConfig.getInstance().getConfig();
         const { authorization: hasActiveAuthorization } = config.auth;
 
@@ -21,12 +18,20 @@ const AuthorizeFastifyMiddleware = (...handlerPermissions: string[]) =>
         {
             try
             {
-                // const authHelperService = new AuthHelperService();
-                // token = authHelperService.getToken(bearerToken, 'accessToken');
-                // await authorizeService.authorize(token, handlerPermissions);
+                const bearerToken = request.headers.authorization;
 
-                // request.accessToken = token;
-                // request.authUser = await authorizeService.getAuthUser({ token, hasActiveAuthorization });
+                if (!bearerToken)
+                {
+                    throw new TokenNotFoundHttpException();
+                }
+
+                const authorizeService: IAuthorizeService = container.resolve<IAuthorizeService>(SERVICES.AuthorizeService);
+
+                const token = bearerToken.split(' ')[1];
+                const decode = authorizeService.decodeToken(token);
+                await authorizeService.authorize(decode.sub, handlerPermissions[0]);
+
+                request['user'] = await authorizeService.getAuthUser(token);
             }
             catch (error)
             {

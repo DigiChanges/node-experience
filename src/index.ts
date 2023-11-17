@@ -32,8 +32,7 @@ void (async() =>
             dbConfigDefault: config.dbConfig.default
         });
 
-        // @ts-ignore
-        const server = await app.listen();
+        await app.listen();
 
         // Create DB connection
         const databaseFactory = new DatabaseFactory();
@@ -55,7 +54,8 @@ void (async() =>
         cronFactory.start();
 
         // Close gracefully
-        // closedApplication(server, cache, createConnection, eventHandler);
+        const server = await app.getServer();
+        closedApplication(server, cache, createConnection, eventHandler);
     }
     catch (error)
     {

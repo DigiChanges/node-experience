@@ -24,7 +24,6 @@ class ExceptionFactory
         exception.statusCode = err?.statusCode ?? statusCode;
         exception.errors = err?.errors ?? [];
 
-        // TODO: Remove ifs
         if (err instanceof Error && err.message === 'Token expired')
         {
             exception = new TokenExpiredHttpException();

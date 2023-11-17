@@ -1,8 +1,6 @@
 import { QueryBuilder } from '@mikro-orm/postgresql';
 import { BasePaginator, IPaginatorConfig, IPaginator, ICriteria } from '@digichanges/shared-experience';
 
-// TODO: Add generic type
-
 class MikroORMPaginator extends BasePaginator implements IPaginator
 {
     private queryBuilder: QueryBuilder;

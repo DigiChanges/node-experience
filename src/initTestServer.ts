@@ -51,7 +51,7 @@ const initTestServer = async(): Promise<TestServerData> =>
         serverPort: 8088,
         proxy: false,
         env: 'test',
-        dbConfigDefault: 'Mongoose' // TODO: Replace for a mock
+        dbConfigDefault: 'Mongoose'
     });
 
     const application = await app.callback();

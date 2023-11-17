@@ -1,4 +1,4 @@
-import QueryString from 'qs';
+import qs from 'qs';
 import MainConfig from '../../Config/MainConfig';
 import { IPagination } from '@digichanges/shared-experience';
 
@@ -11,7 +11,7 @@ class Pagination implements IPagination
     private readonly host: string;
     private readonly url: string;
 
-    constructor(query: QueryString.ParsedQs, url: string)
+    constructor(query: qs.ParsedQs, url: string)
     {
         this.url = url;
         this.pagination = query.pagination;
@@ -42,7 +42,6 @@ class Pagination implements IPagination
         return this.exist ? `${this.host}/${this.url.replace('/api/', '')}` : '';
     }
 
-    // TODO: Refactoring with querystrings to reform query without harcoding URI
     getNextUrl(): string
     {
         let url = '';

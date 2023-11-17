@@ -21,9 +21,6 @@ import AuthSupabaseRepository from './Auth/Infrastructure/Repositories/Auth/Auth
 
 import AuthorizeSupabaseService from './Auth/Domain/Services/AuthorizeSupabaseService';
 
-// Services
-container.register(SERVICES.AuthorizeService, { useClass: AuthorizeSupabaseService }, { lifecycle: Lifecycle.Singleton });
-
 // Repositories
 const defaultDbConfig = MainConfig.getInstance().getConfig().dbConfig.default;
 
@@ -41,5 +38,16 @@ container.register<IAuthRepository>(REPOSITORIES.IAuthRepository, { useClass: Au
 
 // Shared
 container.register<IEncryption>(FACTORIES.Md5EncryptionStrategy, { useClass: Md5EncryptionStrategy }, { lifecycle: Lifecycle.Singleton });
+
+// Services
+container.register(SERVICES.AuthorizeService, {
+    // @ts-ignore
+    useFactory: (c: any) =>
+    {
+        // Resolve the IAuthRepository dependency here
+        const authRepository = c.resolve(REPOSITORIES.IAuthRepository);
+        return new AuthorizeSupabaseService(authRepository);
+    }
+}, { lifecycle: Lifecycle.Transient });
 
 export default container;

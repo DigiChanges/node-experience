@@ -18,41 +18,14 @@ class Roles
             Permissions.ITEMS_UPDATE,
             Permissions.ITEMS_SHOW,
             Permissions.ITEMS_LIST,
-            Permissions.ITEMS_DELETE,
-
-            Permissions.USERS_SAVE,
-            Permissions.USERS_UPDATE,
-            Permissions.USERS_SHOW,
-            Permissions.USERS_LIST,
-            Permissions.USERS_DELETE,
-            Permissions.USERS_ASSIGN_ROLE,
-            Permissions.USERS_CHANGE_MY_PASSWORD,
-            Permissions.USERS_CHANGE_USER_PASSWORD,
-            Permissions.USERS_ACTIVE,
-
-            Permissions.ROLES_SAVE,
-            Permissions.ROLES_UPDATE,
-            Permissions.ROLES_SHOW,
-            Permissions.ROLES_LIST,
-            Permissions.ROLES_DELETE,
-
-            Permissions.FILES_SHOW_METADATA,
-            Permissions.FILES_UPDATE,
-            Permissions.FILES_UPLOAD,
-            Permissions.FILES_DOWNLOAD,
-            Permissions.FILES_LIST,
-            Permissions.FILES_DELETE
+            Permissions.ITEMS_DELETE
         ]);
         map.set(Roles.OPERATOR, [
-            Permissions.USERS_CHANGE_MY_PASSWORD,
             Permissions.AUTH_GET_ME,
             Permissions.ITEMS_SAVE,
             Permissions.ITEMS_UPDATE,
             Permissions.ITEMS_SHOW,
-            Permissions.ITEMS_LIST,
-            Permissions.FILES_UPLOAD,
-            Permissions.FILES_DOWNLOAD,
-            Permissions.FILES_LIST
+            Permissions.ITEMS_LIST
         ]);
 
         return map;

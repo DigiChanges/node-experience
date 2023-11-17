@@ -26,7 +26,7 @@ const FastifyBootstrapping = async(config: IExtendAppConfig) =>
                 return;
             }
 
-            cb(new Error('Sorry,request not allowed, there is a problem with CORS,'), false); // TODO: Add to map exceptions
+            cb(new Error('Sorry,request not allowed, there is a problem with CORS,'), false);
             return;
         }
     });

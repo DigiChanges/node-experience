@@ -7,18 +7,14 @@ import Config from 'config';
 import { TAlgorithm } from 'jwt-simple';
 import { validateEnv } from './validateEnv';
 
-type AuthConfig = {
-    clientId: string;
-    clientUuid: string;
-    clientSecret: string;
-    mainRealm: string;
+export type AuthConfig = {
+    apiKey: string;
     host: string;
-    username: string;
-    password: string;
+    secret: string;
     authorization: boolean;
 };
 
-type AppConfig = {
+export type AppConfig = {
     default: string;
     path: string;
     setAppProxy: boolean;
@@ -27,11 +23,11 @@ type AppConfig = {
     serverPort: number,
 }
 
-type MongooseConfig = {
+export type MongooseConfig = {
     uri: string;
 };
 
-type MikroORMConfig = {
+export type MikroORMConfig = {
     dbName: string,
     host: string;
     port: number;
@@ -71,7 +67,7 @@ export type JwtConfig = {
     aud: string;
 };
 
-type MailConfig = {
+export type MailConfig = {
     host: string;
     port: number;
     username: string;
@@ -82,25 +78,25 @@ type MailConfig = {
     templateDir: string;
 };
 
-type PushConfig = {
+export type PushConfig = {
     privateKey: string;
     publicKey: string;
 };
 
-type BCryptType = {
+export type BCryptType = {
     type: string;
     saltRounds: number;
     algorithm: TAlgorithm;
 };
 
-type ValidateSettingsType = {
+export type ValidateSettingsType = {
     password: {
         minLength: number;
         maxLength: number;
     };
 };
 
-type ConfigType = {
+export type ConfigType = {
     env: string,
     auth: AuthConfig;
     app: AppConfig,
@@ -131,13 +127,13 @@ type ConfigType = {
     validationSettings: ValidateSettingsType
 }
 
-type DomainInfoConfig = {
+export type DomainInfoConfig = {
     name: string,
     fileInfra: string,
     handlers: string[]
 }
 
-type ConfigInfoType = {
+export type ConfigInfoType = {
     http: string[],
     orm: string[],
     domains: DomainInfoConfig[]

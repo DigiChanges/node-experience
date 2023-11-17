@@ -1,39 +1,142 @@
-import qs from 'qs';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+
 import IAuthRepository from './IAuthRepository';
 import PermissionPayload from './Payload/PermissionPayload';
+import MainConfig, { AuthConfig } from '../../../../Config/MainConfig';
+import { ErrorHttpException, StatusCode } from '@digichanges/shared-experience';
+import IUserDomain from '../../../Domain/Entities/IUserDomain';
+import IRoleDomain from '../../../Domain/Entities/IRoleDomain';
+import IPermissionDomain from '../../../Domain/Entities/IPermissionDomain';
+import IRolePermissionDomain from '../../../Domain/Entities/IRolePermissionDomain';
 
 class AuthSupabaseRepository implements IAuthRepository
 {
-    private readonly mainUrl: string;
+    #client: SupabaseClient;
 
     constructor()
     {
-        // this.mainUrl = `${this.host}/realms/${this.mainRealm}/protocol/openid-connect`;
+        const config: AuthConfig = MainConfig.getInstance().getConfig().auth;
+        this.#client = createClient(config.host, config.apiKey);
     }
 
-    public async checkPermissions({ token, permission }: PermissionPayload): Promise<any>
+    public async checkPermissions({ userId, permission }: PermissionPayload): Promise<boolean>
     {
-        // const data = qs.stringify({
-        //     grant_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
-        //     audience: this.clientId,
-        //     subject_token: token,
-        //     permission
-        // });
-        //
-        // const auth_token = Buffer.from(`${this.clientId}:${this.clientSecret}`).toString('base64');
-        //
-        // const config = {
-        //     ...this.config,
-        //     method: 'post',
-        //     url: `${this.mainUrl}/token`,
-        //     headers: {
-        //         'Authorization': `Basic ${auth_token}`,
-        //         'Content-Type': 'application/x-www-form-urlencoded'
-        //     },
-        //     data
-        // };
-        //
-        // return (await axios(config)).data;
+        const { data, error } = await this
+            .#client
+            .rpc('get_authorization', {
+                field_user_id: userId,
+                permission_name: permission
+            });
+
+        if (error)
+        {
+            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+        }
+
+        return data;
+    }
+
+    public async getAuthUser(info: string): Promise<IUserDomain>
+    {
+        const { data, error } = await this
+            .#client
+            .auth.getUser(info);
+
+        if (error || data?.user)
+        {
+            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+        }
+
+        return {
+            id: data?.user.id,
+            email: data?.user.email,
+            phone: data?.user.phone
+        };
+    }
+
+    public async getPermissions(): Promise<IPermissionDomain[]>
+    {
+        const { data, error } = await this
+            .#client
+            .from('permissions')
+            .select('*');
+
+        if (error)
+        {
+            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+        }
+
+        return data;
+    }
+
+    public async addPermissions(permissions: string[]): Promise<void>
+    {
+        const insertPermissions = permissions.map(permission => ({ name: permission }));
+
+        const { error } = await this
+            .#client
+            .from('permissions')
+            .insert(insertPermissions);
+
+        if (error)
+        {
+            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+        }
+    }
+
+    public async removePermissions(permissions: string[]): Promise<void>
+    {
+        const { error } = await this
+            .#client
+            .from('permissions')
+            .delete()
+            .in('name', permissions);
+
+        if (error)
+        {
+            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+        }
+    }
+
+    public async getRoles(): Promise<IRoleDomain[]>
+    {
+        const { data, error } = await this
+            .#client
+            .from('roles')
+            .select();
+
+        if (error)
+        {
+            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+        }
+
+        return data;
+    }
+
+    public async addRoles(roles: IRoleDomain[]): Promise<void>
+    {
+        const { error } = await this
+            .#client
+            .from('roles')
+            .insert(roles);
+
+        if (error)
+        {
+            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+        }
+    }
+
+    public async addRolesHasPermissions(rolePermissionDomain: IRolePermissionDomain[]): Promise<void>
+    {
+        const { error } = await this
+            .#client
+            .from('roles_has_permissions')
+            .upsert(rolePermissionDomain);
+
+        if (error)
+        {
+            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+        }
     }
 }
 

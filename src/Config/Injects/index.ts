@@ -16,6 +16,5 @@ export enum REPOSITORIES  {
 }
 
 export enum SERVICES {
-    AuthService = 'AuthService',
     AuthorizeService = 'AuthorizeService'
 }

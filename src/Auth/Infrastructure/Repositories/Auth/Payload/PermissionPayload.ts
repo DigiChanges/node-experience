@@ -1,6 +1,7 @@
+
 interface PermissionPayload
 {
-    token: string;
+    userId: string;
     permission: string ;
 }
 

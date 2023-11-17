@@ -1,19 +1,28 @@
-import ForbiddenHttpException from '../../Presentation/Exceptions/ForbiddenHttpException';
-import IAuthorizeService from './IAuthorizeService';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+
+import ForbiddenHttpException from '../../Presentation/Exceptions/ForbiddenHttpException';
+import IAuthorizeService from './IAuthorizeService';
 import MainConfig from '../../../Config/MainConfig';
 import IDecodeToken from '../Models/IDecodeToken';
 import jwt from 'jwt-simple';
+import IAuthRepository from '../../Infrastructure/Repositories/Auth/IAuthRepository';
+import IUserDomain from '../Entities/IUserDomain';
 
 class AuthorizeSupabaseService implements IAuthorizeService
 {
     #config = MainConfig.getInstance().getConfig();
+    readonly #repository: IAuthRepository;
+
+    constructor(repository: IAuthRepository)
+    {
+        this.#repository = repository;
+    }
 
     public getConfirmationToken(email: string): string
     {
         dayjs.extend(utc);
-        const { iss, secret, aud } = MainConfig.getInstance().getConfig().jwt;
+        const { iss, secret, aud } = this.#config.jwt;
         const expires = dayjs.utc().add(5, 'minute').unix();
 
         const payload = {
@@ -28,41 +37,27 @@ class AuthorizeSupabaseService implements IAuthorizeService
         return jwt.encode(payload, secret, 'HS512');
     }
 
-    public decodeToken(token: string, bearer = true): IDecodeToken
+    public decodeToken(token: string): IDecodeToken
     {
-        const _token = bearer ? token.split(' ')[1] : token;
+        const { secret } = this.#config.auth;
 
-        const { secret } = this.#config.jwt;
-        const { algorithm } = this.#config.encryption.bcrypt;
-
-        return jwt.decode(_token, secret, false, algorithm);
+        return jwt.decode(token, secret, false);
     }
 
-    public validateToken(token: string, bearer = false): void
+    public async authorize(userId: string, permission: string): Promise<void>
     {
-        // if (!token)
-        // {
-        //     throw new TokenNotFoundHttpException();
-        // }
-        //
-        // return this.decodeToken(token, bearer);
+        const verified = await this.#repository.checkPermissions({ userId, permission });
+
+        if (!verified)
+        {
+            throw new ForbiddenHttpException();
+        }
     }
 
-    authorize(token: string): Promise<void>
+    public async getAuthUser(data: string): Promise<IUserDomain>
     {
-        return Promise.resolve(undefined);
+        return await this.#repository.getAuthUser(data);
     }
-
-    // public async authorize(token: string): Promise<void>
-    // {
-    //     const permission = handlerPermissions[0]; // ! TODO: Warning, to be refactor ?
-    //     const verified = await this.repository.checkPermissions({ token, permission });
-    //
-    //     if (verified.error === 'access_denied' || verified.error === 'unauthorized_client')
-    //     {
-    //         throw new ForbiddenHttpException();
-    //     }
-    // }
 }
 
 export default AuthorizeSupabaseService;

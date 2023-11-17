@@ -8,7 +8,7 @@ interface ISendEmailParams
     name: string;
     subject?: string;
     data?: IEmailNotificationData;
-    files?: any[]; // ! TODO: Add type
+    files?: unknown[];
     to: string;
     cc?: string[];
     bcc?: string[];

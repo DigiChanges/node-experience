@@ -1,5 +1,9 @@
-import { IBaseDomain } from '@digichanges/shared-experience';
 
-interface IUserDomain extends IBaseDomain {}
+interface IUserDomain
+{
+    id: string;
+    email: string;
+    phone: string;
+}
 
 export default IUserDomain;

@@ -9,7 +9,6 @@ abstract class Cron
     {
         this.scheduledTask = schedule(this.time(), () =>
         {
-            // TODO: Log start time and end time of each executed cron
             void (async() =>
             {
                 await Logger.info(`Running ${this.cronName()}`);

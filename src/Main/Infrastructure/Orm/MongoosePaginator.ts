@@ -227,7 +227,6 @@ class MongoosePaginator extends BasePaginator implements IPaginator
         return data as T[];
     }
 
-    // TODO: See when multiple sorts
     private addOrderBy()
     {
         const sorts = this.sort.get();
