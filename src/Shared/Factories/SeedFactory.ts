@@ -14,8 +14,8 @@ class SeedFactory
 
     public list(): void
     {
-        void Logger.info('⬐ Seed List');
-        Object.keys(this.seeds).forEach(name =>  void Logger.info(`↳ ${name}`));
+        Logger.info('⬐ Seed List');
+        Object.keys(this.seeds).forEach(name =>  Logger.info(`↳ ${name}`));
     }
 
     public async init(): Promise<void>
@@ -29,17 +29,17 @@ class SeedFactory
 
         await (new this.seeds[name]()).init();
 
-        void Logger.info(`→ ${name} run successfully ✔`);
+        Logger.info(`→ ${name} run successfully ✔`);
     }
 
     private async all(): Promise<void>
     {
-        void Logger.info('⬐ All Seed Run');
+        Logger.info('⬐ All Seed Run');
         for await (const name of Object.keys(this.seeds))
         {
             await (new this.seeds[name]()).init();
 
-            void Logger.info(`↳ ${name} run successfully ✔`);
+            Logger.info(`↳ ${name} run successfully ✔`);
         }
     }
 

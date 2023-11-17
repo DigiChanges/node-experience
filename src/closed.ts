@@ -10,7 +10,7 @@ const closedApplication = (server: Server, cache: ICacheRepository, createConnec
 {
     function onSignal()
     {
-        void Logger.info('server is starting cleanup');
+        Logger.info('server is starting cleanup');
         cache.close();
         return Promise.all([
             createConnection.close(true),
@@ -20,7 +20,7 @@ const closedApplication = (server: Server, cache: ICacheRepository, createConnec
 
     function onShutdown()
     {
-        void Logger.info('cleanup finished, server is shutting down');
+        Logger.info('cleanup finished, server is shutting down');
         cache.close();
         return Promise.all([
             createConnection.close(true),
