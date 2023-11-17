@@ -4,9 +4,9 @@ import ISeed from './ISeed';
 
 abstract class BaseSeed implements ISeed
 {
-    protected container: DependencyContainer;
+    container: DependencyContainer;
 
-    protected constructor()
+    constructor()
     {
         this.container = container;
     }

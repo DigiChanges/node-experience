@@ -1,5 +1,6 @@
 import TypeNotificationEnum from '../Enum/TypeNotificationEnum';
 import IEmailNotificationData from './IEmailNotificationData';
+import IFilesAttachments from './IFilesAttachments';
 
 interface ISendEmailParams
 {
@@ -8,7 +9,7 @@ interface ISendEmailParams
     name: string;
     subject?: string;
     data?: IEmailNotificationData;
-    files?: unknown[];
+    files?: IFilesAttachments[];
     to: string;
     cc?: string[];
     bcc?: string[];

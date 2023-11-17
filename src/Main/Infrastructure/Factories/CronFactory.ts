@@ -20,12 +20,9 @@ class CronFactory
                 this.one(name, 'start');
             }
         }
-        else
+        else if (executeCrons)
         {
-            if (executeCrons)
-            {
-                this.all('start');
-            }
+            this.all('start');
         }
     }
 

@@ -10,8 +10,26 @@ export class AppFastify implements IApp
 
     constructor(config: IAppConfig)
     {
+        const envToLogger = {
+            development: {
+                transport: {
+                    target: 'pino-pretty',
+                    options: {
+                        translateTime: 'HH:MM:ss Z',
+                        ignore: 'pid,hostname'
+                    }
+                }
+            },
+            production: true,
+            test: false
+        };
+
         this.port = config.serverPort || 8090;
-        this.#app = Fastify({ logger: true, bodyLimit: 10485760, querystringParser: str => qs.parse(str) });
+        this.#app = Fastify({
+            logger: envToLogger[process.env.NODE_ENV] ?? true, // config.env === 'development' || env === 'test' true,
+            bodyLimit: 10485760,
+            querystringParser: str => qs.parse(str)
+        });
     }
 
     public async addMiddleware<T, K>(middleware: T, options?: K): Promise<void>

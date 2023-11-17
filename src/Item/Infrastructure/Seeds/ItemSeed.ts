@@ -5,11 +5,6 @@ import SaveItemUseCase from '../../Domain/UseCases/SaveItemUseCase';
 
 class ItemSeed extends BaseSeed implements ISeed
 {
-    constructor()
-    {
-        super();
-    }
-
     public async init()
     {
         const indexes = Array.from({ length: 10 }, (_, i) => i + 1);

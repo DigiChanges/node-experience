@@ -14,7 +14,7 @@ class AuthFastifyController
         const useCase = new PermissionUseCase();
         const payload: IGroupPermission[] = useCase.handle();
 
-        void await responder.send(payload, reply, StatusCode.HTTP_OK, new PermissionsTransformer());
+        await responder.send(payload, reply, StatusCode.HTTP_OK, new PermissionsTransformer());
     }
 
     static async syncRolesPermissions(request: any, reply: any)
@@ -22,7 +22,7 @@ class AuthFastifyController
         const useCase = new SyncPermissionsUseCase();
         await useCase.handle();
 
-        void await responder.send({ message: 'Sync Successfully' }, reply, StatusCode.HTTP_CREATED);
+        await responder.send({ message: 'Sync Successfully' }, reply, StatusCode.HTTP_CREATED);
     }
 }
 

@@ -11,7 +11,7 @@ abstract class Cron
         {
             void (async() =>
             {
-                await Logger.info(`Running ${this.cronName()}`);
+                Logger.info(`Running ${this.cronName()}`);
                 await this.task();
             })();
         }, {

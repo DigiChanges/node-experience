@@ -27,7 +27,7 @@ class CreateMikroORMConnection implements ICreateConnection
                 entities: this.entities,
                 clientUrl: '',
                 dbName: this.config.dbName,
-                type: this.config.type, // TODO: see docs to change type deprecated attribute
+                type: this.config.type,
                 host: this.config.host,
                 port: this.config.port,
                 user: this.config.user,
@@ -79,13 +79,13 @@ class CreateMikroORMConnection implements ICreateConnection
 
         /* This isn't necessary, but informative */
         const dropDump = await generator.getDropSchemaSQL();
-        await Logger.info(dropDump);
+        Logger.info(dropDump);
 
         const createDump = await generator.getCreateSchemaSQL();
-        await Logger.info(createDump);
+        Logger.info(createDump);
 
         const updateDump = await generator.getUpdateSchemaSQL();
-        await Logger.info(updateDump);
+        Logger.info(updateDump);
 
         await generator.refreshDatabase(); // without this, the schema 'll not update
     }

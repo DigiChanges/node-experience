@@ -20,7 +20,7 @@ abstract class BaseMikroORMRepository<T extends object> implements IBaseReposito
 
     async save(entity: T): Promise<T>
     {
-        await this.repository.persistAndFlush(entity);
+        await this.repository.getEntityManager().persistAndFlush(entity);
         return entity;
     }
 
@@ -39,7 +39,7 @@ abstract class BaseMikroORMRepository<T extends object> implements IBaseReposito
 
     async update(entity: T): Promise<T>
     {
-        await this.repository.persistAndFlush(entity);
+        await this.repository.getEntityManager().persistAndFlush(entity);
         return entity;
     }
 
@@ -53,7 +53,7 @@ abstract class BaseMikroORMRepository<T extends object> implements IBaseReposito
             throw new NotFoundException(this.entityName);
         }
 
-        await this.repository.removeAndFlush(entity);
+        await this.repository.getEntityManager().removeAndFlush(entity);
 
         return entity;
     }
@@ -99,7 +99,6 @@ abstract class BaseMikroORMRepository<T extends object> implements IBaseReposito
 
     async exist(condition: Record<string, any> | Record<string, any>[], select: string[], initThrow = false): Promise<any>
     {
-        // @ts-ignore
         const exist = await this.repository.findOne(condition, { fields: select });
 
         if (initThrow && !exist)

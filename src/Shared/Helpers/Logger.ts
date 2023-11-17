@@ -3,64 +3,60 @@ import PinoLogger from 'pino';
 
 class DgLogger
 {
-    private logger;
+    readonly #logger: PinoLogger.Logger;
 
     constructor()
     {
         const env = MainConfig.getInstance().getConfig().env;
 
-        // const prettyTransport = {
-        //     name: 'main',
-        //     level: 'debug',
-        //     transport: {
-        //         target: 'pino-pretty',
-        //         options: {
-        //             levelFirst: true,
-        //             translateTime: 'HH:MM:ss.l',
-        //             ignore: 'pid,hostname',
-        //             colorize: true
-        //         }
-        //     }
-        // };
+        const prettyTransport = {
+            transport: {
+                target: 'pino-pretty',
+                options: {
+                    levelFirst: true,
+                    translateTime: 'HH:MM:ss.l',
+                    ignore: 'pid,hostname',
+                    colorize: true
+                }
+            }
+        };
 
         const stdoutTransport = {
             name: 'main',
             level: 'info'
         };
-
-        // const settings = env === 'development' ? prettyTransport : stdoutTransport;
-
-        this.logger = PinoLogger();
+        const transportOptions = env === 'development' || env === 'test' ? prettyTransport : stdoutTransport;
+        this.#logger = PinoLogger(transportOptions);
     }
 
-    public async trace(...args: unknown[])
+    public trace(...args: unknown[])
     {
-        this.logger.trace(...args);
+        this.#logger.trace(args);
     }
 
-    public async debug(...args: unknown[])
+    public debug(...args: unknown[])
     {
-        this.logger.debug(...args);
+        this.#logger.debug(args);
     }
 
-    public async info(...args: unknown[])
+    public info(...args: unknown[])
     {
-        this.logger.info(...args);
+        this.#logger.info(args);
     }
 
-    public async warn(...args: unknown[])
+    public warn(...args: unknown[])
     {
-        this.logger.warn(...args);
+        this.#logger.warn(args);
     }
 
-    public async error(...args: unknown[])
+    public error(...args: unknown[])
     {
-        this.logger.error(...args);
+        this.#logger.error(args);
     }
 
-    public async fatal(...args: unknown[])
+    public fatal(...args: unknown[])
     {
-        this.logger.error(...args);
+        this.#logger.error(args);
     }
 }
 

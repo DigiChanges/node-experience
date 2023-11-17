@@ -6,11 +6,6 @@ import IItemTransformer from './IItemTransformer';
 
 class ItemTransformer extends Transformer<IItemDomain, IItemTransformer>
 {
-    constructor()
-    {
-        super();
-    }
-
     public async transform(item: IItemDomain): Promise<IItemTransformer>
     {
         dayjs.extend(utc);

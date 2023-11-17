@@ -9,7 +9,7 @@ class SeedFactory
 
     public async execute(name: string): Promise<any>
     {
-        return !((typeof name) === 'undefined') ? await this.one(name) : await this.all();
+        return (typeof name) !== 'undefined' ? await this.one(name) : await this.all();
     }
 
     public list(): void

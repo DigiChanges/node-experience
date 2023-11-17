@@ -5,11 +5,6 @@ class Item extends Base implements IItemDomain
 {
     name: string;
     type: number;
-
-    constructor()
-    {
-        super();
-    }
 }
 
 export default Item;

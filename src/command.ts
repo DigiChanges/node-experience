@@ -30,8 +30,7 @@ void (async() =>
     }
     catch (error)
     {
-        // TODO: Add exception mapping to handle errors like server express
-        await Logger.error(error);
+        Logger.error(error);
         exit();
     }
 })();

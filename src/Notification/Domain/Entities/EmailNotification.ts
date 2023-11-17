@@ -18,16 +18,15 @@ class EmailNotification extends Notification
     subject: string;
     external: boolean;
     _templatePathNameFile?: string;
-    attachedFiles?: any[]; // ! TODO: Add type
+    attachedFiles?: IFilesAttachments[];
     data?: IEmailNotificationData;
-    tempFilesAttachments: IFilesAttachments[];
 
     constructor()
     {
         super();
     }
 
-    getAttachedFiles(): any[]
+    getAttachedFiles(): IFilesAttachments[]
     {
         return this.attachedFiles;
     }

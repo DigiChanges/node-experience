@@ -1,14 +1,13 @@
 import dotenv from 'dotenv';
 dotenv.config({ path: './.env.test' });
 
-import { IApp } from '@digichanges/shared-experience';
+import { EventHandler, IApp } from '@digichanges/shared-experience';
 
 import container from './register';
 
 import supertest from 'supertest';
 
 import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
-import { EventHandler } from '@digichanges/shared-experience';
 import SeedFactory from './Shared/Factories/SeedFactory';
 import Locales from './Shared/Utils/Locales';
 import MainConfig from './Config/MainConfig';
@@ -39,7 +38,7 @@ const initTestServer = async(): Promise<TestServerData> =>
     const eventHandler = EventHandler.getInstance();
     eventHandler.setEvent(new SendMessageEvent());
 
-    void Locales.getInstance();
+    Locales.getInstance();
 
     // @ts-ignore
     container._registry._registryMap.delete('IAuthRepository');

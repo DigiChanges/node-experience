@@ -62,7 +62,7 @@ void (async() =>
     }
     catch (error)
     {
-        await Logger.info('Error while connecting to the database', error);
+        Logger.info('Error while connecting to the database', error);
         throw error;
     }
 })();

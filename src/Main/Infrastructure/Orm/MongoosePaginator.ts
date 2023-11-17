@@ -191,39 +191,25 @@ class MongoosePaginator extends BasePaginator implements IPaginator
 
     public async paginate<T>(): Promise<T[]>
     {
-        // console.log('AAAAAAAAAAAAAA')
         this.total = await ((this.documentQuery).clone()).count();
 
-        // console.log('BBBBBBBBBBBBBBBB')
         this.addOrderBy();
-        // console.log('CCCCCCCCCCCCCCCC')
         this.addPagination();
 
-        // console.log('DDDDDDDDDDDDDDDDDD')
         this._perPage = await ((this.documentQuery).clone()).count();
-        // console.log('FFFFFFFFFFFFFFFF')
         this.setPerPage(this._perPage);
-        // console.log('GGGGGGGGGGGGG')
         this.setCurrentPage();
-        // console.log('HHHHHHHHHHH')
         this.setLasPage();
-        // console.log('IIIIIIIIIIIIII')
         this.setFrom();
-        // console.log('JJJJJJJJJJJJJJ')
         this.setTo();
-        // console.log('KKKKKKKKKKKK')
 
         let data  = await this.documentQuery.find().exec();
-        // console.log('LLLLLLLLLLLLLL')
 
         if (this.helper)
         {
             data = await this.helper(data);
         }
 
-        // console.log('MMMMMMMMMMMMMM')
-        // console.log('data')
-        // console.log(data)
         return data as T[];
     }
 

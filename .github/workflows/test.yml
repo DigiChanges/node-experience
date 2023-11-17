@@ -35,14 +35,7 @@ jobs:
         run: cd /usr/local && { curl -L https://dl.dagger.io/dagger/install.sh | sh; cd -; }
 
       - name: Release and deploy with Dagger
-        run: dagger run node dagger.mjs
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.coverage.exclusions=**/node_modules/**,**/*.spec.ts
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: dagger run node dagger.mjs

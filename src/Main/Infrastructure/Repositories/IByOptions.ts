@@ -1,8 +1,8 @@
 
 interface IByOptions
 {
-    initThrow?: boolean | undefined;
-    populate?: string | string[] | boolean | undefined;
+    initThrow?: boolean;
+    populate?: string | string[] | boolean;
 }
 
 export default IByOptions;

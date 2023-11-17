@@ -12,7 +12,7 @@ SyncRolesPermissionCommand
         const useCase = new SyncPermissionsUseCase();
         await useCase.handle();
 
-        await Logger.info('Sync successfully.');
+        Logger.info('Sync successfully.');
     });
 
 export default SyncRolesPermissionCommand;

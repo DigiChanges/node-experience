@@ -142,7 +142,7 @@ class EmailStrategy implements INotifierStrategy
 
                     return true;
                 })
-                .catch((err: any) =>
+                .catch(async(err: any) =>
                 {
                     if (this.#_save)
                     {
@@ -151,7 +151,7 @@ class EmailStrategy implements INotifierStrategy
                         void this.#repository.save(this.#_emailNotification);
                     }
 
-                    AttachmentsFilesService.unlinkTempFilesAttachments(this.#_emailNotification.tempFilesAttachments);
+                    await AttachmentsFilesService.unlinkTempFilesAttachments(this.#_emailNotification.attachedFiles);
 
                     throw new ErrorException({ message: `Something is wrong. Please try again later, ${err.message}` }, 'EmailStrategy');
                 });

@@ -27,18 +27,24 @@ connect(async (client) =>
 
     // Install pnpm package manager and packages
     const install = runner
-        .withExec(["npm", "install", "-g", "pnpm"])
+        .withExec(["npm", "install", "-g", "pnpm", "sonarqube-scanner"])
         .withExec(["pnpm", "install"]);
 
     // Build and Test
-    const test = await install
+    const test = install
         .withExec(["pnpm", "build"])
         .withEnvVariable("NODE_ENV", "test")
-        .withExec(["pnpm", "test"])
+        .withExec(["pnpm", "test"]);
+
+    // Sonarcloud scanner
+    const sonarCloud = await test
+        .withEnvVariable("SONAR_TOKEN", process.env.SONAR_TOKEN)
+        .withEnvVariable("GITHUB_TOKEN", process.env.GITHUB_TOKEN)
+        .withExec(["sonar-scanner"])
         .directory("coverage/")
         .export("./coverage");
 
-    console.log(test);
+    console.log(sonarCloud);
     console.log("Successfully");
 
 }, { LogOutput: process.stdout })

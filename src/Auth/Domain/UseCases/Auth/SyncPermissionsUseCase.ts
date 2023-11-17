@@ -37,7 +37,7 @@ class SyncPermissionsUseCase
         await this.#repository.addPermissions(newPermissions);
         await this.#repository.removePermissions(obsoletePermissions);
 
-        await Logger.info('Sync permissions successfully.');
+        Logger.info('Sync permissions successfully.');
     }
 
     async addNewRoles(roles: Map<string, string[]>)
@@ -58,7 +58,7 @@ class SyncPermissionsUseCase
             await this.#repository.addRoles(rolesToInsert);
         }
 
-        await Logger.info('Add new roles successfully.');
+        Logger.info('Add new roles successfully.');
     }
 
     async updateRolePermissions()
@@ -89,7 +89,7 @@ class SyncPermissionsUseCase
 
                 if (!permission)
                 {
-                    await Logger.error('Permission not found.');
+                    Logger.error('Permission not found.');
                     continue;
                 }
 
@@ -102,7 +102,7 @@ class SyncPermissionsUseCase
             await this.#repository.addRolesHasPermissions(rolePermissionAssignments);
         }
 
-        await Logger.error('Add or update permissions successfully.');
+        Logger.error('Add or update permissions successfully.');
     }
 }
 

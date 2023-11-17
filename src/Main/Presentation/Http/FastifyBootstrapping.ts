@@ -27,7 +27,6 @@ const FastifyBootstrapping = async(config: IExtendAppConfig) =>
             }
 
             cb(new Error('Sorry,request not allowed, there is a problem with CORS,'), false);
-            return;
         }
     });
 
