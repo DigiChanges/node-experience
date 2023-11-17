@@ -115,7 +115,7 @@ Common structures found within this project are:
 - MikroORM and Mongoose Integration.
 - Basic push Notification and Email with nodemailer.
 - Business logic independent of the HTTP and persistence libraries.
-- Supabse integration middleware
+- Supabase integration middleware.
 
 ## License
 
