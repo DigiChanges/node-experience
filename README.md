@@ -1,6 +1,6 @@
 # Welcome to Node Experience!
 
-[![CircleCI](https://circleci.com/gh/DigiChanges/node-experience/tree/master.svg?style=svg)](https://circleci.com/gh/DigiChanges/node-experience/tree/master)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=DigiChanges_node-experience&metric=alert_status)](https://sonarcloud.io/dashboard?id=Your_Project_Key)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://github.com/DigiChanges/node-experience/blob/master/LICENSE)
 
 <div style="text-align:center">
