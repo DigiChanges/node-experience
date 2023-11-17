@@ -89,9 +89,23 @@ The directory structures for business domains are as follows:
 
 > **Tip** I know it may sound repetitive, but it is not a framework. NExp is a set of tools or libraries working together through a common structure. All structural code within this project is not fixed and can be changed freely.
 
+### Supabase integration
+
+In the infrastructure folder there is a file called `supabase_permissions.sql` this file is used to manage permissions 
+with these tables.
+
+* roles
+* permissions
+* users_has_roles
+* roles_has_permissions
+
+And a function call `get_authorization`.
+
 ## Advantages
 
-The advantages of using this boilerplate is to save time thinking about certain basic structures common to any project to make an API without having to get everything from scratch. 
+The advantages of using this boilerplate are
+to save time thinking about certain basic structures common to any project to make an API
+without having to get everything from scratch. 
 
 As it is only a boilerplate, you have the freedom to structure the code whatever you want.
 
