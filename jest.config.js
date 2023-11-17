@@ -46,6 +46,7 @@ module.exports = {
   coverageProvider: "babel",
   coverageReporters: [
     "json",
+    "lcov",
     "text",
     "html"
   ],
