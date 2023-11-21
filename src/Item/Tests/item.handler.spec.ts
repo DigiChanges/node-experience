@@ -21,8 +21,11 @@ describe('Start Item Test', () =>
 
     afterAll((async() =>
     {
-        await dbConnection.drop();
-        await dbConnection.close();
+        if (dbConnection)
+        {
+            await dbConnection.drop();
+            await dbConnection.close();
+        }
     }));
 
     describe('Item Success', () =>

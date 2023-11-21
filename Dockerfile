@@ -18,6 +18,8 @@ COPY --chown=node:node pnpm-lock.yaml ./
 COPY --chown=node:node jest-mongodb-config.js ./
 COPY --chown=node:node jest.config.js ./
 
+RUN pnpm install
+
 USER node
 
 ENTRYPOINT ["dumb-init", "pnpm", "dev"]
@@ -25,8 +27,6 @@ ENTRYPOINT ["dumb-init", "pnpm", "dev"]
 FROM dev AS build
 
 USER root
-
-RUN npm install --location=global pnpm
 
 RUN pnpm install
 RUN chown node:node node_modules
