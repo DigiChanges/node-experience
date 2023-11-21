@@ -21,11 +21,6 @@ class EmailNotification extends Notification
     attachedFiles?: IFilesAttachments[];
     data?: IEmailNotificationData;
 
-    constructor()
-    {
-        super();
-    }
-
     getAttachedFiles(): IFilesAttachments[]
     {
         return this.attachedFiles;

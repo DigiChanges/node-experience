@@ -20,8 +20,6 @@ COPY --chown=node:node jest.config.js ./
 
 USER node
 
-RUN --mount=type=cache,target=/home/node/app/node_modules pnpm install
-
 ENTRYPOINT ["dumb-init", "pnpm", "dev"]
 
 FROM dev AS build
