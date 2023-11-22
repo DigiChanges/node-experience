@@ -3,13 +3,10 @@ dotenv.config();
 
 import { EventHandler, IApp } from '@digichanges/shared-experience';
 
-import './register';
+import container from './Shared/DI/container';
 
 import MainConfig from './Config/MainConfig';
 import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
-
-import CacheFactory from './Main/Infrastructure/Factories/CacheFactory';
-import ICacheRepository from './Main/Infrastructure/Repositories/ICacheRepository';
 
 import CronFactory from './Main/Infrastructure/Factories/CronFactory';
 import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFactory';
@@ -18,6 +15,8 @@ import Logger from './Shared/Helpers/Logger';
 import closedApplication from './closed';
 import SendMessageEvent from './Notification/Infrastructure/Events/SendMessageEvent';
 import EmailEvent from './Auth/Infrastructure/Events/EmailEvent';
+import ICacheDataAccess from './Main/Infrastructure/Repositories/ICacheDataAccess';
+import { REPOSITORIES } from './Config/Injects';
 
 void (async() =>
 {
@@ -44,7 +43,7 @@ void (async() =>
         await createConnection.create();
 
         // Create Cache connection
-        const cache: ICacheRepository = CacheFactory.createRedisCache(config.cache.redis);
+        const cache: ICacheDataAccess = container.resolve(REPOSITORIES.ICacheDataAccess);
         await cache.cleanAll();
 
         // Set EventHandler and all events

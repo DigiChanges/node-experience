@@ -5,7 +5,7 @@ dotenv.config(); // Need before get config
 
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
 
-import './register';
+import './Shared/DI/container';
 import CreateVapID from './Notification/Presentation/Commands/CreateVapID';
 
 import SyncRolesPermissionCommand from './Auth/Presentation/Commands/SyncRolesPermissionCommand';

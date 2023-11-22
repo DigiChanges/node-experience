@@ -3,7 +3,7 @@ import { StatusCode } from '@digichanges/shared-experience';
 
 import MainConfig from '../../../Config/MainConfig';
 import { SERVICES } from '../../../Config/Injects';
-import container from '../../../register';
+import container from '../../../Shared/DI/container';
 import TokenNotFoundHttpException from '../Exceptions/TokenNotFoundHttpException';
 import IAuthorizeService from '../../Domain/Services/IAuthorizeService';
 

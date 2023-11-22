@@ -52,9 +52,9 @@ class ItemController
         });
 
         const useCase = new ListItemsUseCase();
-        const paginator: IPaginator = await useCase.handle(requestCriteria);
+        const data: any = await useCase.handle(requestCriteria);
 
-        await responder.paginate<IItemDomain>(paginator, reply, StatusCode.HTTP_OK, new ItemTransformer());
+        await responder.paginate(data, reply, StatusCode.HTTP_OK, new ItemTransformer());
     }
 
     static async show(request: FastifyRequest, reply: FastifyReply): Promise<void>

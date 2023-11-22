@@ -11,7 +11,7 @@ class ItemTransformer extends Transformer<IItemDomain, IItemTransformer>
         dayjs.extend(utc);
 
         return {
-            id: item.getId(),
+            id: item._id,
             name: item.name,
             type: item.type,
             createdAt: dayjs(item.createdAt).utc().unix(),

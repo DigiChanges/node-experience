@@ -1,12 +1,9 @@
-import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
 import {
-    IPaginator,
     Transformer,
     FormatError,
     ErrorHttpException,
     IHttpStatusCode
 } from '@digichanges/shared-experience';
-import PaginatorTransformer from '../../../Shared/Utils/PaginatorTransformer';
 import { FastifyReply } from 'fastify';
 
 class FastifyResponder
@@ -30,26 +27,17 @@ class FastifyResponder
         await reply.code(status.code).send({ data: responseData });
     }
 
-    public async paginate<T>(paginator: IPaginator, reply: FastifyReply, status: IHttpStatusCode, transformer?: Transformer)
+    public async paginate(result: any, reply: FastifyReply, status: IHttpStatusCode, transformer?: Transformer)
     {
-        const data = await paginator.paginate<T>();
-        const metadata = paginator.getMetadata();
-        const result = { data, metadata } as ResponsePayload;
+        let { data } = result;
+        const { metadata, pagination } = result;
 
         if (transformer)
         {
-            result.data = await transformer.handle(data);
+            data = await transformer.handle(data);
         }
 
-        if (paginator.getExist())
-        {
-            const paginatorTransformer = new PaginatorTransformer();
-            const pagination = await paginatorTransformer.handle(paginator);
-
-            Object.assign(result, { pagination });
-        }
-
-        await reply.code(status.code).send(result);
+        await reply.code(status.code).send({ data, metadata, pagination });
     }
 
     public async error(error: ErrorHttpException, reply: FastifyReply, status: IHttpStatusCode)

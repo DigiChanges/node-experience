@@ -32,8 +32,10 @@
     "redis": {
       "port": "CACHE_PORT",
       "host": "CACHE_HOST",
+      "user": "CACHE_USER",
       "password": "CACHE_PASSWORD"
-    }
+    },
+    "enable": "CACHE_ENABLE"
   },
   "filesystem": {
     "minio":  {

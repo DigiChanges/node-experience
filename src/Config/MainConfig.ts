@@ -42,6 +42,7 @@ export type DbConfigType = {
 export type CacheConfig = {
     host: string;
     port: number;
+    user: string;
     password: string;
 };
 
@@ -100,6 +101,7 @@ export type ConfigType = {
     dbConfig: DbConfigType,
     cache: {
         redis: CacheConfig,
+        enable: boolean
     };
     filesystem: {
         minio: MinioConfig,

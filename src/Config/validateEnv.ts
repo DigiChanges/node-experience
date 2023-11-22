@@ -3,7 +3,7 @@ import { cleanEnv, str, port, bool, num, url } from 'envalid';
 export function validateEnv()
 {
     return cleanEnv(process.env, {
-        NODE_ENV: str(),
+        NODE_ENV: str({ default: 'development' }),
 
         APP_DEFAULT: str(),
         APP_PATH: str(),
@@ -16,6 +16,12 @@ export function validateEnv()
         AUTH_HOST: str(),
         AUTH_SECRET: str(),
         AUTH_AUTHORIZATION: bool(),
+
+        CACHE_HOST: str({ default: 'redis' }),
+        CACHE_PORT: port({ default: 6379 }),
+        CACHE_USER: str({ default: 'experience' }),
+        CACHE_PASSWORD: str({ default: '12345678' }),
+        CACHE_ENABLE: bool({ default: false }),
 
         DB_URI: str(),
         DB_ORM_DEFAULT: str(),

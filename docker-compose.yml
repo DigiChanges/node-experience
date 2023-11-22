@@ -51,19 +51,22 @@ services:
     networks:
      - experiencenet
 
-  redis:
-    image: bitnami/redis:latest
+  cache:
+    image: docker.dragonflydb.io/dragonflydb/dragonfly
     restart: always
-    container_name: experience_redis_1
+    ulimits:
+      memlock: -1
+    container_name: experience_cache_1
     environment:
-      - REDIS_PASSWORD=ewsua132435 # Security reasons
+      - DRAGONFLY_USER=experience
+      - DRAGONFLY_PASSWORD=ewsua132435
       - DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG # Security reasons
     ports:
       - "6379:6379"
     networks:
      - experiencenet
     volumes:
-      - redis:/bitnami/redis/data
+      - cache:/data
 
 networks:
   experiencenet:
@@ -74,5 +77,5 @@ volumes:
     driver: "local"
   data_sql:
     driver: "local"
-  redis:
+  cache:
     driver: "local"

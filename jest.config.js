@@ -29,6 +29,8 @@ module.exports = {
       "!dist/src/Notification/**/*.{js,ts}",
       "!dist/src/Main/Infrastructure/Crons/*.{js,ts}",
       "!dist/src/Main/Infrastructure/Factories/*.{js,ts}",
+      "!dist/src/Main/Infrastructure/Repositories/RedisCacheDataAccess.{js,ts}",
+      "!dist/src/Main/Infrastructure/Repositories/CacheRepository.{js,ts}",
       "!dist/src/Main/Infrastructure/Repositories/RedisCacheRepository.{js,ts}",
       "!dist/src/Main/Infrastructure/Repositories/BaseMongooseRepository.{js,ts}",
       "!dist/src/Main/Infrastructure/Orm/MongooseAggregatePaginator.{js,ts}",

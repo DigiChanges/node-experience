@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { IPaginator, ICriteria } from '@digichanges/shared-experience';
+import { ICriteria } from '@digichanges/shared-experience';
 
 import IItemRepository from './IItemRepository';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
@@ -9,6 +9,8 @@ import BaseMongooseRepository from '../../../Main/Infrastructure/Repositories/Ba
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 import Item from '../../Domain/Entities/Item';
 import { ItemMongooseDocument } from '../Schemas/ItemMongoose';
+import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
+import PaginatorTransformer from '../../../Shared/Utils/PaginatorTransformer';
 
 class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, ItemMongooseDocument> implements IItemRepository
 {
@@ -17,7 +19,7 @@ class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, ItemMon
         super(Item.name);
     }
 
-    async list(criteria: ICriteria): Promise<IPaginator>
+    async list(criteria: ICriteria): Promise<any>
     {
         const queryBuilder: mongoose.Query<ItemMongooseDocument[], ItemMongooseDocument> = this.repository.find();
         const filter = criteria.getFilter();
@@ -25,7 +27,6 @@ class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, ItemMon
         if (filter.has(ItemFilter.TYPE))
         {
             const type = filter.get(ItemFilter.TYPE);
-
             void queryBuilder.where(ItemFilter.TYPE).equals(type);
         }
 
@@ -37,7 +38,20 @@ class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, ItemMon
             void queryBuilder.where(ItemFilter.NAME).regex(rSearch);
         }
 
-        return new MongoosePaginator(queryBuilder, criteria);
+        const paginator = new MongoosePaginator(queryBuilder, criteria);
+        const data = await paginator.paginate();
+        const metadata = paginator.getMetadata();
+        const result = { data, metadata } as ResponsePayload;
+
+        if (paginator.getExist())
+        {
+            const paginatorTransformer = new PaginatorTransformer();
+            const pagination = await paginatorTransformer.handle(paginator);
+
+            Object.assign(result, { pagination });
+        }
+
+        return result;
     }
 }
 

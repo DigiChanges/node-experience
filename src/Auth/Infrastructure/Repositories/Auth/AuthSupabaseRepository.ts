@@ -42,7 +42,7 @@ class AuthSupabaseRepository implements IAuthRepository
             .#client
             .auth.getUser(info);
 
-        if (error || data?.user)
+        if (error || !data?.user)
         {
             throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
         }

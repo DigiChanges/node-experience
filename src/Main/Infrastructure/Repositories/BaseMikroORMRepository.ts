@@ -1,5 +1,5 @@
 import { EntityRepository, EntitySchema, FindOneOptions } from '@mikro-orm/core';
-import { NotFoundException } from '@digichanges/shared-experience';
+import { ICriteria, IPaginator, NotFoundException } from '@digichanges/shared-experience';
 import IByOptions from './IByOptions';
 import IBaseRepository from './IBaseRepository';
 import EntityMikroORMManagerFactory from '../Factories/EntityMikroORMManagerFactory';
@@ -108,6 +108,8 @@ abstract class BaseMikroORMRepository<T extends object> implements IBaseReposito
 
         return exist;
     }
+
+    abstract list(criteria: ICriteria): Promise<IPaginator>;
 }
 
 export default BaseMikroORMRepository;

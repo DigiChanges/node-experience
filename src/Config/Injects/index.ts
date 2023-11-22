@@ -12,7 +12,11 @@ export enum FACTORIES  {
 export enum REPOSITORIES  {
     IAuthRepository = 'IAuthRepository',
     IItemRepository = 'IItemRepository',
-    INotificationRepository = 'INotificationRepository'
+    INotificationRepository = 'INotificationRepository',
+
+    ICacheRepository = 'ICacheRepository',
+
+    ICacheDataAccess = 'ICacheDataAccess'
 }
 
 export enum SERVICES {

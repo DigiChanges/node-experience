@@ -3,7 +3,7 @@ dotenv.config({ path: './.env.test' });
 
 import { EventHandler, IApp } from '@digichanges/shared-experience';
 
-import container from './register';
+import container from './Shared/DI/container';
 
 import supertest from 'supertest';
 

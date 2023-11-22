@@ -1,5 +1,5 @@
 
-export interface ICacheRepository
+export interface ICacheDataAccess
 {
     set(key: string, value: string, expires?: number | null): Promise<void>;
     jset(key: string, value: any, expires?: number | null): Promise<unknown>;
@@ -11,4 +11,4 @@ export interface ICacheRepository
     close(): void;
 }
 
-export default ICacheRepository;
+export default ICacheDataAccess;

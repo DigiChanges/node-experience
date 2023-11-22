@@ -1,6 +1,6 @@
-import { IBaseDomain } from '@digichanges/shared-experience';
 import ItemRepPayload from '../Payloads/ItemRepPayload';
+import { IBaseExtendDomain } from '../../../Main/Domain/IBaseExtendDomain';
 
-interface IItemDomain extends IBaseDomain, ItemRepPayload {}
+interface IItemDomain extends IBaseExtendDomain, ItemRepPayload {}
 
 export default IItemDomain;

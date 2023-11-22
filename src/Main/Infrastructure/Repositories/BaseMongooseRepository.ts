@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { IBaseDomain, NotFoundException } from '@digichanges/shared-experience';
+import { IBaseDomain, ICriteria, IPaginator, NotFoundException } from '@digichanges/shared-experience';
 import IByOptions from './IByOptions';
 import IBaseRepository from './IBaseRepository';
 
@@ -92,6 +92,8 @@ abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document 
 
         return exist;
     }
+
+    abstract list(criteria: ICriteria): Promise<IPaginator>;
 }
 
 export default BaseMongooseRepository;

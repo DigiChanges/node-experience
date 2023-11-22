@@ -31,9 +31,11 @@
   "cache": {
     "redis": {
       "port": 6379,
-      "host": "redis",
+      "host": "cache",
+      "user": "experience",
       "password": "ewsua132435"
-    }
+    },
+    "enable": true
   },
   "filesystem": {
     "minio": {

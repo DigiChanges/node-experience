@@ -1,6 +1,6 @@
 import Permissions from '../../../../Config/Permissions';
 import Roles from '../../../../Config/Roles';
-import container from '../../../../register';
+import container from '../../../../Shared/DI/container';
 import { REPOSITORIES } from '../../../../Config/Injects';
 import IAuthRepository from '../../../Infrastructure/Repositories/Auth/IAuthRepository';
 import IRoleDomain from '../../Entities/IRoleDomain';

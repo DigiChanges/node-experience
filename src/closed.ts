@@ -1,12 +1,12 @@
 import { createTerminus } from '@godaddy/terminus';
 
-import ICacheRepository from './Main/Infrastructure/Repositories/ICacheRepository';
+import ICacheDataAccess from './Main/Infrastructure/Repositories/ICacheDataAccess';
 import Logger from './Shared/Helpers/Logger';
 import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
 import { EventHandler } from '@digichanges/shared-experience';
 import { Server } from 'http';
 
-const closedApplication = (server: Server, cache: ICacheRepository, createConnection: ICreateConnection, eventHandler: EventHandler) =>
+const closedApplication = (server: Server, cache: ICacheDataAccess, createConnection: ICreateConnection, eventHandler: EventHandler) =>
 {
     function onSignal()
     {

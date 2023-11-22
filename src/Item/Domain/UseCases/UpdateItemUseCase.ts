@@ -2,7 +2,7 @@ import ItemUpdatePayload from '../Payloads/ItemUpdatePayload';
 import IItemDomain from '../Entities/IItemDomain';
 import { REPOSITORIES } from '../../../Config/Injects';
 import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
-import container from '../../../register';
+import container from '../../../Shared/DI/container';
 import ItemBuilder from '../Factories/ItemBuilder';
 import ValidatorSchema from '../../../Main/Presentation/Utils/ValidatorSchema';
 import ItemSchemaUpdateValidation from '../../Presentation/Validations/ItemSchemaUpdateValidation';
