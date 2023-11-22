@@ -3,14 +3,11 @@ import { ICriteria } from '@digichanges/shared-experience';
 
 import IItemRepository from './IItemRepository';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
-import MongoosePaginator from '../../../Main/Infrastructure/Orm/MongoosePaginator';
 
 import BaseMongooseRepository from '../../../Main/Infrastructure/Repositories/BaseMongooseRepository';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 import Item from '../../Domain/Entities/Item';
 import { ItemMongooseDocument } from '../Schemas/ItemMongoose';
-import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
-import PaginatorTransformer from '../../../Shared/Utils/PaginatorTransformer';
 
 class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, ItemMongooseDocument> implements IItemRepository
 {
@@ -38,20 +35,7 @@ class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, ItemMon
             void queryBuilder.where(ItemFilter.NAME).regex(rSearch);
         }
 
-        const paginator = new MongoosePaginator(queryBuilder, criteria);
-        const data = await paginator.paginate();
-        const metadata = paginator.getMetadata();
-        const result = { data, metadata } as ResponsePayload;
-
-        if (paginator.getExist())
-        {
-            const paginatorTransformer = new PaginatorTransformer();
-            const pagination = await paginatorTransformer.handle(paginator);
-
-            Object.assign(result, { pagination });
-        }
-
-        return result;
+        return this.pagination(queryBuilder, criteria);
     }
 }
 

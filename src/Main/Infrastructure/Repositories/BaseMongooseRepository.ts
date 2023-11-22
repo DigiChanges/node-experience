@@ -2,6 +2,9 @@ import * as mongoose from 'mongoose';
 import { IBaseDomain, ICriteria, IPaginator, NotFoundException } from '@digichanges/shared-experience';
 import IByOptions from './IByOptions';
 import IBaseRepository from './IBaseRepository';
+import MongoosePaginator from '../Orm/MongoosePaginator';
+import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
+import PaginatorTransformer from '../../../Shared/Utils/PaginatorTransformer';
 
 abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document & T> implements IBaseRepository<T>
 {
@@ -91,6 +94,24 @@ abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document 
         }
 
         return exist;
+    }
+
+    async pagination(queryBuilder: mongoose.Query<D[], D>, criteria: ICriteria)
+    {
+        const paginator = new MongoosePaginator(queryBuilder, criteria);
+        const data = await paginator.paginate();
+        const metadata = paginator.getMetadata();
+        const result = { data, metadata } as ResponsePayload;
+
+        if (paginator.getExist())
+        {
+            const paginatorTransformer = new PaginatorTransformer();
+            const pagination = await paginatorTransformer.handle(paginator);
+
+            Object.assign(result, { pagination });
+        }
+
+        return result;
     }
 
     abstract list(criteria: ICriteria): Promise<IPaginator>;
