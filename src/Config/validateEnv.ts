@@ -11,6 +11,7 @@ export function validateEnv()
         APP_SET_APP_PROXY: bool(),
         APP_SET_COOKIE_SECURE: bool(),
         APP_SET_COOKIE_SAME_SITE: str(),
+        APP_CORS: str(),
 
         AUTH_API_KEY: str(),
         AUTH_HOST: str(),
