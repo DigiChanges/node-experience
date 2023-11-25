@@ -117,6 +117,9 @@ Common structures found within this project are:
 - Business logic independent of the HTTP and persistence libraries.
 - Supabase integration middleware.
 
+## Docs
+[POSTMAN Documentation](https://documenter.getpostman.com/view/22552353/2s9YeBftt9)
+
 ## License
 
 **NExp** is [MIT licensed](LICENSE).

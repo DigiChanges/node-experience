@@ -43,8 +43,13 @@ void (async() =>
         await createConnection.create();
 
         // Create Cache connection
-        const cache: ICacheDataAccess = container.resolve(REPOSITORIES.ICacheDataAccess);
-        await cache.cleanAll();
+        let cache: ICacheDataAccess;
+
+        if (config.cache.enable)
+        {
+            cache = container.resolve(REPOSITORIES.ICacheDataAccess);
+            await cache.cleanAll();
+        }
 
         // Set EventHandler and all events
         const eventHandler = EventHandler.getInstance();
