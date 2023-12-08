@@ -41,4 +41,4 @@ jobs:
             .
 
       - name: Publish
-        run: docker push "digichanges/$IMAGE_NAME" --all-tags
+        run: docker push "digichanges/nexp-api" --all-tags
