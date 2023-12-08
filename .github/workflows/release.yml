@@ -27,8 +27,8 @@ jobs:
         uses: ridedott/release-me-action@master
         with:
           disable-changelog: true
-          node-module: false
-          release-branches: '["main"]'
+          node-module: true
+          release-branches: '["master"]'
 
       - name: Output
         run: |
