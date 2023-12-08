@@ -37,7 +37,7 @@ ENV NODE_ENV production
 WORKDIR /home/node/app
 
 # Copy js files and change ownership to user node
-COPY --chown=node:node package.json pnpm-lock.yaml ecosystem.config.js ./
+COPY --chown=node:node package.json pnpm-lock.yaml ./
 COPY --from=prerelease --chown=node:node /home/node/app/node_modules/ ./node_modules/
 COPY --from=prerelease --chown=node:node /home/node/app/dist/ ./dist/
 COPY --from=prerelease --chown=node:node /home/node/app/config/ ./config/
