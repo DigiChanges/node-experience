@@ -34,8 +34,8 @@ jobs:
       - name: Build
         run: |-
           docker build \
-            --tag "digichanges/$IMAGE_NAME:${{ env.PACKAGE_VERSION }}" \
-            --tag "digichanges/$IMAGE_NAME:latest" \
+            --tag "digichanges/nexp-api:${{ env.PACKAGE_VERSION }}" \
+            --tag "digichanges/nexp-api:latest" \
             --build-arg GITHUB_SHA="$GITHUB_SHA" \
             --build-arg GITHUB_REF="$GITHUB_REF" \
             .
