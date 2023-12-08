@@ -2,10 +2,14 @@ name: Release
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
   workflow_run:
-    workflows: ["Test"]  # El nombre del workflow de pruebas
+    workflows: ["Test"]
     types:
       - completed
     branches:
@@ -17,6 +21,10 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+
+    outputs:
+      version: ${{ steps.release.outputs.version }}
+
     env:
       IMAGE_NAME: digichanges/nexp-api
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
