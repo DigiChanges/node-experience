@@ -2,54 +2,35 @@ FROM digichanges/nexp:1.2 AS dev
 
 WORKDIR /home/node/app
 
-COPY --chown=node:node .eslintrc ./
-COPY --chown=node:node .husky ./
-COPY --chown=node:node .huskyrc ./
-COPY --chown=node:node .npmrc ./
-COPY --chown=node:node config ./config/
-COPY --chown=node:node ecosystem.config.js ./
-COPY --chown=node:node nodemon.json ./
-COPY --chown=node:node src ./src
-COPY --chown=node:node rimraf_cpy.mjs ./
-COPY --chown=node:node tsconfig.json ./
-COPY --chown=node:node tools ./tools
-COPY --chown=node:node package.json ./
-COPY --chown=node:node pnpm-lock.yaml ./
-COPY --chown=node:node jest-mongodb-config.js ./
-COPY --chown=node:node jest.config.js ./
+COPY --chown=node:node ["package.json", "pnpm-lock.yaml", ".husky", ".huskyrc", "/home/node/app/"]
 
 RUN pnpm install
 
+RUN chown node:node -R node_modules
+
+COPY --chown=node:node [".", "/home/node/app/"]
+
+EXPOSE 8089
+
 USER node
 
-ENTRYPOINT ["dumb-init", "pnpm", "dev"]
+ENTRYPOINT ["dumb-init", "pnpm","dev"]
 
 FROM dev AS build
 
-USER root
-
-RUN pnpm install
-RUN chown node:node node_modules
-
-USER node
+WORKDIR /home/node/app
 
 RUN pnpm build
 
 FROM build AS prerelease
 
-WORKDIR /home/node/app
-
-USER root
-
 RUN rm -rf node_modules
 RUN pnpm install --production --ignore-scripts
-RUN chown node:node node_modules
+RUN chown node:node -R node_modules
 
 RUN cd node_modules/bcrypt && npm rebuild bcrypt --build-from-source
 
 FROM digichanges/nexp:1.2 AS prod
-
-RUN npm install -g pnpm pm2
 
 ENV NODE_ENV production
 
@@ -64,4 +45,4 @@ COPY --from=prerelease --chown=node:node /home/node/app/package.json/ ./package.
 
 USER node
 
-ENTRYPOINT ["dumb-init", "pm2-runtime", "start", "ecosystem.config.js"]
+ENTRYPOINT ["dumb-init", "pnpm", "start"]

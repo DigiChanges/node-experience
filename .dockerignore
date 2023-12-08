@@ -1,5 +1,7 @@
-node_modules/
-infrastructure
-.circleci
 .github
-docs
+node_modules/
+coverage
+dist
+docker
+infrastructure
+tools
