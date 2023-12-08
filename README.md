@@ -99,7 +99,7 @@ with these tables.
 * users_has_roles
 * roles_has_permissions
 
-And a function call `get_authorization`.
+And a function call `get_authorization` with ...
 
 ## Advantages
 
