@@ -3,7 +3,6 @@
   "version": "2.1.12",
   "description": "",
   "scripts": {
-    "dagger": "dagger run node dagger.mjs",
     "build": "node rimraf_cpy.mjs && tsc -p tsconfig.json --incremental",
     "ci": "npm run cpy-ci && npm run ts-check && npm run lint",
     "circular": "madge --circular dist/src/index.js",
@@ -84,7 +83,7 @@
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
-    "@dagger.io/dagger": "^0.9.4",
+    "@dagger.io/dagger": "0.9.3",
     "@shelf/jest-mongodb": "^4.2.0",
     "@types/bcrypt": "^5.0.1",
     "@types/config": "^0.0.41",

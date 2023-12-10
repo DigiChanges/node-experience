@@ -158,8 +158,8 @@ devDependencies:
     specifier: ^18.4.3
     version: 18.4.3
   '@dagger.io/dagger':
-    specifier: ^0.9.4
-    version: 0.9.4
+    specifier: 0.9.3
+    version: 0.9.3
   '@shelf/jest-mongodb':
     specifier: ^4.2.0
     version: 4.2.0(jest-environment-node@29.7.0)(mongodb@6.3.0)
@@ -796,8 +796,8 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@dagger.io/dagger@0.9.4:
-    resolution: {integrity: sha512-b4BXg8RzaDGGb6qcottHo3/4T3uaC78OPEQwNQavezkiEHS3lztA3L/ds65/SmvUNqju9kH/3ben7lwJfEpRtQ==}
+  /@dagger.io/dagger@0.9.3:
+    resolution: {integrity: sha512-kEZ6yWfCLAPcqUB8oQ9qAR7NfWAl16ubj3gYprJGqUfA6s9WN/tG9GPZ7smxFP4tVvRIoyuMnYnOA3f2ypmrIQ==}
     engines: {node: '>=16'}
     dependencies:
       '@lifeomic/axios-fetch': 3.0.1

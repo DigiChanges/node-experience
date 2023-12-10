@@ -33,11 +33,26 @@ jobs:
       - name: Install Dependencies with PNPM
         run: pnpm install
 
-      - name: Install Dagger CLI
-        run: cd /usr/local && { curl -L https://dl.dagger.io/dagger/install.sh | sh; cd -; }
+      - name: Build
+        run: pnpm build
 
-      - name: Release and deploy with Dagger
+      - name: Type Check
+        run: pnpm ts-check
+
+      - name: Lint Check
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: SonarQube Quality Check
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: dagger run node dagger.mjs
