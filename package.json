@@ -38,7 +38,7 @@
     "@fastify/helmet": "^11.1.1",
     "@fastify/throttle": "^2.0.0",
     "@godaddy/terminus": "^4.12.1",
-    "@koa/cors": "^4.0.0",
+    "@koa/cors": "^5.0.0",
     "@koa/multer": "^3.0.2",
     "@mikro-orm/core": "^5.9.0",
     "@mikro-orm/postgresql": "^5.9.0",
