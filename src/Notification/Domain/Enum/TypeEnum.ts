@@ -1,8 +1,7 @@
 
 enum TypeEnum
     {
-    EMAIL = 'email',
-    WEB_PUSH = 'webPush'
+    EMAIL = 'email'
 }
 
 export default TypeEnum;
