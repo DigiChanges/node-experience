@@ -21,4 +21,4 @@ jobs:
         with:
           disable-changelog: true
           node-module: true
-          dry-on: true
+          dry-run: true
