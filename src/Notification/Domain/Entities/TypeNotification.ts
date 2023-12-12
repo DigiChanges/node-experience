@@ -35,11 +35,6 @@ class TypeNotification extends Base
     {
         return this.subscription;
     }
-
-    getUrl()
-    {
-        return this.url;
-    }
 }
 
 export default TypeNotification;

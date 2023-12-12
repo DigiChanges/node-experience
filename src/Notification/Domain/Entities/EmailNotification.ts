@@ -17,14 +17,8 @@ class EmailNotification extends Notification
     bcc: string;
     subject: string;
     external: boolean;
-    _templatePathNameFile?: string;
     attachedFiles?: IFilesAttachments[];
     data?: IEmailNotificationData;
-
-    getAttachedFiles(): IFilesAttachments[]
-    {
-        return this.attachedFiles;
-    }
 }
 
 export default EmailNotification;

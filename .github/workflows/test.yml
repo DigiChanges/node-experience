@@ -4,11 +4,6 @@ on:
     branches-ignore:
       - 'chore(release)/*'
       - 'dependabot/*'
-  pull_request:
-    types: [opened, synchronize, reopened]
-    branches-ignore:
-      - 'chore(release)/*'
-      - 'dependabot/*'
 
 jobs:
   ci:
