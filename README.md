@@ -117,9 +117,30 @@ Common structures found within this project are:
 - Business logic independent of the HTTP and persistence libraries.
 - Supabase integration middleware.
 
+## Quick Test
+
+### Execute TEST Environment
+
+To run the tests, we need to install the packages and transpile the code, we also need the `.env` environment variable to exist.
+
+```bash
+pnpm test
+```
+
+## Test different folder
+
+```bash
+pnpm test src/[Module]/Tests
+```
+
+Example Unique Test
+
+```bash
+pnpm test src/Item/Tests
+```
+
 ## Docs
 [POSTMAN Documentation](https://documenter.getpostman.com/view/22552353/2s9YeBftt9)
-
 
 ## License
 

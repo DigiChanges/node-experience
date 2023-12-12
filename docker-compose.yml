@@ -60,7 +60,7 @@ services:
     environment:
       - DRAGONFLY_USER=experience
       - DRAGONFLY_PASSWORD=ewsua132435
-      - DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG # Security reasons
+      - DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
     ports:
       - "6379:6379"
     networks:
