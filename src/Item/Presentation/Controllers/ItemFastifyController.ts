@@ -22,7 +22,6 @@ import ListItemsUseCase from '../../Domain/UseCases/ListItemsUseCase';
 import GetItemUseCase from '../../Domain/UseCases/GetItemUseCase';
 import UpdateItemUseCase from '../../Domain/UseCases/UpdateItemUseCase';
 import RemoveItemUseCase from '../../Domain/UseCases/RemoveItemUseCase';
-import IItemDomain from '../../Domain/Entities/IItemDomain';
 import { IRequestFastify } from '../../../Shared/Utils/types';
 
 const responder: FastifyResponder = new FastifyResponder();

@@ -1,7 +1,6 @@
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import compress from '@fastify/compress';
-import throttle from '@fastify/throttle';
 
 import IndexFastifyRouter from '../Routers/IndexFastifyRouter';
 import ItemFastifyRouter from '../../../Item/Presentation/Routes/ItemFastifyRouter';
@@ -40,9 +39,6 @@ const FastifyBootstrapping = async(config: IExtendAppConfig) =>
 
     // Error handler must be a plugin in Fastify
     await app.setErrorHandler(ErrorFastifyHandler);
-
-    // Throttle middleware
-    await app.addMiddleware(throttle);
 
     // Register your routes as plugins
     await app.addRouter(IndexFastifyRouter, { prefix: '/' });

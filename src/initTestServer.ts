@@ -9,7 +9,6 @@ import supertest from 'supertest';
 
 import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
 import SeedFactory from './Shared/Factories/SeedFactory';
-import Locales from './Shared/Utils/Locales';
 import MainConfig from './Config/MainConfig';
 import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFactory';
 import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
@@ -37,8 +36,6 @@ const initTestServer = async(): Promise<TestServerData> =>
 
     const eventHandler = EventHandler.getInstance();
     eventHandler.setEvent(new SendMessageEvent());
-
-    Locales.getInstance();
 
     // @ts-ignore
     container._registry._registryMap.delete('IAuthRepository');

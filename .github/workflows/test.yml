@@ -1,9 +1,12 @@
 name: Test
 on:
-  push:
+  pull_request:
     branches-ignore:
       - 'chore(release)/*'
       - 'dependabot/*'
+    branches:
+      - master
+      - develop
 
 jobs:
   ci:
