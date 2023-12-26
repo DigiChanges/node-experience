@@ -2,6 +2,11 @@ name: Release
 
 on:
   push:
+    branches:
+      - master
+    paths-ignore:
+      - '.github/**'
+      - 'src/tools/**'
 
 jobs:
   release:
@@ -16,9 +21,17 @@ jobs:
           fetch-depth: 0
           token: ${{ env.GITHUB_TOKEN }}
 
+      - name: Wait for tests to succeed
+        uses: lewagon/wait-on-check-action@v1.3.1
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'CI'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+
       - name: Release
         uses: ridedott/release-me-action@master
         with:
           disable-changelog: true
           node-module: true
-          dry-run: true
+          release-branches: '["master"]'

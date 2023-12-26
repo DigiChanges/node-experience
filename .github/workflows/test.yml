@@ -6,14 +6,12 @@ on:
       - 'dependabot/*'
     branches:
       - master
-      - develop
 
 jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
 
-    if: "!contains(github.event.head_commit.message, 'chore(release):')"
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
