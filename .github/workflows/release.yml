@@ -2,15 +2,6 @@ name: Release
 
 on:
   push:
-    branches:
-      - master
-
-  workflow_run:
-    workflows: ["Test"]
-    types:
-      - completed
-    branches:
-      - master
 
 jobs:
   release:
@@ -19,24 +10,15 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
-    if: "!contains(github.event.head_commit.message, 'chore(release):')"
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ env.GITHUB_TOKEN }}
 
-      - name: Wait for tests to succeed
-        uses: lewagon/wait-on-check-action@v1.3.1
-        with:
-          ref: ${{ github.ref }}
-          check-name: 'CI'
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 10
-
       - name: Release
         uses: ridedott/release-me-action@master
         with:
           disable-changelog: true
           node-module: true
-          release-branches: '["master"]'
+          dry-run: true
