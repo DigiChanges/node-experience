@@ -12,10 +12,10 @@ import SeedFactory from './Shared/Factories/SeedFactory';
 import MainConfig from './Config/MainConfig';
 import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFactory';
 import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
-import IAuthRepository from './Auth/Infrastructure/Repositories/Auth/IAuthRepository';
-import { REPOSITORIES } from './Config/Injects';
+import IAuthRepository from './Auth/Domain/Repositories/IAuthRepository';
+import { REPOSITORIES } from './Shared/DI/Injects';
 import { Lifecycle } from 'tsyringe';
-import SendMessageEvent from './Notification/Infrastructure/Events/SendMessageEvent';
+import SendMessageEvent from './Notification/Domain/Events/SendMessageEvent';
 import AuthMockRepository from './Auth/Tests/AuthMockRepository';
 
 type TestServerData = {

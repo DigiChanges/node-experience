@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import { ICriteria } from '@digichanges/shared-experience';
 
-import IItemRepository from './IItemRepository';
+import IItemRepository from '../../Domain/Repositories/IItemRepository';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 
 import BaseMongooseRepository from '../../../Main/Infrastructure/Repositories/BaseMongooseRepository';

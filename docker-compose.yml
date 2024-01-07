@@ -4,10 +4,12 @@ services:
   node:
     container_name: experience_node_1
     restart: always
+    tty: false
+    stdin_open: false
     build:
       context: .
       dockerfile: Dockerfile
-      target: ${STAGE}
+      target: dev
     ports:
       - "8089:8089"
       - "9229:9229"
@@ -17,10 +19,10 @@ services:
       - traefik.http.routers.api.tls.certresolver=lets-encrypt
       - traefik.port=80
     volumes:
-      - ./dist:/home/node/app/dist
-      - ./src:/home/node/app/src
-      - ./config:/home/node/app/config:cached
-      - ./.env:/home/node/app/.env
+      - ./dist:/home/node/dist
+      - ./src:/home/node/src
+      - ./config:/home/node/config
+      - ./.env:/home/node/.env
     networks:
      - experiencenet
 

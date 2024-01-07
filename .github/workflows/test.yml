@@ -35,6 +35,9 @@ jobs:
       - name: Type Check
         run: pnpm ts-check
 
+      - name: Check Dependency Cruiser
+        run: pnpm cruiser
+
       - name: Lint Check
         run: pnpm lint
 

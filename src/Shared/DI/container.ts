@@ -2,12 +2,12 @@ import 'reflect-metadata';
 import { container, DependencyContainer, Lifecycle, instanceCachingFactory } from 'tsyringe';
 import { IEncryption, Md5EncryptionStrategy } from '@digichanges/shared-experience';
 
-import { FACTORIES, SERVICES, REPOSITORIES } from '../../Config/Injects';
+import { FACTORIES, SERVICES, REPOSITORIES } from './Injects';
 
 import MainConfig from '../../Config/MainConfig';
 
-import IAuthRepository from '../../Auth/Infrastructure/Repositories/Auth/IAuthRepository';
-import IItemRepository from '../../Item/Infrastructure/Repositories/IItemRepository';
+import IAuthRepository from '../../Auth/Domain/Repositories/IAuthRepository';
+import IItemRepository from '../../Item/Domain/Repositories/IItemRepository';
 import INotificationRepository from '../../Notification/Infrastructure/Repositories/INotificationRepository';
 import INotificationDomain from '../../Notification/Domain/Entities/INotificationDomain';
 
@@ -19,10 +19,12 @@ import ItemMikroORMRepository from '../../Item/Infrastructure/Repositories/ItemM
 import AuthSupabaseRepository from '../../Auth/Infrastructure/Repositories/Auth/AuthSupabaseRepository';
 
 import AuthorizeSupabaseService from '../../Auth/Domain/Services/AuthorizeSupabaseService';
-import IBaseRepository from '../../Main/Infrastructure/Repositories/IBaseRepository';
+import IBaseRepository from '../../Main/Domain/Repositories/IBaseRepository';
 import RedisCacheDataAccess from '../../Main/Infrastructure/Repositories/RedisCacheDataAccess';
 import ICacheDataAccess from '../../Main/Infrastructure/Repositories/ICacheDataAccess';
 import CacheRepository from '../../Main/Infrastructure/Repositories/CacheRepository';
+
+import DatabaseFactory from '../../Main/Infrastructure/Factories/DatabaseFactory';
 
 const config = MainConfig.getInstance().getConfig();
 const defaultDbConfig = config.dbConfig.default;
@@ -71,6 +73,15 @@ container.register(SERVICES.AuthorizeService, {
     {
         const authRepository: IAuthRepository  = c.resolve(REPOSITORIES.IAuthRepository);
         return new AuthorizeSupabaseService(authRepository);
+    })
+}, { lifecycle: Lifecycle.Transient });
+
+// Factories
+container.register<DatabaseFactory>(FACTORIES.IDatabaseFactory, {
+    // @ts-ignore
+    useFactory: instanceCachingFactory(() =>
+    {
+        return new DatabaseFactory();
     })
 }, { lifecycle: Lifecycle.Transient });
 

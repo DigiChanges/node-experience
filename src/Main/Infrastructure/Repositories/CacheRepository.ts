@@ -1,8 +1,8 @@
 import crypto from 'crypto';
-import IBaseRepository from './IBaseRepository';
+import IBaseRepository from '../../Domain/Repositories/IBaseRepository';
 import ICacheDataAccess from './ICacheDataAccess';
 import { ICriteria, IPaginator } from '@digichanges/shared-experience';
-import IByOptions from './IByOptions';
+import IByOptions from '../../Domain/Repositories/IByOptions';
 
 class CacheRepository<T extends IBaseRepository<unknown>> implements IBaseRepository<any>
 {

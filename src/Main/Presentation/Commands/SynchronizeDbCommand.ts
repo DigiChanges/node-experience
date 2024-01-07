@@ -1,14 +1,9 @@
-import DatabaseFactory from '../../Infrastructure/Factories/DatabaseFactory';
-import ICreateConnection from '../../Infrastructure/Database/ICreateConnection';
+import SyncDbUseCase from '../../Infrastructure/UseCases/SyncDbUseCase';
 
 const synchronize = async() =>
 {
-    const databaseFactory = new DatabaseFactory();
-    const createConnection: ICreateConnection = databaseFactory.create();
-    await createConnection.initConfig();
-    await createConnection.create();
-    await createConnection.synchronize();
-    await createConnection.close();
+    const useCase = new SyncDbUseCase();
+    await useCase.handle();
 };
 
 void (async() =>

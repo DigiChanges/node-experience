@@ -1,10 +1,10 @@
 import { IdPayload } from '@digichanges/shared-experience';
 import IItemDomain from '../Entities/IItemDomain';
-import { REPOSITORIES } from '../../../Config/Injects';
-import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
-import container from '../../../Shared/DI/container';
-import ValidatorSchema from '../../../Main/Presentation/Utils/ValidatorSchema';
-import IdSchemaValidation from '../../../Main/Presentation/Validations/IdSchemaValidation';
+import { REPOSITORIES } from '../../../Shared/DI/Injects';
+import IItemRepository from '../Repositories/IItemRepository';
+import DependencyInjector from '../../../Shared/DI/DependencyInjector';
+import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
+import IdSchemaValidation from '../../../Main/Domain/Validations/IdSchemaValidation';
 
 class RemoveItemUseCase
 {
@@ -12,7 +12,7 @@ class RemoveItemUseCase
 
     constructor()
     {
-        this.repository = container.resolve<IItemRepository>(REPOSITORIES.IItemRepository);
+        this.repository = DependencyInjector.inject<IItemRepository>(REPOSITORIES.IItemRepository);
     }
 
     async handle(payload: IdPayload): Promise<IItemDomain>

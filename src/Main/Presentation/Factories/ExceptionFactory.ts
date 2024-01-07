@@ -1,7 +1,7 @@
 import { ErrorHttpException, StatusCode } from '@digichanges/shared-experience';
 import TokenExpiredHttpException from '../../../Auth/Presentation/Exceptions/TokenExpiredHttpException';
 import DuplicateEntityHttpException from '../Exceptions/DuplicateEntityHttpException';
-import exceptions from '../../../exceptions';
+import exceptions from '../../../Config/exceptions';
 
 class ExceptionFactory
 {

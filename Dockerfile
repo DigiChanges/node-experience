@@ -1,14 +1,12 @@
 FROM digichanges/nexp:1.2 AS dev
 
-WORKDIR /home/node/app
+WORKDIR /home/node
 
-COPY --chown=node:node ["package.json", "pnpm-lock.yaml", ".husky", ".huskyrc", "/home/node/app/"]
+COPY --chown=node:node ["package.json", "pnpm-lock.yaml", ".husky", ".huskyrc", "/home/node/"]
 
 RUN pnpm install
 
-RUN chown node:node -R node_modules
-
-COPY --chown=node:node [".", "/home/node/app/"]
+COPY --chown=node:node [".", "/home/node/"]
 
 EXPOSE 8089
 
@@ -18,30 +16,34 @@ ENTRYPOINT ["dumb-init", "pnpm","dev"]
 
 FROM dev AS build
 
-WORKDIR /home/node/app
+USER node
 
 RUN pnpm build
 
-FROM build AS prerelease
+USER root
 
 RUN rm -rf node_modules
-RUN pnpm install --production --ignore-scripts
-RUN chown node:node -R node_modules
 
-RUN cd node_modules/bcrypt && npm rebuild bcrypt --build-from-source
+FROM build AS prerelease
+
+USER node
+
+RUN pnpm install --production --ignore-scripts \
+    && cd node_modules/bcrypt  \
+    && npm rebuild bcrypt --build-from-source
 
 FROM digichanges/nexp:1.2 AS prod
 
 ENV NODE_ENV production
 
-WORKDIR /home/node/app
+WORKDIR /home/node
 
 # Copy js files and change ownership to user node
-COPY --chown=node:node package.json pnpm-lock.yaml ./
-COPY --from=prerelease --chown=node:node /home/node/app/node_modules/ ./node_modules/
-COPY --from=prerelease --chown=node:node /home/node/app/dist/ ./dist/
-COPY --from=prerelease --chown=node:node /home/node/app/config/ ./config/
-COPY --from=prerelease --chown=node:node /home/node/app/package.json/ ./package.json
+COPY --from=prerelease /home/node/node_modules/ ./node_modules/
+COPY --from=prerelease /home/node/dist/ ./dist/
+COPY --from=prerelease /home/node/config/ ./config/
+COPY --from=prerelease /home/node/package.json/ ./package.json
+COPY --from=prerelease /home/node/pnpm-lock.yaml/  ./pnpm-lock.yaml
 
 USER node
 

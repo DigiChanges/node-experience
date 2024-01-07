@@ -3,7 +3,8 @@ dotenv.config();
 
 import { EventHandler, IApp } from '@digichanges/shared-experience';
 
-import container from './Shared/DI/container';
+import DependencyInjector from './Shared/DI/DependencyInjector';
+import { FACTORIES, REPOSITORIES } from './Shared/DI/Injects';
 
 import MainConfig from './Config/MainConfig';
 import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
@@ -13,10 +14,9 @@ import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFacto
 import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
 import Logger from './Shared/Helpers/Logger';
 import closedApplication from './closed';
-import SendMessageEvent from './Notification/Infrastructure/Events/SendMessageEvent';
+import SendMessageEvent from './Notification/Domain/Events/SendMessageEvent';
 import EmailEvent from './Auth/Infrastructure/Events/EmailEvent';
 import ICacheDataAccess from './Main/Infrastructure/Repositories/ICacheDataAccess';
-import { REPOSITORIES } from './Config/Injects';
 
 void (async() =>
 {
@@ -37,7 +37,7 @@ void (async() =>
         await app.listen();
 
         // Create DB connection
-        const databaseFactory = new DatabaseFactory();
+        const databaseFactory = DependencyInjector.inject<DatabaseFactory>(FACTORIES.IDatabaseFactory);
         const createConnection: ICreateConnection = databaseFactory.create();
         await createConnection.initConfig();
         await createConnection.create();
@@ -47,7 +47,7 @@ void (async() =>
 
         if (config.cache.enable)
         {
-            cache = container.resolve(REPOSITORIES.ICacheDataAccess);
+            cache = DependencyInjector.inject<ICacheDataAccess>(REPOSITORIES.ICacheDataAccess);
             await cache.cleanAll();
         }
 

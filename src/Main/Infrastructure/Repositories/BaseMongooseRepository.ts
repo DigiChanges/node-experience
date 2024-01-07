@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import { IBaseDomain, ICriteria, IPaginator, NotFoundException } from '@digichanges/shared-experience';
-import IByOptions from './IByOptions';
-import IBaseRepository from './IBaseRepository';
+import IByOptions from '../../Domain/Repositories/IByOptions';
+import IBaseRepository from '../../Domain/Repositories/IBaseRepository';
 import MongoosePaginator from '../Orm/MongoosePaginator';
 import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
 import PaginatorTransformer from '../../../Shared/Utils/PaginatorTransformer';

@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import nodemailer from 'nodemailer';
 import Fs from 'fs';
-import { REPOSITORIES } from '../../Config/Injects';
+import { REPOSITORIES } from '../../Shared/DI/Injects';
 import INotificationRepository from '../Infrastructure/Repositories/INotificationRepository';
 import INotificationDomain from '../Domain/Entities/INotificationDomain';
 import MainConfig from '../../Config/MainConfig';

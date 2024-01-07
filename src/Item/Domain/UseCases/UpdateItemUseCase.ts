@@ -1,11 +1,11 @@
 import ItemUpdatePayload from '../Payloads/ItemUpdatePayload';
 import IItemDomain from '../Entities/IItemDomain';
-import { REPOSITORIES } from '../../../Config/Injects';
-import IItemRepository from '../../Infrastructure/Repositories/IItemRepository';
-import container from '../../../Shared/DI/container';
+import { REPOSITORIES } from '../../../Shared/DI/Injects';
+import IItemRepository from '../Repositories/IItemRepository';
+import DependencyInjector from '../../../Shared/DI/DependencyInjector';
 import ItemBuilder from '../Factories/ItemBuilder';
-import ValidatorSchema from '../../../Main/Presentation/Utils/ValidatorSchema';
-import ItemSchemaUpdateValidation from '../../Presentation/Validations/ItemSchemaUpdateValidation';
+import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
+import ItemSchemaUpdateValidation from '../Validations/ItemSchemaUpdateValidation';
 
 class UpdateItemUseCase
 {
@@ -13,7 +13,7 @@ class UpdateItemUseCase
 
     constructor()
     {
-        this.repository = container.resolve<IItemRepository>(REPOSITORIES.IItemRepository);
+        this.repository = DependencyInjector.inject<IItemRepository>(REPOSITORIES.IItemRepository);
     }
 
     async handle(payload: ItemUpdatePayload): Promise<IItemDomain>

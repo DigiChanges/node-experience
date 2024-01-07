@@ -1,7 +1,7 @@
 import NotificationRepPayload from '../Payloads/NotificationRepPayload';
 import PushNotification from '../Entities/PushNotification';
 import { EventHandler } from '@digichanges/shared-experience';
-import SendMessageEvent from '../../Infrastructure/Events/SendMessageEvent';
+import SendMessageEvent from '../Events/SendMessageEvent';
 import NotificationSendMessagePayload from '../Payloads/NotificationSendMessagePayload';
 import INotificationResponse from '../Entities/INotificationResponse';
 

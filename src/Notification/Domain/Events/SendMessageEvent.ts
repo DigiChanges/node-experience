@@ -1,4 +1,4 @@
-import { FACTORIES } from '../../../Config/Injects';
+import { FACTORIES } from '../../../Shared/DI/Injects';
 import NotifierFactory from '../../Shared/NotifierFactory';
 import { IEvent } from '@digichanges/shared-experience';
 

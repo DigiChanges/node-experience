@@ -1,4 +1,4 @@
-import IItemRepository from './IItemRepository';
+import IItemRepository from '../../Domain/Repositories/IItemRepository';
 import Item from '../../Domain/Entities/Item';
 import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 

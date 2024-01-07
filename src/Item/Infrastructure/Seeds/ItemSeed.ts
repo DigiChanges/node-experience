@@ -12,7 +12,7 @@ class ItemSeed extends BaseSeed implements ISeed
         for await (const _ of indexes)
         {
             const name = faker.person.firstName();
-            const type = faker.number.int({ max: 100 });
+            const type = faker.number.int({ min: 1, max: 100 });
 
             const saveItemUseCase = new SaveItemUseCase();
             await saveItemUseCase.handle({ name, type });

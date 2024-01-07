@@ -22,3 +22,7 @@ export enum REPOSITORIES  {
 export enum SERVICES {
     AuthorizeService = 'AuthorizeService'
 }
+
+export enum FACTORIES {
+    IDatabaseFactory = 'IDatabaseFactory'
+}
