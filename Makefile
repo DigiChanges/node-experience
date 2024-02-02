@@ -65,6 +65,12 @@ test:
 	@echo '************                               ************'
 	docker compose exec node pnpm test
 
+stress:
+	@echo '************                               ************'
+	@echo '************        STRESS TEST            ************'
+	@echo '************                               ************'
+	artillery run artillery.yml
+
 ts_check:
 	@echo '************                               ************'
 	@echo '************       Exec NODE TS CHECK      ************'
