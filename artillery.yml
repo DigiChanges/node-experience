@@ -1,11 +1,18 @@
 config:
   target: 'http://localhost:8089'
   phases:
+    - duration: 60
+      arrivalRate: 5
     - duration: 120
       arrivalRate: 10
-      rampTo: 50
+    - duration: 60
+      arrivalRate: 20
 
 scenarios:
   - flow:
     - get:
         url: "/"
+    - think: 1
+    - get:
+        url: "/"
+    - think: 2

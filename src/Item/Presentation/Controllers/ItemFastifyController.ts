@@ -2,7 +2,6 @@ import {
     ResponseMessageEnum,
     DefaultMessageTransformer,
     RequestCriteria,
-    IPaginator,
     StatusCode,
     ICriteria,
     IdPayload
