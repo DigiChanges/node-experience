@@ -6,7 +6,7 @@ on:
       - master
     paths-ignore:
       - '.github/**'
-      - 'src/tools/**'
+      - 'tools/**'
 
 jobs:
   release:
@@ -20,14 +20,6 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ env.GITHUB_TOKEN }}
-
-      - name: Wait for tests to succeed
-        uses: lewagon/wait-on-check-action@v1.3.3
-        with:
-          ref: ${{ github.ref }}
-          check-name: 'CI'
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 10
 
       - name: Release
         uses: ridedott/release-me-action@master
