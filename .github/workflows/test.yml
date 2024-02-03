@@ -2,9 +2,6 @@ name: Test
 
 on:
   pull_request:
-    branches-ignore:
-      - 'chore(release)/*'
-      - 'dependabot/*'
     branches:
       - master
 
@@ -30,11 +27,11 @@ jobs:
       - name: Install Dependencies with PNPM
         run: pnpm install
 
-      - name: Build
-        run: pnpm build
-
       - name: Type Check
         run: pnpm ts-check
+
+      - name: Build
+        run: pnpm build
 
       - name: Check Dependency Cruiser
         run: pnpm cruiser
