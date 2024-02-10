@@ -13,12 +13,11 @@ class MongoosePaginator extends BasePaginator implements IPaginator
 
     public async paginate<T>(): Promise<T[]>
     {
-        this.total = await ((this.#documentQuery).clone()).count();
+        this.total = await ((this.#documentQuery).clone()).countDocuments();
 
         this.addOrderBy();
         this.addPagination();
 
-        this._perPage = await ((this.#documentQuery).clone()).count();
         this.setPerPage(this._perPage);
         this.setCurrentPage();
         this.setLasPage();
@@ -26,6 +25,7 @@ class MongoosePaginator extends BasePaginator implements IPaginator
         this.setTo();
 
         let data  = await this.#documentQuery.find().exec();
+        this._perPage = data.length;
 
         if (this.helper)
         {

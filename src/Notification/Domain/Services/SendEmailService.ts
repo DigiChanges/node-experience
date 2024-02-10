@@ -1,10 +1,10 @@
-import { EventHandler } from '@digichanges/shared-experience';
 import ISendEmailParams from '../Entities/ISendEmailParams';
 import EmailNotification from '../Entities/EmailNotification';
+import NotifierFactory from '../../Shared/NotifierFactory';
+import { FACTORIES } from '../../../Shared/DI/Injects';
 
 class SendEmailService
 {
-    private static emailEvent = 'EmailEvent';
     public static async handle(params: ISendEmailParams): Promise<void>
     {
         const { type, args, name, files,
@@ -23,9 +23,13 @@ class SendEmailService
         emailNotification.external = external ?? false;
         args.templatePathNameFile = templatePathNameFile;
 
-        const eventHandler = EventHandler.getInstance();
+        const emailNotificator: any = NotifierFactory.create(FACTORIES.EmailStrategy);
 
-        eventHandler.execute(this.emailEvent, { emailNotification, args });
+        emailNotificator.emailNotification = emailNotification;
+        emailNotificator.templatePathNameFile = args.templatePathNameFile;
+        emailNotificator.data = args;
+
+        await emailNotificator.send(emailNotificator.templatePathNameFile);
     }
 }
 

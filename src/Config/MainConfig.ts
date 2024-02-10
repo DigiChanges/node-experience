@@ -94,11 +94,20 @@ export type ValidateSettingsType = {
     };
 };
 
+export type MessageBrokerConfig = {
+    protocol: string,
+    hostname: string,
+    username: string,
+    password: string,
+    port: number
+}
+
 export type ConfigType = {
     env: string,
     auth: AuthConfig;
     app: AppConfig,
     dbConfig: DbConfigType,
+    messageBroker: MessageBrokerConfig,
     cache: {
         redis: CacheConfig,
         enable: boolean

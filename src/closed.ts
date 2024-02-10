@@ -5,36 +5,49 @@ import Logger from './Shared/Helpers/Logger';
 import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
 import { EventHandler } from '@digichanges/shared-experience';
 import { Server } from 'http';
+import { IMessageBroker } from './Shared/Infrastructure/IMessageBroker';
 
-const closedApplication = (server: Server, cache: ICacheDataAccess, createConnection: ICreateConnection, eventHandler: EventHandler) =>
+interface ClosedApplicationParams
+{
+    server?: Server,
+    eventHandler?: EventHandler
+    messageBroker: IMessageBroker
+    cache: ICacheDataAccess,
+    createConnection: ICreateConnection,
+}
+
+const closedApplication = (params: ClosedApplicationParams) =>
 {
     function onSignal()
     {
         Logger.info('server is starting cleanup');
-        cache.close();
+        params.cache.close();
         return Promise.all([
-            createConnection.close(true),
-            eventHandler.removeListeners()
+            params.createConnection.close(true),
+            params.eventHandler.removeListeners(),
+            params.messageBroker.disconnect()
         ]);
     }
 
     function onShutdown()
     {
         Logger.info('cleanup finished, server is shutting down');
-        cache.close();
+        params.cache.close();
         return Promise.all([
-            createConnection.close(true),
-            eventHandler.removeListeners()
+            params.createConnection.close(true),
+            params.eventHandler.removeListeners(),
+            params.messageBroker.disconnect()
         ]);
     }
 
-    const options = {
-        timeout: 1000,
-        onSignal,
-        onShutdown
-    };
-
-    createTerminus(server, options);
+    if (params.server)
+    {
+        createTerminus(params.server, {
+            timeout: 1000,
+            onSignal,
+            onShutdown
+        });
+    }
 };
 
 export default closedApplication;

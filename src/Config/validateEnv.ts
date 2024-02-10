@@ -24,6 +24,12 @@ export function validateEnv()
         CACHE_PASSWORD: str({ default: '12345678' }),
         CACHE_ENABLE: bool({ default: false }),
 
+        MESSAGE_BROKER_PROTOCOL: str(),
+        MESSAGE_BROKER_HOST: str(),
+        MESSAGE_BROKER_PORT: port(),
+        MESSAGE_BROKER_USER: str(),
+        MESSAGE_BROKER_PASSWORD: str(),
+
         DB_URI: str(),
         DB_ORM_DEFAULT: str(),
         DB_TYPE: str(),

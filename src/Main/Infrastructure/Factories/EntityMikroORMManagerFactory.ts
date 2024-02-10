@@ -6,12 +6,11 @@ class EntityMikroORMManagerFactory
 {
     public static getEntityFactory(): EntityManager
     {
-        // @ts-ignore
         let rem = RequestContext.getEntityManager() as EntityManager;
 
         if (!rem)
         {
-            rem = orm.em as EntityManager;
+            rem = orm.em;
         }
 
         return rem;
