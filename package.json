@@ -19,7 +19,7 @@
     "lint": "eslint -c .eslintrc ./src",
     "pre-commit": "lint-staged",
     "pre-check": "pnpm ts-check && pnpm lint",
-    "prepare": "husky install",
+    "prepare": "husky",
     "start": "node dist/src/index.js",
     "test-ci": "jest --run-in-band --coverage",
     "test": "jest --coverage",
