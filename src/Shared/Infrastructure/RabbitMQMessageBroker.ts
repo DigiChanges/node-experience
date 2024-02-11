@@ -47,11 +47,18 @@ class RabbitMQMessageBroker implements IMessageBroker
         }
 
         await this.#channel.assertQueue(params.queue, params.queueOptions);
-        await this.#channel.consume(params.queue, async(msg) =>
+        await this.#channel.consume(params.queue, (msg) =>
         {
             if (msg)
             {
-                await params.job.execute(JSON.parse(msg.content.toString()));
+                params.job.execute(JSON.parse(msg.content.toString()))
+                    .catch((err) =>
+                    {
+                        throw new ErrorException({
+                            message: `Job ${params.job.name}, ${err.message}`,
+                            errorCode: 'messageBroker.job.error'
+                        });
+                    });
                 this.#channel.ack(msg);
             }
         });

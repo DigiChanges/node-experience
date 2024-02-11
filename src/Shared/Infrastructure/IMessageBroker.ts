@@ -1,15 +1,6 @@
 import { MessageBrokerConfig } from '../../Config/MainConfig';
 import IJob from '../../Main/Infrastructure/Jobs/IJob';
 
-export interface ConnectionConfig
-{
-    protocol: 'amqp',
-    hostname: 'rabbitmq',
-    username: 'user',
-    password: 'password',
-    port: 5672
-}
-
 export interface PublishParams<T>
 {
     exchange: string;
