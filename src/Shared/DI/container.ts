@@ -88,6 +88,4 @@ container.register<DatabaseFactory>(FACTORIES.IDatabaseFactory, {
     })
 }, { lifecycle: Lifecycle.Transient });
 
-// Factories
-
 export default container;

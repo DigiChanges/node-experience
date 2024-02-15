@@ -20,6 +20,7 @@ module.exports = {
       "!dist/src/crons.{js,ts}",
       "!dist/src/command.{js,ts}",
       "!dist/src/index.{js,ts}",
+      "!dist/src/worker.{js,ts}",
       "!dist/src/closed.{js,ts}",
       "!dist/src/initCommand.{js,ts}",
       "!dist/src/**/I*.{js,ts}",

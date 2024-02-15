@@ -1,5 +1,6 @@
 import { exit } from 'shelljs';
 import commander from 'commander';
+
 import dotenv from 'dotenv';
 dotenv.config(); // Need before get config
 

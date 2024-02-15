@@ -16,7 +16,6 @@ import NotificationEmailJob from './Notification/Infrastructure/Jobs/Notificatio
 import { EventHandler } from '@digichanges/shared-experience';
 import EmailEvent from './Auth/Infrastructure/Events/EmailEvent';
 import SendMessageEvent from './Notification/Domain/Events/SendMessageEvent';
-import logger from './Shared/Helpers/Logger';
 
 void (async() =>
 {
@@ -49,7 +48,7 @@ void (async() =>
             }
         });
 
-        logger.info('Worker Initialized');
+        Logger.info('Worker Initialized');
 
         // Create Cache connection
         let cache: ICacheDataAccess;
