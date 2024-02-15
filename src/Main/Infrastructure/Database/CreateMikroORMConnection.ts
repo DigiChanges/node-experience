@@ -1,4 +1,4 @@
-import { MikroORM } from '@mikro-orm/core';
+import { MikroORM } from '@mikro-orm/postgresql';
 import { newDb } from 'pg-mem';
 import Item from '../../../Item/Infrastructure/Schemas/ItemMikroORM';
 import ICreateConnection from './ICreateConnection';
@@ -27,7 +27,6 @@ class CreateMikroORMConnection implements ICreateConnection
                 entities: this.entities,
                 clientUrl: '',
                 dbName: this.config.dbName,
-                type: this.config.type,
                 host: this.config.host,
                 port: this.config.port,
                 user: this.config.user,

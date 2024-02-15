@@ -25,6 +25,8 @@ import ICacheDataAccess from '../../Main/Infrastructure/Repositories/ICacheDataA
 import CacheRepository from '../../Main/Infrastructure/Repositories/CacheRepository';
 
 import DatabaseFactory from '../../Main/Infrastructure/Factories/DatabaseFactory';
+import { IMessageBroker } from '../Infrastructure/IMessageBroker';
+import RabbitMQMessageBroker from '../Infrastructure/RabbitMQMessageBroker';
 
 const config = MainConfig.getInstance().getConfig();
 const defaultDbConfig = config.dbConfig.default;
@@ -75,6 +77,7 @@ container.register(SERVICES.AuthorizeService, {
         return new AuthorizeSupabaseService(authRepository);
     })
 }, { lifecycle: Lifecycle.Transient });
+container.register<IMessageBroker>('IMessageBroker', { useClass: RabbitMQMessageBroker }, { lifecycle: Lifecycle.Singleton });
 
 // Factories
 container.register<DatabaseFactory>(FACTORIES.IDatabaseFactory, {

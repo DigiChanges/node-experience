@@ -6,6 +6,7 @@ import NotificationSubscriptionRequest from '../Requests/NotificationCreateSuscr
 import NotificationSendMessageRequest from '../Requests/NotificationSendMessageRequest';
 import CreateSubscriptionUseCase from '../../Domain/UseCases/CreateSubscriptionUseCase';
 import SendPushNotificationUseCase from '../../Domain/UseCases/SendPushNotificationUseCase';
+import SendMessageBrokerUseCase from '../../Domain/UseCases/SendMessageBrokerUseCase';
 
 class NotificationFastifyController
 {
@@ -29,6 +30,14 @@ class NotificationFastifyController
         const notification = await useCase.handle(_request);
 
         await NotificationFastifyController.responder.send(notification, reply, StatusCode.HTTP_CREATED);
+    }
+
+    static async sendMessageBroker(request: FastifyRequest, reply: FastifyReply)
+    {
+        const useCase = new SendMessageBrokerUseCase();
+        await useCase.handle();
+
+        await NotificationFastifyController.responder.send({ message: 'Message sent' }, reply, StatusCode.HTTP_OK);
     }
 }
 

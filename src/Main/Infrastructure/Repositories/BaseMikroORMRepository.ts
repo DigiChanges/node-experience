@@ -1,4 +1,4 @@
-import { EntityRepository, EntitySchema, FindOneOptions } from '@mikro-orm/core';
+import { EntityRepository, EntitySchema, FindOneOptions } from '@mikro-orm/postgresql';
 import { ICriteria, IPaginator, NotFoundException } from '@digichanges/shared-experience';
 import IByOptions from '../../Domain/Repositories/IByOptions';
 import IBaseRepository from '../../Domain/Repositories/IBaseRepository';
@@ -11,7 +11,7 @@ abstract class BaseMikroORMRepository<T extends object> implements IBaseReposito
     protected em = EntityMikroORMManagerFactory.getEntityFactory();
     protected populate: string[];
 
-    constructor(entityName: string, entitySchema: EntitySchema<any>, populate: string[] = [])
+    protected constructor(entityName: string, entitySchema: EntitySchema, populate: string[] = [])
     {
         this.entityName = entityName;
         this.repository = this.em.getRepository(entitySchema);
@@ -99,7 +99,7 @@ abstract class BaseMikroORMRepository<T extends object> implements IBaseReposito
 
     async exist(condition: Record<string, any> | Record<string, any>[], select: string[], initThrow = false): Promise<any>
     {
-        const exist = await this.repository.findOne(condition, { fields: select });
+        const exist = await this.repository.findOne(condition);
 
         if (initThrow && !exist)
         {

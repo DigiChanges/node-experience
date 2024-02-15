@@ -13,11 +13,24 @@ services:
     ports:
       - "8089:8089"
       - "9229:9229"
-    labels:
-      - traefik.http.routers.api.rule=Host(`api.domain.com`)
-      - traefik.http.routers.api.tls=true
-      - traefik.http.routers.api.tls.certresolver=lets-encrypt
-      - traefik.port=80
+    volumes:
+      - ./dist:/home/node/dist
+      - ./src:/home/node/src
+      - ./config:/home/node/config
+      - ./.env:/home/node/.env
+    networks:
+     - experiencenet
+
+  worker:
+    container_name: experience_worker_1
+    restart: always
+    tty: false
+    stdin_open: false
+    entrypoint: ["dumb-init", "pnpm", "worker-dev"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
     volumes:
       - ./dist:/home/node/dist
       - ./src:/home/node/src
@@ -34,8 +47,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "27018:27017"
-    networks:
-     - experiencenet
     environment:
       MONGODB_ROOT_PASSWORD: 123456
       MONGODB_USERNAME: experience
@@ -43,6 +54,21 @@ services:
       MONGODB_DATABASE: experience
     volumes:
       - data:/bitnami/mongodb
+    networks:
+     - experiencenet
+
+  rabbitmq:
+    image: rabbitmq:3.9-management-alpine
+    restart: always
+    container_name: experience_rabbitmq_1
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    networks:
+     - experiencenet
 
   mail:
     container_name: experience_mail_1
@@ -59,12 +85,12 @@ services:
     ulimits:
       memlock: -1
     container_name: experience_cache_1
+    ports:
+      - "6379:6379"
     environment:
       - DRAGONFLY_USER=experience
       - DRAGONFLY_PASSWORD=ewsua132435
       - DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
-    ports:
-      - "6379:6379"
     networks:
      - experiencenet
     volumes:

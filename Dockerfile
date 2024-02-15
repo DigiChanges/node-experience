@@ -1,4 +1,8 @@
-FROM digichanges/nexp:1.2 AS dev
+FROM node:20-alpine AS dev
+
+RUN apk add dumb-init
+
+RUN corepack enable && corepack install --global pnpm@8.15.1
 
 WORKDIR /home/node
 
@@ -32,7 +36,9 @@ RUN pnpm install --production --ignore-scripts \
     && cd node_modules/bcrypt  \
     && npm rebuild bcrypt --build-from-source
 
-FROM digichanges/nexp:1.2 AS prod
+FROM node:20-alpine AS prod
+
+RUN corepack enable && corepack install --global pnpm@8.15.1
 
 ENV NODE_ENV production
 
