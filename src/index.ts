@@ -70,8 +70,8 @@ void (async() =>
         closedApplication({
             server,
             cache,
-            createConnection,
             eventHandler,
+            createConnection,
             messageBroker
         });
     }

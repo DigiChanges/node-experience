@@ -13,7 +13,7 @@ class RabbitMQMessageBroker implements IMessageBroker
     {
         if (!this.#connection)
         {
-            this.#connection = await connect(config);
+            this.#connection = await connect(config.uri);
             this.#channel = await this.#connection.createChannel();
         }
     }

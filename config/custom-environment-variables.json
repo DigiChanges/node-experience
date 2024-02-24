@@ -38,11 +38,7 @@
     "enable": "CACHE_ENABLE"
   },
   "messageBroker": {
-    "protocol": "MESSAGE_BROKER_PROTOCOL",
-    "hostname": "MESSAGE_BROKER_HOST",
-    "port": "MESSAGE_BROKER_PORT",
-    "username": "MESSAGE_BROKER_USER",
-    "password": "MESSAGE_BROKER_PASSWORD"
+    "uri": "MESSAGE_BROKER_URI"
   },
   "filesystem": {
     "minio":  {

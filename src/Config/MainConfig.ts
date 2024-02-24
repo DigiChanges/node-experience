@@ -95,11 +95,7 @@ export type ValidateSettingsType = {
 };
 
 export type MessageBrokerConfig = {
-    protocol: string,
-    hostname: string,
-    username: string,
-    password: string,
-    port: number
+    uri: string
 }
 
 export type ConfigType = {

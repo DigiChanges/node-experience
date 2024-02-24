@@ -13,9 +13,6 @@ import ICacheDataAccess from './Main/Infrastructure/Repositories/ICacheDataAcces
 import { IMessageBroker } from './Shared/Infrastructure/IMessageBroker';
 import MainConfig from './Config/MainConfig';
 import NotificationEmailJob from './Notification/Infrastructure/Jobs/NotificationEmailJob';
-import { EventHandler } from '@digichanges/shared-experience';
-import EmailEvent from './Auth/Infrastructure/Events/EmailEvent';
-import SendMessageEvent from './Notification/Domain/Events/SendMessageEvent';
 
 void (async() =>
 {
@@ -29,11 +26,6 @@ void (async() =>
         const createConnection: ICreateConnection = databaseFactory.create();
         await createConnection.initConfig();
         await createConnection.create();
-
-        // Set EventHandler and all events
-        const eventHandler = EventHandler.getInstance();
-        eventHandler.setEvent(new EmailEvent());
-        eventHandler.setEvent(new SendMessageEvent());
 
         // Message Broker
         const messageBroker = DependencyInjector.inject<IMessageBroker>('IMessageBroker');
