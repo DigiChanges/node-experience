@@ -27,6 +27,7 @@ import CacheRepository from '../../Main/Infrastructure/Repositories/CacheReposit
 import DatabaseFactory from '../../Main/Infrastructure/Factories/DatabaseFactory';
 import { IMessageBroker } from '../Infrastructure/IMessageBroker';
 import RabbitMQMessageBroker from '../Infrastructure/RabbitMQMessageBroker';
+import CronService, { ICronService } from '../../Main/Infrastructure/Factories/CronService';
 
 const config = MainConfig.getInstance().getConfig();
 const defaultDbConfig = config.dbConfig.default;
@@ -77,7 +78,16 @@ container.register(SERVICES.AuthorizeService, {
         return new AuthorizeSupabaseService(authRepository);
     })
 }, { lifecycle: Lifecycle.Transient });
+
 container.register<IMessageBroker>('IMessageBroker', { useClass: RabbitMQMessageBroker }, { lifecycle: Lifecycle.Singleton });
+
+container.register<ICronService>('ICronService', {
+    // @ts-ignore
+    useFactory: instanceCachingFactory(() =>
+    {
+        return new CronService({ executeCrons: config.executeCrons });
+    })
+}, { lifecycle: Lifecycle.Transient });
 
 // Factories
 container.register<DatabaseFactory>(FACTORIES.IDatabaseFactory, {
@@ -87,5 +97,6 @@ container.register<DatabaseFactory>(FACTORIES.IDatabaseFactory, {
         return new DatabaseFactory();
     })
 }, { lifecycle: Lifecycle.Transient });
+
 
 export default container;

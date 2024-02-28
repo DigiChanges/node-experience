@@ -9,7 +9,7 @@ import { FACTORIES, REPOSITORIES } from './Shared/DI/Injects';
 import MainConfig from './Config/MainConfig';
 import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
 
-import CronFactory from './Main/Infrastructure/Factories/CronFactory';
+import { ICronService } from './Main/Infrastructure/Factories/CronService';
 import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFactory';
 import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
 import Logger from './Shared/Helpers/Logger';
@@ -18,6 +18,7 @@ import SendMessageEvent from './Notification/Domain/Events/SendMessageEvent';
 import EmailEvent from './Auth/Infrastructure/Events/EmailEvent';
 import ICacheDataAccess from './Main/Infrastructure/Repositories/ICacheDataAccess';
 import { IMessageBroker } from './Shared/Infrastructure/IMessageBroker';
+import crons from './crons';
 
 void (async() =>
 {
@@ -57,9 +58,10 @@ void (async() =>
         eventHandler.setEvent(new EmailEvent());
         eventHandler.setEvent(new SendMessageEvent());
 
-        // Create cron
-        const cronFactory = new CronFactory();
-        cronFactory.start();
+        // Create Cron Service
+        const cronService = DependencyInjector.inject<ICronService>('ICronService');
+        cronService.setCrons(crons);
+        cronService.startAll();
 
         // Message Broker
         const messageBroker = DependencyInjector.inject<IMessageBroker>('IMessageBroker');

@@ -14,6 +14,9 @@
     "secret": "mySecret",
     "authorization": false
   },
+  "service": {
+    "uri": "http://localhost:8080"
+  },
   "dbConfig": {
     "Mongoose": {
       "uri": "DB_URI"

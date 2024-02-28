@@ -1,11 +1,11 @@
 import Cron from './Cron';
 import Logger from '../../../Shared/Helpers/Logger';
 
-class TestCron extends Cron
+class HelloCron extends Cron
 {
     cronName(): string
     {
-        return TestCron.name;
+        return HelloCron.name;
     }
 
     time(): string
@@ -15,8 +15,8 @@ class TestCron extends Cron
 
     async task(): Promise<void>
     {
-        Logger.info('Test cron');
+        Logger.info('Hello world 2024');
     }
 }
 
-export default TestCron;
+export default HelloCron;

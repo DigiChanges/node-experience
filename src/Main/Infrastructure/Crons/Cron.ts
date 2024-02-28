@@ -1,17 +1,16 @@
 import { ScheduledTask, schedule } from 'node-cron';
-import Logger from '../../../Shared/Helpers/Logger';
 
 abstract class Cron
 {
-    private scheduledTask: ScheduledTask;
+    #scheduledTask: ScheduledTask;
 
     constructor(scheduled = false)
     {
-        this.scheduledTask = schedule(this.time(), () =>
+        this.#scheduledTask = schedule(this.time(), () =>
         {
             void (async() =>
             {
-                Logger.info(`Running ${this.cronName()}`);
+                console.info(`Running ${this.cronName()}`);
                 await this.task();
             })();
         }, {
@@ -21,12 +20,12 @@ abstract class Cron
 
     start(): void
     {
-        this.scheduledTask.start();
+        this.#scheduledTask.start();
     }
 
     stop(): void
     {
-        this.scheduledTask.stop();
+        this.#scheduledTask.stop();
     }
 
     abstract time(): string;
