@@ -1,5 +1,8 @@
-import { MessageBrokerConfig } from '../../Config/MainConfig';
 import IJob from '../../Main/Infrastructure/Jobs/IJob';
+
+export type MessageBrokerConfig = {
+    uri: string
+}
 
 export interface PublishParams<T>
 {

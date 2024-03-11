@@ -1,5 +1,4 @@
-import { IMessageBroker, PublishParams, SubscribeParams } from '../Infrastructure/IMessageBroker';
-import { MessageBrokerConfig } from '../../Config/MainConfig';
+import { IMessageBroker, PublishParams, SubscribeParams, MessageBrokerConfig } from '../Infrastructure/IMessageBroker';
 import Logger from '../Helpers/Logger';
 
 class MockMessageBroker implements IMessageBroker

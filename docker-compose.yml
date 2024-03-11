@@ -26,7 +26,7 @@ services:
     restart: always
     tty: false
     stdin_open: false
-    entrypoint: ["dumb-init", "pnpm", "worker-dev"]
+    entrypoint: ["dumb-init", "pnpm", "dev-worker"]
     build:
       context: .
       dockerfile: Dockerfile

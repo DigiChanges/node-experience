@@ -1,6 +1,12 @@
 import { Tedis } from 'tedis';
 import ICacheDataAccess from './ICacheDataAccess';
-import { CacheConfig } from '../../../Config/MainConfig';
+
+export type CacheConfig = {
+    host: string;
+    port: number;
+    user: string;
+    password: string;
+};
 
 class RedisCacheDataAccess implements ICacheDataAccess
 {

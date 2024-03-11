@@ -1,9 +1,0 @@
-{
-  "http": [
-    "Fastify"
-  ],
-  "orm": [
-    "Mongoose",
-    "MikroORM"
-  ]
-}

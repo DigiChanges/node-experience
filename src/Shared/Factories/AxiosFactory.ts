@@ -1,9 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
-import MainConfig from '../../Config/MainConfig';
 import AxiosHandler from '../Infrastructure/AxiosHandler';
 
-const port = MainConfig.getInstance().getConfig().app.serverPort;
-const baseURL = `http://localhost:${port}/api/`;
+const baseURL = 'http://localhost:8080/api/';
 const timeout = 3000;
 const headersPublic = {
     'Content-Type': 'application/json',

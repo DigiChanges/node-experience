@@ -3,9 +3,9 @@ import ICreateConnection from '../../Main/Infrastructure/Database/ICreateConnect
 import MockMessageBroker from './MockMessageBroker';
 import DependencyInjector from '../DI/DependencyInjector';
 import { IMessageBroker } from '../Infrastructure/IMessageBroker';
-import MainConfig from '../../Config/MainConfig';
 import IJob from '../../Main/Infrastructure/Jobs/IJob';
 import Logger from '../Helpers/Logger';
+import { MainConfig } from '../../Config/MainConfig';
 
 jest.mock('../Infrastructure/RabbitMQMessageBroker', () => ({
     __esModule: true,
@@ -48,9 +48,9 @@ describe('Start Item Test', () =>
 
     test('debería probar la lógica sin conectar a RabbitMQ', async() =>
     {
-        const config = MainConfig.getInstance().getConfig().messageBroker;
+        const uri = MainConfig.getEnv().MESSAGE_BROKER_URI;
         const messageBroker = DependencyInjector.inject<IMessageBroker>('IMessageBroker');
-        await messageBroker.connect(config);
+        await messageBroker.connect({ uri });
 
         await messageBroker.publish<MessageBrokerContent>({
             exchange: 'MyExchange',

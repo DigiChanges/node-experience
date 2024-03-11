@@ -1,190 +1,115 @@
-import { readFile } from 'node:fs/promises';
-import { resolve } from 'path';
-import Config from 'config';
-import { TAlgorithm } from 'jwt-simple';
-import { validateEnv } from './validateEnv';
+import { cleanEnv, str, port, bool, num, url } from 'envalid';
 
-export type AuthConfig = {
-    apiKey: string;
-    host: string;
-    secret: string;
-    authorization: boolean;
-};
-
-export type AppConfig = {
-    default: string;
-    path: string;
-    setAppProxy: boolean;
-    setCookieSecure: boolean,
-    setCookieSameSite: boolean | 'None' | 'Lax' | 'Strict' | 'none' | 'lax' | 'strict',
-    serverPort: number,
-}
-
-export type MongooseConfig = {
-    uri: string;
-};
-
-export type MikroORMConfig = {
-    dbName: string,
-    host: string;
-    port: number;
-    type: 'mysql' | 'mariadb' | 'postgresql' | 'sqlite',
-    user: string;
-    password: string;
-};
-
-export type DbConfigType = {
-    Mongoose: MongooseConfig,
-    MikroORM: MikroORMConfig,
-    default: string
-}
-
-export type CacheConfig = {
-    host: string;
-    port: number;
-    user: string;
-    password: string;
-};
-
-export type MinioConfig = {
-    endPoint: string;
-    accessKey: string;
-    secretKey: string;
-    useSSL: boolean;
-    port: number;
-    publicBucket: string;
-    privateBucket: string;
-    rootPath: string;
-    region: string;
-};
-
-export type JwtConfig = {
-    secret: string;
-    expires: number;
-    iss: string;
-    aud: string;
-};
-
-export type MailConfig = {
-    host: string;
-    port: number;
-    username: string;
-    password: string;
-    secure: boolean;
-    senderName: string;
-    senderEmailDefault: string;
-    templateDir: string;
-};
-
-export type PushConfig = {
-    privateKey: string;
-    publicKey: string;
-};
-
-export type BCryptType = {
-    type: string;
-    saltRounds: number;
-    algorithm: TAlgorithm;
-};
-
-export type ValidateSettingsType = {
-    password: {
-        minLength: number;
-        maxLength: number;
-    };
-};
-
-export type MessageBrokerConfig = {
-    uri: string
-}
-
-export type ConfigType = {
-    env: string,
-    auth: AuthConfig;
-    app: AppConfig,
-    dbConfig: DbConfigType,
-    messageBroker: MessageBrokerConfig,
-    cache: {
-        redis: CacheConfig,
-        enable: boolean
-    };
-    filesystem: {
-        minio: MinioConfig,
-        default: string,
-        expiry: number
-    };
-    encryption: {
-        bcrypt: BCryptType,
-        default: string
-    };
-    jwt: JwtConfig,
-    mail: MailConfig,
-    push: PushConfig,
-    url: {
-        urlApi: string,
-        urlWeb: string
-    };
-    productInfo: {
-        name: string
-    };
-    executeCrons: boolean,
-    validationSettings: ValidateSettingsType
-}
-
-export type DomainInfoConfig = {
-    name: string,
-    fileInfra: string,
-    handlers: string[]
-}
-
-export type ConfigInfoType = {
-    http: string[],
-    orm: string[],
-    domains: DomainInfoConfig[]
-}
-
-class MainConfig
+const APP =
 {
-    private readonly mainConfig: ConfigType;
-    private static instance: MainConfig = new MainConfig();
+    APP_DEFAULT: str(),
+    APP_PATH: str(),
+    APP_PORT: port(),
+    APP_SET_APP_PROXY: bool(),
+    APP_SET_COOKIE_SECURE: bool(),
+    APP_SET_COOKIE_SAME_SITE: str(),
+    APP_CORS: str()
+};
 
-    private constructor()
+const AUTH =
+{
+    AUTH_API_KEY: str(),
+    AUTH_HOST: str(),
+    AUTH_SECRET: str(),
+    AUTH_AUTHORIZATION: bool()
+};
+
+const CACHE =
+{
+    CACHE_HOST: str({ default: 'redis' }),
+    CACHE_PORT: port({ default: 6379 }),
+    CACHE_USER: str({ default: 'experience' }),
+    CACHE_PASSWORD: str({ default: '12345678' }),
+    CACHE_ENABLE: bool({ default: false })
+};
+
+const MESSAGE_BROKER =
+{
+    MESSAGE_BROKER_URI: str()
+};
+
+const DB =
+{
+    DB_URI: str(),
+    DB_ORM_DEFAULT: str()
+};
+
+const FILESYSTEM =
+{
+    MINIO_HOST: str(),
+    MINIO_ACCESS_KEY: str(),
+    MINIO_SECRET_KEY: str(),
+    MINIO_USE_SSL: bool(),
+    MINIO_PORT: port(),
+    MINIO_PUBLIC_BUCKET: str(),
+    MINIO_PRIVATE_BUCKET: str(),
+    MINIO_REGION: str(),
+    FILESYSTEM_DEFAULT: str()
+};
+
+const JWT =
+{
+    JWT_SECRET: str(),
+    JWT_EXPIRES: num(),
+    JWT_ISS: str(),
+    JWT_AUD: str()
+};
+
+const SMTP =
+{
+    SMTP_HOST: str(),
+    SMTP_USERNAME: str({ default: '' }),
+    SMTP_PASSWORD: str({ default: '' }),
+    SMTP_PORT: num(),
+    SMTP_SECURE_SSL: bool(),
+    SMTP_SENDER_NAME: str(),
+    SMTP_SENDER_EMAIL_DEFAULT: str(),
+    SMTP_TEMPLATE_DIR: str({ default: 'src/Shared/Infrastructure/templates/emails' })
+};
+
+const URL =
+{
+    URL_API: url(),
+    URL_WEB: url()
+};
+
+const PUSH =
+{
+    PUSH_PUBLIC_KEY: str(),
+    PUSH_PRIVATE_KEY: str()
+};
+
+export class MainConfig
+{
+    static getEnv()
     {
-        const cleanEnv: any = validateEnv();
+        return cleanEnv(process.env, {
+            NODE_ENV: str({ default: 'development' }),
 
-        process.env = { ...process.env, ...cleanEnv };
+            ...APP,
+            ...AUTH,
+            ...CACHE,
+            ...MESSAGE_BROKER,
+            ...DB,
+            ...FILESYSTEM,
 
-        this.mainConfig = Config.util.loadFileConfigs();
+            TZ: str(),
 
-        if (MainConfig.instance)
-        {
-            throw new Error('Error: Instantiation failed: Use getInstance() instead of new.');
-        }
+            ...JWT,
+            ...SMTP,
+            ...URL,
 
-        MainConfig.instance = this;
-    }
+            PRODUCT_NAME: str(),
+            ENCRYPTION_DEFAULT: str(),
 
-    public static getInstance(): MainConfig
-    {
-        if (!MainConfig.instance)
-        {
-            MainConfig.instance = new MainConfig();
-        }
+            ...PUSH,
 
-        return MainConfig.instance;
-    }
-
-    public getConfig(): ConfigType
-    {
-        return this.mainConfig;
-    }
-
-    public async getConfigInfo(): Promise<ConfigInfoType>
-    {
-        const path = resolve('config/info.json');
-        const file = await readFile(path);
-        return JSON.parse(file.toString());
+            EXECUTE_CRONS: bool()
+        });
     }
 }
-
-export default MainConfig;

@@ -1,4 +1,4 @@
-import MainConfig from '../../../Config/MainConfig';
+import { MainConfig } from '../../../Config/MainConfig';
 import CreateMongooseConnection from '../Database/CreateMongooseConnection';
 import CreateMikroORMConnection from '../Database/CreateMikroORMConnection';
 import ICreateConnection from '../Database/ICreateConnection';
@@ -7,18 +7,20 @@ type DbValueProp = typeof CreateMongooseConnection | typeof CreateMikroORMConnec
 
 class DatabaseFactory
 {
-    #config = MainConfig.getInstance().getConfig().dbConfig;
-
-    create(_db?: string): ICreateConnection
+    create(_db = 'Mongoose'): ICreateConnection
     {
-        const dbDefault = this.#config.default;
-        const db = _db ?? dbDefault;
+        const env = MainConfig.getEnv();
+        const db = env.DB_ORM_DEFAULT;
 
         const strategy = new Map<string, DbValueProp>();
         strategy.set('Mongoose', CreateMongooseConnection);
         strategy.set('MikroORM', CreateMikroORMConnection);
 
-        return new (strategy.get(db))(this.#config[db]);
+        const config = {
+            uri: env.DB_URI
+        };
+
+        return new (strategy.get(db))(config);
     }
 }
 

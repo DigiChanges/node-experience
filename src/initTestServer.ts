@@ -7,9 +7,9 @@ import container from './Shared/DI/container';
 
 import supertest from 'supertest';
 
+import { MainConfig } from './Config/MainConfig';
 import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
 import SeedFactory from './Shared/Factories/SeedFactory';
-import MainConfig from './Config/MainConfig';
 import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFactory';
 import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
 import IAuthRepository from './Auth/Domain/Repositories/IAuthRepository';
@@ -27,7 +27,7 @@ type TestServerData = {
 
 const initTestServer = async(): Promise<TestServerData> =>
 {
-    const config = MainConfig.getInstance().getConfig();
+    const config = MainConfig.getEnv();
 
     const databaseFactory: DatabaseFactory = new DatabaseFactory();
     const dbConnection: ICreateConnection = databaseFactory.create();
@@ -43,13 +43,13 @@ const initTestServer = async(): Promise<TestServerData> =>
     container._registry._registryMap.delete('IAuthRepository');
     container.register<IAuthRepository>(REPOSITORIES.IAuthRepository, { useClass: AuthMockRepository }, { lifecycle: Lifecycle.Singleton });
 
-    const appBootstrap = AppBootstrapFactory.create(config.app.default);
+    const appBootstrap = AppBootstrapFactory.create(config.APP_DEFAULT);
 
     const app: IApp = await appBootstrap({
         serverPort: 8088,
         proxy: false,
         env: 'test',
-        dbConfigDefault: 'Mongoose'
+        cors: config.APP_CORS
     });
 
     const application = await app.callback();
@@ -58,7 +58,7 @@ const initTestServer = async(): Promise<TestServerData> =>
     const seed = new SeedFactory();
     await seed.init();
 
-    await request.set({ Origin: config.url.urlWeb, Accept: 'application/json' });
+    await request.set({ Origin: config.URL_WEB, Accept: 'application/json' });
 
     return { request, dbConnection };
 };

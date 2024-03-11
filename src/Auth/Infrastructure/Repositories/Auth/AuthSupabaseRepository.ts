@@ -2,7 +2,8 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 import IAuthRepository from '../../../Domain/Repositories/IAuthRepository';
 import PermissionPayload from '../../../Domain/Payload/PermissionPayload';
-import MainConfig, { AuthConfig } from '../../../../Config/MainConfig';
+import { MainConfig } from '../../../../Config/MainConfig';
+
 import { ErrorHttpException, StatusCode } from '@digichanges/shared-experience';
 import IUserDomain from '../../../Domain/Entities/IUserDomain';
 import IRoleDomain from '../../../Domain/Entities/IRoleDomain';
@@ -15,8 +16,8 @@ class AuthSupabaseRepository implements IAuthRepository
 
     constructor()
     {
-        const config: AuthConfig = MainConfig.getInstance().getConfig().auth;
-        this.#client = createClient(config.host, config.apiKey);
+        const config = MainConfig.getEnv();
+        this.#client = createClient(config.AUTH_HOST, config.AUTH_API_KEY);
     }
 
     public async checkPermissions({ userId, permission }: PermissionPayload): Promise<boolean>

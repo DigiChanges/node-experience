@@ -1,12 +1,9 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 import { EventHandler, IApp } from '@digichanges/shared-experience';
 
 import DependencyInjector from './Shared/DI/DependencyInjector';
 import { FACTORIES, REPOSITORIES } from './Shared/DI/Injects';
 
-import MainConfig from './Config/MainConfig';
+import { MainConfig } from './Config/MainConfig';
 import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
 
 import { ICronService } from './Main/Infrastructure/Factories/CronService';
@@ -25,16 +22,14 @@ void (async() =>
 {
     try
     {
-        const config = MainConfig.getInstance().getConfig();
-
         // Init Application
-        const appBootstrap = AppBootstrapFactory.create(config.app.default);
+        const appBootstrap = AppBootstrapFactory.create(MainConfig.getEnv().APP_DEFAULT);
 
         const app: IApp = await appBootstrap({
-            serverPort: config.app.serverPort,
-            proxy: config.app.setAppProxy,
-            env: config.env,
-            dbConfigDefault: config.dbConfig.default
+            serverPort: MainConfig.getEnv().APP_PORT,
+            proxy: MainConfig.getEnv().APP_SET_APP_PROXY,
+            env: MainConfig.getEnv().NODE_ENV,
+            cors: MainConfig.getEnv().APP_CORS
         });
 
         await app.listen();
@@ -48,7 +43,7 @@ void (async() =>
         // Create Cache connection
         let cache: ICacheDataAccess;
 
-        if (config.cache.enable)
+        if (MainConfig.getEnv().CACHE_ENABLE)
         {
             cache = DependencyInjector.inject<ICacheDataAccess>(REPOSITORIES.ICacheDataAccess);
             await cache.cleanAll();
@@ -68,7 +63,7 @@ void (async() =>
 
         // Message Broker
         const messageBroker = DependencyInjector.inject<IMessageBroker>('IMessageBroker');
-        await messageBroker.connect(config.messageBroker);
+        await messageBroker.connect({ uri: MainConfig.getEnv().MESSAGE_BROKER_URI });
 
         // Close gracefully
         const server = await app.getServer();

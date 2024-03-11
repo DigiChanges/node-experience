@@ -1,5 +1,5 @@
-import MainConfig from '../../Config/MainConfig';
 import PinoLogger from 'pino';
+import { MainConfig } from '../../Config/MainConfig';
 
 class DgLogger
 {
@@ -7,7 +7,7 @@ class DgLogger
 
     constructor()
     {
-        const env = MainConfig.getInstance().getConfig().env;
+        const env = MainConfig.getEnv().NODE_ENV;
 
         const prettyTransport = {
             transport: {

@@ -25,12 +25,7 @@ class CreateMikroORMConnection implements ICreateConnection
         {
             orm = await MikroORM.init({
                 entities: this.entities,
-                clientUrl: '',
-                dbName: this.config.dbName,
-                host: this.config.host,
-                port: this.config.port,
-                user: this.config.user,
-                password: this.config.password,
+                clientUrl: this.config.DB_URI,
                 allowGlobalContext: true
             });
 

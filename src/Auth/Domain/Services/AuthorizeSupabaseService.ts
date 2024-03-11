@@ -3,15 +3,16 @@ import utc from 'dayjs/plugin/utc';
 
 import ForbiddenException from '../Exceptions/ForbiddenException';
 import IAuthorizeService from './IAuthorizeService';
-import MainConfig from '../../../Config/MainConfig';
+
 import IDecodeToken from '../Models/IDecodeToken';
+import { MainConfig } from '../../../Config/MainConfig';
 import jwt from 'jwt-simple';
 import IAuthRepository from '../Repositories/IAuthRepository';
 import IUserDomain from '../Entities/IUserDomain';
 
 class AuthorizeSupabaseService implements IAuthorizeService
 {
-    #config = MainConfig.getInstance().getConfig();
+    #config = MainConfig.getEnv();
     readonly #repository: IAuthRepository;
 
     constructor(repository: IAuthRepository)
@@ -22,26 +23,23 @@ class AuthorizeSupabaseService implements IAuthorizeService
     public getConfirmationToken(email: string): string
     {
         dayjs.extend(utc);
-        const { iss, secret, aud } = this.#config.jwt;
         const expires = dayjs.utc().add(5, 'minute').unix();
 
         const payload = {
-            iss,
-            aud,
+            iss: this.#config.JWT_ISS,
+            aud: this.#config.JWT_AUD,
             sub: email,
             iat: expires,
             exp: expires,
             email
         };
 
-        return jwt.encode(payload, secret, 'HS512');
+        return jwt.encode(payload, this.#config.JWT_SECRET, 'HS512');
     }
 
     public decodeToken(token: string): IDecodeToken
     {
-        const { secret } = this.#config.auth;
-
-        return jwt.decode(token, secret, false);
+        return jwt.decode(token, this.#config.JWT_SECRET, false);
     }
 
     public async authorize(userId: string, permission: string): Promise<void>

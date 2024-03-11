@@ -1,6 +1,6 @@
 import qs from 'qs';
-import MainConfig from '../../Config/MainConfig';
 import { IPagination } from '@digichanges/shared-experience';
+import { MainConfig } from '../../Config/MainConfig';
 
 class Pagination implements IPagination
 {
@@ -18,8 +18,7 @@ class Pagination implements IPagination
         this.limit = query?.pagination ? +this.pagination.limit : 10;
         this.offset = query?.pagination ? +this.pagination.offset : 0;
         this.exist = query?.pagination !== undefined;
-        const config = MainConfig.getInstance();
-        this.host = config.getConfig().url.urlApi;
+        this.host = MainConfig.getEnv().URL_API;
     }
 
     getPath(): string

@@ -1,4 +1,4 @@
-FROM digichanges/nexp:1.3 AS dev
+FROM digichanges/nexp:1.4 AS dev
 
 WORKDIR /home/node
 
@@ -28,7 +28,7 @@ RUN pnpm install --production --ignore-scripts \
     && cd node_modules/bcrypt  \
     && npm rebuild bcrypt --build-from-source
 
-FROM digichanges/nexp:1.3 AS prod
+FROM digichanges/nexp:1.4 AS prod
 
 ENV NODE_ENV production
 

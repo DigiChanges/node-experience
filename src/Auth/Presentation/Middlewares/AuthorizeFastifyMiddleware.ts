@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { StatusCode } from '@digichanges/shared-experience';
 
-import MainConfig from '../../../Config/MainConfig';
+import { MainConfig } from '../../../Config/MainConfig';
 import container from '../../../Shared/DI/container';
 import TokenNotFoundHttpException from '../Exceptions/TokenNotFoundHttpException';
 import IAuthorizeService from '../../Domain/Services/IAuthorizeService';
@@ -11,10 +11,9 @@ const AuthorizeFastifyMiddleware = (...handlerPermissions: string[]) =>
 {
     return async(request: FastifyRequest, reply: FastifyReply) =>
     {
-        const config = MainConfig.getInstance().getConfig();
-        const { authorization: hasActiveAuthorization } = config.auth;
+        const config = MainConfig.getEnv();
 
-        if (hasActiveAuthorization)
+        if (config.AUTH_AUTHORIZATION)
         {
             try
             {

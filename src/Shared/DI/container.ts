@@ -4,8 +4,6 @@ import { IEncryption, Md5EncryptionStrategy } from '@digichanges/shared-experien
 
 import { FACTORIES, SERVICES, REPOSITORIES } from './Injects';
 
-import MainConfig from '../../Config/MainConfig';
-
 import IAuthRepository from '../../Auth/Domain/Repositories/IAuthRepository';
 import IItemRepository from '../../Item/Domain/Repositories/IItemRepository';
 import INotificationRepository from '../../Notification/Infrastructure/Repositories/INotificationRepository';
@@ -28,6 +26,7 @@ import DatabaseFactory from '../../Main/Infrastructure/Factories/DatabaseFactory
 import { IMessageBroker } from '../Infrastructure/IMessageBroker';
 import RabbitMQMessageBroker from '../Infrastructure/RabbitMQMessageBroker';
 import CronService, { ICronService } from '../../Main/Infrastructure/Factories/CronService';
+import { MainConfig } from '../../Config/MainConfig';
 
 import IFileVersionRepository from '../../File/Infrastructure/Repositories/IFileVersionRepository';
 import IFileRepository from '../../File/Infrastructure/Repositories/IFileRepository';
@@ -36,15 +35,21 @@ import FileMongooseRepository from '../../File/Infrastructure/Repositories/FileM
 
 import EventHandler, { IEventHandler } from '../../Notification/Infrastructure/events/EventHandler';
 
-const config = MainConfig.getInstance().getConfig();
-const defaultDbConfig = config.dbConfig.default;
-const cacheConfig = config.cache;
+const config = MainConfig.getEnv();
+const defaultDbConfig = config.DB_ORM_DEFAULT;
+const cacheConfig = {
+    host: config.CACHE_HOST,
+    port: config.CACHE_PORT,
+    enable: config.CACHE_ENABLE,
+    user: config.CACHE_USER,
+    password: config.CACHE_PASSWORD
+};
 
 // Data Access Objects
 container.register<ICacheDataAccess>(REPOSITORIES.ICacheDataAccess,
     {
         // @ts-ignore
-        useFactory: instanceCachingFactory(() => new RedisCacheDataAccess(cacheConfig.redis))
+        useFactory: instanceCachingFactory(() => new RedisCacheDataAccess(cacheConfig))
     }, { lifecycle: Lifecycle.Transient }
 );
 
@@ -98,7 +103,7 @@ container.register<ICronService>('ICronService', {
     // @ts-ignore
     useFactory: instanceCachingFactory(() =>
     {
-        return new CronService({ executeCrons: config.executeCrons });
+        return new CronService({ executeCrons: config.EXECUTE_CRONS });
     })
 }, { lifecycle: Lifecycle.Transient });
 

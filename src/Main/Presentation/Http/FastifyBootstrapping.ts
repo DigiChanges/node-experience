@@ -18,7 +18,7 @@ const FastifyBootstrapping = async(config: IExtendAppConfig) =>
     await app.addMiddleware(cors, {
         origin: (origin: string, cb: (err: Error, valid: boolean) => void) =>
         {
-            const validDomain = [process.env.APP_CORS];
+            const validDomain = [config.cors];
 
             if (validDomain[0] === '*')
             {

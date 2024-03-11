@@ -47,9 +47,6 @@ dependencies:
   commander:
     specifier: ^10.0.1
     version: 10.0.1
-  config:
-    specifier: ^3.3.11
-    version: 3.3.11
   cwebp:
     specifier: ^3.0.0
     version: 3.0.0
@@ -2726,13 +2723,6 @@ packages:
       inherits: 2.0.4
       readable-stream: 3.6.2
       typedarray: 0.0.6
-    dev: false
-
-  /config@3.3.11:
-    resolution: {integrity: sha512-Dhn63ZoWCW5EMg4P0Sl/XNsj/7RLiUIA1x1npCy+m2cRwRHzLnt3UtYtxRDMZW/6oOMdWhCzaGYkOcajGgrAOA==}
-    engines: {node: '>= 10.0.0'}
-    dependencies:
-      json5: 2.2.3
     dev: false
 
   /console-control-strings@1.1.0:

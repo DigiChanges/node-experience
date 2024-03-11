@@ -4,13 +4,13 @@ import Fs from 'fs';
 import { REPOSITORIES } from '../../Shared/DI/Injects';
 import INotificationRepository from '../Infrastructure/Repositories/INotificationRepository';
 import INotificationDomain from '../Domain/Entities/INotificationDomain';
-import MainConfig from '../../Config/MainConfig';
 import AttachmentsFilesService from '../Domain/Services/AttachmentsFilesService';
 import StatusNotificationEnum from '../Domain/Enum/StatusNotificationEnum';
 import EmailNotification from '../Domain/Entities/EmailNotification';
 import INotifierStrategy from './INotifierStrategy';
 import { ErrorException } from '@digichanges/shared-experience';
 import container from '../../Shared/DI/container';
+import { MainConfig } from '../../Config/MainConfig';
 
 class EmailStrategy implements INotifierStrategy
 {
@@ -73,32 +73,32 @@ class EmailStrategy implements INotifierStrategy
             throw new ErrorException({ message: 'You need set an emailNotification, templatePathNameFile and data' }, 'NotificatorException');
         }
 
-        const config = MainConfig.getInstance().getConfig();
+        const config = MainConfig.getEnv();
 
         try
         {
-            const host: string = config.mail.host;
-            const port: number = config.mail.port;
-            const secure: boolean = config.mail.secure;
-            const templateRoot: string = config.mail.templateDir;
+            const host: string = config.SMTP_HOST;
+            const port: number = config.SMTP_PORT;
+            const secure: boolean = config.SMTP_SECURE_SSL;
+            const templateRoot: string = config.SMTP_TEMPLATE_DIR;
             this.#_templatePathNameFile = templatePathNameFile;
             const templateDir = `${process.cwd()}/${templateRoot}/${this.#_templatePathNameFile}`;
 
             const smtp_config = { host, port, secure };
 
-            if (config.mail.username && config.mail.password)
+            if (config.SMTP_USERNAME && config.SMTP_PASSWORD)
             {
                 const auth = {
                     auth: {
-                        user: String(config.mail.username),
-                        pass: String(config.mail.password)
+                        user: String(config.SMTP_USERNAME),
+                        pass: String(config.SMTP_PASSWORD)
                     }
                 };
                 Object.assign(smtp_config, auth);
             }
 
-            this.#_emailNotification.senderName = config.mail.senderName;
-            this.#_emailNotification.from = config.mail.senderEmailDefault;
+            this.#_emailNotification.senderName = config.SMTP_SENDER_NAME;
+            this.#_emailNotification.from = config.SMTP_SENDER_EMAIL_DEFAULT;
             this.#_emailNotification.emailTemplatePath = templateDir;
 
             const transporter = nodemailer.createTransport(smtp_config);

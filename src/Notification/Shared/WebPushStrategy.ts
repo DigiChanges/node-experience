@@ -1,7 +1,7 @@
 import webPush from 'web-push';
-import MainConfig from '../../Config/MainConfig';
 import INotifierStrategy from './INotifierStrategy';
 import PushNotification from '../Domain/Entities/PushNotification';
+import { MainConfig } from '../../Config/MainConfig';
 
 class WebPushStrategy implements INotifierStrategy
 {
@@ -46,13 +46,13 @@ class WebPushStrategy implements INotifierStrategy
 
     public async send()
     {
-        const config = MainConfig.getInstance();
+        const config = MainConfig.getEnv();
 
         try
         {
-            const publicKey: string = config.getConfig().push.publicKey;
-            const privateKey: string = config.getConfig().push.privateKey;
-            const subject: string = config.getConfig().url.urlWeb;
+            const publicKey: string = config.PUSH_PUBLIC_KEY;
+            const privateKey: string = config.PUSH_PRIVATE_KEY;
+            const subject: string = config.URL_WEB;
 
             const pushSubscription = this._pushNotification.getSubscription();
 

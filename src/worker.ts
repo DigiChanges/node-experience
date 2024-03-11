@@ -11,14 +11,15 @@ import Logger from './Shared/Helpers/Logger';
 import closedApplication from './closed';
 import ICacheDataAccess from './Main/Infrastructure/Repositories/ICacheDataAccess';
 import { IMessageBroker } from './Shared/Infrastructure/IMessageBroker';
-import MainConfig from './Config/MainConfig';
 import NotificationEmailJob from './Notification/Infrastructure/Jobs/NotificationEmailJob';
+
+import { MainConfig } from './Config/MainConfig';
 
 void (async() =>
 {
     try
     {
-        const config = MainConfig.getInstance().getConfig();
+        const config = MainConfig.getEnv();
 
         // Init Application
         // Create DB connection
@@ -29,7 +30,7 @@ void (async() =>
 
         // Message Broker
         const messageBroker = DependencyInjector.inject<IMessageBroker>('IMessageBroker');
-        await messageBroker.connect(config.messageBroker);
+        await messageBroker.connect({ uri: MainConfig.getEnv().MESSAGE_BROKER_URI });
         await messageBroker.subscribe({
             queue: 'email',
             job: new NotificationEmailJob(),
@@ -45,7 +46,7 @@ void (async() =>
         // Create Cache connection
         let cache: ICacheDataAccess;
 
-        if (config.cache.enable)
+        if (MainConfig.getEnv().CACHE_ENABLE)
         {
             cache = DependencyInjector.inject<ICacheDataAccess>(REPOSITORIES.ICacheDataAccess);
             await cache.cleanAll();

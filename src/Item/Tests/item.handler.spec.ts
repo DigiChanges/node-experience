@@ -1,7 +1,7 @@
 import { SuperAgentTest } from 'supertest';
 import initTestServer from '../../initTestServer';
 import { IItemResponse, IListItemsResponse } from './types';
-import MainConfig from '../../Config/MainConfig';
+import { MainConfig } from '../../Config/MainConfig';
 import ICreateConnection from '../../Main/Infrastructure/Database/ICreateConnection';
 
 describe('Start Item Test', () =>
@@ -106,7 +106,7 @@ describe('Start Item Test', () =>
 
         test('Get Items /items with pagination', async() =>
         {
-            const config = MainConfig.getInstance();
+            const config = MainConfig.getEnv();
 
             const response: IListItemsResponse = await request
                 .get('/api/items?pagination[offset]=0&pagination[limit]=5')
@@ -123,7 +123,7 @@ describe('Start Item Test', () =>
             expect(pagination.lastPage).toStrictEqual(3);
             expect(pagination.from).toStrictEqual(0);
             expect(pagination.to).toStrictEqual(5);
-            expect(pagination.path).toContain(config.getConfig().url.urlApi);
+            expect(pagination.path).toContain(config.URL_API);
             expect(pagination.firstUrl).toContain('/api/items?pagination[offset]=0&pagination[limit]=5');
             expect(pagination.lastUrl).toContain('/api/items?pagination[offset]=10&pagination[limit]=5');
             expect(pagination.nextUrl).toContain('/api/items?pagination[offset]=5&pagination[limit]=5');
