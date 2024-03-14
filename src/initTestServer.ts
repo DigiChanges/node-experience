@@ -17,6 +17,8 @@ import { REPOSITORIES } from './Shared/DI/Injects';
 import { Lifecycle } from 'tsyringe';
 import SendMessageEvent from './Notification/Domain/Events/SendMessageEvent';
 import AuthMockRepository from './Auth/Tests/AuthMockRepository';
+import DependencyInjector from './Shared/DI/DependencyInjector';
+import { IEventHandler } from './Shared/Infrastructure/events';
 
 type TestServerData = {
     request: supertest.SuperAgentTest,
@@ -34,7 +36,7 @@ const initTestServer = async(): Promise<TestServerData> =>
     await dbConnection.create();
     await dbConnection.synchronize();
 
-    const eventHandler = EventHandler.getInstance();
+    const eventHandler = DependencyInjector.inject<IEventHandler>('IEventHandler');
     eventHandler.setEvent(new SendMessageEvent());
 
     // @ts-ignore

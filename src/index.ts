@@ -19,6 +19,7 @@ import EmailEvent from './Auth/Infrastructure/Events/EmailEvent';
 import ICacheDataAccess from './Main/Infrastructure/Repositories/ICacheDataAccess';
 import { IMessageBroker } from './Shared/Infrastructure/IMessageBroker';
 import crons from './crons';
+import { IEventHandler } from './Shared/Infrastructure/events';
 
 void (async() =>
 {
@@ -54,7 +55,9 @@ void (async() =>
         }
 
         // Set EventHandler and all events
-        const eventHandler = EventHandler.getInstance();
+        // const eventHandler = EventHandler.getInstance();
+
+        const eventHandler = DependencyInjector.inject<IEventHandler>('IEventHandler');
         eventHandler.setEvent(new EmailEvent());
         eventHandler.setEvent(new SendMessageEvent());
 
@@ -65,7 +68,7 @@ void (async() =>
 
         // Message Broker
         const messageBroker = DependencyInjector.inject<IMessageBroker>('IMessageBroker');
-        await messageBroker.connect(config.messageBroker);
+        // await messageBroker.connect(config.messageBroker);
 
         // Close gracefully
         const server = await app.getServer();
