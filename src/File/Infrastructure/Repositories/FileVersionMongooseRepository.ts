@@ -1,16 +1,15 @@
-import { Query } from 'mongoose';
-import { NotFoundException, IPaginator, ICriteria } from '@digichanges/shared-experience';
+import { NotFoundException, ICriteria } from '@digichanges/shared-experience';
 
 import IFileVersionRepository from './IFileVersionRepository';
 
 import FileFilter from '../../Presentation/Criterias/FileFilter';
-import MongoosePaginator from '../../../Main/Infrastructure/Orm/MongoosePaginator';
 import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
 
 import BaseMongooseRepository from '../../../Main/Infrastructure/Repositories/BaseMongooseRepository';
 import FileVersion from '../../Domain/Entities/FileVersion';
 import { FileVersionMongooseDocument } from '../Schemas/FileVersionMongoose';
 import IByOptions from '../../../Main/Domain/Repositories/IByOptions';
+import mongoose from 'mongoose';
 
 class FileVersionMongooseRepository extends BaseMongooseRepository<IFileVersionDomain, FileVersionMongooseDocument> implements IFileVersionRepository
 {
@@ -19,9 +18,9 @@ class FileVersionMongooseRepository extends BaseMongooseRepository<IFileVersionD
         super(FileVersion.name);
     }
 
-    async list(criteria: ICriteria): Promise<IPaginator>
+    async list(criteria: ICriteria): Promise<any>
     {
-        const queryBuilder: Query<FileVersionMongooseDocument[], FileVersionMongooseDocument> = this.repository.find();
+        const queryBuilder: mongoose.Query<FileVersionMongooseDocument[], FileVersionMongooseDocument> = this.repository.find();
         const filter = criteria.getFilter();
 
         if (filter.has(FileFilter.NAME))
@@ -31,8 +30,7 @@ class FileVersionMongooseRepository extends BaseMongooseRepository<IFileVersionD
 
             void queryBuilder.where(FileFilter.NAME).regex(rSearch);
         }
-
-        return new MongoosePaginator(queryBuilder, criteria);
+        return this.pagination(queryBuilder, criteria);
     }
 
     async getLastOneByFields(file: string, version: number = null, options: IByOptions = {}): Promise<IFileVersionDomain>

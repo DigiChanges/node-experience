@@ -32,14 +32,11 @@ class FastifyResponder
         let { data } = result;
         const { metadata, pagination } = result;
 
-        if (transformer && data)
+        if (transformer)
         {
             data = await transformer.handle(data);
         }
-        if (!data)
-        {
-            data = [];
-        }
+
         await reply.code(status.code).send({ data, metadata, pagination });
     }
 
