@@ -3,7 +3,7 @@ import PushNotification from '../Entities/PushNotification';
 import SendMessageEvent from '../Events/SendMessageEvent';
 import NotificationSendMessagePayload from '../Payloads/NotificationSendMessagePayload';
 import INotificationResponse from '../Entities/INotificationResponse';
-import { IEventHandler } from '../../../Shared/Infrastructure/events';
+import { IEventHandler } from '../../Infrastructure/events';
 import DependencyInjector from '../../../Shared/DI/DependencyInjector';
 
 class NotificationService

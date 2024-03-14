@@ -28,7 +28,7 @@ import DatabaseFactory from '../../Main/Infrastructure/Factories/DatabaseFactory
 import { IMessageBroker } from '../Infrastructure/IMessageBroker';
 import RabbitMQMessageBroker from '../Infrastructure/RabbitMQMessageBroker';
 import CronService, { ICronService } from '../../Main/Infrastructure/Factories/CronService';
-import EventHandler, { IEventHandler } from '../Infrastructure/events/EventHandler';
+import EventHandler, { IEventHandler } from '../../Notification/Infrastructure/events/EventHandler';
 
 const config = MainConfig.getInstance().getConfig();
 const defaultDbConfig = config.dbConfig.default;

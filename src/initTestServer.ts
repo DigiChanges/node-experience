@@ -18,7 +18,7 @@ import { Lifecycle } from 'tsyringe';
 import SendMessageEvent from './Notification/Domain/Events/SendMessageEvent';
 import AuthMockRepository from './Auth/Tests/AuthMockRepository';
 import DependencyInjector from './Shared/DI/DependencyInjector';
-import { IEventHandler } from './Shared/Infrastructure/events';
+import { IEventHandler } from './Notification/Infrastructure/events';
 
 type TestServerData = {
     request: supertest.SuperAgentTest,

@@ -19,7 +19,7 @@ import EmailEvent from './Auth/Infrastructure/Events/EmailEvent';
 import ICacheDataAccess from './Main/Infrastructure/Repositories/ICacheDataAccess';
 import { IMessageBroker } from './Shared/Infrastructure/IMessageBroker';
 import crons from './crons';
-import { IEventHandler } from './Shared/Infrastructure/events';
+import { IEventHandler } from './Notification/Infrastructure/events';
 
 void (async() =>
 {
