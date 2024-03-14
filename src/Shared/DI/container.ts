@@ -28,6 +28,10 @@ import DatabaseFactory from '../../Main/Infrastructure/Factories/DatabaseFactory
 import { IMessageBroker } from '../Infrastructure/IMessageBroker';
 import RabbitMQMessageBroker from '../Infrastructure/RabbitMQMessageBroker';
 import CronService, { ICronService } from '../../Main/Infrastructure/Factories/CronService';
+import IFileVersionRepository from '../../File/Infrastructure/Repositories/IFileVersionRepository';
+import IFileRepository from '../../File/Infrastructure/Repositories/IFileRepository';
+import FileVersionMongooseRepository from '../../File/Infrastructure/Repositories/FileVersionMongooseRepository';
+import FileMongooseRepository from '../../File/Infrastructure/Repositories/FileMongooseRepository';
 
 const config = MainConfig.getInstance().getConfig();
 const defaultDbConfig = config.dbConfig.default;
@@ -58,6 +62,8 @@ if (defaultDbConfig === 'Mongoose')
         return repository;
     }) }, { lifecycle: Lifecycle.Transient });
     container.register<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository, { useClass: NotificationMongooseRepository }, { lifecycle: Lifecycle.Singleton });
+    container.register<IFileVersionRepository>(REPOSITORIES.IFileVersionRepository, { useClass: FileVersionMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
+    container.register<IFileRepository>(REPOSITORIES.IFileRepository, { useClass: FileMongooseRepository }, { lifecycle: Lifecycle.ContainerScoped });
 }
 else if (defaultDbConfig === 'MikroORM')
 {

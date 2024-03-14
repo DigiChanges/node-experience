@@ -9,6 +9,7 @@ import NotificationFastifyHandler from '../../../Notification/Presentation/Handl
 import IExtendAppConfig from './IExtendAppConfig';
 import { AppFastify } from './AppFastify';
 import { ErrorFastifyHandler } from '../Middleware/ErrorFastifyHandler';
+import FileFastifyRouter from '../../../File/Presentation/Routes/FileFastifyRouter';
 
 const FastifyBootstrapping = async(config: IExtendAppConfig) =>
 {
@@ -44,7 +45,7 @@ const FastifyBootstrapping = async(config: IExtendAppConfig) =>
     await app.addRouter(IndexFastifyRouter, { prefix: '/' });
     await app.addRouter(ItemFastifyRouter, { prefix: '/api/items' });
     await app.addRouter(NotificationFastifyHandler, { prefix: '/api/notifications' });
-
+    await app.addRouter(FileFastifyRouter, { prefix: '/api/files' });
     return app;
 };
 
