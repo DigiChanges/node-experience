@@ -68,7 +68,7 @@ void (async() =>
 
         // Message Broker
         const messageBroker = DependencyInjector.inject<IMessageBroker>('IMessageBroker');
-        // await messageBroker.connect(config.messageBroker);
+        await messageBroker.connect(config.messageBroker);
 
         // Close gracefully
         const server = await app.getServer();

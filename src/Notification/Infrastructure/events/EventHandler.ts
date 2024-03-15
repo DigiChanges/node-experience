@@ -20,6 +20,7 @@ export class EventHandler implements IEventHandler
 
     constructor()
     {
+        console.log(1);
         this.events = new Map<string, (args: any) => Promise<void>>();
         this.eventSubject = new Subject<any>();
 
