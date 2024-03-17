@@ -1,6 +1,6 @@
 {
   "name": "node-experience",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "description": "",
   "scripts": {
     "build": "node rimraf_cpy.mjs && tsc -p tsconfig.json --incremental",
