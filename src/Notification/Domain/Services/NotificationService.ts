@@ -1,16 +1,18 @@
 import NotificationRepPayload from '../Payloads/NotificationRepPayload';
 import PushNotification from '../Entities/PushNotification';
-import { EventHandler } from '@digichanges/shared-experience';
 import SendMessageEvent from '../Events/SendMessageEvent';
 import NotificationSendMessagePayload from '../Payloads/NotificationSendMessagePayload';
 import INotificationResponse from '../Entities/INotificationResponse';
+import { IEventHandler } from '../../Infrastructure/events';
+import DependencyInjector from '../../../Shared/DI/DependencyInjector';
 
 class NotificationService
 {
-    private eventHandler = EventHandler.getInstance();
+    private eventHandler: IEventHandler;
 
     async execute(pushNotification: PushNotification, payload: NotificationRepPayload, message: string, name: string): Promise<INotificationResponse>
     {
+        this.eventHandler = DependencyInjector.inject<IEventHandler>('IEventHandler');
         pushNotification.subscription = payload.getSubscription();
         pushNotification.name = name;
         this.eventHandler.execute(SendMessageEvent.name, { push_notification: pushNotification, message });

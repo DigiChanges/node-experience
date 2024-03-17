@@ -20,7 +20,7 @@ export enum REPOSITORIES  {
 }
 
 export enum SERVICES {
-    AuthorizeService = 'AuthorizeService'
+    AuthorizeService = 'AuthorizeService',
 }
 
 export enum FACTORIES {
