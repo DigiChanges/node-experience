@@ -10,7 +10,6 @@ abstract class Cron
         {
             void (async() =>
             {
-                console.info(`Running ${this.cronName()}`);
                 await this.task();
             })();
         }, {

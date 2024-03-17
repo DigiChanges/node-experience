@@ -13,6 +13,7 @@ import SyncRolesPermissionCommand from './Auth/Presentation/Commands/SyncRolesPe
 import Seed from './Main/Presentation/Commands/SeedCommand';
 import initCommand from './initCommand';
 import Logger from './Shared/Helpers/Logger';
+import CreateBucketCommand from './File/Presentation/Commands/CreateBucketCommand';
 
 void (async() =>
 {
@@ -25,7 +26,8 @@ void (async() =>
         program.addCommand(CreateVapID);
         program.addCommand(SyncRolesPermissionCommand);
         program.addCommand(Seed);
-
+        program.addCommand(CreateBucketCommand);
+        program.addCommand(Seed);
         await program.parseAsync(process.argv);
         exit();
     }

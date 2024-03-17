@@ -42,9 +42,9 @@ void (async() =>
         // Create DB connection
         const databaseFactory = DependencyInjector.inject<DatabaseFactory>(FACTORIES.IDatabaseFactory);
         const createConnection: ICreateConnection = databaseFactory.create();
+
         await createConnection.initConfig();
         await createConnection.create();
-
         // Create Cache connection
         let cache: ICacheDataAccess;
 

@@ -40,6 +40,19 @@ class FastifyResponder
         await reply.code(status.code).send({ data, metadata, pagination });
     }
 
+    public async sendStream(result: any, reply: FastifyReply, status: IHttpStatusCode)
+    {
+        const stream = result.stream;
+        const mimeType = result._metadata.mimeType;
+        const fileName = result._metadata.name;
+
+        await reply
+            .code(status.code)
+            .header('Content-Type',  mimeType)
+            .header('Content-Disposition', `attachment; filename=${fileName}`)
+            .send(stream);
+    }
+
     public async error(error: ErrorHttpException, reply: FastifyReply, status: IHttpStatusCode)
     {
         await reply.code(status.code).send(this.#formatError.getFormat(error));

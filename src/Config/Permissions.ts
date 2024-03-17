@@ -14,6 +14,13 @@ class Permissions
     static readonly ITEMS_LIST: string = 'res:items#scopes:list';
     static readonly ITEMS_DELETE: string = 'res:items#scopes:delete';
 
+    // Files
+    static readonly FILES_UPLOAD: string = 'res:files#scopes:upload';
+    static readonly FILES_UPDATE: string = 'res:files#scopes:update';
+    static readonly FILES_DOWNLOAD: string = 'res:files#scopes:download';
+    static readonly FILES_DELETE: string = 'res:files#scopes:delete';
+    static readonly FILES_LIST: string = 'res:files#scopes:list';
+    static readonly FILES_SHOW_METADATA: string = 'res:files#scopes:showMetadata';
     static groupPermissions(): IGroupPermission[]
     {
         return [
@@ -33,6 +40,17 @@ class Permissions
                     Permissions.ITEMS_SHOW,
                     Permissions.ITEMS_LIST,
                     Permissions.ITEMS_DELETE
+                ]
+            },
+            {
+                group: 'FILES',
+                permissions: [
+                    Permissions.FILES_UPLOAD,
+                    Permissions.FILES_UPDATE,
+                    Permissions.FILES_DELETE,
+                    Permissions.FILES_DOWNLOAD,
+                    Permissions.FILES_LIST,
+                    Permissions.FILES_SHOW_METADATA
                 ]
             }
         ];

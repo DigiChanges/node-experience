@@ -10,6 +10,8 @@ import {
     PushNotificationSchema
 } from '../../../Notification/Infrastructure/Schemas/NotificationMongoose';
 import ICreateConnection from './ICreateConnection';
+import FileVersionSchema, { FileVersionMongooseDocument } from '../../../File/Infrastructure/Schemas/FileVersionMongoose';
+import FileMongoose, { FileMongooseDocument } from '../../../File/Infrastructure/Schemas/FileMongoose';
 
 type MongooseOptions = { autoIndex: boolean };
 
@@ -44,7 +46,8 @@ class CreateMongooseConnection implements ICreateConnection
 
         // Domain
         connection.model<ItemMongooseDocument>('Item', ItemSchema);
-
+        connection.model<FileVersionMongooseDocument>('FileVersion', FileVersionSchema);
+        connection.model<FileMongooseDocument>('File', FileMongoose);
         // Infrastructure
         const NotificationModel = connection.model<NotificationMongooseDocument>('Notification', NotificationSchema);
         NotificationModel.discriminator('EmailNotification', EmailNotificationSchema);
