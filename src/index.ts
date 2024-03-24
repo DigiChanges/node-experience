@@ -1,4 +1,7 @@
-import { EventHandler, IApp } from '@digichanges/shared-experience';
+import dotenv from 'dotenv';
+dotenv.config();
+
+import { IApp } from './Main/Presentation/Application/IApp';
 
 import DependencyInjector from './Shared/DI/DependencyInjector';
 import { FACTORIES, REPOSITORIES } from './Shared/DI/Injects';
@@ -16,20 +19,22 @@ import EmailEvent from './Auth/Infrastructure/Events/EmailEvent';
 import ICacheDataAccess from './Main/Infrastructure/Repositories/ICacheDataAccess';
 import { IMessageBroker } from './Shared/Infrastructure/IMessageBroker';
 import crons from './crons';
-import { IEventHandler } from './Notification/Infrastructure/events';
+import { IEventHandler } from './Notification/Domain/Models/EventHandler';
 
 void (async() =>
 {
     try
     {
+        const config = MainConfig.getEnv();
+
         // Init Application
-        const appBootstrap = AppBootstrapFactory.create(MainConfig.getEnv().APP_DEFAULT);
+        const appBootstrap = AppBootstrapFactory.create(config.APP_DEFAULT);
 
         const app: IApp = await appBootstrap({
-            serverPort: MainConfig.getEnv().APP_PORT,
-            proxy: MainConfig.getEnv().APP_SET_APP_PROXY,
-            env: MainConfig.getEnv().NODE_ENV,
-            cors: MainConfig.getEnv().APP_CORS
+            serverPort: config.APP_PORT,
+            proxy: config.APP_SET_APP_PROXY,
+            env: config.NODE_ENV,
+            cors: config.APP_CORS
         });
 
         await app.listen();
@@ -43,15 +48,13 @@ void (async() =>
         // Create Cache connection
         let cache: ICacheDataAccess;
 
-        if (MainConfig.getEnv().CACHE_ENABLE)
+        if (config.CACHE_ENABLE)
         {
             cache = DependencyInjector.inject<ICacheDataAccess>(REPOSITORIES.ICacheDataAccess);
             await cache.cleanAll();
         }
 
         // Set EventHandler and all events
-        // const eventHandler = EventHandler.getInstance();
-
         const eventHandler = DependencyInjector.inject<IEventHandler>('IEventHandler');
         eventHandler.setEvent(new EmailEvent());
         eventHandler.setEvent(new SendMessageEvent());
@@ -63,7 +66,7 @@ void (async() =>
 
         // Message Broker
         const messageBroker = DependencyInjector.inject<IMessageBroker>('IMessageBroker');
-        await messageBroker.connect({ uri: MainConfig.getEnv().MESSAGE_BROKER_URI });
+        await messageBroker.connect({ uri: config.MESSAGE_BROKER_URI });
 
         // Close gracefully
         const server = await app.getServer();

@@ -1,6 +1,6 @@
-import { IBaseDomain } from '@digichanges/shared-experience';
 import IFileDomain from './IFileDomain';
 import FileRepPayload from '../Payloads/FileRepPayload';
+import { IBaseDomain } from '../../../Main/Domain/Entities';
 
 interface IFileVersionDomain extends IBaseDomain, FileRepPayload
 {

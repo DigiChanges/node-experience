@@ -4,7 +4,7 @@ import FileService from '../Services/FileService';
 import IFileDTO from '../Models/IFileDTO';
 import FileDTO from '../Models/FileDTO';
 import OptimizePayload from '../Payloads/OptimizePayload';
-import OptimizeSchemaValidation from '../../Presentation/Validations/OptimizeSchemaValidation';
+import OptimizeSchemaValidation from '../Validations/OptimizeSchemaValidation';
 import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
 
 class OptimizeUseCase

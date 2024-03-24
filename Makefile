@@ -71,12 +71,6 @@ stress:
 	@echo '************                               ************'
 	artillery run artillery.yml
 
-ts_check:
-	@echo '************                               ************'
-	@echo '************       Exec NODE TS CHECK      ************'
-	@echo '************                               ************'
-	docker compose exec node pnpm ts-check
-
 init:
 	@echo '************                               ************'
 	@echo '************           Init NODE    	      ************'

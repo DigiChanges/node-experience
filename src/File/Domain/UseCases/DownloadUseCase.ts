@@ -1,7 +1,7 @@
 import IFileVersionDTO from '../Models/IFileVersionDTO';
 import FileService from '../Services/FileService';
 import DownloadPayload from '../Payloads/DownloadPayload';
-import DownloadSchemaValidation from '../../Presentation/Validations/DownloadSchemaValidation';
+import DownloadSchemaValidation from '../Validations/DownloadSchemaValidation';
 import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
 
 class DownloadUseCase

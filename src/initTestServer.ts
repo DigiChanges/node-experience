@@ -1,8 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config({ path: './.env.test' });
 
-import { EventHandler, IApp } from '@digichanges/shared-experience';
-
 import container from './Shared/DI/container';
 
 import supertest from 'supertest';
@@ -13,12 +11,15 @@ import SeedFactory from './Shared/Factories/SeedFactory';
 import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFactory';
 import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
 import IAuthRepository from './Auth/Domain/Repositories/IAuthRepository';
-import { REPOSITORIES } from './Shared/DI/Injects';
-import { Lifecycle } from 'tsyringe';
+import { FACTORIES, REPOSITORIES } from './Shared/DI/Injects';
+import { instanceCachingFactory, Lifecycle } from 'tsyringe';
 import SendMessageEvent from './Notification/Domain/Events/SendMessageEvent';
 import AuthMockRepository from './Auth/Tests/AuthMockRepository';
 import DependencyInjector from './Shared/DI/DependencyInjector';
-import { IEventHandler } from './Notification/Infrastructure/events';
+import { IApp } from './Main/Presentation/Application/IApp';
+import { IEventHandler } from './Notification/Domain/Models/EventHandler';
+import { IFilesystem } from './Main/Domain/Shared/IFilesystem';
+import { FilesystemMockStrategy } from './Main/Infrastructure/Filesystem';
 
 type TestServerData = {
     request: supertest.SuperAgentTest,
@@ -29,7 +30,7 @@ const initTestServer = async(): Promise<TestServerData> =>
 {
     const config = MainConfig.getEnv();
 
-    const databaseFactory: DatabaseFactory = new DatabaseFactory();
+    const databaseFactory = DependencyInjector.inject<DatabaseFactory>(FACTORIES.IDatabaseFactory);
     const dbConnection: ICreateConnection = databaseFactory.create();
 
     await dbConnection.initConfigTest();
@@ -43,12 +44,22 @@ const initTestServer = async(): Promise<TestServerData> =>
     container._registry._registryMap.delete('IAuthRepository');
     container.register<IAuthRepository>(REPOSITORIES.IAuthRepository, { useClass: AuthMockRepository }, { lifecycle: Lifecycle.Singleton });
 
+    // @ts-ignore
+    container._registry._registryMap.delete('IFilesystem');
+    container.register<IFilesystem>('IFilesystem', {
+    // @ts-ignore
+        useFactory: instanceCachingFactory(() =>
+        {
+            return new FilesystemMockStrategy();
+        })
+    }, { lifecycle: Lifecycle.Transient });
+
     const appBootstrap = AppBootstrapFactory.create(config.APP_DEFAULT);
 
     const app: IApp = await appBootstrap({
-        serverPort: 8088,
-        proxy: false,
-        env: 'test',
+        serverPort: config.APP_PORT,
+        proxy: config.APP_SET_APP_PROXY,
+        env: config.NODE_ENV,
         cors: config.APP_CORS
     });
 

@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { Transformer } from '@digichanges/shared-experience';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 import IItemTransformer from './IItemTransformer';
+import { Transformer } from '../../../Main/Presentation/Transformers';
 
 class ItemTransformer extends Transformer<IItemDomain, IItemTransformer>
 {

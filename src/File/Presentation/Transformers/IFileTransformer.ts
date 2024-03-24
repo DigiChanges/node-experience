@@ -1,7 +1,8 @@
-import { BaseTransformer, BasePropertiesTransformer } from '@digichanges/shared-experience';
 import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
+import { BasePropertiesTransformer, BaseTransformer } from '../../../Main/Presentation/Transformers';
 
-interface IFileData {
+interface IFileData
+{
     currentVersion: number;
     versions: IFileVersionDomain[];
 }

@@ -3,7 +3,8 @@ import initTestServer from '../../initTestServer';
 import { UploadFileBase64 } from './fixture';
 import { IFileResponse } from './types';
 import ICreateConnection from '../../Main/Infrastructure/Database/ICreateConnection';
-
+import * as path from 'path';
+import fs from 'fs';
 
 describe('Start File Test', () =>
 {
@@ -38,7 +39,21 @@ describe('Start File Test', () =>
 
             expect(response.statusCode).toStrictEqual(201);
             expect(data.currentVersion).toStrictEqual(1);
-            expect(data.versions.length).toStrictEqual(1);
+        });
+
+        test('Upload File /files', async() =>
+        {
+            const filePath = path.join(__dirname, 'test_file.json');
+            const fileStream = fs.createReadStream(filePath);
+
+            const response: IFileResponse = await request
+                .post('/api/files?isOriginalName=true&isPublic=false&isOptimize=false')
+                .attach('file', fileStream);
+
+            const { body: { data } } = response;
+
+            expect(response.statusCode).toStrictEqual(201);
+            expect(data.currentVersion).toStrictEqual(1);
 
             file_id = data.id;
         });
@@ -67,7 +82,6 @@ describe('Start File Test', () =>
 
             expect(response.statusCode).toStrictEqual(201);
             expect(data.currentVersion).toStrictEqual(2);
-            expect(data.versions.length).toStrictEqual(2);
         });
 
         test('Get presigned File /file/presigned-get-object', async() =>
@@ -110,10 +124,10 @@ describe('Start File Test', () =>
             expect(response.statusCode).toStrictEqual(200);
         });
 
-        test('Delete file /files/:id', async() =>
+        test('Get Objects /files/objects with params', async() =>
         {
             const response = await request
-                .get(`/api/files/${file_id}`)
+                .get('/api/files/objects?recursive=true&prefix=true')
                 .set('Accept', 'application/json')
                 .send();
 
@@ -121,10 +135,43 @@ describe('Start File Test', () =>
 
             expect(response.statusCode).toStrictEqual(200);
         });
+
+        test('Delete file /files/:id', async() =>
+        {
+            const response = await request
+                .delete(`/api/files/${file_id}`)
+                .set('Accept', 'application/json')
+                .send();
+
+            const { body: { data } } = response;
+
+            expect(response.statusCode).toStrictEqual(201);
+        });
     });
 
     describe('File Failed', () =>
     {
+        test('Upload File /files', async() =>
+        {
+            const response: IFileResponse = await request
+                .post('/api/files')
+                .set('Accept', 'application/json')
+                .send();
+
+            expect(response.statusCode).toStrictEqual(500);
+        });
+
+        test('Upload File /files', async() =>
+        {
+            const response: IFileResponse = await request
+                .post('/api/files?isOriginalName=true&isPublic=false&isOptimize=false')
+                .attach('file', null);
+
+            const { body: { data } } = response;
+
+            expect(response.statusCode).toStrictEqual(500);
+        });
+
         test('Upload File /files/base64', async() =>
         {
             const response: IFileResponse = await request

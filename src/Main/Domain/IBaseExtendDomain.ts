@@ -1,4 +1,4 @@
-import { IBaseDomain } from '@digichanges/shared-experience';
+import { IBaseDomain } from './Entities';
 
 export interface IBaseExtendDomain extends IBaseDomain
 {

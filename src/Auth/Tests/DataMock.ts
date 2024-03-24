@@ -1,5 +1,5 @@
-import { IPaginator } from '@digichanges/shared-experience';
 import dayjs from 'dayjs';
+import { IPaginator } from '../../Main/Domain/Criteria/IPaginator';
 
 export const payloadUser = {
     birthdate: dayjs('1970-01-01', 'yyyy-mm-dd').toDate(),

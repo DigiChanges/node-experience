@@ -1,14 +1,15 @@
 import { Query } from 'mongoose';
-import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 
 import FileFilter from '../../Presentation/Criterias/FileFilter';
 import MongoosePaginator from '../../../Main/Infrastructure/Orm/MongoosePaginator';
 
 import BaseMongooseRepository from '../../../Main/Infrastructure/Repositories/BaseMongooseRepository';
 import IFileDomain from '../../Domain/Entities/IFileDomain';
-import IFileRepository from './IFileRepository';
+import IFileRepository from '../../Domain/Repositories/IFileRepository';
 import File from '../../Domain/Entities/File';
 import { FileMongooseDocument } from '../Schemas/FileMongoose';
+import { ICriteria } from '../../../Main/Domain/Criteria';
+import { IPaginator } from '../../../Main/Domain/Criteria/IPaginator';
 
 class FileMongooseRepository extends BaseMongooseRepository<IFileDomain, FileMongooseDocument> implements IFileRepository
 {

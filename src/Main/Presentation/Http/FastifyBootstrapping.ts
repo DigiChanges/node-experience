@@ -6,12 +6,12 @@ import IndexFastifyRouter from '../Routers/IndexFastifyRouter';
 import ItemFastifyRouter from '../../../Item/Presentation/Routes/ItemFastifyRouter';
 import NotificationFastifyHandler from '../../../Notification/Presentation/Handlers/NotificationFastifyHandler';
 
-import IExtendAppConfig from './IExtendAppConfig';
 import { AppFastify } from './AppFastify';
 import { ErrorFastifyHandler } from '../Middleware/ErrorFastifyHandler';
 import FileFastifyRouter from '../../../File/Presentation/Routes/FileFastifyRouter';
+import { IAppConfig } from '../Application/IAppConfig';
 
-const FastifyBootstrapping = async(config: IExtendAppConfig) =>
+const FastifyBootstrapping = async(config: IAppConfig) =>
 {
     const app = new AppFastify(config);
 

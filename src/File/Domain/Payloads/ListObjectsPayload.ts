@@ -1,9 +1,7 @@
-import FileOptionsQueryPayload from './FileOptionsQueryPayload';
 
-interface ListObjectsPayload extends FileOptionsQueryPayload
+export interface ListObjectsPayload
 {
-    recursive: boolean,
-    prefix: string,
+    recursive: boolean;
+    prefix: string;
+    isPublic: boolean;
 }
-
-export default ListObjectsPayload;

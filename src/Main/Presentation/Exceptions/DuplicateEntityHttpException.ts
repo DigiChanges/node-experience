@@ -1,4 +1,5 @@
-import { StatusCode, ErrorHttpException } from '@digichanges/shared-experience';
+import { ErrorHttpException } from './ErrorHttpException';
+import { StatusCode } from '../Application/StatusCode';
 
 class DuplicateEntityHttpException extends ErrorHttpException
 {

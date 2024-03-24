@@ -5,7 +5,6 @@ import multipart from '@fastify/multipart';
 
 const FileFastifyRouter = async(fastify: FastifyInstance) =>
 {
-    // @ts-ignore
     await fastify.register(multipart);
 
     fastify.get('/', FileController.listFiles);
@@ -18,7 +17,8 @@ const FileFastifyRouter = async(fastify: FastifyInstance) =>
     fastify.get('/:id', FileController.download);
     fastify.put('/optimize/:id', FileController.optimize);
     fastify.put('/base64/:id', FileController.updateBase64);
-    fastify.put('/:id', FileController.updateMultipart);
+    fastify.put('/:id', { preHandler: await writeFileMiddleware('file') }, FileController.updateMultipart);
     fastify.delete('/:id', FileController.remove);
 };
+
 export default FileFastifyRouter;

@@ -1,5 +1,5 @@
-import { Base } from '@digichanges/shared-experience';
 import IFileDomain from './IFileDomain';
+import { Base } from '../../../Main/Domain/Entities';
 
 class File extends Base implements IFileDomain
 {

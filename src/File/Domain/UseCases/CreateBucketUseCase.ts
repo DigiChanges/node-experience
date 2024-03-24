@@ -3,11 +3,11 @@ import FileService from '../Services/FileService';
 
 class CreateBucketUseCase
 {
-    private fileService = new FileService();
+    #fileService = new FileService();
 
     async handle(payload: CreateBucketPayload): Promise<void>
     {
-        await this.fileService.createBucket(payload);
+        await this.#fileService.createBucket(payload);
     }
 }
 

@@ -1,9 +1,9 @@
-import { StatusCode } from '@digichanges/shared-experience';
 import FastifyResponder from '../../../Main/Presentation/Utils/FastifyResponder';
 import SyncPermissionsUseCase from '../../Domain/UseCases/Auth/SyncPermissionsUseCase';
 import IGroupPermission from '../../../Config/IGroupPermission';
 import PermissionsTransformer from '../Transformers/PermissionsTransformer';
 import PermissionUseCase from '../../Domain/UseCases/Auth/PermissionUseCase';
+import { StatusCode } from '../../../Main/Presentation/Application/StatusCode';
 
 const responder: FastifyResponder = new FastifyResponder();
 

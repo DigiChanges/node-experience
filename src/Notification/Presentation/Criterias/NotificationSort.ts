@@ -1,4 +1,4 @@
-import { Sort } from '@digichanges/shared-experience';
+import { Sort } from '../../../Main/Domain/Criteria';
 
 class NotificationSort extends Sort
 {

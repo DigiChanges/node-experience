@@ -1,5 +1,6 @@
-import { IPaginator, Transformer } from '@digichanges/shared-experience';
 import { PaginatorTransformerResponse } from './PaginatorTransformerResponse';
+import { Transformer } from '../../Main/Presentation/Transformers';
+import { IPaginator } from '../../Main/Domain/Criteria/IPaginator';
 
 class PaginatorTransformer extends Transformer<IPaginator, PaginatorTransformerResponse>
 {

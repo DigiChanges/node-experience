@@ -1,9 +1,10 @@
-import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 import { REPOSITORIES } from '../../../Shared/DI/Injects';
 import IItemRepository from '../Repositories/IItemRepository';
 import DependencyInjector from '../../../Shared/DI/DependencyInjector';
 import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
 import CriteriaSchemaValidation from '../../../Main/Domain/Validations/CriteriaSchemaValidation';
+import { ICriteria } from '../../../Main/Domain/Criteria';
+import { IPaginator } from '../../../Main/Domain/Criteria/IPaginator';
 
 class ListItemsUseCase
 {

@@ -1,11 +1,4 @@
-import {
-    ResponseMessageEnum,
-    DefaultMessageTransformer,
-    RequestCriteria,
-    StatusCode,
-    ICriteria,
-    IdPayload
-} from '@digichanges/shared-experience';
+
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { ParsedQs } from 'qs';
 
@@ -22,6 +15,11 @@ import GetItemUseCase from '../../Domain/UseCases/GetItemUseCase';
 import UpdateItemUseCase from '../../Domain/UseCases/UpdateItemUseCase';
 import RemoveItemUseCase from '../../Domain/UseCases/RemoveItemUseCase';
 import { IRequestFastify } from '../../../Shared/Utils/types';
+import { StatusCode } from '../../../Main/Presentation/Application/StatusCode';
+import { DefaultMessageTransformer } from '../../../Main/Presentation/Transformers';
+import { ResponseMessageEnum } from '../../../Main/Presentation/Utils/ResponseMessageEnum';
+import { ICriteria, RequestCriteria } from '../../../Main/Domain/Criteria';
+import { IdPayload } from '../../../Main/Domain/Payloads/IdPayload';
 
 const responder: FastifyResponder = new FastifyResponder();
 

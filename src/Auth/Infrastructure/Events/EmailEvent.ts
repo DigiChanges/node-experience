@@ -1,6 +1,6 @@
 import NotifierFactory from '../../../Notification/Shared/NotifierFactory';
-import { IEvent } from '@digichanges/shared-experience';
 import { FACTORIES } from '../../../Shared/DI/Injects';
+import { IEvent } from '../../../Notification/Domain/Models/IEvent';
 
 class EmailEvent implements IEvent
 {

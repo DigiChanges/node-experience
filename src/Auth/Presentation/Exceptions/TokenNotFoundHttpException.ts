@@ -1,4 +1,5 @@
-import { ErrorHttpException, StatusCode } from '@digichanges/shared-experience';
+import { ErrorHttpException } from '../../../Main/Presentation/Exceptions/ErrorHttpException';
+import { StatusCode } from '../../../Main/Presentation/Application/StatusCode';
 
 class TokenNotFoundHttpException extends ErrorHttpException
 {

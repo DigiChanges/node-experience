@@ -1,5 +1,5 @@
 import IItemDomain from './IItemDomain';
-import { Base } from '@digichanges/shared-experience';
+import { Base } from '../../../Main/Domain/Entities';
 
 class Item extends Base implements IItemDomain
 {

@@ -1,4 +1,4 @@
-import { ErrorException } from '@digichanges/shared-experience';
+import { ErrorException } from '../../../Main/Domain/Errors/ErrorException';
 
 class BadCredentialsException extends ErrorException
 {

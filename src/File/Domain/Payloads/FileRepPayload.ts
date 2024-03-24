@@ -1,4 +1,4 @@
-import { FileVersionPayload } from '@digichanges/shared-experience';
+import { FileVersionPayload } from './FileVersionPayload';
 
 interface FileRepPayload extends FileVersionPayload
 {

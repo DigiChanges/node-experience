@@ -1,5 +1,4 @@
 import * as mongoose  from 'mongoose';
-import { NotFoundException, IPaginator, ICriteria } from '@digichanges/shared-experience';
 
 import INotificationRepository from './INotificationRepository';
 import { NotificationMongooseDocument } from '../Schemas/NotificationMongoose';
@@ -9,6 +8,9 @@ import INotificationDomain from '../../Domain/Entities/INotificationDomain';
 import EmailNotification from '../../Domain/Entities/EmailNotification';
 import PushNotification from '../../Domain/Entities/PushNotification';
 import NotificationFilter from '../../Presentation/Criterias/NotificationFilter';
+import { NotFoundException } from '../../../Main/Domain/Exceptions/NotFoundException';
+import { ICriteria } from '../../../Main/Domain/Criteria';
+import { IPaginator } from '../../../Main/Domain/Criteria/IPaginator';
 
 class NotificationMongooseRepository implements INotificationRepository<INotificationDomain>
 {

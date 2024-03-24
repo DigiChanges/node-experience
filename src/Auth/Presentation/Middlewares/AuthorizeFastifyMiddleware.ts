@@ -1,11 +1,11 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { StatusCode } from '@digichanges/shared-experience';
 
 import { MainConfig } from '../../../Config/MainConfig';
 import container from '../../../Shared/DI/container';
 import TokenNotFoundHttpException from '../Exceptions/TokenNotFoundHttpException';
 import IAuthorizeService from '../../Domain/Services/IAuthorizeService';
 import { SERVICES } from '../../../Shared/DI/Injects';
+import { StatusCode } from '../../../Main/Presentation/Application/StatusCode';
 
 const AuthorizeFastifyMiddleware = (...handlerPermissions: string[]) =>
 {

@@ -1,5 +1,5 @@
-import { IdPayload } from '@digichanges/shared-experience';
 import FileOptionsQueryPayload from './FileOptionsQueryPayload';
+import { IdPayload } from '../../../Main/Domain/Payloads/IdPayload';
 
 interface OptimizePayload extends IdPayload, FileOptionsQueryPayload {}
 

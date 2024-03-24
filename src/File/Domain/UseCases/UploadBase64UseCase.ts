@@ -6,16 +6,16 @@ import FileDTO from '../Models/FileDTO';
 
 class UploadBase64UseCase
 {
-    private fileService = new FileService();
+    #fileService = new FileService();
 
     async handle(payload: FileBase64RepPayload): Promise<any>
     {
         if (payload.query?.isOptimize && payload.isImage)
         {
-            payload = await this.fileService.optimizeBase64ToUpload(payload);
+            payload = await this.#fileService.optimizeBase64ToUpload(payload);
         }
 
-        let file = await this.fileService.persist();
+        let file = await this.#fileService.persist();
 
         const build = {
             isOriginalName: payload.query?.isOriginalName ?? false,
@@ -30,9 +30,9 @@ class UploadBase64UseCase
         };
 
         let fileVersion: IFileVersionDomain = new FileVersion(build);
-        fileVersion = await this.fileService.persistVersion(fileVersion);
-        file = await this.fileService.update(file);
-        await this.fileService.uploadFileBase64(fileVersion, payload);
+        fileVersion = await this.#fileService.persistVersion(fileVersion);
+        file = await this.#fileService.update(file);
+        await this.#fileService.uploadFileBase64(fileVersion, payload);
 
         return new FileDTO(file, [fileVersion]);
     }

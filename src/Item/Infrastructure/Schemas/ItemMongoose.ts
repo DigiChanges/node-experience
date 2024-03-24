@@ -5,7 +5,7 @@ import IItemDomain from '../../Domain/Entities/IItemDomain';
 
 export type ItemMongooseDocument = Document & IItemDomain;
 
-const ItemSchema: any = new mongoose.Schema<Item>({
+const ItemSchema: any = new mongoose.Schema<IItemDomain>({
     _id: { type: String, default: randomUUID },
     name: { type: String, required: true },
     type: { type: Number, required: true }

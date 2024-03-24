@@ -1,6 +1,6 @@
-import { NotFoundException, ICriteria } from '@digichanges/shared-experience';
+import mongoose from 'mongoose';
 
-import IFileVersionRepository from './IFileVersionRepository';
+import IFileVersionRepository from '../../Domain/Repositories/IFileVersionRepository';
 
 import FileFilter from '../../Presentation/Criterias/FileFilter';
 import IFileVersionDomain from '../../Domain/Entities/IFileVersionDomain';
@@ -9,7 +9,8 @@ import BaseMongooseRepository from '../../../Main/Infrastructure/Repositories/Ba
 import FileVersion from '../../Domain/Entities/FileVersion';
 import { FileVersionMongooseDocument } from '../Schemas/FileVersionMongoose';
 import IByOptions from '../../../Main/Domain/Repositories/IByOptions';
-import mongoose from 'mongoose';
+import { ICriteria } from '../../../Main/Domain/Criteria';
+import { NotFoundException } from '../../../Main/Domain/Exceptions/NotFoundException';
 
 class FileVersionMongooseRepository extends BaseMongooseRepository<IFileVersionDomain, FileVersionMongooseDocument> implements IFileVersionRepository
 {

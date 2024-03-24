@@ -1,7 +1,7 @@
-import IExtendAppConfig from '../Http/IExtendAppConfig';
 import FastifyBootstrapping from '../Http/FastifyBootstrapping';
+import { IAppConfig } from '../Application/IAppConfig';
 
-type TypeAppBootstrap = (config: IExtendAppConfig) => Promise<any>;
+type TypeAppBootstrap = (config: IAppConfig) => Promise<any>;
 
 class AppBootstrapFactory
 {

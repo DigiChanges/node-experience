@@ -1,5 +1,7 @@
 import { QueryBuilder } from '@mikro-orm/postgresql';
-import { BasePaginator, IPaginatorConfig, IPaginator, ICriteria } from '@digichanges/shared-experience';
+import { BasePaginator, IPaginatorConfig } from '../Criteria';
+import { ICriteria } from '../../Domain/Criteria';
+import { IPaginator } from '../../Domain/Criteria/IPaginator';
 
 class MikroORMPaginator extends BasePaginator implements IPaginator
 {

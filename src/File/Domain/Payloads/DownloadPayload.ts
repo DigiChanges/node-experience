@@ -1,5 +1,5 @@
 import VersionPayload from './VersionPayload';
-import { IdPayload } from '@digichanges/shared-experience';
+import { IdPayload } from '../../../Main/Domain/Payloads/IdPayload';
 
 interface DownloadPayload extends VersionPayload, IdPayload {}
 

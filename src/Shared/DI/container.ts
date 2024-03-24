@@ -1,6 +1,5 @@
 import 'reflect-metadata';
 import { container, DependencyContainer, Lifecycle, instanceCachingFactory } from 'tsyringe';
-import { IEncryption, Md5EncryptionStrategy } from '@digichanges/shared-experience';
 
 import { FACTORIES, SERVICES, REPOSITORIES } from './Injects';
 
@@ -28,12 +27,15 @@ import RabbitMQMessageBroker from '../Infrastructure/RabbitMQMessageBroker';
 import CronService, { ICronService } from '../../Main/Infrastructure/Factories/CronService';
 import { MainConfig } from '../../Config/MainConfig';
 
-import IFileVersionRepository from '../../File/Infrastructure/Repositories/IFileVersionRepository';
-import IFileRepository from '../../File/Infrastructure/Repositories/IFileRepository';
+import IFileVersionRepository from '../../File/Domain/Repositories/IFileVersionRepository';
+import IFileRepository from '../../File/Domain/Repositories/IFileRepository';
 import FileVersionMongooseRepository from '../../File/Infrastructure/Repositories/FileVersionMongooseRepository';
 import FileMongooseRepository from '../../File/Infrastructure/Repositories/FileMongooseRepository';
 
-import EventHandler, { IEventHandler } from '../../Notification/Infrastructure/events/EventHandler';
+import EventHandler, { IEventHandler } from '../../Notification/Domain/Models/EventHandler';
+import { IEncryption, Md5EncryptionStrategy } from '../../Main/Infrastructure/Encryption';
+import { IFilesystem } from '../../Main/Domain/Shared/IFilesystem';
+import { MinioStrategy } from '../../Main/Infrastructure/Filesystem';
 
 const config = MainConfig.getEnv();
 const defaultDbConfig = config.DB_ORM_DEFAULT;
@@ -43,6 +45,18 @@ const cacheConfig = {
     enable: config.CACHE_ENABLE,
     user: config.CACHE_USER,
     password: config.CACHE_PASSWORD
+};
+
+const filesystemConfig = {
+    endPoint: config.MINIO_HOST,
+    accessKey: config.MINIO_ACCESS_KEY,
+    secretKey: config.MINIO_SECRET_KEY,
+    useSSL: config.MINIO_USE_SSL,
+    port: config.MINIO_PORT,
+    publicBucket: config.MINIO_PUBLIC_BUCKET,
+    privateBucket: config.MINIO_PRIVATE_BUCKET,
+    rootPath: '/data',
+    region: config.MINIO_REGION
 };
 
 // Data Access Objects
@@ -116,5 +130,12 @@ container.register<DatabaseFactory>(FACTORIES.IDatabaseFactory, {
     })
 }, { lifecycle: Lifecycle.Transient });
 
+container.register<IFilesystem>('IFilesystem', {
+    // @ts-ignore
+    useFactory: instanceCachingFactory(() =>
+    {
+        return new MinioStrategy(filesystemConfig);
+    })
+}, { lifecycle: Lifecycle.Transient });
 
 export default container;

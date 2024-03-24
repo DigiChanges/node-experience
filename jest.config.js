@@ -35,6 +35,8 @@ module.exports = {
       "!dist/src/Main/Infrastructure/Repositories/RedisCacheRepository.{js,ts}",
       "!dist/src/Main/Infrastructure/Repositories/BaseMongooseRepository.{js,ts}",
       "!dist/src/Main/Infrastructure/Orm/MongooseAggregatePaginator.{js,ts}",
+      "!dist/src/Main/Infrastructure/Filesystem/MinioStrategy.{js,ts}",
+      "!dist/src/Main/Infrastructure/UseCases/SyncDbUseCase.{js,ts}",
       "!dist/src/**/*Command*.{js,ts}",
       "!dist/src/**/*Document.{js,ts}",
       "!dist/src/**/Tests/*.{js,ts}",

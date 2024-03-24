@@ -1,4 +1,4 @@
-import { Filter } from '@digichanges/shared-experience';
+import { Filter } from '../../../Main/Domain/Criteria';
 
 class FileFilter extends Filter
 {

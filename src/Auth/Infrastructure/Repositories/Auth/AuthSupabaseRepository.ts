@@ -4,11 +4,12 @@ import IAuthRepository from '../../../Domain/Repositories/IAuthRepository';
 import PermissionPayload from '../../../Domain/Payload/PermissionPayload';
 import { MainConfig } from '../../../../Config/MainConfig';
 
-import { ErrorHttpException, StatusCode } from '@digichanges/shared-experience';
 import IUserDomain from '../../../Domain/Entities/IUserDomain';
 import IRoleDomain from '../../../Domain/Entities/IRoleDomain';
 import IPermissionDomain from '../../../Domain/Entities/IPermissionDomain';
 import IRolePermissionDomain from '../../../Domain/Entities/IRolePermissionDomain';
+import { ErrorHttpException } from '../../../../Main/Presentation/Exceptions/ErrorHttpException';
+import { StatusCode } from '../../../../Main/Presentation/Application/StatusCode';
 
 class AuthSupabaseRepository implements IAuthRepository
 {

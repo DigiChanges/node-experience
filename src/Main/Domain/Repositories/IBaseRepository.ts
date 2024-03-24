@@ -1,5 +1,6 @@
 import IByOptions from './IByOptions';
-import { ICriteria, IPaginator } from '@digichanges/shared-experience';
+import { ICriteria } from '../Criteria';
+import { IPaginator } from '../Criteria/IPaginator';
 
 interface IBaseRepository<T>
 {

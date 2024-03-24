@@ -1,10 +1,13 @@
 import * as mongoose from 'mongoose';
-import { IBaseDomain, ICriteria, IPaginator, NotFoundException } from '@digichanges/shared-experience';
 import IByOptions from '../../Domain/Repositories/IByOptions';
 import IBaseRepository from '../../Domain/Repositories/IBaseRepository';
 import MongoosePaginator from '../Orm/MongoosePaginator';
 import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
 import PaginatorTransformer from '../../../Shared/Utils/PaginatorTransformer';
+import { IBaseDomain } from '../../Domain/Entities';
+import { NotFoundException } from '../../Domain/Exceptions/NotFoundException';
+import { ICriteria } from '../../Domain/Criteria';
+import { IPaginator } from '../../Domain/Criteria/IPaginator';
 
 abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document & T> implements IBaseRepository<T>
 {

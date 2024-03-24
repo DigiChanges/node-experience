@@ -2,15 +2,16 @@ import PATH from 'path';
 import EmailNotification from '../Entities/EmailNotification';
 import IFilesAttachments from '../Entities/IFilesAttachments';
 import { promises as fs, createWriteStream } from 'fs';
-import FilesystemFactory from '../../../../src/Shared/Factories/FilesystemFactory';
 import Logger from '../../../Shared/Helpers/Logger';
-import { FileVersionPayload } from '@digichanges/shared-experience';
+import DependencyInjector from '../../../Shared/DI/DependencyInjector';
+import { IFilesystem } from '../../../Main/Domain/Shared/IFilesystem';
+import { FileVersionPayload } from '../../../File/Domain/Payloads/FileVersionPayload';
 
 class AttachmentsFilesService
 {
     static async getTempFilesAttachments(emailNotification: EmailNotification): Promise<IFilesAttachments[]>
     {
-        const filesystem = FilesystemFactory.create();
+        const filesystem = DependencyInjector.inject<IFilesystem>('IFilesystem');
 
         const tempDir = PATH.join(__dirname, '../../../temp');
         await fs.mkdir(tempDir, { recursive: true });

@@ -1,5 +1,4 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { StatusCode } from '@digichanges/shared-experience';
 
 import FastifyResponder from '../../../Main/Presentation/Utils/FastifyResponder';
 import NotificationSubscriptionRequest from '../Requests/NotificationCreateSuscriptionRequest';
@@ -7,6 +6,7 @@ import NotificationSendMessageRequest from '../Requests/NotificationSendMessageR
 import CreateSubscriptionUseCase from '../../Domain/UseCases/CreateSubscriptionUseCase';
 import SendPushNotificationUseCase from '../../Domain/UseCases/SendPushNotificationUseCase';
 import SendMessageBrokerUseCase from '../../Domain/UseCases/SendMessageBrokerUseCase';
+import { StatusCode } from '../../../Main/Presentation/Application/StatusCode';
 
 class NotificationFastifyController
 {

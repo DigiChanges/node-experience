@@ -1,4 +1,3 @@
-import { RequestCriteria, ICriteria, IPaginator, StatusCode, IdPayload } from '@digichanges/shared-experience';
 import FileVersionTransformer from '../Transformers/FileVersionTransformer';
 import ObjectTransformer from '../Transformers/ObjectTransformer';
 import FileTransformer from '../Transformers/FileTransformer';
@@ -9,7 +8,7 @@ import ListFilesUseCase from '../../Domain/UseCases/ListFilesUseCase';
 import ListObjectsUseCase from '../../Domain/UseCases/ListObjectsUseCase';
 import GetFileMetadataUseCase from '../../Domain/UseCases/GetFileMetadataUseCase';
 import FileBase64RepPayload from '../../Domain/Payloads/FileBase64RepPayload';
-import FileBase64SchemaValidation from '../Validations/FileBase64SchemaValidation';
+import FileBase64SchemaValidation from '../../Domain/Validations/FileBase64SchemaValidation';
 import UploadBase64UseCase from '../../Domain/UseCases/UploadBase64UseCase';
 import UploadMultipartUseCase from '../../Domain/UseCases/UploadMultipartUseCase';
 import GetPresignedGetObjectUseCase from '../../Domain/UseCases/GetPresignedGetObjectUseCase';
@@ -26,9 +25,12 @@ import { ParsedQs } from 'qs';
 import FastifyResponder from '../../../Main/Presentation/Utils/FastifyResponder';
 import { IRequestFastify } from '../../../Shared/Utils/types';
 import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
+import { StatusCode } from '../../../Main/Presentation/Application/StatusCode';
+import { ICriteria, RequestCriteria } from '../../../Main/Domain/Criteria';
+import { IdPayload } from '../../../Main/Domain/Payloads/IdPayload';
+import { IPaginator } from '../../../Main/Domain/Criteria/IPaginator';
 
 const responder: FastifyResponder = new FastifyResponder();
-
 
 class FileController
 {
@@ -48,7 +50,6 @@ class FileController
 
         await responder.paginate(paginator, reply, StatusCode.HTTP_OK, new FileVersionTransformer());
     }
-
 
     static async listObjects(request: any, reply: FastifyReply): Promise<void>
     {
@@ -110,12 +111,14 @@ class FileController
 
     static async uploadMultipart(request: any, reply: FastifyReply): Promise<void>
     {
-        const { originalname, encoding, mimetype, destination, filename, size } = request.file;
-        const { isOriginalName, isPublic, isOverwrite, isOptimize } = request.query;
         if (!request.file)
         {
             return void await responder.send('No file received', reply, StatusCode.HTTP_BAD_REQUEST);
         }
+
+        const { originalname, encoding, mimetype, destination, filename, size } = request.file;
+        const { isOriginalName, isPublic, isOverwrite, isOptimize } = request.query;
+
         const payload = {
             file: {
                 originalName: originalname,
@@ -135,6 +138,7 @@ class FileController
                 isOptimize: isOptimize === 'true'
             }
         };
+
         const useCase = new UploadMultipartUseCase();
         const uploadedFile = await useCase.handle(payload);
 
@@ -143,11 +147,14 @@ class FileController
     static async uploadMultipleImages(request: any, reply: FastifyReply): Promise<void>
     {
         const files = request.files;
+
         if (!files)
         {
             return void await responder.send('No files received', reply, StatusCode.HTTP_BAD_REQUEST);
         }
+
         const responseFiles = [];
+
         for (const file of files)
         {
             const { originalname, encoding, mimetype, destination, filename, size } = file;
@@ -175,6 +182,7 @@ class FileController
             const useCase = new UploadMultipartUseCase();
             responseFiles.push((await useCase.handle(payload)));
         }
+
         void await responder.send(responseFiles, reply, StatusCode.HTTP_CREATED, new FileTransformer());
     }
 

@@ -1,6 +1,6 @@
 import FastifyResponder from '../Utils/FastifyResponder';
-import { StatusCode } from '@digichanges/shared-experience';
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { StatusCode } from '../Application/StatusCode';
 
 const IndexFastifyRouter = async(fastify: FastifyInstance) =>
 {

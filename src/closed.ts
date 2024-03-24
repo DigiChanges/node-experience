@@ -5,7 +5,7 @@ import Logger from './Shared/Helpers/Logger';
 import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
 import { Server } from 'http';
 import { IMessageBroker } from './Shared/Infrastructure/IMessageBroker';
-import { IEventHandler } from './Notification/Infrastructure/events';
+import { IEventHandler } from './Notification/Domain/Models/EventHandler';
 
 interface ClosedApplicationParams
 {

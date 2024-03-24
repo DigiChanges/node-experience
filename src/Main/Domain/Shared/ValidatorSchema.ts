@@ -1,4 +1,4 @@
-import { ErrorException } from '@digichanges/shared-experience';
+import { ErrorException } from '../Errors/ErrorException';
 
 type ValidationType = { parseAsync: (data: unknown) => Promise<unknown> };
 

@@ -1,7 +1,7 @@
 import { Connection, Channel, connect } from 'amqplib';
-import { ErrorException } from '@digichanges/shared-experience';
 
 import { IMessageBroker, PublishParams, SubscribeParams, MessageBrokerConfig } from './IMessageBroker';
+import { ErrorException } from '../../Main/Domain/Errors/ErrorException';
 
 class RabbitMQMessageBroker implements IMessageBroker
 {

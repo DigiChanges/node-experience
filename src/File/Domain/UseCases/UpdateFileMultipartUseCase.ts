@@ -3,7 +3,7 @@ import IFileVersionDomain from '../Entities/IFileVersionDomain';
 import FileService from '../Services/FileService';
 import FileVersion from '../Entities/FileVersion';
 import FileDTO from '../Models/FileDTO';
-import FileMultipartUpdateSchemaValidation from '../../Presentation/Validations/FileMultipartUpdateSchemaValidation';
+import FileMultipartUpdateSchemaValidation from '../Validations/FileMultipartUpdateSchemaValidation';
 import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
 
 class UpdateFileMultipartUseCase

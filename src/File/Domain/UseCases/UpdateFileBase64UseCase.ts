@@ -3,7 +3,7 @@ import IFileVersionDomain from '../Entities/IFileVersionDomain';
 import FileService from '../Services/FileService';
 import FileVersion from '../Entities/FileVersion';
 import FileDTO from '../Models/FileDTO';
-import FileBase64UpdateSchemaValidation from '../../Presentation/Validations/FileBase64UpdateSchemaValidation';
+import FileBase64UpdateSchemaValidation from '../Validations/FileBase64UpdateSchemaValidation';
 import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
 
 class UpdateFileBase64UseCase

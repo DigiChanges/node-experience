@@ -1,7 +1,7 @@
-import { Base } from '@digichanges/shared-experience';
 import IFileVersionDomain from './IFileVersionDomain';
 import IFileBuild from './IFileBuild';
 import IFileDomain from './IFileDomain';
+import { Base } from '../../../Main/Domain/Entities';
 
 class FileVersion extends Base implements IFileVersionDomain
 {

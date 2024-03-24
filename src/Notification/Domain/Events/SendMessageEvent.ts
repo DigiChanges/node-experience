@@ -1,6 +1,6 @@
 import { FACTORIES } from '../../../Shared/DI/Injects';
 import NotifierFactory from '../../Shared/NotifierFactory';
-import { IEvent } from '../../Infrastructure/events';
+import { IEvent } from '../Models/IEvent';
 
 class SendMessageEvent implements IEvent
 {

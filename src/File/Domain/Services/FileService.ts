@@ -2,125 +2,127 @@
 import { CWebp } from 'cwebp';
 import { readFile, stat } from 'fs/promises';
 import IFileVersionDomain from '../Entities/IFileVersionDomain';
-import FilesystemFactory from '../../../Shared/Factories/FilesystemFactory';
-import IFileVersionRepository from '../../Infrastructure/Repositories/IFileVersionRepository';
+import IFileVersionRepository from '../Repositories/IFileVersionRepository';
 import PresignedFileRepPayload from '../../Domain/Payloads/PresignedFileRepPayload';
-import { ICriteria } from '@digichanges/shared-experience';
-import { IFilesystem, IPaginator } from '@digichanges/shared-experience';
-import ListObjectsPayload from '../../Domain/Payloads/ListObjectsPayload';
 import FileBase64RepPayload from '../Payloads/FileBase64RepPayload';
 import FileMultipartRepPayload from '../Payloads/FileMultipartRepPayload';
 import CreateBucketPayload from '../Payloads/CreateBucketPayload';
 import FileVersionDTO from '../Models/FileVersionDTO';
 import IFileVersionDTO from '../Models/IFileVersionDTO';
 import IFileVersionPayload from '../Entities/IFileVersionPayload';
-import FileMultipartOptimizeDTO from '../../Presentation/DTO/FileMultipartOptimizeDTO';
-import FileBase64OptimizeDTO from '../../Presentation/DTO/FileBase64OptimizeDTO';
+import FileMultipartOptimizeDTO from '../DTO/FileMultipartOptimizeDTO';
+import FileBase64OptimizeDTO from '../DTO/FileBase64OptimizeDTO';
 import FileUpdateMultipartPayload from '../Payloads/FileUpdateMultipartPayload';
-import FileUpdateMultipartOptimizeDTO from '../../Presentation/DTO/FileUpdateMultipartOptimizeDTO';
+import FileUpdateMultipartOptimizeDTO from '../DTO/FileUpdateMultipartOptimizeDTO';
 import FileUpdateBase64Payload from '../Payloads/FileUpdateBase64Payload';
-import FileUpdateBase64OptimizeDTO from '../../Presentation/DTO/FileUpdateBase64OptimizeDTO';
-import IFileRepository from '../../Infrastructure/Repositories/IFileRepository';
+import FileUpdateBase64OptimizeDTO from '../DTO/FileUpdateBase64OptimizeDTO';
+import IFileRepository from '../Repositories/IFileRepository';
 import IFileDomain from '../Entities/IFileDomain';
 import File from '../Entities/File';
 import IFileVersionOptimizeDTO from '../Payloads/IFileVersionOptimizeDTO';
-import FileVersionOptimizeDTO from '../../Presentation/DTO/FileVersionOptimizeDTO';
+import FileVersionOptimizeDTO from '../DTO/FileVersionOptimizeDTO';
 import IFileDTO from '../Models/IFileDTO';
 import FileDTO from '../Models/FileDTO';
 import DownloadPayload from '../Payloads/DownloadPayload';
 import { REPOSITORIES } from '../../../Shared/DI/Injects';
 import DependencyInjector from '../../../Shared/DI/DependencyInjector';
+import { ICriteria } from '../../../Main/Domain/Criteria';
+import { IFilesystem } from '../../../Main/Domain/Shared/IFilesystem';
+import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
+import ListObjectsSchemaValidation from '../Validations/ListObjectsSchemaValidation';
+import { ListObjectsPayload } from '../Payloads/ListObjectsPayload';
+import { IPaginator } from '../../../Main/Domain/Criteria/IPaginator';
 
 class FileService
 {
-    private versionRepository: IFileVersionRepository;
-    private fileRepository: IFileRepository;
-    // TODO fileSystem should be a package and not a result from the factory
-    private fileSystem: IFilesystem;
+    #versionRepository: IFileVersionRepository;
+    #fileRepository: IFileRepository;
+    #fileSystem: IFilesystem;
 
     constructor()
     {
-        this.versionRepository = DependencyInjector.inject<IFileVersionRepository>(REPOSITORIES.IFileVersionRepository);
-        this.fileRepository = DependencyInjector.inject<IFileRepository>(REPOSITORIES.IFileRepository);
-        this.fileSystem = FilesystemFactory.create();
+        this.#versionRepository = DependencyInjector.inject<IFileVersionRepository>(REPOSITORIES.IFileVersionRepository);
+        this.#fileRepository = DependencyInjector.inject<IFileRepository>(REPOSITORIES.IFileRepository);
+        this.#fileSystem = DependencyInjector.inject<IFilesystem>('IFilesystem');
     }
 
     async getOne(id: string): Promise<IFileDomain>
     {
-        return await this.fileRepository.getOne(id);
+        return await this.#fileRepository.getOne(id);
     }
 
     async persist(): Promise<IFileDomain>
     {
         const file = new File();
-        return this.fileRepository.save(file);
+        return this.#fileRepository.save(file);
     }
 
     async getPresignedGetObject(payload: PresignedFileRepPayload): Promise<string>
     {
         const { file, expiry, version } = payload;
 
-        const fileVersion = await this.versionRepository.getLastOneByFields(file, version, { initThrow: true });
+        const fileVersion = await this.#versionRepository.getLastOneByFields(file, version, { initThrow: true });
 
         return await this.getFileUrl(fileVersion, expiry);
     }
 
     async persistVersion(fileVersion: IFileVersionDomain): Promise<IFileVersionDomain>
     {
-        return await this.versionRepository.save(fileVersion);
+        return await this.#versionRepository.save(fileVersion);
     }
 
     async update(file: IFileDomain): Promise<IFileDomain>
     {
         file.currentVersion++;
 
-        return this.fileRepository.save(file);
+        return this.#fileRepository.save(file);
     }
 
     async uploadFileBase64(fileVersion: IFileVersionDomain, payload: FileBase64RepPayload): Promise<any>
     {
-        await this.fileSystem.uploadFileByBuffer(fileVersion, payload.base64);
-
+        await this.#fileSystem.uploadFileByBuffer(fileVersion, payload.base64);
         return fileVersion;
     }
 
     async uploadFileMultipart(fileVersion: IFileVersionDomain, payload: FileMultipartRepPayload): Promise<any>
     {
-        await this.fileSystem.uploadFile(fileVersion, payload.file.path);
+        await this.#fileSystem.uploadFile(fileVersion, payload.file.path);
 
         return fileVersion;
     }
 
     async uploadFileVersionOptimized(fileVersion: IFileVersionDomain, payload: IFileVersionOptimizeDTO): Promise<any>
     {
-        await this.fileSystem.uploadFile(fileVersion, payload.file.path);
+        await this.#fileSystem.uploadFile(fileVersion, payload.file.path);
 
         return fileVersion;
     }
 
     async list(payload: ICriteria): Promise<IPaginator>
     {
-        return this.versionRepository.list(payload);
+        return this.#versionRepository.list(payload);
     }
 
     async listObjects(payload: ListObjectsPayload): Promise<any>
     {
-        return await this.fileSystem.listObjects(payload);
+        await ValidatorSchema.handle(ListObjectsSchemaValidation, payload);
+
+        return await this.#fileSystem.listObjects(payload);
     }
 
     async getVersions(file: string): Promise<IFileVersionDomain[]>
     {
-        return await this.versionRepository.getAllByFileId(file);
+        return await this.#versionRepository.getAllByFileId(file);
     }
 
     async getLastVersions(file: string): Promise<IFileVersionDomain>
     {
-        return await this.versionRepository.getLastOneByFields(file);
+        return await this.#versionRepository.getLastOneByFields(file);
     }
 
     async getOneVersion(file: string, version: number): Promise<IFileVersionDomain>
     {
-        return await this.versionRepository.getOneByFileIdAndVersion(file, version);
+        return await this.#versionRepository.getOneByFileIdAndVersion(file, version);
     }
 
     async createBucket(payload: CreateBucketPayload): Promise<void>
@@ -133,11 +135,11 @@ class FileService
         const bucketPrivatePolicy = payload.privateBucketPolicy;
         const bucketPublicPolicy = payload.publicBucketPolicy;
 
-        await this.fileSystem.createBucket(bucketNamePrivate, region);
-        await this.fileSystem.setBucketPolicy(bucketPrivatePolicy, bucketNamePrivate);
+        await this.#fileSystem.createBucket(bucketNamePrivate, region);
+        await this.#fileSystem.setBucketPolicy(bucketPrivatePolicy, bucketNamePrivate);
 
-        await this.fileSystem.createBucket(bucketNamePublic, region);
-        await this.fileSystem.setBucketPolicy(bucketPublicPolicy, bucketNamePublic);
+        await this.#fileSystem.createBucket(bucketNamePublic, region);
+        await this.#fileSystem.setBucketPolicy(bucketPublicPolicy, bucketNamePublic);
     }
 
     async download(payload: DownloadPayload): Promise<IFileVersionDTO>
@@ -146,7 +148,7 @@ class FileService
 
         const fileVersion = !version ? await this.getLastVersions(id) : await this.getOneVersion(id, version);
 
-        const stream = await this.fileSystem.downloadStreamFile(fileVersion);
+        const stream = await this.#fileSystem.downloadStreamFile(fileVersion);
 
         return new FileVersionDTO(fileVersion, stream);
     }
@@ -158,27 +160,27 @@ class FileService
             'Content-Length': fileVersion.size
         };
 
-        return await this.fileSystem.presignedGetObject(fileVersion, expiry, metadata);
+        return await this.#fileSystem.presignedGetObject(fileVersion, expiry, metadata);
     }
 
     async removeFileAndVersions(id: string): Promise<IFileDTO>
     {
-        const fileVersions = await this.versionRepository.getAllByFileId(id);
+        const fileVersions = await this.#versionRepository.getAllByFileId(id);
 
         for (const fileVersion of fileVersions)
         {
-            await this.fileSystem.removeObjects(fileVersion);
-            await this.versionRepository.delete(fileVersion.getId());
+            await this.#fileSystem.removeObjects(fileVersion);
+            await this.#versionRepository.delete(fileVersion.getId());
         }
 
-        const file = await this.fileRepository.delete(id);
+        const file = await this.#fileRepository.delete(id);
 
         return new FileDTO(file, fileVersions);
     }
 
     private async getFileVersionOptimized(fileVersion: IFileVersionDomain): Promise<IFileVersionPayload>
     {
-        const path = await this.fileSystem.downloadFile(fileVersion);
+        const path = await this.#fileSystem.downloadFile(fileVersion);
         const encoder = CWebp(path);
         const newPath = path.replace(fileVersion.extension, 'webp');
         await encoder.write(newPath);

@@ -1,6 +1,6 @@
 import FastifyResponder from '../Utils/FastifyResponder';
-import { ErrorHttpException } from '@digichanges/shared-experience';
 import ExceptionFactory from '../Factories/ExceptionFactory';
+import { ErrorHttpException } from '../Exceptions/ErrorHttpException';
 
 export const ErrorFastifyHandler = async(error: any, request: any, reply: any) =>
 {

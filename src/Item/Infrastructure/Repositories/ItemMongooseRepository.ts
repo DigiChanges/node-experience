@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import { ICriteria } from '@digichanges/shared-experience';
 
 import IItemRepository from '../../Domain/Repositories/IItemRepository';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
@@ -8,6 +7,7 @@ import BaseMongooseRepository from '../../../Main/Infrastructure/Repositories/Ba
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 import Item from '../../Domain/Entities/Item';
 import { ItemMongooseDocument } from '../Schemas/ItemMongoose';
+import { ICriteria } from '../../../Main/Domain/Criteria';
 
 class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, ItemMongooseDocument> implements IItemRepository
 {

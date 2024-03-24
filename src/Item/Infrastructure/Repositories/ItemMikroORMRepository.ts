@@ -1,15 +1,18 @@
+import { QueryBuilder } from '@mikro-orm/postgresql';
+
 import IItemRepository from '../../Domain/Repositories/IItemRepository';
 import Item from '../../Domain/Entities/Item';
-import { IPaginator, ICriteria } from '@digichanges/shared-experience';
 
 import Paginator from '../../../Main/Infrastructure/Orm/MikroORMPaginator';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import ItemSchema from '../Schemas/ItemMikroORM';
 
 import BaseMikroORMRepository from '../../../Main/Infrastructure/Repositories/BaseMikroORMRepository';
-import { QueryBuilder } from '@mikro-orm/postgresql';
+import IItemDomain from '../../Domain/Entities/IItemDomain';
+import { ICriteria } from '../../../Main/Domain/Criteria';
+import { IPaginator } from '../../../Main/Domain/Criteria/IPaginator';
 
-class ItemMikroORMRepository extends BaseMikroORMRepository<Item> implements IItemRepository
+class ItemMikroORMRepository extends BaseMikroORMRepository<IItemDomain> implements IItemRepository
 {
     constructor()
     {

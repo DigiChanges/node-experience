@@ -1,7 +1,8 @@
 import qs from 'qs';
 import { Server } from 'http';
 import Fastify, { FastifyInstance, FastifyPluginCallback } from 'fastify';
-import { IApp, IAppConfig } from '@digichanges/shared-experience';
+import { IApp } from '../Application/IApp';
+import { IAppConfig } from '../Application/IAppConfig';
 
 export class AppFastify implements IApp
 {

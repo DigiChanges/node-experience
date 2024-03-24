@@ -1,8 +1,10 @@
 import { EntityRepository, EntitySchema, FindOneOptions } from '@mikro-orm/postgresql';
-import { ICriteria, IPaginator, NotFoundException } from '@digichanges/shared-experience';
 import IByOptions from '../../Domain/Repositories/IByOptions';
 import IBaseRepository from '../../Domain/Repositories/IBaseRepository';
 import EntityMikroORMManagerFactory from '../Factories/EntityMikroORMManagerFactory';
+import { NotFoundException } from '../../Domain/Exceptions/NotFoundException';
+import { ICriteria } from '../../Domain/Criteria';
+import { IPaginator } from '../../Domain/Criteria/IPaginator';
 
 abstract class BaseMikroORMRepository<T extends object> implements IBaseRepository<T>
 {
