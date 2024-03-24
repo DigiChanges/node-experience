@@ -2,60 +2,68 @@ import IErrorMessage from '../../Domain/Errors/IErrorMessage';
 import { IHttpStatusCode } from '../Application/IHttpStatusCode';
 import { StatusCode } from '../Application/StatusCode';
 
+interface ErrorHttpProps
+{
+    statusCode?: IHttpStatusCode;
+    errorMessage?: IErrorMessage;
+    errors?: any[];
+    metadata?: Record<string, any>;
+}
+
 export class ErrorHttpException extends Error
 {
-    private _statusCode: IHttpStatusCode;
-    private _errors: any[];
-    private _metadata: Record<string, any>;
-    private _errorCode: string | null;
+    #_statusCode: IHttpStatusCode;
+    #_errors: any[];
+    #_metadata: Record<string, any>;
+    #_errorCode: string | null;
 
-    constructor(statusCode: IHttpStatusCode = StatusCode.HTTP_INTERNAL_SERVER_ERROR, errorMessage: IErrorMessage  = { message: 'Internal Error' }, errors: any[] = [],  metadata: Record<string, any> = {})
+    constructor(props?: ErrorHttpProps)
     {
         super();
-        this._statusCode = statusCode;
-        this._errors = errors;
-        this.message = errorMessage.message;
-        this._errorCode = errorMessage?.errorCode ?? null;
-        this._metadata = metadata;
+        this.#_statusCode = props?.statusCode ?? StatusCode.HTTP_INTERNAL_SERVER_ERROR;
+        this.#_errors = props?.errors ?? [];
+        this.message = props?.errorMessage.message ?? 'Internal Error';
+        this.#_errorCode = props?.errorMessage?.errorCode ?? null;
+        this.#_metadata = props?.metadata ?? [];
     }
 
     public get statusCode(): IHttpStatusCode
     {
-        return this._statusCode;
+        return this.#_statusCode;
     }
 
     public set statusCode(value: IHttpStatusCode)
     {
-        this._statusCode = value;
+        this.#_statusCode = value;
     }
 
     public get errors(): any[]
     {
-        return this._errors;
+        return this.#_errors;
     }
 
     public set errors(err: any[])
     {
-        this._errors = err;
+        this.#_errors = err;
     }
 
     public get metadata(): Record<string, any>
     {
-        return this._metadata;
+        return this.#_metadata;
     }
 
     public set metadata(metadata: Record<string, any>)
     {
-        this._metadata = metadata;
+        this.#_metadata = metadata;
     }
 
     public get errorCode(): string | null
     {
-        return this._errorCode;
+        return this.#_errorCode;
     }
 
     public set errorCode(errorKey: string | null)
     {
-        this._errorCode = errorKey;
+        this.#_errorCode = errorKey;
     }
 }

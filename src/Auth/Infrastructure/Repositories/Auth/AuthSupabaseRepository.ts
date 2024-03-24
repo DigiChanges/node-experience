@@ -32,7 +32,12 @@ class AuthSupabaseRepository implements IAuthRepository
 
         if (error)
         {
-            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+            throw new ErrorHttpException({
+                statusCode: StatusCode.HTTP_INTERNAL_SERVER_ERROR,
+                errorMessage: {
+                    message: error.message
+                }
+            });
         }
 
         return data;
@@ -46,7 +51,12 @@ class AuthSupabaseRepository implements IAuthRepository
 
         if (error || !data?.user)
         {
-            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+            throw new ErrorHttpException({
+                statusCode: StatusCode.HTTP_INTERNAL_SERVER_ERROR,
+                errorMessage: {
+                    message: error.message
+                }
+            });
         }
 
         return {
@@ -65,7 +75,12 @@ class AuthSupabaseRepository implements IAuthRepository
 
         if (error)
         {
-            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+            throw new ErrorHttpException({
+                statusCode: StatusCode.HTTP_INTERNAL_SERVER_ERROR,
+                errorMessage: {
+                    message: error.message
+                }
+            });
         }
 
         return data;
@@ -82,7 +97,12 @@ class AuthSupabaseRepository implements IAuthRepository
 
         if (error)
         {
-            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+            throw new ErrorHttpException({
+                statusCode: StatusCode.HTTP_INTERNAL_SERVER_ERROR,
+                errorMessage: {
+                    message: error.message
+                }
+            });
         }
     }
 
@@ -96,7 +116,12 @@ class AuthSupabaseRepository implements IAuthRepository
 
         if (error)
         {
-            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+            throw new ErrorHttpException({
+                statusCode: StatusCode.HTTP_INTERNAL_SERVER_ERROR,
+                errorMessage: {
+                    message: error.message
+                }
+            });
         }
     }
 
@@ -109,7 +134,12 @@ class AuthSupabaseRepository implements IAuthRepository
 
         if (error)
         {
-            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+            throw new ErrorHttpException({
+                statusCode: StatusCode.HTTP_INTERNAL_SERVER_ERROR,
+                errorMessage: {
+                    message: error.message
+                }
+            });
         }
 
         return data;
@@ -124,7 +154,12 @@ class AuthSupabaseRepository implements IAuthRepository
 
         if (error)
         {
-            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+            throw new ErrorHttpException({
+                statusCode: StatusCode.HTTP_INTERNAL_SERVER_ERROR,
+                errorMessage: {
+                    message: error.message
+                }
+            });
         }
     }
 
@@ -137,7 +172,12 @@ class AuthSupabaseRepository implements IAuthRepository
 
         if (error)
         {
-            throw new ErrorHttpException(StatusCode.HTTP_INTERNAL_SERVER_ERROR, { message: error.message });
+            throw new ErrorHttpException({
+                statusCode: StatusCode.HTTP_INTERNAL_SERVER_ERROR,
+                errorMessage: {
+                    message: error.message
+                }
+            });
         }
     }
 }

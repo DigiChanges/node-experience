@@ -6,9 +6,13 @@ class TokenExpiredHttpException extends ErrorHttpException
     constructor()
     {
         const key = 'auth.presentation.exceptions.tokenExpired';
-        super(StatusCode.HTTP_FORBIDDEN, {
-            message: 'Invalid userId.',
-            errorCode: key
+        super({
+            statusCode: StatusCode.HTTP_FORBIDDEN,
+            errorMessage:
+            {
+                message: 'Invalid userId.',
+                errorCode: key
+            }
         });
     }
 }

@@ -248,16 +248,16 @@ class FileService
 
     async optimizeBase64ToUpload(payload: FileBase64RepPayload): Promise<FileBase64RepPayload>
     {
-        const base64data = await this.getFileBase64Optimized(payload);
+        const base64 = await this.getFileBase64Optimized(payload);
 
-        return new FileBase64OptimizeDTO(payload, base64data);
+        return new FileBase64OptimizeDTO({ ...payload, base64 });
     }
 
     async optimizeBase64ToUpdate(payload: FileUpdateBase64Payload): Promise<FileUpdateBase64Payload>
     {
-        const base64data = await this.getFileBase64Optimized(payload);
+        const base64 = await this.getFileBase64Optimized(payload);
 
-        return new FileUpdateBase64OptimizeDTO(payload, base64data);
+        return new FileUpdateBase64OptimizeDTO({ ...payload, base64 });
     }
 
     async optimizeFileVersion(fileVersion: IFileVersionDomain): Promise<IFileVersionOptimizeDTO>

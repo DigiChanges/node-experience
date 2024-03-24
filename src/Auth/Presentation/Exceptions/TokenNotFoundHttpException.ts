@@ -6,9 +6,13 @@ class TokenNotFoundHttpException extends ErrorHttpException
     constructor()
     {
         const key = 'auth.presentation.exceptions.tokenNotFound';
-        super(StatusCode.HTTP_FORBIDDEN, {
-            message: 'Token not found',
-            errorCode: key
+        super({
+            statusCode: StatusCode.HTTP_FORBIDDEN,
+            errorMessage:
+            {
+                message: 'Token not found.',
+                errorCode: key
+            }
         });
     }
 }

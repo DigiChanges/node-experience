@@ -39,7 +39,6 @@ USER node
 # Copy js files and change ownership to user node
 COPY --from=prerelease /home/node/node_modules/ ./node_modules/
 COPY --from=prerelease /home/node/dist/ ./dist/
-COPY --from=prerelease /home/node/config/ ./config/
 COPY --from=prerelease /home/node/package.json/ ./package.json
 COPY --from=prerelease /home/node/pnpm-lock.yaml/  ./pnpm-lock.yaml
 
