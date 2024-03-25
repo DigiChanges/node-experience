@@ -101,6 +101,11 @@ abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document 
 
     async pagination(queryBuilder: mongoose.Query<D[], D>, criteria: ICriteria)
     {
+        const pageOffset = (criteria.getPagination().getPage() - 1) * criteria.getPagination().getLimit();
+        if (pageOffset > 0)
+        {
+            criteria.getPagination().setOffset(pageOffset);
+        }
         const paginator = new MongoosePaginator(queryBuilder, criteria);
         const data = await paginator.paginate();
         const metadata = paginator.getMetadata();
