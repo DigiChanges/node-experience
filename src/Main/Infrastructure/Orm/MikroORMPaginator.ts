@@ -15,13 +15,15 @@ class MikroORMPaginator extends BasePaginator implements IPaginator
 
     public async paginate(): Promise<any>
     {
-        this.total = await this.queryBuilder.getCount();
+        const clonedQueryBuilder = this.queryBuilder.clone();
+        this.total = await clonedQueryBuilder.getCount();
         this.addOrderBy();
         this.addPagination();
 
         let data = await this.queryBuilder.getResultList();
-        this._perPage = await this.queryBuilder.getCount();
+        this._perPage = data.length;
         this.setPerPage(this._perPage);
+
         this.setCurrentPage();
         this.setLasPage();
         this.setFrom();
@@ -51,10 +53,13 @@ class MikroORMPaginator extends BasePaginator implements IPaginator
     private addPagination()
     {
         const exist = this.pagination.getExist();
-        const pageOffset = (this.pagination.getPage() - 1) * this.pagination.getLimit();
-        if (pageOffset > 0)
+
+        const page = this.pagination.getPage();
+        if (page)
         {
+            const pageOffset = (page - 1) * this.pagination.getLimit();
             this.pagination.setOffset(pageOffset);
+            this.setOffset(pageOffset);
         }
         if (exist)
         {

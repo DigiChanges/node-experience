@@ -1,10 +1,13 @@
-import { EntityRepository, EntitySchema, FindOneOptions } from '@mikro-orm/postgresql';
+import { EntityRepository, EntitySchema, FindOneOptions, QueryBuilder } from '@mikro-orm/postgresql';
 import IByOptions from '../../Domain/Repositories/IByOptions';
 import IBaseRepository from '../../Domain/Repositories/IBaseRepository';
 import EntityMikroORMManagerFactory from '../Factories/EntityMikroORMManagerFactory';
 import { NotFoundException } from '../../Domain/Exceptions/NotFoundException';
 import { ICriteria } from '../../Domain/Criteria';
 import { IPaginator } from '../../Domain/Criteria/IPaginator';
+import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
+import PaginatorTransformer from '../../../Shared/Utils/PaginatorTransformer';
+import MikroORMPaginator from '../Orm/MikroORMPaginator';
 
 abstract class BaseMikroORMRepository<T extends object> implements IBaseRepository<T>
 {
@@ -109,6 +112,25 @@ abstract class BaseMikroORMRepository<T extends object> implements IBaseReposito
         }
 
         return exist;
+    }
+    async pagination(queryBuilder: QueryBuilder, criteria: ICriteria)
+    {
+        const paginator = new MikroORMPaginator(queryBuilder, criteria);
+        const data = await paginator.paginate();
+
+
+        const metadata = paginator.getMetadata();
+        const result = { data, metadata } as ResponsePayload;
+
+        if (paginator.getExist())
+        {
+            const paginatorTransformer = new PaginatorTransformer();
+            const pagination = await paginatorTransformer.handle(paginator);
+
+            Object.assign(result, { pagination });
+        }
+
+        return result;
     }
 
     abstract list(criteria: ICriteria): Promise<IPaginator>;
