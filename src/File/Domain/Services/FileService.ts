@@ -31,7 +31,7 @@ import { IFilesystem } from '../../../Main/Domain/Shared/IFilesystem';
 import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
 import ListObjectsSchemaValidation from '../Validations/ListObjectsSchemaValidation';
 import { ListObjectsPayload } from '../Payloads/ListObjectsPayload';
-import { IPaginator } from '../../../Main/Domain/Criteria/IPaginator';
+import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
 
 class FileService
 {
@@ -98,7 +98,7 @@ class FileService
         return fileVersion;
     }
 
-    async list(payload: ICriteria): Promise<IPaginator>
+    async list(payload: ICriteria): Promise<ResponsePayload<IFileVersionDomain>>
     {
         return this.#versionRepository.list(payload);
     }

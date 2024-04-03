@@ -9,6 +9,7 @@ import ItemSchema from '../Schemas/ItemMikroORM';
 import BaseMikroORMRepository from '../../../Main/Infrastructure/Repositories/BaseMikroORMRepository';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 import { ICriteria } from '../../../Main/Domain/Criteria';
+import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
 
 class ItemMikroORMRepository extends BaseMikroORMRepository<IItemDomain> implements IItemRepository
 {
@@ -17,7 +18,7 @@ class ItemMikroORMRepository extends BaseMikroORMRepository<IItemDomain> impleme
         super(Item.name, ItemSchema);
     }
 
-    async list(criteria: ICriteria): Promise<any>
+    async list(criteria: ICriteria): Promise<ResponsePayload<IItemDomain>>
     {
         const queryBuilder: QueryBuilder = this.em.createQueryBuilder('Item', 'i');
 

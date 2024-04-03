@@ -3,7 +3,7 @@ import IBaseRepository from '../../Domain/Repositories/IBaseRepository';
 import ICacheDataAccess from './ICacheDataAccess';
 import IByOptions from '../../Domain/Repositories/IByOptions';
 import { ICriteria } from '../../Domain/Criteria';
-import { IPaginator } from '../../Domain/Criteria/IPaginator';
+import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
 
 class CacheRepository<T extends IBaseRepository<unknown>> implements IBaseRepository<any>
 {
@@ -26,7 +26,8 @@ class CacheRepository<T extends IBaseRepository<unknown>> implements IBaseReposi
         return this.#underlyingRepository.update(element);
     }
 
-    async list(criteria: ICriteria): Promise<IPaginator>
+    // async list(criteria: ICriteria): Promise<IPaginator | ResponsePayload<unknown>>
+    async list(criteria: ICriteria): Promise<ResponsePayload<unknown>>
     {
         const pagination = criteria.getPagination();
         const currentUrl = pagination.getCurrentUrl();

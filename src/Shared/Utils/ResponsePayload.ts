@@ -1,8 +1,10 @@
+import { IPaginator } from '../../Main/Domain/Criteria/IPaginator';
 
-interface ResponsePayload
+interface ResponsePayload<T>
 {
-    data: unknown;
-    metadata?: unknown;
+    data: T | T[];
+    metadata?: Record<string, string>;
+    pagination?: IPaginator
 }
 
 export default ResponsePayload;

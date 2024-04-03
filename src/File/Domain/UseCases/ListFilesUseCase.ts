@@ -1,12 +1,13 @@
 import FileService from '../Services/FileService';
 import { ICriteria } from '../../../Main/Domain/Criteria';
-import { IPaginator } from '../../../Main/Domain/Criteria/IPaginator';
+import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
+import IFileVersionDomain from '../Entities/IFileVersionDomain';
 
 class ListFilesUseCase
 {
     private fileService = new FileService();
 
-    async handle(payload: ICriteria): Promise<IPaginator>
+    async handle(payload: ICriteria): Promise<ResponsePayload<IFileVersionDomain>>
     {
         return await this.fileService.list(payload);
     }

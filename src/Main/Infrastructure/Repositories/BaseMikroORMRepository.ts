@@ -4,7 +4,6 @@ import IBaseRepository from '../../Domain/Repositories/IBaseRepository';
 import EntityMikroORMManagerFactory from '../Factories/EntityMikroORMManagerFactory';
 import { NotFoundException } from '../../Domain/Exceptions/NotFoundException';
 import { ICriteria } from '../../Domain/Criteria';
-import { IPaginator } from '../../Domain/Criteria/IPaginator';
 import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
 import PaginatorTransformer from '../../../Shared/Utils/PaginatorTransformer';
 import MikroORMPaginator from '../Orm/MikroORMPaginator';
@@ -113,14 +112,14 @@ abstract class BaseMikroORMRepository<T extends object> implements IBaseReposito
 
         return exist;
     }
-    async pagination(queryBuilder: QueryBuilder, criteria: ICriteria)
+    async pagination(queryBuilder: QueryBuilder, criteria: ICriteria): Promise<ResponsePayload<T>>
     {
         const paginator = new MikroORMPaginator(queryBuilder, criteria);
         const data = await paginator.paginate();
 
 
         const metadata = paginator.getMetadata();
-        const result = { data, metadata } as ResponsePayload;
+        const result = { data, metadata } as ResponsePayload<T>;
 
         if (paginator.getExist())
         {
@@ -133,7 +132,7 @@ abstract class BaseMikroORMRepository<T extends object> implements IBaseReposito
         return result;
     }
 
-    abstract list(criteria: ICriteria): Promise<IPaginator>;
+    abstract list(criteria: ICriteria): Promise<ResponsePayload<T>>;
 }
 
 export default BaseMikroORMRepository;

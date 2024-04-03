@@ -8,6 +8,7 @@ import IItemDomain from '../../Domain/Entities/IItemDomain';
 import Item from '../../Domain/Entities/Item';
 import { ItemMongooseDocument } from '../Schemas/ItemMongoose';
 import { ICriteria } from '../../../Main/Domain/Criteria';
+import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
 
 class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, ItemMongooseDocument> implements IItemRepository
 {
@@ -16,7 +17,7 @@ class ItemMongooseRepository extends BaseMongooseRepository<IItemDomain, ItemMon
         super(Item.name);
     }
 
-    async list(criteria: ICriteria): Promise<any>
+    async list(criteria: ICriteria): Promise<ResponsePayload<IItemDomain>>
     {
         const queryBuilder: mongoose.Query<ItemMongooseDocument[], ItemMongooseDocument> = this.repository.find();
         const filter = criteria.getFilter();

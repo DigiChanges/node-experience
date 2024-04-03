@@ -28,13 +28,11 @@ import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
 import { StatusCode } from '../../../Main/Presentation/Application/StatusCode';
 import { ICriteria, RequestCriteria } from '../../../Main/Domain/Criteria';
 import { IdPayload } from '../../../Main/Domain/Payloads/IdPayload';
-import { IPaginator } from '../../../Main/Domain/Criteria/IPaginator';
 
 const responder: FastifyResponder = new FastifyResponder();
 
 class FileController
 {
-    // TODO implmente IFastify(extends from QueryRequest, bodyRequest, params request) request, or simple request(QueryRequest, bodyRequest, params request)
     static async listFiles(request: FastifyRequest<IRequestFastify>, reply: FastifyReply): Promise<void>
     {
         const { query, url } = request;
@@ -46,7 +44,7 @@ class FileController
         });
 
         const useCase = new ListFilesUseCase();
-        const paginator: IPaginator = await useCase.handle(requestCriteria);
+        const paginator = await useCase.handle(requestCriteria);
 
         await responder.paginate(paginator, reply, StatusCode.HTTP_OK, new FileVersionTransformer());
     }

@@ -7,7 +7,6 @@ import PaginatorTransformer from '../../../Shared/Utils/PaginatorTransformer';
 import { IBaseDomain } from '../../Domain/Entities';
 import { NotFoundException } from '../../Domain/Exceptions/NotFoundException';
 import { ICriteria } from '../../Domain/Criteria';
-import { IPaginator } from '../../Domain/Criteria/IPaginator';
 
 abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document & T> implements IBaseRepository<T>
 {
@@ -104,7 +103,7 @@ abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document 
         const paginator = new MongoosePaginator(queryBuilder, criteria);
         const data = await paginator.paginate();
         const metadata = paginator.getMetadata();
-        const result = { data, metadata } as ResponsePayload;
+        const result = { data, metadata } as ResponsePayload<T>;
 
         if (paginator.getExist())
         {
@@ -117,7 +116,7 @@ abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document 
         return result;
     }
 
-    abstract list(criteria: ICriteria): Promise<IPaginator>;
+    abstract list(criteria: ICriteria): Promise<ResponsePayload<T>>;
 }
 
 export default BaseMongooseRepository;

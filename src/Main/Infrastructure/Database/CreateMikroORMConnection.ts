@@ -9,14 +9,16 @@ export let orm: MikroORM;
 class CreateMikroORMConnection implements ICreateConnection
 {
     private readonly config: any;
+    #uri: string;
     private createInstanceConnection: any;
     private entities = [
         Item
     ];
 
-    constructor(config: any = null)
+    constructor(config: { uri: string })
     {
         this.config = config;
+        this.#uri = config.uri;
     }
 
     async initConfig(): Promise<void>
@@ -25,7 +27,7 @@ class CreateMikroORMConnection implements ICreateConnection
         {
             orm = await MikroORM.init({
                 entities: this.entities,
-                clientUrl: this.config.uri,
+                clientUrl: this.#uri,
                 allowGlobalContext: true
             });
 
