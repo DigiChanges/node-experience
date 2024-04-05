@@ -28,7 +28,7 @@ abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document 
 
     async getOne(id: string): Promise<T>
     {
-        const entity = await this.repository.findOne({ _id: id } as mongoose.FilterQuery<T>).populate(this.populate);
+        const entity = await this.repository.findOne({ _id: id } as mongoose.FilterQuery<D>).populate(this.populate);
 
         if (!entity)
         {
@@ -40,7 +40,7 @@ abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document 
 
     async update(entity: T): Promise<T>
     {
-        return this.repository.findOneAndUpdate({ _id: entity.getId() } as mongoose.FilterQuery<T>, { $set: entity }, { new: true }).populate(this.populate  as string | string[]) as any;
+        return this.repository.findOneAndUpdate({ _id: entity.getId() } as mongoose.FilterQuery<D>, { $set: entity }, { new: true }).populate(this.populate  as string | string[]) as any;
     }
 
     async delete(id: string): Promise<T>
@@ -57,7 +57,7 @@ abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document 
 
     async getOneBy(condition: Record<string, any>, options: IByOptions = { initThrow: true, populate: undefined }): Promise<T | null>
     {
-        const entity = await this.repository.findOne(condition as mongoose.FilterQuery<T>).populate(options?.populate as string | string[]).exec();
+        const entity = await this.repository.findOne(condition as mongoose.FilterQuery<D>).populate(options?.populate as string | string[]).exec();
 
         if (options?.initThrow && !entity)
         {
@@ -69,7 +69,7 @@ abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document 
 
     async getBy(condition: Record<string, any>, options: IByOptions = { initThrow: false, populate: undefined }): Promise<T[]>
     {
-        const entities = await this.repository.find(condition as mongoose.FilterQuery<T>).populate(options?.populate as string | string[]).exec();
+        const entities = await this.repository.find(condition as mongoose.FilterQuery<D>).populate(options?.populate as string | string[]).exec();
 
         if (options?.initThrow && entities.length === 0)
         {
@@ -88,7 +88,7 @@ abstract class BaseMongooseRepository<T extends IBaseDomain, D extends Document 
 
     async exist(condition: Record<string, any>, select: string[], initThrow = false): Promise<any>
     {
-        const exist = await this.repository.findOne(condition as mongoose.FilterQuery<T>, select.join(' '));
+        const exist = await this.repository.findOne(condition as mongoose.FilterQuery<D>, select.join(' '));
 
         if (initThrow && !exist)
         {
