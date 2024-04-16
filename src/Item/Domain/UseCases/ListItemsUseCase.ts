@@ -4,7 +4,8 @@ import DependencyInjector from '../../../Shared/DI/DependencyInjector';
 import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
 import CriteriaSchemaValidation from '../../../Main/Domain/Validations/CriteriaSchemaValidation';
 import { ICriteria } from '../../../Main/Domain/Criteria';
-import { IPaginator } from '../../../Main/Domain/Criteria/IPaginator';
+import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
+import IItemDomain from '../Entities/IItemDomain';
 
 class ListItemsUseCase
 {
@@ -15,7 +16,7 @@ class ListItemsUseCase
         this.repository = DependencyInjector.inject<IItemRepository>(REPOSITORIES.IItemRepository);
     }
 
-    async handle(payload: ICriteria): Promise<IPaginator>
+    async handle(payload: ICriteria): Promise<ResponsePayload<IItemDomain>>
     {
         await ValidatorSchema.handle(CriteriaSchemaValidation, payload);
 

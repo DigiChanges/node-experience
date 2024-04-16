@@ -12,7 +12,7 @@ export abstract class BasePaginator implements IPaginator
     protected pagination: IPagination;
 
     protected readonly limit: number;
-    protected readonly offset: number;
+    protected offset: number;
 
     protected total: number;
     protected _perPage: number;
@@ -149,6 +149,11 @@ export abstract class BasePaginator implements IPaginator
     public getOffset(): number
     {
         return this.offset;
+    }
+
+    public setOffset(offset: number): void
+    {
+        this.offset = offset;
     }
 
     public getLimit(): number

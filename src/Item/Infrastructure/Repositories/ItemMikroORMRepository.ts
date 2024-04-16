@@ -3,14 +3,13 @@ import { QueryBuilder } from '@mikro-orm/postgresql';
 import IItemRepository from '../../Domain/Repositories/IItemRepository';
 import Item from '../../Domain/Entities/Item';
 
-import Paginator from '../../../Main/Infrastructure/Orm/MikroORMPaginator';
 import ItemFilter from '../../Presentation/Criterias/ItemFilter';
 import ItemSchema from '../Schemas/ItemMikroORM';
 
 import BaseMikroORMRepository from '../../../Main/Infrastructure/Repositories/BaseMikroORMRepository';
 import IItemDomain from '../../Domain/Entities/IItemDomain';
 import { ICriteria } from '../../../Main/Domain/Criteria';
-import { IPaginator } from '../../../Main/Domain/Criteria/IPaginator';
+import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
 
 class ItemMikroORMRepository extends BaseMikroORMRepository<IItemDomain> implements IItemRepository
 {
@@ -19,7 +18,7 @@ class ItemMikroORMRepository extends BaseMikroORMRepository<IItemDomain> impleme
         super(Item.name, ItemSchema);
     }
 
-    async list(criteria: ICriteria): Promise<IPaginator>
+    async list(criteria: ICriteria): Promise<ResponsePayload<IItemDomain>>
     {
         const queryBuilder: QueryBuilder = this.em.createQueryBuilder('Item', 'i');
 
@@ -35,8 +34,7 @@ class ItemMikroORMRepository extends BaseMikroORMRepository<IItemDomain> impleme
         {
             void queryBuilder.andWhere(`i.${ItemFilter.NAME} like ?`, [`${filter.get(ItemFilter.NAME) as string}`]);
         }
-
-        return new Paginator(queryBuilder, criteria);
+        return this.pagination(queryBuilder, criteria);
     }
 }
 

@@ -1,6 +1,6 @@
 import IByOptions from './IByOptions';
 import { ICriteria } from '../Criteria';
-import { IPaginator } from '../Criteria/IPaginator';
+import ResponsePayload from '../../../Shared/Utils/ResponsePayload';
 
 interface IBaseRepository<T>
 {
@@ -13,7 +13,7 @@ interface IBaseRepository<T>
     getOneBy(condition: Record<string, any>, options: IByOptions): Promise<T | null>;
     getInBy(condition: Record<string, string[]>): Promise<T[]>;
 
-    list(criteria: ICriteria): Promise<IPaginator>;
+    list(criteria: ICriteria): Promise<ResponsePayload<T>>;
 }
 
 export default IBaseRepository;

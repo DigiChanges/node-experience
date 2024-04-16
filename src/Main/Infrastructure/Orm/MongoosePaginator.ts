@@ -57,7 +57,13 @@ class MongoosePaginator extends BasePaginator implements IPaginator
     private addPagination()
     {
         const exist = this.pagination.getExist();
-
+        const page = this.pagination.getPage();
+        if (page)
+        {
+            const pageOffset = (page - 1) * this.pagination.getLimit();
+            this.pagination.setOffset(pageOffset);
+            this.setOffset(pageOffset);
+        }
         if (exist)
         {
             void this.#documentQuery
