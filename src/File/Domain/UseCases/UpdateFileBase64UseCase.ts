@@ -8,7 +8,8 @@ import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
 
 class UpdateFileBase64UseCase
 {
-    private fileService = new FileService();
+    constructor(private fileService: FileService)
+    {}
 
     async handle(payload: FileUpdateBase64Payload): Promise<any>
     {

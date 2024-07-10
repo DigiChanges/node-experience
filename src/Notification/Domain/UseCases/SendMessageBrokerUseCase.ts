@@ -5,7 +5,7 @@ class SendMessageBrokerUseCase
 {
     async handle()
     {
-        const messageBroker = DependencyInjector.inject<IMessageBroker>('IMessageBroker');
+        const messageBroker: IMessageBroker = DependencyInjector.inject<IMessageBroker>('IMessageBroker');
 
         const exchange = 'notificationExchange';
         const routingKey = 'email';

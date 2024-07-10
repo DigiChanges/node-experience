@@ -42,7 +42,6 @@ export class EventHandler implements IEventHandler
         });
     }
 
-
     public execute(eventName: string, args: any)
     {
         this.eventSubject.next({ eventName, args });

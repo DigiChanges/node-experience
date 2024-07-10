@@ -8,7 +8,8 @@ import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
 
 class UpdateFileMultipartUseCase
 {
-    private fileService = new FileService();
+    constructor(private fileService: FileService)
+    {}
 
     async handle(payload: FileUpdateMultipartPayload): Promise<any>
     {

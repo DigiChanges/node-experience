@@ -1,11 +1,10 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 
 import { MainConfig } from '../../../Config/MainConfig';
-import container from '../../../Shared/DI/container';
 import TokenNotFoundHttpException from '../Exceptions/TokenNotFoundHttpException';
 import IAuthorizeService from '../../Domain/Services/IAuthorizeService';
-import { SERVICES } from '../../../Shared/DI/Injects';
 import { StatusCode } from '../../../Main/Presentation/Application/StatusCode';
+import DependencyInjector from '../../../Shared/DI/DependencyInjector';
 
 const AuthorizeFastifyMiddleware = (...handlerPermissions: string[]) =>
 {
@@ -24,7 +23,7 @@ const AuthorizeFastifyMiddleware = (...handlerPermissions: string[]) =>
                     throw new TokenNotFoundHttpException();
                 }
 
-                const authorizeService: IAuthorizeService = container.resolve<IAuthorizeService>(SERVICES.AuthorizeService);
+                const authorizeService = DependencyInjector.inject<IAuthorizeService>(IAuthorizeService);
 
                 const token = bearerToken.split(' ')[1];
                 const decode = authorizeService.decodeToken(token);

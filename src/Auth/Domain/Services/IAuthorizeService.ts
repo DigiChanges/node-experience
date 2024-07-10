@@ -1,11 +1,11 @@
 import IDecodeToken from '../Models/IDecodeToken';
 
-interface IAuthorizeService
+abstract class IAuthorizeService
 {
-    getConfirmationToken(email: string): string;
-    decodeToken(token: string): IDecodeToken;
-    authorize(userId: string, permission: string): Promise<void>;
-    getAuthUser(data: string): Promise<any>;
+    abstract getConfirmationToken(email: string): string;
+    abstract decodeToken(token: string): IDecodeToken;
+    abstract authorize(userId: string, permission: string): Promise<void>;
+    abstract getAuthUser(data: string): Promise<any>;
 }
 
 export default IAuthorizeService;

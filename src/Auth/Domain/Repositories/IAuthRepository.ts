@@ -4,16 +4,16 @@ import IRoleDomain from '../Entities/IRoleDomain';
 import IPermissionDomain from '../Entities/IPermissionDomain';
 import IRolePermissionDomain from '../Entities/IRolePermissionDomain';
 
-interface IAuthRepository
+abstract class IAuthRepository
 {
-    checkPermissions(payload: PermissionPayload): Promise<boolean>;
-    getAuthUser(data: string): Promise<IUserDomain>;
-    getPermissions(): Promise<IPermissionDomain[]>;
-    addPermissions(permissions: string[]): Promise<void>;
-    removePermissions(permissions: string[]): Promise<void>;
-    getRoles(): Promise<IRoleDomain[]>;
-    addRoles(roleNames: IRoleDomain[]): Promise<void>;
-    addRolesHasPermissions(data: IRolePermissionDomain[]): Promise<void>;
+    abstract checkPermissions(payload: PermissionPayload): Promise<boolean>;
+    abstract getAuthUser(data: string): Promise<IUserDomain>;
+    abstract getPermissions(): Promise<IPermissionDomain[]>;
+    abstract addPermissions(permissions: string[]): Promise<void>;
+    abstract removePermissions(permissions: string[]): Promise<void>;
+    abstract getRoles(): Promise<IRoleDomain[]>;
+    abstract addRoles(roleNames: IRoleDomain[]): Promise<void>;
+    abstract addRolesHasPermissions(data: IRolePermissionDomain[]): Promise<void>;
 }
 
 export default IAuthRepository;

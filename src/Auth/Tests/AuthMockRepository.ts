@@ -1,4 +1,4 @@
-import IAuthRepository from 'Auth/Domain/Repositories/IAuthRepository';
+import IAuthRepository from '../Domain/Repositories/IAuthRepository';
 import PermissionPayload from '../Domain/Payload/PermissionPayload';
 import IUserDomain from '../Domain/Entities/IUserDomain';
 import IPermissionDomain from '../Domain/Entities/IPermissionDomain';

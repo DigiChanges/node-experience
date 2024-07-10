@@ -13,12 +13,9 @@ import IUserDomain from '../Entities/IUserDomain';
 class AuthorizeSupabaseService implements IAuthorizeService
 {
     #config = MainConfig.getEnv();
-    readonly #repository: IAuthRepository;
 
-    constructor(repository: IAuthRepository)
-    {
-        this.#repository = repository;
-    }
+    constructor(private repository: IAuthRepository)
+    {}
 
     public getConfirmationToken(email: string): string
     {
@@ -44,7 +41,7 @@ class AuthorizeSupabaseService implements IAuthorizeService
 
     public async authorize(userId: string, permission: string): Promise<void>
     {
-        const verified = await this.#repository.checkPermissions({ userId, permission });
+        const verified = await this.repository.checkPermissions({ userId, permission });
 
         if (!verified)
         {
@@ -54,7 +51,7 @@ class AuthorizeSupabaseService implements IAuthorizeService
 
     public async getAuthUser(data: string): Promise<IUserDomain>
     {
-        return await this.#repository.getAuthUser(data);
+        return await this.repository.getAuthUser(data);
     }
 }
 

@@ -49,7 +49,7 @@ describe('Start Item Test', () =>
     test('debería probar la lógica sin conectar a RabbitMQ', async() =>
     {
         const uri = MainConfig.getEnv().MESSAGE_BROKER_URI;
-        const messageBroker = DependencyInjector.inject<IMessageBroker>('IMessageBroker');
+        const messageBroker: IMessageBroker = DependencyInjector.inject<IMessageBroker>('IMessageBroker');
         await messageBroker.connect({ uri });
 
         await messageBroker.publish<MessageBrokerContent>({

@@ -3,6 +3,7 @@ import commander from 'commander';
 import CreateBucketCommandRequest from '../Requests/CreateBucketCommandRepRequest';
 import CreateBucketPayload from '../../Domain/Payloads/CreateBucketPayload';
 import CreateBucketUseCase from '../../Domain/UseCases/CreateBucketUseCase';
+import DependencyInjector from '../../../Shared/DI/DependencyInjector';
 
 const CreateBucketCommand = new commander.Command('createBucket');
 
@@ -13,7 +14,7 @@ CreateBucketCommand
     .option('-r, --region <region>', 'Bucket region')
     .action(async(env: any) =>
     {
-        const useCase = new CreateBucketUseCase();
+        const useCase: CreateBucketUseCase = DependencyInjector.inject('CreateBucketUseCase');
         const request: CreateBucketPayload = new CreateBucketCommandRequest(env);
 
         await useCase.handle(request);

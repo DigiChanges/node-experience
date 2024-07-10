@@ -1,16 +1,14 @@
-import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
 import { MainConfig } from './Config/MainConfig';
+import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
+import DependencyInjector from './Shared/DI/DependencyInjector';
 
 const initCommand = async() =>
 {
     MainConfig.getEnv();
 
-    const databaseFactory = new DatabaseFactory();
-
-    const createConnection = databaseFactory.create();
-    await createConnection.initConfig();
-
-    await createConnection.create();
+    const dbConnection: ICreateConnection = DependencyInjector.inject<ICreateConnection>('ICreateConnection');
+    await dbConnection.initConfig();
+    await dbConnection.create();
 };
 
 export default initCommand;

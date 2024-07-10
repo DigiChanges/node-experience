@@ -7,7 +7,8 @@ import { IdPayload } from '../../../Main/Domain/Payloads/IdPayload';
 
 class GetFileMetadataUserCase
 {
-    private fileService = new FileService();
+    constructor(private fileService: FileService)
+    {}
 
     async handle(payload: IdPayload): Promise<IFileDTO>
     {

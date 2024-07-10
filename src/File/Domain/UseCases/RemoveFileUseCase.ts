@@ -6,7 +6,8 @@ import { IdPayload } from '../../../Main/Domain/Payloads/IdPayload';
 
 class RemoveFileUseCase
 {
-    private fileService = new FileService();
+    constructor(private fileService: FileService)
+    {}
 
     async handle(payload: IdPayload): Promise<IFileDTO>
     {

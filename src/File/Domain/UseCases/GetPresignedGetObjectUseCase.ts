@@ -5,7 +5,8 @@ import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
 
 class GetPresignedGetObjectUseCase
 {
-    private fileService = new FileService();
+    constructor(private fileService: FileService)
+    {}
 
     async handle(payload: PresignedFileRepPayload): Promise<string>
     {

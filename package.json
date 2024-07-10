@@ -32,6 +32,10 @@
   "author": "Nathan M. Russo",
   "license": "MIT",
   "dependencies": {
+    "@deepkit/app": "1.0.1-alpha.153",
+    "@deepkit/injector": "1.0.1-alpha.153",
+    "@deepkit/type": "1.0.1-alpha.153",
+    "@deepkit/type-compiler": "1.0.1-alpha.150",
     "@faker-js/faker": "^8.4.1",
     "@fastify/compress": "^7.0.0",
     "@fastify/cors": "^9.0.1",

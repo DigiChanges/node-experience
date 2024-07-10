@@ -9,9 +9,9 @@ import StatusNotificationEnum from '../Domain/Enum/StatusNotificationEnum';
 import EmailNotification from '../Domain/Entities/EmailNotification';
 import INotifierStrategy from './INotifierStrategy';
 
-import container from '../../Shared/DI/container';
 import { MainConfig } from '../../Config/MainConfig';
 import { ErrorException } from '../../Main/Domain/Errors/ErrorException';
+import DependencyInjector from '../../Shared/DI/DependencyInjector';
 
 class EmailStrategy implements INotifierStrategy
 {
@@ -23,7 +23,7 @@ class EmailStrategy implements INotifierStrategy
 
     constructor()
     {
-        this.#repository = container.resolve<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository);
+        this.#repository = DependencyInjector.inject<INotificationRepository<INotificationDomain>>(REPOSITORIES.INotificationRepository);
         this.#_save = true;
     }
 

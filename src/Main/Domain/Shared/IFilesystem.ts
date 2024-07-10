@@ -2,18 +2,18 @@ import { Readable } from 'stream';
 import { FileVersionPayload } from '../../../File/Domain/Payloads/FileVersionPayload';
 import { ListObjectsPayload } from '../../../File/Domain/Payloads/ListObjectsPayload';
 
-export interface IFilesystem
+export abstract class IFilesystem
 {
-    listObjects(payload: ListObjectsPayload): Promise<any>;
-    uploadFile(object: FileVersionPayload, path: string): Promise<any>;
-    uploadFileByBuffer(object: FileVersionPayload, base64Data: string): Promise<any>;
-    downloadFile(object: FileVersionPayload): Promise<string>;
-    downloadStreamFile(object: FileVersionPayload): Promise<Readable>;
-    presignedGetObject(object: FileVersionPayload, expiry?: number, respHeaders?: {
+    abstract listObjects(payload: ListObjectsPayload): Promise<any>;
+    abstract uploadFile(object: FileVersionPayload, path: string): Promise<any>;
+    abstract uploadFileByBuffer(object: FileVersionPayload, base64Data: string): Promise<any>;
+    abstract downloadFile(object: FileVersionPayload): Promise<string>;
+    abstract downloadStreamFile(object: FileVersionPayload): Promise<Readable>;
+    abstract presignedGetObject(object: FileVersionPayload, expiry?: number, respHeaders?: {
         [key: string]: any;
     }): Promise<string>;
-    presignedPutObject(objectPath: string, expiry?: number): Promise<string>;
-    createBucket(bucketName: string, region?: string): Promise<void>;
-    removeObjects(object: FileVersionPayload): Promise<void>;
-    setBucketPolicy(bucketPolicy: string, bucketName?: string): Promise<void>;
+    abstract presignedPutObject(objectPath: string, expiry?: number): Promise<string>;
+    abstract createBucket(bucketName: string, region?: string): Promise<void>;
+    abstract removeObjects(object: FileVersionPayload): Promise<void>;
+    abstract setBucketPolicy(bucketPolicy: string, bucketName?: string): Promise<void>;
 }

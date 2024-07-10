@@ -9,7 +9,8 @@ import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
 
 class UploadMultipartUseCase
 {
-    private fileService = new FileService();
+    constructor(private fileService: FileService)
+    {}
 
     async handle(payload: FileMultipartRepPayload): Promise<IFileDTO>
     {

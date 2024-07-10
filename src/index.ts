@@ -4,10 +4,9 @@ dotenv.config();
 import { IApp } from './Main/Presentation/Application/IApp';
 
 import DependencyInjector from './Shared/DI/DependencyInjector';
-import { FACTORIES, REPOSITORIES } from './Shared/DI/Injects';
+import { REPOSITORIES } from './Shared/DI/Injects';
 
 import { MainConfig } from './Config/MainConfig';
-import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
 
 import { ICronService } from './Main/Infrastructure/Factories/CronService';
 import AppBootstrapFactory from './Main/Presentation/Factories/AppBootstrapFactory';
@@ -40,11 +39,10 @@ void (async() =>
         await app.listen();
 
         // Create DB connection
-        const databaseFactory = DependencyInjector.inject<DatabaseFactory>(FACTORIES.IDatabaseFactory);
-        const createConnection: ICreateConnection = databaseFactory.create();
+        const dbConnection = DependencyInjector.inject<ICreateConnection>('ICreateConnection');
+        await dbConnection.initConfig();
+        await dbConnection.create();
 
-        await createConnection.initConfig();
-        await createConnection.create();
         // Create Cache connection
         let cache: ICacheDataAccess;
 
@@ -74,7 +72,7 @@ void (async() =>
             server,
             cache,
             eventHandler,
-            createConnection,
+            dbConnection,
             messageBroker
         });
     }

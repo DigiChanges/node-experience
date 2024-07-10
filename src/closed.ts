@@ -13,7 +13,7 @@ interface ClosedApplicationParams
     eventHandler?: IEventHandler
     messageBroker: IMessageBroker
     cache: ICacheDataAccess,
-    createConnection: ICreateConnection,
+    dbConnection: ICreateConnection,
 }
 
 const closedApplication = (params: ClosedApplicationParams) =>
@@ -23,7 +23,7 @@ const closedApplication = (params: ClosedApplicationParams) =>
         Logger.info('server is starting cleanup');
         params.cache.close();
         return Promise.all([
-            params.createConnection.close(true),
+            params.dbConnection.close(true),
             params.eventHandler.removeListeners(),
             params.messageBroker.disconnect()
         ]);
@@ -34,7 +34,7 @@ const closedApplication = (params: ClosedApplicationParams) =>
         Logger.info('cleanup finished, server is shutting down');
         params.cache.close();
         return Promise.all([
-            params.createConnection.close(true),
+            params.dbConnection.close(true),
             params.eventHandler.removeListeners(),
             params.messageBroker.disconnect()
         ]);

@@ -2,9 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import DependencyInjector from './Shared/DI/DependencyInjector';
-import { FACTORIES, REPOSITORIES } from './Shared/DI/Injects';
-
-import DatabaseFactory from './Main/Infrastructure/Factories/DatabaseFactory';
+import { REPOSITORIES } from './Shared/DI/Injects';
 
 import ICreateConnection from './Main/Infrastructure/Database/ICreateConnection';
 import Logger from './Shared/Helpers/Logger';
@@ -19,14 +17,10 @@ void (async() =>
 {
     try
     {
-        const config = MainConfig.getEnv();
-
-        // Init Application
         // Create DB connection
-        const databaseFactory = DependencyInjector.inject<DatabaseFactory>(FACTORIES.IDatabaseFactory);
-        const createConnection: ICreateConnection = databaseFactory.create();
-        await createConnection.initConfig();
-        await createConnection.create();
+        const dbConnection: ICreateConnection = DependencyInjector.inject<ICreateConnection>('ICreateConnection');
+        await dbConnection.initConfig();
+        await dbConnection.create();
 
         // Message Broker
         const messageBroker = DependencyInjector.inject<IMessageBroker>('IMessageBroker');
@@ -54,7 +48,7 @@ void (async() =>
 
         closedApplication({
             cache,
-            createConnection,
+            dbConnection,
             messageBroker
         });
     }

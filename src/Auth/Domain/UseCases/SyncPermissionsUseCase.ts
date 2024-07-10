@@ -1,24 +1,18 @@
-import Permissions from '../../../../Config/Permissions';
-import Roles from '../../../../Config/Roles';
-import DependencyInjector from '../../../../Shared/DI/DependencyInjector';
-import IAuthRepository from '../../Repositories/IAuthRepository';
-import IRoleDomain from '../../Entities/IRoleDomain';
-import Logger from '../../../../Shared/Helpers/Logger';
-import IPermissionDomain from '../../Entities/IPermissionDomain';
-import { REPOSITORIES } from '../../../../Shared/DI/Injects';
+import Permissions from '../../../Config/Permissions';
+import Roles from '../../../Config/Roles';
+import IAuthRepository from '../Repositories/IAuthRepository';
+import IRoleDomain from '../Entities/IRoleDomain';
+import Logger from '../../../Shared/Helpers/Logger';
+import IPermissionDomain from '../Entities/IPermissionDomain';
 
 class SyncPermissionsUseCase
 {
-    #repository: IAuthRepository;
-
-    constructor()
-    {
-        this.#repository = DependencyInjector.inject<IAuthRepository>(REPOSITORIES.IAuthRepository);
-    }
+    constructor(private repository: IAuthRepository)
+    {}
 
     async handle(): Promise<void>
     {
-        const currentDomainPermissions: IPermissionDomain[] = await this.#repository.getPermissions();
+        const currentDomainPermissions: IPermissionDomain[] = await this.repository.getPermissions();
         const currentPermissions: string[] = currentDomainPermissions.map((permission: IPermissionDomain) => permission.name);
 
         const permissions: string[] =  Permissions.permissions();
@@ -34,15 +28,15 @@ class SyncPermissionsUseCase
         const newPermissions = codePermissions.filter(perm => !currentPermissions.includes(perm));
         const obsoletePermissions = currentPermissions.filter(perm => !codePermissions.includes(perm));
 
-        await this.#repository.addPermissions(newPermissions);
-        await this.#repository.removePermissions(obsoletePermissions);
+        await this.repository.addPermissions(newPermissions);
+        await this.repository.removePermissions(obsoletePermissions);
 
         Logger.info('Sync permissions successfully.');
     }
 
     async addNewRoles(roles: Map<string, string[]>)
     {
-        const currentRoles = await this.#repository.getRoles();
+        const currentRoles = await this.repository.getRoles();
         const rolesToInsert: any[] = [];
 
         for (const [roleName, _] of roles)
@@ -55,7 +49,7 @@ class SyncPermissionsUseCase
 
         if (rolesToInsert.length > 0)
         {
-            await this.#repository.addRoles(rolesToInsert);
+            await this.repository.addRoles(rolesToInsert);
         }
 
         Logger.info('Add new roles successfully.');
@@ -63,8 +57,8 @@ class SyncPermissionsUseCase
 
     async updateRolePermissions()
     {
-        const allRoles = await this.#repository.getRoles();
-        const allPermissions = await this.#repository.getPermissions();
+        const allRoles = await this.repository.getRoles();
+        const allPermissions = await this.repository.getPermissions();
 
         const rolePermissionAssignments = [];
 
@@ -99,7 +93,7 @@ class SyncPermissionsUseCase
 
         if (rolePermissionAssignments.length > 0)
         {
-            await this.#repository.addRolesHasPermissions(rolePermissionAssignments);
+            await this.repository.addRolesHasPermissions(rolePermissionAssignments);
         }
 
         Logger.error('Add or update permissions successfully.');

@@ -1,10 +1,10 @@
-import container from './container';
+import injector from './injector';
 
 class DependencyInjector
 {
-    static inject<T>(token: string): T
+    static inject<T>(token: any): T
     {
-        return container.resolve(token);
+        return injector.get(token) as T;
     }
 }
 

@@ -9,7 +9,8 @@ import ValidatorSchema from '../../../Main/Domain/Shared/ValidatorSchema';
 
 class OptimizeUseCase
 {
-    private fileService = new FileService();
+    constructor(private fileService: FileService)
+    {}
 
     async handle(payload: OptimizePayload): Promise<IFileDTO>
     {

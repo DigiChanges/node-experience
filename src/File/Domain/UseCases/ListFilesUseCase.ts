@@ -4,7 +4,8 @@ import { IPaginator } from '../../../Main/Domain/Criteria/IPaginator';
 
 class ListFilesUseCase
 {
-    private fileService = new FileService();
+    constructor(private fileService: FileService)
+    {}
 
     async handle(payload: ICriteria): Promise<IPaginator>
     {

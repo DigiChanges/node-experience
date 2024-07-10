@@ -64,7 +64,7 @@ class CreateMongooseConnection implements ICreateConnection
 
     async synchronize(): Promise<void>
     {
-        return Promise.resolve(undefined); // There is no need to synchronize
+        return Promise.resolve(); // There is no need to synchronize
     }
 
     async drop(): Promise<void>

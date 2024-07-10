@@ -3,11 +3,12 @@ import { ListObjectsPayload } from '../Payloads/ListObjectsPayload';
 
 class ListObjectsUseCase
 {
-    #fileService = new FileService();
+    constructor(private fileService: FileService)
+    {}
 
     async handle(payload: ListObjectsPayload): Promise<any>
     {
-        return await this.#fileService.listObjects(payload);
+        return await this.fileService.listObjects(payload);
     }
 }
 

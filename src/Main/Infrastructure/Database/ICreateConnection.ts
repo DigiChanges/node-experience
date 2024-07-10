@@ -1,12 +1,12 @@
 
-interface ICreateConnection
+abstract class ICreateConnection
 {
-    create(): Promise<void>;
-    close(force?: boolean): Promise<void>;
-    drop(): Promise<void>;
-    initConfig(): Promise<void>;
-    initConfigTest(): Promise<void>;
-    synchronize(): Promise<void>;
+    abstract create(): Promise<void>;
+    abstract close(force?: boolean): Promise<void>;
+    abstract drop(): Promise<void>;
+    abstract initConfig(): Promise<void>;
+    abstract initConfigTest(): Promise<void>;
+    abstract synchronize(): Promise<void>;
 }
 
 export default ICreateConnection;

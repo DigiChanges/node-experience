@@ -29,6 +29,7 @@ import { StatusCode } from '../../../Main/Presentation/Application/StatusCode';
 import { ICriteria, RequestCriteria } from '../../../Main/Domain/Criteria';
 import { IdPayload } from '../../../Main/Domain/Payloads/IdPayload';
 import { IPaginator } from '../../../Main/Domain/Criteria/IPaginator';
+import DependencyInjector from '../../../Shared/DI/DependencyInjector';
 
 const responder: FastifyResponder = new FastifyResponder();
 
@@ -45,7 +46,7 @@ class FileController
             pagination: new Pagination(query as ParsedQs, url)
         });
 
-        const useCase = new ListFilesUseCase();
+        const useCase: ListFilesUseCase = DependencyInjector.inject('ListFilesUseCase');
         const paginator: IPaginator = await useCase.handle(requestCriteria);
 
         await responder.paginate(paginator, reply, StatusCode.HTTP_OK, new FileVersionTransformer());
@@ -60,7 +61,7 @@ class FileController
             prefix: query.prefix ? String(query.prefix) : undefined
         };
 
-        const useCase = new ListObjectsUseCase();
+        const useCase: ListObjectsUseCase = DependencyInjector.inject('ListObjectsUseCase');
         const objects = await useCase.handle(payload);
 
         void await responder.send(objects, reply, StatusCode.HTTP_OK, new ObjectTransformer());
@@ -72,7 +73,7 @@ class FileController
             id: (request.params as IdPayload).id
         };
 
-        const useCase = new GetFileMetadataUseCase();
+        const useCase: GetFileMetadataUseCase = DependencyInjector.inject('GetFileMetadataUseCase');
         const file = await useCase.handle(payload);
 
         void await responder.send(file, reply, StatusCode.HTTP_OK, new FileTransformer());
@@ -103,7 +104,7 @@ class FileController
             payload
         );
 
-        const useCase = new UploadBase64UseCase();
+        const useCase: UploadBase64UseCase = DependencyInjector.inject('UploadBase64UseCase');
         const file = await useCase.handle(cleanData);
 
         void await responder.send(file, reply, StatusCode.HTTP_CREATED, new FileTransformer());
@@ -139,7 +140,7 @@ class FileController
             }
         };
 
-        const useCase = new UploadMultipartUseCase();
+        const useCase: UploadMultipartUseCase = DependencyInjector.inject('UploadMultipartUseCase');
         const uploadedFile = await useCase.handle(payload);
 
         void await responder.send(uploadedFile, reply, StatusCode.HTTP_CREATED, new FileTransformer());
@@ -179,7 +180,7 @@ class FileController
                 }
             };
 
-            const useCase = new UploadMultipartUseCase();
+            const useCase: UploadMultipartUseCase = DependencyInjector.inject('UploadMultipartUseCase');
             responseFiles.push((await useCase.handle(payload)));
         }
 
@@ -193,7 +194,7 @@ class FileController
             query: request.query
         };
 
-        const useCase = new GetPresignedGetObjectUseCase();
+        const useCase: GetPresignedGetObjectUseCase = DependencyInjector.inject('GetPresignedGetObjectUseCase');
         const presignedGetObject = await useCase.handle(payload);
 
         void await responder.send({ presignedGetObject }, reply, StatusCode.HTTP_OK, null);
@@ -206,7 +207,7 @@ class FileController
             version: request.query?.version ? +request.query.version : null
         };
 
-        const useCase = new DownloadUseCase();
+        const useCase: DownloadUseCase = DependencyInjector.inject('DownloadUseCase');
         const fileDto = await useCase.handle(payload);
         await responder.sendStream(fileDto, reply, StatusCode.HTTP_OK);
     }
@@ -218,7 +219,7 @@ class FileController
             ...request.query
         };
 
-        const useCase = new OptimizeUseCase();
+        const useCase: OptimizeUseCase = DependencyInjector.inject('OptimizeUseCase');
         const file = await useCase.handle(payload);
 
         void await responder.send(file, reply, StatusCode.HTTP_CREATED, new FileTransformer());
@@ -245,7 +246,7 @@ class FileController
             isImage: mimeType.includes('image')
         };
 
-        const useCase = new UpdateFileBase64UseCase();
+        const useCase: UpdateFileBase64UseCase = DependencyInjector.inject('UpdateFileBase64UseCase');
         const file: IFileDTO = await useCase.handle(payload);
 
         void await responder.send(file, reply, StatusCode.HTTP_CREATED, new FileTransformer());
@@ -277,7 +278,7 @@ class FileController
             }
         };
 
-        const useCase = new UpdateFileMultipartUseCase();
+        const useCase: UpdateFileMultipartUseCase = DependencyInjector.inject('UpdateFileMultipartUseCase');
         const response = await useCase.handle(payload);
 
         void await responder.send(response, reply, StatusCode.HTTP_CREATED, new FileTransformer());
@@ -289,7 +290,7 @@ class FileController
             id: request.params.id
         };
 
-        const useCase = new RemoveFileUseCase();
+        const useCase: RemoveFileUseCase = DependencyInjector.inject('RemoveFileUseCase');
         const file = await useCase.handle(payload);
 
         void await responder.send(file, reply, StatusCode.HTTP_CREATED, new FileTransformer());
