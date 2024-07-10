@@ -10,10 +10,10 @@ class ItemSeed extends BaseSeed implements ISeed
     {
         const indexes = Array.from({ length: 10 }, (_, i) => i + 1);
 
-        for await (const _ of indexes)
+        for await (const index of indexes)
         {
             const name = faker.person.firstName();
-            const type = faker.number.int({ min: 1, max: 100 });
+            const type = index;
 
             const useCase = DependencyInjector.inject<SaveItemUseCase>('SaveItemUseCase');
             await useCase.handle({ name, type });
